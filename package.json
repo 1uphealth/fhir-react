@@ -1,0 +1,45 @@
+{
+  "name": "fhir-react",
+  "version": "0.0.1",
+  "description": "HL7 FHIR Components for React",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \\\"Error no test specified\\\" && exit 1",
+    "start": "watch './node_modules/.bin/babel src --out-file index.js' src",
+    "build": "./node_modules/.bin/babel src --out-file index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/1uphealth/fhir-react.git"
+  },
+  "keywords": [
+    "fhir",
+    "react",
+    "hl7",
+    "dstu2",
+    "stu3",
+    "bootstrap",
+    "material",
+    "ui"
+  ],
+  "author": "1upHealth",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/1uphealth/fhir-react/issues"
+  },
+  "homepage": "https://github.com/1uphealth/fhir-react#readme",
+  "dependencies": {
+    "react": "^16.8.3"
+  },
+  "peerDependencies": {
+    "react": "^16.8.3",
+    "react-dom": "^16.8.3"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
+    "@babel/preset-react": "^7.0.0",
+    "watch": "^1.0.2"
+  }
+}

@@ -1,13 +1,17 @@
-import React, { Component } from 'react';
+import Fancy from './Fancy'
+import TodoList from './TodoList'
+import Patient from './components/resources/Patient'
+var Resources = {Patient}
+// export {
+// 	Resources,
+// 	Patient,
+// 	Fancy,
+// 	TodoList
+// }
 
-export default class DummyComponent extends Component {
-
-    render () {
-
-        return (
-          <div>I am a dummy react npm modulessssssss22</div>
-        )
-
-    }
-
+module.exports = {
+		Resources: Resources,
+		Patient: Patient,
+		Fancy: Fancy,
+		TodoList: TodoList
 }

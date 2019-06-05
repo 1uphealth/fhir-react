@@ -12,8 +12,9 @@ class Patient extends React.Component {
 		return (
       <div>
   			<ResourceContainer fhirResource={this.props.fhirResource}>
-  				<div>this is a patient resourcagwgawggae</div>
-          <HumanName />
+          {(_.get(this.props.fhirResource,'name') || []).map(function(patientName, index){
+            return <span><HumanName fhirData={patientName} index={index}/>&nbsp;&nbsp;</span>
+          })}
   			</ResourceContainer>
       </div>
 		);

@@ -9,15 +9,9 @@ class ResourceContainer extends React.Component {
 	render() {
 		return (
       <div>
-  			<div className='card bg-light'>
+  			<div className='card bg-light border-0'>
           <div className="card-body">
-            <h5 class="card-title">{_.get(this.props.fhirResource,'resourceType')}</h5>
             {this.props.children}
-            <code>
-              <pre>
-                {JSON.stringify(this.props.fhirResource, null, 2)}
-              </pre>
-            </code>
           </div>
   			</div>
       </div>
@@ -26,3 +20,9 @@ class ResourceContainer extends React.Component {
 }
 
 export default ResourceContainer
+
+// <code>
+//   <pre>
+//     {JSON.stringify(this.props.fhirResource, null, 2)}
+//   </pre>
+// </code>

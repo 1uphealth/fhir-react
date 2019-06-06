@@ -9,7 +9,7 @@ class ResourceContainer extends React.Component {
 	render() {
 		return (
       <div>
-  			<div className='card bg-light border-0'>
+  			<div className='card bg-light border-0' style={{'marginBottom':'.5rem'}}>
           <div className="card-body">
             {this.props.children}
           </div>

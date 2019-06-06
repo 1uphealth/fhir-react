@@ -31,7 +31,7 @@ class Patient extends React.Component {
   			<ResourceContainer fhirResource={this.props.fhirResource}>
           <div className='row'>
             <div className='col-xs-4'>
-              < img style={{border: '4px solid #fff', borderRadius:'500px'}}
+              <img style={{border: '4px solid #fff', borderRadius:'500px'}}
                 src={`http://www.gravatar.com/avatar/${crypto.createHash('md5').update(_.get(this.props.fhirResource,'id') || '').digest("hex")}?s=70&r=any&default=identicon&forcedefault=1`}
               />&nbsp;
             </div>

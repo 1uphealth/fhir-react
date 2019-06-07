@@ -7,7 +7,7 @@ class Address extends React.Component {
 
 	render() {
 		return (
-			<span className='text-muted'>
+			<div>
 				<div>{`${(_.get(this.props.fhirData, 'line') || []).join(' ')}`}</div>
 				<div>{`
 					${(_.get(this.props.fhirData, 'city')+',' || '')}
@@ -16,7 +16,7 @@ class Address extends React.Component {
 					${(_.get(this.props.fhirData, 'country') || '')}
 					`}
 				</div>
-			</span>
+			</div>
 		);
 	}
 }

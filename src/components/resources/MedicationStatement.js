@@ -1,8 +1,5 @@
 import React from 'react'
 var _ = require('lodash');
-import HumanName from '../datatypes/HumanName'
-import Telecom from '../datatypes/Telecom'
-import Address from '../datatypes/Address'
 import ResourceContainer from '../container/ResourceContainer'
 import crypto from 'crypto'
 

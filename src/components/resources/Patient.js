@@ -28,7 +28,7 @@ class Patient extends React.Component {
 	render() {
 		return (
       <div>
-  			<ResourceContainer fhirResource={this.props.fhirResource}>
+  			<ResourceContainer {...this.props}>
           <div className='row'>
             <div className='col-xs-4'>
               <img style={{border: '4px solid #fff', borderRadius:'500px'}}

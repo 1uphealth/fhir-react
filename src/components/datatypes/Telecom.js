@@ -7,9 +7,9 @@ class Telecom extends React.Component {
 
 	render() {
 		return (
-			<span className='text-muted'>
+			<div>
 				{`${(_.get(this.props.fhirData, 'value') || '')}`}
-			</span>
+			</div>
 		);
 	}
 }

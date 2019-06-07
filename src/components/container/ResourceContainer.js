@@ -6,7 +6,7 @@ class ResourceContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      jsonOpen: this.props.jsonOpen || false,
+      jsonOpen: typeof this.props.jsonOpen === 'undefined' ? false : this.props.jsonOpen,
     };
   }
 

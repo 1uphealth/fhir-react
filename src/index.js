@@ -1,15 +1,19 @@
 import Fancy from './Fancy'
 import TodoList from './TodoList'
 import Patient from './components/resources/Patient'
+import MedicationStatement from './components/resources/MedicationStatement';
+import MedicationOrder from './components/resources/MedicationOrder';
 import TestComponent from './components/resources/TestComponent'
 import Encounter from './components/resources/Encounter'
 
 
-var Resources = {Patient,TestComponent,Encounter}
+var Resources = {Patient,TestComponent,Encounter, MedicationStatement, MedicationOrder}
 
 module.exports = {
 		Resources: Resources,
+    MedicationStatement: MedicationStatement,
 		Patient: Patient,
 		Fancy: Fancy,
-		TodoList: TodoList
+		TodoList: TodoList,
+    MedicationOrder: MedicationOrder
 }

@@ -4,11 +4,11 @@
   "description": "FHIR Resource component library for react",
   "main": "build/index.js",
   "peerDependencies": {
-    "react": "^15.5.4"
+    "react": "^16.8.3"
   },
   "dependencies": {
     "lodash": "^4.17.11",
-    "react": "^15.5.4",
+    "react": "^16.8.3",
     "react-redux": "^5.0.5",
     "react-syntax-highlighter": "^10.3.0",
     "redux": "^3.7.1",

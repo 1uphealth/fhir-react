@@ -11,14 +11,14 @@ class EachParticipant extends React.Component {
   render() {
 
     return(
-      <div class="row">
-        <div class="col-sm-3 " >
+      <div className="row">
+        <div className="col-sm-3 " >
           {_.get(this.props.eachParticipant,'type[0].coding[0].display')}
         </div>
-        <div class="col-sm-3" >
+        <div className="col-sm-3" >
           {_.get(this.props.eachParticipant,'type[0].text')}
         </div>
-        <div class="col-sm-6" >
+        <div className="col-sm-6" >
           {new Date(_.get(this.props.eachParticipant,'period.start')).toLocaleString()}
         </div>
       </div>
@@ -37,14 +37,14 @@ class EncounterParticipants extends React.Component {
           <span><small className="text-uppercase"><strong>Participants</strong></small></span>
         </div>
         <div className="row">
-          <div class="col-sm-3 " >
-           <span class="text-muted"><small className="text-uppercase"><strong>Role</strong></small></span>
+          <div className="col-sm-3 " >
+           <span className="text-muted"><small className="text-uppercase"><strong>Role</strong></small></span>
           </div>
-          <div class="col-sm-3" >
-           <span class="text-muted"><small className="text-uppercase"><strong>Name</strong></small></span>
+          <div className="col-sm-3" >
+           <span className="text-muted"><small className="text-uppercase"><strong>Name</strong></small></span>
           </div>
-          <div class="col-sm-6" >
-           <span class="text-muted"><small className="text-uppercase"><strong>Date</strong></small></span>
+          <div className="col-sm-6" >
+           <span className="text-muted"><small className="text-uppercase"><strong>Date</strong></small></span>
           </div>
         </div>
         {this.props.allParticipant.map(function(eachParticipant){
@@ -74,34 +74,34 @@ class Encounter extends React.Component {
     return (
       <div>
       <ResourceContainer fhirResource={this.props.fhirResource}>
-        <div class="container">
-        	<div class="row">
-        		<div class=" ">
+        <div className="container">
+        	<div className="row">
+        		<div className=" ">
               <div>
                 <h4>{_.get(this.props.fhirResource,'location[0].location.display') }</h4>
-                <div class="row">
-                   <div class="col-sm-3" >
-                    <span class="text-muted"><small className="text-uppercase"><strong>Start Date </strong></small></span>
+                <div className="row">
+                   <div className="col-sm-3" >
+                    <span className="text-muted"><small className="text-uppercase"><strong>Start Date </strong></small></span>
                    </div>
-                   <div class="col-sm-9" >
+                   <div className="col-sm-9" >
                     { new Date(_.get(this.props.fhirResource,'period.start')).toLocaleString()}
                    </div>
-                   <div class="col-sm-3" >
-                    <span class="text-muted"><small className="text-uppercase"><strong>End Date</strong></small></span>
+                   <div className="col-sm-3" >
+                    <span className="text-muted"><small className="text-uppercase"><strong>End Date</strong></small></span>
                    </div>
-                   <div class="col-sm-9" >
+                   <div className="col-sm-9" >
                     {endDate}
                    </div>
-                   <div class="col-sm-3" >
-                    <span class="text-muted"><small className="text-uppercase"><strong>Class</strong></small></span>
+                   <div className="col-sm-3" >
+                    <span className="text-muted"><small className="text-uppercase"><strong>Class</strong></small></span>
                    </div>
-                   <div class="col-sm-9" >
+                   <div className="col-sm-9" >
                     {_.get(this.props.fhirResource,'class')}
                    </div>
-                   <div class="col-sm-3" >
-                    <span class="text-muted"><small className="text-uppercase"><strong>Status</strong></small></span>
+                   <div className="col-sm-3" >
+                    <span className="text-muted"><small className="text-uppercase"><strong>Status</strong></small></span>
                    </div>
-                   <div class="col-sm-9" >
+                   <div className="col-sm-9" >
                     {_.get(this.props.fhirResource,'status')}
                    </div>
                  </div>

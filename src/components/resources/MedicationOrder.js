@@ -3,15 +3,6 @@ var _ = require('lodash');
 import ResourceContainer from '../container/ResourceContainer'
 import crypto from 'crypto'
 
-var medicationOrderStyle = {
-  "background-color": "#EFD6A6",
-  "borderRadius": "10px",
-  "padding": "10px",
-  "textAlign": "left",
-}
-
-var medicationDetailsStyle = {color:"#40e0d0"}
-
 class MedicationDetails extends React.Component {
   constructor(props) {
     super(props);
@@ -19,8 +10,7 @@ class MedicationDetails extends React.Component {
   render() {
     return (
       <div>
-       <h5 style={medicationDetailsStyle}>{this.props.medication} </h5>
-       <h6><b>Expiration date:</b>{this.props.expiration} </h6>
+       <h4>{this.props.medication} </h4>
       </div>
     )
   }
@@ -33,10 +23,10 @@ class MedicationOrder extends React.Component {
 
   render() {
     return (
-      <div className='col-xs-8' style = {medicationOrderStyle}>
+      <div className='col-xs-8'>
         <ResourceContainer fhirResource={this.props.fhirResource} >
-          <div > 
-              {this.props.fhirResource.medicationReference && this.props.fhirResource.medicationReference.display ? <MedicationDetails medication= {_.get(this.props.fhirResource.medicationReference, 'display')} expiration= {_.get(this.props.fhirResource.dispenseRequest.validityPeriod, 'end')}/> : ''}
+          <div >
+            <MedicationDetails medication={_.get(this.props.fhirResource, 'medicationReference.display') || _.get(this.props.fhirResource, 'medicationCodeableConcept.text')}/>
           </div>
           <div>
              {this.props.fhirResource.reasonCodeableConcept && this.props.fhirResource.reasonCodeableConcept.coding ? <div> <b>Reason:</b> {_.get(this.props.fhirResource.reasonCodeableConcept.coding[0], 'display')} </div> : ''}

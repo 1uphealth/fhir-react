@@ -74,7 +74,7 @@ class Encounter extends React.Component {
     return (
       <div>
       <ResourceContainer fhirResource={this.props.fhirResource}>
-        <div>
+        <div class="container">
         	<div class="row">
         		<div class=" ">
               <div>

@@ -13,7 +13,7 @@ class ResourceContainer extends React.Component {
 	render() {
 		return (
       <div>
-  			<div className='card bg-light border-0'>
+  			<div className='card bg-light border-0 mb-2'>
           <div className="card-body">
             {this.props.children}
             <div style={{position:'absolute', right: '1rem', top: '1rem'}}>

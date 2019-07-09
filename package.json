@@ -1,6 +1,6 @@
 {
   "name": "fhir-react",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "FHIR Resource component library for react",
   "main": "build/index.js",
   "peerDependencies": {

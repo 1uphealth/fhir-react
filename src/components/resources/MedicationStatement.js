@@ -25,7 +25,7 @@ class MedicationStatement extends React.Component {
   render() {
     return (
       <div className='col-xs-8'>
-        <ResourceContainer fhirResource={this.props.fhirResource} >
+        <ResourceContainer {...this.props} >
           <div style={{width:'100%', display:'inline-block'}}>
             <h4 style={{display: 'inline-block'}}>{`${_.get(this.props.fhirResource, 'medicationCodeableConcept.text') || _.get(this.props.fhirResource, 'medicationCodeableConcept.coding[0].display')}`}</h4>
             &nbsp;({_.get(this.props.fhirResource,'status') || ''}

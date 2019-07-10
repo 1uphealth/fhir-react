@@ -11,7 +11,7 @@ class Device extends React.Component {
   render() {
     return (
       <div>
-      <ResourceContainer fhirResource={this.props.fhirResource}>
+      <ResourceContainer {...this.props}>
         <div style={{width:'100%', display:'inline-block'}}>
           <h4 style={{display: 'inline-block'}}>{`${this.props.fhirResource.model}`}</h4>
           &nbsp;({_.get(this.props.fhirResource,'status') || ''}

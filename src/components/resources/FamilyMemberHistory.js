@@ -70,7 +70,7 @@ class FamilyMemberHistory extends React.Component {
   render() {
     return (
       <div>
-        <ResourceContainer fhirResource={this.props.fhirResource}>
+        <ResourceContainer {...this.props}>
           <div style={{width:'100%', display:'inline-block'}}>
             <h4 style={{display: 'inline-block'}}>{`${_.get(this.props.fhirResource, 'condition[0].code.text') || _.get(this.props.fhirResource, 'condition[0].code.coding[0].display')}`}</h4>
             &nbsp;({_.get(this.props.fhirResource,'relationship.coding[0].display') || _.get(this.props.fhirResource,'relationship.text') || ''}

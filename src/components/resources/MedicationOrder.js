@@ -24,7 +24,7 @@ class MedicationOrder extends React.Component {
   render() {
     return (
       <div className='col-xs-8'>
-        <ResourceContainer fhirResource={this.props.fhirResource} >
+        <ResourceContainer {...this.props} >
           <div >
             <MedicationDetails medication={_.get(this.props.fhirResource, 'medicationReference.display') || _.get(this.props.fhirResource, 'medicationCodeableConcept.text')}/>
           </div>

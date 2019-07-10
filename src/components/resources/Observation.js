@@ -48,7 +48,7 @@ class Observation extends React.Component {
       <div>
       <ResourceContainer fhirResource={this.props.fhirResource}>
         <div style={{width:'100%', display:'inline-block'}}>
-          <h4 style={{display: 'inline-block'}}>{`${_.get(this.props.fhirResource,'code.coding.0.display') || _.get(this.props.fhirResource,'code.text')}`}</h4>
+          <h4 style={{display: 'inline-block'}}>{`${_.get(this.props.fhirResource,'code.coding.0.display') || _.get(this.props.fhirResource,'code.text')}`} <code>{`${_.get(this.props.fhirResource,'valueQuantity.value') || ''}${_.get(this.props.fhirResource,'valueQuantity.unit') || ''}`}</code></h4>
           &nbsp;({_.get(this.props.fhirResource,'status') || ''}&nbsp;
           <span className='text-muted'>{_.get(this.props.fhirResource,'valueCodeableConcept.text')||_.get(this.props.fhirResource,'valueCodeableConcept.coding[0].display')}</span>)
         </div>

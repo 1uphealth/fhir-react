@@ -1,5 +1,3 @@
-import Fancy from './Fancy'
-import TodoList from './TodoList'
 import FhirResource from './components/container/FhirResource'
 import Patient from './components/resources/Patient'
 import MedicationStatement from './components/resources/MedicationStatement';
@@ -14,7 +12,5 @@ module.exports = {
 		FhirResource: FhirResource,
     MedicationStatement: MedicationStatement,
 		Patient: Patient,
-		Fancy: Fancy,
-		TodoList: TodoList,
     MedicationOrder: MedicationOrder
 }

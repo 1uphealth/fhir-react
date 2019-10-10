@@ -4,25 +4,6 @@ import ResourceContainer from '../container/ResourceContainer'
 import Reference from '../datatypes/Reference'
 import Coding from '../datatypes/Coding'
 
-// {
-//   "detail": {
-//     "category": {
-//       "coding": [
-//         {
-//           "system": "http://hl7.org/fhir/care-plan-activity-category",
-//           "code": "other",
-//           "display": "Other"
-//         }
-//       ],
-//       "text": "other"
-//     },
-//     "prohibited": false,
-//     "code": {
-//       "text": "CT abdomen with contrast"
-//     }
-//   }
-// },
-
 class CarePlanAddresses extends React.Component {
   constructor(props) {
     super(props);

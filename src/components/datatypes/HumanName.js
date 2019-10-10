@@ -6,7 +6,7 @@ class HumanName extends React.Component {
   }
 
 	render() {
-		if (!this.props.primary && this.props.primary !== 'undefined') {
+    if (!this.props.primary && this.props.primary !== 'undefined') {
 			return (
 				<span className='text-muted'>
 					<strong>{`${_.get(this.props.fhirData, 'given') || ''} ${_.get(this.props.fhirData, 'family') || ''} ${(_.get(this.props.fhirData, 'suffix') || []).join(' ')}`}</strong>

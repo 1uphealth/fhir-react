@@ -60,8 +60,8 @@ class Encounter extends React.Component {
   }
   render() {
     let endDate = " - "
-    if (this.props.fhirResource.period.end){
-      endDate  = new Date(this.props.fhirResource.period.end ).toLocaleString();
+    if (_.get(this.props.fhirResource,'period.end')){
+      endDate  = new Date(_.get(this.props.fhirResource,'period.end')).toLocaleString();
     }else{
       endDate = " - "
     }

@@ -2,6 +2,7 @@ import React from 'react'
 var _ = require('lodash');
 import Generic from '../resources/Generic'
 import AllergyIntolerance from '../resources/AllergyIntolerance'
+import Binary from '../resources/Binary'
 import CarePlan from '../resources/CarePlan'
 import Condition from '../resources/Condition'
 import Device from '../resources/Device'
@@ -19,15 +20,44 @@ import Procedure from '../resources/Procedure'
 import ResourceContainer from './ResourceContainer'
 import crypto from 'crypto'
 
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  componentDidCatch(error, info) {
+    // Display fallback UI
+    this.setState({ hasError: true });
+    // You can also log the error to an error reporting service
+    logErrorToMyService(error, info);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      // You can render any custom fallback UI
+      return <Generic {...this.props}/>;
+    }
+    return this.props.children;
+  }
+}
+
 class FhirResource extends React.Component {
   constructor(props) {
     super(props);
+    this.state = { hasError: false };
+  }
+
+  componentDidCatch(error, info) {
+    this.setState({ hasError: true });
   }
 
   renderSwitch() {
     switch(this.props.fhirResource.resourceType) {
       case 'AllergyIntolerance':
         return (<AllergyIntolerance {...this.props}/>)
+      case 'Binary':
+        return (<Binary {...this.props}/>)
       case 'CarePlan':
         return (<CarePlan {...this.props}/>)
       case 'Condition':
@@ -62,8 +92,10 @@ class FhirResource extends React.Component {
   }
 
 	render() {
-		return (
-      this.renderSwitch()
+    return (
+      <ErrorBoundary>
+        {this.renderSwitch()}
+      </ErrorBoundary>
 		);
 	}
 }

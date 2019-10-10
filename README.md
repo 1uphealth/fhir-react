@@ -7,6 +7,8 @@
 # Build
 `npm run build`
 
+# Publish to NPM Registry
+`npm publish`
 
 # Usage
 

@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/1uphealth/fhir-react/tree/master.svg?style=svg)](https://circleci.com/gh/1uphealth/fhir-react/tree/master)
+
 # Local Development
 1. run  `npm link` in this folder to create the npm package locally
 1. in the folder where you are using the package (some other project) run  `npm link fhir-react`

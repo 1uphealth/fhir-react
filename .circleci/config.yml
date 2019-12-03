@@ -1,0 +1,21 @@
+version: 2
+jobs:
+  build:
+    parallelism: 1
+    shell: /bin/bash --login
+    docker:
+      - image: circleci/node:12.3.1-browsers
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: npm install
+      - run:
+          name: Run linter
+          command: "echo 'TODO: add linter command'"
+      - run:
+          name: Run tests
+          command: "echo 'TODO: add test command'"
+      - run:
+          name: Build
+          command: npm run build

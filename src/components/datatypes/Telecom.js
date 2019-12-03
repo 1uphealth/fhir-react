@@ -1,17 +1,10 @@
-import React from 'react'
+import React from 'react';
+import _ from 'lodash';
 
 class Telecom extends React.Component {
-	constructor(props) {
-    super(props);
+  render() {
+    return <div>{`${_.get(this.props.fhirData, 'value') || ''}`}</div>;
   }
-
-	render() {
-		return (
-			<div>
-				{`${(_.get(this.props.fhirData, 'value') || '')}`}
-			</div>
-		);
-	}
 }
 
-export default Telecom
+export default Telecom;

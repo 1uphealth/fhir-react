@@ -12,7 +12,7 @@ jobs:
           command: npm install
       - run:
           name: Run linter
-          command: "echo 'TODO: add linter command'"
+          command: npm run lint
       - run:
           name: Run tests
           command: "echo 'TODO: add test command'"

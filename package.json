@@ -19,8 +19,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack --watch",
     "build": "webpack",
-    "lint": "eslint --ignore-path .gitignore .",
-    "lint:fix": "eslint --ignore-path .gitignore --fix ."
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix ."
   },
   "author": {
     "name": "1upHealth",

@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "lodash": "^4.17.15",
-    "react": "^16.8.3",
+    "react": "^16.12.0",
     "react-redux": "^5.0.5",
     "react-syntax-highlighter": "^10.3.0",
     "redux": "^3.7.1",
@@ -16,7 +16,9 @@
     "webpack": "^2.6.1"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "NODE_ENV=test jest",
+    "test:coverage": "NODE_ENV=test jest --coverage .",
+    "test:watch": "NODE_ENV=test jest --watchAll .",
     "start": "webpack --watch",
     "build": "webpack",
     "lint": "eslint .",
@@ -46,11 +48,16 @@
   ],
   "license": "MIT",
   "devDependencies": {
+    "@babel/plugin-proposal-object-rest-spread": "^7.7.4",
+    "@babel/preset-env": "^7.7.4",
+    "@babel/preset-react": "^7.7.4",
+    "@testing-library/react": "^9.3.2",
     "@typescript-eslint/eslint-plugin": "^2.10.0",
     "@typescript-eslint/parser": "^2.10.0",
     "babel-cli": "^6.24.1",
     "babel-core": "^6.25.0",
     "babel-eslint": "^10.0.3",
+    "babel-jest": "^24.9.0",
     "babel-loader": "^7.1.0",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-plugin-transform-react-jsx": "^6.24.1",
@@ -67,6 +74,8 @@
     "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-react": "^7.17.0",
     "eslint-plugin-react-hooks": "^1.7.0",
-    "prettier": "1.19.1"
+    "jest": "^24.9.0",
+    "prettier": "1.19.1",
+    "react-dom": "^16.12.0"
   }
 }

@@ -3,7 +3,7 @@
 
 import React from 'react';
 import { render } from '@testing-library/react';
-import Observation from '../Observation';
+import Observation from './Observation';
 
 test('shows the children when the checkbox is checked', () => {
   const mockResource = {

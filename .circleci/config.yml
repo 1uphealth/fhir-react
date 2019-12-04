@@ -15,7 +15,7 @@ jobs:
           command: npm run lint
       - run:
           name: Run tests
-          command: "echo 'TODO: add test command'"
+          command: npm run test -- --runInBand
       - run:
           name: Build
           command: npm run build

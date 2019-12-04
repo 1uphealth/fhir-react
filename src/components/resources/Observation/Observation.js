@@ -1,7 +1,7 @@
 import React from 'react';
-import ResourceContainer from '../container/ResourceContainer';
-import Coding from '../datatypes/Coding';
-import Date from '../datatypes/Date';
+import ResourceContainer from '../../container/ResourceContainer';
+import Coding from '../../datatypes/Coding';
+import Date from '../../datatypes/Date';
 var _ = require('lodash');
 
 class ObservationGraph extends React.Component {

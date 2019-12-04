@@ -4,12 +4,11 @@ import MedicationStatement from './components/resources/MedicationStatement';
 import MedicationOrder from './components/resources/MedicationOrder';
 import Encounter from './components/resources/Encounter';
 
-var Resources = { Patient, Encounter, MedicationStatement, MedicationOrder };
-
-module.exports = {
-  Resources: Resources,
-  FhirResource: FhirResource,
-  MedicationStatement: MedicationStatement,
-  Patient: Patient,
-  MedicationOrder: MedicationOrder,
+export const Resources = {
+  Patient,
+  Encounter,
+  MedicationStatement,
+  MedicationOrder,
 };
+
+export { FhirResource, MedicationStatement, Patient, MedicationOrder };

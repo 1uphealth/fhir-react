@@ -1,6 +1,6 @@
 var path = require('path');
 module.exports = {
-  entry: ['babel-polyfill', './src/index.js'],
+  entry: ['./src/index.js'],
   output: {
     path: path.resolve(__dirname, 'build'),
     filename: 'index.js',
@@ -15,7 +15,8 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['env'],
+            presets: ['@babel/preset-env'],
+            plugins: ['@babel/plugin-proposal-object-rest-spread'],
           },
         },
       },

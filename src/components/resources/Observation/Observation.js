@@ -104,22 +104,38 @@ class ObservationGraph extends React.Component {
 const Observation = props => {
   const { fhirResource } = props;
   const { issued } = fhirResource;
+  const codeCodingDisplay = _.get(fhirResource, 'code.coding.0.display');
+  const codeText = _.get(fhirResource, 'code.text', '');
+  const valueQuantityValue = _.get(fhirResource, 'valueQuantity.value', '');
+  const valueQuantityUnit = _.get(fhirResource, 'valueQuantity.unit', '');
+  const status = _.get(fhirResource, 'status', '');
+  const valueCodeableConceptText = _.get(
+    fhirResource,
+    'valueCodeableConcept.text',
+  );
+  const valueCodeableConceptCodingDisplay = _.get(
+    fhirResource,
+    'valueCodeableConcept.coding[0].display',
+  );
+  const valueCodeableConceptCoding = _.get(
+    fhirResource,
+    'valueCodeableConcept.coding',
+    [],
+  );
   return (
     <div>
       <ResourceContainer {...props}>
         <div style={{ width: '100%', display: 'inline-block' }}>
           <h4 style={{ display: 'inline-block' }}>
-            {`${_.get(fhirResource, 'code.coding.0.display') ||
-              _.get(fhirResource, 'code.text')}`}{' '}
-            <code>{`${_.get(fhirResource, 'valueQuantity.value') || ''}${_.get(
-              fhirResource,
-              'valueQuantity.unit',
-            ) || ''}`}</code>
+            {codeCodingDisplay || codeText} &nbsp;
+            <code>
+              {valueQuantityValue}
+              {valueQuantityUnit}
+            </code>
           </h4>
-          &nbsp;({_.get(fhirResource, 'status') || ''}&nbsp;
+          &nbsp;({status}&nbsp;
           <span className="text-muted">
-            {_.get(fhirResource, 'valueCodeableConcept.text') ||
-              _.get(fhirResource, 'valueCodeableConcept.coding[0].display')}
+            {valueCodeableConceptText || valueCodeableConceptCodingDisplay}
           </span>
           )
         </div>
@@ -140,13 +156,9 @@ const Observation = props => {
             </div>
           )}
           <div className="row">
-            {typeof _.get(fhirResource, 'valueCodeableConcept.coding') ===
-            'undefined'
-              ? ''
-              : _.get(
-                  fhirResource,
-                  'valueCodeableConcept.coding',
-                ).map(coding => <Coding fhirData={coding} />)}
+            {valueCodeableConceptCoding.map(coding => (
+              <Coding fhirData={coding} />
+            ))}
           </div>
         </div>
       </ResourceContainer>

@@ -14,10 +14,11 @@
     "test": "NODE_ENV=test jest",
     "test:coverage": "NODE_ENV=test jest --coverage .",
     "test:watch": "NODE_ENV=test jest --watchAll .",
-    "start": "webpack --watch",
-    "build": "webpack",
+    "start": "NODE_ENV=development webpack --watch",
+    "build": "NODE_ENV=production webpack",
     "lint": "eslint .",
-    "lint:fix": "eslint --fix ."
+    "lint:fix": "eslint --fix .",
+    "storybook": "start-storybook"
   },
   "author": {
     "name": "1upHealth",
@@ -66,6 +67,8 @@
     "@babel/polyfill": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
     "@babel/preset-react": "^7.7.4",
+    "@storybook/addon-knobs": "^5.2.8",
+    "@storybook/react": "^5.2.8",
     "@testing-library/react": "^9.3.2",
     "@typescript-eslint/eslint-plugin": "^2.10.0",
     "@typescript-eslint/parser": "^2.10.0",
@@ -84,6 +87,7 @@
     "jest": "^24.9.0",
     "prettier": "1.19.1",
     "react-dom": "^16.12.0",
-    "webpack": "^2.6.1"
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10"
   }
 }

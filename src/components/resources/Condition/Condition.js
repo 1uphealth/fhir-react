@@ -1,6 +1,6 @@
 import React from 'react';
-import ResourceContainer from '../container/ResourceContainer';
-import Reference from '../datatypes/Reference';
+import ResourceContainer from '../../container/ResourceContainer';
+import Reference from '../../datatypes/Reference';
 var _ = require('lodash');
 
 class Condition extends React.Component {

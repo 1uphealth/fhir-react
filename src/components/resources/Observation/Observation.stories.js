@@ -75,5 +75,5 @@ export const DefaultVisualization = () => {
   const data = object('Resource', mockResource);
   const mockResource2 = JSON.parse(JSON.stringify(data)); // hack
 
-  return <Observation fhirResource={{ ...mockResource2 }} />;
+  return <Observation fhirResource={mockResource2} />;
 };

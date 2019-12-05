@@ -143,9 +143,10 @@ const Observation = props => {
             {typeof _.get(fhirResource, 'valueCodeableConcept.coding') ===
             'undefined'
               ? ''
-              : _.get(fhirResource, 'valueCodeableConcept.coding').map(function(
-                  coding,
-                ) {})}
+              : _.get(
+                  fhirResource,
+                  'valueCodeableConcept.coding',
+                ).map(coding => <Coding fhirData={coding} />)}
           </div>
         </div>
       </ResourceContainer>

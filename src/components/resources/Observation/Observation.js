@@ -101,60 +101,56 @@ class ObservationGraph extends React.Component {
   }
 }
 
-class Observation extends React.Component {
-  render() {
-    return (
-      <div>
-        <ResourceContainer {...this.props}>
-          <div style={{ width: '100%', display: 'inline-block' }}>
-            <h4 style={{ display: 'inline-block' }}>
-              {`${_.get(this.props.fhirResource, 'code.coding.0.display') ||
-                _.get(this.props.fhirResource, 'code.text')}`}{' '}
-              <code>{`${_.get(this.props.fhirResource, 'valueQuantity.value') ||
-                ''}${_.get(this.props.fhirResource, 'valueQuantity.unit') ||
-                ''}`}</code>
-            </h4>
-            &nbsp;({_.get(this.props.fhirResource, 'status') || ''}&nbsp;
-            <span className="text-muted">
-              {_.get(this.props.fhirResource, 'valueCodeableConcept.text') ||
-                _.get(
-                  this.props.fhirResource,
-                  'valueCodeableConcept.coding[0].display',
-                )}
-            </span>
-            )
+const Observation = props => {
+  const { fhirResource } = props;
+  const { issued } = fhirResource;
+  return (
+    <div>
+      <ResourceContainer {...props}>
+        <div style={{ width: '100%', display: 'inline-block' }}>
+          <h4 style={{ display: 'inline-block' }}>
+            {`${_.get(fhirResource, 'code.coding.0.display') ||
+              _.get(fhirResource, 'code.text')}`}{' '}
+            <code>{`${_.get(fhirResource, 'valueQuantity.value') || ''}${_.get(
+              fhirResource,
+              'valueQuantity.unit',
+            ) || ''}`}</code>
+          </h4>
+          &nbsp;({_.get(fhirResource, 'status') || ''}&nbsp;
+          <span className="text-muted">
+            {_.get(fhirResource, 'valueCodeableConcept.text') ||
+              _.get(fhirResource, 'valueCodeableConcept.coding[0].display')}
+          </span>
+          )
+        </div>
+        <div className="container">
+          <div className="row">
+            <ObservationGraph
+              valueQuantity={fhirResource.valueQuantity}
+              referenceRange={fhirResource.referenceRange}
+            />
           </div>
-          <div className="container">
-            <div className="row">
-              <ObservationGraph
-                valueQuantity={this.props.fhirResource.valueQuantity}
-                referenceRange={this.props.fhirResource.referenceRange}
-              />
-            </div>
+          {issued && (
             <div className="row" style={{ display: 'unset !important' }}>
               <small className="text-muted text-uppercase">
                 <strong>Issued on:</strong>
               </small>
               &nbsp;
-              <Date fhirData={this.props.fhirResource.issued} />
+              <Date fhirData={issued} />
             </div>
-            <div className="row">
-              {typeof _.get(
-                this.props.fhirResource,
-                'valueCodeableConcept.coding',
-              ) === 'undefined'
-                ? ''
-                : _.get(
-                    this.props.fhirResource,
-                    'valueCodeableConcept.coding',
-                  ).map(function(coding) {
-                    return <Coding fhirData={coding} />;
-                  })}
-            </div>
+          )}
+          <div className="row">
+            {typeof _.get(fhirResource, 'valueCodeableConcept.coding') ===
+            'undefined'
+              ? ''
+              : _.get(
+                  fhirResource,
+                  'valueCodeableConcept.coding',
+                ).map(coding => <Coding fhirData={coding} />)}
           </div>
-        </ResourceContainer>
-      </div>
-    );
-  }
-}
+        </div>
+      </ResourceContainer>
+    </div>
+  );
+};
 export default Observation;

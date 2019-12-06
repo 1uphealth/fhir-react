@@ -18,7 +18,8 @@
     "build": "NODE_ENV=production webpack",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
-    "storybook": "start-storybook"
+    "storybook": "start-storybook",
+    "deploy-storybook": "storybook-to-aws-s3 --bucket-path=storybook-fhir-react-lib --aws-profile=storybook-deployer"
   },
   "author": {
     "name": "1upHealth",
@@ -69,6 +70,7 @@
     "@babel/preset-react": "^7.7.4",
     "@storybook/addon-knobs": "^5.2.8",
     "@storybook/react": "^5.2.8",
+    "@storybook/storybook-deployer": "^2.8.1",
     "@testing-library/react": "^9.3.2",
     "@typescript-eslint/eslint-plugin": "^2.10.0",
     "@typescript-eslint/parser": "^2.10.0",

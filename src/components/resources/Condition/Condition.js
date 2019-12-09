@@ -1,17 +1,17 @@
 import React from 'react';
 import ResourceContainer from '../../container/ResourceContainer';
 import Reference from '../../datatypes/Reference';
-var _ = require('lodash');
+import _get from 'lodash/get';
 
 function Condition(props) {
   const { fhirResource } = props;
-  const codeCodingDisplay = _.get(fhirResource, 'code.coding.0.display');
-  const codeText = _.get(fhirResource, 'code.text');
-  const severityText = _.get(fhirResource, 'severity.text');
-  const clinicalStatus = _.get(fhirResource, 'clinicalStatus');
-  const onsetDateTime = _.get(fhirResource, 'onsetDateTime');
-  const dateRecorded = _.get(fhirResource, 'dateRecorded');
-  const asserter = _.get(fhirResource, 'asserter');
+  const codeCodingDisplay = _get(fhirResource, 'code.coding.0.display');
+  const codeText = _get(fhirResource, 'code.text');
+  const severityText = _get(fhirResource, 'severity.text');
+  const clinicalStatus = _get(fhirResource, 'clinicalStatus');
+  const onsetDateTime = _get(fhirResource, 'onsetDateTime');
+  const dateRecorded = _get(fhirResource, 'dateRecorded');
+  const asserter = _get(fhirResource, 'asserter');
 
   return (
     <div>

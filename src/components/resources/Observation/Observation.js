@@ -1,167 +1,70 @@
 import React from 'react';
+
+import _get from 'lodash/get';
 import ResourceContainer from '../../container/ResourceContainer';
 import Coding from '../../datatypes/Coding';
 import Date from '../../datatypes/Date';
-var _ = require('lodash');
-
-class ObservationGraph extends React.Component {
-  render() {
-    if (
-      typeof this.props.referenceRange !== 'undefined' &&
-      typeof _.get(this.props, 'valueQuantity.value') !== 'undefined'
-    ) {
-      var tooLow = _.get(this.props, 'referenceRange[0].low.value');
-      var tooHigh = _.get(this.props, 'referenceRange[0].high.value');
-      var actual = this.props.valueQuantity.value;
-      var maxNum = Math.max(tooHigh, actual);
-      var minNum = Math.min(tooLow, actual);
-      var startAt = (maxNum - minNum) * -0.5 + minNum;
-      var endAt = (maxNum - minNum) * 0.5 + maxNum;
-      var zeroShift = 0 - startAt;
-      var lowBar = Math.round(((zeroShift + tooLow) / endAt) * 100);
-      var rangeBar = Math.round(((zeroShift + tooHigh) / endAt) * 100) - lowBar;
-      var valueBar = Math.round(((zeroShift + actual) / endAt) * 100) + 3;
-      var higherBar = 100 - rangeBar - lowBar;
-      return (
-        <div className="col-md-6 mt-2 mb-2 pl-0 pr-0">
-          <div
-            style={{
-              position: 'absolute',
-              left: `${valueBar -
-                Math.max(2.5, actual.toString().length * 2)}%`,
-            }}
-          >
-            <code style={{ display: 'inline-block' }}>
-              <h4>
-                <strong>{actual}</strong>
-              </h4>
-            </code>
-            <span className="text-muted">
-              &nbsp;{this.props.valueQuantity.unit}
-            </span>
-          </div>
-          <br />
-          <div className="progress mt-2">
-            <div
-              className="progress-bar bg-transparent text-dark text-muted"
-              role="progressbar"
-              style={{ width: `${lowBar}%` }}
-              aria-valuenow={`${lowBar}`}
-              aria-valuemin="0"
-              aria-valuemax="100"
-            >
-              <small>
-                <strong>{`< ${tooLow}`}</strong>
-              </small>
-            </div>
-            <div
-              className="progress-bar"
-              role="progressbar"
-              style={{
-                backgroundColor: 'rgba(0,0,0,.2)',
-                width: `${rangeBar}%`,
-              }}
-              aria-valuenow={`${rangeBar}`}
-              aria-valuemin="0"
-              aria-valuemax="100"
-            ></div>
-            <div
-              className="progress-bar bg-primary rounded-circle"
-              role="progressbar"
-              style={{
-                opacity: 0.5,
-                width: `12px`,
-                height: '12px',
-                marginTop: '2px',
-                position: 'absolute',
-                left: `${valueBar - 2.5}%`,
-              }}
-              aria-valuenow={`${valueBar}`}
-              aria-valuemin="0"
-              aria-valuemax="100"
-            ></div>
-            <div
-              className="progress-bar bg-transparent text-dark text-muted"
-              role="progressbar"
-              style={{ width: `${higherBar}%` }}
-              aria-valuenow={`${higherBar}`}
-              aria-valuemin="0"
-              aria-valuemax="100"
-            >
-              <small>
-                <strong>{`> ${tooHigh}`}</strong>
-              </small>
-            </div>
-          </div>
-        </div>
-      );
-    } else {
-      return '';
-    }
-  }
-}
+import ObservationGraph from './ObservationGraph';
 
 const Observation = props => {
   const { fhirResource } = props;
   const { issued } = fhirResource;
-  const codeCodingDisplay = _.get(fhirResource, 'code.coding.0.display');
-  const codeText = _.get(fhirResource, 'code.text', '');
-  const valueQuantityValue = _.get(fhirResource, 'valueQuantity.value', '');
-  const valueQuantityUnit = _.get(fhirResource, 'valueQuantity.unit', '');
-  const status = _.get(fhirResource, 'status', '');
-  const valueCodeableConceptText = _.get(
+  const codeCodingDisplay = _get(fhirResource, 'code.coding.0.display');
+  const codeText = _get(fhirResource, 'code.text', '');
+  const valueQuantityValue = _get(fhirResource, 'valueQuantity.value', '');
+  const valueQuantityUnit = _get(fhirResource, 'valueQuantity.unit', '');
+  const status = _get(fhirResource, 'status', '');
+  const valueCodeableConceptText = _get(
     fhirResource,
     'valueCodeableConcept.text',
   );
-  const valueCodeableConceptCodingDisplay = _.get(
+  const valueCodeableConceptCodingDisplay = _get(
     fhirResource,
     'valueCodeableConcept.coding[0].display',
   );
-  const valueCodeableConceptCoding = _.get(
+  const valueCodeableConceptCoding = _get(
     fhirResource,
     'valueCodeableConcept.coding',
     [],
   );
   return (
     <div>
-      <ResourceContainer {...props}>
-        <div style={{ width: '100%', display: 'inline-block' }}>
-          <h4 style={{ display: 'inline-block' }}>
-            {codeCodingDisplay || codeText} &nbsp;
-            <code>
-              {valueQuantityValue}
-              {valueQuantityUnit}
-            </code>
-          </h4>
-          &nbsp;({status}&nbsp;
-          <span className="text-muted">
-            {valueCodeableConceptText || valueCodeableConceptCodingDisplay}
-          </span>
-          )
+      <div style={{ width: '100%', display: 'inline-block' }}>
+        <h4 style={{ display: 'inline-block' }}>
+          {codeCodingDisplay || codeText} &nbsp;
+          <code>
+            {valueQuantityValue}
+            {valueQuantityUnit}
+          </code>
+        </h4>
+        &nbsp;({status}&nbsp;
+        <span className="text-muted">
+          {valueCodeableConceptText || valueCodeableConceptCodingDisplay}
+        </span>
+        )
+      </div>
+      <div className="container">
+        <div className="row">
+          <ObservationGraph
+            valueQuantity={fhirResource.valueQuantity}
+            referenceRange={fhirResource.referenceRange}
+          />
         </div>
-        <div className="container">
-          <div className="row">
-            <ObservationGraph
-              valueQuantity={fhirResource.valueQuantity}
-              referenceRange={fhirResource.referenceRange}
-            />
+        {issued && (
+          <div className="row" style={{ display: 'unset !important' }}>
+            <small className="text-muted text-uppercase">
+              <strong>Issued on:</strong>
+            </small>
+            &nbsp;
+            <Date fhirData={issued} />
           </div>
-          {issued && (
-            <div className="row" style={{ display: 'unset !important' }}>
-              <small className="text-muted text-uppercase">
-                <strong>Issued on:</strong>
-              </small>
-              &nbsp;
-              <Date fhirData={issued} />
-            </div>
-          )}
-          <div className="row">
-            {valueCodeableConceptCoding.map(coding => (
-              <Coding fhirData={coding} />
-            ))}
-          </div>
+        )}
+        <div className="row">
+          {valueCodeableConceptCoding.map(coding => (
+            <Coding fhirData={coding} />
+          ))}
         </div>
-      </ResourceContainer>
+      </div>
     </div>
   );
 };

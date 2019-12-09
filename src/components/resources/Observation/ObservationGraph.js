@@ -5,7 +5,7 @@ import _isUndefined from 'lodash/isUndefined';
 const ObservationGraph = props => {
   if (
     !_isUndefined(props.referenceRange) &&
-    !_isUndefined(_get(props, 'valueQuantity.value'))
+    props.referenceRange && _isNumber(_get(props, 'valueQuantity.value'))
   ) {
     const tooLow = _get(props, 'referenceRange[0].low.value');
     const tooHigh = _get(props, 'referenceRange[0].high.value');

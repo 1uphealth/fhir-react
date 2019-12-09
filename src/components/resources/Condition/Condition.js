@@ -1,5 +1,4 @@
 import React from 'react';
-import ResourceContainer from '../../container/ResourceContainer';
 import Reference from '../../datatypes/Reference';
 import _get from 'lodash/get';
 
@@ -19,49 +18,47 @@ function Condition(props) {
 
   return (
     <div>
-      <ResourceContainer {...props}>
-        <div>
-          <h4 style={{ display: 'inline-block' }}>{codeText || ''}</h4>
-          &nbsp;(
-          <span data-testid="clinicalStatus">{clinicalStatus || ''}</span>
-          <span className="text-muted" data-testid="severity">
-            {severityText && `, ${severityText} severity`}
-          </span>
-          )
+      <div>
+        <h4 style={{ display: 'inline-block' }}>{codeText || ''}</h4>
+        &nbsp;(
+        <span data-testid="clinicalStatus">{clinicalStatus || ''}</span>
+        <span className="text-muted" data-testid="severity">
+          {severityText && `, ${severityText} severity`}
+        </span>
+        )
+      </div>
+      <div className="row pl-0 pr-0">
+        <div className="col-md-12">
+          {onsetDateTime && (
+            <div>
+              <small className="text-muted text-uppercase">
+                <strong>Onset Date:</strong>
+              </small>{' '}
+              {onsetDateTime}
+            </div>
+          )}
         </div>
-        <div className="row pl-0 pr-0">
-          <div className="col-md-12">
-            {onsetDateTime && (
-              <div>
-                <small className="text-muted text-uppercase">
-                  <strong>Onset Date:</strong>
-                </small>{' '}
-                {onsetDateTime}
-              </div>
-            )}
-          </div>
-          <div className="col-md-12">
-            {dateRecorded && (
-              <div>
-                <small className="text-muted text-uppercase">
-                  <strong>Date recorded:</strong>
-                </small>{' '}
-                {dateRecorded}
-              </div>
-            )}
-          </div>
-          <div className="col-md-12">
-            {asserter && (
-              <div>
-                <small className="text-muted text-uppercase">
-                  <strong>Asserted by:</strong>
-                </small>{' '}
-                {<Reference fhirData={asserter} />}
-              </div>
-            )}
-          </div>
+        <div className="col-md-12">
+          {dateRecorded && (
+            <div>
+              <small className="text-muted text-uppercase">
+                <strong>Date recorded:</strong>
+              </small>{' '}
+              {dateRecorded}
+            </div>
+          )}
         </div>
-      </ResourceContainer>
+        <div className="col-md-12">
+          {asserter && (
+            <div>
+              <small className="text-muted text-uppercase">
+                <strong>Asserted by:</strong>
+              </small>{' '}
+              {<Reference fhirData={asserter} />}
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   );
 }

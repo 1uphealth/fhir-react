@@ -5,9 +5,13 @@ import _get from 'lodash/get';
 
 function Condition(props) {
   const { fhirResource } = props;
-  const codeCodingDisplay = _get(fhirResource, 'code.coding.0.display');
-  const codeText = _get(fhirResource, 'code.text');
-  const severityText = _get(fhirResource, 'severity.text');
+  const codeText =
+    _get(fhirResource, 'code.coding.0.display') ||
+    _get(fhirResource, 'code.text') ||
+    _get(fhirResource, 'code.coding.0.code');
+  const severityText =
+    _get(fhirResource, 'severity.coding.0.display') ||
+    _get(fhirResource, 'severity.text');
   const clinicalStatus = _get(fhirResource, 'clinicalStatus');
   const onsetDateTime = _get(fhirResource, 'onsetDateTime');
   const dateRecorded = _get(fhirResource, 'dateRecorded');
@@ -17,9 +21,7 @@ function Condition(props) {
     <div>
       <ResourceContainer {...props}>
         <div>
-          <h4 style={{ display: 'inline-block' }}>
-            {codeCodingDisplay || codeText || ''}
-          </h4>
+          <h4 style={{ display: 'inline-block' }}>{codeText || ''}</h4>
           &nbsp;(
           <span data-testid="clinicalStatus">{clinicalStatus || ''}</span>
           <span className="text-muted" data-testid="severity">

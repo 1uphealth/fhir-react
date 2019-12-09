@@ -10,17 +10,19 @@ describe('should render component correctly', () => {
     const defaultProps = {
       fhirResource: exampleCondition,
     };
-    const { container } = render(<Condition {...defaultProps} />);
+    const { getByTestId } = render(<Condition {...defaultProps} />);
 
-    expect(container).not.toBeNull();
+    expect(getByTestId('clinical-status').textContent).toEqual('active');
+    expect(getByTestId('severity').textContent).toEqual('');
   });
 
   test('DSTU2 - with severity field', () => {
     const defaultProps = {
       fhirResource: exampleConditionSeverity,
     };
-    const { container } = render(<Condition {...defaultProps} />);
+    const { getByTestId } = render(<Condition {...defaultProps} />);
 
-    expect(container).not.toBeNull();
+    expect(getByTestId('clinical-status').textContent).toEqual('active');
+    expect(getByTestId('severity').textContent).toEqual(', Medium severity');
   });
 });

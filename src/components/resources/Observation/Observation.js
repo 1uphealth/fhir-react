@@ -1,7 +1,6 @@
 import React from 'react';
 
 import _get from 'lodash/get';
-import ResourceContainer from '../../container/ResourceContainer';
 import Coding from '../../datatypes/Coding';
 import Date from '../../datatypes/Date';
 import ObservationGraph from './ObservationGraph';

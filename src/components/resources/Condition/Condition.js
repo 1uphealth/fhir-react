@@ -30,30 +30,30 @@ function Condition(props) {
       <div className="row pl-0 pr-0">
         <div className="col-md-12">
           {onsetDateTime && (
-            <div>
+            <div data-testid="onsetDate">
               <small className="text-muted text-uppercase">
-                <strong>Onset Date:</strong>
-              </small>{' '}
+                <strong>Onset Date: </strong>
+              </small>
               {onsetDateTime}
             </div>
           )}
         </div>
         <div className="col-md-12">
           {dateRecorded && (
-            <div>
+            <div data-testid="dateRecorded">
               <small className="text-muted text-uppercase">
-                <strong>Date recorded:</strong>
-              </small>{' '}
+                <strong>Date recorded: </strong>
+              </small>
               {dateRecorded}
             </div>
           )}
         </div>
         <div className="col-md-12">
           {asserter && (
-            <div>
+            <div data-testid="asserter">
               <small className="text-muted text-uppercase">
-                <strong>Asserted by:</strong>
-              </small>{' '}
+                <strong>Asserted by: </strong>
+              </small>
               {<Reference fhirData={asserter} />}
             </div>
           )}

@@ -1,12 +1,9 @@
 import React from 'react';
 import _get from 'lodash/get';
-import _isUndefined from 'lodash/isUndefined';
+import _isNumber from 'lodash/isNumber';
 
 const ObservationGraph = props => {
-  if (
-    !_isUndefined(props.referenceRange) &&
-    props.referenceRange && _isNumber(_get(props, 'valueQuantity.value'))
-  ) {
+  if (props.referenceRange && _isNumber(_get(props, 'valueQuantity.value'))) {
     const tooLow = _get(props, 'referenceRange[0].low.value');
     const tooHigh = _get(props, 'referenceRange[0].high.value');
     const actual = props.valueQuantity.value;

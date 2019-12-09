@@ -16,6 +16,7 @@ import Observation from '../resources/Observation';
 import Patient from '../resources/Patient';
 import Practitioner from '../resources/Practitioner';
 import Procedure from '../resources/Procedure';
+import ResourceContainer from '../container/ResourceContainer';
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -76,7 +77,11 @@ class FhirResource extends React.Component {
       case 'MedicationStatement':
         return <MedicationStatement {...this.props} />;
       case 'Observation':
-        return <Observation {...this.props} />;
+        return (
+          <ResourceContainer {...this.props}>
+            <Observation {...this.props} />
+          </ResourceContainer>
+        );
       case 'Patient':
         return <Patient {...this.props} />;
       case 'Practitioner':

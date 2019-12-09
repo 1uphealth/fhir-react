@@ -21,7 +21,7 @@ function Condition(props) {
             {codeCodingDisplay || codeText || ''}
           </h4>
           &nbsp;(
-          <span data-testid="clinical-status">{clinicalStatus || ''}</span>
+          <span data-testid="clinicalStatus">{clinicalStatus || ''}</span>
           <span className="text-muted" data-testid="severity">
             {severityText && `, ${severityText} severity`}
           </span>

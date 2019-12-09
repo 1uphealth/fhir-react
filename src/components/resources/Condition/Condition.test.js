@@ -12,7 +12,7 @@ describe('should render component correctly', () => {
     };
     const { getByTestId } = render(<Condition {...defaultProps} />);
 
-    expect(getByTestId('clinical-status').textContent).toEqual('active');
+    expect(getByTestId('clinicalStatus').textContent).toEqual('active');
     expect(getByTestId('severity').textContent).toEqual('');
   });
 
@@ -22,7 +22,7 @@ describe('should render component correctly', () => {
     };
     const { getByTestId } = render(<Condition {...defaultProps} />);
 
-    expect(getByTestId('clinical-status').textContent).toEqual('active');
+    expect(getByTestId('clinicalStatus').textContent).toEqual('active');
     expect(getByTestId('severity').textContent).toEqual(', Medium severity');
   });
 });

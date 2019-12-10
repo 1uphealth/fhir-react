@@ -4,122 +4,116 @@ import Telecom from '../../datatypes/Telecom';
 import Address from '../../datatypes/Address';
 import ResourceContainer from '../../container/ResourceContainer';
 import crypto from 'crypto';
-var _ = require('lodash');
+import _get from 'lodash/get';
 
-class PatientContact extends React.Component {
-  render() {
-    return (
-      <div>
-        <HumanName fhirData={_.get(this.props.fhirData, 'name')} />
-        <small className="text-muted">{`(${_.get(
-          this.props.fhirData,
-          'relationship[0].text',
-        ) || ''})`}</small>
-      </div>
-    );
-  }
+function PatientContact(props) {
+  const { fhirData } = props;
+  const name = _get(fhirData, 'name');
+  const relationship = _get(fhirData, 'relationship[0].text');
+
+  return (
+    <div>
+      <HumanName fhirData={name} />
+      <small className="text-muted">{` (${relationship})`}</small>
+    </div>
+  );
 }
 
-class Patient extends React.Component {
-  render() {
-    return (
-      <div>
-        <ResourceContainer {...this.props}>
-          <div className="row">
-            <div className="col-xs-4">
-              <img
-                style={{ border: '4px solid #fff', borderRadius: '500px' }}
-                src={`http://www.gravatar.com/avatar/${crypto
-                  .createHash('md5')
-                  .update(_.get(this.props.fhirResource, 'id') || '')
-                  .digest('hex')}?s=70&r=any&default=identicon&forcedefault=1`}
-                alt=""
-              />
-              &nbsp;
-            </div>
-            <div className="col-xs-8">
-              {(_.get(this.props.fhirResource, 'name') || []).map(
-                function(patientName, index) {
-                  if (this.props.thorough === false && index !== 0) {
-                    return '';
-                  } else {
-                    return (
-                      <React.Fragment key={index}>
-                        <span data-testid="patientName">
-                          <HumanName
-                            fhirData={patientName}
-                            primary={index === 0}
-                          />
-                        </span>
-                        &nbsp;&nbsp;
-                      </React.Fragment>
-                    );
-                  }
-                }.bind(this),
+function Patient(props) {
+  const { fhirResource } = props;
+
+  const id = _get(fhirResource, 'id');
+  const idHash = crypto
+    .createHash('md5')
+    .update(id || '')
+    .digest('hex');
+  const avatarSrc = `http://www.gravatar.com/avatar/${idHash}?s=50&r=any&default=identicon&forcedefault=1`;
+  const patientNames = _get(fhirResource, 'name', []);
+  const patientBirthDate = _get(fhirResource, 'birthDate');
+  const patientGender = _get(fhirResource, 'gender');
+  const patientContact = _get(fhirResource, 'contact[0]');
+  const patientAddress = _get(fhirResource, 'address[0]');
+  const patientPhones = _get(fhirResource, 'telecom', []).filter(
+    telecom => telecom.system === 'phone',
+  );
+
+  return (
+    <div>
+      <ResourceContainer {...props}>
+        <div className="row">
+          <div className="col-xs-4">
+            <img
+              style={{
+                border: '4px solid #fff',
+                borderRadius: '50%',
+                marginRight: '10px',
+              }}
+              src={avatarSrc}
+              alt=""
+            />
+          </div>
+          <div className="col-xs-8">
+            {patientNames.map((patientName, index) => {
+              if (props.thorough === false && index !== 0) {
+                return '';
+              } else {
+                return (
+                  <React.Fragment key={index}>
+                    <span data-testid="patientName">
+                      <HumanName fhirData={patientName} primary={index === 0} />
+                    </span>
+                    &nbsp;&nbsp;
+                  </React.Fragment>
+                );
+              }
+            })}
+            <div>
+              {patientBirthDate && (
+                <span className="text-muted">
+                  <strong>
+                    <span data-testid="patientGender">
+                      {patientGender || 'unknown'}
+                    </span>
+                    {', '}
+                    <span data-testid="patientBirthDate">
+                      {patientBirthDate}
+                    </span>
+                  </strong>
+                  <small> (DOB)</small>
+                </span>
               )}
-              <div>
-                {_.get(this.props.fhirResource, 'birthDate') ? (
-                  <span className="text-muted">
-                    <strong>
-                      <span data-testid="patientGender">
-                        {_.get(this.props.fhirResource, 'gender') || ''}
-                      </span>
-                      {', '}
-                      <span data-testid="patientBirthDate">
-                        {_.get(this.props.fhirResource, 'birthDate') || ''}
-                      </span>
-                    </strong>{' '}
-                    <small>(DOB)</small>
-                  </span>
-                ) : (
-                  ''
-                )}
+            </div>
+            <div>
+              {patientContact && <PatientContact fhirData={patientContact} />}
+            </div>
+          </div>
+        </div>
+        <div style={{ paddingTop: '.5rem' }}>
+          <small className="text-muted">
+            <strong>ADDRESS</strong>
+          </small>
+          <div data-testid="patientAddress">
+            <Address fhirData={patientAddress} />
+          </div>
+        </div>
+        <div style={{ paddingTop: '.5rem' }}>
+          <small className="text-muted">
+            <strong>TELEPHONE</strong>
+          </small>
+          <div data-testid="patientPhones">
+            {patientPhones.map((telecom, index) => (
+              <div key={index}>
+                <Telecom fhirData={telecom} />
               </div>
-              <div>
-                {_.get(this.props.fhirResource, 'contact[0]') ? (
-                  <PatientContact
-                    fhirData={_.get(this.props.fhirResource, 'contact[0]')}
-                  />
-                ) : (
-                  ''
-                )}
-              </div>
-            </div>
+            ))}
+            {patientPhones.length === 0 && (
+              <span className="text-muted">missing</span>
+            )}
           </div>
-          <div style={{ paddingTop: '.5rem' }}>
-            <small className="text-muted">
-              <strong>ADDRESS</strong>
-            </small>
-            <div data-testid="patientAddress">
-              <Address
-                fhirData={_.get(this.props.fhirResource, 'address[0]')}
-              />
-            </div>
-          </div>
-          <div style={{ paddingTop: '.5rem' }}>
-            <small className="text-muted">
-              <strong>TELEPHONE</strong>
-            </small>
-            <div data-testid="patientPhones">
-              {(_.get(this.props.fhirResource, 'telecom') || []).map(function(
-                telecom,
-                index,
-              ) {
-                if (telecom.system === 'phone') {
-                  return (
-                    <div key={index}>
-                      <Telecom fhirData={telecom} />
-                    </div>
-                  );
-                }
-                return null;
-              })}
-            </div>
-          </div>
-        </ResourceContainer>
-      </div>
-    );
-  }
+        </div>
+      </ResourceContainer>
+    </div>
+  );
 }
 
 export default Patient;

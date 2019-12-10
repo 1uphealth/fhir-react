@@ -44,13 +44,15 @@ class Patient extends React.Component {
                     return '';
                   } else {
                     return (
-                      <span>
-                        <HumanName
-                          fhirData={patientName}
-                          primary={index === 0}
-                        />
+                      <React.Fragment key={index}>
+                        <span data-testid="patientName">
+                          <HumanName
+                            fhirData={patientName}
+                            primary={index === 0}
+                          />
+                        </span>
                         &nbsp;&nbsp;
-                      </span>
+                      </React.Fragment>
                     );
                   }
                 }.bind(this),
@@ -59,8 +61,13 @@ class Patient extends React.Component {
                 {_.get(this.props.fhirResource, 'birthDate') ? (
                   <span className="text-muted">
                     <strong>
-                      {_.get(this.props.fhirResource, 'gender') || ''},{' '}
-                      {_.get(this.props.fhirResource, 'birthDate') || ''}
+                      <span data-testid="patientGender">
+                        {_.get(this.props.fhirResource, 'gender') || ''}
+                      </span>
+                      {', '}
+                      <span data-testid="patientBirthDate">
+                        {_.get(this.props.fhirResource, 'birthDate') || ''}
+                      </span>
                     </strong>{' '}
                     <small>(DOB)</small>
                   </span>
@@ -83,7 +90,7 @@ class Patient extends React.Component {
             <small className="text-muted">
               <strong>ADDRESS</strong>
             </small>
-            <div>
+            <div data-testid="patientAddress">
               <Address
                 fhirData={_.get(this.props.fhirResource, 'address[0]')}
               />
@@ -93,13 +100,14 @@ class Patient extends React.Component {
             <small className="text-muted">
               <strong>TELEPHONE</strong>
             </small>
-            <div>
+            <div data-testid="patientPhones">
               {(_.get(this.props.fhirResource, 'telecom') || []).map(function(
                 telecom,
+                index,
               ) {
                 if (telecom.system === 'phone') {
                   return (
-                    <div>
+                    <div key={index}>
                       <Telecom fhirData={telecom} />
                     </div>
                   );

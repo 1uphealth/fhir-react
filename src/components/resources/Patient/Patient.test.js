@@ -32,7 +32,7 @@ describe('should render component correctly', () => {
     const { getByTestId } = render(<Patient {...defaultProps} />);
 
     expect(getByTestId('patientName').textContent.replace(/\s+/g, ' ')).toEqual(
-      'John,X Doe (usual)',
+      'John, X Doe (usual)',
     );
     expect(getByTestId('patientGender').textContent).toEqual('male');
     expect(getByTestId('patientBirthDate').textContent).toEqual('2014-06-01');

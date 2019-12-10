@@ -39,79 +39,75 @@ function Patient(props) {
 
   return (
     <div>
-      <ResourceContainer {...props}>
-        <div className="row">
-          <div className="col-xs-4">
-            <img
-              style={{
-                border: '4px solid #fff',
-                borderRadius: '50%',
-                marginRight: '10px',
-              }}
-              src={avatarSrc}
-              alt=""
-            />
-          </div>
-          <div className="col-xs-8">
-            {patientNames.map((patientName, index) => {
-              if (props.thorough === false && index !== 0) {
-                return '';
-              } else {
-                return (
-                  <React.Fragment key={index}>
-                    <span data-testid="patientName">
-                      <HumanName fhirData={patientName} primary={index === 0} />
-                    </span>
-                    &nbsp;&nbsp;
-                  </React.Fragment>
-                );
-              }
-            })}
-            <div>
-              {patientBirthDate && (
-                <span className="text-muted">
-                  <strong>
-                    <span data-testid="patientGender">
-                      {patientGender || 'unknown'}
-                    </span>
-                    {', '}
-                    <span data-testid="patientBirthDate">
-                      {patientBirthDate}
-                    </span>
-                  </strong>
-                  <small> (DOB)</small>
-                </span>
-              )}
-            </div>
-            <div>
-              {patientContact && <PatientContact fhirData={patientContact} />}
-            </div>
-          </div>
+      <div className="d-flex">
+        <div>
+          <img
+            style={{
+              border: '4px solid #fff',
+              borderRadius: '50%',
+              marginRight: '10px',
+            }}
+            src={avatarSrc}
+            alt=""
+          />
         </div>
-        <div style={{ paddingTop: '.5rem' }}>
-          <small className="text-muted">
-            <strong>ADDRESS</strong>
-          </small>
-          <div data-testid="patientAddress">
-            <Address fhirData={patientAddress} />
-          </div>
-        </div>
-        <div style={{ paddingTop: '.5rem' }}>
-          <small className="text-muted">
-            <strong>TELEPHONE</strong>
-          </small>
-          <div data-testid="patientPhones">
-            {patientPhones.map((telecom, index) => (
-              <div key={index}>
-                <Telecom fhirData={telecom} />
-              </div>
-            ))}
-            {patientPhones.length === 0 && (
-              <span className="text-muted">missing</span>
+        <div>
+          {patientNames.map((patientName, index) => {
+            if (props.thorough === false && index !== 0) {
+              return '';
+            } else {
+              return (
+                <React.Fragment key={index}>
+                  <span data-testid="patientName">
+                    <HumanName fhirData={patientName} primary={index === 0} />
+                  </span>
+                  &nbsp;&nbsp;
+                </React.Fragment>
+              );
+            }
+          })}
+          <div>
+            {patientBirthDate && (
+              <span className="text-muted">
+                <strong>
+                  <span data-testid="patientGender">
+                    {patientGender || 'unknown'}
+                  </span>
+                  {', '}
+                  <span data-testid="patientBirthDate">{patientBirthDate}</span>
+                </strong>
+                <small> (DOB)</small>
+              </span>
             )}
           </div>
+          <div>
+            {patientContact && <PatientContact fhirData={patientContact} />}
+          </div>
         </div>
-      </ResourceContainer>
+      </div>
+      <div style={{ paddingTop: '.5rem' }}>
+        <small className="text-muted">
+          <strong>ADDRESS</strong>
+        </small>
+        <div data-testid="patientAddress">
+          <Address fhirData={patientAddress} />
+        </div>
+      </div>
+      <div style={{ paddingTop: '.5rem' }}>
+        <small className="text-muted">
+          <strong>TELEPHONE</strong>
+        </small>
+        <div data-testid="patientPhones">
+          {patientPhones.map((telecom, index) => (
+            <div key={index}>
+              <Telecom fhirData={telecom} />
+            </div>
+          ))}
+          {patientPhones.length === 0 && (
+            <span className="text-muted">missing</span>
+          )}
+        </div>
+      </div>
     </div>
   );
 }

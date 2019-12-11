@@ -87,7 +87,11 @@ class FhirResource extends React.Component {
           </ResourceContainer>
         );
       case 'Patient':
-        return <Patient {...this.props} />;
+        return (
+          <ResourceContainer {...this.props}>
+            <Patient {...this.props} />
+          </ResourceContainer>
+        );
       case 'Practitioner':
         return <Practitioner {...this.props} />;
       case 'Procedure':

@@ -1,28 +1,28 @@
-import React from 'react';
-import _get from 'lodash/get';
-import _flatten from 'lodash/flatten';
+import React from 'react'
 
-function HumanName(props) {
-  const { fhirData, primary } = props;
-  const givenName = _get(fhirData, 'given', []).join(', ');
-  const familyName = _flatten(Array(_get(fhirData, 'family', ''))).join(', ');
-  const suffix = _get(fhirData, 'suffix', []).join(' ');
-  const use = _get(fhirData, 'use');
-  const header = `${givenName} ${familyName} ${suffix}`;
+class HumanName extends React.Component {
+	constructor(props) {
+    super(props);
+  }
 
-  const headerElement = primary ? (
-    <h4 style={{ display: 'inline-block' }}>{header}</h4>
-  ) : (
-    <strong>{header}</strong>
-  );
-  const rootClassName = primary ? '' : 'text-muted';
+	render() {
+    if (!this.props.primary && this.props.primary !== 'undefined') {
+			return (
+				<span className='text-muted'>
+					<strong>{`${_.get(this.props.fhirData, 'given') || ''} ${_.get(this.props.fhirData, 'family') || ''} ${(_.get(this.props.fhirData, 'suffix') || []).join(' ')}`}</strong>
+					&nbsp;<small>({_.get(this.props.fhirData, 'use')})</small>
+				</span>
+			);
+		} else {
+			return (
+				<span>
+					<h4 style={{display: 'inline-block'}}>{`${_.get(this.props.fhirData, 'given') || ''} ${_.get(this.props.fhirData, 'family') || ''} ${(_.get(this.props.fhirData, 'suffix') || []).join(' ')}`}</h4>
+					&nbsp; {_.get(this.props.fhirData, 'use') ? (<small>({_.get(this.props.fhirData, 'use')})</small>) : ''}
+				</span>
+			)
 
-  return (
-    <span className={rootClassName}>
-      {headerElement}
-      {use && <small>&nbsp;({use})</small>}
-    </span>
-  );
+		}
+	}
 }
 
-export default HumanName;
+export default HumanName

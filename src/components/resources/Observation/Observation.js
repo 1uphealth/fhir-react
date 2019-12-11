@@ -43,13 +43,11 @@ const Observation = props => {
         </span>
         )
       </div>
-      <div className="container">
-        <div className="row">
-          <ObservationGraph
-            valueQuantity={fhirResource.valueQuantity}
-            referenceRange={fhirResource.referenceRange}
-          />
-        </div>
+      <div className="row">
+        <ObservationGraph
+          valueQuantity={fhirResource.valueQuantity}
+          referenceRange={fhirResource.referenceRange}
+        />
         {issued && (
           <div className="row" style={{ display: 'unset !important' }}>
             <small className="text-muted text-uppercase">

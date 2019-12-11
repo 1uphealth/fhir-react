@@ -1,63 +1,74 @@
 import React from 'react';
+const _ = require('lodash');
 import ResourceContainer from '../container/ResourceContainer';
 import Reference from '../datatypes/Reference';
 import Coding from '../datatypes/Coding';
-var _ = require('lodash');
 
 class AllergyIntolerance extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
   render() {
     return (
       <div>
         <ResourceContainer {...this.props}>
-          <div style={{ width: '100%', display: 'inline-block' }}>
-            <h4 style={{ display: 'inline-block' }}>
+          <div style={{ width: '100%' }}>
+            <h4 style={{ overflowWrap: 'break-word' }}>
               {_.get(this.props.fhirResource, 'substance.coding[0].display') ||
                 _.get(this.props.fhirResource, 'substance.text') ||
                 ''}
             </h4>
-            &nbsp;({_.get(this.props.fhirResource, 'status') || ''}
+            &nbsp;
+            {typeof _.get(this.props.fhirResource, 'recordedDate') ===
+            'undefined'
+              ? ''
+              : `(${_.get(this.props.fhirResource, 'status')}`}
             <span className="text-muted">
               {typeof _.get(this.props.fhirResource, 'recordedDate') ===
               'undefined'
                 ? ''
                 : `, recorded on ${_.get(
                     this.props.fhirResource,
-                    'recordedDate',
-                  )}`}
+                    'recordedDate'
+                  )})`}
             </span>
-            )
           </div>
-          <div className="container pl-0 pr-0">
-            <div className="row pl-0 pr-0">
-              <div className="col-12">
+          <div>
+            <div className="">
+              <div className="">
                 <Coding
                   fhirData={_.get(
                     this.props.fhirResource,
-                    'substance.coding[0]',
+                    'substance.coding[0]'
                   )}
                 />
               </div>
             </div>
-            <div className="row pl-0 pr-0">
-              <div className="col-12">
-                <small className="text-muted text-uppercase">
-                  <strong>Manifestation</strong>
-                </small>
-              </div>
-              <br />
-              <div className="col-12">
+            <div className="">
+              {typeof _.get(this.props.fhirResource, 'reaction') ===
+              'undefined' ? (
+                ''
+              ) : (
+                <div className="">
+                  <small className="text-muted text-uppercase">
+                    <strong>Manifestation</strong>
+                  </small>
+                </div>
+              )}
+              <div className="">
                 {typeof _.get(this.props.fhirResource, 'reaction') ===
                 'undefined'
                   ? ''
                   : _.get(this.props.fhirResource, 'reaction').map(function(
-                      reaction,
+                      reaction
                     ) {
                       return (_.get(reaction, 'manifestation') || []).map(
                         function(manifestation) {
                           return (_.get(manifestation, 'coding') || []).map(
-                            function(coding) {
+                            function(coding, index) {
                               return (
-                                <div>
+                                <div key={index}>
                                   <Coding fhirData={coding} />
                                   {typeof _.get(reaction, 'severity') ===
                                   'undefined' ? (
@@ -69,15 +80,15 @@ class AllergyIntolerance extends React.Component {
                                   )}
                                 </div>
                               );
-                            },
+                            }
                           );
-                        },
+                        }
                       );
                     })}
               </div>
             </div>
-            <div className="row">
-              <div className="col-12-sm">
+            <div className="">
+              <div className="">
                 {_.get(this.props.fhirResource, 'asserter') ? (
                   <div>
                     <small className="text-muted text-uppercase">

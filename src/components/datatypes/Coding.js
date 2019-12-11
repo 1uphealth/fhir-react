@@ -1,7 +1,10 @@
 import React from 'react';
-import _ from 'lodash';
 
 class Coding extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
   render() {
     return (
       <div>
@@ -11,7 +14,10 @@ class Coding extends React.Component {
             ({_.get(this.props.fhirData, 'code') || ''})
           </span>
           &nbsp;
-          <small>{_.get(this.props.fhirData, 'system') || ''}</small>
+          {this.props.verticalView ? <br /> : ''}
+          <small style={{ display: 'inline-block' }}>
+            {_.get(this.props.fhirData, 'system') || ''}
+          </small>
         </div>
       </div>
     );

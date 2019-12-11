@@ -1,5 +1,5 @@
 import React from 'react';
-import { withKnobs, object } from '@storybook/addon-knobs';
+import { object } from '@storybook/addon-knobs';
 
 import Observation from './Observation';
 
@@ -9,7 +9,7 @@ import exampleObservationIssued from '../../../fixtures/dstu2/resources/observat
 import exampleObservationSTU3 from '../../../fixtures/stu3/resources/observation/example-weight.json';
 import exampleObservationExcessSTU3 from '../../../fixtures/stu3/resources/observation/example-f002-excess.json';
 
-export default { title: 'Observation', decorators: [withKnobs] };
+export default { title: 'Observation' };
 
 export const DefaultVisualizationDSTU2 = () => {
   const data = object('Resource', exampleObservationIssued);

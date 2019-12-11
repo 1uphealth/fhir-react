@@ -12,20 +12,21 @@ import exampleObservationExcessSTU3 from '../../../fixtures/stu3/resources/obser
 export default { title: 'Observation' };
 
 export const DefaultVisualizationDSTU2 = () => {
-  const data = object('Resource', exampleObservationIssued);
-  const fhirResource = JSON.parse(JSON.stringify(data)); // hack
-
+  const fhirResource = object('Resource', exampleObservationIssued);
   return <Observation fhirResource={fhirResource} />;
 };
 
 export const ExampleWithoutIssuedDSTU2 = () => {
-  return <Observation fhirResource={exampleObservation} />;
+  const fhirResource = object('Resource', exampleObservation);
+  return <Observation fhirResource={fhirResource} />;
 };
 
 export const ExampleWithIssuedSTU3 = () => {
-  return <Observation fhirResource={exampleObservationExcessSTU3} />;
+  const fhirResource = object('Resource', exampleObservationExcessSTU3);
+  return <Observation fhirResource={fhirResource} />;
 };
 
 export const ExampleWithoutIssuedSTU3 = () => {
-  return <Observation fhirResource={exampleObservationSTU3} />;
+  const fhirResource = object('Resource', exampleObservationSTU3);
+  return <Observation fhirResource={fhirResource} />;
 };

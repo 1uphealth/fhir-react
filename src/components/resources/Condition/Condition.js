@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import Reference from '../../datatypes/Reference';
 import _get from 'lodash/get';
 
@@ -62,5 +64,9 @@ function Condition(props) {
     </div>
   );
 }
+
+Condition.propTypes = {
+  fhirResource: PropTypes.shape({}).isRequired,
+};
 
 export default Condition;

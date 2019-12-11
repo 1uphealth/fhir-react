@@ -1,5 +1,5 @@
 import React from 'react';
-import { withKnobs, object } from '@storybook/addon-knobs';
+import { object } from '@storybook/addon-knobs';
 
 import Patient from './Patient';
 
@@ -7,7 +7,7 @@ import examplePatient from '../../../fixtures/dstu2/resources/patient/example.js
 
 import examplePatientSTU3 from '../../../fixtures/stu3/resources/patient/example.json';
 
-export default { title: 'Patient', decorators: [withKnobs] };
+export default { title: 'Patient' };
 
 export const DefaultVisualizationDSTU2 = () => {
   const fhirResource = object('Resource', examplePatient);

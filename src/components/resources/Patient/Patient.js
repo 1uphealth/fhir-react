@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import HumanName from '../../datatypes/HumanName';
 import Telecom from '../../datatypes/Telecom';
 import Address from '../../datatypes/Address';
@@ -111,5 +113,9 @@ function Patient(props) {
     </div>
   );
 }
+
+PatientContact.propTypes = {
+  fhirResource: PropTypes.shape({}).isRequired,
+};
 
 export default Patient;

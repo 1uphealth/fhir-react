@@ -13,33 +13,26 @@ export default {
 };
 
 export const DefaultVisualizationDSTU2 = () => {
-  const data = object('Resource', example1);
-  const fhirResource = JSON.parse(JSON.stringify(data)); // hack
-
+  const fhirResource = object('Resource', example1);
   return <Encounter fhirVersion="dstu2" fhirResource={fhirResource} />;
 };
+
 export const ExampleWithoutParticipantsDSTU2 = () => {
-  const data = object('Resource', example2);
-  const fhirResource = JSON.parse(JSON.stringify(data)); // hack
-
+  const fhirResource = object('Resource', example2);
   return <Encounter fhirVersion="dstu2" fhirResource={fhirResource} />;
 };
-export const ExampleSTU3 = () => {
-  const data = object('Resource', example_STU3);
-  const fhirResource = JSON.parse(JSON.stringify(data)); // hack
 
+export const ExampleSTU3 = () => {
+  const fhirResource = object('Resource', example_STU3);
   return <Encounter fhirVersion="stu3" fhirResource={fhirResource} />;
 };
-export const ExampleWithoutParticipantSTU3 = () => {
-  const data = object('Resource', example2_STU3);
-  const fhirResource = JSON.parse(JSON.stringify(data)); // hack
 
+export const ExampleWithoutParticipantSTU3 = () => {
+  const fhirResource = object('Resource', example2_STU3);
   return <Encounter fhirVersion="stu3" fhirResource={fhirResource} />;
 };
 
 export const ExampleWithoutFHIRVersionProperty = () => {
-  const data = object('Resource', example2_STU3);
-  const fhirResource = JSON.parse(JSON.stringify(data)); // hack
-
+  const fhirResource = object('Resource', example2_STU3);
   return <Encounter fhirResource={fhirResource} />;
 };

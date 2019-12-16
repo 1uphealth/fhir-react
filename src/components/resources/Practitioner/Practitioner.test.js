@@ -16,7 +16,7 @@ describe('Practitioner should render component correctly', () => {
     expect(String(getByTestId('name').textContent).trim()).toEqual(
       'Physician Family Medicine  (usual)',
     );
-    expect(getByTestId('gender').textContent).toEqual('male, active (status)');
+    expect(getByTestId('gender').textContent).toEqual('male');
   });
 
   it('should render component correctly with STU3 source data', () => {
@@ -29,7 +29,9 @@ describe('Practitioner should render component correctly', () => {
     expect(String(getByTestId('name').textContent).trim()).toEqual(
       'Sameer Sharma M.D. (official)',
     );
-    expect(getByTestId('gender').textContent).toEqual('male, active (status)');
+    expect(getByTestId('gender').textContent).toEqual('male');
+    expect(getByTestId('address').textContent).toContain('Address');
+    expect(getByTestId('telecom').textContent).toContain('Telephone');
   });
 
   it('component without fhirVersion props', () => {

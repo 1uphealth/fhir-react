@@ -8,12 +8,13 @@ import HumanName from '../../datatypes/HumanName';
 import PatientContact from './PatientContact';
 import fhirTypes from '../fhirResourceTypes';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
+import Address from '../../datatypes/Address';
+import Telecom from '../../datatypes/Telecom';
 
 const commonDTO = fhirResource => {
   const id = _get(fhirResource, 'id', '');
   const gender = _get(fhirResource, 'gender', '');
-  const status =
-    _get(fhirResource, 'active') === true ? ', active (status)' : '';
+  const status = _get(fhirResource, 'active') === true ? 'active' : '';
   const isContactData = _has(fhirResource, 'contact[0]');
   const contactData = {
     name: _get(fhirResource, 'contact[0].name'),
@@ -35,8 +36,12 @@ const dstu2DTO = fhirResource => {
 };
 const stu3DTO = fhirResource => {
   const name = _get(fhirResource, 'name.0');
+  const address = _get(fhirResource, 'address.0');
+  const telecom = _get(fhirResource, 'telecom');
   return {
     name,
+    address,
+    telecom,
   };
 };
 
@@ -76,6 +81,8 @@ const Patient = props => {
     status,
     isContactData,
     contactData,
+    telecom,
+    address,
   } = fhirResourceData;
   return (
     <div>
@@ -96,15 +103,18 @@ const Patient = props => {
             <HumanName fhirData={name} primary={true} />
             &nbsp;&nbsp;
           </span>
-          <div>
-            <span className="text-muted">
-              gender{' '}
-              <strong data-testid="gender">
-                {gender}
-                {status}
-              </strong>
-            </span>
-          </div>
+          {gender && (
+            <div>
+              <label className="sb-heading">Gender</label>
+              <div data-testid="gender">{gender}</div>
+            </div>
+          )}
+          {status && (
+            <div>
+              <label className="sb-heading">Status</label>
+              <div data-testid="status">{status}</div>
+            </div>
+          )}
           <div>
             {isContactData && (
               <PatientContact
@@ -113,6 +123,22 @@ const Patient = props => {
               />
             )}
           </div>
+          {address && (
+            <div>
+              <label className="sb-heading" data-testid="address">
+                Address
+              </label>
+              <Address fhirData={address} />
+            </div>
+          )}
+          {telecom && (
+            <div>
+              <label className="sb-heading" data-testid="telecom">
+                Telephone
+              </label>
+              <Telecom fhirData={telecom} />
+            </div>
+          )}
         </div>
       </div>
     </div>
@@ -121,7 +147,7 @@ const Patient = props => {
 
 Patient.propTypes = {
   fhirResource: PropTypes.shape({}).isRequired,
-  fhirVersion: PropTypes.string.isRequired,
+  fhirVersion: PropTypes.oneOf([('dstu2', 'stu3')]).isRequired,
 };
 
 export default Patient;

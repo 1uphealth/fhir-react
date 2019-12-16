@@ -1,16 +1,20 @@
 import React from 'react';
-import _ from 'lodash';
+import _get from 'lodash/get';
 
-class Reference extends React.Component {
-  render() {
-    return (
-      <span>
-        <strong>{_.get(this.props.fhirData, 'display') || ''}</strong>
-        {_.get(this.props.fhirData, 'display') ? ' ' : ''}
-        {_.get(this.props.fhirData, 'reference') || '' || ''}
-      </span>
-    );
-  }
-}
+const Reference = props => {
+  const { fhirData } = props;
+  const display = _get(fhirData, 'display');
+  const reference = _get(fhirData, 'reference', '');
+  return (
+    <span>
+      {display && (
+        <>
+          <strong>{display}</strong>{' '}
+        </>
+      )}
+      {reference}
+    </span>
+  );
+};
 
 export default Reference;

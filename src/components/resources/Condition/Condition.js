@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 import Reference from '../../datatypes/Reference';
 import _get from 'lodash/get';
+import _has from 'lodash/has';
+import CodeableConcept from '../../datatypes/CodeableConcept';
 
 function Condition(props) {
   const { fhirResource } = props;
@@ -16,7 +18,10 @@ function Condition(props) {
   const clinicalStatus = _get(fhirResource, 'clinicalStatus');
   const onsetDateTime = _get(fhirResource, 'onsetDateTime');
   const dateRecorded = _get(fhirResource, 'dateRecorded');
+  const hasAsserter = _has(fhirResource, 'asserter');
   const asserter = _get(fhirResource, 'asserter');
+  const hasBodySite = _get(fhirResource, 'bodySite.0.coding.0.display');
+  const bodySite = _get(fhirResource, 'bodySite');
 
   return (
     <div>
@@ -33,9 +38,9 @@ function Condition(props) {
         <div className="col-md-12">
           {onsetDateTime && (
             <div data-testid="onsetDate">
-              <small className="text-muted text-uppercase">
+              <label className="text-muted text-uppercase">
                 <strong>Onset Date: </strong>
-              </small>
+              </label>
               {onsetDateTime}
             </div>
           )}
@@ -43,23 +48,33 @@ function Condition(props) {
         <div className="col-md-12">
           {dateRecorded && (
             <div data-testid="dateRecorded">
-              <small className="text-muted text-uppercase">
+              <label className="text-muted text-uppercase">
                 <strong>Date recorded: </strong>
-              </small>
+              </label>
               {dateRecorded}
             </div>
           )}
         </div>
-        <div className="col-md-12">
-          {asserter && (
+        {hasAsserter && (
+          <div className="col-md-12">
             <div data-testid="asserter">
-              <small className="text-muted text-uppercase">
+              <label className="text-muted text-uppercase">
                 <strong>Asserted by: </strong>
-              </small>
-              {<Reference fhirData={asserter} />}
+              </label>
+              <Reference fhirData={asserter} />
             </div>
-          )}
-        </div>
+          </div>
+        )}
+        {hasBodySite && (
+          <div className="col-md-12">
+            <div data-testid="bodySite">
+              <label className="text-muted text-uppercase">
+                <strong>Anatomical locations:</strong>
+              </label>
+              <CodeableConcept fhirData={bodySite} />
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

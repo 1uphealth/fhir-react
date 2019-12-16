@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import HumanName from '../../datatypes/HumanName';
 import Telecom from '../../datatypes/Telecom';
 import Address from '../../datatypes/Address';
-import ResourceContainer from '../../container/ResourceContainer';
 import crypto from 'crypto';
 import _get from 'lodash/get';
 

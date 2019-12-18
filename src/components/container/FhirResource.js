@@ -107,7 +107,11 @@ class FhirResource extends React.Component {
           </ResourceContainer>
         );
       case 'Procedure':
-        return <Procedure {...this.props} />;
+        return (
+          <ResourceContainer {...this.props}>
+            <Procedure {...this.props} />
+          </ResourceContainer>
+        );
       default:
         return <Generic {...this.props} />;
     }

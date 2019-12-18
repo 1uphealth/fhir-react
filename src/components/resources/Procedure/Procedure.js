@@ -45,7 +45,7 @@ const Procedure = props => {
       )}
       {hasPerformerData && (
         <div>
-          <label class="sb-heading">Performed the procedure</label>
+          <label className="sb-heading">Performed the procedure</label>
           {performer.map((item, i) => (
             <div key={`item-${i}`}>{_get(item, 'actor.display', '---')}</div>
           ))}
@@ -53,13 +53,13 @@ const Procedure = props => {
       )}
       {hasReasonCode && (
         <div data-testid="hasReasonCode">
-          <label class="sb-heading">Reason procedure performed</label>
+          <label className="sb-heading">Reason procedure performed</label>
           <Annotation fhirData={reasonCode} />
         </div>
       )}
       {hasNote && (
         <div data-testid="hasNote">
-          <label class="sb-heading">
+          <label className="sb-heading">
             Additional information about the procedure
           </label>
           <Annotation fhirData={note} />

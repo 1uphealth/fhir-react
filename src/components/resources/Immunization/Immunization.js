@@ -5,6 +5,7 @@ import Reference from '../../datatypes/Reference';
 import Coding from '../../datatypes/Coding';
 import _get from 'lodash/get';
 import _has from 'lodash/has';
+import Date from '../../datatypes/Date';
 
 const Immunization = props => {
   const { fhirResource } = props;
@@ -12,8 +13,8 @@ const Immunization = props => {
   const title =
     _get(fhirResource, 'vaccineCode.text') ||
     _get(fhirResource, 'vaccineCode.coding[0].display', '');
-  const status = _get(fhirResource, 'status');
-  const providedDate = _get(fhirResource, 'date');
+  const status = _get(fhirResource, 'status', null);
+  const providedDate = _get(fhirResource, 'date', null);
   const reported = _get(fhirResource, 'reported') && ' - self reported';
   const manufacturerText = _get(fhirResource, 'manufacturer.display');
   const hasLotNumber = _has(fhirResource, 'lotNumber');
@@ -35,7 +36,7 @@ const Immunization = props => {
         </h4>
         (
         <span className="text-muted" data-testid="providedDate">
-          status {status} provided on {providedDate}
+          status {status} provided on <Date fhirData={providedDate} />
         </span>
         <span>{reported}</span>)
       </div>

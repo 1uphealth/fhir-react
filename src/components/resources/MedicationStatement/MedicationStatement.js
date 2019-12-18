@@ -4,29 +4,35 @@ import PropTypes from 'prop-types';
 import _get from 'lodash/get';
 import _has from 'lodash/has';
 import Date from '../../datatypes/Date';
+import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
+import fhirTypes from '../fhirResourceTypes';
+import Annotation from '../../datatypes/Annotation';
 
 const MedicationDetails = props => {
-  const { medication, expiration } = props;
+  const { medication, expiration, ingredient } = props;
   return (
     <div>
       <h5>{medication} </h5>
-      <h6>
-        <b>Expiration date:</b>
-        {expiration}
-      </h6>
+      <label className="sb-heading">Expiration date:</label> {expiration}
+      {ingredient && (
+        <div>
+          <label className="sb-heading">Ingredient:</label>
+          <ul>
+            {ingredient.map((item, i) => (
+              <li key={`item-${i}`}>
+                {_get(item, 'itemCodeableConcept.coding.0.display', '')}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 };
 
-const MedicationStatement = props => {
-  const { fhirResource } = props;
-  const title = _get(
-    fhirResource,
-    'medicationCodeableConcept.text',
-    _get(fhirResource, 'medicationCodeableConcept.coding[0].display'),
-  );
+const commonDTO = fhirResource => {
   const status = _get(fhirResource, 'status', '');
-  const hasStatus = _has(fhirResource, 'status');
+  const hasEffectivePeriod = _has(fhirResource, 'effectivePeriod');
   const statusDesc = {
     from: _get(fhirResource, 'effectivePeriod.start'),
     to: _get(fhirResource, 'effectivePeriod.end'),
@@ -35,29 +41,118 @@ const MedicationStatement = props => {
     _get(fhirResource, 'reported') === true ? ' - self reported' : '';
 
   const contained = _get(fhirResource, 'contained');
-  const hasMedication = Array.isArray(contained);
+  const hasMedications = Array.isArray(contained);
   const hasDosage = Array.isArray(_get(fhirResource, 'dosage'));
   const reasonCode = _get(fhirResource, 'reasonCode');
   const hasReasonCode = Array.isArray(reasonCode);
+  return {
+    status,
+    hasEffectivePeriod,
+    statusDesc,
+    reported,
+    hasMedications,
+    hasDosage,
+    reasonCode,
+    hasReasonCode,
+    contained,
+  };
+};
+
+const dstu2DTO = fhirResource => {
+  const title = _get(
+    fhirResource,
+    'medicationCodeableConcept.text',
+    _get(fhirResource, 'medicationCodeableConcept.coding[0].display'),
+  );
+  return {
+    title,
+  };
+};
+const stu3DTO = fhirResource => {
+  const title = _get(
+    fhirResource,
+    'medicationCodeableConcept.text',
+    _get(fhirResource, 'medicationCodeableConcept.coding[0].display'),
+  );
+  const reasonCode = _get(fhirResource, 'reasonCode');
+  const hasReasonCode = Array.isArray(reasonCode);
+  const note = _get(fhirResource, 'note');
+  const hasNote = _has(fhirResource, 'note.0.text');
+  return {
+    title,
+    reasonCode,
+    hasReasonCode,
+    hasNote,
+    note,
+  };
+};
+
+const resourceDTO = (fhirVersion, fhirResource) => {
+  switch (fhirVersion) {
+    case fhirTypes.DSTU2: {
+      return {
+        ...commonDTO(fhirResource),
+        ...dstu2DTO(fhirResource),
+      };
+    }
+    case fhirTypes.STU3: {
+      return {
+        ...commonDTO(fhirResource),
+        ...stu3DTO(fhirResource),
+      };
+    }
+
+    default:
+      throw Error('Unrecognized the fhir version property type.');
+  }
+};
+
+const MedicationStatement = props => {
+  const { fhirResource, fhirVersion } = props;
+  let fhirResourceData = {};
+  try {
+    fhirResourceData = resourceDTO(fhirVersion, fhirResource);
+  } catch (error) {
+    console.warn(error.message);
+    return <UnhandledResourceDataStructure resourceName="Encounter" />;
+  }
+  const {
+    status,
+    hasEffectivePeriod,
+    statusDesc,
+    reported,
+    hasMedications,
+    hasDosage,
+    hasReasonCode,
+    title,
+    contained,
+    reasonCode,
+    hasNote,
+    note,
+  } = fhirResourceData;
+
   return (
     <div className="col-xs-8">
       <div style={{ width: '100%', display: 'inline-block' }}>
         <h4 style={{ display: 'inline-block' }} data-testid="title">
           {title}
         </h4>
-        &nbsp;({status}
-        <span className="text-muted" data-testid="status">
-          {hasStatus && (
+        <div data-testid="hasStatus">
+          <label className="sb-heading">Status</label>
+          {status}
+        </div>
+        <span className="text-muted" data-testid="hasEffectivePeriod">
+          {hasEffectivePeriod && (
             <>
-              , status {status} from <Date fhirData={statusDesc.from} /> to{' '}
-              <Date fhirData={statusDesc.to} />
+              (from <Date fhirData={statusDesc.from} /> to{' '}
+              <Date fhirData={statusDesc.to} />)
             </>
           )}
         </span>
-        <span>{reported}</span>)
+        <span>{reported}</span>
       </div>
-      {hasMedication && (
-        <div className="row">
+      {hasMedications && (
+        <div>
           {contained.map((medication, i) => {
             const hasMedicationDetails = _has(
               medication,
@@ -72,6 +167,7 @@ const MedicationStatement = props => {
                     medication,
                     'package.batch[0].expirationDate',
                   )}
+                  ingredient={_get(medication, 'ingredient', [])}
                 />
               );
             }
@@ -80,22 +176,22 @@ const MedicationStatement = props => {
         </div>
       )}
       {hasReasonCode && (
-        <div>
-          {reasonCode.map((reasonCode, i) => {
-            const display = _get(reasonCode, '.coding[0].display');
-            if (display) {
-              return (
-                <p key={`reasonCode-${i}`}>
-                  <b>Reason:</b> {display}
-                </p>
-              );
-            }
-            return null;
-          })}
+        <div data-testid="hasReasonCode">
+          <label className="sb-heading">Reason</label>
+          <ul>
+            {reasonCode.map((item, i) => {
+              const display = _get(item, 'coding.0.display');
+              if (display) {
+                return <li key={`item-${i}`}>{display}</li>;
+              }
+              return null;
+            })}
+          </ul>
         </div>
       )}
       {hasDosage && (
         <div data-testid="dosage">
+          <label className="sb-heading">Dosage</label>
           {fhirResource.dosage.map((dosage, i) => {
             const text = _get(dosage, 'text');
             const additionalInstructionText = _get(
@@ -122,6 +218,12 @@ const MedicationStatement = props => {
               </blockquote>
             );
           })}
+        </div>
+      )}
+      {hasNote && (
+        <div data-testid="hasNote">
+          <label className="sb-heading">Notes</label>
+          <Annotation fhirData={note} />
         </div>
       )}
     </div>

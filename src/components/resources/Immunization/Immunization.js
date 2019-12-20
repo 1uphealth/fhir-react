@@ -43,7 +43,7 @@ const Immunization = props => {
       {manufacturerText && <div className="row">{manufacturerText}</div>}
       {hasLotNumber && (
         <>
-          <label class="sb-heading">Lot number</label>
+          <label className="sb-heading">Lot number</label>
           <div>
             <span data-testid="lotNumber">{lotNumber}</span>
             {lotNumberExpirationDate && (
@@ -57,7 +57,7 @@ const Immunization = props => {
       )}
       {hasDoseQuantity && (
         <div data-testid="doseQuantity">
-          <label class="sb-heading">Dosage</label>
+          <label className="sb-heading">Dosage</label>
           <div>
             {_get(doseQuantity, 'value')} &nbsp;
             {_get(doseQuantity, 'unit') || _get(doseQuantity, 'code')}
@@ -66,7 +66,7 @@ const Immunization = props => {
       )}
       {requester && (
         <div data-testid="requester">
-          <label class="sb-heading">Requester</label>
+          <label className="sb-heading">Requester</label>
           <div className="col-12 pl-0 pr-0">
             <Reference fhirData={requester} />
           </div>
@@ -74,7 +74,7 @@ const Immunization = props => {
       )}
       {performer && (
         <div data-testid="performer">
-          <label class="sb-heading">Performer</label>
+          <label className="sb-heading">Performer</label>
           <div className="col-12 pl-0 pr-0">
             <Reference fhirData={performer} />
           </div>
@@ -82,7 +82,7 @@ const Immunization = props => {
       )}
       {hasRoute && (
         <div data-testid="route">
-          <label class="sb-heading">Route</label>
+          <label className="sb-heading">Route</label>
           {route.map((coding, i) => {
             return (
               <div key={`item-${i}`}>
@@ -94,7 +94,7 @@ const Immunization = props => {
       )}
       {hasSite && (
         <div data-testid="site">
-          <label class="sb-heading">Site</label>
+          <label className="sb-heading">Site</label>
           {site.map((coding, i) => {
             return (
               <div key={`item-${i}`}>

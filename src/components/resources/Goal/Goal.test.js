@@ -37,9 +37,7 @@ describe('should render Gola component properly', () => {
       fhirVersion: 'stu3',
     };
 
-    const { container, getByTestId, findByTestId, getAllByTestId } = render(
-      <Goal {...defaultProps} />,
-    );
+    const { container, getByTestId } = render(<Goal {...defaultProps} />);
     expect(container).not.toBeNull();
 
     expect(getByTestId('title').textContent).toContain('wants to defer weight');

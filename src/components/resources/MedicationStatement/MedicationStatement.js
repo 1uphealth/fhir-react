@@ -114,7 +114,9 @@ const MedicationStatement = props => {
     fhirResourceData = resourceDTO(fhirVersion, fhirResource);
   } catch (error) {
     console.warn(error.message);
-    return <UnhandledResourceDataStructure resourceName="Encounter" />;
+    return (
+      <UnhandledResourceDataStructure resourceName="MedicationStatement" />
+    );
   }
   const {
     status,

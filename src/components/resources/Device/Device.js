@@ -70,7 +70,7 @@ const Device = props => {
     fhirResourceData = resourceDTO(fhirVersion, fhirResource);
   } catch (error) {
     console.warn(error.message);
-    return <UnhandledResourceDataStructure resourceName="Encounter" />;
+    return <UnhandledResourceDataStructure resourceName="Device" />;
   }
 
   const {

@@ -5,10 +5,24 @@ import _get from 'lodash/get';
 
 import Reference from '../../datatypes/Reference';
 import Coding from '../../datatypes/Coding';
+import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
+import fhirTypes from '../fhirResourceTypes';
+import Date from '../../datatypes/Date';
+import Annotation from '../../datatypes/Annotation';
 
-const AllergyIntolerance = props => {
-  const { fhirResource } = props;
+const commonDTO = fhirResource => {
+  const hasReaction = _get(fhirResource, 'reaction.0.manifestation');
+  const reaction = _get(fhirResource, 'reaction', []);
+  const asserter = _get(fhirResource, 'asserter');
 
+  return {
+    hasReaction,
+    reaction,
+    asserter,
+  };
+};
+
+const dstu2DTO = fhirResource => {
   const title =
     _get(fhirResource, 'substance.coding[0].display') ||
     _get(fhirResource, 'substance.text', '');
@@ -16,9 +30,75 @@ const AllergyIntolerance = props => {
   const recordedDate = _get(fhirResource, 'recordedDate');
   const substanceCoding = _get(fhirResource, 'substance.coding');
   const hasSubstanceCoding = Array.isArray(substanceCoding);
-  const hasReaction = _get(fhirResource, 'reaction.0.manifestation');
-  const reaction = _get(fhirResource, 'reaction', []);
-  const asserter = _get(fhirResource, 'asserter');
+
+  return { title, status, recordedDate, substanceCoding, hasSubstanceCoding };
+};
+const stu3DTO = fhirResource => {
+  const title = _get(fhirResource, 'code.coding.0.display');
+  const status = _get(fhirResource, 'verificationStatus');
+  const recordedDate = _get(fhirResource, 'assertedDate');
+  let substanceCoding = _get(fhirResource, 'reaction', []).filter(item =>
+    _get(item, 'substance.coding'),
+  );
+  substanceCoding = _get(substanceCoding, '0.substance.coding');
+  const hasSubstanceCoding =
+    Array.isArray(substanceCoding) && substanceCoding.length > 0;
+  const note = _get(fhirResource, 'note');
+  const hasNote = Array.isArray(note);
+  return {
+    title,
+    status,
+    recordedDate,
+    substanceCoding,
+    hasSubstanceCoding,
+    note,
+    hasNote,
+  };
+};
+
+const resourceDTO = (fhirVersion, fhirResource) => {
+  switch (fhirVersion) {
+    case fhirTypes.DSTU2: {
+      return {
+        ...commonDTO(fhirResource),
+        ...dstu2DTO(fhirResource),
+      };
+    }
+    case fhirTypes.STU3: {
+      return {
+        ...commonDTO(fhirResource),
+        ...stu3DTO(fhirResource),
+      };
+    }
+
+    default:
+      throw Error('Unrecognized the fhir version property type.');
+  }
+};
+
+const AllergyIntolerance = props => {
+  const { fhirResource, fhirVersion } = props;
+  let fhirResourceData = {};
+  try {
+    fhirResourceData = resourceDTO(fhirVersion, fhirResource);
+  } catch (error) {
+    console.warn(error.message);
+    return <UnhandledResourceDataStructure resourceName="AllergyIntolerance" />;
+  }
+
+  const {
+    title,
+    status,
+    recordedDate,
+    substanceCoding,
+    hasSubstanceCoding,
+    hasReaction,
+    reaction,
+    asserter,
+    hasNote,
+    note,
+  } = fhirResourceData;
+
   return (
     <div>
       <div style={{ width: '100%', display: 'inline-block' }}>
@@ -27,7 +107,11 @@ const AllergyIntolerance = props => {
         </h4>{' '}
         (<span data-testid="status">{status}</span>
         <span className="text-muted" data-testid="recordedDate">
-          {recordedDate && <>, recorded on {recordedDate}</>}
+          {recordedDate && (
+            <>
+              , recorded on <Date fhirData={recordedDate} />
+            </>
+          )}
         </span>
         )
       </div>
@@ -81,6 +165,12 @@ const AllergyIntolerance = props => {
             </div>
           </div>
         )}
+        {hasNote && (
+          <div data-testid="hasNote">
+            <label className="sb-heading">Notes</label>
+            <Annotation fhirData={note} />
+          </div>
+        )}
       </div>
     </div>
   );
@@ -88,6 +178,7 @@ const AllergyIntolerance = props => {
 
 AllergyIntolerance.propTypes = {
   fhirResource: PropTypes.shape({}).isRequired,
+  fhirVersion: PropTypes.oneOf(['dstu2', 'stu3']),
 };
 
 export default AllergyIntolerance;

@@ -74,7 +74,7 @@ const Coverage = props => {
     fhirResourceData = resourceDTO(fhirVersion, fhirResource);
   } catch (error) {
     console.warn(error.message);
-    return <UnhandledResourceDataStructure resourceName="Goal" />;
+    return <UnhandledResourceDataStructure resourceName="Coverage" />;
   }
 
   const {

@@ -17,3 +17,8 @@ export const ExampleOfSTU3 = () => {
   const fhirResource = object('Resource', exampleCoverageStu3);
   return <Coverage fhirVersion="stu3" fhirResource={fhirResource} />;
 };
+
+export const ExampleWithoutFhirVersionProperty = () => {
+  const fhirResource = object('Resource', exampleCoverageStu3);
+  return <Coverage fhirResource={fhirResource} />;
+};

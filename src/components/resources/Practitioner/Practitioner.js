@@ -147,7 +147,7 @@ const Patient = props => {
 
 Patient.propTypes = {
   fhirResource: PropTypes.shape({}).isRequired,
-  fhirVersion: PropTypes.oneOf([('dstu2', 'stu3')]).isRequired,
+  fhirVersion: PropTypes.oneOf(['dstu2', 'stu3']).isRequired,
 };
 
 export default Patient;

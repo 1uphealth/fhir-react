@@ -23,3 +23,8 @@ export const ExampleSTU3 = () => {
     <ExplanationOfBenefit fhirVersion="stu3" fhirResource={fhirResource} />
   );
 };
+
+export const ExampleWithoutFHIRVersionProperty = () => {
+  const fhirResource = object('Resource', example1Stu3);
+  return <ExplanationOfBenefit fhirResource={fhirResource} />;
+};

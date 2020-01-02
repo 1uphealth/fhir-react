@@ -17,6 +17,7 @@ import Patient from '../resources/Patient';
 import Practitioner from '../resources/Practitioner';
 import Procedure from '../resources/Procedure';
 import ResourceContainer from '../container/ResourceContainer';
+import ExplanationOfBenefit from '../resources/ExplanationOfBenefit';
 import Coverage from '../resources/Coverage';
 
 class ErrorBoundary extends React.Component {
@@ -131,6 +132,12 @@ class FhirResource extends React.Component {
         return (
           <ResourceContainer {...this.props}>
             <Procedure {...this.props} />
+          </ResourceContainer>
+        );
+      case 'ExplanationOfBenefit':
+        return (
+          <ResourceContainer {...this.props}>
+            <ExplanationOfBenefit {...this.props} />
           </ResourceContainer>
         );
       case 'Coverage':

@@ -59,7 +59,7 @@ const dstu2DTO = fhirResource => {
     });
   };
   const medicationReference = _get(fhirResource, 'medicationReference');
-  const dosageInstruction = _get(fhirResource, 'dosageInstruction');
+  const dosageInstruction = _get(fhirResource, 'dosageInstruction', []);
   const hasDosageInstruction =
     Array.isArray(dosageInstruction) && dosageInstruction.length > 0;
   const dosageInstructionData = prepareDosageInstructionData(dosageInstruction);
@@ -93,7 +93,7 @@ const stu3DTO = fhirResource => {
     });
   };
   const medicationReference = _get(fhirResource, 'contained.0.code.coding.0');
-  const dosageInstruction = _get(fhirResource, 'dosageInstruction');
+  const dosageInstruction = _get(fhirResource, 'dosageInstruction', []);
   const hasDosageInstruction =
     Array.isArray(dosageInstruction) && dosageInstruction.length > 0;
   const dosageInstructionData = prepareDosageInstructionData(dosageInstruction);

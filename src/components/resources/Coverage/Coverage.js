@@ -37,7 +37,7 @@ const stu3DTO = fhirResource => {
     classDescription: _get(fhirResource, 'grouping.classDisplay'),
   };
   const hasDetails = Object.values(details).filter(item => !!item).length > 0;
-  console.log('details', details);
+
   return {
     planId,
     issuer,

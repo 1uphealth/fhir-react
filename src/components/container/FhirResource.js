@@ -20,6 +20,7 @@ import ResourceContainer from '../container/ResourceContainer';
 import ExplanationOfBenefit from '../resources/ExplanationOfBenefit';
 import Coverage from '../resources/Coverage';
 import MedicationDispense from '../resources/MedicationDispense';
+import Organization from '../resources/Organization';
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -155,6 +156,12 @@ class FhirResource extends React.Component {
         return (
           <ResourceContainer {...this.props}>
             <MedicationDispense {...this.props} />
+          </ResourceContainer>
+        );
+      case 'Organization':
+        return (
+          <ResourceContainer {...this.props}>
+            <Organization {...this.props} />
           </ResourceContainer>
         );
       default:

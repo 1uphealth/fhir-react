@@ -15,7 +15,7 @@ const CodeableConcept = props => {
 };
 
 CodeableConcept.propTypes = {
-  fhirData: PropTypes.shape({}).isRequired,
+  fhirData: PropTypes.array.isRequired,
 };
 
 export default CodeableConcept;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, queryAllByTestId } from '@testing-library/react';
+import { render } from '@testing-library/react';
 
 import Organization from './Organization';
 

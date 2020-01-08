@@ -45,13 +45,29 @@ describe('should render the DocumentReference component properly', () => {
     ]);
   });
 
-  it.skip('should render participants with DSTU2 source data', () => {
-    const { getAllByTestId } = (
+  it('should render document reference contents with DSTU2 source data', () => {
+    const { getAllByTestId } = render(
       <DocumentReference
         fhirResource={dstu2Example1}
         fhirVersion={fhirTypes.DSTU2}
-      />
+      />,
     );
+    const formats = getAllByTestId('content.format').map(node =>
+      node.textContent.split(nbsp),
+    );
+    expect(formats).toEqual([
+      [
+        'History and Physical Specification',
+        '(urn:ihe:pcc:handp:2008)',
+        'urn:oid:1.3.6.1.4.1.19376.1.2.3',
+      ],
+    ]);
+    const sizes = getAllByTestId('content.size').map(node => node.textContent);
+    expect(sizes).toEqual(['3.65 kB']);
+    const urls = getAllByTestId('content.url').map(node => node.textContent);
+    expect(urls).toEqual([
+      'http://example.org/xds/mhd/Binary/07a6483f-732b-461e-86b6-edb665c45510',
+    ]);
   });
 
   it('should render with STU3 source data', () => {
@@ -85,6 +101,31 @@ describe('should render the DocumentReference component properly', () => {
       'Arm',
       '(T-D8200)',
       'http://ihe.net/xds/connectathon/eventCodes',
+    ]);
+  });
+
+  it('should render document reference contents with STU3 source data', () => {
+    const { getAllByTestId } = render(
+      <DocumentReference
+        fhirResource={stu3Example1}
+        fhirVersion={fhirTypes.STU3}
+      />,
+    );
+    const formats = getAllByTestId('content.format').map(node =>
+      node.textContent.split(nbsp),
+    );
+    expect(formats).toEqual([
+      [
+        'History and Physical Specification',
+        '(urn:ihe:pcc:handp:2008)',
+        'urn:oid:1.3.6.1.4.1.19376.1.2.3',
+      ],
+    ]);
+    const sizes = getAllByTestId('content.size').map(node => node.textContent);
+    expect(sizes).toEqual(['3.65 kB']);
+    const urls = getAllByTestId('content.url').map(node => node.textContent);
+    expect(urls).toEqual([
+      'http://example.org/xds/mhd/Binary/07a6483f-732b-461e-86b6-edb665c45510',
     ]);
   });
 });

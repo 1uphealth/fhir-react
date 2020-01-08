@@ -9,13 +9,17 @@ const CodeableConcept = props => {
     return null;
   }
   return fhirData.map((item, i) => {
-    const codingData = _get(item, 'coding.0');
+    const codingData = _get(item, 'coding.0', {});
     return <Coding key={`item-${i}`} fhirData={codingData} />;
   });
 };
 
 CodeableConcept.propTypes = {
-  fhirData: PropTypes.shape({}).isRequired,
+  fhirData: PropTypes.arrayOf(
+    PropTypes.shape({
+      coding: PropTypes.array,
+    }),
+  ).isRequired,
 };
 
 export default CodeableConcept;

@@ -9,10 +9,10 @@ const Coding = props => {
   const system = _get(fhirData, 'system', '');
   return (
     <div>
-      <strong>{display}</strong>&nbsp;
-      <span className="text-uppercase">({code})</span>
-      &nbsp;
-      <small>{system}</small>
+      <span>{display}</span>&nbsp;
+      <abbr className="text-uppercase" title={system}>
+        ({code})
+      </abbr>
     </div>
   );
 };

@@ -13,7 +13,7 @@ describe('should render component correctly', () => {
     };
     const { getByTestId } = render(<Coverage {...defaultProps} />);
 
-    expect(getByTestId('planId').textContent).toContain('CBI35');
+    expect(getByTestId('title').textContent).toContain('CBI35');
     expect(getByTestId('issuer').textContent).toContain('Organization/2');
     expect(getByTestId('coverageFrom').textContent).toContain('2011-05-23');
     expect(getByTestId('coverageTo').textContent).toContain('2012-05-23');
@@ -27,7 +27,7 @@ describe('should render component correctly', () => {
     };
     const { getByTestId } = render(<Coverage {...defaultProps} />);
 
-    expect(getByTestId('planId').textContent).toContain('B37FC');
+    expect(getByTestId('title').textContent).toContain('B37FC');
     expect(getByTestId('issuer').textContent).toContain('Organization/2');
     expect(getByTestId('coverageFrom').textContent).toContain('2011-05-23');
     expect(getByTestId('coverageTo').textContent).toContain('2012-05-23');

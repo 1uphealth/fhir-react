@@ -23,6 +23,7 @@ import Coverage from '../resources/Coverage';
 import MedicationDispense from '../resources/MedicationDispense';
 import Organization from '../resources/Organization';
 import MedicationRequest from '../resources/MedicationRequest';
+import MedicationAdministration from '../resources/MedicationAdministration';
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -176,6 +177,12 @@ class FhirResource extends React.Component {
         return (
           <ResourceContainer {...this.props}>
             <MedicationRequest {...this.props} />
+          </ResourceContainer>
+        );
+      case 'MedicationAdministration':
+        return (
+          <ResourceContainer {...this.props}>
+            <MedicationAdministration {...this.props} />
           </ResourceContainer>
         );
       default:

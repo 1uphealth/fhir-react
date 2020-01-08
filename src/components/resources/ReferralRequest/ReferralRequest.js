@@ -3,16 +3,79 @@ import PropTypes from 'prop-types';
 import _get from 'lodash/get';
 import Coding from '../../datatypes/Coding';
 import Date from '../../datatypes/Date';
+import fhirTypes from '../fhirResourceTypes';
+import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 
-const ReferralRequest = props => {
-  const { fhirResource } = props;
+const commonDTO = fhirResource => {
   const typeCoding = _get(fhirResource, 'type.coding.0');
   const status = _get(fhirResource, 'status');
-  const dateSent = _get(fhirResource, 'dateSent');
-  const reason = _get(fhirResource, 'reason.text');
-  const patient = _get(fhirResource, 'patient.display');
-  const requester = _get(fhirResource, 'requester.display');
+
   const description = _get(fhirResource, 'description');
+  return {
+    typeCoding,
+    status,
+    description,
+  };
+};
+const dstu2DTO = fhirResource => {
+  const requester = _get(fhirResource, 'requester.display');
+  const reason = _get(fhirResource, 'reason.text');
+  const dateSent = _get(fhirResource, 'dateSent');
+  const patient = _get(fhirResource, 'patient.display');
+  return { requester, reason, dateSent, patient };
+};
+const stu3DTO = fhirResource => {
+  const reason = _get(fhirResource, 'reasonCode.0.text');
+  const requester = _get(fhirResource, 'requester.agent.display');
+  const dateSent = _get(fhirResource, 'authoredOn');
+  const patient = _get(fhirResource, 'subject.display');
+  return {
+    reason,
+    requester,
+    dateSent,
+    patient,
+  };
+};
+
+const resourceDTO = (fhirVersion, fhirResource) => {
+  switch (fhirVersion) {
+    case fhirTypes.DSTU2: {
+      return {
+        ...commonDTO(fhirResource),
+        ...dstu2DTO(fhirResource),
+      };
+    }
+    case fhirTypes.STU3: {
+      return {
+        ...commonDTO(fhirResource),
+        ...stu3DTO(fhirResource),
+      };
+    }
+
+    default:
+      throw Error('Unrecognized the fhir version property type.');
+  }
+};
+
+const ReferralRequest = props => {
+  const { fhirResource, fhirVersion } = props;
+  let fhirResourceData = {};
+  try {
+    fhirResourceData = resourceDTO(fhirVersion, fhirResource);
+  } catch (error) {
+    console.warn(error.message);
+    return <UnhandledResourceDataStructure resourceName="ReferralRequest" />;
+  }
+  const {
+    typeCoding,
+    status,
+    dateSent,
+    reason,
+    patient,
+    requester,
+    description,
+  } = fhirResourceData;
+
   return (
     <div>
       {typeCoding && (
@@ -60,6 +123,7 @@ const ReferralRequest = props => {
 
 ReferralRequest.propTypes = {
   fhirResource: PropTypes.shape({}).isRequired,
+  fhirVersion: PropTypes.oneOf(['dstu2', 'stu3']).isRequired,
 };
 
 export default ReferralRequest;

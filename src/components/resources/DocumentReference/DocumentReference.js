@@ -3,31 +3,44 @@ import PropTypes from 'prop-types';
 import _get from 'lodash/get';
 
 import fhirTypes from '../fhirResourceTypes';
+import Coding from '../../datatypes/Coding';
 import DateType from '../../datatypes/Date';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 
 const commonDTO = fhirResource => {
   const description = _get(fhirResource, 'description');
   const status = _get(fhirResource, 'status');
-  const type_ =
-    _get(fhirResource, 'type.coding[0].display') ||
-    _get(fhirResource, 'type.coding[0].code');
-  const class_ =
-    _get(fhirResource, 'class.coding[0].display') ||
-    _get(fhirResource, 'class.coding[0].code');
+  const typeCoding = _get(fhirResource, 'type.coding[0]');
+  const classCoding = _get(fhirResource, 'class.coding[0]');
   const createdAt = _get(fhirResource, 'created');
-  const securityLabel =
-    _get(fhirResource, 'securityLabel[0].coding[0].display') ||
-    _get(fhirResource, 'securityLabel[0].coding[0].code');
-  const content = {}; // TODO
-  const context = []; // TODO
+  const securityLabelCoding = _get(fhirResource, 'securityLabel[0].coding[0]');
+  const content = []; // TODO
+  const eventCoding = _get(fhirResource, 'context.event[0].coding[0]');
+  const facilityTypeCoding = _get(
+    fhirResource,
+    'context.facilityType.coding[0]',
+  );
+  const practiceSettingCoding = _get(
+    fhirResource,
+    'context.practiceSetting.coding[0]',
+  );
+  const periodStart = _get(fhirResource, 'context.period.start');
+  const periodEnd = _get(fhirResource, 'context.period.end');
+  const context = {
+    eventCoding,
+    facilityTypeCoding,
+    practiceSettingCoding,
+    periodStart,
+    periodEnd,
+  };
+
   return {
     description,
     status,
-    type_,
-    class_,
+    typeCoding,
+    classCoding,
     createdAt,
-    securityLabel,
+    securityLabelCoding,
     content,
     context,
   };
@@ -84,14 +97,15 @@ const DocumentReference = props => {
     description,
     status,
     docStatus,
-    type_,
-    class_,
+    typeCoding,
+    classCoding,
     createdAt,
-    securityLabel,
+    securityLabelCoding,
     content,
     context,
   } = fhirResourceData;
   const hasContent = content.length > 0;
+  const hasPeriod = context.periodStart || context.periodEnd;
 
   return (
     <div>
@@ -113,22 +127,28 @@ const DocumentReference = props => {
           <small className="text-muted text-uppercase">
             <strong>Document type</strong>
           </small>
-          <div data-testid="type">{type_}</div>
+          <div data-testid="type">
+            <Coding fhirData={typeCoding} />
+          </div>
         </div>
-        {class_ && (
+        {classCoding && (
           <div>
             <small className="text-muted text-uppercase">
               <strong>Document categorization</strong>
             </small>
-            <div data-testid="class">{class_}</div>
+            <div data-testid="class">
+              <Coding fhirData={classCoding} />
+            </div>
           </div>
         )}
-        {securityLabel && (
+        {securityLabelCoding && (
           <div>
             <small className="text-muted text-uppercase">
               <strong>Security Label</strong>
             </small>
-            <div data-testid="securityLabel">{securityLabel}</div>
+            <div data-testid="securityLabel">
+              <Coding fhirData={securityLabelCoding} />
+            </div>
           </div>
         )}
         {createdAt && (
@@ -137,16 +157,57 @@ const DocumentReference = props => {
               <strong>Created At</strong>
             </small>
             <div data-testid="createdAt">
-              {<DateType fhirData={createdAt} />}
+              <DateType fhirData={createdAt} />
             </div>
           </div>
         )}
-        {context && (
+        <div>
+          <small className="text-muted text-uppercase">
+            <strong>Context</strong>
+          </small>
+        </div>
+        {context.eventCoding && (
           <div>
             <small className="text-muted text-uppercase">
-              <strong>Context</strong>
+              <strong>Event</strong>
             </small>
-            <div>{'TODO: context'}</div>
+            <div data-testid="context.event">
+              {<Coding fhirData={context.eventCoding} />}
+            </div>
+          </div>
+        )}
+        {context.facilityTypeCoding && (
+          <div>
+            <small className="text-muted text-uppercase">
+              <strong>Facility</strong>
+            </small>
+            <div data-testid="context.facilityType">
+              {<Coding fhirData={context.facilityTypeCoding} />}
+            </div>
+          </div>
+        )}
+        {context.practiceSettingCoding && (
+          <div>
+            <small className="text-muted text-uppercase">
+              <strong>Practice Setting</strong>
+            </small>
+            <div data-testid="context.practiceSetting">
+              {<Coding fhirData={context.practiceSettingCoding} />}
+            </div>
+          </div>
+        )}
+        {hasPeriod && (
+          <div>
+            <small className="text-muted text-uppercase">
+              <strong>Period</strong>
+            </small>
+            <div data-testid="context.period">
+              {context.periodStart && (
+                <DateType fhirData={context.periodStart} />
+              )}
+              {' - '}
+              {context.periodEnd && <DateType fhirData={context.periodEnd} />}
+            </div>
           </div>
         )}
         {hasContent && (

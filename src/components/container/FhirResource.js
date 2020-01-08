@@ -3,6 +3,7 @@ import Generic from '../resources/Generic';
 import AllergyIntolerance from '../resources/AllergyIntolerance/AllergyIntolerance';
 import Binary from '../resources/Binary';
 import CarePlan from '../resources/CarePlan';
+import CareTeam from '../resources/CareTeam';
 import Condition from '../resources/Condition';
 import Device from '../resources/Device';
 import DiagnosticReport from '../resources/DiagnosticReport';
@@ -69,6 +70,12 @@ class FhirResource extends React.Component {
         return (
           <ResourceContainer {...this.props}>
             <CarePlan {...this.props} />
+          </ResourceContainer>
+        );
+      case 'CareTeam':
+        return (
+          <ResourceContainer {...this.props}>
+            <CareTeam {...this.props} />
           </ResourceContainer>
         );
       case 'Condition':

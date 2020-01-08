@@ -128,6 +128,7 @@ const Coverage = props => {
 
 Coverage.propTypes = {
   fhirResource: PropTypes.shape({}).isRequired,
+  fhirVersion: PropTypes.oneOf([fhirTypes.DSTU2, fhirTypes.STU3]).isRequired,
 };
 
 export default Coverage;

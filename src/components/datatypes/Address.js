@@ -1,24 +1,22 @@
 import React from 'react';
-import _ from 'lodash';
+import _get from 'lodash/get';
 
-class Address extends React.Component {
-  render() {
-    const city = _.get(this.props.fhirData, 'city');
-    return (
+const Address = props => {
+  const { fhirData } = props;
+  const city = _get(fhirData, 'city');
+  const line = _get(fhirData, 'line', []).join(' ');
+  const state = _get(fhirData, 'state');
+  const postalCode = _get(fhirData, 'postalCode', '');
+  const country = _get(fhirData, 'country', '');
+  return (
+    <div>
+      <div>{line}</div>
       <div>
-        <div>{`${(_.get(this.props.fhirData, 'line') || []).join(' ')}`}</div>
-        <div>
-          {`${(city && city + ',') || ''} ${_.get(
-            this.props.fhirData,
-            'state',
-          ) || ''} ${_.get(this.props.fhirData, 'postalCode') || ''} ${_.get(
-            this.props.fhirData,
-            'country',
-          ) || ''}`}
-        </div>
+        {city && <span>{city},</span>} <span>{state}</span>{' '}
+        <span>{postalCode}</span> <span>{country}</span>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default Address;

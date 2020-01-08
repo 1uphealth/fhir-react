@@ -7,6 +7,7 @@ import CareTeam from '../resources/CareTeam';
 import Condition from '../resources/Condition';
 import Device from '../resources/Device';
 import DiagnosticReport from '../resources/DiagnosticReport';
+import DocumentReference from '../resources/DocumentReference';
 import Encounter from '../resources/Encounter';
 import FamilyMemberHistory from '../resources/FamilyMemberHistory';
 import Goal from '../resources/Goal';
@@ -94,6 +95,12 @@ class FhirResource extends React.Component {
         return (
           <ResourceContainer {...this.props}>
             <DiagnosticReport {...this.props} />
+          </ResourceContainer>
+        );
+      case 'DocumentReference':
+        return (
+          <ResourceContainer {...this.props}>
+            <DocumentReference {...this.props} />
           </ResourceContainer>
         );
       case 'Encounter':

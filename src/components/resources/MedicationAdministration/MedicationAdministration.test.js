@@ -58,7 +58,7 @@ describe('should render MedicationAdministration component properly', () => {
 
     expect(getByTestId('periodTimeStart').textContent).toEqual('2015-01-15');
 
-    expect(getByTestId('periodTimeEnd').textContent).toEqual('---');
+    expect(getByTestId('periodTimeEnd').textContent).toEqual('-');
 
     expect(getByTestId('dosageRoute').textContent).toContain(
       'Intravenous route',

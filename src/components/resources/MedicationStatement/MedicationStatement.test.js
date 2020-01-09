@@ -18,7 +18,9 @@ describe('should render MedicationStatement component correctly', () => {
     );
     expect(getByTestId('hasEffectivePeriod').textContent).toContain('from');
 
-    expect(getByTestId('dosage').textContent).toContain('Take 1 capsule');
+    expect(getByTestId('dosageInstruction').textContent).toContain(
+      'Take 1 capsule',
+    );
   });
 
   it('with STU3 source data', () => {
@@ -26,12 +28,14 @@ describe('should render MedicationStatement component correctly', () => {
       fhirResource: stu3Example,
       fhirVersion: 'stu3',
     };
-    const { getByTestId } = render(<MedicationStatement {...defaultProps} />);
+    const { getByTestId, queryAllByTestId } = render(
+      <MedicationStatement {...defaultProps} />,
+    );
 
     expect(getByTestId('title').textContent).toEqual('');
-    expect(getByTestId('hasEffectivePeriod').textContent).toEqual('');
+    expect(queryAllByTestId('hasEffectivePeriod')).toHaveLength(0);
 
-    expect(getByTestId('dosage').textContent).toContain(
+    expect(getByTestId('dosageInstruction').textContent).toContain(
       '1-2 tablets once daily',
     );
 

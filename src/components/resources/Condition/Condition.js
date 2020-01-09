@@ -6,6 +6,16 @@ import _get from 'lodash/get';
 import _has from 'lodash/has';
 import CodeableConcept from '../../datatypes/CodeableConcept';
 
+import {
+  Root,
+  Header,
+  Title,
+  Badge,
+  BadgeSecondary,
+  Body,
+  Value,
+} from '../../ui';
+
 function Condition(props) {
   const { fhirResource } = props;
   const codeText =
@@ -24,59 +34,39 @@ function Condition(props) {
   const bodySite = _get(fhirResource, 'bodySite');
 
   return (
-    <div>
-      <div>
-        <h4 style={{ display: 'inline-block' }}>{codeText || ''}</h4>
-        &nbsp;(
-        <span data-testid="clinicalStatus">{clinicalStatus || ''}</span>
-        <span className="text-muted" data-testid="severity">
-          {severityText && `, ${severityText} severity`}
-        </span>
-        )
-      </div>
-      <div className="row pl-0 pr-0">
-        <div className="col-md-12">
-          {onsetDateTime && (
-            <div data-testid="onsetDate">
-              <label className="text-muted text-uppercase">
-                <strong>Onset Date: </strong>
-              </label>
-              {onsetDateTime}
-            </div>
-          )}
-        </div>
-        <div className="col-md-12">
-          {dateRecorded && (
-            <div data-testid="dateRecorded">
-              <label className="text-muted text-uppercase">
-                <strong>Date recorded: </strong>
-              </label>
-              {dateRecorded}
-            </div>
-          )}
-        </div>
+    <Root name="condition">
+      <Header>
+        <Title>{codeText || ''}</Title>
+        <Badge data-testid="clinicalStatus">{clinicalStatus || ''}</Badge>
+        {severityText && (
+          <BadgeSecondary data-testid="severity">
+            {severityText} severity
+          </BadgeSecondary>
+        )}
+      </Header>
+      <Body>
+        {onsetDateTime && (
+          <Value label="Onset Date" data-testid="onsetDate">
+            {onsetDateTime}
+          </Value>
+        )}
+        {dateRecorded && (
+          <Value label="Date recorded" data-testid="dateRecorded">
+            {dateRecorded}
+          </Value>
+        )}
         {hasAsserter && (
-          <div className="col-md-12">
-            <div data-testid="asserter">
-              <label className="text-muted text-uppercase">
-                <strong>Asserted by: </strong>
-              </label>
-              <Reference fhirData={asserter} />
-            </div>
-          </div>
+          <Value label="Asserted by" data-testid="asserter">
+            <Reference fhirData={asserter} />
+          </Value>
         )}
         {hasBodySite && (
-          <div className="col-md-12">
-            <div data-testid="bodySite">
-              <label className="text-muted text-uppercase">
-                <strong>Anatomical locations:</strong>
-              </label>
-              <CodeableConcept fhirData={bodySite} />
-            </div>
-          </div>
+          <Value label="Anatomical locations" data-testid="bodySite">
+            <CodeableConcept fhirData={bodySite} />
+          </Value>
         )}
-      </div>
-    </div>
+      </Body>
+    </Root>
   );
 }
 

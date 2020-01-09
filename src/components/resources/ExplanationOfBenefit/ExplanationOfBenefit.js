@@ -4,6 +4,7 @@ import _get from 'lodash/get';
 import Reference from '../../datatypes/Reference';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 import fhirTypes from '../fhirResourceTypes';
+import { Root, Header, Title, Value, Body } from '../../ui';
 
 const commonDTO = fhirResource => {
   const disposition = _get(fhirResource, 'disposition');
@@ -65,37 +66,39 @@ const ExplanationOfBenefit = props => {
   } = fhirResourceData;
 
   return (
-    <div>
-      <h4 data-testid="title">{disposition}</h4>
-      <label>Created:</label>
-      <small data-testid="created">{created}</small>
-      {insurer && (
-        <div data-testid="insurer">
-          <label>Insurer: </label>
-          <small>
+    <Root name="explanationOfBenefit">
+      <Header>
+        <Title>{disposition}</Title>
+      </Header>
+      <Body>
+        {created && (
+          <Value label="Created" data-testid="created">
+            {created}
+          </Value>
+        )}
+        {insurer && (
+          <Value label="Insurer" data-testid="insurer">
             <Reference fhirData={insurer} />
-          </small>
-        </div>
-      )}
-      {totalCost && (
-        <div data-testid="totalCost">
-          <label>Total cost:</label>
-          {totalCost.value || ''}&nbsp;{totalCost.code}
-        </div>
-      )}
-      {totalBenefit && (
-        <div data-testid="totalBenefit">
-          <label>Total benefit:</label>
-          {totalBenefit.value || ''}&nbsp;{totalBenefit.code}
-        </div>
-      )}
-    </div>
+          </Value>
+        )}
+        {totalCost && (
+          <Value label="Total cost" data-testid="totalCost">
+            {totalCost.value || ''}&nbsp;{totalCost.code}
+          </Value>
+        )}
+        {totalBenefit && (
+          <Value label="Total benefit" data-testid="totalBenefit">
+            {totalBenefit.value || ''}&nbsp;{totalBenefit.code}
+          </Value>
+        )}
+      </Body>
+    </Root>
   );
 };
 
 ExplanationOfBenefit.propTypes = {
   fhirResource: PropTypes.shape({}).isRequired,
-  fhirVersion: PropTypes.oneOf(['dstu2', 'stu3']).isRequired,
+  fhirVersion: PropTypes.oneOf([fhirTypes.DSTU2, fhirTypes.STU3]).isRequired,
 };
 
 export default ExplanationOfBenefit;

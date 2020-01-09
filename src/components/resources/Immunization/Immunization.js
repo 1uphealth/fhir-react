@@ -7,6 +7,16 @@ import _get from 'lodash/get';
 import _has from 'lodash/has';
 import Date from '../../datatypes/Date';
 
+import {
+  Root,
+  Header,
+  Title,
+  Badge,
+  BadgeSecondary,
+  Body,
+  Value,
+} from '../../ui';
+
 const Immunization = props => {
   const { fhirResource } = props;
 
@@ -29,82 +39,72 @@ const Immunization = props => {
   const site = _get(fhirResource, 'site.coding');
   const hasSite = Array.isArray(site);
   return (
-    <div>
-      <div style={{ width: '100%', display: 'inline-block' }}>
-        <h4 style={{ display: 'inline-block' }} data-testid="title">
-          {title}
-        </h4>
-        (
-        <span className="text-muted" data-testid="providedDate">
-          status {status} provided on <Date fhirData={providedDate} />
-        </span>
-        <span>{reported}</span>)
-      </div>
-      {manufacturerText && <div className="row">{manufacturerText}</div>}
-      {hasLotNumber && (
-        <>
-          <label className="sb-heading">Lot number</label>
-          <div>
-            <span data-testid="lotNumber">{lotNumber}</span>
+    <Root name="Immunization">
+      <Header>
+        <Title data-testid="title">{title}</Title>
+        <Badge data-testid="status">{status}</Badge>
+        <BadgeSecondary data-testid="providedDate">
+          provided on <Date fhirData={providedDate} />
+          {reported || ''}
+        </BadgeSecondary>
+      </Header>
+      <Body>
+        {manufacturerText && (
+          <Value label="Manufacturer Text">{manufacturerText}</Value>
+        )}
+        {hasLotNumber && (
+          <Value label="Lot number" data-testid="lotNumber">
+            {lotNumber}
             {lotNumberExpirationDate && (
               <span data-testid="lotNumberExpirationDate">
                 {' '}
                 expires on {lotNumberExpirationDate}
               </span>
             )}
-          </div>
-        </>
-      )}
-      {hasDoseQuantity && (
-        <div data-testid="doseQuantity">
-          <label className="sb-heading">Dosage</label>
-          <div>
-            {_get(doseQuantity, 'value')} &nbsp;
-            {_get(doseQuantity, 'unit') || _get(doseQuantity, 'code')}
-          </div>
-        </div>
-      )}
-      {requester && (
-        <div data-testid="requester">
-          <label className="sb-heading">Requester</label>
-          <div className="col-12 pl-0 pr-0">
+          </Value>
+        )}
+        {hasDoseQuantity && (
+          <Value label="Dosage" data-testid="doseQuantity">
+            <div>
+              {_get(doseQuantity, 'value')} &nbsp;
+              {_get(doseQuantity, 'unit') || _get(doseQuantity, 'code')}
+            </div>
+          </Value>
+        )}
+        {requester && (
+          <Value label="Requester" data-testid="requester">
             <Reference fhirData={requester} />
-          </div>
-        </div>
-      )}
-      {performer && (
-        <div data-testid="performer">
-          <label className="sb-heading">Performer</label>
-          <div className="col-12 pl-0 pr-0">
+          </Value>
+        )}
+        {performer && (
+          <Value label="Performer" data-testid="performer">
             <Reference fhirData={performer} />
-          </div>
-        </div>
-      )}
-      {hasRoute && (
-        <div data-testid="route">
-          <label className="sb-heading">Route</label>
-          {route.map((coding, i) => {
-            return (
-              <div key={`item-${i}`}>
-                <Coding fhirData={coding} />
-              </div>
-            );
-          })}
-        </div>
-      )}
-      {hasSite && (
-        <div data-testid="site">
-          <label className="sb-heading">Site</label>
-          {site.map((coding, i) => {
-            return (
-              <div key={`item-${i}`}>
-                <Coding fhirData={coding} />
-              </div>
-            );
-          })}
-        </div>
-      )}
-    </div>
+          </Value>
+        )}
+        {hasRoute && (
+          <Value label="Route" data-testid="route">
+            {route.map((coding, i) => {
+              return (
+                <div key={`item-${i}`}>
+                  <Coding fhirData={coding} />
+                </div>
+              );
+            })}
+          </Value>
+        )}
+        {hasSite && (
+          <Value label="Site" data-testid="site">
+            {site.map((coding, i) => {
+              return (
+                <div key={`item-${i}`}>
+                  <Coding fhirData={coding} />
+                </div>
+              );
+            })}
+          </Value>
+        )}
+      </Body>
+    </Root>
   );
 };
 

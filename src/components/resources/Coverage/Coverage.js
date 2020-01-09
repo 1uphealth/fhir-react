@@ -6,6 +6,7 @@ import Reference from '../../datatypes/Reference';
 import Coding from '../../datatypes/Coding';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 import fhirTypes from '../fhirResourceTypes';
+import { Root, Header, Title, Body, Value } from '../../ui';
 
 const commonDTO = fhirResource => {
   const period = _has(fhirResource, 'period');
@@ -89,40 +90,44 @@ const Coverage = props => {
   } = fhirResourceData;
 
   return (
-    <div>
-      <div data-testid="planId">
-        Plan: {planId}{' '}
+    <Root name="coverage">
+      <Header>
+        <Title>Plan: {planId}</Title>
+      </Header>
+      <Body>
         {issuer && (
-          <span data-testid="issuer">
-            (
-            <Reference fhirData={issuer} />)
-          </span>
+          <Value label="Issuer" data-testid="issuer">
+            <Reference fhirData={issuer} />
+          </Value>
         )}
-      </div>
-      {period && (
-        <div>
-          <label>Coverage:</label>(
-          {coverageFrom && (
-            <span data-testid="coverageFrom">from: {coverageFrom}</span>
-          )}{' '}
-          {coverageTo && <span data-testid="coverageTo">to: {coverageTo}</span>}
-          )
-        </div>
-      )}
-      {type && (
-        <div data-testid="type">
-          <label>Type of coverage: </label>
-          <Coding fhirData={type} />
-        </div>
-      )}
-      {hasDetails && (
-        <div data-testid="details">
-          <label>Details:</label>
-          <small>{details.planDescription}</small> |
-          <small>{details.classDescription}</small>
-        </div>
-      )}
-    </div>
+        {period && (
+          <Value label="Coverage">
+            {coverageFrom && (
+              <span data-testid="coverageFrom">from: {coverageFrom}</span>
+            )}{' '}
+            {coverageTo && (
+              <span data-testid="coverageTo">to: {coverageTo}</span>
+            )}
+          </Value>
+        )}
+        {type && (
+          <Value label="Type of coverage" data-testid="type">
+            <Coding fhirData={type} />
+          </Value>
+        )}
+        {hasDetails && (
+          <Value label="Details" data-testid="details">
+            <span>{details.planDescription}</span>
+            {details.classDescription && (
+              <>
+                {' | '}
+                <span>{details.classDescription}</span>
+              </>
+            )}
+          </Value>
+        )}
+      </Body>
+    </Root>
   );
 };
 

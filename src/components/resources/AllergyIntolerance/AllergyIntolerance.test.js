@@ -45,8 +45,6 @@ describe('should render component correctly', () => {
       'Anaphylactic reaction',
     );
 
-    expect(getByTestId('hasNote').textContent).toContain(
-      'NotesThe criticality',
-    );
+    expect(getByTestId('hasNote').textContent).toContain('The criticality');
   });
 });

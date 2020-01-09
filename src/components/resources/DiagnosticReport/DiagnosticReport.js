@@ -8,6 +8,16 @@ import _has from 'lodash/has';
 import fhirTypes from '../fhirResourceTypes';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 
+import {
+  Root,
+  Header,
+  Title,
+  Badge,
+  BadgeSecondary,
+  Body,
+  Value,
+} from '../../ui';
+
 const commonDTO = fhirResource => {
   const title =
     _get(fhirResource, 'code.text') ||
@@ -87,39 +97,36 @@ const DiagnosticReport = props => {
     performer,
   } = fhirResourceData;
   return (
-    <div>
-      <div style={{ width: '100%', display: 'inline-block' }}>
-        <h4 style={{ display: 'inline-block' }} data-testid="title">
-          {title}
-        </h4>
-        &nbsp;({status}
+    <Root name="DiagnosticReport">
+      <Header>
+        <Title data-testid="title">{title}</Title>
+        <Badge data-testid="status">{status}</Badge>
         {effectiveDateTime && (
-          <span className="text-muted" data-testid="effectiveDateTime">
-            ,&nbsp;
+          <BadgeSecondary data-testid="effectiveDateTime">
             <Date fhirData={effectiveDateTime} />
-          </span>
+          </BadgeSecondary>
         )}
-        )
-      </div>
-      {hasCategoryCoding && (
-        <div data-testid="categoryCoding">
-          {categoryCoding.map((coding, i) => (
-            <Coding key={`item-${i}`} fhirData={coding} />
-          ))}
-        </div>
-      )}
-      {hasPerformer && (
-        <div data-testid="performer">
-          <Reference fhirData={performer} />
-        </div>
-      )}
-      {conclusion && (
-        <div data-testid="conclusion">
-          <label>Conclusion: </label>
-          &nbsp;{conclusion}
-        </div>
-      )}
-    </div>
+      </Header>
+      <Body>
+        {hasCategoryCoding && (
+          <Value label="Category" data-testid="categoryCoding">
+            {categoryCoding.map((coding, i) => (
+              <Coding key={`item-${i}`} fhirData={coding} />
+            ))}
+          </Value>
+        )}
+        {hasPerformer && (
+          <Value label="Performer" data-testid="performer">
+            <Reference fhirData={performer} />
+          </Value>
+        )}
+        {conclusion && (
+          <Value label="Conclusion" data-testid="conclusion">
+            {conclusion}
+          </Value>
+        )}
+      </Body>
+    </Root>
   );
 };
 

@@ -37,6 +37,6 @@ describe('should render component correctly', () => {
     expect(getByTestId('patientGender').textContent).toEqual('male');
     expect(getByTestId('patientBirthDate').textContent).toEqual('2014-06-01');
     expect(getByTestId('patientAddress').textContent).toEqual(' 05 99999 ');
-    expect(getByTestId('patientPhones').textContent).toEqual('missing');
+    expect(getByTestId('patientPhones').textContent).toEqual('-');
   });
 });

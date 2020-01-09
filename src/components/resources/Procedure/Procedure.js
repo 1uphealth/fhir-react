@@ -5,6 +5,17 @@ import _has from 'lodash/has';
 
 import Coding from '../../datatypes/Coding';
 import Annotation from '../../datatypes/Annotation';
+import Date from '../../datatypes/Date';
+import {
+  Root,
+  Header,
+  Title,
+  Body,
+  Value,
+  Badge,
+  BadgeSecondary,
+  MissingValue,
+} from '../../ui';
 
 const Procedure = props => {
   const { fhirResource } = props;
@@ -23,49 +34,48 @@ const Procedure = props => {
   const hasNote = _has(fhirResource, 'note');
   const note = _get(fhirResource, 'note', []);
   return (
-    <div>
-      <div style={{ width: '100%', display: 'inline-block' }}>
-        <h4 style={{ display: 'inline-block' }} data-testid="title">
-          {display}
-        </h4>
-        &nbsp;({status}
+    <Root name="procedure">
+      <Header>
+        <Title> {display}</Title>
+        <Badge>{status}</Badge>
         {hasPerformedDateTime && (
-          <span className="text-muted">, on {performedDateTime}</span>
+          <BadgeSecondary>
+            on <Date fhirData={performedDateTime} />
+          </BadgeSecondary>
         )}
-        )
-      </div>
-      {hasCoding && (
-        <div className="container">
-          <div className="row" data-testid="hasCoding">
+      </Header>
+      <Body>
+        {hasCoding && (
+          <Value label="Elements" data-testid="hasCoding">
             {coding.map((coding, i) => (
               <Coding key={`item-${i}`} fhirData={coding} />
             ))}
-          </div>
-        </div>
-      )}
-      {hasPerformerData && (
-        <div>
-          <label className="sb-heading">Performed the procedure</label>
-          {performer.map((item, i) => (
-            <div key={`item-${i}`}>{_get(item, 'actor.display', '---')}</div>
-          ))}
-        </div>
-      )}
-      {hasReasonCode && (
-        <div data-testid="hasReasonCode">
-          <label className="sb-heading">Reason procedure performed</label>
-          <Annotation fhirData={reasonCode} />
-        </div>
-      )}
-      {hasNote && (
-        <div data-testid="hasNote">
-          <label className="sb-heading">
-            Additional information about the procedure
-          </label>
-          <Annotation fhirData={note} />
-        </div>
-      )}
-    </div>
+          </Value>
+        )}
+        {hasPerformerData && (
+          <Value label="Performed the procedure">
+            {performer.map((item, i) => (
+              <div key={`item-${i}`}>
+                {_get(item, 'actor.display', <MissingValue />)}
+              </div>
+            ))}
+          </Value>
+        )}
+        {hasReasonCode && (
+          <Value label="Reason procedure performed" data-testid="hasReasonCode">
+            <Annotation fhirData={reasonCode} />
+          </Value>
+        )}
+        {hasNote && (
+          <Value
+            label="Additional information about the procedure"
+            data-testid="hasNote"
+          >
+            <Annotation fhirData={note} />
+          </Value>
+        )}
+      </Body>
+    </Root>
   );
 };
 

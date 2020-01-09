@@ -8,6 +8,16 @@ import CarePlanActivity from './CarePlanActivity';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 import fhirTypes from '../fhirResourceTypes';
 
+import {
+  Root,
+  Header,
+  Title,
+  Badge,
+  BadgeSecondary,
+  Body,
+  Value,
+} from '../../ui';
+
 const commonDTO = fhirResource => {
   const status = _get(fhirResource, 'status', '');
   const expiry = _get(fhirResource, 'expiry');
@@ -120,93 +130,51 @@ const CarePlan = props => {
   } = fhirResourceData;
 
   return (
-    <div>
-      <div style={{ width: '100%', display: 'inline-block' }}>
-        <h4 style={{ display: 'inline-block' }}>Care Plan</h4>
-        &nbsp;(<span data-testid="title">{status}</span>
-        {expiry && <span className="text-muted">, expires on ${expiry}</span>})
-      </div>
-      <div className="container">
+    <Root name="CarePlan">
+      <Header>
+        <Title>Care Plan</Title>
+        <Badge data-testid="status">{status}</Badge>
+        {expiry && <BadgeSecondary>expires on ${expiry}</BadgeSecondary>}
+      </Header>
+      <Body>
         {hasCategory && (
-          <>
-            <div className="row">
-              <span>
-                <small className="text-uppercase text-muted">
-                  <strong>Category</strong>
-                </small>
-              </span>
-            </div>
-            <div className="row" data-testid="category">
-              {category.map((category, i) =>
-                (category.coding || []).map((coding, j) => (
-                  <Coding key={`item-${i}${j}`} fhirData={coding} />
-                )),
-              )}
-            </div>
-          </>
+          <Value label="Category" data-testid="category">
+            {category.map((category, i) =>
+              (category.coding || []).map((coding, j) => (
+                <Coding key={`item-${i}${j}`} fhirData={coding} />
+              )),
+            )}
+          </Value>
         )}
         {hasGoals && (
-          <>
-            <div className="row">
-              <span>
-                <small className="text-uppercase text-muted">
-                  <strong>Goal</strong>
-                </small>
-              </span>
-            </div>
-            {goals.map((goal, i) => {
-              return (
-                <div key={`goal-${i}`} className="row">
-                  <div className="col-12 pl-0 pr-0">
-                    <Reference fhirData={goal} />
-                  </div>
-                </div>
-              );
-            })}
-          </>
+          <Value label="Goals" data-testid="goals">
+            {goals.map((goal, i) => (
+              <div key={`goal-${i}`}>
+                <Reference fhirData={goal} />
+              </div>
+            ))}
+          </Value>
         )}
         {hasAddresses && (
-          <>
-            <span>
-              <small className="text-uppercase text-muted">
-                <strong>Addresses</strong>
-              </small>
-            </span>
-            <div data-testid="addresses">
-              {addresses.map((address, i) => {
-                return (
-                  <div key={`item-${i}`} className="row">
-                    <div className="col-12 pl-0 pr-0">
-                      <Reference fhirData={address} />
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </>
+          <Value label="Addresses" data-testid="addresses">
+            {addresses.map((address, i) => (
+              <div key={`item-${i}`}>
+                <Reference fhirData={address} />
+              </div>
+            ))}
+          </Value>
         )}
         {hasActivity && (
-          <>
-            <span>
-              <small className="text-uppercase text-muted">
-                <strong>Activity</strong>
-              </small>
-            </span>
-            <div data-testid="activity">
-              {activity.map((activity, i) => {
-                return (
-                  <div key={`item-${i}`} className="row">
-                    <div className="col-12 pl-0 pr-0">
-                      <CarePlanActivity fhirData={activity} />
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </>
+          <Value label="Activity" data-testid="activity">
+            {activity.map((activity, i) => (
+              <div key={`item-${i}`}>
+                <CarePlanActivity fhirData={activity} />
+              </div>
+            ))}
+          </Value>
         )}
-      </div>
-    </div>
+      </Body>
+    </Root>
   );
 };
 

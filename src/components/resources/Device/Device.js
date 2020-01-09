@@ -7,6 +7,15 @@ import Coding from '../../datatypes/Coding';
 import Date from '../../datatypes/Date';
 import fhirTypes from '../fhirResourceTypes';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
+import {
+  Root,
+  Header,
+  Title,
+  Badge,
+  BadgeSecondary,
+  Body,
+  Value,
+} from '../../ui';
 
 const commonDTO = fhirResource => {
   const model = _get(fhirResource, 'model', '');
@@ -84,39 +93,27 @@ const Device = props => {
   } = fhirResourceData;
 
   return (
-    <div>
-      <div style={{ width: '100%', display: 'inline-block' }}>
-        <h4 style={{ display: 'inline-block' }} data-testid="title">
-          {model}
-        </h4>
-        &nbsp;({status}
+    <Root name="Device">
+      <Header>
+        <Title>{model}</Title>
+        <Badge>{status}</Badge>
         {hasExpiry && (
-          <span className="text-muted" data-testid="expiry">
-            , expires on <Date fhirData={getExpiry} />
-          </span>
+          <BadgeSecondary data-testid="expiry">
+            expires on <Date fhirData={getExpiry} />
+          </BadgeSecondary>
         )}
-        )
-      </div>
-      <div className="container">
+      </Header>
+      <Body>
         {hasTypeCoding && (
-          <div className="row" data-testid="typeCoding">
+          <Value data-testid="typeCoding" label="Type">
             {getTypeCoding.map((coding, i) => (
               <Coding key={`item-${i}`} fhirData={coding} />
             ))}
-          </div>
+          </Value>
         )}
-        <div className="row">
-          {getUdi && (
-            <span>
-              <small className="text-uppercase text-muted">
-                <strong>universal device identifier</strong>
-              </small>
-              <small>{getUdi}</small>
-            </span>
-          )}
-        </div>
-      </div>
-    </div>
+        {getUdi && <Value label="universal device identifier">{getUdi}</Value>}
+      </Body>
+    </Root>
   );
 };
 

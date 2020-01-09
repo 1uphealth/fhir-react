@@ -5,6 +5,16 @@ import _get from 'lodash/get';
 import DateType from '../../datatypes/Date';
 import CareTeamParticipants from './CareTeamParticipants';
 
+import {
+  Root,
+  Header,
+  Title,
+  Badge,
+  Body,
+  Value,
+  MissingValue,
+} from '../../ui';
+
 const resourceDTO = fhirResource => {
   const name = _get(fhirResource, 'name');
   const status = _get(fhirResource, 'status');
@@ -42,39 +52,23 @@ const CareTeam = props => {
   const hasParticipants = participants.length > 0;
 
   return (
-    <div>
-      <div>
-        <h4 style={{ display: 'inline-block' }} data-testid="title">
-          {name} {status}
-        </h4>
-        {status && (
-          <span className="text-muted" data-testid="status">
-            {status}
-          </span>
-        )}
-      </div>
-      <div>
-        <div>
-          <small className="text-muted text-uppercase">
-            <strong>Care Period Start</strong>
-          </small>
-          <div data-testid="periodStart">
-            {periodStart ? <DateType fhirData={periodStart} /> : '-'}
-          </div>
-        </div>
-        <div>
-          <small className="text-muted text-uppercase">
-            <strong>Care Period End</strong>
-          </small>
-          <div data-testid="periodEnd">
-            {periodEnd ? <DateType fhirData={periodEnd} /> : '-'}
-          </div>
-        </div>
+    <Root name="CareTeam">
+      <Header>
+        <Title>{name}</Title>
+        {status && <Badge data-testid="status">{status}</Badge>}
+      </Header>
+      <Body>
+        <Value label="Care Period Start" data-testid="periodStart">
+          {periodStart ? <DateType fhirData={periodStart} /> : <MissingValue />}
+        </Value>
+        <Value label="Care Period End" data-testid="periodEnd">
+          {periodEnd ? <DateType fhirData={periodEnd} /> : <MissingValue />}
+        </Value>
         {hasParticipants && (
           <CareTeamParticipants participants={participants} />
         )}
-      </div>
-    </div>
+      </Body>
+    </Root>
   );
 };
 

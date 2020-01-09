@@ -28,8 +28,8 @@ describe('should render ReferralRequest component properly', () => {
     expect(getByTestId('description').textContent).toContain(
       'In the past 2 years Beverly',
     );
-    expect(getByTestId('patient').textContent).toContain('Beverly Weaver');
-    expect(getByTestId('requester').textContent).toContain('Serena Shrink');
+    expect(getByTestId('subject').textContent).toContain('Beverly Weaver');
+    expect(getByTestId('requester').textContent).toEqual('Serena Shrink');
   });
 
   it('should render with STU3 source data', () => {
@@ -53,7 +53,7 @@ describe('should render ReferralRequest component properly', () => {
     expect(getByTestId('description').textContent).toContain(
       'In the past 2 years Beverly',
     );
-    expect(getByTestId('patient').textContent).toContain('Beverly Weaver');
-    expect(getByTestId('requester').textContent).toContain('Serena Shrink');
+    expect(getByTestId('subject').textContent).toContain('Beverly Weaver');
+    expect(getByTestId('requester').textContent).toEqual('Serena Shrink');
   });
 });

@@ -21,19 +21,19 @@ const dstu2DTO = fhirResource => {
   const requester = _get(fhirResource, 'requester.display');
   const reason = _get(fhirResource, 'reason.text');
   const dateSent = _get(fhirResource, 'dateSent');
-  const patient = _get(fhirResource, 'patient.display');
-  return { requester, reason, dateSent, patient };
+  const subject = _get(fhirResource, 'patient.display');
+  return { requester, reason, dateSent, subject };
 };
 const stu3DTO = fhirResource => {
   const reason = _get(fhirResource, 'reasonCode.0.text');
   const requester = _get(fhirResource, 'requester.agent.display');
   const dateSent = _get(fhirResource, 'authoredOn');
-  const patient = _get(fhirResource, 'subject.display');
+  const subject = _get(fhirResource, 'subject.display');
   return {
     reason,
     requester,
     dateSent,
-    patient,
+    subject,
   };
 };
 
@@ -71,7 +71,7 @@ const ReferralRequest = props => {
     status,
     dateSent,
     reason,
-    patient,
+    subject,
     requester,
     description,
   } = fhirResourceData;
@@ -97,8 +97,8 @@ const ReferralRequest = props => {
             <td data-testid="dateSent">
               {dateSent ? <Date fhirData={dateSent} /> : '---'}
             </td>
-            <td data-testid="patient">
-              {patient ? <span>{patient}</span> : '---'}
+            <td data-testid="subject">
+              {subject ? <span>{subject}</span> : '---'}
             </td>
             <td data-testid="requester">
               {requester ? <span>{requester}</span> : '---'}
@@ -123,7 +123,7 @@ const ReferralRequest = props => {
 
 ReferralRequest.propTypes = {
   fhirResource: PropTypes.shape({}).isRequired,
-  fhirVersion: PropTypes.oneOf(['dstu2', 'stu3']).isRequired,
+  fhirVersion: PropTypes.oneOf([fhirTypes.DSTU2, fhirTypes.STU3]).isRequired,
 };
 
 export default ReferralRequest;

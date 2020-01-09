@@ -16,12 +16,13 @@ const ObservationGraph = props => {
     const rangeBar = Math.round(((zeroShift + tooHigh) / endAt) * 100) - lowBar;
     const valueBar = Math.round(((zeroShift + actual) / endAt) * 100) + 3;
     const higherBar = 100 - rangeBar - lowBar;
+
     return (
-      <div className="col-md-6 mt-2 mb-2 pl-0 pr-0">
+      <div className="mt-2 mb-2 pl-0 pr-0 position-relative">
         <div
           style={{
             position: 'absolute',
-            left: `${valueBar - Math.max(2.5, actual.toString().length * 2)}%`,
+            left: `${valueBar}%`,
           }}
         >
           <code style={{ display: 'inline-block' }}>
@@ -65,7 +66,7 @@ const ObservationGraph = props => {
               height: '12px',
               marginTop: '2px',
               position: 'absolute',
-              left: `${valueBar - 2.5}%`,
+              left: `${valueBar}%`,
             }}
             aria-valuenow={`${valueBar}`}
             aria-valuemin="0"

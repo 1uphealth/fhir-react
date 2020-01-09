@@ -13,6 +13,7 @@ import {
   Badge,
   Body,
   Value,
+  MissingValue,
   TableHeader,
   Table,
   TableCell,
@@ -137,16 +138,28 @@ const MedicationAdministration = props => {
           <tbody>
             <TableRow>
               <TableCell data-testid="periodTimeStart">
-                {periodTimeStart ? <Date fhirData={periodTimeStart} /> : '---'}
+                {periodTimeStart ? (
+                  <Date fhirData={periodTimeStart} />
+                ) : (
+                  <MissingValue />
+                )}
               </TableCell>
               <TableCell data-testid="periodTimeEnd">
-                {periodTimeEnd ? <Date fhirData={periodTimeEnd} /> : '---'}
+                {periodTimeEnd ? (
+                  <Date fhirData={periodTimeEnd} />
+                ) : (
+                  <MissingValue />
+                )}
               </TableCell>
               <TableCell data-testid="dosageRoute">
-                {dosageRoute ? <Coding fhirData={dosageRoute} /> : ' ---'}
+                {dosageRoute ? (
+                  <Coding fhirData={dosageRoute} />
+                ) : (
+                  <MissingValue />
+                )}
               </TableCell>
               <TableCell data-testid="dosageQuantity">
-                {dosageQuantity ? dosageQuantity : ' ---'}
+                {dosageQuantity ? dosageQuantity : <MissingValue />}
               </TableCell>
             </TableRow>
           </tbody>

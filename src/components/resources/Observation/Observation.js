@@ -5,6 +5,15 @@ import _get from 'lodash/get';
 import Coding from '../../datatypes/Coding';
 import Date from '../../datatypes/Date';
 import ObservationGraph from './ObservationGraph';
+import {
+  Root,
+  Header,
+  Title,
+  Badge,
+  BadgeSecoundary,
+  Body,
+  Value,
+} from '../../ui';
 
 const Observation = props => {
   const { fhirResource } = props;
@@ -28,44 +37,35 @@ const Observation = props => {
     [],
   );
   return (
-    <div>
-      <div style={{ width: '100%', display: 'inline-block' }}>
-        <h4 style={{ display: 'inline-block' }}>
+    <Root name="Observation">
+      <Header>
+        <Title>
           {codeCodingDisplay || codeText} &nbsp;
           <code>
             {valueQuantityValue}
             {valueQuantityUnit}
           </code>
-        </h4>
-        &nbsp;({status}&nbsp;
-        <span className="text-muted">
+        </Title>
+        <Badge>{status}</Badge>
+        <BadgeSecoundary>
           {valueCodeableConceptText || valueCodeableConceptCodingDisplay}
-        </span>
-        )
-      </div>
-      <div className="container">
-        <div className="row">
-          <ObservationGraph
-            valueQuantity={fhirResource.valueQuantity}
-            referenceRange={fhirResource.referenceRange}
-          />
-        </div>
+        </BadgeSecoundary>
+      </Header>
+      <Body>
+        <ObservationGraph
+          valueQuantity={fhirResource.valueQuantity}
+          referenceRange={fhirResource.referenceRange}
+        />
         {issued && (
-          <div className="row" style={{ display: 'unset !important' }}>
-            <small className="text-muted text-uppercase">
-              <strong>Issued on:</strong>
-            </small>
-            &nbsp;
+          <Value label="Issued on">
             <Date fhirData={issued} />
-          </div>
+          </Value>
         )}
-        <div className="row">
-          {valueCodeableConceptCoding.map(coding => (
-            <Coding fhirData={coding} />
-          ))}
-        </div>
-      </div>
-    </div>
+        {valueCodeableConceptCoding.map(coding => (
+          <Coding fhirData={coding} />
+        ))}
+      </Body>
+    </Root>
   );
 };
 

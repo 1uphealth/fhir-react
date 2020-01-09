@@ -56,7 +56,9 @@ export const Table = props => (
 );
 export const TableHeader = props => <th>{props.children}</th>;
 export const TableRow = props => <tr>{props.children}</tr>;
-export const TableCell = props => <td>{props.children}</td>;
+export const TableCell = props => (
+  <td data-testid={props['data-testid']}>{props.children}</td>
+);
 
 export const ValueSection = props => (
   <div>

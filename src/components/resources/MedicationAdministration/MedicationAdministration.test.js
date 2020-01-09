@@ -18,7 +18,7 @@ describe('should render MedicationAdministration component properly', () => {
     );
     expect(container).not.toBeNull();
 
-    expect(getByTestId('medicationReference').textContent).toContain(
+    expect(getByTestId('title').textContent).toContain(
       'Medication/medicationex',
     );
 
@@ -50,9 +50,7 @@ describe('should render MedicationAdministration component properly', () => {
     );
     expect(container).not.toBeNull();
 
-    expect(getByTestId('medicationReference').textContent).toContain(
-      '#med0301',
-    );
+    expect(getByTestId('title').textContent).toContain('#med0301');
 
     expect(getByTestId('patient').textContent).toContain('Donald Duck');
 

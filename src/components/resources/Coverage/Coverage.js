@@ -6,7 +6,7 @@ import Reference from '../../datatypes/Reference';
 import Coding from '../../datatypes/Coding';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 import fhirTypes from '../fhirResourceTypes';
-import { Header, Title, Badge, BadgeSecoundary, Body, Value } from '../../ui';
+import { Header, Title, Body, Value } from '../../ui';
 
 const commonDTO = fhirResource => {
   const period = _has(fhirResource, 'period');

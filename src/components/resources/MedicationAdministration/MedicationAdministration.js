@@ -11,7 +11,6 @@ import {
   Header,
   Title,
   Badge,
-  BadgeSecoundary,
   Body,
   Value,
   TableHeader,
@@ -126,7 +125,6 @@ const MedicationAdministration = props => {
             <Reference fhirData={practitioner} />
           </Value>
         )}
-
         <Table>
           <thead>
             <TableRow>

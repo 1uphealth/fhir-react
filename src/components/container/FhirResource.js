@@ -7,6 +7,7 @@ import CareTeam from '../resources/CareTeam';
 import Condition from '../resources/Condition';
 import Device from '../resources/Device';
 import DiagnosticReport from '../resources/DiagnosticReport';
+import DocumentReference from '../resources/DocumentReference';
 import Encounter from '../resources/Encounter';
 import FamilyMemberHistory from '../resources/FamilyMemberHistory';
 import Goal from '../resources/Goal';
@@ -23,6 +24,8 @@ import Coverage from '../resources/Coverage';
 import MedicationDispense from '../resources/MedicationDispense';
 import Organization from '../resources/Organization';
 import MedicationRequest from '../resources/MedicationRequest';
+import MedicationAdministration from '../resources/MedicationAdministration';
+import ReferralRequest from '../resources/ReferralRequest';
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -94,6 +97,12 @@ class FhirResource extends React.Component {
         return (
           <ResourceContainer {...this.props}>
             <DiagnosticReport {...this.props} />
+          </ResourceContainer>
+        );
+      case 'DocumentReference':
+        return (
+          <ResourceContainer {...this.props}>
+            <DocumentReference {...this.props} />
           </ResourceContainer>
         );
       case 'Encounter':
@@ -176,6 +185,18 @@ class FhirResource extends React.Component {
         return (
           <ResourceContainer {...this.props}>
             <MedicationRequest {...this.props} />
+          </ResourceContainer>
+        );
+      case 'MedicationAdministration':
+        return (
+          <ResourceContainer {...this.props}>
+            <MedicationAdministration {...this.props} />
+          </ResourceContainer>
+        );
+      case 'ReferralRequest':
+        return (
+          <ResourceContainer {...this.props}>
+            <ReferralRequest {...this.props} />
           </ResourceContainer>
         );
       default:

@@ -45,7 +45,7 @@ const Procedure = props => {
       </Header>
       <Body>
         {hasCoding && (
-          <Value label="Elements">
+          <Value label="Elements" data-testid="hasCoding">
             {coding.map((coding, i) => (
               <Coding key={`item-${i}`} fhirData={coding} />
             ))}
@@ -59,12 +59,15 @@ const Procedure = props => {
           </Value>
         )}
         {hasReasonCode && (
-          <Value label="Reason procedure performed">
+          <Value label="Reason procedure performed" data-testid="hasReasonCode">
             <Annotation fhirData={reasonCode} />
           </Value>
         )}
         {hasNote && (
-          <Value label="Additional information about the procedure">
+          <Value
+            label="Additional information about the procedure"
+            data-testid="hasNote"
+          >
             <Annotation fhirData={note} />
           </Value>
         )}

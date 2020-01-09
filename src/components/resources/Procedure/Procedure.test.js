@@ -35,10 +35,10 @@ describe('Procedure should render component correctly', () => {
     const { getByTestId } = render(<Procedure {...defaultProps} />);
 
     expect(String(getByTestId('hasReasonCode').textContent).trim()).toContain(
-      'Reason procedure',
+      'Generalized abdominal',
     );
     expect(getByTestId('hasNote').textContent).toContain(
-      'Additional information about ',
+      'Routine Appendectomy',
     );
   });
 });

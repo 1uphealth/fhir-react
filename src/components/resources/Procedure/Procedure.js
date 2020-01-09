@@ -14,6 +14,7 @@ import {
   Value,
   Badge,
   BadgeSecoundary,
+  MissingValue,
 } from '../../ui';
 
 const Procedure = props => {
@@ -54,7 +55,9 @@ const Procedure = props => {
         {hasPerformerData && (
           <Value label="Performed the procedure">
             {performer.map((item, i) => (
-              <div key={`item-${i}`}>{_get(item, 'actor.display', '---')}</div>
+              <div key={`item-${i}`}>
+                {_get(item, 'actor.display', <MissingValue />)}
+              </div>
             ))}
           </Value>
         )}

@@ -17,10 +17,11 @@ import {
   TableHeader,
   TableCell,
   TableRow,
+  MissingValue,
 } from '../../ui';
 
 const DosageInstruction = props => {
-  const empty = '---';
+  const empty = <MissingValue />;
   const {
     timing = empty,
     route = empty,

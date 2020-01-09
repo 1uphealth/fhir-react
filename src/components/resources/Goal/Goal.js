@@ -15,13 +15,14 @@ import {
   BadgeSecoundary,
   Body,
   Value,
+  MissingValue,
 } from '../../ui';
 
 const commonDTO = fhirResource => {
   const title = _get(fhirResource, 'note[0].text');
   const status = _get(fhirResource, 'status', '');
   const _hasStatus = _has(fhirResource, 'status');
-  const startDate = _get(fhirResource, 'startDate', ' ---');
+  const startDate = _get(fhirResource, 'startDate', <MissingValue />);
   const category = _get(fhirResource, 'category');
   const hasCategory = Array.isArray(category);
   const hasUdi = _has(fhirResource, 'udi');

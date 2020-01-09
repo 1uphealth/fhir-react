@@ -11,6 +11,8 @@ import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 import Address from '../../datatypes/Address';
 import Telecom from '../../datatypes/Telecom';
 
+import { Root, Header, Title, Body, Value, Badge } from '../../ui';
+
 const commonDTO = fhirResource => {
   const id = _get(fhirResource, 'id', '');
   const gender = _get(fhirResource, 'gender', '');
@@ -65,7 +67,7 @@ const resourceDTO = (fhirVersion, fhirResource) => {
   }
 };
 
-const Patient = props => {
+const Practitioner = props => {
   const { fhirResource, fhirVersion } = props;
   let fhirResourceData = {};
   try {
@@ -85,69 +87,53 @@ const Patient = props => {
     address,
   } = fhirResourceData;
   return (
-    <div>
-      <div className="row">
-        <div className="col-xs-4">
-          <img
-            style={{ border: '4px solid #fff', borderRadius: '500px' }}
-            src={`http://www.gravatar.com/avatar/${crypto
-              .createHash('md5')
-              .update(id)
-              .digest('hex')}?s=30&r=any&default=identicon&forcedefault=1`}
-            alt=""
-          />
-          &nbsp;
-        </div>
-        <div className="col-xs-8">
-          <span data-testid="name">
-            <HumanName fhirData={name} primary={true} />
-            &nbsp;&nbsp;
-          </span>
-          {gender && (
-            <div>
-              <label className="sb-heading">Gender</label>
-              <div data-testid="gender">{gender}</div>
-            </div>
-          )}
-          {status && (
-            <div>
-              <label className="sb-heading">Status</label>
-              <div data-testid="status">{status}</div>
-            </div>
-          )}
-          <div>
-            {isContactData && (
-              <PatientContact
-                name={contactData.name}
-                relationship={contactData.relationship}
-              />
-            )}
-          </div>
-          {address && (
-            <div>
-              <label className="sb-heading" data-testid="address">
-                Address
-              </label>
-              <Address fhirData={address} />
-            </div>
-          )}
-          {telecom && (
-            <div>
-              <label className="sb-heading" data-testid="telecom">
-                Telephone
-              </label>
-              <Telecom fhirData={telecom} />
-            </div>
-          )}
-        </div>
-      </div>
-    </div>
+    <Root name="practitioner">
+      <Header>
+        <img
+          style={{ border: '4px solid #fff', borderRadius: '500px' }}
+          src={`http://www.gravatar.com/avatar/${crypto
+            .createHash('md5')
+            .update(id)
+            .digest('hex')}?s=30&r=any&default=identicon&forcedefault=1`}
+          alt=""
+        />
+        <Title>
+          <HumanName fhirData={name} primary={true} />
+        </Title>
+        {status && <Badge data-testid="status">{status}</Badge>}
+      </Header>
+      <Body>
+        {gender && (
+          <Value label="Gender" data-testid="gender">
+            {gender}
+          </Value>
+        )}
+        {isContactData && (
+          <Value label="Contact" data-testid="contact">
+            <PatientContact
+              name={contactData.name}
+              relationship={contactData.relationship}
+            />
+          </Value>
+        )}
+        {address && (
+          <Value label="Address" data-testid="address">
+            <Address fhirData={address} />
+          </Value>
+        )}
+        {telecom && (
+          <Value label="Telephone" data-testid="telecom">
+            <Telecom fhirData={telecom} />
+          </Value>
+        )}
+      </Body>
+    </Root>
   );
 };
 
-Patient.propTypes = {
+Practitioner.propTypes = {
   fhirResource: PropTypes.shape({}).isRequired,
-  fhirVersion: PropTypes.oneOf(['dstu2', 'stu3']).isRequired,
+  fhirVersion: PropTypes.oneOf([fhirTypes.DSTU2, fhirTypes.STU3]).isRequired,
 };
 
-export default Patient;
+export default Practitioner;

@@ -17,11 +17,9 @@ describe('should render MedicationRequest component properly', () => {
     );
     expect(container).not.toBeNull();
 
-    expect(getByTestId('medication').textContent).toContain(
-      'Medication/med0316',
-    );
+    expect(getByTestId('title').textContent).toContain('Medication/med0316');
     expect(getByTestId('reasonCode').textContent).toContain(
-      'ReasonEssential hypertension',
+      'Essential hypertension',
     );
     expect(getByTestId('hasDosageInstruction').textContent).toContain(
       'Take one tablet',

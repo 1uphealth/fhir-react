@@ -6,6 +6,17 @@ import Date from '../../datatypes/Date';
 import fhirTypes from '../fhirResourceTypes';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 
+import {
+  Root,
+  Body,
+  Value,
+  Table,
+  TableRow,
+  TableHeader,
+  TableCell,
+  MissingValue,
+} from '../../ui';
+
 const commonDTO = fhirResource => {
   const typeCoding = _get(fhirResource, 'type.coding.0');
   const status = _get(fhirResource, 'status');
@@ -77,47 +88,43 @@ const ReferralRequest = props => {
   } = fhirResourceData;
 
   return (
-    <div>
-      {typeCoding && (
-        <div data-testid="typeCoding">
-          <Coding fhirData={typeCoding} />
-        </div>
-      )}
-      <table>
-        <thead>
-          <tr>
-            <th>Request sent</th>
-            <th>Patient</th>
-            <th>Requester</th>
-            <th>status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td data-testid="dateSent">
-              {dateSent ? <Date fhirData={dateSent} /> : '---'}
-            </td>
-            <td data-testid="subject">
-              {subject ? <span>{subject}</span> : '---'}
-            </td>
-            <td data-testid="requester">
-              {requester ? <span>{requester}</span> : '---'}
-            </td>
-            <td data-testid="status">
-              {status ? <span>{status}</span> : '---'}
-            </td>
-          </tr>
-          <tr>
-            <td colSpan={4}>
-              {reason && <div data-testid="reason">{reason}</div>}
-              {description && (
-                <small data-testid="description">{description}</small>
-              )}
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <Root name="ReferralRequest">
+      <Body>
+        {typeCoding && (
+          <Value label="Type" data-testid="typeCoding">
+            <Coding fhirData={typeCoding} />
+          </Value>
+        )}
+        <Table>
+          <thead>
+            <TableRow>
+              <TableHeader>Request sent</TableHeader>
+              <TableHeader>Patient</TableHeader>
+              <TableHeader>Requester</TableHeader>
+              <TableHeader>status</TableHeader>
+            </TableRow>
+          </thead>
+          <tbody>
+            <TableRow>
+              <TableCell data-testid="dateSent">
+                {dateSent ? <Date fhirData={dateSent} /> : <MissingValue />}
+              </TableCell>
+              <TableCell data-testid="subject">
+                {subject ? <span>{subject}</span> : <MissingValue />}
+              </TableCell>
+              <TableCell data-testid="requester">
+                {requester ? <span>{requester}</span> : <MissingValue />}
+              </TableCell>
+              <TableCell data-testid="status">
+                {status ? <span>{status}</span> : <MissingValue />}
+              </TableCell>
+            </TableRow>
+          </tbody>
+        </Table>
+        {reason && <div data-testid="reason">{reason}</div>}
+        {description && <small data-testid="description">{description}</small>}
+      </Body>
+    </Root>
   );
 };
 

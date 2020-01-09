@@ -26,22 +26,18 @@ describe('should render the DocumentReference component properly', () => {
     expect(getByTestId('type').textContent.split(nbsp)).toEqual([
       'Outpatient Note',
       '(34108-1)',
-      'http://loinc.org',
     ]);
     expect(getByTestId('class').textContent.split(nbsp)).toEqual([
       'History and Physical',
       '(History and Physical)',
-      'http://ihe.net/xds/connectathon/classCodes',
     ]);
     expect(getByTestId('securityLabel').textContent.split(nbsp)).toEqual([
       'very restricted',
       '(V)',
-      'http://hl7.org/fhir/v3/Confidentiality',
     ]);
     expect(getByTestId('context.event').textContent.split(nbsp)).toEqual([
       'Arm',
       '(T-D8200)',
-      'http://ihe.net/xds/connectathon/eventCodes',
     ]);
   });
 
@@ -56,11 +52,7 @@ describe('should render the DocumentReference component properly', () => {
       node.textContent.split(nbsp),
     );
     expect(formats).toEqual([
-      [
-        'History and Physical Specification',
-        '(urn:ihe:pcc:handp:2008)',
-        'urn:oid:1.3.6.1.4.1.19376.1.2.3',
-      ],
+      ['History and Physical Specification', '(urn:ihe:pcc:handp:2008)'],
     ]);
     const sizes = getAllByTestId('content.size').map(node => node.textContent);
     expect(sizes).toEqual(['3.65 kB']);
@@ -85,22 +77,18 @@ describe('should render the DocumentReference component properly', () => {
     expect(getByTestId('type').textContent.split(nbsp)).toEqual([
       'Outpatient Note',
       '(34108-1)',
-      'http://loinc.org',
     ]);
     expect(getByTestId('class').textContent.split(nbsp)).toEqual([
       'History and Physical',
       '(History and Physical)',
-      'http://ihe.net/xds/connectathon/classCodes',
     ]);
     expect(getByTestId('securityLabel').textContent.split(nbsp)).toEqual([
       'very restricted',
       '(V)',
-      'http://hl7.org/fhir/v3/Confidentiality',
     ]);
     expect(getByTestId('context.event').textContent.split(nbsp)).toEqual([
       'Arm',
       '(T-D8200)',
-      'http://ihe.net/xds/connectathon/eventCodes',
     ]);
   });
 
@@ -115,11 +103,7 @@ describe('should render the DocumentReference component properly', () => {
       node.textContent.split(nbsp),
     );
     expect(formats).toEqual([
-      [
-        'History and Physical Specification',
-        '(urn:ihe:pcc:handp:2008)',
-        'urn:oid:1.3.6.1.4.1.19376.1.2.3',
-      ],
+      ['History and Physical Specification', '(urn:ihe:pcc:handp:2008)'],
     ]);
     const sizes = getAllByTestId('content.size').map(node => node.textContent);
     expect(sizes).toEqual(['3.65 kB']);

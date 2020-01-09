@@ -111,9 +111,7 @@ const Goal = props => {
       <Header>
         <Title data-testid="title">{title}</Title>
         <Badge data-testid="status">{status}</Badge>
-        {_hasStatus && (
-          <BadgeSecondary>starting on {startDate}</BadgeSecondary>
-        )}
+        {_hasStatus && <BadgeSecondary>starting on {startDate}</BadgeSecondary>}
       </Header>
       <Body>
         {description && (

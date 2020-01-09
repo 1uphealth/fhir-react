@@ -10,7 +10,7 @@ import {
   Header,
   Title,
   Badge,
-  BadgeSecoundary,
+  BadgeSecondary,
   Body,
   Value,
 } from '../../ui';
@@ -47,9 +47,9 @@ const Observation = props => {
           </code>
         </Title>
         <Badge>{status}</Badge>
-        <BadgeSecoundary>
+        <BadgeSecondary>
           {valueCodeableConceptText || valueCodeableConceptCodingDisplay}
-        </BadgeSecoundary>
+        </BadgeSecondary>
       </Header>
       <Body>
         <ObservationGraph

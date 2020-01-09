@@ -12,7 +12,7 @@ import {
   Header,
   Title,
   Badge,
-  BadgeSecoundary,
+  BadgeSecondary,
   Body,
   Value,
 } from '../../ui';
@@ -98,9 +98,9 @@ const Device = props => {
         <Title>{model}</Title>
         <Badge>{status}</Badge>
         {hasExpiry && (
-          <BadgeSecoundary data-testid="expiry">
+          <BadgeSecondary data-testid="expiry">
             expires on <Date fhirData={getExpiry} />
-          </BadgeSecoundary>
+          </BadgeSecondary>
         )}
       </Header>
       <Body>

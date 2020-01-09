@@ -11,7 +11,7 @@ import {
   Header,
   Title,
   Badge,
-  BadgeSecoundary,
+  BadgeSecondary,
   Body,
   Value,
 } from '../../ui';
@@ -39,9 +39,9 @@ function Condition(props) {
         <Title>{codeText || ''}</Title>
         <Badge data-testid="clinicalStatus">{clinicalStatus || ''}</Badge>
         {severityText && (
-          <BadgeSecoundary data-testid="severity">
+          <BadgeSecondary data-testid="severity">
             {severityText} severity
-          </BadgeSecoundary>
+          </BadgeSecondary>
         )}
       </Header>
       <Body>

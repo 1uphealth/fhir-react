@@ -15,7 +15,7 @@ import {
   Header,
   Title,
   Badge,
-  BadgeSecoundary,
+  BadgeSecondary,
   Body,
   Value,
 } from '../../ui';
@@ -115,9 +115,9 @@ const AllergyIntolerance = props => {
         <Title>{title}</Title>
         <Badge data-testid="status">{status}</Badge>
         {recordedDate && (
-          <BadgeSecoundary data-testid="recordedDate">
+          <BadgeSecondary data-testid="recordedDate">
             recorded on <Date fhirData={recordedDate} />
-          </BadgeSecoundary>
+          </BadgeSecondary>
         )}
       </Header>
       <Body>

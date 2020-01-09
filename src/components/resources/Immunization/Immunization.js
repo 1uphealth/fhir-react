@@ -12,7 +12,7 @@ import {
   Header,
   Title,
   Badge,
-  BadgeSecoundary,
+  BadgeSecondary,
   Body,
   Value,
 } from '../../ui';
@@ -43,10 +43,10 @@ const Immunization = props => {
       <Header>
         <Title data-testid="title">{title}</Title>
         <Badge data-testid="status">{status}</Badge>
-        <BadgeSecoundary data-testid="providedDate">
+        <BadgeSecondary data-testid="providedDate">
           provided on <Date fhirData={providedDate} />
           {reported || ''}
-        </BadgeSecoundary>
+        </BadgeSecondary>
       </Header>
       <Body>
         {manufacturerText && (

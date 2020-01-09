@@ -25,7 +25,7 @@ export const Badge = props => (
     {props.children}
   </span>
 );
-export const BadgeSecoundary = props => (
+export const BadgeSecondary = props => (
   <span data-testid={props['data-testid']} className="badge badge-light">
     {props.children}
   </span>

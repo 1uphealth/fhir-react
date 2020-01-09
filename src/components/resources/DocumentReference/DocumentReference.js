@@ -14,7 +14,7 @@ import {
   Header,
   Title,
   Badge,
-  BadgeSecoundary,
+  BadgeSecondary,
   Value,
   ValueSection,
   Table,
@@ -207,7 +207,7 @@ const DocumentReference = props => {
         <Title data-testid="description">{description}</Title>
         <Badge data-testid="status">{status}</Badge>
         {docStatus && (
-          <BadgeSecoundary data-testid="docStatus">{docStatus}</BadgeSecoundary>
+          <BadgeSecondary data-testid="docStatus">{docStatus}</BadgeSecondary>
         )}
       </Header>
       <Body>

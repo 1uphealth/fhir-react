@@ -13,7 +13,7 @@ import {
   Header,
   Title,
   Badge,
-  BadgeSecoundary,
+  BadgeSecondary,
   Body,
   Value,
 } from '../../ui';
@@ -134,7 +134,7 @@ const CarePlan = props => {
       <Header>
         <Title>Care Plan</Title>
         <Badge data-testid="status">{status}</Badge>
-        {expiry && <BadgeSecoundary>expires on ${expiry}</BadgeSecoundary>}
+        {expiry && <BadgeSecondary>expires on ${expiry}</BadgeSecondary>}
       </Header>
       <Body>
         {hasCategory && (

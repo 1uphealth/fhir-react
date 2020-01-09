@@ -12,7 +12,7 @@ import {
   Header,
   Title,
   Badge,
-  BadgeSecoundary,
+  BadgeSecondary,
   Body,
   Value,
   ValueSection,
@@ -148,11 +148,11 @@ const MedicationStatement = props => {
         <Title>{title}</Title>
         <Badge data-testid="hasStatus">{status}</Badge>
         {hasEffectivePeriod && (
-          <BadgeSecoundary data-testid="hasEffectivePeriod">
+          <BadgeSecondary data-testid="hasEffectivePeriod">
             from <Date fhirData={statusDesc.from} /> {'to '}
             <Date fhirData={statusDesc.to} />
             <span>{reported}</span>
-          </BadgeSecoundary>
+          </BadgeSecondary>
         )}
       </Header>
       <Body>

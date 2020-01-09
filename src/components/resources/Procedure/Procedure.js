@@ -13,7 +13,7 @@ import {
   Body,
   Value,
   Badge,
-  BadgeSecoundary,
+  BadgeSecondary,
   MissingValue,
 } from '../../ui';
 
@@ -39,9 +39,9 @@ const Procedure = props => {
         <Title> {display}</Title>
         <Badge>{status}</Badge>
         {hasPerformedDateTime && (
-          <BadgeSecoundary>
+          <BadgeSecondary>
             on <Date fhirData={performedDateTime} />
-          </BadgeSecoundary>
+          </BadgeSecondary>
         )}
       </Header>
       <Body>

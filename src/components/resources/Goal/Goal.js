@@ -12,7 +12,7 @@ import {
   Header,
   Title,
   Badge,
-  BadgeSecoundary,
+  BadgeSecondary,
   Body,
   Value,
   MissingValue,
@@ -112,7 +112,7 @@ const Goal = props => {
         <Title data-testid="title">{title}</Title>
         <Badge data-testid="status">{status}</Badge>
         {_hasStatus && (
-          <BadgeSecoundary>starting on {startDate}</BadgeSecoundary>
+          <BadgeSecondary>starting on {startDate}</BadgeSecondary>
         )}
       </Header>
       <Body>

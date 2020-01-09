@@ -138,7 +138,7 @@ const MedicationDispense = props => {
   } = fhirResourceData;
 
   return (
-    <div>
+    <div className="fhir-resource fhir-resource__medicationDispense">
       {medicationReference && (
         <div data-testid="medication">
           <Reference fhirData={medicationReference} />

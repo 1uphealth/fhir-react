@@ -6,6 +6,19 @@ import Date from '../../datatypes/Date';
 import Coding from '../../datatypes/Coding';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 import fhirTypes from '../fhirResourceTypes';
+import {
+  Root,
+  Header,
+  Title,
+  Badge,
+  BadgeSecoundary,
+  Body,
+  Value,
+  TableHeader,
+  Table,
+  TableCell,
+  TableRow,
+} from '../../ui';
 
 const commonDTO = fhirResource => {
   const medicationReference = _get(fhirResource, 'medicationReference');
@@ -95,52 +108,53 @@ const MedicationAdministration = props => {
   } = fhirResourceData;
 
   return (
-    <div>
-      {medicationReference && (
-        <div data-testid="medicationReference">
+    <Root name="MedicationAdministration">
+      <Header>
+        <Title>
           <Reference fhirData={medicationReference} />
-        </div>
-      )}
-      {status && <span data-testid="status">{status}</span>}
-      {subject && (
-        <div data-testid="patient">
-          <label>Patient:</label>
-          <Reference fhirData={subject} />
-        </div>
-      )}
-      {practitioner && (
-        <div data-testid="practitioner">
-          <label>Practitioner:</label>
-          <Reference fhirData={practitioner} />
-        </div>
-      )}
-      <table>
-        <thead>
-          <tr>
-            <th>Period start</th>
-            <th>Period end</th>
-            <th>Dosage route</th>
-            <th>Dosage quantity</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td data-testid="periodTimeStart">
-              {periodTimeStart ? <Date fhirData={periodTimeStart} /> : '---'}
-            </td>
-            <td data-testid="periodTimeEnd">
-              {periodTimeEnd ? <Date fhirData={periodTimeEnd} /> : '---'}
-            </td>
-            <td data-testid="dosageRoute">
-              {dosageRoute ? <Coding fhirData={dosageRoute} /> : ' ---'}
-            </td>
-            <td data-testid="dosageQuantity">
-              {dosageQuantity ? dosageQuantity : ' ---'}
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+        </Title>
+        {status && <Badge data-testid="status">{status}</Badge>}
+      </Header>
+      <Body>
+        {subject && (
+          <Value label="Patient" data-testid="patient">
+            <Reference fhirData={subject} />
+          </Value>
+        )}
+        {practitioner && (
+          <Value label="Practitioner" data-testid="practitioner">
+            <Reference fhirData={practitioner} />
+          </Value>
+        )}
+
+        <Table>
+          <thead>
+            <TableRow>
+              <TableHeader>Period start</TableHeader>
+              <TableHeader>Period end</TableHeader>
+              <TableHeader>Dosage route</TableHeader>
+              <TableHeader>Dosage quantity</TableHeader>
+            </TableRow>
+          </thead>
+          <tbody>
+            <TableRow>
+              <TableCell data-testid="periodTimeStart">
+                {periodTimeStart ? <Date fhirData={periodTimeStart} /> : '---'}
+              </TableCell>
+              <TableCell data-testid="periodTimeEnd">
+                {periodTimeEnd ? <Date fhirData={periodTimeEnd} /> : '---'}
+              </TableCell>
+              <TableCell data-testid="dosageRoute">
+                {dosageRoute ? <Coding fhirData={dosageRoute} /> : ' ---'}
+              </TableCell>
+              <TableCell data-testid="dosageQuantity">
+                {dosageQuantity ? dosageQuantity : ' ---'}
+              </TableCell>
+            </TableRow>
+          </tbody>
+        </Table>
+      </Body>
+    </Root>
   );
 };
 

@@ -44,3 +44,16 @@ export const Value = props => (
     </div>
   </div>
 );
+
+export const Root = props => (
+  <div className={`fhir-resource fhir-resource__${props.name}`}>
+    {props.children}
+  </div>
+);
+
+export const Table = props => (
+  <table className="table table-striped">{props.children}</table>
+);
+export const TableHeader = props => <th>{props.children}</th>;
+export const TableRow = props => <tr>{props.children}</tr>;
+export const TableCell = props => <td>{props.children}</td>;

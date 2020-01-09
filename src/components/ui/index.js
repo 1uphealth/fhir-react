@@ -32,10 +32,10 @@ export const BadgeSecoundary = props => (
 );
 export const Body = props => <div>{props.children}</div>;
 export const Value = props => (
-  <div>
+  <div style={{ display: 'flex', marginBottom: '10px' }}>
     <label
       className="text-uppercase text-muted font-weight-bold"
-      style={{ marginRight: '10px' }}
+      style={{ marginRight: '10px', marginBottom: '0px' }}
     >
       {props.label}
     </label>

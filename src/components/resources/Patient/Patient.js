@@ -7,6 +7,8 @@ import Address from '../../datatypes/Address';
 import crypto from 'crypto';
 import _get from 'lodash/get';
 
+import { MissingValue } from '../../ui';
+
 function PatientContact(props) {
   const { fhirData } = props;
   const name = _get(fhirData, 'name');
@@ -104,9 +106,7 @@ function Patient(props) {
               <Telecom fhirData={telecom} />
             </div>
           ))}
-          {patientPhones.length === 0 && (
-            <span className="text-muted">missing</span>
-          )}
+          {patientPhones.length === 0 && <MissingValue />}
         </div>
       </div>
     </div>

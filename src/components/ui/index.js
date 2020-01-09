@@ -69,3 +69,5 @@ export const ValueSection = props => (
     <div style={{ paddingLeft: '10px' }}>{props.children}</div>
   </div>
 );
+
+export const MissingValue = props => <span className="text-muted">-</span>;

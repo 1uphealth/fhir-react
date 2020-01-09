@@ -4,6 +4,7 @@ import _get from 'lodash/get';
 import Coding from '../../datatypes/Coding';
 import Address from '../../datatypes/Address';
 import Telecom from '../../datatypes/Telecom';
+import { Root, Header, Title, Body, Value } from '../../ui';
 
 const Organization = props => {
   const { fhirResource } = props;
@@ -14,30 +15,32 @@ const Organization = props => {
   const telecom = _get(fhirResource, 'telecom');
   const hasTelecom = Array.isArray(telecom) && telecom.length > 0;
   return (
-    <div>
-      {name && <h4 data-testid="name">{name}</h4>}
-      {typeCoding && (
-        <div>
-          <Coding fhirData={typeCoding} />
-        </div>
-      )}
-      {hasAddresses && (
-        <div data-testid="address">
-          <label>Addresses</label>
-          {addresses.map((item, i) => (
-            <Address key={`item-${i}`} fhirData={item} />
-          ))}
-        </div>
-      )}
-      {hasTelecom && (
-        <div data-testid="contact">
-          <label>Contacts</label>
-          {telecom.map((item, i) => (
-            <Telecom key={`item-${i}`} fhirData={item} />
-          ))}
-        </div>
-      )}
-    </div>
+    <Root name="organization">
+      <Header>
+        <Title>{name && <h4 data-testid="name">{name}</h4>}</Title>
+      </Header>
+      <Body>
+        {typeCoding && (
+          <Value label="Type">
+            <Coding fhirData={typeCoding} />
+          </Value>
+        )}
+        {hasAddresses && (
+          <Value label="Addresses" data-testid="address">
+            {addresses.map((item, i) => (
+              <Address key={`item-${i}`} fhirData={item} />
+            ))}
+          </Value>
+        )}
+        {hasTelecom && (
+          <Value label="Contacts" data-testid="contact">
+            {telecom.map((item, i) => (
+              <Telecom key={`item-${i}`} fhirData={item} />
+            ))}
+          </Value>
+        )}
+      </Body>
+    </Root>
   );
 };
 

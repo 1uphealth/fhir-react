@@ -15,8 +15,7 @@ describe('should render component correctly', () => {
 
     expect(container).not.toBeNull();
 
-    expect(getByTestId('title').textContent).toContain('active');
-
+    expect(getByTestId('status').textContent).toContain('active');
     expect(getByTestId('category').textContent).toContain('Longitudinal');
     expect(getByTestId('addresses').textContent).toContain('Dog bite');
     expect(getByTestId('activity').textContent).toContain('ADULT DIET');
@@ -31,8 +30,7 @@ describe('should render component correctly', () => {
 
     expect(container).not.toBeNull();
 
-    expect(getByTestId('title').textContent).toContain('active');
-
+    expect(getByTestId('status').textContent).toContain('active');
     expect(getByTestId('addresses').textContent).toContain('obesity');
     expect(getByTestId('activity').textContent).toContain('3141-9');
   });

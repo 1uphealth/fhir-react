@@ -8,6 +8,8 @@ import Coding from '../../datatypes/Coding';
 import DateType from '../../datatypes/Date';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 
+import { Value, ValueSection } from '../../ui';
+
 const commonDTO = fhirResource => {
   const description = _get(fhirResource, 'description');
   const status = _get(fhirResource, 'status');
@@ -254,55 +256,47 @@ const DocumentReference = props => {
             </div>
           </div>
         )}
-        <div>
-          <small className="text-muted text-uppercase">
-            <strong>Context</strong>
-          </small>
-        </div>
-        {context.eventCoding && (
-          <div>
-            <small className="text-muted text-uppercase">
-              <strong>Event</strong>
-            </small>
-            <div data-testid="context.event">
+        <ValueSection label="Context">
+          {context.eventCoding && (
+            <Value label="Event" data-testid="context.event">
               {<Coding fhirData={context.eventCoding} />}
+            </Value>
+          )}
+          {context.facilityTypeCoding && (
+            <div>
+              <small className="text-muted text-uppercase">
+                <strong>Facility</strong>
+              </small>
+              <div data-testid="context.facilityType">
+                {<Coding fhirData={context.facilityTypeCoding} />}
+              </div>
             </div>
-          </div>
-        )}
-        {context.facilityTypeCoding && (
-          <div>
-            <small className="text-muted text-uppercase">
-              <strong>Facility</strong>
-            </small>
-            <div data-testid="context.facilityType">
-              {<Coding fhirData={context.facilityTypeCoding} />}
+          )}
+          {context.practiceSettingCoding && (
+            <div>
+              <small className="text-muted text-uppercase">
+                <strong>Practice Setting</strong>
+              </small>
+              <div data-testid="context.practiceSetting">
+                {<Coding fhirData={context.practiceSettingCoding} />}
+              </div>
             </div>
-          </div>
-        )}
-        {context.practiceSettingCoding && (
-          <div>
-            <small className="text-muted text-uppercase">
-              <strong>Practice Setting</strong>
-            </small>
-            <div data-testid="context.practiceSetting">
-              {<Coding fhirData={context.practiceSettingCoding} />}
+          )}
+          {hasPeriod && (
+            <div>
+              <small className="text-muted text-uppercase">
+                <strong>Period</strong>
+              </small>
+              <div data-testid="context.period">
+                {context.periodStart && (
+                  <DateType fhirData={context.periodStart} />
+                )}
+                {' - '}
+                {context.periodEnd && <DateType fhirData={context.periodEnd} />}
+              </div>
             </div>
-          </div>
-        )}
-        {hasPeriod && (
-          <div>
-            <small className="text-muted text-uppercase">
-              <strong>Period</strong>
-            </small>
-            <div data-testid="context.period">
-              {context.periodStart && (
-                <DateType fhirData={context.periodStart} />
-              )}
-              {' - '}
-              {context.periodEnd && <DateType fhirData={context.periodEnd} />}
-            </div>
-          </div>
-        )}
+          )}
+        </ValueSection>
         {hasContent && <Content content={content} />}
       </div>
     </div>

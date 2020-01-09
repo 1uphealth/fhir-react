@@ -57,3 +57,15 @@ export const Table = props => (
 export const TableHeader = props => <th>{props.children}</th>;
 export const TableRow = props => <tr>{props.children}</tr>;
 export const TableCell = props => <td>{props.children}</td>;
+
+export const ValueSection = props => (
+  <div>
+    <label
+      className="text-uppercase text-muted font-weight-bold"
+      style={{ marginTop: '15px', marginBottom: '10px', fontSize: '1.2em' }}
+    >
+      {props.label}
+    </label>
+    <div style={{ paddingLeft: '10px' }}>{props.children}</div>
+  </div>
+);

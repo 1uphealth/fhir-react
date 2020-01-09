@@ -7,6 +7,16 @@ import _has from 'lodash/has';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 import fhirTypes from '../fhirResourceTypes';
 
+import {
+  Root,
+  Header,
+  Title,
+  Badge,
+  BadgeSecoundary,
+  Body,
+  Value,
+} from '../../ui';
+
 const commonDTO = fhirResource => {
   const title = _get(fhirResource, 'note[0].text');
   const status = _get(fhirResource, 'status', '');
@@ -96,101 +106,61 @@ const Goal = props => {
   } = fhirResourceData;
 
   return (
-    <div>
-      <div style={{ width: '100%', display: 'inline-block' }}>
-        <h4 style={{ display: 'inline-block' }} data-testid="title">
-          {title}
-        </h4>
-        &nbsp;{status}{' '}
+    <Root name="Goal">
+      <Header>
+        <Title data-testid="title">{title}</Title>
+        <Badge data-testid="status">{status}</Badge>
         {_hasStatus && (
-          <>
-            (
-            <span className="text-muted" data-testid="status">
-              status {status} starting on {startDate}
-            </span>
-            )
-          </>
+          <BadgeSecoundary>starting on {startDate}</BadgeSecoundary>
         )}
-      </div>
-      {description && (
-        <div data-testid="description">
-          <small className="text-uppercase text-muted">
-            <strong>Description</strong>
-          </small>
-          {description}
-        </div>
-      )}
-      {hasCategory && (
-        <div data-testid="category">
-          {category.map((item, i) => {
-            const coding = _get(item, 'coding', []);
-            if (!Array.isArray(coding)) {
-              return null;
-            }
-            return coding.map((codingItem, j) => (
-              <div key={`item-${j}`}>
-                <Coding fhirData={codingItem} />
-              </div>
-            ));
-          })}
-        </div>
-      )}
-      {hasUdi && (
-        <div>
-          <span>
-            <small className="text-uppercase text-muted">
-              <strong>universal device identifier</strong>
-            </small>
-            <small> {udi}</small>
-          </span>
-        </div>
-      )}
-      {hasAddresses && (
-        <div data-testid="addresses">
-          <span>
-            <small className="text-uppercase text-muted">
-              <strong>Addresses</strong>
-            </small>
-          </span>
-          <br />
-          {addresses.map((address, i) => {
-            return (
-              <div key={`item-${i}`}>
-                <div className="col-12 pl-0 pr-0">
+      </Header>
+      <Body>
+        {description && (
+          <Value label="Description" data-testid="description">
+            {description}
+          </Value>
+        )}
+        {hasCategory && (
+          <Value label="Category" data-testid="category">
+            {category.map((item, i) => {
+              const coding = _get(item, 'coding', []);
+              if (!Array.isArray(coding)) {
+                return null;
+              }
+              return coding.map((codingItem, j) => (
+                <div key={`item-${j}`}>
+                  <Coding fhirData={codingItem} />
+                </div>
+              ));
+            })}
+          </Value>
+        )}
+        {hasUdi && <Value label="Universal Device Identifier"> {udi}</Value>}
+        {hasAddresses && (
+          <Value label="Addresses" data-testid="addresses">
+            {addresses.map((address, i) => {
+              return (
+                <div key={`item-${i}`}>
                   <Reference fhirData={address} />
                 </div>
-              </div>
-            );
-          })}
-        </div>
-      )}
-      {author && (
-        <div data-testid="author">
-          <span>
-            <small className="text-uppercase text-muted">
-              <strong>Author</strong>
-            </small>
-          </span>
-          <div className="col-12 pl-0 pr-0">
+              );
+            })}
+          </Value>
+        )}
+        {author && (
+          <Value label="Author" data-testid="author">
             <Reference fhirData={author} />
-          </div>
-        </div>
-      )}
-      {outcomeReference && (
-        <div data-testid="outcomeReference">
-          <span>
-            <small className="text-uppercase text-muted">
-              <strong>Outcome</strong>
-            </small>
-          </span>
-          <div className="col-12 pl-0 pr-0">
+          </Value>
+        )}
+        {outcomeReference && (
+          <Value label="Outcome" data-testid="outcomeReference">
             {outcomeReference.map((item, i) => (
               <Reference key={`item-${i}`} fhirData={item} />
             ))}
-          </div>
-        </div>
-      )}
-    </div>
+          </Value>
+        )}
+      </Body>
+    </Root>
   );
 };
 

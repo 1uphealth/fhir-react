@@ -6,7 +6,7 @@ import Goal from './Goal';
 import dstu2Example1 from '../../../fixtures/dstu2/resources/goal/example1.json';
 import stu3Example1 from '../../../fixtures/stu3/resources/goal/example1.json';
 
-describe('should render Gola component properly', () => {
+describe('should render Goal component properly', () => {
   it('should render with DSTU2 source data', () => {
     const defaultProps = {
       fhirResource: dstu2Example1,

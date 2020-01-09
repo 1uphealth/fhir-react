@@ -13,10 +13,12 @@ describe('should render component correctly', () => {
     const defaultProps = {
       fhirResource: exampleCondition,
     };
-    const { getByTestId } = render(<Condition {...defaultProps} />);
+    const { getByTestId, queryAllByTestId } = render(
+      <Condition {...defaultProps} />,
+    );
 
     expect(getByTestId('clinicalStatus').textContent).toEqual('active');
-    expect(getByTestId('severity').textContent).toEqual('');
+    expect(queryAllByTestId('severity').length).toEqual(0);
   });
 
   test('DSTU2 - with severity field', () => {
@@ -26,12 +28,10 @@ describe('should render component correctly', () => {
     const { getByTestId } = render(<Condition {...defaultProps} />);
 
     expect(getByTestId('clinicalStatus').textContent).toEqual('active');
-    expect(getByTestId('severity').textContent).toEqual(', Medium severity');
-    expect(getByTestId('onsetDate').textContent).toEqual(
-      'Onset Date: 2015-08-24',
-    );
+    expect(getByTestId('severity').textContent).toEqual('Medium severity');
+    expect(getByTestId('onsetDate').textContent).toEqual('2015-08-24');
     expect(getByTestId('asserter').textContent).toEqual(
-      'Asserted by: MOORE, NICK Practitioner/f8fedcd9e6e565a21f457909',
+      'MOORE, NICK Practitioner/f8fedcd9e6e565a21f457909',
     );
   });
 
@@ -39,10 +39,12 @@ describe('should render component correctly', () => {
     const defaultProps = {
       fhirResource: exampleConditionSTU3,
     };
-    const { getByTestId } = render(<Condition {...defaultProps} />);
+    const { getByTestId, queryAllByTestId } = render(
+      <Condition {...defaultProps} />,
+    );
 
     expect(getByTestId('clinicalStatus').textContent).toEqual('active');
-    expect(getByTestId('severity').textContent).toEqual('');
+    expect(queryAllByTestId('severity').length).toEqual(0);
   });
 
   it('STU3 - with severity field', () => {
@@ -53,13 +55,9 @@ describe('should render component correctly', () => {
 
     expect(getByTestId('clinicalStatus').textContent).toEqual('active');
     expect(getByTestId('severity').textContent).toEqual(
-      ', Moderate to severe severity',
+      'Moderate to severe severity',
     );
-    expect(getByTestId('onsetDate').textContent).toEqual(
-      'Onset Date: 2013-03-08',
-    );
-    expect(getByTestId('asserter').textContent).toEqual(
-      'Asserted by: Practitioner/f201',
-    );
+    expect(getByTestId('onsetDate').textContent).toEqual('2013-03-08');
+    expect(getByTestId('asserter').textContent).toEqual('Practitioner/f201');
   });
 });

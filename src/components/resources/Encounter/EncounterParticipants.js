@@ -1,6 +1,6 @@
 import React from 'react';
 import EachParticipant from './EachParticipant';
-
+import { ValueSection, Table, TableHeader, TableRow } from '../../ui';
 const EncounterParticipants = props => {
   const allParticipant = props.allParticipant.map((eachParticipant, i) => (
     <EachParticipant
@@ -9,39 +9,18 @@ const EncounterParticipants = props => {
     />
   ));
   return (
-    <div>
-      <div className="row">
-        <span>
-          <small className="text-uppercase">
-            <strong>Participants</strong>
-          </small>
-        </span>
-      </div>
-      <div className="row">
-        <div className="col-sm-3 ">
-          <span className="text-muted">
-            <small className="text-uppercase">
-              <strong>Role</strong>
-            </small>
-          </span>
-        </div>
-        <div className="col-sm-3">
-          <span className="text-muted">
-            <small className="text-uppercase">
-              <strong>Name</strong>
-            </small>
-          </span>
-        </div>
-        <div className="col-sm-6">
-          <span className="text-muted">
-            <small className="text-uppercase">
-              <strong>Date</strong>
-            </small>
-          </span>
-        </div>
-      </div>
-      {allParticipant}
-    </div>
+    <ValueSection label="Participants">
+      <Table>
+        <thead>
+          <TableRow>
+            <TableHeader>Role</TableHeader>
+            <TableHeader>Name</TableHeader>
+            <TableHeader>Date</TableHeader>
+          </TableRow>
+        </thead>
+        <tbody>{allParticipant}</tbody>
+      </Table>
+    </ValueSection>
   );
 };
 

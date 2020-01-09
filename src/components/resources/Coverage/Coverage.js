@@ -6,7 +6,7 @@ import Reference from '../../datatypes/Reference';
 import Coding from '../../datatypes/Coding';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 import fhirTypes from '../fhirResourceTypes';
-import { Header, Title, Body, Value } from '../../ui';
+import { Root, Header, Title, Body, Value } from '../../ui';
 
 const commonDTO = fhirResource => {
   const period = _has(fhirResource, 'period');
@@ -90,9 +90,7 @@ const Coverage = props => {
   } = fhirResourceData;
 
   return (
-    <div
-      style={{ margin: '10px', border: '1px solid #f0f0f0', padding: '10px' }}
-    >
+    <Root name="coverage">
       <Header>
         <Title>Plan: {planId}</Title>
       </Header>
@@ -119,12 +117,17 @@ const Coverage = props => {
         )}
         {hasDetails && (
           <Value label="Details" data-testid="details">
-            <span>{details.planDescription}</span> |
-            <span>{details.classDescription}</span>
+            <span>{details.planDescription}</span>
+            {details.classDescription && (
+              <>
+                {' | '}
+                <span>{details.classDescription}</span>
+              </>
+            )}
           </Value>
         )}
       </Body>
-    </div>
+    </Root>
   );
 };
 

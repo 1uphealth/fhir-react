@@ -10,6 +10,16 @@ import fhirTypes from '../fhirResourceTypes';
 import Date from '../../datatypes/Date';
 import Annotation from '../../datatypes/Annotation';
 
+import {
+  Root,
+  Header,
+  Title,
+  Badge,
+  BadgeSecoundary,
+  Body,
+  Value,
+} from '../../ui';
+
 const commonDTO = fhirResource => {
   const hasReaction = _get(fhirResource, 'reaction.0.manifestation');
   const reaction = _get(fhirResource, 'reaction', []);
@@ -100,79 +110,57 @@ const AllergyIntolerance = props => {
   } = fhirResourceData;
 
   return (
-    <div>
-      <div style={{ width: '100%', display: 'inline-block' }}>
-        <h4 style={{ display: 'inline-block' }} data-testid="title">
-          {title}
-        </h4>{' '}
-        (<span data-testid="status">{status}</span>
-        <span className="text-muted" data-testid="recordedDate">
-          {recordedDate && (
-            <>
-              , recorded on <Date fhirData={recordedDate} />
-            </>
-          )}
-        </span>
-        )
-      </div>
-      <div className="container pl-0 pr-0">
+    <Root name="AllergyIntolerance">
+      <Header>
+        <Title>{title}</Title>
+        <Badge data-testid="status">{status}</Badge>
+        {recordedDate && (
+          <BadgeSecoundary data-testid="recordedDate">
+            recorded on <Date fhirData={recordedDate} />
+          </BadgeSecoundary>
+        )}
+      </Header>
+      <Body>
         {hasSubstanceCoding && (
-          <div className="row pl-0 pr-0" data-testid="substance">
+          <Value label="Substance" data-testid="substance">
             {substanceCoding.map((item, i) => (
-              <div key={`item-${i}`} className="col-12">
+              <div key={`item-${i}`}>
                 <Coding fhirData={item} />
               </div>
             ))}
-          </div>
+          </Value>
         )}
-        <div className="row pl-0 pr-0">
-          {hasReaction && (
-            <>
-              <div className="col-12">
-                <small className="text-muted text-uppercase">
-                  <strong>Manifestation</strong>
-                </small>
-              </div>
-              <div className="col-12" data-testid="manifestation">
-                {reaction.map((reaction, i) => {
-                  const manifestations = _get(reaction, 'manifestation', []);
-                  return manifestations.map((manifestation, j) => {
-                    const coding = _get(manifestation, 'coding', []);
-                    return coding.map((item, c) => {
-                      const severity = _get(item, 'severity');
-                      return (
-                        <div key={`item-${i}${j}${c}`}>
-                          <Coding fhirData={item} />
-                          {severity && <span>{severity} severity</span>}
-                        </div>
-                      );
-                    });
-                  });
-                })}
-              </div>
-            </>
-          )}
-        </div>
+        {hasReaction && (
+          <Value label="Manifestation" data-testid="manifestation">
+            {reaction.map((reaction, i) => {
+              const manifestations = _get(reaction, 'manifestation', []);
+              return manifestations.map((manifestation, j) => {
+                const coding = _get(manifestation, 'coding', []);
+                return coding.map((item, c) => {
+                  const severity = _get(item, 'severity');
+                  return (
+                    <div key={`item-${i}${j}${c}`}>
+                      <Coding fhirData={item} />
+                      {severity && <span>{severity} severity</span>}
+                    </div>
+                  );
+                });
+              });
+            })}
+          </Value>
+        )}
         {asserter && (
-          <div className="row">
-            <div className="col-12-sm">
-              <div>
-                <small className="text-muted text-uppercase">
-                  <strong>Asserted by:</strong>
-                </small>{' '}
-                {<Reference fhirData={asserter} />}
-              </div>
-            </div>
-          </div>
+          <Value label="Asserted by" data-testid="asserter">
+            <Reference fhirData={asserter} />
+          </Value>
         )}
         {hasNote && (
-          <div data-testid="hasNote">
-            <label className="sb-heading">Notes</label>
+          <Value label="Notes" data-testid="hasNote">
             <Annotation fhirData={note} />
-          </div>
+          </Value>
         )}
-      </div>
-    </div>
+      </Body>
+    </Root>
   );
 };
 

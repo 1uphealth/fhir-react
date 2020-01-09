@@ -7,7 +7,15 @@ import Coding from '../../datatypes/Coding';
 import Date from '../../datatypes/Date';
 import fhirTypes from '../fhirResourceTypes';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
-import { Header, Title, Badge, BadgeSecoundary, Body, Value } from '../../ui';
+import {
+  Root,
+  Header,
+  Title,
+  Badge,
+  BadgeSecoundary,
+  Body,
+  Value,
+} from '../../ui';
 
 const commonDTO = fhirResource => {
   const model = _get(fhirResource, 'model', '');
@@ -85,7 +93,7 @@ const Device = props => {
   } = fhirResourceData;
 
   return (
-    <div className="fhir__resource">
+    <Root name="Device">
       <Header>
         <Title>{model}</Title>
         <Badge>{status}</Badge>
@@ -105,7 +113,7 @@ const Device = props => {
         )}
         {getUdi && <Value label="universal device identifier">{getUdi}</Value>}
       </Body>
-    </div>
+    </Root>
   );
 };
 

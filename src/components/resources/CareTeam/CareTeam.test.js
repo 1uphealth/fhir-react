@@ -14,7 +14,7 @@ describe('should render the CareTeam component properly', () => {
     const { getByTestId } = render(<CareTeam {...defaultProps} />);
 
     expect(getByTestId('title').textContent).toEqual(
-      'Peter James Charlmers Care Plan for Inpatient Encounter active',
+      'Peter James Charlmers Care Plan for Inpatient Encounter',
     );
     expect(getByTestId('status').textContent).toEqual('active');
     expect(getByTestId('periodStart').textContent).toEqual('-');

@@ -2,32 +2,32 @@ import React from 'react';
 
 import DateType from '../../datatypes/Date';
 
+import { TableRow, TableCell, MissingValue } from '../../ui';
+
 const CareTeamParticipant = props => {
   const { participant } = props;
 
   return (
-    <div className="row">
-      <div className="col-sm-2" data-testid="participant.role">
-        {participant.role}
-      </div>
-      <div className="col-sm-2" data-testid="participant.display">
+    <TableRow>
+      <TableCell data-testid="participant.role">{participant.role}</TableCell>
+      <TableCell data-testid="participant.display">
         {participant.display}
-      </div>
-      <div className="col-sm-2" data-testid="participant.periodStart">
+      </TableCell>
+      <TableCell data-testid="participant.periodStart">
         {participant.periodStart ? (
           <DateType fhirData={participant.periodStart} />
         ) : (
-          '-'
+          <MissingValue />
         )}
-      </div>
-      <div className="col-sm-2" data-testid="participant.periodEnd">
+      </TableCell>
+      <TableCell data-testid="participant.periodEnd">
         {participant.periodEnd ? (
           <DateType fhirData={participant.periodEnd} />
         ) : (
-          '-'
+          <MissingValue />
         )}
-      </div>
-    </div>
+      </TableCell>
+    </TableRow>
   );
 };
 

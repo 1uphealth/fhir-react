@@ -64,11 +64,11 @@ export const ValueSection = props => (
   <div>
     <label
       className="text-uppercase text-muted font-weight-bold"
-      style={{ marginTop: '15px', marginBottom: '10px', fontSize: '1.2em' }}
+      style={{ marginTop: '10px', marginBottom: '10px', fontSize: '1.1em' }}
     >
       {props.label}
     </label>
-    <div style={{ paddingLeft: '10px' }}>{props.children}</div>
+    <div style={{ padding: '0 10px' }}>{props.children}</div>
   </div>
 );
 

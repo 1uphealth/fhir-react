@@ -8,7 +8,21 @@ import Coding from '../../datatypes/Coding';
 import DateType from '../../datatypes/Date';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 
-import { Value, ValueSection } from '../../ui';
+import {
+  Root,
+  Body,
+  Header,
+  Title,
+  Badge,
+  BadgeSecoundary,
+  Value,
+  ValueSection,
+  Table,
+  TableRow,
+  TableHeader,
+  TableCell,
+  MissingValue,
+} from '../../ui';
 
 const commonDTO = fhirResource => {
   const description = _get(fhirResource, 'description');
@@ -122,23 +136,23 @@ const ContentItem = props => {
   const hasURL = !!item.url;
 
   return (
-    <div className="row">
-      <div className="col-sm-5" data-testid="content.format">
-        {hasFormat ? <Coding fhirData={item.formatCoding} /> : '-'}
-      </div>
-      <div className="col-sm-2" data-testid="content.size">
-        {hasSize ? prettyBytes(item.size) : '-'}
-      </div>
-      <div className="col-sm-5" data-testid="content.url">
+    <TableRow>
+      <TableCell data-testid="content.format">
+        {hasFormat ? <Coding fhirData={item.formatCoding} /> : <MissingValue />}
+      </TableCell>
+      <TableCell data-testid="content.size">
+        {hasSize ? prettyBytes(item.size) : <MissingValue />}
+      </TableCell>
+      <TableCell data-testid="content.url">
         {hasURL ? (
           <a href={item.url} rel="noopener noreferrer" target="_blank">
             {item.url}
           </a>
         ) : (
-          '-'
+          <MissingValue />
         )}
-      </div>
-    </div>
+      </TableCell>
+    </TableRow>
   );
 };
 
@@ -148,33 +162,18 @@ const Content = props => {
     <ContentItem key={i} item={item} />
   ));
   return (
-    <div className="container-fluid">
-      <div className="row">
-        <span>
-          <small className="text-uppercase text-muted">
-            <strong>Content</strong>
-          </small>
-        </span>
-      </div>
-      <div className="row">
-        <div className="col-sm-5">
-          <small className="text-uppercase text-muted">
-            <strong>Format</strong>
-          </small>
-        </div>
-        <div className="col-sm-2">
-          <small className="text-uppercase text-muted">
-            <strong>Size</strong>
-          </small>
-        </div>
-        <div className="col-sm-5">
-          <small className="text-uppercase text-muted">
-            <strong>URL</strong>
-          </small>
-        </div>
-      </div>
-      {allContent}
-    </div>
+    <ValueSection label="Content">
+      <Table>
+        <thead>
+          <TableRow>
+            <TableHeader>Format</TableHeader>
+            <TableHeader>Size</TableHeader>
+            <TableHeader>URL</TableHeader>
+          </TableRow>
+        </thead>
+        <tbody>{allContent}</tbody>
+      </Table>
+    </ValueSection>
   );
 };
 
@@ -203,103 +202,65 @@ const DocumentReference = props => {
   const hasPeriod = context.periodStart || context.periodEnd;
 
   return (
-    <div>
-      <div>
-        <h4 style={{ display: 'inline-block' }} data-testid="description">
-          {description}
-        </h4>
-        <span className="text-muted" data-testid="status">
-          {status}
-        </span>
+    <Root name="DocumentReference">
+      <Header>
+        <Title data-testid="description">{description}</Title>
+        <Badge data-testid="status">{status}</Badge>
         {docStatus && (
-          <span className="text-muted" data-testid="docStatus">
-            {docStatus}
-          </span>
+          <BadgeSecoundary data-testid="docStatus">{docStatus}</BadgeSecoundary>
         )}
-      </div>
-      <div>
-        <div>
-          <small className="text-muted text-uppercase">
-            <strong>Document type</strong>
-          </small>
-          <div data-testid="type">
-            <Coding fhirData={typeCoding} />
-          </div>
-        </div>
+      </Header>
+      <Body>
+        <Value label="Document type" data-testid="type">
+          <Coding fhirData={typeCoding} />
+        </Value>
         {classCoding && (
-          <div>
-            <small className="text-muted text-uppercase">
-              <strong>Document categorization</strong>
-            </small>
-            <div data-testid="class">
-              <Coding fhirData={classCoding} />
-            </div>
-          </div>
+          <Value label="Document categorization" data-testid="class">
+            <Coding fhirData={classCoding} />
+          </Value>
         )}
         {securityLabelCoding && (
-          <div>
-            <small className="text-muted text-uppercase">
-              <strong>Security Label</strong>
-            </small>
-            <div data-testid="securityLabel">
-              <Coding fhirData={securityLabelCoding} />
-            </div>
-          </div>
+          <Value label="Security Label" data-testid="securityLabel">
+            <Coding fhirData={securityLabelCoding} />
+          </Value>
         )}
         {createdAt && (
-          <div>
-            <small className="text-muted text-uppercase">
-              <strong>Created At</strong>
-            </small>
-            <div data-testid="createdAt">
-              <DateType fhirData={createdAt} />
-            </div>
-          </div>
+          <Value label="Created At" data-testid="createdAt">
+            <DateType fhirData={createdAt} />
+          </Value>
         )}
         <ValueSection label="Context">
           {context.eventCoding && (
             <Value label="Event" data-testid="context.event">
-              {<Coding fhirData={context.eventCoding} />}
+              <Coding fhirData={context.eventCoding} />
             </Value>
           )}
           {context.facilityTypeCoding && (
-            <div>
-              <small className="text-muted text-uppercase">
-                <strong>Facility</strong>
-              </small>
-              <div data-testid="context.facilityType">
-                {<Coding fhirData={context.facilityTypeCoding} />}
-              </div>
-            </div>
+            <Value label="Facility" data-testid="context.facilityType">
+              <Coding fhirData={context.facilityTypeCoding} />
+            </Value>
           )}
           {context.practiceSettingCoding && (
-            <div>
-              <small className="text-muted text-uppercase">
-                <strong>Practice Setting</strong>
-              </small>
-              <div data-testid="context.practiceSetting">
-                {<Coding fhirData={context.practiceSettingCoding} />}
-              </div>
-            </div>
+            <Value
+              label="Practice Setting"
+              data-testid="context.practiceSetting"
+            >
+              <Coding fhirData={context.practiceSettingCoding} />
+            </Value>
           )}
           {hasPeriod && (
-            <div>
-              <small className="text-muted text-uppercase">
-                <strong>Period</strong>
-              </small>
-              <div data-testid="context.period">
-                {context.periodStart && (
-                  <DateType fhirData={context.periodStart} />
-                )}
-                {' - '}
-                {context.periodEnd && <DateType fhirData={context.periodEnd} />}
-              </div>
-            </div>
+            <Value label="Period" data-testid="context.period">
+              {context.periodStart && (
+                <DateType fhirData={context.periodStart} />
+              )}
+              {' - '}
+              {context.periodEnd && <DateType fhirData={context.periodEnd} />}
+            </Value>
           )}
         </ValueSection>
         {hasContent && <Content content={content} />}
-      </div>
-    </div>
+      </Body>
+    </Root>
   );
 };
 

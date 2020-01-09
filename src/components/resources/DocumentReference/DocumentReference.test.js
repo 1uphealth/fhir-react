@@ -19,7 +19,7 @@ describe('should render the DocumentReference component properly', () => {
       />,
     );
 
-    expect(getByTestId('description').textContent).toEqual('Physical');
+    expect(getByTestId('title').textContent).toEqual('Physical');
     expect(getByTestId('status').textContent).toEqual('current');
     expect(getByTestId('docStatus').textContent).toEqual('preliminary');
     expect(getByTestId('createdAt').textContent).toEqual('2005-12-24');
@@ -70,7 +70,7 @@ describe('should render the DocumentReference component properly', () => {
       />,
     );
 
-    expect(getByTestId('description').textContent).toEqual('Physical');
+    expect(getByTestId('title').textContent).toEqual('Physical');
     expect(getByTestId('status').textContent).toEqual('current');
     expect(getByTestId('docStatus').textContent).toEqual('preliminary');
     expect(getByTestId('createdAt').textContent).toEqual('2005-12-24');

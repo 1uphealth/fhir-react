@@ -6,6 +6,19 @@ import Reference from '../../datatypes/Reference';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 import fhirTypes from '../fhirResourceTypes';
 
+import {
+  Root,
+  Header,
+  Title,
+  Body,
+  Value,
+  ValueSection,
+  Table,
+  TableHeader,
+  TableCell,
+  TableRow,
+} from '../../ui';
+
 const DosageInstruction = props => {
   const empty = '---';
   const {
@@ -15,12 +28,12 @@ const DosageInstruction = props => {
     additionalInstructions = empty,
   } = props.item;
   return (
-    <tr>
-      <td>{timing}</td>
-      <td>{route}</td>
-      <td>{doseQuantity}</td>
-      <td>{additionalInstructions}</td>
-    </tr>
+    <TableRow>
+      <TableCell>{timing}</TableCell>
+      <TableCell>{route}</TableCell>
+      <TableCell>{doseQuantity}</TableCell>
+      <TableCell>{additionalInstructions}</TableCell>
+    </TableRow>
   );
 };
 
@@ -138,44 +151,47 @@ const MedicationDispense = props => {
   } = fhirResourceData;
 
   return (
-    <div className="fhir-resource fhir-resource__medicationDispense">
-      {medicationReference && (
-        <div data-testid="medication">
-          <Reference fhirData={medicationReference} />
-        </div>
-      )}
-      {typeCoding && (
-        <div data-testid="typeCoding">
-          <Coding fhirData={typeCoding} />
-        </div>
-      )}
-      {hasDosageInstruction && (
-        <div data-testid="hasDosageInstruction">
-          <label>Dosage instruction</label>
-          <table border="1">
-            <thead>
-              <tr>
-                <th>Timing</th>
-                <th>Route</th>
-                <th>Dose quantity</th>
-                <th>Additional instructions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {dosageInstructionData.map((item, i) => (
-                <DosageInstruction key={`item-${i}`} item={item} />
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
-    </div>
+    <Root name="medicationDispense">
+      <Header>
+        {medicationReference && (
+          <Title>
+            <Reference fhirData={medicationReference} />
+          </Title>
+        )}
+      </Header>
+      <Body>
+        {typeCoding && (
+          <Value label="Type" data-testid="typeCoding">
+            <Coding fhirData={typeCoding} />
+          </Value>
+        )}
+        {hasDosageInstruction && (
+          <ValueSection label="Dosage instruction">
+            <Table>
+              <thead>
+                <TableRow>
+                  <TableHeader>Timing</TableHeader>
+                  <TableHeader>Route</TableHeader>
+                  <TableHeader>Dose quantity</TableHeader>
+                  <TableHeader>Additional instructions</TableHeader>
+                </TableRow>
+              </thead>
+              <tbody data-testid="hasDosageInstruction">
+                {dosageInstructionData.map((item, i) => (
+                  <DosageInstruction key={`item-${i}`} item={item} />
+                ))}
+              </tbody>
+            </Table>
+          </ValueSection>
+        )}
+      </Body>
+    </Root>
   );
 };
 
 MedicationDispense.propTypes = {
   fhirResource: PropTypes.shape({}).isRequired,
-  fhirVersion: PropTypes.oneOf(['dstu2', 'stu3']).isRequired,
+  fhirVersion: PropTypes.oneOf([fhirTypes.DSTU2, fhirTypes.STU3]).isRequired,
 };
 
 export default MedicationDispense;

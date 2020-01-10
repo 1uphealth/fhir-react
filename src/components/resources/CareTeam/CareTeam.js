@@ -23,7 +23,7 @@ const resourceDTO = fhirResource => {
 
   const participants = _get(fhirResource, 'participant', []).map(item => {
     const display = _get(item, 'member.display');
-    const role = _get(item, 'role.text');
+    const role = _get(item, 'role.text') || _get(item, 'role.coding.0.display');
     const periodStart = _get(item, 'period.start');
     const periodEnd = _get(item, 'period.end');
 

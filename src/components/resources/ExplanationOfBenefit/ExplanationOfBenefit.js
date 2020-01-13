@@ -12,7 +12,6 @@ import {
   Body,
   ValueSection,
   Table,
-  TableHeader,
   TableRow,
   TableCell,
   MissingValue,

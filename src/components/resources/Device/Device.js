@@ -111,7 +111,7 @@ const Device = props => {
             ))}
           </Value>
         )}
-        {getUdi && <Value label="universal device identifier">{getUdi}</Value>}
+        {getUdi && <Value label="Unique device identifier">{getUdi}</Value>}
       </Body>
     </Root>
   );

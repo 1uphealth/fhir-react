@@ -1,51 +1,33 @@
 import React from 'react';
 
 export const Header = props => (
-  <div
-    style={{
-      width: '100%',
-      // display: 'inline-block',
-      marginBottom: '10px',
-
-      display: 'flex',
-      alignItems: 'center',
-    }}
-  >
-    {props.children}
-  </div>
+  <div className="fhir-ui__Header">{props.children}</div>
 );
 
 export const Title = props => (
-  <h4 data-testid="title" style={{ marginRight: '10px', marginBottom: '0px' }}>
+  <h4 className="fhir-ui__Title" data-testid="title">
     {props.children}
   </h4>
 );
+
 export const Badge = props => (
-  <span
-    data-testid={props['data-testid']}
-    className="badge badge-secondary"
-    style={{ marginRight: '10px' }}
-  >
+  <span className="fhir-ui__Badge" data-testid={props['data-testid']}>
     {props.children}
   </span>
 );
+
 export const BadgeSecondary = props => (
-  <span data-testid={props['data-testid']} className="badge badge-light">
+  <span className="fhir-ui__BadgeSecondary" data-testid={props['data-testid']}>
     {props.children}
   </span>
 );
+
 export const Body = props => <div>{props.children}</div>;
+
 export const Value = props => (
-  <div style={{ display: 'flex', marginBottom: '10px' }}>
-    <label
-      className="text-uppercase text-muted font-weight-bold"
-      style={{ marginRight: '10px', marginBottom: '0px' }}
-    >
-      {props.label}
-    </label>
-    <div style={{ display: 'inline-block' }} data-testid={props['data-testid']}>
-      {props.children}
-    </div>
+  <div className="fhir-ui__Value">
+    <label className="fhir-ui__Value-label">{props.label}</label>
+    <div data-testid={props['data-testid']}>{props.children}</div>
   </div>
 );
 
@@ -56,24 +38,30 @@ export const Root = props => (
 );
 
 export const Table = props => (
-  <table className="table table-striped">{props.children}</table>
+  <table className="fhir-ui__Table">{props.children}</table>
 );
-export const TableHeader = props => <th>{props.children}</th>;
-export const TableRow = props => <tr>{props.children}</tr>;
+
+export const TableHeader = props => (
+  <th className="fhir-ui__TableHeader">{props.children}</th>
+);
+
+export const TableRow = props => (
+  <tr className="fhir-ui__TableRow">{props.children}</tr>
+);
+
 export const TableCell = props => (
-  <td data-testid={props['data-testid']}>{props.children}</td>
+  <td className="fhir-ui__TableCell" data-testid={props['data-testid']}>
+    {props.children}
+  </td>
 );
 
 export const ValueSection = props => (
-  <div data-testid={props['data-testid']}>
-    <label
-      className="text-uppercase text-muted font-weight-bold"
-      style={{ marginTop: '10px', marginBottom: '10px', fontSize: '1.1em' }}
-    >
-      {props.label}
-    </label>
-    <div style={{ padding: '0 10px' }}>{props.children}</div>
+  <div className="fhir-ui__ValueSection" data-testid={props['data-testid']}>
+    <label>{props.label}</label>
+    <div className="fhir-ui__ValueSection-body">{props.children}</div>
   </div>
 );
 
-export const MissingValue = props => <span className="text-muted">-</span>;
+export const MissingValue = props => (
+  <span className="fhir-ui__MissingValue">-</span>
+);

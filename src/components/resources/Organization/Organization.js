@@ -16,9 +16,11 @@ const Organization = props => {
   const hasTelecom = Array.isArray(telecom) && telecom.length > 0;
   return (
     <Root name="organization">
-      <Header>
-        <Title>{name && <h4 data-testid="name">{name}</h4>}</Title>
-      </Header>
+      {name && (
+        <Header>
+          <Title>{name}</Title>
+        </Header>
+      )}
       <Body>
         {typeCoding && (
           <Value label="Type">

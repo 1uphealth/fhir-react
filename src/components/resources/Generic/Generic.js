@@ -1,6 +1,6 @@
 import React from 'react';
 import ResourceContainer from '../../containers/ResourceContainer';
-var _ = require('lodash');
+import _get from 'lodash/get';
 
 class Condition extends React.Component {
   render() {
@@ -9,12 +9,12 @@ class Condition extends React.Component {
         <ResourceContainer {...this.props}>
           <div className="container">
             <h4>
-              {`${this.props.fhirResource.resourceType}/${_.get(
+              {`${this.props.fhirResource.resourceType}/${_get(
                 this.props.fhirResource,
                 'id',
               )}`}{' '}
-              {_.get(this.props.fhirResource, 'code.coding[0].display') ||
-                _.get(this.props.fhirResource, 'code.text') ||
+              {_get(this.props.fhirResource, 'code.coding[0].display') ||
+                _get(this.props.fhirResource, 'code.text') ||
                 ''}
             </h4>
           </div>

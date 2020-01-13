@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import _get from 'lodash/get';
 import _has from 'lodash/has';
 
-import Coding from '../../datatypes/Coding';
 import Annotation from '../../datatypes/Annotation';
+import Coding from '../../datatypes/Coding';
 import Date from '../../datatypes/Date';
+import Reference from '../../datatypes/Reference';
 import {
   Root,
   Header,
@@ -25,8 +26,13 @@ const Procedure = props => {
   const status = _get(fhirResource, 'status', '');
   const hasPerformedDateTime = _has(fhirResource, 'performedDateTime');
   const performedDateTime = _get(fhirResource, 'performedDateTime');
+  const performedPeriodStart = _get(fhirResource, 'performedPeriod.start');
+  const performedPeriodEnd = _get(fhirResource, 'performedPeriod.end');
+  const hasPerformedPeriod = performedPeriodStart || performedPeriodEnd;
   const hasCoding = _has(fhirResource, 'code.coding');
   const coding = _get(fhirResource, 'code.coding', []);
+  const category = _get(fhirResource, 'category.coding[0]');
+  const locationReference = _get(fhirResource, 'location');
   const hasPerformerData = _has(fhirResource, 'performer.0.actor.display');
   const performer = _get(fhirResource, 'performer', []);
   const hasReasonCode = _has(fhirResource, 'reasonCode');
@@ -36,20 +42,41 @@ const Procedure = props => {
   return (
     <Root name="procedure">
       <Header>
-        <Title> {display}</Title>
+        {display && <Title>{display}</Title>}
         <Badge>{status}</Badge>
         {hasPerformedDateTime && (
           <BadgeSecondary>
             on <Date fhirData={performedDateTime} />
           </BadgeSecondary>
         )}
+        {hasPerformedPeriod && (
+          <BadgeSecondary>
+            {'performed '}
+            {performedPeriodStart ? (
+              <Date fhirData={performedPeriodStart} />
+            ) : (
+              <MissingValue />
+            )}
+            {' to '}
+            {performedPeriodEnd ? (
+              <Date fhirData={performedPeriodEnd} />
+            ) : (
+              <MissingValue />
+            )}
+          </BadgeSecondary>
+        )}
       </Header>
       <Body>
         {hasCoding && (
-          <Value label="Elements" data-testid="hasCoding">
+          <Value label="Identification" data-testid="hasCoding">
             {coding.map((coding, i) => (
               <Coding key={`item-${i}`} fhirData={coding} />
             ))}
+          </Value>
+        )}
+        {category && (
+          <Value label="Category" data-testid="category">
+            <Coding fhirData={category} />
           </Value>
         )}
         {hasPerformerData && (
@@ -64,6 +91,11 @@ const Procedure = props => {
         {hasReasonCode && (
           <Value label="Reason procedure performed" data-testid="hasReasonCode">
             <Annotation fhirData={reasonCode} />
+          </Value>
+        )}
+        {locationReference && (
+          <Value label="Location" data-testid="location">
+            <Reference fhirData={locationReference} />
           </Value>
         )}
         {hasNote && (

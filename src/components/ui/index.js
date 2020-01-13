@@ -21,7 +21,11 @@ export const Title = props => (
   </h4>
 );
 export const Badge = props => (
-  <span data-testid={props['data-testid']} className="badge badge-secondary">
+  <span
+    data-testid={props['data-testid']}
+    className="badge badge-secondary"
+    style={{ marginRight: '10px' }}
+  >
     {props.children}
   </span>
 );
@@ -61,7 +65,7 @@ export const TableCell = props => (
 );
 
 export const ValueSection = props => (
-  <div>
+  <div data-testid={props['data-testid']}>
     <label
       className="text-uppercase text-muted font-weight-bold"
       style={{ marginTop: '10px', marginBottom: '10px', fontSize: '1.1em' }}

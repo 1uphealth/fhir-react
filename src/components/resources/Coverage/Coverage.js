@@ -38,13 +38,16 @@ const stu3DTO = fhirResource => {
     classDescription: _get(fhirResource, 'grouping.classDisplay'),
   };
   const hasDetails = Object.values(details).filter(item => !!item).length > 0;
-
+  const extension = _get(fhirResource, 'extension');
+  const hasExtension = Array.isArray(extension) && extension.length > 0;
   return {
     planId,
     issuer,
     type,
     details,
     hasDetails,
+    extension,
+    hasExtension,
   };
 };
 
@@ -87,6 +90,8 @@ const Coverage = props => {
     type,
     details,
     hasDetails,
+    extension,
+    hasExtension,
   } = fhirResourceData;
 
   return (
@@ -124,6 +129,13 @@ const Coverage = props => {
                 <span>{details.classDescription}</span>
               </>
             )}
+          </Value>
+        )}
+        {hasExtension && (
+          <Value label="Extension" data-testid="extensions">
+            {extension.map((item, i) => (
+              <Coding key={`item-${i}`} fhirData={item.valueCoding} />
+            ))}
           </Value>
         )}
       </Body>

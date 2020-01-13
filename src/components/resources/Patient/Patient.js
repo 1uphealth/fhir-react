@@ -56,20 +56,25 @@ function Patient(props) {
             />
           </div>
           <div>
-            {patientNames.map((patientName, index) => {
-              if (props.thorough === false && index !== 0) {
-                return '';
-              } else {
-                return (
-                  <React.Fragment key={index}>
-                    <span data-testid="patientName">
-                      <HumanName fhirData={patientName} primary={index === 0} />
-                    </span>
-                    &nbsp;&nbsp;
-                  </React.Fragment>
-                );
-              }
-            })}
+            <div className="d-flex">
+              {patientNames.map((patientName, index) => {
+                if (props.thorough === false && index !== 0) {
+                  return null;
+                } else {
+                  return (
+                    <React.Fragment key={index}>
+                      <span data-testid="patientName">
+                        <HumanName
+                          fhirData={patientName}
+                          primary={index === 0}
+                        />
+                      </span>
+                      &nbsp;&nbsp;
+                    </React.Fragment>
+                  );
+                }
+              })}
+            </div>
             <div>
               {patientBirthDate && (
                 <span className="text-muted">

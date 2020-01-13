@@ -11,17 +11,17 @@ function HumanName(props) {
   const header = `${givenName} ${familyName} ${suffix}`;
 
   const headerElement = primary ? (
-    <h4 style={{ display: 'inline-block' }}>{header}</h4>
+    <h4 style={{ display: 'inline-block', marginBottom: '0' }}>{header}</h4>
   ) : (
     <strong>{header}</strong>
   );
-  const rootClassName = primary ? '' : 'text-muted';
+  const rootClassName = primary ? undefined : 'text-muted';
 
   return (
-    <span className={rootClassName}>
+    <div className={rootClassName}>
       {headerElement}
       {use && <small>&nbsp;({use})</small>}
-    </span>
+    </div>
   );
 }
 

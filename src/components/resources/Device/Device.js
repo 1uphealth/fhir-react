@@ -95,8 +95,8 @@ const Device = props => {
   return (
     <Root name="Device">
       <Header>
-        <Title>{model}</Title>
-        <Badge>{status}</Badge>
+        {model && <Title>{model}</Title>}
+        {status && <Badge>{status}</Badge>}
         {hasExpiry && (
           <BadgeSecondary data-testid="expiry">
             expires on <Date fhirData={getExpiry} />

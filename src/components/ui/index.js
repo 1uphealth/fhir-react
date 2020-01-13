@@ -61,7 +61,7 @@ export const TableCell = props => (
 );
 
 export const ValueSection = props => (
-  <div>
+  <div data-testid={props['data-testid']}>
     <label
       className="text-uppercase text-muted font-weight-bold"
       style={{ marginTop: '10px', marginBottom: '10px', fontSize: '1.1em' }}

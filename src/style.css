@@ -7,12 +7,11 @@
 
 .fhir-ui__Title {
   margin-right: 10px;
-  margin-bottom: 0px;
+  margin-bottom: 0;
 }
 
 .fhir-ui__Badge {
   margin-right: 10px;
-
   display: inline-block;
   padding: 0.25em 0.4em;
   font-size: 75%;
@@ -25,9 +24,9 @@
   border-radius: 3px;
   background-color: #6c757d;
 }
+
 .fhir-ui__BadgeSecondary {
   margin-right: 10px;
-
   display: inline-block;
   padding: 0.25em 0.4em;
   font-size: 75%;
@@ -147,5 +146,5 @@
 }
 
 .fhir-resource__ObservationGraph__progress-bar--inside-range {
-  background-color: #00000033;
+  background-color: #0003;
 }

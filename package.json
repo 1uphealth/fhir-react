@@ -20,6 +20,8 @@
     "build": "NODE_ENV=production webpack",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
+    "stylelint": "stylelint 'src/**/*.css'",
+    "stylelint:fix": "stylelint --fix 'src/**/*.css'",
     "storybook": "start-storybook",
     "deploy-storybook": "storybook-to-aws-s3 --bucket-path=storybook-fhir-react-lib --aws-profile=storybook-deployer"
   },
@@ -91,6 +93,8 @@
     "jest": "^24.9.0",
     "prettier": "1.19.1",
     "react-dom": "^16.12.0",
+    "stylelint": "^13.0.0",
+    "stylelint-config-standard": "^19.0.0",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.10"
   }

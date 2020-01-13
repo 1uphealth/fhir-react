@@ -52,12 +52,29 @@ describe('should render component correctly', () => {
   });
 
   it('component without fhirVersion props', () => {
+    const warn = console.warn;
+    const error = console.error;
+    jest.spyOn(console, 'warn').mockImplementation((...args) =>
+      args[0].includes('Unrecognized the fhir version property type')
+        ? null // Silence the warning in test output
+        : warn(...args),
+    );
+    jest.spyOn(console, 'error').mockImplementation((...args) =>
+      args[0].includes(
+        'Failed prop type: The prop `fhirVersion` is marked as required',
+      )
+        ? null // Silence the prop type error in test output
+        : error(...args),
+    );
     const defaultProps = {
       fhirResource: example2_STU3,
     };
-    const { container, getByText } = render(<Encounter {...defaultProps} />);
+    const { getByText } = render(<Encounter {...defaultProps} />);
 
-    expect(container).not.toBeNull();
     expect(getByText(/Unhandled data structure/i)).toBeTruthy();
+    expect(console.warn).toHaveBeenCalledWith(
+      'Unrecognized the fhir version property type.',
+    );
+    jest.restoreAllMocks();
   });
 });

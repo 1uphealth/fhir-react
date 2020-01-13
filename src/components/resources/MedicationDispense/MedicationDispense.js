@@ -72,12 +72,12 @@ const dstu2DTO = fhirResource => {
       return data;
     });
   };
-  const medicationReference = _get(fhirResource, 'medicationReference');
+  const medicationTitle = _get(fhirResource, 'medicationReference.display');
   const dosageInstruction = _get(fhirResource, 'dosageInstruction', []);
   const hasDosageInstruction =
     Array.isArray(dosageInstruction) && dosageInstruction.length > 0;
   const dosageInstructionData = prepareDosageInstructionData(dosageInstruction);
-  return { hasDosageInstruction, dosageInstructionData, medicationReference };
+  return { hasDosageInstruction, dosageInstructionData, medicationTitle };
 };
 
 const stu3DTO = fhirResource => {
@@ -106,12 +106,20 @@ const stu3DTO = fhirResource => {
       return data;
     });
   };
-  const medicationReference = _get(fhirResource, 'contained.0.code.coding.0');
+  const medicationTitle =
+    _get(fhirResource, 'medicationReference.display') ||
+    _get(fhirResource, 'contained[0].code.coding[0].display');
+  const medicationCoding = _get(fhirResource, 'contained[0].code.coding[0]');
   const dosageInstruction = _get(fhirResource, 'dosageInstruction', []);
   const hasDosageInstruction =
     Array.isArray(dosageInstruction) && dosageInstruction.length > 0;
   const dosageInstructionData = prepareDosageInstructionData(dosageInstruction);
-  return { medicationReference, hasDosageInstruction, dosageInstructionData };
+  return {
+    medicationTitle,
+    medicationCoding,
+    hasDosageInstruction,
+    dosageInstructionData,
+  };
 };
 
 const resourceDTO = (fhirVersion, fhirResource) => {
@@ -145,7 +153,8 @@ const MedicationDispense = props => {
   }
 
   const {
-    medicationReference,
+    medicationTitle,
+    medicationCoding,
     typeCoding,
     hasDosageInstruction,
     dosageInstructionData,
@@ -153,14 +162,17 @@ const MedicationDispense = props => {
 
   return (
     <Root name="medicationDispense">
-      <Header>
-        {medicationReference && (
-          <Title>
-            <Reference fhirData={medicationReference} />
-          </Title>
-        )}
-      </Header>
+      {medicationTitle && (
+        <Header>
+          <Title>{medicationTitle}</Title>
+        </Header>
+      )}
       <Body>
+        {medicationCoding && (
+          <Value label="Medication" data-testid="medicationCoding">
+            <Coding fhirData={medicationCoding} />
+          </Value>
+        )}
         {typeCoding && (
           <Value label="Type" data-testid="typeCoding">
             <Coding fhirData={typeCoding} />

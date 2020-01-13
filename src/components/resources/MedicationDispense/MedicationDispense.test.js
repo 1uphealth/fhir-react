@@ -19,9 +19,7 @@ describe('should render Device component properly', () => {
     );
     expect(container).not.toBeNull();
 
-    expect(getByTestId('title').textContent).toContain(
-      'Medication/medexample005',
-    );
+    expect(getByTestId('title').textContent).toEqual('prescribed medication');
     expect(getByTestId('typeCoding').textContent).toContain('Part Fill');
     expect(getByTestId('hasDosageInstruction').textContent).toContain(
       'or after food',
@@ -40,6 +38,9 @@ describe('should render Device component properly', () => {
     expect(container).not.toBeNull();
 
     expect(getByTestId('title').textContent).toContain('Capecitabine');
+    expect(getByTestId('medicationCoding').textContent).toContain(
+      'Capecitabine 500mg oral tablet',
+    );
     expect(getByTestId('hasDosageInstruction').textContent).toContain(
       'doral administration',
     );

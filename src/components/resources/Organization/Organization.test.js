@@ -19,7 +19,7 @@ describe('should render Organization component properly', () => {
     );
     expect(container).not.toBeNull();
 
-    expect(getByTestId('name').textContent).toContain('Burgers University');
+    expect(getByTestId('title').textContent).toContain('Burgers University');
     expect(getByTestId('address').textContent).toContain('91Den Burg');
     expect(getByTestId('contact').textContent).toContain('022-655 2300');
   });
@@ -33,7 +33,7 @@ describe('should render Organization component properly', () => {
       <Organization {...defaultProps} />,
     );
 
-    expect(getByTestId('name').textContent).toContain('Clinical Lab');
+    expect(getByTestId('title').textContent).toContain('Clinical Lab');
     expect(queryAllByTestId('address').length).toEqual(0);
   });
 
@@ -44,7 +44,7 @@ describe('should render Organization component properly', () => {
 
     const { getByTestId } = render(<Organization {...defaultProps} />);
 
-    expect(getByTestId('name').textContent).toContain('Health Level');
+    expect(getByTestId('title').textContent).toContain('Health Level');
     expect(getByTestId('address').textContent).toContain('Washtenaw Avenue');
     expect(getByTestId('contact').textContent).toContain('734-677-7777');
   });

@@ -54,7 +54,7 @@ const CareTeam = props => {
   return (
     <Root name="CareTeam">
       <Header>
-        <Title>{name}</Title>
+        {name && <Title>{name}</Title>}
         {status && <Badge data-testid="status">{status}</Badge>}
       </Header>
       <Body>

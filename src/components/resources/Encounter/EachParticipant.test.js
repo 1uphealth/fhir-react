@@ -12,7 +12,11 @@ describe('should render component correctly', () => {
       },
     };
     const { container, getByTestId } = render(
-      <EachParticipant {...defaultProps} />,
+      <table>
+        <tbody>
+          <EachParticipant {...defaultProps} />
+        </tbody>
+      </table>,
     );
 
     expect(container).not.toBeNull();

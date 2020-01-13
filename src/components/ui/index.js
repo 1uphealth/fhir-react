@@ -21,7 +21,11 @@ export const Title = props => (
   </h4>
 );
 export const Badge = props => (
-  <span data-testid={props['data-testid']} className="badge badge-secondary">
+  <span
+    data-testid={props['data-testid']}
+    className="badge badge-secondary"
+    style={{ marginRight: '10px' }}
+  >
     {props.children}
   </span>
 );

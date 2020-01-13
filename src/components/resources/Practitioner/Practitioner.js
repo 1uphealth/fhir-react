@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import crypto from 'crypto';
+import md5 from 'md5';
 import _get from 'lodash/get';
 import _has from 'lodash/has';
 
@@ -91,10 +91,9 @@ const Practitioner = props => {
       <Header>
         <img
           className="fhir-resource__Practitioner__practitioner-avatar"
-          src={`http://www.gravatar.com/avatar/${crypto
-            .createHash('md5')
-            .update(id)
-            .digest('hex')}?s=30&r=any&default=identicon&forcedefault=1`}
+          src={`http://www.gravatar.com/avatar/${md5(
+            id,
+          )}?s=30&r=any&default=identicon&forcedefault=1`}
           alt=""
         />
         <Title>

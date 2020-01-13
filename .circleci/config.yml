@@ -11,8 +11,11 @@ jobs:
           name: Install dependencies
           command: npm install
       - run:
-          name: Run linter
+          name: Run JS linter
           command: npm run lint
+      - run:
+          name: Run CSS linter
+          command: npm run stylelint
       - run:
           name: Run tests
           command: npm run test -- --runInBand

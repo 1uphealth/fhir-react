@@ -1,5 +1,7 @@
 import React from 'react';
 
+import './BinaryText.css';
+
 class BinaryText extends React.Component {
   render() {
     return (

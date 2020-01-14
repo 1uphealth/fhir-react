@@ -4,6 +4,8 @@ import MedicationStatement from './components/resources/MedicationStatement';
 import MedicationOrder from './components/resources/MedicationOrder';
 import Encounter from './components/resources/Encounter';
 
+import './style.css';
+
 export const Resources = {
   Patient,
   Encounter,

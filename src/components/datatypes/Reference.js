@@ -1,5 +1,6 @@
 import React from 'react';
 import _get from 'lodash/get';
+import './Reference.css';
 
 const Reference = props => {
   const { fhirData } = props;
@@ -10,8 +11,7 @@ const Reference = props => {
       {display && (
         <span className="fhir-datatype__Reference__title">{display}</span>
       )}
-      <span className="fhir-datatype__Reference__details"></span>
-      {reference}
+      <span className="fhir-datatype__Reference__details">{reference}</span>
     </div>
   );
 };

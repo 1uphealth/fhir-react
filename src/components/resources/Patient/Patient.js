@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import crypto from 'crypto';
+import _get from 'lodash/get';
 
 import HumanName from '../../datatypes/HumanName';
 import Telecom from '../../datatypes/Telecom';
 import Address from '../../datatypes/Address';
-import crypto from 'crypto';
-import _get from 'lodash/get';
-
 import { Root, Header, Body, Value, MissingValue } from '../../ui';
+import './Patient.css';
 
 function PatientContact(props) {
   const { fhirData } = props;

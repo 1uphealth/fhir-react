@@ -1,0 +1,10 @@
+.fhir-container__CodeBlock {
+  width: 100%;
+  padding: 1.5rem;
+  color: #f8f9fa;
+  background-color: #343a40;
+  border-radius: 0.25rem;
+  word-break: break-word;
+  font-family: monospace;
+  font-size: 16px;
+}

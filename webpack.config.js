@@ -1,4 +1,5 @@
-var path = require('path');
+const path = require('path');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   mode: process.env.NODE_ENV,
@@ -22,9 +23,23 @@ module.exports = {
           },
         },
       },
+      {
+        test: /\.css$/,
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+          },
+          'css-loader',
+        ],
+      },
     ],
   },
   externals: {
     react: 'commonjs react', // this line is just to use the React dependency of our parent-testing-project instead of using our own React.
   },
+  plugins: [
+    new MiniCssExtractPlugin({
+      filename: 'style.css',
+    }),
+  ],
 };

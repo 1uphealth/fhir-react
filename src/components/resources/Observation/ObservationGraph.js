@@ -1,6 +1,7 @@
 import React from 'react';
 import _get from 'lodash/get';
 import _isNumber from 'lodash/isNumber';
+import './ObservationGraph.css';
 
 const ObservationGraph = props => {
   if (props.referenceRange && _isNumber(_get(props, 'valueQuantity.value'))) {

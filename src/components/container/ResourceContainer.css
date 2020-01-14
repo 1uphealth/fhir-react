@@ -1,0 +1,55 @@
+.fhir-container__ResourceContainer__card {
+  background-color: #f8f9fa;
+  border: 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-clip: border-box;
+  border-radius: 0.25rem;
+}
+
+.fhir-container__ResourceContainer__card-body {
+  flex: 1 1 auto;
+  padding: 1.25rem;
+}
+
+.fhir-container__ResourceContainer__json-button-wrapper {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+}
+
+.fhir-container__ResourceContainer__json--visible {
+  display: block;
+  padding-top: 10px;
+}
+
+.fhir-container__ResourceContainer__json--hidden {
+  display: none;
+}
+
+.fhir-container__ResourceContainer__json-button {
+  color: #6c757d;
+  border-color: #6c757d;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  border-radius: 0.2rem;
+  display: inline-block;
+  font-weight: 400;
+  text-align: center;
+  vertical-align: middle;
+  user-select: none;
+  background-color: transparent;
+  border: 1px solid #6c6c6c;
+  transition: all 0.15s ease-in-out;
+}
+
+.fhir-container__ResourceContainer__json-button:hover {
+  color: #fff;
+  background-color: #6c757d;
+  border-color: #6c757d;
+}

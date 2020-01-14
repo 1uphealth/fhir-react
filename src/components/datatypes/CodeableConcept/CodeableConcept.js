@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _get from 'lodash/get';
-import Coding from './Coding';
+import Coding from '../Coding';
 
 const CodeableConcept = props => {
   const { fhirData } = props;

@@ -1,5 +1,5 @@
 import React from 'react';
-import ResourceContainer from '../containers/ResourceContainer';
+import ResourceContainer from '../../containers/ResourceContainer';
 var _ = require('lodash');
 
 class MedicationDetails extends React.Component {

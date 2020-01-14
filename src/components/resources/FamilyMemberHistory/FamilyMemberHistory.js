@@ -1,6 +1,6 @@
 import React from 'react';
-import ResourceContainer from '../containers/ResourceContainer';
-import Coding from '../datatypes/Coding';
+import ResourceContainer from '../../containers/ResourceContainer';
+import Coding from '../../datatypes/Coding';
 var _ = require('lodash');
 
 // {

@@ -1,7 +1,7 @@
 import React from 'react';
-import Img from '../datatypes/Img';
-import Pdf from '../datatypes/Pdf';
-import BinaryText from '../datatypes/BinaryText';
+import Img from '../../datatypes/Img';
+import Pdf from '../../datatypes/Pdf';
+import BinaryText from '../../datatypes/BinaryText';
 
 class Binary extends React.Component {
   render() {

@@ -90,11 +90,7 @@ const Practitioner = props => {
     <Root name="practitioner">
       <Header>
         <img
-          style={{
-            border: '4px solid #fff',
-            borderRadius: '50%',
-            marginRight: '10px',
-          }}
+          className="practitioner-avatar"
           src={`http://www.gravatar.com/avatar/${crypto
             .createHash('md5')
             .update(id)

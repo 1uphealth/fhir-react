@@ -17,7 +17,7 @@ function PatientContact(props) {
   return (
     <div>
       <HumanName fhirData={name} />
-      <small className="text-muted">{` (${relationship})`}</small>
+      <small className="patientContact-relationship">{` (${relationship})`}</small>
     </div>
   );
 }
@@ -43,20 +43,12 @@ function Patient(props) {
   return (
     <Root name="patient">
       <Header>
-        <div className="d-flex">
+        <div className="patient-block">
           <div>
-            <img
-              style={{
-                border: '4px solid #fff',
-                borderRadius: '50%',
-                marginRight: '10px',
-              }}
-              src={avatarSrc}
-              alt=""
-            />
+            <img className="patient-avatar" src={avatarSrc} alt="" />
           </div>
           <div>
-            <div className="d-flex">
+            <div className="patient-block">
               {patientNames.map((patientName, index) => {
                 if (props.thorough === false && index !== 0) {
                   return null;
@@ -77,7 +69,7 @@ function Patient(props) {
             </div>
             <div>
               {patientBirthDate && (
-                <span className="text-muted">
+                <span className="patient-BirthDate-block">
                   <strong>
                     <span data-testid="patientGender">
                       {patientGender || 'unknown'}

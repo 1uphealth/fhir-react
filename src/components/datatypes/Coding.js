@@ -10,7 +10,7 @@ const Coding = props => {
   return (
     <div className="fhir-datatype__Coding">
       <span className="fhir-datatype__Coding__title">{display}</span>&nbsp;(
-      <abbr className="fhir-datatype__Coding__Abbr" title={system}>
+      <abbr className="fhir-datatype__Coding__code" title={system}>
         {code}
       </abbr>
       )

@@ -79,7 +79,7 @@
   background-color: rgba(0, 0, 0, 0.05);
 }
 
-.fhir-ui__ValueSection label {
+.fhir-ui__ValueSection-label {
   margin-top: 10px;
   margin-bottom: 10px;
   font-size: 1.1em;

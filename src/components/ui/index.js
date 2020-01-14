@@ -59,7 +59,7 @@ export const TableCell = props => (
 
 export const ValueSection = props => (
   <div className="fhir-ui__ValueSection" data-testid={props['data-testid']}>
-    <label>{props.label}</label>
+    <label className="fhir-ui__ValueSection-label">{props.label}</label>
     <div className="fhir-ui__ValueSection-body">{props.children}</div>
   </div>
 );

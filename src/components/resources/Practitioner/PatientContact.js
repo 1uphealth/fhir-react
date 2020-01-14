@@ -6,7 +6,9 @@ const PatientContact = props => {
   return (
     <div>
       <HumanName fhirData={props.name} />
-      <small className="text-muted">{props.relationship}</small>
+      <small className="fhir-resource__Practitioner__patientContact-relationship">
+        {props.relationship}
+      </small>
     </div>
   );
 };

@@ -8,9 +8,9 @@ const Coding = props => {
   const code = _get(fhirData, 'code', '');
   const system = _get(fhirData, 'system', '');
   return (
-    <div>
-      <span>{display}</span>&nbsp;(
-      <abbr className="text-uppercase" title={system}>
+    <div className="fhir-datatype__Coding">
+      <span className="fhir-datatype__Coding__title">{display}</span>&nbsp;(
+      <abbr className="fhir-datatype__Coding__code" title={system}>
         {code}
       </abbr>
       )

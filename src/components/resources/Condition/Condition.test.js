@@ -31,7 +31,7 @@ describe('should render component correctly', () => {
     expect(getByTestId('severity').textContent).toEqual('Medium severity');
     expect(getByTestId('onsetDate').textContent).toEqual('2015-08-24');
     expect(getByTestId('asserter').textContent).toEqual(
-      'MOORE, NICK Practitioner/f8fedcd9e6e565a21f457909',
+      'MOORE, NICKPractitioner/f8fedcd9e6e565a21f457909',
     );
   });
 

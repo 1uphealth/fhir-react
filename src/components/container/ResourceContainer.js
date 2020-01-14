@@ -14,26 +14,27 @@ class ResourceContainer extends React.Component {
 
   render() {
     return (
-      <div>
-        <div className="card bg-light border-0 mb-2">
-          <div className="card-body">
-            {this.props.children}
-            <div style={{ position: 'absolute', right: '1rem', top: '1rem' }}>
-              <button
-                onClick={() =>
-                  this.setState({ jsonOpen: !this.state.jsonOpen })
-                }
-                data-target={`${this.props.fhirResource.resourceType}/${this.props.fhirResource.id}`}
-                type="button"
-                className="btn btn-outline-secondary btn-sm"
-              >
-                JSON
-              </button>
-            </div>
-            <div style={{ display: this.state.jsonOpen ? 'inline' : 'none' }}>
-              <br />
-              <CodeBlock code={this.props.fhirResource} />
-            </div>
+      <div className="fhir-container__ResourceContainer__card">
+        <div className="fhir-container__ResourceContainer__card-body">
+          {this.props.children}
+          <div className="fhir-container__ResourceContainer__json-button-wrapper">
+            <button
+              type="button"
+              className="fhir-container__ResourceContainer__json-button"
+              onClick={() => this.setState({ jsonOpen: !this.state.jsonOpen })}
+              data-target={`${this.props.fhirResource.resourceType}/${this.props.fhirResource.id}`}
+            >
+              JSON
+            </button>
+          </div>
+          <div
+            className={
+              this.state.jsonOpen
+                ? 'fhir-container__ResourceContainer__json--visible'
+                : 'fhir-container__ResourceContainer__json--hidden'
+            }
+          >
+            <CodeBlock code={this.props.fhirResource} />
           </div>
         </div>
       </div>

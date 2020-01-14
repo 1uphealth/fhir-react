@@ -6,14 +6,13 @@ const Reference = props => {
   const display = _get(fhirData, 'display');
   const reference = _get(fhirData, 'reference', '');
   return (
-    <span>
+    <div className="fhir-datatype__Reference">
       {display && (
-        <>
-          <strong>{display}</strong>{' '}
-        </>
+        <span className="fhir-datatype__Reference__title">{display}</span>
       )}
+      <span className="fhir-datatype__Reference__details"></span>
       {reference}
-    </span>
+    </div>
   );
 };
 

@@ -40,7 +40,7 @@ const Procedure = props => {
   const hasNote = _has(fhirResource, 'note');
   const note = _get(fhirResource, 'note', []);
   return (
-    <Root name="procedure">
+    <Root name="Procedure">
       <Header>
         {display && <Title>{display}</Title>}
         <Badge>{status}</Badge>

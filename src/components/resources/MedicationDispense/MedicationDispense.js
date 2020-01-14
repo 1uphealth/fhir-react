@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _get from 'lodash/get';
 import Coding from '../../datatypes/Coding';
-import Reference from '../../datatypes/Reference';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 import fhirTypes from '../fhirResourceTypes';
 
@@ -161,7 +160,7 @@ const MedicationDispense = props => {
   } = fhirResourceData;
 
   return (
-    <Root name="medicationDispense">
+    <Root name="MedicationDispense">
       {medicationTitle && (
         <Header>
           <Title>{medicationTitle}</Title>

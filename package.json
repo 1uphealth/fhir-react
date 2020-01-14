@@ -18,7 +18,7 @@
     "test:watch": "NODE_ENV=test jest --watchAll .",
     "start": "NODE_ENV=production webpack --watch",
     "build": "NODE_ENV=production webpack",
-    "lint": "eslint .",
+    "lint": "eslint --max-warnings 0 .",
     "lint:fix": "eslint --fix .",
     "stylelint": "stylelint 'src/**/*.css'",
     "stylelint:fix": "stylelint --fix 'src/**/*.css'",

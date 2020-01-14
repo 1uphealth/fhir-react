@@ -6,7 +6,7 @@ const Date = props => {
     return null;
   }
   const dateValue = String(fhirData).slice(0, 10);
-  return <span>{dateValue}</span>;
+  return <span className="fhir-datatype__Date">{dateValue}</span>;
 };
 
 export default Date;

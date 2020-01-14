@@ -1,5 +1,5 @@
 import React from 'react';
-import ResourceContainer from '../container/ResourceContainer';
+import ResourceContainer from '../containers/ResourceContainer';
 import Coding from '../datatypes/Coding';
 var _ = require('lodash');
 

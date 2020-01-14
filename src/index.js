@@ -1,4 +1,4 @@
-import FhirResource from './components/container/FhirResource';
+import FhirResource from './components/containers/FhirResource';
 import Patient from './components/resources/Patient';
 import MedicationStatement from './components/resources/MedicationStatement';
 import MedicationOrder from './components/resources/MedicationOrder';

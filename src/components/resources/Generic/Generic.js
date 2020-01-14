@@ -1,5 +1,5 @@
 import React from 'react';
-import ResourceContainer from '../container/ResourceContainer';
+import ResourceContainer from '../../containers/ResourceContainer';
 var _ = require('lodash');
 
 class Condition extends React.Component {

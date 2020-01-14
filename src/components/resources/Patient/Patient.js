@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import crypto from 'crypto';
 import _get from 'lodash/get';
+import md5 from 'md5';
 
 import HumanName from '../../datatypes/HumanName';
 import Telecom from '../../datatypes/Telecom';
@@ -26,10 +26,7 @@ function Patient(props) {
   const { fhirResource } = props;
 
   const id = _get(fhirResource, 'id');
-  const idHash = crypto
-    .createHash('md5')
-    .update(id || '')
-    .digest('hex');
+  const idHash = md5(id || '');
   const avatarSrc = `http://www.gravatar.com/avatar/${idHash}?s=50&r=any&default=identicon&forcedefault=1`;
   const patientNames = _get(fhirResource, 'name', []);
   const patientBirthDate = _get(fhirResource, 'birthDate');

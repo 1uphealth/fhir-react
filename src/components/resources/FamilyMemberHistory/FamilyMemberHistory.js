@@ -1,7 +1,7 @@
 import React from 'react';
 import ResourceContainer from '../../containers/ResourceContainer';
 import Coding from '../../datatypes/Coding';
-var _ = require('lodash');
+import _get from 'lodash/get';
 
 // {
 //   "detail": {
@@ -30,13 +30,13 @@ class FamilyMemberHistoryAddresses extends React.Component {
       <div className="mb-2">
         <h6 className="mb-0">
           <strong>
-            {_.get(this.props.fhirData, 'detail.code.text') ||
-              _.get(this.props.fhirData, 'detail.code.coding[0].code')}
+            {_get(this.props.fhirData, 'detail.code.text') ||
+              _get(this.props.fhirData, 'detail.code.coding[0].code')}
           </strong>
         </h6>
-        {typeof _.get(this.props.fhirData, 'detail.category') === 'undefined'
+        {typeof _get(this.props.fhirData, 'detail.category') === 'undefined'
           ? ''
-          : (_.get(this.props.fhirData, 'detail.category').coding || []).map(
+          : (_get(this.props.fhirData, 'detail.category').coding || []).map(
               function(coding) {
                 return <Coding fhirData={coding} />;
               },
@@ -54,13 +54,13 @@ class FamilyMemberHistoryActivity extends React.Component {
       <div className="mb-2">
         <h6 className="mb-0">
           <strong>
-            {_.get(this.props.fhirData, 'detail.code.text') ||
-              _.get(this.props.fhirData, 'detail.code.coding[0].code')}
+            {_get(this.props.fhirData, 'detail.code.text') ||
+              _get(this.props.fhirData, 'detail.code.coding[0].code')}
           </strong>
         </h6>
-        {typeof _.get(this.props.fhirData, 'detail.category') === 'undefined'
+        {typeof _get(this.props.fhirData, 'detail.category') === 'undefined'
           ? ''
-          : (_.get(this.props.fhirData, 'detail.category').coding || []).map(
+          : (_get(this.props.fhirData, 'detail.category').coding || []).map(
               function(coding) {
                 return <Coding fhirData={coding} />;
               },
@@ -76,36 +76,36 @@ class FamilyMemberHistory extends React.Component {
       <div>
         <ResourceContainer {...this.props}>
           <div style={{ width: '100%', display: 'inline-block' }}>
-            <h4 style={{ display: 'inline-block' }}>{`${_.get(
+            <h4 style={{ display: 'inline-block' }}>{`${_get(
               this.props.fhirResource,
               'condition[0].code.text',
             ) ||
-              _.get(
+              _get(
                 this.props.fhirResource,
                 'condition[0].code.coding[0].display',
               )}`}</h4>
             &nbsp;(
-            {_.get(this.props.fhirResource, 'relationship.coding[0].display') ||
-              _.get(this.props.fhirResource, 'relationship.text') ||
+            {_get(this.props.fhirResource, 'relationship.coding[0].display') ||
+              _get(this.props.fhirResource, 'relationship.text') ||
               ''}
             <span className="text-muted">
-              {typeof _.get(this.props.fhirResource, 'date') === 'undefined'
+              {typeof _get(this.props.fhirResource, 'date') === 'undefined'
                 ? ''
-                : `, on ${_.get(this.props.fhirResource, 'date')}`}
+                : `, on ${_get(this.props.fhirResource, 'date')}`}
             </span>
             )
           </div>
           <div className="container">
             <div className="row">
-              {typeof _.get(
+              {typeof _get(
                 this.props.fhirResource,
                 'condition[0].note.text',
               ) === 'undefined'
                 ? ''
-                : _.get(this.props.fhirResource, 'condition[0].note.text')}
+                : _get(this.props.fhirResource, 'condition[0].note.text')}
             </div>
             <div className="row">
-              {typeof _.get(this.props.fhirResource, 'status') ===
+              {typeof _get(this.props.fhirResource, 'status') ===
               'undefined' ? (
                 ''
               ) : (
@@ -117,9 +117,9 @@ class FamilyMemberHistory extends React.Component {
               )}
             </div>
             <div className="row">
-              {typeof _.get(this.props.fhirResource, 'status') === 'undefined'
+              {typeof _get(this.props.fhirResource, 'status') === 'undefined'
                 ? ''
-                : _.get(this.props.fhirResource, 'status')}
+                : _get(this.props.fhirResource, 'status')}
             </div>
           </div>
         </ResourceContainer>

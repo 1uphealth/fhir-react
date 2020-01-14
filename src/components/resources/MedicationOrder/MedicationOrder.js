@@ -1,6 +1,6 @@
 import React from 'react';
 import ResourceContainer from '../../containers/ResourceContainer';
-var _ = require('lodash');
+import _get from 'lodash/get';
 
 class MedicationDetails extends React.Component {
   render() {
@@ -20,8 +20,8 @@ class MedicationOrder extends React.Component {
           <div>
             <MedicationDetails
               medication={
-                _.get(this.props.fhirResource, 'medicationReference.display') ||
-                _.get(this.props.fhirResource, 'medicationCodeableConcept.text')
+                _get(this.props.fhirResource, 'medicationReference.display') ||
+                _get(this.props.fhirResource, 'medicationCodeableConcept.text')
               }
             />
           </div>
@@ -31,7 +31,7 @@ class MedicationOrder extends React.Component {
               <div>
                 {' '}
                 <b>Reason:</b>{' '}
-                {_.get(
+                {_get(
                   this.props.fhirResource.reasonCodeableConcept.coding[0],
                   'display',
                 )}{' '}
@@ -46,7 +46,7 @@ class MedicationOrder extends React.Component {
               <div>
                 {' '}
                 <b>Dosage Instruction:</b>{' '}
-                {_.get(this.props.fhirResource.dosageInstruction[0], 'text')}{' '}
+                {_get(this.props.fhirResource.dosageInstruction[0], 'text')}{' '}
               </div>
             ) : (
               ''
@@ -60,7 +60,7 @@ class MedicationOrder extends React.Component {
               <div>
                 {' '}
                 <b>Additional Information:</b>{' '}
-                {_.get(
+                {_get(
                   this.props.fhirResource.dosageInstruction[0]
                     .additionalInstructions,
                   'text',
@@ -78,7 +78,7 @@ class MedicationOrder extends React.Component {
               <div>
                 {' '}
                 <b>Additional Information:</b>{' '}
-                {_.get(
+                {_get(
                   this.props.fhirResource.dosageInstruction[0]
                     .additionalInstructions,
                   'text',
@@ -96,7 +96,7 @@ class MedicationOrder extends React.Component {
                 <div>
                   {' '}
                   <b>Route:</b>{' '}
-                  {_.get(
+                  {_get(
                     this.props.fhirResource.dosageInstruction[0].route
                       .coding[0],
                     'display',

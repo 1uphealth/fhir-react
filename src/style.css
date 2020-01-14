@@ -154,6 +154,15 @@
   border-color: #6c757d;
 }
 
+/* CarePlan */
+.fhir-resource__CarePlan__activity {
+  margin-bottom: 0.5rem;
+}
+
+.fhir-resource__CarePlan__activity-title {
+  font-weight: bold;
+}
+
 /* Patient */
 .fhir-resource__Patient__patientContact-relationship {
   font-weight: 700;

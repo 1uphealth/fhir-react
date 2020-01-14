@@ -8,10 +8,14 @@ const CodeableConcept = props => {
   if (!Array.isArray(fhirData)) {
     return null;
   }
-  return fhirData.map((item, i) => {
-    const codingData = _get(item, 'coding.0', {});
-    return <Coding key={`item-${i}`} fhirData={codingData} />;
-  });
+  return (
+    <div className="fhir-datatype__CodeableConcept">
+      {fhirData.map((item, i) => {
+        const codingData = _get(item, 'coding.0', {});
+        return <Coding key={`item-${i}`} fhirData={codingData} />;
+      })}
+    </div>
+  );
 };
 
 CodeableConcept.propTypes = {

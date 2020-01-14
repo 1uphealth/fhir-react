@@ -3,9 +3,9 @@ import React from 'react';
 class Img extends React.Component {
   render() {
     return (
-      <div>
+      <div className="fhir-datatype__Img">
         <img
-          style={{ marginLeft: 'auto', marginRight: 'auto', display: 'block' }}
+          className="fhir-datatype__Img__item"
           src={`data:${this.props.fhirResource.contentType};base64, ${this.props.fhirResource.content}`}
           alt=""
         />

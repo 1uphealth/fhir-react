@@ -3,7 +3,7 @@ import React from 'react';
 class Pdf extends React.Component {
   render() {
     return (
-      <div>
+      <div className="fhir-datatype__Pdf">
         <embed
           src={`data:${this.props.fhirResource.contentType};base64, ${this.props.fhirResource.content}`}
           width="100%"

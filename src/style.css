@@ -237,3 +237,49 @@
 .fhir-resource__ObservationGraph__progress-bar--inside-range {
   background-color: #0003;
 }
+
+/* fhir types*/
+
+/* BinaryText */
+.fhir-datatype__BinaryText {
+  background-color: #f8f9fa;
+}
+
+.fhir-datatype__BinaryText__xmlBody-block {
+  background-color: #f8f9fa;
+}
+
+.fhir-datatype__BinaryText__jsonBody-block {
+  background-color: #f8f9fa;
+}
+
+/* HumanName */
+.fhir-datatype__HumanName__not-primary-block {
+  font-weight: 700;
+}
+
+.fhir-datatype__HumanName__Header--primary {
+  margin-bottom: 0;
+  font-weight: 500;
+  line-height: 1.2;
+  font-size: 1.5rem;
+}
+
+.fhir-datatype__HumanName__use-block {
+  margin-left: 3px;
+}
+
+/* Img */
+.fhir-datatype__Img__item {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+/* Reference*/
+.fhir-datatype__Reference {
+  display: inline-block;
+}
+.fhir-datatype__Reference__title {
+  font-weight: 700;
+}

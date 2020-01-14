@@ -3,9 +3,9 @@ import React from 'react';
 class BinaryText extends React.Component {
   render() {
     return (
-      <div style={{ backgroundColor: '#f8f9fa' }}>
+      <div className="fhir-datatype__BinaryText">
         {this.props.fhirResource.contentType === 'application/xml' ? (
-          <pre className="xml-body" style={{ backgroundColor: '#f8f9fa' }}>
+          <pre className="fhir-datatype__BinaryText__xmlBody-block">
             {new Buffer(
               `${this.props.fhirResource.content}`,
               'base64',
@@ -15,7 +15,7 @@ class BinaryText extends React.Component {
           ''
         )}
         {this.props.fhirResource.contentType === 'application/json' ? (
-          <pre className="json-body" style={{ backgroundColor: '#f8f9fa' }}>
+          <pre className="fhir-datatype__BinaryText__jsonBody-block">
             {new Buffer(
               `${this.props.fhirResource.content}`,
               'base64',

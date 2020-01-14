@@ -9,9 +9,9 @@ const Address = props => {
   const postalCode = _get(fhirData, 'postalCode', '');
   const country = _get(fhirData, 'country', '');
   return (
-    <div>
-      <div>{line}</div>
-      <div>
+    <div className="fhir-datatype__Address">
+      <div className="fhir-datatype__Address__line1">{line}</div>
+      <div className="fhir-datatype__Address__line2">
         {city && <span>{city},</span>} <span>{state}</span>{' '}
         <span>{postalCode}</span> <span>{country}</span>
       </div>

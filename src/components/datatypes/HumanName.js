@@ -11,16 +11,20 @@ function HumanName(props) {
   const header = `${givenName} ${familyName} ${suffix}`;
 
   const headerElement = primary ? (
-    <h4 style={{ display: 'inline-block', marginBottom: '0' }}>{header}</h4>
+    <span className="fhir-datatype__HumanName__Header--primary">{header}</span>
   ) : (
-    <strong>{header}</strong>
+    <span className="fhir-datatype__HumanName__Header--default">{header}</span>
   );
-  const rootClassName = primary ? undefined : 'text-muted';
+  const rootClassName = primary
+    ? ''
+    : 'fhir-datatype__HumanName__not-primary-block';
 
   return (
-    <div className={rootClassName}>
+    <div className={`fhir-datatype__HumanName ${rootClassName}`}>
       {headerElement}
-      {use && <small>&nbsp;({use})</small>}
+      {use && (
+        <small className="fhir-datatype__HumanName__use-block">({use})</small>
+      )}
     </div>
   );
 }

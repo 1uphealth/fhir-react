@@ -238,7 +238,7 @@
   background-color: #0003;
 }
 
-/* fhir types*/
+/* fhir types */
 
 /* BinaryText */
 .fhir-datatype__BinaryText {
@@ -276,10 +276,11 @@
   display: block;
 }
 
-/* Reference*/
+/* Reference */
 .fhir-datatype__Reference {
   display: inline-block;
 }
+
 .fhir-datatype__Reference__title {
   font-weight: 700;
 }

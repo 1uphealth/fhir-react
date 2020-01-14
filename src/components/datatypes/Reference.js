@@ -11,8 +11,7 @@ const Reference = props => {
       {display && (
         <span className="fhir-datatype__Reference__title">{display}</span>
       )}
-      <span className="fhir-datatype__Reference__details"></span>
-      {reference}
+      <span className="fhir-datatype__Reference__details">{reference}</span>
     </div>
   );
 };

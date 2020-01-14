@@ -5,10 +5,8 @@ import Coding from '../../datatypes/Coding';
 const CarePlanActivity = props => {
   const { title = '', hasCategories, categories } = props.fhirData;
   return (
-    <div className="mb-2">
-      <h6 className="mb-0">
-        <strong>{title}</strong>
-      </h6>
+    <div className="fhir-resource__CarePlan__activity">
+      <div className="fhir-resource__CarePlan__activity-title">{title}</div>
       {hasCategories &&
         categories.map((coding, i) => (
           <Coding key={`item-${i}`} fhirData={coding} />

@@ -1,17 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import crypto from 'crypto';
 import _get from 'lodash/get';
 import _has from 'lodash/has';
+
 import HumanName from '../../datatypes/HumanName';
 import PatientContact from './PatientContact';
 import fhirTypes from '../fhirResourceTypes';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 import Address from '../../datatypes/Address';
 import Telecom from '../../datatypes/Telecom';
-
 import { Root, Header, Title, Body, Value, Badge } from '../../ui';
+import './Practitioner.css';
 
 const commonDTO = fhirResource => {
   const id = _get(fhirResource, 'id', '');

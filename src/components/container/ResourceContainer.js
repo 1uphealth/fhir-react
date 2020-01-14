@@ -1,5 +1,6 @@
 import React from 'react';
 import CodeBlock from './CodeBlock';
+import './ResourceContainer.css';
 
 class ResourceContainer extends React.Component {
   constructor(props) {

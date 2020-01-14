@@ -1,0 +1,9 @@
+.fhir-resource__Practitioner__patientContact-relationship {
+  font-weight: 700;
+}
+
+.fhir-resource__Practitioner__practitioner-avatar {
+  border: 4px solid #fff;
+  border-radius: 50%;
+  margin-right: 10px;
+}

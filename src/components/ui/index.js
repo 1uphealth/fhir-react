@@ -1,5 +1,7 @@
 import React from 'react';
 
+import './index.css';
+
 export const Header = props => (
   <div className="fhir-ui__Header">{props.children}</div>
 );

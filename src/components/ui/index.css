@@ -1,0 +1,97 @@
+.fhir-ui__Header {
+  width: 100%;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.fhir-ui__Title {
+  margin-right: 10px;
+  margin-bottom: 0;
+}
+
+.fhir-ui__Badge {
+  margin-right: 10px;
+  display: inline-block;
+  padding: 0.25em 0.4em;
+  font-size: 75%;
+  font-weight: 700;
+  line-height: 1;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 3px;
+  background-color: #6c757d;
+}
+
+.fhir-ui__BadgeSecondary {
+  margin-right: 10px;
+  display: inline-block;
+  padding: 0.25em 0.4em;
+  font-size: 75%;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 3px;
+  background-color: #f8f9fa;
+  color: #000;
+}
+
+.fhir-ui__Value {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.fhir-ui__Value-label {
+  text-transform: uppercase;
+  font-weight: bold;
+  color: #6c757d;
+  margin: 0 10px 0 0;
+}
+
+/* Based on bootstrap striped-table */
+.fhir-ui__Table {
+  width: 100%;
+  margin-bottom: 1rem;
+  color: #212529;
+}
+
+.fhir-ui__TableHeader,
+.fhir-ui__TableCell {
+  padding: 0.75rem;
+  vertical-align: top;
+  border-top: 1px solid #dee2e6;
+}
+
+.fhir-ui__TableHeader {
+  vertical-align: bottom;
+  border-bottom: 2px solid #dee2e6;
+}
+
+.fhir-ui__Table tbody + tbody {
+  border-top: 2px solid #dee2e6;
+}
+
+.fhir-ui__Table tbody .fhir-ui__TableRow:nth-of-type(odd) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.fhir-ui__ValueSection label {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 1.1em;
+  color: #6c757d;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.fhir-ui__ValueSection-body {
+  padding: 0 10px;
+}
+
+.fhir-ui__MissingValue {
+  font-weight: 700;
+}

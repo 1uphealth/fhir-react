@@ -7,6 +7,7 @@ import _get from 'lodash/get';
 import CarePlanActivity from './CarePlanActivity';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 import fhirTypes from '../fhirResourceTypes';
+import './CarePlan.css';
 
 import {
   Root,

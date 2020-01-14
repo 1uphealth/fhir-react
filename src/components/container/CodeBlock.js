@@ -1,4 +1,5 @@
 import React from 'react';
+import './CodeBlock.css';
 
 class ResourceContainer extends React.Component {
   render() {

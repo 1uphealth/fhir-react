@@ -1,0 +1,51 @@
+.fhir-resource__ObservationGraph {
+  margin: 0.5rem 0;
+  position: relative;
+}
+
+.fhir-resource__ObservationGraph__value-wrapper {
+  position: relative;
+}
+
+.fhir-resource__ObservationGraph__value-actual {
+  display: inline-block;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.fhir-resource__ObservationGraph__value-unit {
+  display: inline-block;
+}
+
+.fhir-resource__ObservationGraph__progress {
+  display: flex;
+  height: 1rem;
+  overflow: hidden;
+  font-size: 0.75rem;
+  background-color: #e9ecef;
+  border-radius: 0.25rem;
+}
+
+.fhir-resource__ObservationGraph__progress-value {
+  opacity: 0.5;
+  width: 12px;
+  height: 12px;
+  margin-top: 2px;
+  position: absolute;
+  background-color: #007bff;
+  border-radius: 50%;
+}
+
+.fhir-resource__ObservationGraph__progress-bar--outside-range {
+  color: #6c757d;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+}
+
+.fhir-resource__ObservationGraph__progress-bar--inside-range {
+  background-color: #0003;
+}

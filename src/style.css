@@ -106,12 +106,25 @@
   border-radius: 50%;
   margin-right: 10px;
 }
+
 .fhir-resource__patient .patient-block {
   display: flex;
 }
+
 .fhir-resource__patient .patient-BirthDate-block {
   font-weight: 700;
   color: #6c757d;
+}
+
+/* Practitioner */
+.fhir-resource__practitioner .patientContact-relationship {
+  font-weight: 700;
+}
+
+.fhir-resource__practitioner .practitioner-avatar {
+  border: 4px solid #fff;
+  border-radius: 50%;
+  margin-right: 10px;
 }
 
 /* Observation */

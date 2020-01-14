@@ -160,7 +160,7 @@ const MedicationDispense = props => {
   } = fhirResourceData;
 
   return (
-    <Root name="medicationDispense">
+    <Root name="MedicationDispense">
       {medicationTitle && (
         <Header>
           <Title>{medicationTitle}</Title>

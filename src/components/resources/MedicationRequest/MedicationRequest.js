@@ -21,7 +21,7 @@ const MedicationRequest = props => {
   const hasDosageInstruction =
     Array.isArray(dosageInstruction) && dosageInstruction.length > 0;
   return (
-    <Root name="medicationRequest">
+    <Root name="MedicationRequest">
       <Header>
         <Title>
           {medicationReference && <Reference fhirData={medicationReference} />}

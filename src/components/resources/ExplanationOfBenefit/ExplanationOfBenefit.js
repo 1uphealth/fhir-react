@@ -105,7 +105,7 @@ const ExplanationOfBenefit = props => {
   } = fhirResourceData;
 
   return (
-    <Root name="explanationOfBenefit">
+    <Root name="ExplanationOfBenefit">
       <Header>
         <Title>{disposition}</Title>
       </Header>

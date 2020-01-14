@@ -87,10 +87,10 @@ const Practitioner = props => {
     address,
   } = fhirResourceData;
   return (
-    <Root name="practitioner">
+    <Root name="Practitioner">
       <Header>
         <img
-          className="practitioner-avatar"
+          className="fhir-resource__Practitioner__practitioner-avatar"
           src={`http://www.gravatar.com/avatar/${crypto
             .createHash('md5')
             .update(id)

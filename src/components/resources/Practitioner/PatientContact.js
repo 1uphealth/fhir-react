@@ -6,7 +6,7 @@ const PatientContact = props => {
   return (
     <div>
       <HumanName fhirData={props.name} />
-      <small className="patientContact-relationship">
+      <small className="fhir-resource__Practitioner__patientContact-relationship">
         {props.relationship}
       </small>
     </div>

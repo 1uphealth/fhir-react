@@ -59,7 +59,7 @@ const Organization = props => {
   const hasTelecom = Array.isArray(telecom) && telecom.length > 0;
   const hasTypes = Array.isArray(typeCodings) && typeCodings.length > 0;
   return (
-    <Root name="organization">
+    <Root name="Organization">
       {name && (
         <Header>
           <Title>{name}</Title>

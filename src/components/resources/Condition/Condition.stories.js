@@ -5,6 +5,7 @@ import Condition from './Condition';
 
 import exampleConditionSeverity from '../../../fixtures/dstu2/resources/condition/example-severity.json';
 import exampleCondition from '../../../fixtures/dstu2/resources/condition/example.json';
+import example3Condition from '../../../fixtures/dstu2/resources/condition/example3.json';
 
 import exampleConditionSTU3 from '../../../fixtures/stu3/resources/condition/example.json';
 import exampleConditionSeveritySTU3 from '../../../fixtures/stu3/resources/condition/example-severity.json';
@@ -18,6 +19,11 @@ export const DefaultVisualizationDSTU2 = () => {
 
 export const ExampleWithoutSeverityDSTU2 = () => {
   const fhirResource = object('Resource', exampleCondition);
+  return <Condition fhirResource={fhirResource} />;
+};
+
+export const Example3OfDSTU2 = () => {
+  const fhirResource = object('Resource', example3Condition);
   return <Condition fhirResource={fhirResource} />;
 };
 

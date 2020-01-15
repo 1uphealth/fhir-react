@@ -6,6 +6,7 @@ import md5 from 'md5';
 import HumanName from '../../datatypes/HumanName';
 import Telecom from '../../datatypes/Telecom';
 import Address from '../../datatypes/Address';
+import Coding from '../../datatypes/Coding';
 import { Root, Header, Body, Value, MissingValue } from '../../ui';
 import './Patient.css';
 
@@ -36,6 +37,11 @@ function Patient(props) {
   const patientPhones = _get(fhirResource, 'telecom', []).filter(
     telecom => telecom.system === 'phone',
   );
+  let communicationLanguage = _get(fhirResource, 'communication', [])
+    .filter(item => _get(item, 'language.coding', []))
+    .map(item => item.language.coding);
+  communicationLanguage = _get(communicationLanguage, '0', []);
+  const hasCommunicationLanguage = communicationLanguage.length > 0;
 
   return (
     <Root name="Patient">
@@ -104,6 +110,16 @@ function Patient(props) {
               </div>
             ))}
             {patientPhones.length === 0 && <MissingValue />}
+          </Value>
+        )}
+        {hasCommunicationLanguage && (
+          <Value
+            label="Communication - language"
+            data-testid="communicationLanguage"
+          >
+            {communicationLanguage.map((item, i) => (
+              <Coding key={`item-${i}`} fhirData={item} />
+            ))}
           </Value>
         )}
       </Body>

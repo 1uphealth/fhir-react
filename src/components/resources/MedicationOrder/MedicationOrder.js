@@ -1,116 +1,61 @@
 import React from 'react';
-import ResourceContainer from '../../containers/ResourceContainer';
+import PropTypes from 'prop-types';
 import _get from 'lodash/get';
+import Reference from '../../datatypes/Reference';
+import CodeableConcept from '../../datatypes/CodeableConcept';
+import Coding from '../../datatypes/Coding';
 
-class MedicationDetails extends React.Component {
-  render() {
-    return (
-      <div>
-        <h4>{this.props.medication} </h4>
-      </div>
-    );
-  }
-}
+import { Root, Header, Title, Body, Value } from '../../ui';
 
-class MedicationOrder extends React.Component {
-  render() {
-    return (
-      <div className="col-xs-8">
-        <ResourceContainer {...this.props}>
-          <div>
-            <MedicationDetails
-              medication={
-                _get(this.props.fhirResource, 'medicationReference.display') ||
-                _get(this.props.fhirResource, 'medicationCodeableConcept.text')
-              }
-            />
-          </div>
-          <div>
-            {this.props.fhirResource.reasonCodeableConcept &&
-            this.props.fhirResource.reasonCodeableConcept.coding ? (
-              <div>
-                {' '}
-                <b>Reason:</b>{' '}
-                {_get(
-                  this.props.fhirResource.reasonCodeableConcept.coding[0],
-                  'display',
-                )}{' '}
-              </div>
-            ) : (
-              ''
-            )}
-          </div>
-          <div>
-            {this.props.fhirResource.dosageInstruction &&
-            this.props.fhirResource.dosageInstruction.length > 0 ? (
-              <div>
-                {' '}
-                <b>Dosage Instruction:</b>{' '}
-                {_get(this.props.fhirResource.dosageInstruction[0], 'text')}{' '}
-              </div>
-            ) : (
-              ''
-            )}
-          </div>
-          <div>
-            {this.props.fhirResource.dosageInstruction &&
-            this.props.fhirResource.dosageInstruction.length > 0 &&
-            this.props.fhirResource.dosageInstruction[0]
-              .additionalInstructions > 0 ? (
-              <div>
-                {' '}
-                <b>Additional Information:</b>{' '}
-                {_get(
-                  this.props.fhirResource.dosageInstruction[0]
-                    .additionalInstructions,
-                  'text',
-                )}{' '}
-              </div>
-            ) : (
-              ''
-            )}
-          </div>
-          <div>
-            {this.props.fhirResource.dosageInstruction &&
-            this.props.fhirResource.dosageInstruction.length > 0 &&
-            this.props.fhirResource.dosageInstruction[0]
-              .additionalInstructions ? (
-              <div>
-                {' '}
-                <b>Additional Information:</b>{' '}
-                {_get(
-                  this.props.fhirResource.dosageInstruction[0]
-                    .additionalInstructions,
-                  'text',
-                )}{' '}
-              </div>
-            ) : (
-              ''
-            )}
-          </div>
-          <div>
-            <div>
-              {this.props.fhirResource.dosageInstruction &&
-              this.props.fhirResource.dosageInstruction.length > 0 &&
-              this.props.fhirResource.dosageInstruction[0].route ? (
-                <div>
-                  {' '}
-                  <b>Route:</b>{' '}
-                  {_get(
-                    this.props.fhirResource.dosageInstruction[0].route
-                      .coding[0],
-                    'display',
-                  )}{' '}
-                </div>
-              ) : (
-                ''
-              )}
-            </div>
-          </div>
-        </ResourceContainer>
-      </div>
-    );
-  }
-}
+const MedicationOrder = props => {
+  const { fhirResource } = props;
+  const medicationReference = _get(fhirResource, 'medicationReference');
+  const medicationCodeableConcept = _get(
+    fhirResource,
+    'medicationCodeableConcept.coding.0',
+  );
+  const showMedicationCodeableConcept =
+    !medicationReference && medicationCodeableConcept;
+  const reasonCode = [_get(fhirResource, 'reasonCodeableConcept')].filter(
+    el => !!el,
+  );
+  const dosageInstruction = _get(fhirResource, 'dosageInstruction');
+  const hasDosageInstruction =
+    Array.isArray(dosageInstruction) && dosageInstruction.length > 0;
+  return (
+    <Root name="MedicationOrder">
+      <Header>
+        <Title>
+          {medicationReference && <Reference fhirData={medicationReference} />}
+        </Title>
+      </Header>
+      <Body>
+        {showMedicationCodeableConcept && (
+          <Value label="Medication" data-testid="medication">
+            <Coding fhirData={medicationCodeableConcept} />
+          </Value>
+        )}
+        {reasonCode && (
+          <Value label="Reason" data-testid="reasonCode">
+            <CodeableConcept fhirData={reasonCode} />
+          </Value>
+        )}
+        {hasDosageInstruction && (
+          <Value label="Dosage" data-testid="hasDosageInstruction">
+            <ul>
+              {dosageInstruction.map((item, i) => (
+                <li key={`item-${i}`}>{item.text}</li>
+              ))}
+            </ul>
+          </Value>
+        )}
+      </Body>
+    </Root>
+  );
+};
+
+MedicationOrder.propTypes = {
+  fhirResource: PropTypes.shape({}).isRequired,
+};
 
 export default MedicationOrder;

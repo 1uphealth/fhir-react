@@ -4,6 +4,7 @@ import Patient from './Patient';
 
 import examplePatient from '../../../fixtures/dstu2/resources/patient/example.json';
 import examplePatientSTU3 from '../../../fixtures/stu3/resources/patient/example.json';
+import example2PatientSTU3 from '../../../fixtures/stu3/resources/patient/example2.json';
 
 describe('should render component correctly', () => {
   it('DSTU2', () => {
@@ -38,5 +39,13 @@ describe('should render component correctly', () => {
     expect(getByTestId('patientBirthDate').textContent).toEqual('2014-06-01');
     expect(getByTestId('patientAddress').textContent).toEqual(' 05 99999 ');
     expect(getByTestId('patientPhones').textContent).toEqual('-');
+  });
+
+  test('DSTU3 resource which contains communication key data', () => {
+    const defaultProps = {
+      fhirResource: example2PatientSTU3,
+    };
+    const { getByTestId } = render(<Patient {...defaultProps} />);
+    expect(getByTestId('communicationLanguage').textContent).toContain('en');
   });
 });

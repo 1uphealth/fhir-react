@@ -50,7 +50,7 @@ const dstu2DTO = fhirResource => {
 };
 
 const stu3DTO = fhirResource => {
-  const notes = _get(fhirResource, 'condition.0.note');
+  const notes = _get(fhirResource, 'condition.0.note', []);
 
   const hasNotes = notes.length > 0;
   return { notes, hasNotes };

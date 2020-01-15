@@ -1,19 +1,21 @@
 import React from 'react';
 
-class Pdf extends React.Component {
-  render() {
-    return (
-      <div className="fhir-datatype__Pdf">
-        <embed
-          src={`data:${this.props.fhirResource.contentType};base64, ${this.props.fhirResource.content}`}
-          width="100%"
-          height={`${Math.round(
-            (1111 * this.props.fhirResource.content.length) / (24996 / 7.5),
-          )}px`}
-        />
-      </div>
-    );
-  }
-}
+const Pdf = props => {
+  const { fhirResource } = props;
+  const maxHeight = 600;
+  const contentHeight = (1111 * fhirResource.content.length) / (24996 / 7.5);
+  const height = Math.min(maxHeight, contentHeight);
+
+  return (
+    <div className="fhir-datatype__Pdf">
+      <embed
+        src={`data:${fhirResource.contentType};base64,${fhirResource.content}`}
+        type={fhirResource.contentType}
+        width="100%"
+        height={height}
+      />
+    </div>
+  );
+};
 
 export default Pdf;

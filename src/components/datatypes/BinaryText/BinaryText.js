@@ -2,33 +2,15 @@ import React from 'react';
 
 import './BinaryText.css';
 
-class BinaryText extends React.Component {
-  render() {
-    return (
-      <div className="fhir-datatype__BinaryText">
-        {this.props.fhirResource.contentType === 'application/xml' ? (
-          <pre className="fhir-datatype__BinaryText__xmlBody-block">
-            {new Buffer(
-              `${this.props.fhirResource.content}`,
-              'base64',
-            ).toString()}
-          </pre>
-        ) : (
-          ''
-        )}
-        {this.props.fhirResource.contentType === 'application/json' ? (
-          <pre className="fhir-datatype__BinaryText__jsonBody-block">
-            {new Buffer(
-              `${this.props.fhirResource.content}`,
-              'base64',
-            ).toString()}
-          </pre>
-        ) : (
-          ''
-        )}
-      </div>
-    );
-  }
-}
+const BinaryText = props => {
+  const { fhirResource } = props;
+  const decoded = Buffer.from(fhirResource.content, 'base64').toString();
+
+  return (
+    <div className="fhir-datatype__BinaryText">
+      <pre className="fhir-datatype__BinaryText__block">{decoded}</pre>
+    </div>
+  );
+};
 
 export default BinaryText;

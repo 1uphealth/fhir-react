@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import MedicationStatement from './MedicationStatement';
-
+import fhirVersions from '../fhirResourceVersions';
 import example1MedicationStatement from '../../../fixtures/dstu2/resources/MedicationStatement/example1.json';
 import stu3Example from '../../../fixtures/stu3/resources/medicationStatement/example1.json';
 
@@ -9,7 +9,7 @@ describe('should render MedicationStatement component correctly', () => {
   it('with DSTU2 source data', () => {
     const defaultProps = {
       fhirResource: example1MedicationStatement,
-      fhirVersion: 'dstu2',
+      fhirVersion: fhirVersions.DSTU2,
     };
     const { getByTestId } = render(<MedicationStatement {...defaultProps} />);
 
@@ -26,7 +26,7 @@ describe('should render MedicationStatement component correctly', () => {
   it('with STU3 source data', () => {
     const defaultProps = {
       fhirResource: stu3Example,
-      fhirVersion: 'stu3',
+      fhirVersion: fhirVersions.STU3,
     };
     const { getByTestId, queryAllByTestId } = render(
       <MedicationStatement {...defaultProps} />,

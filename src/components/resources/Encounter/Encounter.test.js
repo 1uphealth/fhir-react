@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import Encounter from './Encounter';
-
+import fhirVersions from '../fhirResourceVersions';
 import example1 from '../../../fixtures/dstu2/resources/encounter/example.json';
 import example2 from '../../../fixtures/dstu2/resources/encounter/example-2.json';
 import example_STU3 from '../../../fixtures/stu3/resources/encounter/example-1.json';
@@ -10,7 +10,7 @@ import example2_STU3 from '../../../fixtures/stu3/resources/encounter/example-2.
 describe('should render component correctly', () => {
   it('DSTU2 - with PARTICIPANTS table', () => {
     const defaultProps = {
-      fhirVersion: 'dstu2',
+      fhirVersion: fhirVersions.DSTU2,
       fhirResource: example1,
     };
     const { container, getByText } = render(<Encounter {...defaultProps} />);
@@ -21,7 +21,7 @@ describe('should render component correctly', () => {
 
   it('DSTU2 - without PARTICIPANTS table', () => {
     const defaultProps = {
-      fhirVersion: 'dstu2',
+      fhirVersion: fhirVersions.DSTU2,
       fhirResource: example2,
     };
     const { container, getByText } = render(<Encounter {...defaultProps} />);
@@ -31,7 +31,7 @@ describe('should render component correctly', () => {
   });
   it('STU3 - with PARTICIPANTS table', () => {
     const defaultProps = {
-      fhirVersion: 'stu3',
+      fhirVersion: fhirVersions.STU3,
       fhirResource: example_STU3,
     };
     const { container, getByText } = render(<Encounter {...defaultProps} />);
@@ -42,7 +42,7 @@ describe('should render component correctly', () => {
 
   it('STU3 - without PARTICIPANTS table', () => {
     const defaultProps = {
-      fhirVersion: 'stu3',
+      fhirVersion: fhirVersions.STU3,
       fhirResource: example2_STU3,
     };
     const { container, getByText } = render(<Encounter {...defaultProps} />);

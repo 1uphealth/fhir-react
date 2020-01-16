@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 
 import Organization from './Organization';
-import fhirTypes from '../fhirResourceTypes';
+import fhirVersions from '../fhirResourceVersions';
 
 import dstu2Example1 from '../../../fixtures/dstu2/resources/organization/example1.json';
 import dstu2Example2 from '../../../fixtures/dstu2/resources/organization/example2.json';
@@ -14,7 +14,7 @@ describe('should render Organization component properly', () => {
   it('should render with DSTU2 source data', () => {
     const defaultProps = {
       fhirResource: dstu2Example1,
-      fhirVersion: fhirTypes.DSTU2,
+      fhirVersion: fhirVersions.DSTU2,
     };
 
     const { container, getByTestId } = render(
@@ -34,7 +34,7 @@ describe('should render Organization component properly', () => {
   it('should render with DSTU2 source data in which address key does not exist', () => {
     const defaultProps = {
       fhirResource: dstu2Example2,
-      fhirVersion: fhirTypes.DSTU2,
+      fhirVersion: fhirVersions.DSTU2,
     };
 
     const { getByTestId, queryAllByTestId } = render(
@@ -48,7 +48,7 @@ describe('should render Organization component properly', () => {
   it('should render with STU3 source data', () => {
     const defaultProps = {
       fhirResource: stu3Example1,
-      fhirVersion: fhirTypes.STU3,
+      fhirVersion: fhirVersions.STU3,
     };
 
     const { getByTestId } = render(<Organization {...defaultProps} />);
@@ -61,7 +61,7 @@ describe('should render Organization component properly', () => {
   it('should render organization types with STU3 source data', () => {
     const defaultProps = {
       fhirResource: stu3Example2,
-      fhirVersion: fhirTypes.STU3,
+      fhirVersion: fhirVersions.STU3,
     };
 
     const { getByTestId } = render(<Organization {...defaultProps} />);

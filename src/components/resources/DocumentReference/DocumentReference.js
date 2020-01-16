@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import _get from 'lodash/get';
 import prettyBytes from 'pretty-bytes';
 
-import fhirTypes from '../fhirResourceTypes';
+import fhirVersions from '../fhirResourceVersions';
 import Coding from '../../datatypes/Coding';
 import DateType from '../../datatypes/Date';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
@@ -87,11 +87,11 @@ const contentDTO = (fhirVersion, fhirResource) => {
 
       let formatCoding = null;
       switch (fhirVersion) {
-        case fhirTypes.DSTU2: {
+        case fhirVersions.DSTU2: {
           formatCoding = _get(item, 'format[0]');
           break;
         }
-        case fhirTypes.STU3: {
+        case fhirVersions.STU3: {
           formatCoding = _get(item, 'format');
           break;
         }
@@ -110,14 +110,14 @@ const contentDTO = (fhirVersion, fhirResource) => {
 
 const resourceDTO = (fhirVersion, fhirResource) => {
   switch (fhirVersion) {
-    case fhirTypes.DSTU2: {
+    case fhirVersions.DSTU2: {
       return {
         ...commonDTO(fhirResource),
         ...contentDTO(fhirVersion, fhirResource),
         ...dstu2DTO(fhirResource),
       };
     }
-    case fhirTypes.STU3: {
+    case fhirVersions.STU3: {
       return {
         ...commonDTO(fhirResource),
         ...contentDTO(fhirVersion, fhirResource),
@@ -266,7 +266,8 @@ const DocumentReference = props => {
 
 DocumentReference.propTypes = {
   fhirResource: PropTypes.shape({}).isRequired,
-  fhirVersion: PropTypes.oneOf([fhirTypes.DSTU2, fhirTypes.STU3]).isRequired,
+  fhirVersion: PropTypes.oneOf([fhirVersions.DSTU2, fhirVersions.STU3])
+    .isRequired,
 };
 
 export default DocumentReference;

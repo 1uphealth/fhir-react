@@ -2,7 +2,7 @@ import React from 'react';
 import { object } from '@storybook/addon-knobs';
 
 import MedicationDispense from './MedicationDispense';
-import fhirResourceTypes from '../fhirResourceTypes';
+import fhirVersions from '../fhirResourceVersions';
 
 import dstu2Example1 from '../../../fixtures/dstu2/resources/medicationDispense/example1.json';
 import dstu2Example2 from '../../../fixtures/dstu2/resources/medicationDispense/example2.json';
@@ -18,7 +18,7 @@ export const DefaultVisualizationDSTU2 = () => {
   return (
     <MedicationDispense
       fhirResource={fhirResource}
-      fhirVersion={fhirResourceTypes.DSTU2}
+      fhirVersion={fhirVersions.DSTU2}
     />
   );
 };
@@ -28,7 +28,7 @@ export const Example2OfDSTU2 = () => {
   return (
     <MedicationDispense
       fhirResource={fhirResource}
-      fhirVersion={fhirResourceTypes.DSTU2}
+      fhirVersion={fhirVersions.DSTU2}
     />
   );
 };
@@ -38,7 +38,7 @@ export const Example1OfSTU3 = () => {
   return (
     <MedicationDispense
       fhirResource={fhirResource}
-      fhirVersion={fhirResourceTypes.STU3}
+      fhirVersion={fhirVersions.STU3}
     />
   );
 };
@@ -48,7 +48,7 @@ export const Example2OfSTU3 = () => {
   return (
     <MedicationDispense
       fhirResource={fhirResource}
-      fhirVersion={fhirResourceTypes.STU3}
+      fhirVersion={fhirVersions.STU3}
     />
   );
 };

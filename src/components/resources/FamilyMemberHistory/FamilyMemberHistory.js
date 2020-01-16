@@ -17,6 +17,7 @@ import {
 } from '../../ui';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 import fhirTypes from '../fhirResourceTypes';
+import Date from '../../datatypes/Date';
 
 const commonDTO = fhirResource => {
   const title =
@@ -101,7 +102,11 @@ const FamilyMemberHistory = props => {
       <Header>
         <Title>{title}</Title>
         {status && <Badge data-testid="status">{status}</Badge>}
-        {date && <BadgeSecondary>on {date}</BadgeSecondary>}
+        {date && (
+          <BadgeSecondary>
+            on <Date fhirData={date} />
+          </BadgeSecondary>
+        )}
       </Header>
       <Body>
         {patient && (

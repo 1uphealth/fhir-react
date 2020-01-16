@@ -25,7 +25,7 @@ jobs:
       - run:
           name: Deploy Storybook
           command: |
-            if [ "${CIRCLE_BRANCH}" == "develop" ] || [ "${CIRCLE_BRANCH}" == "circleci-storybook" ]; then
+            if [ "${CIRCLE_BRANCH}" == "develop" ]; then
               curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip" &&
               unzip awscli-bundle.zip &&
               sudo ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws &&

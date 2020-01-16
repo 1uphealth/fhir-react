@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 
-import fhirTypes from '../fhirResourceTypes';
+import fhirVersions from '../fhirResourceVersions';
 import DocumentReference from './DocumentReference';
 
 import dstu2Example1 from '../../../fixtures/dstu2/resources/documentReference/example1.json';
@@ -15,7 +15,7 @@ describe('should render the DocumentReference component properly', () => {
     const { getByTestId } = render(
       <DocumentReference
         fhirResource={dstu2Example1}
-        fhirVersion={fhirTypes.DSTU2}
+        fhirVersion={fhirVersions.DSTU2}
       />,
     );
 
@@ -45,7 +45,7 @@ describe('should render the DocumentReference component properly', () => {
     const { getAllByTestId } = render(
       <DocumentReference
         fhirResource={dstu2Example1}
-        fhirVersion={fhirTypes.DSTU2}
+        fhirVersion={fhirVersions.DSTU2}
       />,
     );
     const formats = getAllByTestId('content.format').map(node =>
@@ -66,7 +66,7 @@ describe('should render the DocumentReference component properly', () => {
     const { getByTestId } = render(
       <DocumentReference
         fhirResource={stu3Example1}
-        fhirVersion={fhirTypes.STU3}
+        fhirVersion={fhirVersions.STU3}
       />,
     );
 
@@ -96,7 +96,7 @@ describe('should render the DocumentReference component properly', () => {
     const { getAllByTestId } = render(
       <DocumentReference
         fhirResource={stu3Example1}
-        fhirVersion={fhirTypes.STU3}
+        fhirVersion={fhirVersions.STU3}
       />,
     );
     const formats = getAllByTestId('content.format').map(node =>

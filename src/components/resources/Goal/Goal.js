@@ -5,7 +5,7 @@ import Coding from '../../datatypes/Coding';
 import _get from 'lodash/get';
 import _has from 'lodash/has';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
-import fhirTypes from '../fhirResourceTypes';
+import fhirVersions from '../fhirResourceVersions';
 
 import {
   Root,
@@ -63,13 +63,13 @@ const stu3DTO = fhirResource => {
 
 const resourceDTO = (fhirVersion, fhirResource) => {
   switch (fhirVersion) {
-    case fhirTypes.DSTU2: {
+    case fhirVersions.DSTU2: {
       return {
         ...commonDTO(fhirResource),
         ...dstu2DTO(fhirResource),
       };
     }
-    case fhirTypes.STU3: {
+    case fhirVersions.STU3: {
       return {
         ...commonDTO(fhirResource),
         ...stu3DTO(fhirResource),
@@ -165,7 +165,8 @@ const Goal = props => {
 
 Goal.propTypes = {
   fhirResource: PropTypes.shape({}).isRequired,
-  fhirVersion: PropTypes.oneOf(['dstu2', 'stu3']).isRequired,
+  fhirVersion: PropTypes.oneOf([fhirVersions.DSTU2, fhirVersions.STU3])
+    .isRequired,
 };
 
 export default Goal;

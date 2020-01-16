@@ -1,7 +1,7 @@
 import React from 'react';
 import { object } from '@storybook/addon-knobs';
 
-import fhirTypes from '../fhirResourceTypes';
+import fhirVersions from '../fhirResourceVersions';
 import DocumentReference from './DocumentReference';
 
 import exampleDocumentReference from '../../../fixtures/dstu2/resources/documentReference/example1.json';
@@ -14,7 +14,7 @@ export const DefaultVisualizationDSTU2 = () => {
   return (
     <DocumentReference
       fhirResource={fhirResource}
-      fhirVersion={fhirTypes.DSTU2}
+      fhirVersion={fhirVersions.DSTU2}
     />
   );
 };
@@ -24,7 +24,7 @@ export const ExampleSTU3 = () => {
   return (
     <DocumentReference
       fhirResource={fhirResource}
-      fhirVersion={fhirTypes.STU3}
+      fhirVersion={fhirVersions.STU3}
     />
   );
 };

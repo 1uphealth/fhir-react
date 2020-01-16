@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import Practitioner from './Practitioner';
-import fhirResourceTypes from '../fhirResourceTypes';
+import fhirVersions from '../fhirResourceVersions';
 
 import dstu2Example1 from '../../../fixtures/dstu2/resources/practitioner/example-1.json';
 import stu3Example1 from '../../../fixtures/stu3/resources/practitioner/example-1.json';
@@ -9,7 +9,7 @@ import stu3Example1 from '../../../fixtures/stu3/resources/practitioner/example-
 describe('Practitioner should render component correctly', () => {
   it('should render component correctly with DSTU2 source data', () => {
     const defaultProps = {
-      fhirVersion: fhirResourceTypes.DSTU2,
+      fhirVersion: fhirVersions.DSTU2,
       fhirResource: dstu2Example1,
     };
     const { getByTestId } = render(<Practitioner {...defaultProps} />);
@@ -22,7 +22,7 @@ describe('Practitioner should render component correctly', () => {
 
   it('should render component correctly with STU3 source data', () => {
     const defaultProps = {
-      fhirVersion: fhirResourceTypes.STU3,
+      fhirVersion: fhirVersions.STU3,
       fhirResource: stu3Example1,
     };
     const { getByTestId } = render(<Practitioner {...defaultProps} />);

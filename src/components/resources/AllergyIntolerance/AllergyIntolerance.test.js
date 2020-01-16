@@ -4,12 +4,13 @@ import AllergyIntolerance from './AllergyIntolerance';
 
 import exampleAllergyIntoleranceDSTU2 from '../../../fixtures/dstu2/resources/allergyIntolerance/example1.json';
 import exampleAllergyIntoleranceSTU3 from '../../../fixtures/stu3/resources/allergyIntolerance/example1.json';
+import fhirVersions from '../fhirResourceVersions';
 
 describe('should render component correctly', () => {
   it('should render with DSTU2 source data', () => {
     const defaultProps = {
       fhirResource: exampleAllergyIntoleranceDSTU2,
-      fhirVersion: 'dstu2',
+      fhirVersion: fhirVersions.DSTU2,
     };
     const { getByTestId } = render(<AllergyIntolerance {...defaultProps} />);
 
@@ -27,7 +28,7 @@ describe('should render component correctly', () => {
   it('should render with STU3 source data', () => {
     const defaultProps = {
       fhirResource: exampleAllergyIntoleranceSTU3,
-      fhirVersion: 'stu3',
+      fhirVersion: fhirVersions.STU3,
     };
     const { getByTestId } = render(<AllergyIntolerance {...defaultProps} />);
 

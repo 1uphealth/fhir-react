@@ -5,7 +5,7 @@ import Coding from '../../datatypes/Coding';
 import Date from '../../datatypes/Date';
 import _get from 'lodash/get';
 import _has from 'lodash/has';
-import fhirTypes from '../fhirResourceTypes';
+import fhirVersions from '../fhirResourceVersions';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 
 import {
@@ -58,13 +58,13 @@ const stu3DTO = fhirResource => {
 
 const resourceDTO = (fhirVersion, fhirResource) => {
   switch (fhirVersion) {
-    case fhirTypes.DSTU2: {
+    case fhirVersions.DSTU2: {
       return {
         ...commonDTO(fhirResource),
         ...dstu2DTO(fhirResource),
       };
     }
-    case fhirTypes.STU3: {
+    case fhirVersions.STU3: {
       return {
         ...commonDTO(fhirResource),
         ...stu3DTO(fhirResource),
@@ -132,6 +132,6 @@ const DiagnosticReport = props => {
 
 DiagnosticReport.propTypes = {
   fhirResource: PropTypes.shape({}).isRequired,
-  fhirVersion: PropTypes.oneOf(['dstu2', 'stu3']),
+  fhirVersion: PropTypes.oneOf([fhirVersions.DSTU2, fhirVersions.STU3]),
 };
 export default DiagnosticReport;

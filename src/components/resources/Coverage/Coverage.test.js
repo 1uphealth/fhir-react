@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import Coverage from './Coverage';
-import fhirResourceTypes from '../fhirResourceTypes';
+import fhirVersions from '../fhirResourceVersions';
 
 import exampleCoverage from '../../../fixtures/dstu2/resources/coverage/example1.json';
 import exampleCoverageStu3 from '../../../fixtures/stu3/resources/coverage/example1.json';
@@ -11,7 +11,7 @@ describe('should render component correctly', () => {
   it('should render with DSTU2 source data', () => {
     const defaultProps = {
       fhirResource: exampleCoverage,
-      fhirVersion: fhirResourceTypes.DSTU2,
+      fhirVersion: fhirVersions.DSTU2,
     };
     const { getByTestId } = render(<Coverage {...defaultProps} />);
 
@@ -25,7 +25,7 @@ describe('should render component correctly', () => {
   it('should render with STU3 source data', () => {
     const defaultProps = {
       fhirResource: exampleCoverageStu3,
-      fhirVersion: fhirResourceTypes.STU3,
+      fhirVersion: fhirVersions.STU3,
     };
     const { getByTestId } = render(<Coverage {...defaultProps} />);
 
@@ -40,7 +40,7 @@ describe('should render component correctly', () => {
   it('should render with STU3 source data which contains the extensions key', () => {
     const defaultProps = {
       fhirResource: example2CoverageStu3,
-      fhirVersion: fhirResourceTypes.STU3,
+      fhirVersion: fhirVersions.STU3,
     };
     const { getByTestId } = render(<Coverage {...defaultProps} />);
 

@@ -21,7 +21,7 @@
 
 - `this.props.thorough` = if this is set to `true`, or if it is absent, all array items and supported attributes will be displayed. Otherwise if this is `false` then only the first or otherwise important items will be displayed
 
-# Stroybook
+# Storybook
 
 Run storybook local server with:
 

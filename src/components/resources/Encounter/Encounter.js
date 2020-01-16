@@ -155,7 +155,7 @@ const Encounter = props => {
 
 Encounter.propTypes = {
   fhirResource: PropTypes.shape({}).isRequired,
-  fhirVersion: PropTypes.string.isRequired,
+  fhirVersion: PropTypes.oneOf([fhirTypes.DSTU2, fhirTypes.STU3]).isRequired,
 };
 
 export default Encounter;

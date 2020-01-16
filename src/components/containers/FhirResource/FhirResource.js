@@ -43,7 +43,11 @@ class ErrorBoundary extends React.Component {
   render() {
     if (this.state.hasError) {
       // You can render any custom fallback UI
-      return <Generic {...this.props} />;
+      return (
+        <ResourceContainer {...this.props}>
+          <Generic {...this.props} />
+        </ResourceContainer>
+      );
     }
     return this.props.children;
   }
@@ -112,7 +116,11 @@ class FhirResource extends React.Component {
           </ResourceContainer>
         );
       case 'FamilyMemberHistory':
-        return <FamilyMemberHistory {...this.props} />;
+        return (
+          <ResourceContainer {...this.props}>
+            <FamilyMemberHistory {...this.props} />
+          </ResourceContainer>
+        );
       case 'Goal':
         return (
           <ResourceContainer {...this.props}>
@@ -200,7 +208,11 @@ class FhirResource extends React.Component {
           </ResourceContainer>
         );
       default:
-        return <Generic {...this.props} />;
+        return (
+          <ResourceContainer {...this.props}>
+            <Generic {...this.props} />
+          </ResourceContainer>
+        );
     }
   }
 

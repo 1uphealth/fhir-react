@@ -3,27 +3,27 @@ import Img from '../../datatypes/Img';
 import Pdf from '../../datatypes/Pdf';
 import BinaryText from '../../datatypes/BinaryText';
 
-class Binary extends React.Component {
-  render() {
-    return (
-      <div>
-        {(() => {
-          switch (this.props.fhirResource.contentType) {
-            case 'application/pdf':
-              return <Pdf fhirResource={this.props.fhirResource} />;
-            case 'image/jpeg':
-              return <Img fhirResource={this.props.fhirResource} />;
-            case 'application/xml':
-              return <BinaryText fhirResource={this.props.fhirResource} />;
-            case 'application/json':
-              return <BinaryText fhirResource={this.props.fhirResource} />;
-            default:
-              return null;
-          }
-        })()}
-      </div>
-    );
-  }
-}
+const Binary = props => {
+  const { fhirResource } = props;
+
+  return (
+    <div>
+      {(() => {
+        switch (fhirResource.contentType) {
+          case 'application/pdf':
+            return <Pdf fhirResource={fhirResource} />;
+          case 'image/jpeg':
+            return <Img fhirResource={fhirResource} />;
+          case 'application/xml':
+            return <BinaryText fhirResource={fhirResource} />;
+          case 'application/json':
+            return <BinaryText fhirResource={fhirResource} />;
+          default:
+            return null;
+        }
+      })()}
+    </div>
+  );
+};
 
 export default Binary;

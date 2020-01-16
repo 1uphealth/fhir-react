@@ -1,13 +1,13 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import Patient from './Patient';
-import fhirVersions from '../fhirResourceVersions';
+
 import examplePatient from '../../../fixtures/dstu2/resources/patient/example.json';
 import examplePatientSTU3 from '../../../fixtures/stu3/resources/patient/example.json';
 import example2PatientSTU3 from '../../../fixtures/stu3/resources/patient/example2.json';
 
 describe('should render component correctly', () => {
-  it(fhirVersions.DSTU2, () => {
+  it('DSTU2', () => {
     const defaultProps = {
       fhirResource: examplePatient,
     };

@@ -7,7 +7,7 @@ import example1DSTU2 from '../../../fixtures/dstu2/resources/familyMemberHistory
 import example1STU3 from '../../../fixtures/stu3/resources/familyMemberHistory/example1.json';
 
 describe('should render FamilyMemberHistory component correctly', () => {
-  it(fhirVersions.DSTU2, () => {
+  it('DSTU2', () => {
     const defaultProps = {
       fhirResource: example1DSTU2,
       fhirVersion: fhirVersions.DSTU2,
@@ -23,7 +23,7 @@ describe('should render FamilyMemberHistory component correctly', () => {
     expect(getByTestId('noteText').textContent).toContain('Was fishing at');
   });
 
-  it(fhirVersions.STU3, () => {
+  it('STU3', () => {
     const defaultProps = {
       fhirResource: example1STU3,
       fhirVersion: fhirVersions.STU3,

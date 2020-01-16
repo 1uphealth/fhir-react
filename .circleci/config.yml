@@ -22,3 +22,14 @@ jobs:
       - run:
           name: Build
           command: npm run build
+      - run:
+          name: Deploy Storybook
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "develop" ]; then
+              curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip" &&
+              unzip awscli-bundle.zip &&
+              sudo ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws &&
+              mkdir -p ~/.aws &&
+              echo -e "[storybook-deployer]\naws_access_key_id=$AWS_ACCESS_KEY_ID\naws_secret_access_key=$AWS_SECRET_ACCESS_KEY" > ~/.aws/credentials &&
+              npm run deploy-storybook
+            fi

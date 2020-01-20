@@ -1,14 +1,12 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 
+import { nbspRegex } from '../../../testUtils';
 import fhirVersions from '../fhirResourceVersions';
 import DocumentReference from './DocumentReference';
 
 import dstu2Example1 from '../../../fixtures/dstu2/resources/documentReference/example1.json';
 import stu3Example1 from '../../../fixtures/stu3/resources/documentReference/example1.json';
-
-// http://www.fileformat.info/info/unicode/char/00a0/index.htm
-const nbsp = /\u00a0/g;
 
 describe('should render the DocumentReference component properly', () => {
   it('should render with DSTU2 source data', () => {
@@ -23,19 +21,19 @@ describe('should render the DocumentReference component properly', () => {
     expect(getByTestId('status').textContent).toEqual('current');
     expect(getByTestId('docStatus').textContent).toEqual('preliminary');
     expect(getByTestId('createdAt').textContent).toEqual('2005-12-24');
-    expect(getByTestId('type').textContent.split(nbsp)).toEqual([
+    expect(getByTestId('type').textContent.split(nbspRegex)).toEqual([
       'Outpatient Note',
       '(34108-1)',
     ]);
-    expect(getByTestId('class').textContent.split(nbsp)).toEqual([
+    expect(getByTestId('class').textContent.split(nbspRegex)).toEqual([
       'History and Physical',
       '(History and Physical)',
     ]);
-    expect(getByTestId('securityLabel').textContent.split(nbsp)).toEqual([
+    expect(getByTestId('securityLabel').textContent.split(nbspRegex)).toEqual([
       'very restricted',
       '(V)',
     ]);
-    expect(getByTestId('context.event').textContent.split(nbsp)).toEqual([
+    expect(getByTestId('context.event').textContent.split(nbspRegex)).toEqual([
       'Arm',
       '(T-D8200)',
     ]);
@@ -49,7 +47,7 @@ describe('should render the DocumentReference component properly', () => {
       />,
     );
     const formats = getAllByTestId('content.format').map(node =>
-      node.textContent.split(nbsp),
+      node.textContent.split(nbspRegex),
     );
     expect(formats).toEqual([
       ['History and Physical Specification', '(urn:ihe:pcc:handp:2008)'],
@@ -74,19 +72,19 @@ describe('should render the DocumentReference component properly', () => {
     expect(getByTestId('status').textContent).toEqual('current');
     expect(getByTestId('docStatus').textContent).toEqual('preliminary');
     expect(getByTestId('createdAt').textContent).toEqual('2005-12-24');
-    expect(getByTestId('type').textContent.split(nbsp)).toEqual([
+    expect(getByTestId('type').textContent.split(nbspRegex)).toEqual([
       'Outpatient Note',
       '(34108-1)',
     ]);
-    expect(getByTestId('class').textContent.split(nbsp)).toEqual([
+    expect(getByTestId('class').textContent.split(nbspRegex)).toEqual([
       'History and Physical',
       '(History and Physical)',
     ]);
-    expect(getByTestId('securityLabel').textContent.split(nbsp)).toEqual([
+    expect(getByTestId('securityLabel').textContent.split(nbspRegex)).toEqual([
       'very restricted',
       '(V)',
     ]);
-    expect(getByTestId('context.event').textContent.split(nbsp)).toEqual([
+    expect(getByTestId('context.event').textContent.split(nbspRegex)).toEqual([
       'Arm',
       '(T-D8200)',
     ]);
@@ -100,7 +98,7 @@ describe('should render the DocumentReference component properly', () => {
       />,
     );
     const formats = getAllByTestId('content.format').map(node =>
-      node.textContent.split(nbsp),
+      node.textContent.split(nbspRegex),
     );
     expect(formats).toEqual([
       ['History and Physical Specification', '(urn:ihe:pcc:handp:2008)'],

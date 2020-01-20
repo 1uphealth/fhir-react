@@ -3,6 +3,7 @@ import { render } from '@testing-library/react';
 
 import Claim from './Claim';
 import fhirVersions from '../fhirResourceVersions';
+import { nbspRegex } from '../../../testUtils';
 import dstu2Example1 from '../../../fixtures/dstu2/resources/claim/example-1.json';
 import stu3Example1 from '../../../fixtures/stu3/resources/claim/example-1.json';
 import stu3Example2 from '../../../fixtures/stu3/resources/claim/example-2.json';
@@ -81,8 +82,6 @@ describe('should render the Claim component properly', () => {
     const { getAllByTestId, queryAllByTestId } = render(
       <Claim {...defaultProps} />,
     );
-    // http://www.fileformat.info/info/unicode/char/00a0/index.htm
-    const nbsp = /\u00a0/g;
 
     const diagnosis = getAllByTestId('diagnosis.diagnosis')
       .map(n => n.textContent)
@@ -92,7 +91,7 @@ describe('should render the Claim component properly', () => {
       .map(t => t.replace(/[\s()]+/g, ''));
     const diagnosisPackageCodes = getAllByTestId('diagnosis.packageCode')
       .map(n => n.textContent)
-      .map(t => t.replace(nbsp, ' '));
+      .map(t => t.replace(nbspRegex, ' '));
 
     expect(queryAllByTestId('diagnosis')).toHaveLength(1);
     expect(diagnosis).toEqual(['654456']);

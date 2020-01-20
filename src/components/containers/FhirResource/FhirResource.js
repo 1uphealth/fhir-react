@@ -14,6 +14,7 @@ import Encounter from '../../resources/Encounter';
 import FamilyMemberHistory from '../../resources/FamilyMemberHistory';
 import Goal from '../../resources/Goal';
 import Immunization from '../../resources/Immunization';
+import Location from '../../resources/Location';
 import MedicationOrder from '../../resources/MedicationOrder';
 import MedicationStatement from '../../resources/MedicationStatement';
 import Observation from '../../resources/Observation';
@@ -139,6 +140,12 @@ class FhirResource extends React.Component {
         return (
           <ResourceContainer {...this.props}>
             <Immunization {...this.props} />
+          </ResourceContainer>
+        );
+      case 'Location':
+        return (
+          <ResourceContainer {...this.props}>
+            <Location {...this.props} />
           </ResourceContainer>
         );
       case 'MedicationOrder':

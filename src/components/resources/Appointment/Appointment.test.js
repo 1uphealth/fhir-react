@@ -6,6 +6,7 @@ import exampleAppointmentDSTU2 from '../../../fixtures/dstu2/resources/appointme
 import example2AppointmentDSTU2 from '../../../fixtures/dstu2/resources/appointment/example2.json';
 import example1AppointmentSTU3 from '../../../fixtures/stu3/resources/appointment/example1.json';
 import example2AppointmentSTU3 from '../../../fixtures/stu3/resources/appointment/example2.json';
+import example3AppointmentSTU3 from '../../../fixtures/stu3/resources/appointment/example3.json';
 
 describe('should render component correctly', () => {
   it('should render with DSTU2 source data', () => {
@@ -72,5 +73,15 @@ describe('should render component correctly', () => {
     expect(getByTestId('participant').textContent).toContain(
       'South Wing, second floor',
     );
+  });
+
+  it('should display a few participants if exists in resource data', () => {
+    const defaultProps = {
+      fhirResource: example3AppointmentSTU3,
+    };
+    const { getByTestId } = render(<Appointment {...defaultProps} />);
+
+    expect(getByTestId('participant').textContent).toContain('Dr Adam Careful');
+    expect(getByTestId('participant').textContent).toContain('Luigi Maas');
   });
 });

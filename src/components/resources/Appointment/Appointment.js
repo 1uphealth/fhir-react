@@ -15,6 +15,7 @@ import {
   TableRow,
   TableCell,
   MissingValue,
+  TableHeader,
 } from '../../ui';
 import Date from '../../datatypes/Date';
 import Coding from '../../datatypes/Coding';
@@ -22,26 +23,49 @@ import Reference from '../../datatypes/Reference';
 import CodeableConcept from '../../datatypes/CodeableConcept';
 
 const prepareParticipantData = data => {
-  let participantPatient = <MissingValue />;
-  let participantPractitioner = <MissingValue />;
-  let participantLocation = <MissingValue />;
+  // let participantPatient = <MissingValue />;
+  let participantPatient = [];
+  let participantPractitioner = [];
+  let participantLocation = [];
   if (Array.isArray(data)) {
     data.forEach(item => {
       if (_get(item, 'actor.reference', '').includes('Patient')) {
-        participantPatient = <Reference fhirData={item.actor} />;
-      }
-      if (_get(item, 'actor.reference', '').includes('Practitioner')) {
-        participantPractitioner = <Reference fhirData={item.actor} />;
-      }
-      if (_get(item, 'actor.reference', '').includes('Location')) {
-        participantLocation = <Reference fhirData={item.actor} />;
+        participantPatient.push(
+          <>
+            <Reference fhirData={item.actor} />
+            <br />
+          </>,
+        );
+      } else if (_get(item, 'actor.reference', '').includes('Practitioner')) {
+        participantPractitioner.push(
+          <>
+            <Reference fhirData={item.actor} />
+            <br />
+          </>,
+        );
+      } else if (_get(item, 'actor.display', '')) {
+        participantLocation.push(
+          <>
+            <Reference fhirData={item.actor} />
+            <br />
+          </>,
+        );
       }
     });
   }
   return {
-    participantPatient,
-    participantPractitioner,
-    participantLocation,
+    participantPatient:
+      participantPatient.length > 0 ? participantPatient : <MissingValue />,
+    participantPractitioner: participantPractitioner.length ? (
+      participantPractitioner
+    ) : (
+      <MissingValue />
+    ),
+    participantLocation: participantLocation.length ? (
+      participantLocation
+    ) : (
+      <MissingValue />
+    ),
   };
 };
 
@@ -97,9 +121,9 @@ const Appointment = props => {
             <Table>
               <thead>
                 <TableRow>
-                  <TableCell>Patient</TableCell>
-                  <TableCell>Practitioner</TableCell>
-                  <TableCell>Location</TableCell>
+                  <TableHeader>Patient</TableHeader>
+                  <TableHeader>Practitioner</TableHeader>
+                  <TableHeader>Other</TableHeader>
                 </TableRow>
               </thead>
               <tbody>

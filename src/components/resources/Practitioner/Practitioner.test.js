@@ -33,7 +33,7 @@ describe('Practitioner should render component correctly', () => {
     expect(getByTestId('gender').textContent).toEqual('male');
     expect(getByTestId('address').textContent).toContain('5815 S Calumet');
     expect(getByTestId('telecom').textContent).toContain(
-      '31255200103125236837',
+      'fax3125520010phone3125236837',
     );
   });
 

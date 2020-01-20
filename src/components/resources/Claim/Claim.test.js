@@ -28,6 +28,7 @@ describe('should render the Claim component properly', () => {
     expect(queryAllByTestId('careTeam')).toHaveLength(0);
     expect(queryAllByTestId('diagnosis')).toHaveLength(1);
     expect(queryAllByTestId('accident')).toHaveLength(0);
+    expect(queryAllByTestId('insurance')).toHaveLength(1);
   });
 
   it('with STU3 source data', () => {
@@ -49,6 +50,7 @@ describe('should render the Claim component properly', () => {
     expect(queryAllByTestId('careTeam')).toHaveLength(1);
     expect(queryAllByTestId('diagnosis')).toHaveLength(1);
     expect(queryAllByTestId('accident')).toHaveLength(0);
+    expect(queryAllByTestId('insurance')).toHaveLength(1);
   });
 
   it('including the members of the careTeam with STU3 source data', () => {
@@ -112,5 +114,30 @@ describe('should render the Claim component properly', () => {
     expect(getByTestId('accident.type').textContent).toContain(
       'Sporting Accident',
     );
+  });
+
+  it('including the insurance with STU3 source data', () => {
+    const defaultProps = {
+      fhirResource: stu3Example2,
+      fhirVersion: fhirVersions.STU3,
+    };
+    const { getAllByTestId, queryAllByTestId } = render(
+      <Claim {...defaultProps} />,
+    );
+
+    const coverage = getAllByTestId('insurance.coverage').map(
+      n => n.textContent,
+    );
+    const businessArrangement = getAllByTestId(
+      'insurance.businessArrangement',
+    ).map(n => n.textContent);
+    const claimResponse = getAllByTestId('insurance.claimResponse').map(
+      n => n.textContent,
+    );
+
+    expect(queryAllByTestId('insurance')).toHaveLength(1);
+    expect(coverage).toEqual(['Coverage/9876B1 (focal)']);
+    expect(businessArrangement).toEqual(['BA987123']);
+    expect(claimResponse).toEqual(['-']);
   });
 });

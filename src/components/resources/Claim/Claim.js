@@ -58,6 +58,13 @@ const dstu2DTO = fhirResource => {
     accidentCoding || accidentDate
       ? { coding: accidentCoding, date: accidentDate }
       : null;
+  const insurance = _get(fhirResource, 'coverage', []).map(insurance => {
+    const focal = insurance.focal;
+    const coverage = insurance.coverage;
+    const businessArrangement = insurance.businessArrangement;
+    const claimResponse = insurance.claimResponse;
+    return { focal, coverage, businessArrangement, claimResponse };
+  });
   return {
     status,
     typeCoding,
@@ -67,6 +74,7 @@ const dstu2DTO = fhirResource => {
     priorityCoding,
     diagnosis,
     accident,
+    insurance,
   };
 };
 const stu3DTO = fhirResource => {
@@ -95,6 +103,13 @@ const stu3DTO = fhirResource => {
     accidentCoding || accidentDate
       ? { coding: accidentCoding, date: accidentDate }
       : null;
+  const insurance = _get(fhirResource, 'insurance', []).map(insurance => {
+    const focal = insurance.focal;
+    const coverage = insurance.coverage;
+    const businessArrangement = insurance.businessArrangement;
+    const claimResponse = insurance.claimResponse;
+    return { focal, coverage, businessArrangement, claimResponse };
+  });
   return {
     status,
     typeCoding,
@@ -104,6 +119,7 @@ const stu3DTO = fhirResource => {
     priorityCoding,
     diagnosis,
     accident,
+    insurance,
   };
 };
 
@@ -214,6 +230,47 @@ const Diagnosis = props => {
   );
 };
 
+const Insurance = props => {
+  const { insurance } = props;
+
+  return (
+    <ValueSection label="Insurance" data-testid="insurance">
+      <Table>
+        <thead>
+          <TableRow>
+            <TableHeader>Coverage</TableHeader>
+            <TableHeader>Business Arrangement</TableHeader>
+            <TableHeader>Claim Response</TableHeader>
+          </TableRow>
+        </thead>
+        <tbody>
+          {insurance.map((insurance, idx) => (
+            <TableRow key={idx}>
+              <TableCell data-testid="insurance.coverage">
+                <Reference fhirData={insurance.coverage} />
+                {insurance.focal && ' (focal)'}
+              </TableCell>
+              <TableCell data-testid="insurance.businessArrangement">
+                {insurance.businessArrangement ? (
+                  insurance.businessArrangement
+                ) : (
+                  <MissingValue />
+                )}
+              </TableCell>
+              <TableCell data-testid="insurance.claimResponse">
+                {insurance.claimResponse ? (
+                  <Reference fhirData={insurance.claimResponse} />
+                ) : (
+                  <MissingValue />
+                )}
+              </TableCell>
+            </TableRow>
+          ))}
+        </tbody>
+      </Table>
+    </ValueSection>
+  );
+};
 const Claim = props => {
   const { fhirResource, fhirVersion } = props;
   let fhirResourceData = {};
@@ -236,9 +293,11 @@ const Claim = props => {
     careTeam,
     diagnosis,
     accident,
+    insurance,
   } = fhirResourceData;
   const hasCareTeam = careTeam.length > 0;
   const hasDiagnosis = diagnosis.length > 0;
+  const hasInsurance = insurance.length > 0;
 
   return (
     <Root name="Claim">
@@ -258,11 +317,22 @@ const Claim = props => {
             <DateType fhirData={created} />
           </Value>
         )}
-        {priorityCoding && (
-          <Value label="Priority" data-testid="priority">
-            <Coding fhirData={priorityCoding} />
-          </Value>
+        {accident && (
+          <ValueSection label="Accident" data-testid="accident">
+            {accident.date && (
+              <Value label="Date" data-testid="accident.date">
+                <DateType fhirData={accident.date} />
+              </Value>
+            )}
+            {accident.coding && (
+              <Value label="Type" data-testid="accident.type">
+                <Coding fhirData={accident.coding} />
+              </Value>
+            )}
+          </ValueSection>
         )}
+        {hasCareTeam && <CareTeam careTeam={careTeam} />}
+        {hasDiagnosis && <Diagnosis diagnosis={diagnosis} />}
         {insurer && (
           <Value label="Insurer" data-testid="insurer">
             <Reference fhirData={insurer} />
@@ -283,22 +353,12 @@ const Claim = props => {
             <Reference fhirData={payee.party} />
           </Value>
         )}
-        {accident && (
-          <ValueSection label="Accident" data-testid="accident">
-            {accident.date && (
-              <Value label="Date" data-testid="accident.date">
-                <DateType fhirData={accident.date} />
-              </Value>
-            )}
-            {accident.coding && (
-              <Value label="Type" data-testid="accident.type">
-                <Coding fhirData={accident.coding} />
-              </Value>
-            )}
-          </ValueSection>
+        {priorityCoding && (
+          <Value label="Priority" data-testid="priority">
+            <Coding fhirData={priorityCoding} />
+          </Value>
         )}
-        {hasCareTeam && <CareTeam careTeam={careTeam} />}
-        {hasDiagnosis && <Diagnosis diagnosis={diagnosis} />}
+        {hasInsurance && <Insurance insurance={insurance} />}
       </Body>
     </Root>
   );

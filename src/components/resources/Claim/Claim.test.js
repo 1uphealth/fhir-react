@@ -25,6 +25,7 @@ describe('should render the Claim component properly', () => {
     expect(getByTestId('insurer').textContent).toEqual('Organization/2');
     expect(getByTestId('payee.type').textContent).toContain('provider');
     expect(queryAllByTestId('careTeam')).toHaveLength(0);
+    expect(queryAllByTestId('diagnosis')).toHaveLength(1);
   });
 
   it('with STU3 source data', () => {
@@ -44,6 +45,7 @@ describe('should render the Claim component properly', () => {
     expect(getByTestId('insurer').textContent).toEqual('Organization/2');
     expect(getByTestId('payee.type').textContent).toContain('provider');
     expect(queryAllByTestId('careTeam')).toHaveLength(1);
+    expect(queryAllByTestId('diagnosis')).toHaveLength(1);
   });
 
   it('including the members of the careTeam with STU3 source data', () => {
@@ -69,5 +71,32 @@ describe('should render the Claim component properly', () => {
     expect(roles).toEqual(['primary']);
     expect(qualifications).toEqual(['-']);
     expect(providers).toEqual(['Practitioner/example']);
+  });
+
+  it('including the diagnosis with STU3 source data', () => {
+    const defaultProps = {
+      fhirResource: stu3Example2,
+      fhirVersion: fhirVersions.STU3,
+    };
+    const { getAllByTestId, queryAllByTestId } = render(
+      <Claim {...defaultProps} />,
+    );
+    // http://www.fileformat.info/info/unicode/char/00a0/index.htm
+    const nbsp = /\u00a0/g;
+
+    const diagnosis = getAllByTestId('diagnosis.diagnosis')
+      .map(n => n.textContent)
+      .map(t => t.replace(/[\s()]+/g, ''));
+    const diagnosisTypes = getAllByTestId('diagnosis.type')
+      .map(n => n.textContent)
+      .map(t => t.replace(/[\s()]+/g, ''));
+    const diagnosisPackageCodes = getAllByTestId('diagnosis.packageCode')
+      .map(n => n.textContent)
+      .map(t => t.replace(nbsp, ' '));
+
+    expect(queryAllByTestId('diagnosis')).toHaveLength(1);
+    expect(diagnosis).toEqual(['654456']);
+    expect(diagnosisTypes).toEqual(['admitting']);
+    expect(diagnosisPackageCodes).toEqual(['Head trauma - concussion (400)']);
   });
 });

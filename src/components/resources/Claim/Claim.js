@@ -45,6 +45,13 @@ const dstu2DTO = fhirResource => {
     _get(fhirResource, 'payee.person');
   const careTeam = [];
   const priorityCoding = _get(fhirResource, 'priority');
+  const diagnosis = _get(fhirResource, 'diagnosis', []).map(diagnosis => {
+    const coding = _get(diagnosis, 'diagnosis');
+    const reference = null;
+    const typeCoding = null;
+    const packageCodeCoding = null;
+    return { coding, reference, typeCoding, packageCodeCoding };
+  });
   return {
     status,
     typeCoding,
@@ -52,6 +59,7 @@ const dstu2DTO = fhirResource => {
     payee: { coding: payeeCoding, party: payeeParty },
     careTeam,
     priorityCoding,
+    diagnosis,
   };
 };
 const stu3DTO = fhirResource => {
@@ -67,6 +75,13 @@ const stu3DTO = fhirResource => {
     return { provider, role, qualification };
   });
   const priorityCoding = _get(fhirResource, 'priority.coding[0]');
+  const diagnosis = _get(fhirResource, 'diagnosis', []).map(diagnosis => {
+    const coding = _get(diagnosis, 'diagnosisCodeableConcept.coding[0]');
+    const reference = _get(diagnosis, 'diagnosisReference');
+    const typeCoding = _get(diagnosis, 'type[0].coding[0]');
+    const packageCodeCoding = _get(diagnosis, 'packageCode.coding[0]');
+    return { coding, reference, typeCoding, packageCodeCoding };
+  });
   return {
     status,
     typeCoding,
@@ -74,6 +89,7 @@ const stu3DTO = fhirResource => {
     payee: { coding: payeeCoding, party: payeeParty },
     careTeam,
     priorityCoding,
+    diagnosis,
   };
 };
 
@@ -137,6 +153,53 @@ const CareTeam = props => {
   );
 };
 
+const Diagnosis = props => {
+  const { diagnosis } = props;
+
+  return (
+    <ValueSection label="Diagnosis" data-testid="diagnosis">
+      <Table>
+        <thead>
+          <TableRow>
+            <TableHeader>Diagnosis</TableHeader>
+            <TableHeader>Type</TableHeader>
+            <TableHeader>Package code</TableHeader>
+          </TableRow>
+        </thead>
+        <tbody>
+          {diagnosis.map((diagnosis, idx) => (
+            <TableRow key={idx}>
+              <TableCell data-testid="diagnosis.diagnosis">
+                {diagnosis.coding ? (
+                  <Coding fhirData={diagnosis.coding} />
+                ) : diagnosis.refrence ? (
+                  <Reference fhirData={diagnosis.reference} />
+                ) : (
+                  <MissingValue />
+                )}
+              </TableCell>
+              <TableCell data-testid="diagnosis.type">
+                {diagnosis.typeCoding ? (
+                  <Coding fhirData={diagnosis.typeCoding} />
+                ) : (
+                  <MissingValue />
+                )}
+              </TableCell>
+              <TableCell data-testid="diagnosis.packageCode">
+                {diagnosis.packageCodeCoding ? (
+                  <Coding fhirData={diagnosis.packageCodeCoding} />
+                ) : (
+                  <MissingValue />
+                )}
+              </TableCell>
+            </TableRow>
+          ))}
+        </tbody>
+      </Table>
+    </ValueSection>
+  );
+};
+
 const Claim = props => {
   const { fhirResource, fhirVersion } = props;
   let fhirResourceData = {};
@@ -157,8 +220,10 @@ const Claim = props => {
     priorityCoding,
     payee,
     careTeam,
+    diagnosis,
   } = fhirResourceData;
   const hasCareTeam = careTeam.length > 0;
+  const hasDiagnosis = diagnosis.length > 0;
 
   return (
     <Root name="Claim">
@@ -204,6 +269,7 @@ const Claim = props => {
           </Value>
         )}
         {hasCareTeam && <CareTeam careTeam={careTeam} />}
+        {hasDiagnosis && <Diagnosis diagnosis={diagnosis} />}
       </Body>
     </Root>
   );

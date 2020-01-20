@@ -19,6 +19,7 @@ import {
 import Date from '../../datatypes/Date';
 import Coding from '../../datatypes/Coding';
 import Reference from '../../datatypes/Reference';
+import CodeableConcept from '../../datatypes/CodeableConcept';
 
 const prepareParticipantData = data => {
   let participantPatient = <MissingValue />;
@@ -60,6 +61,8 @@ const Appointment = props => {
     participantLocation,
   } = prepareParticipantData(participant);
   const minutesDuration = _get(fhirResource, 'minutesDuration');
+  const reason = _get(fhirResource, 'reason', []);
+  const hasReason = Array.isArray(reason) && reason.length > 0;
   return (
     <Root name="Appointment">
       <Header>
@@ -82,6 +85,11 @@ const Appointment = props => {
         {minutesDuration && (
           <Value label="Duration [min]" data-testid="minutesDuration">
             {minutesDuration}
+          </Value>
+        )}
+        {hasReason && (
+          <Value label="Reason" data-testid="reason">
+            <CodeableConcept fhirData={reason} />
           </Value>
         )}
         {hasParticipant && (

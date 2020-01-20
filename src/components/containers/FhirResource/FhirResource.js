@@ -1,5 +1,7 @@
 import React from 'react';
+
 import Generic from '../../resources/Generic';
+import AdverseEvent from '../../resources/AdverseEvent';
 import AllergyIntolerance from '../../resources/AllergyIntolerance/AllergyIntolerance';
 import Binary from '../../resources/Binary';
 import CarePlan from '../../resources/CarePlan';
@@ -65,6 +67,12 @@ class FhirResource extends React.Component {
 
   renderSwitch() {
     switch (this.props.fhirResource.resourceType) {
+      case 'AdverseEvent':
+        return (
+          <ResourceContainer {...this.props}>
+            <AdverseEvent {...this.props} />
+          </ResourceContainer>
+        );
       case 'AllergyIntolerance':
         return (
           <ResourceContainer {...this.props}>

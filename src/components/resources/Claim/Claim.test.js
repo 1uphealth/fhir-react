@@ -27,6 +27,7 @@ describe('should render the Claim component properly', () => {
     expect(getByTestId('payee.type').textContent).toContain('provider');
     expect(queryAllByTestId('careTeam')).toHaveLength(0);
     expect(queryAllByTestId('diagnosis')).toHaveLength(1);
+    expect(queryAllByTestId('accident')).toHaveLength(0);
   });
 
   it('with STU3 source data', () => {
@@ -47,6 +48,7 @@ describe('should render the Claim component properly', () => {
     expect(getByTestId('payee.type').textContent).toContain('provider');
     expect(queryAllByTestId('careTeam')).toHaveLength(1);
     expect(queryAllByTestId('diagnosis')).toHaveLength(1);
+    expect(queryAllByTestId('accident')).toHaveLength(0);
   });
 
   it('including the members of the careTeam with STU3 source data', () => {
@@ -97,5 +99,18 @@ describe('should render the Claim component properly', () => {
     expect(diagnosis).toEqual(['654456']);
     expect(diagnosisTypes).toEqual(['admitting']);
     expect(diagnosisPackageCodes).toEqual(['Head trauma - concussion (400)']);
+  });
+
+  it('including the accident with STU3 source data', () => {
+    const defaultProps = {
+      fhirResource: stu3Example2,
+      fhirVersion: fhirVersions.STU3,
+    };
+    const { getByTestId } = render(<Claim {...defaultProps} />);
+
+    expect(getByTestId('accident.date').textContent).toEqual('2014-07-09');
+    expect(getByTestId('accident.type').textContent).toContain(
+      'Sporting Accident',
+    );
   });
 });

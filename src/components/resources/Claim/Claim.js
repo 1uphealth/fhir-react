@@ -52,6 +52,12 @@ const dstu2DTO = fhirResource => {
     const packageCodeCoding = null;
     return { coding, reference, typeCoding, packageCodeCoding };
   });
+  const accidentCoding = _get(fhirResource, 'accidentType');
+  const accidentDate = _get(fhirResource, 'accident');
+  const accident =
+    accidentCoding || accidentDate
+      ? { coding: accidentCoding, date: accidentDate }
+      : null;
   return {
     status,
     typeCoding,
@@ -60,6 +66,7 @@ const dstu2DTO = fhirResource => {
     careTeam,
     priorityCoding,
     diagnosis,
+    accident,
   };
 };
 const stu3DTO = fhirResource => {
@@ -82,6 +89,12 @@ const stu3DTO = fhirResource => {
     const packageCodeCoding = _get(diagnosis, 'packageCode.coding[0]');
     return { coding, reference, typeCoding, packageCodeCoding };
   });
+  const accidentCoding = _get(fhirResource, 'accident.type.coding[0]');
+  const accidentDate = _get(fhirResource, 'accident.date');
+  const accident =
+    accidentCoding || accidentDate
+      ? { coding: accidentCoding, date: accidentDate }
+      : null;
   return {
     status,
     typeCoding,
@@ -90,6 +103,7 @@ const stu3DTO = fhirResource => {
     careTeam,
     priorityCoding,
     diagnosis,
+    accident,
   };
 };
 
@@ -221,6 +235,7 @@ const Claim = props => {
     payee,
     careTeam,
     diagnosis,
+    accident,
   } = fhirResourceData;
   const hasCareTeam = careTeam.length > 0;
   const hasDiagnosis = diagnosis.length > 0;
@@ -267,6 +282,20 @@ const Claim = props => {
           <Value label="Payee party" data-testid="payee.party">
             <Reference fhirData={payee.party} />
           </Value>
+        )}
+        {accident && (
+          <ValueSection label="Accident" data-testid="accident">
+            {accident.date && (
+              <Value label="Date" data-testid="accident.date">
+                <DateType fhirData={accident.date} />
+              </Value>
+            )}
+            {accident.coding && (
+              <Value label="Type" data-testid="accident.type">
+                <Coding fhirData={accident.coding} />
+              </Value>
+            )}
+          </ValueSection>
         )}
         {hasCareTeam && <CareTeam careTeam={careTeam} />}
         {hasDiagnosis && <Diagnosis diagnosis={diagnosis} />}

@@ -6,6 +6,7 @@ import AllergyIntolerance from '../../resources/AllergyIntolerance/AllergyIntole
 import Binary from '../../resources/Binary';
 import CarePlan from '../../resources/CarePlan';
 import CareTeam from '../../resources/CareTeam';
+import Claim from '../../resources/Claim';
 import Condition from '../../resources/Condition';
 import Device from '../../resources/Device';
 import DiagnosticReport from '../../resources/DiagnosticReport';
@@ -91,6 +92,12 @@ class FhirResource extends React.Component {
         return (
           <ResourceContainer {...this.props}>
             <CareTeam {...this.props} />
+          </ResourceContainer>
+        );
+      case 'Claim':
+        return (
+          <ResourceContainer {...this.props}>
+            <Claim {...this.props} />
           </ResourceContainer>
         );
       case 'Condition':

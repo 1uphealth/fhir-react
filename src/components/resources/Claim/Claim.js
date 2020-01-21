@@ -65,6 +65,8 @@ const dstu2DTO = fhirResource => {
     const claimResponse = insurance.claimResponse;
     return { focal, coverage, businessArrangement, claimResponse };
   });
+  const employmentImpacted = null;
+  const hospitalization = null;
   return {
     status,
     typeCoding,
@@ -75,6 +77,8 @@ const dstu2DTO = fhirResource => {
     diagnosis,
     accident,
     insurance,
+    employmentImpacted,
+    hospitalization,
   };
 };
 const stu3DTO = fhirResource => {
@@ -110,6 +114,21 @@ const stu3DTO = fhirResource => {
     const claimResponse = insurance.claimResponse;
     return { focal, coverage, businessArrangement, claimResponse };
   });
+  const employmentImpactedStart = _get(
+    fhirResource,
+    'employmentImpacted.start',
+  );
+  const employmentImpactedEnd = _get(fhirResource, 'employmentImpacted.end');
+  const employmentImpacted =
+    employmentImpactedStart || employmentImpactedEnd
+      ? { start: employmentImpactedStart, end: employmentImpactedEnd }
+      : null;
+  const hospitalizationStart = _get(fhirResource, 'hospitalization.start');
+  const hospitalizationEnd = _get(fhirResource, 'hospitalization.end');
+  const hospitalization =
+    hospitalizationStart || hospitalizationEnd
+      ? { start: hospitalizationStart, end: hospitalizationEnd }
+      : null;
   return {
     status,
     typeCoding,
@@ -120,6 +139,8 @@ const stu3DTO = fhirResource => {
     diagnosis,
     accident,
     insurance,
+    employmentImpacted,
+    hospitalization,
   };
 };
 
@@ -294,6 +315,8 @@ const Claim = props => {
     diagnosis,
     accident,
     insurance,
+    employmentImpacted,
+    hospitalization,
   } = fhirResourceData;
   const hasCareTeam = careTeam.length > 0;
   const hasDiagnosis = diagnosis.length > 0;
@@ -330,6 +353,36 @@ const Claim = props => {
               </Value>
             )}
           </ValueSection>
+        )}
+        {employmentImpacted && (
+          <Value label="Employment impacted" data-testid="employmentImpacted">
+            {employmentImpacted.start ? (
+              <DateType fhirData={employmentImpacted.start} />
+            ) : (
+              <MissingValue />
+            )}
+            {' - '}
+            {employmentImpacted.end ? (
+              <DateType fhirData={employmentImpacted.end} />
+            ) : (
+              <MissingValue />
+            )}
+          </Value>
+        )}
+        {hospitalization && (
+          <Value label="Hospitalization" data-testid="hospitalization">
+            {hospitalization.start ? (
+              <DateType fhirData={hospitalization.start} />
+            ) : (
+              <MissingValue />
+            )}
+            {' - '}
+            {hospitalization.end ? (
+              <DateType fhirData={hospitalization.end} />
+            ) : (
+              <MissingValue />
+            )}
+          </Value>
         )}
         {hasCareTeam && <CareTeam careTeam={careTeam} />}
         {hasDiagnosis && <Diagnosis diagnosis={diagnosis} />}

@@ -140,4 +140,28 @@ describe('should render the Claim component properly', () => {
     expect(businessArrangement).toEqual(['BA987123']);
     expect(claimResponse).toEqual(['-']);
   });
+
+  it('including the employment impacted period with STU3 source data', () => {
+    const defaultProps = {
+      fhirResource: stu3Example2,
+      fhirVersion: fhirVersions.STU3,
+    };
+    const { getByTestId } = render(<Claim {...defaultProps} />);
+
+    expect(getByTestId('employmentImpacted').textContent).toEqual(
+      '2014-08-16 - 2014-08-16',
+    );
+  });
+
+  it('including the hospitalization period with STU3 source data', () => {
+    const defaultProps = {
+      fhirResource: stu3Example2,
+      fhirVersion: fhirVersions.STU3,
+    };
+    const { getByTestId } = render(<Claim {...defaultProps} />);
+
+    expect(getByTestId('hospitalization').textContent).toEqual(
+      '2014-08-15 - 2014-08-16',
+    );
+  });
 });

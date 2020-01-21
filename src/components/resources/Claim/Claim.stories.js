@@ -7,6 +7,7 @@ import fhirVersions from '../fhirResourceVersions';
 import dstu2Example1 from '../../../fixtures/dstu2/resources/claim/example-1.json';
 import stu3Example1 from '../../../fixtures/stu3/resources/claim/example-1.json';
 import stu3Example2 from '../../../fixtures/stu3/resources/claim/example-2.json';
+import stu3Example3 from '../../../fixtures/stu3/resources/claim/example-3.json';
 
 export default {
   title: 'Claim',
@@ -24,5 +25,10 @@ export const ExampleOfSTU3 = () => {
 
 export const Example2OfSTU3 = () => {
   const fhirResource = object('Resource', stu3Example2);
+  return <Claim fhirVersion={fhirVersions.STU3} fhirResource={fhirResource} />;
+};
+
+export const Example3OfSTU3 = () => {
+  const fhirResource = object('Resource', stu3Example3);
   return <Claim fhirVersion={fhirVersions.STU3} fhirResource={fhirResource} />;
 };

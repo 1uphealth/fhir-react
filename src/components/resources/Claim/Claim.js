@@ -24,6 +24,7 @@ import {
   TableHeader,
   TableRow,
 } from '../../ui';
+import { nbspRegex } from '../../../testUtils';
 
 const commonDTO = fhirResource => {
   const id = _get(fhirResource, 'id');
@@ -69,6 +70,23 @@ const dstu2DTO = fhirResource => {
   const employmentImpacted = null;
   const hospitalization = null;
   const total = null;
+  function mapItem(item, level) {
+    const service = _get(item, 'service');
+    const quantity = _get(item, 'quantity.value');
+    const factor = _get(item, 'factor');
+    const unitPrice = _get(item, 'unitPrice');
+    const net = _get(item, 'net');
+    let subItemProperty;
+    if (level === 0) subItemProperty = 'detail';
+    else if (level === 1) subItemProperty = 'subDetail';
+    const subItems = subItemProperty
+      ? _get(item, subItemProperty, []).map(subItem =>
+          mapItem(subItem, level + 1),
+        )
+      : [];
+    return { service, quantity, factor, unitPrice, net, subItems };
+  }
+  const items = _get(fhirResource, 'item').map(item => mapItem(item, 0));
   return {
     status,
     typeCoding,
@@ -82,6 +100,7 @@ const dstu2DTO = fhirResource => {
     employmentImpacted,
     hospitalization,
     total,
+    items,
   };
 };
 const stu3DTO = fhirResource => {
@@ -133,6 +152,23 @@ const stu3DTO = fhirResource => {
       ? { start: hospitalizationStart, end: hospitalizationEnd }
       : null;
   const total = _get(fhirResource, 'total');
+  function mapItem(item, level) {
+    const service = _get(item, 'service.coding[0]');
+    const quantity = _get(item, 'quantity.value');
+    const factor = _get(item, 'factor');
+    const unitPrice = _get(item, 'unitPrice');
+    const net = _get(item, 'net');
+    let subItemProperty;
+    if (level === 0) subItemProperty = 'detail';
+    else if (level === 1) subItemProperty = 'subDetail';
+    const subItems = subItemProperty
+      ? _get(item, subItemProperty, []).map(subItem =>
+          mapItem(subItem, level + 1),
+        )
+      : [];
+    return { service, quantity, factor, unitPrice, net, subItems };
+  }
+  const items = _get(fhirResource, 'item').map(item => mapItem(item, 0));
   return {
     status,
     typeCoding,
@@ -146,6 +182,7 @@ const stu3DTO = fhirResource => {
     employmentImpacted,
     hospitalization,
     total,
+    items,
   };
 };
 
@@ -297,6 +334,64 @@ const Insurance = props => {
     </ValueSection>
   );
 };
+
+const Item = props => {
+  const { item } = props;
+
+  return (
+    <>
+      <TableRow>
+        <TableCell data-testid="items.service">
+          <Coding fhirData={item.service} />
+        </TableCell>
+        <TableCell data-testid="items.unitPrice">
+          {item.unitPrice ? (
+            <Money fhirData={item.unitPrice} />
+          ) : (
+            <MissingValue />
+          )}
+          {item.factor != null ? (
+            <span>&nbsp;&times;&nbsp;{item.factor}</span>
+          ) : null}
+        </TableCell>
+        <TableCell data-testid="items.quantity">
+          {item.quantity != null ? item.quantity : <MissingValue />}
+        </TableCell>
+        <TableCell data-testid="items.net">
+          {item.net ? <Money fhirData={item.net} /> : <MissingValue />}
+        </TableCell>
+      </TableRow>
+      {item.subItems.map((subItem, idx) => (
+        <Item key={idx} item={subItem} />
+      ))}
+    </>
+  );
+};
+
+const Items = props => {
+  const { items } = props;
+
+  return (
+    <ValueSection label="Items" data-testid="items">
+      <Table>
+        <thead>
+          <TableRow>
+            <TableHeader expand>Service</TableHeader>
+            <TableHeader>Unit price</TableHeader>
+            <TableHeader>Quantity</TableHeader>
+            <TableHeader>Total</TableHeader>
+          </TableRow>
+        </thead>
+        <tbody>
+          {items.map((item, idx) => (
+            <Item key={idx} item={item} />
+          ))}
+        </tbody>
+      </Table>
+    </ValueSection>
+  );
+};
+
 const Claim = props => {
   const { fhirResource, fhirVersion } = props;
   let fhirResourceData = {};
@@ -322,6 +417,7 @@ const Claim = props => {
     insurance,
     employmentImpacted,
     hospitalization,
+    items,
     total,
   } = fhirResourceData;
   const hasCareTeam = careTeam.length > 0;
@@ -423,6 +519,7 @@ const Claim = props => {
             <Money fhirData={total} />
           </Value>
         )}
+        {items && <Items items={items} />}
       </Body>
     </Root>
   );

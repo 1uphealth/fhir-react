@@ -4,6 +4,7 @@ import _get from 'lodash/get';
 
 import Coding from '../../datatypes/Coding';
 import DateType from '../../datatypes/Date';
+import Money from '../../datatypes/Money';
 import Reference from '../../datatypes/Reference';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 import fhirVersions from '../fhirResourceVersions';
@@ -67,6 +68,7 @@ const dstu2DTO = fhirResource => {
   });
   const employmentImpacted = null;
   const hospitalization = null;
+  const total = null;
   return {
     status,
     typeCoding,
@@ -79,6 +81,7 @@ const dstu2DTO = fhirResource => {
     insurance,
     employmentImpacted,
     hospitalization,
+    total,
   };
 };
 const stu3DTO = fhirResource => {
@@ -129,6 +132,7 @@ const stu3DTO = fhirResource => {
     hospitalizationStart || hospitalizationEnd
       ? { start: hospitalizationStart, end: hospitalizationEnd }
       : null;
+  const total = _get(fhirResource, 'total');
   return {
     status,
     typeCoding,
@@ -141,6 +145,7 @@ const stu3DTO = fhirResource => {
     insurance,
     employmentImpacted,
     hospitalization,
+    total,
   };
 };
 
@@ -317,6 +322,7 @@ const Claim = props => {
     insurance,
     employmentImpacted,
     hospitalization,
+    total,
   } = fhirResourceData;
   const hasCareTeam = careTeam.length > 0;
   const hasDiagnosis = diagnosis.length > 0;
@@ -412,6 +418,11 @@ const Claim = props => {
           </Value>
         )}
         {hasInsurance && <Insurance insurance={insurance} />}
+        {total && (
+          <Value label="Total amount" data-testid="total">
+            <Money fhirData={total} />
+          </Value>
+        )}
       </Body>
     </Root>
   );

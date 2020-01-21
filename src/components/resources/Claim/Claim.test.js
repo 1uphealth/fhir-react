@@ -164,4 +164,16 @@ describe('should render the Claim component properly', () => {
       '2014-08-15 - 2014-08-16',
     );
   });
+
+  it('including the total amount with STU3 source data', () => {
+    const defaultProps = {
+      fhirResource: stu3Example2,
+      fhirVersion: fhirVersions.STU3,
+    };
+    const { getByTestId } = render(<Claim {...defaultProps} />);
+
+    expect(getByTestId('total').textContent.replace(nbspRegex, ' ')).toEqual(
+      '125 USD',
+    );
+  });
 });

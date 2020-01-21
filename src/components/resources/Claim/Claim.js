@@ -176,14 +176,17 @@ const CareTeam = props => {
       <Table>
         <thead>
           <TableRow>
+            <TableHeader>Provider</TableHeader>
             <TableHeader>Role</TableHeader>
             <TableHeader>Qualification</TableHeader>
-            <TableHeader>Provider</TableHeader>
           </TableRow>
         </thead>
         <tbody>
           {careTeam.map((member, idx) => (
             <TableRow key={idx}>
+              <TableCell data-testid="careTeam.provider">
+                <Reference fhirData={member.provider} />
+              </TableCell>
               <TableCell data-testid="careTeam.role">
                 {member.role ? (
                   <Coding fhirData={member.role} />
@@ -197,9 +200,6 @@ const CareTeam = props => {
                 ) : (
                   <MissingValue />
                 )}
-              </TableCell>
-              <TableCell data-testid="careTeam.provider">
-                <Reference fhirData={member.provider} />
               </TableCell>
             </TableRow>
           ))}

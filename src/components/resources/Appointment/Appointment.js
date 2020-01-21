@@ -28,27 +28,24 @@ const prepareParticipantData = data => {
   let participantPractitioner = [];
   let participantLocation = [];
   if (Array.isArray(data)) {
-    data.forEach(item => {
+    data.forEach((item, i) => {
       if (_get(item, 'actor.reference', '').includes('Patient')) {
         participantPatient.push(
-          <>
+          <div key={`item-${i}`}>
             <Reference fhirData={item.actor} />
-            <br />
-          </>,
+          </div>,
         );
       } else if (_get(item, 'actor.reference', '').includes('Practitioner')) {
         participantPractitioner.push(
-          <>
+          <div key={`item-${i}`}>
             <Reference fhirData={item.actor} />
-            <br />
-          </>,
+          </div>,
         );
       } else if (_get(item, 'actor.display', '')) {
         participantLocation.push(
-          <>
+          <div key={`item-${i}`}>
             <Reference fhirData={item.actor} />
-            <br />
-          </>,
+          </div>,
         );
       }
     });

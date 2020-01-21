@@ -13,7 +13,10 @@ const Money = props => {
 };
 
 Money.propTypes = {
-  fhirData: PropTypes.shape({}).isRequired,
+  fhirData: PropTypes.shape({
+    value: PropTypes.number,
+    code: PropTypes.string,
+  }).isRequired,
 };
 
 export default Money;

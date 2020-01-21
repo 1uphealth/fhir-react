@@ -2,6 +2,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 
 import ExplanationOfBenefit from './ExplanationOfBenefit';
+import { nbspRegex } from '../../../testUtils';
 import fhirVersions from '../fhirResourceVersions';
 import dstu2Example1 from '../../../fixtures/dstu2/resources/explanationOfBenefit/example1.json';
 import example1Stu3 from '../../../fixtures/stu3/resources/explanationOfBenefit/example1.json';
@@ -39,10 +40,10 @@ describe('should render ExplanationOfBenefit component properly', () => {
     expect(getByTestId('created').textContent).toContain('2014-08-16');
     expect(getByTestId('insurer').textContent).toContain('Organization/2');
     expect(
-      getByTestId('totalCost').textContent.replace(/\u00a0/g, ' '),
+      getByTestId('totalCost').textContent.replace(nbspRegex, ' '),
     ).toEqual('135.57 USD');
     expect(
-      getByTestId('totalBenefit').textContent.replace(/\u00a0/g, ' '),
+      getByTestId('totalBenefit').textContent.replace(nbspRegex, ' '),
     ).toContain('96 USD');
     expect(getByTestId('hasServices').textContent).toContain('(1200)');
   });

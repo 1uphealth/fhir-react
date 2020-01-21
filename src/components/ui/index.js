@@ -43,9 +43,12 @@ export const Table = props => (
   <table className="fhir-ui__Table">{props.children}</table>
 );
 
-export const TableHeader = props => (
-  <th className="fhir-ui__TableHeader">{props.children}</th>
-);
+export const TableHeader = props => {
+  const { expand } = props;
+  let className = 'fhir-ui__TableHeader';
+  if (expand) className += ' fhir-ui__TableHeader--expand';
+  return <th className={className}>{props.children}</th>;
+};
 
 export const TableRow = props => (
   <tr className="fhir-ui__TableRow">{props.children}</tr>

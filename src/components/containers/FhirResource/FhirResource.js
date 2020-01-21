@@ -1,5 +1,5 @@
 import React from 'react';
-
+import Appointment from '../../resources/Appointment';
 import Generic from '../../resources/Generic';
 import AdverseEvent from '../../resources/AdverseEvent';
 import AllergyIntolerance from '../../resources/AllergyIntolerance/AllergyIntolerance';
@@ -78,6 +78,12 @@ class FhirResource extends React.Component {
         return (
           <ResourceContainer {...this.props}>
             <AllergyIntolerance {...this.props} />
+          </ResourceContainer>
+        );
+      case 'Appointment':
+        return (
+          <ResourceContainer {...this.props}>
+            <Appointment {...this.props} />
           </ResourceContainer>
         );
       case 'Binary':

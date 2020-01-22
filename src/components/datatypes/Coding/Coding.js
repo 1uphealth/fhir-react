@@ -7,13 +7,19 @@ const Coding = props => {
   const display = _get(fhirData, 'display', '');
   const code = _get(fhirData, 'code', '');
   const system = _get(fhirData, 'system', '');
+  const hasAdditionalInfo = code || system;
   return (
     <div className="fhir-datatype__Coding">
-      <span className="fhir-datatype__Coding__title">{display}</span>&nbsp;(
-      <abbr className="fhir-datatype__Coding__code" title={system}>
-        {code}
-      </abbr>
-      )
+      <span className="fhir-datatype__Coding__title">{display}</span>&nbsp;
+      {hasAdditionalInfo && (
+        <>
+          (
+          <abbr className="fhir-datatype__Coding__code" title={system}>
+            {code}
+          </abbr>
+          )
+        </>
+      )}
     </div>
   );
 };

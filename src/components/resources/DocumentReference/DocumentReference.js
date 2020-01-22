@@ -23,6 +23,7 @@ import {
   TableCell,
   MissingValue,
 } from '../../ui';
+import Attachment from '../../datatypes/Attachment';
 
 const commonDTO = fhirResource => {
   const description = _get(fhirResource, 'description');
@@ -144,13 +145,7 @@ const ContentItem = props => {
         {hasSize ? prettyBytes(item.size) : <MissingValue />}
       </TableCell>
       <TableCell data-testid="content.url">
-        {hasURL ? (
-          <a href={item.url} rel="noopener noreferrer" target="_blank">
-            {item.url}
-          </a>
-        ) : (
-          <MissingValue />
-        )}
+        {hasURL ? <Attachment fhirData={item} /> : <MissingValue />}
       </TableCell>
     </TableRow>
   );

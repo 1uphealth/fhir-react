@@ -55,9 +55,7 @@ describe('should render the DocumentReference component properly', () => {
     const sizes = getAllByTestId('content.size').map(node => node.textContent);
     expect(sizes).toEqual(['3.65 kB']);
     const urls = getAllByTestId('content.url').map(node => node.textContent);
-    expect(urls).toEqual([
-      'http://example.org/xds/mhd/Binary/07a6483f-732b-461e-86b6-edb665c45510',
-    ]);
+    expect(urls).toEqual(['Link']);
   });
 
   it('should render with STU3 source data', () => {
@@ -106,8 +104,6 @@ describe('should render the DocumentReference component properly', () => {
     const sizes = getAllByTestId('content.size').map(node => node.textContent);
     expect(sizes).toEqual(['3.65 kB']);
     const urls = getAllByTestId('content.url').map(node => node.textContent);
-    expect(urls).toEqual([
-      'http://example.org/xds/mhd/Binary/07a6483f-732b-461e-86b6-edb665c45510',
-    ]);
+    expect(urls).toEqual(['Link']);
   });
 });

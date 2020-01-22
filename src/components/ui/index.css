@@ -71,6 +71,10 @@
   border-bottom: 2px solid #dee2e6;
 }
 
+.fhir-ui__TableHeader--expand {
+  width: 100%;
+}
+
 .fhir-ui__Table tbody + tbody {
   border-top: 2px solid #dee2e6;
 }

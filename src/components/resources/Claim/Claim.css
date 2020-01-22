@@ -1,0 +1,12 @@
+.fhir-resource__Claim__item-level {
+  height: 100%;
+  height: 50px;
+  margin: -12px;
+  display: flex;
+}
+
+.fhir-resource__Claim__item-level-fill {
+  width: 10px;
+  height: 100%;
+  background: #dee2e6;
+}

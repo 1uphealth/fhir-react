@@ -38,8 +38,12 @@ describe('should render ExplanationOfBenefit component properly', () => {
     expect(getByTestId('title').textContent).toContain('Claim settled as ');
     expect(getByTestId('created').textContent).toContain('2014-08-16');
     expect(getByTestId('insurer').textContent).toContain('Organization/2');
-    expect(getByTestId('totalCost').textContent).toContain('135.57');
-    expect(getByTestId('totalBenefit').textContent).toContain('96');
+    expect(
+      getByTestId('totalCost').textContent.replace(/\u00a0/g, ' '),
+    ).toEqual('135.57 USD');
+    expect(
+      getByTestId('totalBenefit').textContent.replace(/\u00a0/g, ' '),
+    ).toContain('96 USD');
     expect(getByTestId('hasServices').textContent).toContain('(1200)');
   });
 

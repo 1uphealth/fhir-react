@@ -16,8 +16,9 @@ import {
   TableCell,
   MissingValue,
 } from '../../ui';
-import Date from '../../datatypes/Date';
 import Coding from '../../datatypes/Coding';
+import Date from '../../datatypes/Date';
+import Money from '../../datatypes/Money';
 
 const commonDTO = fhirResource => {
   const disposition = _get(fhirResource, 'disposition');
@@ -129,12 +130,12 @@ const ExplanationOfBenefit = props => {
         )}
         {totalCost && (
           <Value label="Total cost" data-testid="totalCost">
-            {totalCost.value || ''}&nbsp;{totalCost.code}
+            <Money fhirData={totalCost} />
           </Value>
         )}
         {totalBenefit && (
           <Value label="Total benefit" data-testid="totalBenefit">
-            {totalBenefit.value || ''}&nbsp;{totalBenefit.code}
+            <Money fhirData={totalBenefit} />
           </Value>
         )}
         {hasServices && (

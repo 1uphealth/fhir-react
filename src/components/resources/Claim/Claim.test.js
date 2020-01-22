@@ -7,6 +7,7 @@ import { nbspRegex } from '../../../testUtils';
 import dstu2Example1 from '../../../fixtures/dstu2/resources/claim/example-1.json';
 import stu3Example1 from '../../../fixtures/stu3/resources/claim/example-1.json';
 import stu3Example2 from '../../../fixtures/stu3/resources/claim/example-2.json';
+import stu3Example3 from '../../../fixtures/stu3/resources/claim/example-3.json';
 
 describe('should render the Claim component properly', () => {
   it('with DSTU2 source data', () => {
@@ -175,5 +176,55 @@ describe('should render the Claim component properly', () => {
     expect(getByTestId('total').textContent.replace(nbspRegex, ' ')).toEqual(
       '125 USD',
     );
+  });
+
+  it('including the items with STU3 source data', () => {
+    const defaultProps = {
+      fhirResource: stu3Example3,
+      fhirVersion: fhirVersions.STU3,
+    };
+    const { getAllByTestId } = render(<Claim {...defaultProps} />);
+
+    const services = getAllByTestId('items.service')
+      .map(n => n.textContent)
+      .map(t => t.replace(nbspRegex, ' '));
+    const unitPrices = getAllByTestId('items.unitPrice')
+      .map(n => n.textContent)
+      .map(t => t.replace(nbspRegex, ' '));
+    const quantities = getAllByTestId('items.quantity')
+      .map(n => n.textContent)
+      .map(t => t.replace(nbspRegex, ' '));
+    const netPrices = getAllByTestId('items.net')
+      .map(n => n.textContent)
+      .map(t => t.replace(nbspRegex, ' '));
+
+    expect(services).toEqual([
+      ' (glasses)',
+      ' (frame)',
+      ' (lens)',
+      ' (lens)',
+      ' (hardening)',
+      ' (UV coating)',
+      ' (fst)',
+    ]);
+    expect(unitPrices).toEqual([
+      '235.4 USD',
+      '100 USD × 1.1',
+      '55 USD',
+      '30 USD × 1.1',
+      '15 USD × 1.1',
+      '5 USD × 1.1',
+      '220 USD × 0.07',
+    ]);
+    expect(quantities).toEqual(['-', '-', '2', '2', '2', '2', '-']);
+    expect(netPrices).toEqual([
+      '235.4 USD',
+      '110 USD',
+      '110 USD',
+      '66 USD',
+      '33 USD',
+      '11 USD',
+      '15.4 USD',
+    ]);
   });
 });

@@ -9,6 +9,8 @@ import Reference from '../../datatypes/Reference';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 import fhirVersions from '../fhirResourceVersions';
 
+import './Claim.css';
+
 import {
   Root,
   Header,
@@ -24,7 +26,6 @@ import {
   TableHeader,
   TableRow,
 } from '../../ui';
-import { nbspRegex } from '../../../testUtils';
 
 const commonDTO = fhirResource => {
   const id = _get(fhirResource, 'id');
@@ -336,11 +337,20 @@ const Insurance = props => {
 };
 
 const Item = props => {
-  const { item } = props;
+  const { item, level } = props;
+
+  const fill = Array(level)
+    .fill(null)
+    .map((_, idx) => (
+      <div key={idx} className="fhir-resource__Claim__item-level-fill"></div>
+    ));
 
   return (
     <>
       <TableRow>
+        <TableCell data-testid="items.level">
+          <div className="fhir-resource__Claim__item-level">{fill}</div>
+        </TableCell>
         <TableCell data-testid="items.service">
           <Coding fhirData={item.service} />
         </TableCell>
@@ -362,7 +372,7 @@ const Item = props => {
         </TableCell>
       </TableRow>
       {item.subItems.map((subItem, idx) => (
-        <Item key={idx} item={subItem} />
+        <Item key={idx} item={subItem} level={level + 1} />
       ))}
     </>
   );
@@ -376,6 +386,7 @@ const Items = props => {
       <Table>
         <thead>
           <TableRow>
+            <TableHeader />
             <TableHeader expand>Service</TableHeader>
             <TableHeader>Unit price</TableHeader>
             <TableHeader>Quantity</TableHeader>
@@ -384,7 +395,7 @@ const Items = props => {
         </thead>
         <tbody>
           {items.map((item, idx) => (
-            <Item key={idx} item={item} />
+            <Item key={idx} item={item} level={0} />
           ))}
         </tbody>
       </Table>

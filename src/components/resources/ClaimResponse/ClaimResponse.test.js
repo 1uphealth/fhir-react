@@ -17,6 +17,12 @@ describe('should render the ClaimResponse component properly', () => {
     expect(getByTestId('title').textContent).toEqual('Claim response #R3500');
     expect(getByTestId('outcome').textContent).toEqual('complete');
     expect(getByTestId('created').textContent).toEqual('2014-08-16');
+    expect(getByTestId('disposition').textContent).toEqual(
+      'Claim settled as per contract.',
+    );
+    expect(getByTestId('request').textContent).toEqual(
+      'http://www.BenefitsInc.com/fhir/oralhealthclaim/15476332402',
+    );
   });
 
   it('with STU3 source data', () => {
@@ -29,5 +35,11 @@ describe('should render the ClaimResponse component properly', () => {
     expect(getByTestId('title').textContent).toEqual('Claim response #R3500');
     expect(getByTestId('outcome').textContent).toEqual('complete');
     expect(getByTestId('created').textContent).toEqual('2014-08-16');
+    expect(getByTestId('disposition').textContent).toEqual(
+      'Claim settled as per contract.',
+    );
+    expect(getByTestId('request').textContent).toEqual(
+      'http://www.BenefitsInc.com/fhir/oralhealthclaim/15476332402',
+    );
   });
 });

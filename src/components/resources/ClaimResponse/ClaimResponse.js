@@ -4,6 +4,7 @@ import _get from 'lodash/get';
 
 import fhirVersions from '../fhirResourceVersions';
 import DateType from '../../datatypes/Date';
+import Reference from '../../datatypes/Reference';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 
 import { Root, Body, Header, Title, Badge, Value } from '../../ui';
@@ -11,10 +12,14 @@ import { Root, Body, Header, Title, Badge, Value } from '../../ui';
 const commonDTO = fhirResource => {
   const id = _get(fhirResource, 'id');
   const created = _get(fhirResource, 'created');
+  const disposition = _get(fhirResource, 'disposition');
+  const requestReference = _get(fhirResource, 'request');
 
   return {
     id,
     created,
+    disposition,
+    requestReference,
   };
 };
 
@@ -65,7 +70,13 @@ const ClaimResponse = props => {
     return <UnhandledResourceDataStructure resourceName="ClaimResponse" />;
   }
 
-  const { id, outcome, created } = fhirResourceData;
+  const {
+    id,
+    outcome,
+    created,
+    disposition,
+    requestReference,
+  } = fhirResourceData;
 
   return (
     <Root name="ClaimResponse">
@@ -77,6 +88,16 @@ const ClaimResponse = props => {
         {created && (
           <Value label="Created At" data-testid="created">
             <DateType fhirData={created} />
+          </Value>
+        )}
+        {requestReference && (
+          <Value label="Request claim" data-testid="request">
+            <Reference fhirData={requestReference} />
+          </Value>
+        )}
+        {disposition && (
+          <Value label="Disposition" data-testid="disposition">
+            {disposition}
           </Value>
         )}
       </Body>

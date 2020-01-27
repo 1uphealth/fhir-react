@@ -73,7 +73,29 @@ const dstu2DTO = fhirResource => {
       : [];
     return { sequenceLinkId, adjudication, subItems };
   }
+  function mapAddedItem(addedItem, level) {
+    const sequenceLinkId = _get(addedItem, 'sequenceLinkId');
+    const service = _get(addedItem, 'service');
+    const fee = _get(addedItem, 'fee');
+    const adjudication = _get(addedItem, 'adjudication', []).map(
+      mapAdjudication,
+    );
+
+    let subItemProperty;
+    if (level === 0) subItemProperty = 'detail';
+    else if (level === 1) subItemProperty = 'subDetail';
+
+    const subItems = subItemProperty
+      ? _get(addedItem, subItemProperty, []).map(subItem =>
+          mapItem(subItem, level + 1),
+        )
+      : [];
+    return { sequenceLinkId, service, fee, adjudication, subItems };
+  }
   const items = _get(fhirResource, 'item').map(item => mapItem(item, 0));
+  const addedItems = _get(fhirResource, 'addItem', []).map(item =>
+    mapAddedItem(item, 0),
+  );
 
   return {
     outcome,
@@ -84,6 +106,7 @@ const dstu2DTO = fhirResource => {
       ref: paymentRef,
     },
     items,
+    addedItems,
   };
 };
 
@@ -117,7 +140,29 @@ const stu3DTO = fhirResource => {
       : [];
     return { sequenceLinkId, adjudication, subItems };
   }
+  function mapAddedItem(addedItem, level) {
+    const sequenceLinkId = _get(addedItem, 'sequenceLinkId');
+    const service = _get(addedItem, 'service.coding[0]');
+    const fee = _get(addedItem, 'fee');
+    const adjudication = _get(addedItem, 'adjudication', []).map(
+      mapAdjudication,
+    );
+
+    let subItemProperty;
+    if (level === 0) subItemProperty = 'detail';
+    else if (level === 1) subItemProperty = 'subDetail';
+
+    const subItems = subItemProperty
+      ? _get(addedItem, subItemProperty, []).map(subItem =>
+          mapItem(subItem, level + 1),
+        )
+      : [];
+    return { sequenceLinkId, service, fee, adjudication, subItems };
+  }
   const items = _get(fhirResource, 'item').map(item => mapItem(item, 0));
+  const addedItems = _get(fhirResource, 'addItem', []).map(item =>
+    mapAddedItem(item, 0),
+  );
 
   return {
     outcome,
@@ -128,6 +173,7 @@ const stu3DTO = fhirResource => {
       ref: paymentRef,
     },
     items,
+    addedItems,
   };
 };
 
@@ -153,24 +199,12 @@ const resourceDTO = (fhirVersion, fhirResource) => {
 const Item = props => {
   const { item, parentSequences, level } = props;
 
-  const fill = Array(level)
-    .fill(null)
-    .map((_, idx) => (
-      <div
-        key={idx}
-        className="fhir-resource__ClaimResponse__item-level-fill"
-      ></div>
-    ));
-
   const itemSequences = [...parentSequences, item.sequenceLinkId];
   const id = itemSequences.join('.');
 
   return (
     <>
       <TableRow>
-        <TableCell data-testid="items.level">
-          <div className="fhir-resource__ClaimResponse__item-level">{fill}</div>
-        </TableCell>
         <TableCell data-testid="items.sequence">{id}</TableCell>
         <TableCell data-testid="items.adjudication">
           {item.adjudication.map((adjudication, idx) => (
@@ -207,7 +241,6 @@ const Items = props => {
       <Table>
         <thead>
           <TableRow>
-            <TableHeader />
             <TableHeader>ID</TableHeader>
             <TableHeader expand>Adjudication</TableHeader>
           </TableRow>
@@ -221,6 +254,80 @@ const Items = props => {
     </ValueSection>
   );
 };
+
+const AddedItem = props => {
+  const { addedItem, parentSequences, level } = props;
+
+  const itemSequences = [...parentSequences, addedItem.sequenceLinkId];
+  const id = itemSequences.join('.');
+
+  return (
+    <>
+      <TableRow>
+        <TableCell data-testid="addedItems.sequence">{id}</TableCell>
+        <TableCell data-testid="addedItems.service">
+          {addedItem.service && <Coding fhirData={addedItem.service} />}
+        </TableCell>
+        <TableCell data-testid="addedItems.fee">
+          {addedItem.fee && <Money fhirData={addedItem.fee} />}
+        </TableCell>
+        <TableCell data-testid="addedItems.adjudication">
+          {addedItem.adjudication.map((adjudication, idx) => (
+            <div
+              key={idx}
+              data-testid="addedItems.adjudication.singleAdjudication"
+              className="fhir-resource__ClaimResponse-added-item-adjudication"
+            >
+              <div className="fhir-resource__ClaimResponse-added-item-adjudication-category">
+                <Coding fhirData={adjudication.category} />:
+              </div>
+              {adjudication.amount && <Money fhirData={adjudication.amount} />}
+              {adjudication.value != null && adjudication.value}
+            </div>
+          ))}
+        </TableCell>
+      </TableRow>
+      {addedItem.subItems.map((subItem, idx) => (
+        <Item
+          key={idx}
+          addedItem={subItem}
+          level={level + 1}
+          parentSequences={itemSequences}
+        />
+      ))}
+    </>
+  );
+};
+
+const AddedItems = props => {
+  const { addedItems } = props;
+
+  return (
+    <ValueSection label="Added Items" data-testid="addedItems">
+      <Table>
+        <thead>
+          <TableRow>
+            <TableHeader>ID</TableHeader>
+            <TableHeader>Service</TableHeader>
+            <TableHeader>Fee</TableHeader>
+            <TableHeader expand>Adjudication</TableHeader>
+          </TableRow>
+        </thead>
+        <tbody>
+          {addedItems.map((item, idx) => (
+            <AddedItem
+              key={idx}
+              addedItem={item}
+              level={0}
+              parentSequences={[]}
+            />
+          ))}
+        </tbody>
+      </Table>
+    </ValueSection>
+  );
+};
+
 const ClaimResponse = props => {
   const { fhirVersion, fhirResource } = props;
   let fhirResourceData = {};
@@ -241,9 +348,11 @@ const ClaimResponse = props => {
     totalBenefit,
     payment,
     items,
+    addedItems,
   } = fhirResourceData;
 
   const hasItems = items.length > 0;
+  const hasAddedItems = addedItems.length > 0;
 
   return (
     <Root name="ClaimResponse">
@@ -307,6 +416,7 @@ const ClaimResponse = props => {
             )}
           </Value>
         </ValueSection>
+        {hasAddedItems && <AddedItems addedItems={addedItems} />}
         {hasItems && <Items items={items} />}
       </Body>
     </Root>

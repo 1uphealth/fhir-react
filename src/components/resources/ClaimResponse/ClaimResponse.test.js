@@ -6,6 +6,7 @@ import fhirVersions from '../fhirResourceVersions';
 import { nbspRegex } from '../../../testUtils';
 import dstu2Example1 from '../../../fixtures/dstu2/resources/claimResponse/example-1.json';
 import stu3Example1 from '../../../fixtures/stu3/resources/claimResponse/example-1.json';
+import stu3Example2 from '../../../fixtures/stu3/resources/claimResponse/example-2.json';
 
 describe('should render the ClaimResponse component properly', () => {
   it('with DSTU2 source data', () => {
@@ -107,6 +108,45 @@ describe('should render the ClaimResponse component properly', () => {
         ' (eligpercent):80',
         ' (benefit):100.47 USD',
       ],
+    ]);
+  });
+
+  it('includes added items with STU3 source data', () => {
+    const defaultProps = {
+      fhirResource: stu3Example2,
+      fhirVersion: fhirVersions.STU3,
+    };
+    const { getAllByTestId } = render(<ClaimResponse {...defaultProps} />);
+
+    const adjucationNodes = getAllByTestId('addedItems.adjudication');
+    const singleAdjucations = adjucationNodes
+      .map(n =>
+        n.querySelectorAll(
+          '[data-testid="addedItems.adjudication.singleAdjudication"]',
+        ),
+      )
+      .map(nodes => Array.from(nodes))
+      .map(nodes =>
+        nodes.map(n => n.textContent).map(t => t.replace(nbspRegex, ' ')),
+      );
+    expect(singleAdjucations).toEqual([
+      [
+        ' (eligible):100 USD',
+        ' (copay):10 USD',
+        ' (eligpercent):80',
+        ' (benefit):72 USD',
+      ],
+      [' (eligible):35.57 USD', ' (eligpercent):80', ' (benefit):28.47 USD'],
+      [' (eligible):350 USD', ' (eligpercent):80', ' (benefit):270 USD'],
+    ]);
+
+    const services = getAllByTestId('addedItems.service')
+      .map(n => n.textContent)
+      .map(t => t.replace(nbspRegex, ' '));
+    expect(services).toEqual([
+      ' (1101)',
+      'Radiograph, bytewing (2141)',
+      ' (expense)',
     ]);
   });
 });

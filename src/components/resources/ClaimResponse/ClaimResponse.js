@@ -10,12 +10,18 @@ import Money from '../../datatypes/Money';
 import Reference from '../../datatypes/Reference';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 
+import './ClaimResponse.css';
+
 import {
   Badge,
   Body,
   Header,
   MissingValue,
   Root,
+  Table,
+  TableCell,
+  TableHeader,
+  TableRow,
   Title,
   Value,
   ValueSection,
@@ -46,6 +52,29 @@ const dstu2DTO = fhirResource => {
   const paymentDate = _get(fhirResource, 'paymentDate');
   const paymentRef = _get(fhirResource, 'paymentRef');
 
+  function mapAdjudication(adjudication) {
+    const category = _get(adjudication, 'code');
+    const amount = _get(adjudication, 'amount');
+    const value = _get(adjudication, 'value');
+    return { category, amount, value };
+  }
+  function mapItem(item, level) {
+    const sequenceLinkId = _get(item, 'sequenceLinkId');
+    const adjudication = _get(item, 'adjudication', []).map(mapAdjudication);
+
+    let subItemProperty;
+    if (level === 0) subItemProperty = 'detail';
+    else if (level === 1) subItemProperty = 'subDetail';
+
+    const subItems = subItemProperty
+      ? _get(item, subItemProperty, []).map(subItem =>
+          mapItem(subItem, level + 1),
+        )
+      : [];
+    return { sequenceLinkId, adjudication, subItems };
+  }
+  const items = _get(fhirResource, 'item').map(item => mapItem(item, 0));
+
   return {
     outcome,
     payment: {
@@ -54,6 +83,7 @@ const dstu2DTO = fhirResource => {
       date: paymentDate,
       ref: paymentRef,
     },
+    items,
   };
 };
 
@@ -66,6 +96,29 @@ const stu3DTO = fhirResource => {
   const paymentDate = _get(fhirResource, 'payment.date');
   const paymentRef = _get(fhirResource, 'payment.identifier');
 
+  function mapAdjudication(adjudication) {
+    const category = _get(adjudication, 'category.coding[0]');
+    const amount = _get(adjudication, 'amount');
+    const value = _get(adjudication, 'value');
+    return { category, amount, value };
+  }
+  function mapItem(item, level) {
+    const sequenceLinkId = _get(item, 'sequenceLinkId');
+    const adjudication = _get(item, 'adjudication', []).map(mapAdjudication);
+
+    let subItemProperty;
+    if (level === 0) subItemProperty = 'detail';
+    else if (level === 1) subItemProperty = 'subDetail';
+
+    const subItems = subItemProperty
+      ? _get(item, subItemProperty, []).map(subItem =>
+          mapItem(subItem, level + 1),
+        )
+      : [];
+    return { sequenceLinkId, adjudication, subItems };
+  }
+  const items = _get(fhirResource, 'item').map(item => mapItem(item, 0));
+
   return {
     outcome,
     payment: {
@@ -74,6 +127,7 @@ const stu3DTO = fhirResource => {
       date: paymentDate,
       ref: paymentRef,
     },
+    items,
   };
 };
 
@@ -96,6 +150,77 @@ const resourceDTO = (fhirVersion, fhirResource) => {
   }
 };
 
+const Item = props => {
+  const { item, parentSequences, level } = props;
+
+  const fill = Array(level)
+    .fill(null)
+    .map((_, idx) => (
+      <div
+        key={idx}
+        className="fhir-resource__ClaimResponse__item-level-fill"
+      ></div>
+    ));
+
+  const itemSequences = [...parentSequences, item.sequenceLinkId];
+  const id = itemSequences.join('.');
+
+  return (
+    <>
+      <TableRow>
+        <TableCell data-testid="items.level">
+          <div className="fhir-resource__ClaimResponse__item-level">{fill}</div>
+        </TableCell>
+        <TableCell data-testid="items.sequence">{id}</TableCell>
+        <TableCell data-testid="items.adjudication">
+          {item.adjudication.map((adjudication, idx) => (
+            <div
+              key={idx}
+              data-testid="items.adjudication.singleAdjudication"
+              className="fhir-resource__ClaimResponse-item-adjudication"
+            >
+              <div className="fhir-resource__ClaimResponse-item-adjudication-category">
+                <Coding fhirData={adjudication.category} />:
+              </div>
+              {adjudication.amount && <Money fhirData={adjudication.amount} />}
+              {adjudication.value != null && adjudication.value}
+            </div>
+          ))}
+        </TableCell>
+      </TableRow>
+      {item.subItems.map((subItem, idx) => (
+        <Item
+          key={idx}
+          item={subItem}
+          level={level + 1}
+          parentSequences={itemSequences}
+        />
+      ))}
+    </>
+  );
+};
+const Items = props => {
+  const { items } = props;
+
+  return (
+    <ValueSection label="Items" data-testid="items">
+      <Table>
+        <thead>
+          <TableRow>
+            <TableHeader />
+            <TableHeader>ID</TableHeader>
+            <TableHeader expand>Adjudication</TableHeader>
+          </TableRow>
+        </thead>
+        <tbody>
+          {items.map((item, idx) => (
+            <Item key={idx} item={item} level={0} parentSequences={[]} />
+          ))}
+        </tbody>
+      </Table>
+    </ValueSection>
+  );
+};
 const ClaimResponse = props => {
   const { fhirVersion, fhirResource } = props;
   let fhirResourceData = {};
@@ -115,7 +240,10 @@ const ClaimResponse = props => {
     totalCost,
     totalBenefit,
     payment,
+    items,
   } = fhirResourceData;
+
+  const hasItems = items.length > 0;
 
   return (
     <Root name="ClaimResponse">
@@ -179,6 +307,7 @@ const ClaimResponse = props => {
             )}
           </Value>
         </ValueSection>
+        {hasItems && <Items items={items} />}
       </Body>
     </Root>
   );

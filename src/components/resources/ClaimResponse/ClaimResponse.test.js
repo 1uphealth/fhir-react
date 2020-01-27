@@ -13,7 +13,9 @@ describe('should render the ClaimResponse component properly', () => {
       fhirResource: dstu2Example1,
       fhirVersion: fhirVersions.DSTU2,
     };
-    const { getByTestId } = render(<ClaimResponse {...defaultProps} />);
+    const { getByTestId, getAllByTestId } = render(
+      <ClaimResponse {...defaultProps} />,
+    );
 
     expect(getByTestId('title').textContent).toEqual('Claim response #R3500');
     expect(getByTestId('outcome').textContent).toEqual('complete');
@@ -36,6 +38,25 @@ describe('should render the ClaimResponse component properly', () => {
     ).toEqual('100.47 USD');
     expect(getByTestId('payment.date').textContent).toEqual('2014-08-31');
     expect(getByTestId('payment.ref').textContent).toEqual('201408-2-1569478');
+
+    expect(
+      getAllByTestId('items.adjudication').map(n =>
+        Array.from(
+          n.querySelectorAll(
+            '[data-testid="items.adjudication.singleAdjudication"]',
+          ),
+        )
+          .map(n => n.textContent)
+          .map(t => t.replace(nbspRegex, ' ')),
+      ),
+    ).toEqual([
+      [
+        ' (eligible):135.57 USD',
+        ' (copay):10 USD',
+        ' (eligpercent):80',
+        ' (benefit):100.47 USD',
+      ],
+    ]);
   });
 
   it('with STU3 source data', () => {
@@ -43,7 +64,9 @@ describe('should render the ClaimResponse component properly', () => {
       fhirResource: stu3Example1,
       fhirVersion: fhirVersions.STU3,
     };
-    const { getByTestId } = render(<ClaimResponse {...defaultProps} />);
+    const { getByTestId, getAllByTestId } = render(
+      <ClaimResponse {...defaultProps} />,
+    );
 
     expect(getByTestId('title').textContent).toEqual('Claim response #R3500');
     expect(getByTestId('outcome').textContent).toEqual('complete');
@@ -66,5 +89,24 @@ describe('should render the ClaimResponse component properly', () => {
     ).toEqual('100.47 USD');
     expect(getByTestId('payment.date').textContent).toEqual('2014-08-31');
     expect(getByTestId('payment.ref').textContent).toEqual('201408-2-1569478');
+
+    expect(
+      getAllByTestId('items.adjudication').map(n =>
+        Array.from(
+          n.querySelectorAll(
+            '[data-testid="items.adjudication.singleAdjudication"]',
+          ),
+        )
+          .map(n => n.textContent)
+          .map(t => t.replace(nbspRegex, ' ')),
+      ),
+    ).toEqual([
+      [
+        ' (eligible):135.57 USD',
+        ' (copay):10 USD',
+        ' (eligpercent):80',
+        ' (benefit):100.47 USD',
+      ],
+    ]);
   });
 });

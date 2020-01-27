@@ -7,7 +7,9 @@ const Money = props => {
 
   return (
     <span className="fhir-datatype__Money">
-      {value || ''}&nbsp;{code || ''}
+      {Number.isFinite(value) ? value : null}
+      &nbsp;
+      {code || null}
     </span>
   );
 };

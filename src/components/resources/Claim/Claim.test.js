@@ -185,6 +185,7 @@ describe('should render the Claim component properly', () => {
     };
     const { getAllByTestId } = render(<Claim {...defaultProps} />);
 
+    const sequences = getAllByTestId('items.sequence').map(n => n.textContent);
     const services = getAllByTestId('items.service')
       .map(n => n.textContent)
       .map(t => t.replace(nbspRegex, ' '));
@@ -198,6 +199,15 @@ describe('should render the Claim component properly', () => {
       .map(n => n.textContent)
       .map(t => t.replace(nbspRegex, ' '));
 
+    expect(sequences).toEqual([
+      '1',
+      '1.1',
+      '1.2',
+      '1.2.1',
+      '1.2.2',
+      '1.2.3',
+      '1.3',
+    ]);
     expect(services).toEqual([
       ' (glasses)',
       ' (frame)',

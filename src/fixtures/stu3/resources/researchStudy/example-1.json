@@ -28,5 +28,17 @@
         }
       ]
     }
+  ],
+  "contact": [
+    {
+      "name": "Professor Brand",
+      "telecom": [
+        {
+          "system": "phone",
+          "value": "+31715269702",
+          "use": "work"
+        }
+      ]
+    }
   ]
 }

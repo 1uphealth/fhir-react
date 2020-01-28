@@ -13,17 +13,31 @@ describe('should render ResearchStudy component properly', () => {
       fhirVersion: fhirVersions.STU3,
     };
 
-    const { getByTestId } = render(<ResearchStudy {...defaultProps} />);
+    const { getByTestId, getAllByTestId } = render(
+      <ResearchStudy {...defaultProps} />,
+    );
 
-    expect(getByTestId('title').textContent).toEqual('Example study');
-    expect(getByTestId('status').textContent).toEqual('completed');
-    expect(getByTestId('category').textContent.replace(nbspRegex, ' ')).toEqual(
-      'Gene expression (GENE)',
+    const title = getByTestId('title').textContent;
+    const status = getByTestId('status').textContent;
+    const category = getByTestId('category').textContent.replace(
+      nbspRegex,
+      ' ',
     );
-    expect(getByTestId('focus').textContent.replace(nbspRegex, ' ')).toEqual(
-      'Prostate cancer (PRC)',
+    const focus = getByTestId('focus').textContent.replace(nbspRegex, ' ');
+    const protocol = getByTestId('protocol').textContent;
+    const partOf = getByTestId('partOf').textContent;
+    const contactNames = getAllByTestId('contactsName').map(n => n.textContent);
+    const contactTelecoms = getAllByTestId('contactsTelecom').map(
+      n => n.textContent,
     );
-    expect(getByTestId('protocol').textContent).toEqual('PlanDefinition/pdf1');
-    expect(getByTestId('partOf').textContent).toEqual('ResearchStudy/rsd1');
+
+    expect(title).toEqual('Example study');
+    expect(status).toEqual('completed');
+    expect(category).toEqual('Gene expression (GENE)');
+    expect(focus).toEqual('Prostate cancer (PRC)');
+    expect(protocol).toEqual('PlanDefinition/pdf1');
+    expect(partOf).toEqual('ResearchStudy/rsd1');
+    expect(contactNames).toEqual(['Professor Brand']);
+    expect(contactTelecoms).toEqual(['phone+31715269702']);
   });
 });

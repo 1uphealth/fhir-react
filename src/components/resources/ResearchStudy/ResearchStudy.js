@@ -1,7 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Reference from '../../datatypes/Reference';
+
 import Coding from '../../datatypes/Coding';
+import Reference from '../../datatypes/Reference';
+import Telecom from '../../datatypes/Telecom';
+
 import _get from 'lodash/get';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 import fhirVersions from '../fhirResourceVersions';
@@ -15,6 +18,11 @@ const commonDTO = fhirResource => {
   const focusCoding = _get(fhirResource, 'focus[0].coding[0]');
   const protocolReference = _get(fhirResource, 'protocol');
   const partOfReference = _get(fhirResource, 'partOf');
+  const contacts = _get(fhirResource, 'contact', []).map(contact => {
+    const name = _get(contact, 'name');
+    const telecoms = _get(contact, 'telecom');
+    return { name, telecoms };
+  });
 
   return {
     title,
@@ -23,6 +31,7 @@ const commonDTO = fhirResource => {
     focusCoding,
     protocolReference,
     partOfReference,
+    contacts,
   };
 };
 const resourceDTO = (fhirVersion, fhirResource) => {
@@ -45,7 +54,10 @@ const ResearchStudy = props => {
     focusCoding,
     protocolReference,
     partOfReference,
+    contacts,
   } = fhirResourceData;
+
+  const hasContacts = contacts.length > 0;
 
   return (
     <Root name="ResearchStudy">
@@ -72,6 +84,18 @@ const ResearchStudy = props => {
         {partOfReference && (
           <Value label="Part of study" data-testid="partOf">
             <Reference fhirData={partOfReference} />
+          </Value>
+        )}
+        {hasContacts && (
+          <Value label="Contacts" data-testid="contacts">
+            {contacts.map((contact, idx) => (
+              <div key={idx}>
+                <div data-testid="contactsName">{contact.name}</div>
+                <div data-testid="contactsTelecom">
+                  <Telecom fhirData={contact.telecoms} />
+                </div>
+              </div>
+            ))}
           </Value>
         )}
       </Body>

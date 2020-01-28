@@ -32,6 +32,13 @@ describe('should render ResearchStudy component properly', () => {
       n => n.textContent,
     );
     const keywords = getByTestId('keywords').textContent;
+    const enrollments = getAllByTestId('enrollmentReference').map(
+      n => n.textContent,
+    );
+    const sponsor = getByTestId('sponsor').textContent;
+    const principalInvestigator = getByTestId('principalInvestigator')
+      .textContent;
+    const sites = getAllByTestId('siteReference').map(n => n.textContent);
 
     expect(title).toEqual('Example study');
     expect(status).toEqual('completed');
@@ -44,5 +51,9 @@ describe('should render ResearchStudy component properly', () => {
     expect(contactTelecoms).toEqual(['phone+31715269702']);
     expect(keywords).toContain('Prostate cancer');
     expect(keywords).toContain('Gene expression research');
+    expect(enrollments).toEqual(['Group/enr1', 'Group/enr2']);
+    expect(sponsor).toEqual('Organization/spn1');
+    expect(principalInvestigator).toEqual('Practitioner/pnv1');
+    expect(sites).toEqual(['Location/st1', 'Location/st2']);
   });
 });

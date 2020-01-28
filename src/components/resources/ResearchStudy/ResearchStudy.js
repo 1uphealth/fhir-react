@@ -36,6 +36,13 @@ const commonDTO = fhirResource => {
   });
   const keywordConcepts = _get(fhirResource, 'keyword', []);
   const period = _get(fhirResource, 'period', {});
+  const enrollmentReferences = _get(fhirResource, 'enrollment', []);
+  const sponsorReference = _get(fhirResource, 'sponsor');
+  const principalInvestigatorReference = _get(
+    fhirResource,
+    'principalInvestigator',
+  );
+  const siteReferences = _get(fhirResource, 'site', []);
 
   return {
     title,
@@ -47,6 +54,10 @@ const commonDTO = fhirResource => {
     contacts,
     keywordConcepts,
     period,
+    enrollmentReferences,
+    sponsorReference,
+    principalInvestigatorReference,
+    siteReferences,
   };
 };
 const resourceDTO = (fhirVersion, fhirResource) => {
@@ -72,11 +83,17 @@ const ResearchStudy = props => {
     contacts,
     keywordConcepts,
     period,
+    enrollmentReferences,
+    sponsorReference,
+    principalInvestigatorReference,
+    siteReferences,
   } = fhirResourceData;
 
   const hasContacts = contacts.length > 0;
   const hasKeywords = keywordConcepts.length > 0;
   const hasPeriod = period.start || period.end;
+  const hasEnrollment = enrollmentReferences.length > 0;
+  const hasSites = siteReferences.length > 0;
 
   return (
     <Root name="ResearchStudy">
@@ -131,6 +148,37 @@ const ResearchStudy = props => {
         {hasKeywords && (
           <Value label="Keywords" data-testid="keywords">
             <CodeableConcept fhirData={keywordConcepts} />
+          </Value>
+        )}
+        {hasEnrollment && (
+          <Value label="Enrollment" data-testid="enrollment">
+            {enrollmentReferences.map((enrollmentReference, idx) => (
+              <div key={idx} data-testid="enrollmentReference">
+                <Reference fhirData={enrollmentReference} />
+              </div>
+            ))}
+          </Value>
+        )}
+        {sponsorReference && (
+          <Value label="Sponsor" data-testid="sponsor">
+            <Reference fhirData={sponsorReference} />
+          </Value>
+        )}
+        {principalInvestigatorReference && (
+          <Value
+            label="Principal investigator"
+            data-testid="principalInvestigator"
+          >
+            <Reference fhirData={principalInvestigatorReference} />
+          </Value>
+        )}
+        {hasSites && (
+          <Value label="Sites" data-testid="sites">
+            {siteReferences.map((siteReference, idx) => (
+              <div key={idx} data-testid="siteReference">
+                <Reference fhirData={siteReference} />
+              </div>
+            ))}
           </Value>
         )}
       </Body>

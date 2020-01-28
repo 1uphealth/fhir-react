@@ -64,5 +64,27 @@
   "period": {
     "start": "2015-02-01",
     "end": "2015-02-21"
-  }
+  },
+  "enrollment": [
+    {
+      "reference": "Group/enr1"
+    },
+    {
+      "reference": "Group/enr2"
+    }
+  ],
+  "sponsor": {
+    "reference": "Organization/spn1"
+  },
+  "principalInvestigator": {
+    "reference": "Practitioner/pnv1"
+  },
+  "site": [
+    {
+      "reference": "Location/st1"
+    },
+    {
+      "reference": "Location/st2"
+    }
+  ]
 }

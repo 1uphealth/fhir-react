@@ -1,4 +1,5 @@
 import React from 'react';
+
 import Appointment from '../../resources/Appointment';
 import Generic from '../../resources/Generic';
 import AdverseEvent from '../../resources/AdverseEvent';
@@ -30,6 +31,7 @@ import Organization from '../../resources/Organization';
 import MedicationRequest from '../../resources/MedicationRequest';
 import MedicationAdministration from '../../resources/MedicationAdministration';
 import ReferralRequest from '../../resources/ReferralRequest';
+import ResearchStudy from '../../resources/ResearchStudy';
 import ResourceContainer from '../ResourceContainer';
 
 class ErrorBoundary extends React.Component {
@@ -202,6 +204,12 @@ class FhirResource extends React.Component {
         return (
           <ResourceContainer {...this.props}>
             <Procedure {...this.props} />
+          </ResourceContainer>
+        );
+      case 'ResearchStudy':
+        return (
+          <ResourceContainer {...this.props}>
+            <ResearchStudy {...this.props} />
           </ResourceContainer>
         );
       case 'ExplanationOfBenefit':

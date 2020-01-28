@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import CodeableConcept from '../../datatypes/CodeableConcept';
 import Coding from '../../datatypes/Coding';
+import DateType from '../../datatypes/Date';
 import Reference from '../../datatypes/Reference';
 import Telecom from '../../datatypes/Telecom';
 
@@ -9,7 +11,16 @@ import _get from 'lodash/get';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 import fhirVersions from '../fhirResourceVersions';
 
-import { Badge, Body, Header, Root, Title, Value } from '../../ui';
+import {
+  Badge,
+  BadgeSecondary,
+  Body,
+  Header,
+  MissingValue,
+  Root,
+  Title,
+  Value,
+} from '../../ui';
 
 const commonDTO = fhirResource => {
   const title = _get(fhirResource, 'title');
@@ -23,6 +34,8 @@ const commonDTO = fhirResource => {
     const telecoms = _get(contact, 'telecom');
     return { name, telecoms };
   });
+  const keywordConcepts = _get(fhirResource, 'keyword', []);
+  const period = _get(fhirResource, 'period', {});
 
   return {
     title,
@@ -32,6 +45,8 @@ const commonDTO = fhirResource => {
     protocolReference,
     partOfReference,
     contacts,
+    keywordConcepts,
+    period,
   };
 };
 const resourceDTO = (fhirVersion, fhirResource) => {
@@ -55,15 +70,30 @@ const ResearchStudy = props => {
     protocolReference,
     partOfReference,
     contacts,
+    keywordConcepts,
+    period,
   } = fhirResourceData;
 
   const hasContacts = contacts.length > 0;
+  const hasKeywords = keywordConcepts.length > 0;
+  const hasPeriod = period.start || period.end;
 
   return (
     <Root name="ResearchStudy">
       <Header>
         {title && <Title data-testid="title">{title}</Title>}
         <Badge data-testid="status">{status}</Badge>
+        {hasPeriod && (
+          <BadgeSecondary data-testid="period">
+            {period.start ? (
+              <DateType fhirData={period.start} />
+            ) : (
+              <MissingValue />
+            )}
+            {' - '}
+            {period.end ? <DateType fhirData={period.end} /> : <MissingValue />}
+          </BadgeSecondary>
+        )}
       </Header>
       <Body>
         {categoryCoding && (
@@ -96,6 +126,11 @@ const ResearchStudy = props => {
                 </div>
               </div>
             ))}
+          </Value>
+        )}
+        {hasKeywords && (
+          <Value label="Keywords" data-testid="keywords">
+            <CodeableConcept fhirData={keywordConcepts} />
           </Value>
         )}
       </Body>

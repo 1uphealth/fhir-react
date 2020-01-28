@@ -29,6 +29,26 @@
       ]
     }
   ],
+  "keyword": [
+    {
+      "text": "Prostate cancer",
+      "coding": [
+        {
+          "code": "PRC",
+          "display": "Prostate cancer"
+        }
+      ]
+    },
+    {
+      "text": "Gene expression research",
+      "coding": [
+        {
+          "code": "GENE",
+          "display": "Gene expression"
+        }
+      ]
+    }
+  ],
   "contact": [
     {
       "name": "Professor Brand",
@@ -40,5 +60,9 @@
         }
       ]
     }
-  ]
+  ],
+  "period": {
+    "start": "2015-02-01",
+    "end": "2015-02-21"
+  }
 }

@@ -19,6 +19,7 @@ describe('should render ResearchStudy component properly', () => {
 
     const title = getByTestId('title').textContent;
     const status = getByTestId('status').textContent;
+    const period = getByTestId('period').textContent;
     const category = getByTestId('category').textContent.replace(
       nbspRegex,
       ' ',
@@ -30,14 +31,18 @@ describe('should render ResearchStudy component properly', () => {
     const contactTelecoms = getAllByTestId('contactsTelecom').map(
       n => n.textContent,
     );
+    const keywords = getByTestId('keywords').textContent;
 
     expect(title).toEqual('Example study');
     expect(status).toEqual('completed');
+    expect(period).toEqual('2015-02-01 - 2015-02-21');
     expect(category).toEqual('Gene expression (GENE)');
     expect(focus).toEqual('Prostate cancer (PRC)');
     expect(protocol).toEqual('PlanDefinition/pdf1');
     expect(partOf).toEqual('ResearchStudy/rsd1');
     expect(contactNames).toEqual(['Professor Brand']);
     expect(contactTelecoms).toEqual(['phone+31715269702']);
+    expect(keywords).toContain('Prostate cancer');
+    expect(keywords).toContain('Gene expression research');
   });
 });

@@ -1,0 +1,11 @@
+.fhir-resource__ClaimResponse-item-adjudication,
+.fhir-resource__ClaimResponse-added-item-adjudication {
+  display: flex;
+  margin-bottom: 5px;
+}
+
+.fhir-resource__ClaimResponse-item-adjudication-category,
+.fhir-resource__ClaimResponse-added-item-adjudication-category {
+  display: flex;
+  margin-right: 10px;
+}

@@ -72,6 +72,7 @@ const dstu2DTO = fhirResource => {
   const hospitalization = null;
   const total = null;
   function mapItem(item, level) {
+    const sequence = _get(item, 'sequence');
     const service = _get(item, 'service');
     const quantity = _get(item, 'quantity.value');
     const factor = _get(item, 'factor');
@@ -85,7 +86,7 @@ const dstu2DTO = fhirResource => {
           mapItem(subItem, level + 1),
         )
       : [];
-    return { service, quantity, factor, unitPrice, net, subItems };
+    return { sequence, service, quantity, factor, unitPrice, net, subItems };
   }
   const items = _get(fhirResource, 'item').map(item => mapItem(item, 0));
   return {
@@ -154,6 +155,7 @@ const stu3DTO = fhirResource => {
       : null;
   const total = _get(fhirResource, 'total');
   function mapItem(item, level) {
+    const sequence = _get(item, 'sequence');
     const service = _get(item, 'service.coding[0]');
     const quantity = _get(item, 'quantity.value');
     const factor = _get(item, 'factor');
@@ -167,7 +169,7 @@ const stu3DTO = fhirResource => {
           mapItem(subItem, level + 1),
         )
       : [];
-    return { service, quantity, factor, unitPrice, net, subItems };
+    return { sequence, service, quantity, factor, unitPrice, net, subItems };
   }
   const items = _get(fhirResource, 'item').map(item => mapItem(item, 0));
   return {
@@ -337,7 +339,7 @@ const Insurance = props => {
 };
 
 const Item = props => {
-  const { item, level } = props;
+  const { item, parentSequences, level } = props;
 
   const fill = Array(level)
     .fill(null)
@@ -345,12 +347,16 @@ const Item = props => {
       <div key={idx} className="fhir-resource__Claim__item-level-fill"></div>
     ));
 
+  const itemSequences = [...parentSequences, item.sequence];
+  const id = itemSequences.join('.');
+
   return (
     <>
       <TableRow>
         <TableCell data-testid="items.level">
           <div className="fhir-resource__Claim__item-level">{fill}</div>
         </TableCell>
+        <TableCell data-testid="items.sequence">{id}</TableCell>
         <TableCell data-testid="items.service">
           <Coding fhirData={item.service} />
         </TableCell>
@@ -372,7 +378,12 @@ const Item = props => {
         </TableCell>
       </TableRow>
       {item.subItems.map((subItem, idx) => (
-        <Item key={idx} item={subItem} level={level + 1} />
+        <Item
+          key={idx}
+          item={subItem}
+          level={level + 1}
+          parentSequences={itemSequences}
+        />
       ))}
     </>
   );
@@ -387,6 +398,7 @@ const Items = props => {
         <thead>
           <TableRow>
             <TableHeader />
+            <TableHeader>ID</TableHeader>
             <TableHeader expand>Service</TableHeader>
             <TableHeader>Unit price</TableHeader>
             <TableHeader>Quantity</TableHeader>
@@ -395,7 +407,7 @@ const Items = props => {
         </thead>
         <tbody>
           {items.map((item, idx) => (
-            <Item key={idx} item={item} level={0} />
+            <Item key={idx} item={item} level={0} parentSequences={[]} />
           ))}
         </tbody>
       </Table>

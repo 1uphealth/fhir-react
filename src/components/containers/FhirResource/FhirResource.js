@@ -7,6 +7,7 @@ import Binary from '../../resources/Binary';
 import CarePlan from '../../resources/CarePlan';
 import CareTeam from '../../resources/CareTeam';
 import Claim from '../../resources/Claim';
+import ClaimResponse from '../../resources/ClaimResponse';
 import Condition from '../../resources/Condition';
 import Device from '../../resources/Device';
 import DiagnosticReport from '../../resources/DiagnosticReport';
@@ -106,6 +107,12 @@ class FhirResource extends React.Component {
         return (
           <ResourceContainer {...this.props}>
             <Claim {...this.props} />
+          </ResourceContainer>
+        );
+      case 'ClaimResponse':
+        return (
+          <ResourceContainer {...this.props}>
+            <ClaimResponse {...this.props} />
           </ResourceContainer>
         );
       case 'Condition':

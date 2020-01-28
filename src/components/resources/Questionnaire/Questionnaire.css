@@ -1,0 +1,31 @@
+.fhir-resource__Questionnaire-list {
+  list-style: none;
+  border: 1px solid #f0f0f0;
+  padding: 2px;
+  margin: 2px;
+}
+
+.fhir-resource__Questionnaire-list-title {
+  background-color: #f6f6f6;
+  padding: 2px 2px 4px 2px;
+}
+
+.fhir-resource__Questionnaire-questions-list {
+  list-style: none;
+}
+.fhir-resource__Questionnaire-questions-list li {
+  border-bottom: 1px solid #f5f5f5;
+}
+.fhir-resource__Questionnaire-questions-list li:last-child {
+  border-bottom: none;
+}
+
+.fhir-resource__Questionnaire-questions-list-item-details {
+  font-size: 80%;
+  color: #606060;
+}
+
+.fhir-resource__Questionnaire-questions-list-item-details-el {
+  display: inline-block;
+  margin-right: 15px;
+}

@@ -1,0 +1,32 @@
+{
+  "resourceType": "ResearchStudy",
+  "id": "example",
+  "title": "Example study",
+  "protocol": {
+    "reference": "PlanDefinition/pdf1"
+  },
+  "partOf": {
+    "reference": "ResearchStudy/rsd1"
+  },
+  "status": "completed",
+  "category": [
+    {
+      "coding": [
+        {
+          "code": "GENE",
+          "display": "Gene expression"
+        }
+      ]
+    }
+  ],
+  "focus": [
+    {
+      "coding": [
+        {
+          "code": "PRC",
+          "display": "Prostate cancer"
+        }
+      ]
+    }
+  ]
+}

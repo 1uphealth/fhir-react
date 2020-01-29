@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Annotation from '../../datatypes/Annotation';
 import CodeableConcept from '../../datatypes/CodeableConcept';
 import Coding from '../../datatypes/Coding';
 import DateType from '../../datatypes/Date';
@@ -43,6 +44,7 @@ const commonDTO = fhirResource => {
     'principalInvestigator',
   );
   const siteReferences = _get(fhirResource, 'site', []);
+  const comments = _get(fhirResource, 'note', []);
 
   return {
     title,
@@ -58,6 +60,7 @@ const commonDTO = fhirResource => {
     sponsorReference,
     principalInvestigatorReference,
     siteReferences,
+    comments,
   };
 };
 const resourceDTO = (fhirVersion, fhirResource) => {
@@ -87,6 +90,7 @@ const ResearchStudy = props => {
     sponsorReference,
     principalInvestigatorReference,
     siteReferences,
+    comments,
   } = fhirResourceData;
 
   const hasContacts = contacts.length > 0;
@@ -94,6 +98,7 @@ const ResearchStudy = props => {
   const hasPeriod = period.start || period.end;
   const hasEnrollment = enrollmentReferences.length > 0;
   const hasSites = siteReferences.length > 0;
+  const hasComments = comments.length > 0;
 
   return (
     <Root name="ResearchStudy">
@@ -179,6 +184,11 @@ const ResearchStudy = props => {
                 <Reference fhirData={siteReference} />
               </div>
             ))}
+          </Value>
+        )}
+        {hasComments && (
+          <Value label="Comments" data-testid="comments">
+            <Annotation fhirData={comments} />
           </Value>
         )}
       </Body>

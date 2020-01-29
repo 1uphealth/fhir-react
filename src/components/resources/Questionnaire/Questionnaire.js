@@ -11,8 +11,6 @@ import Reference from '../../datatypes/Reference/Reference';
 import fhirVersions from '../fhirResourceVersions';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 
-let prepareItems;
-
 const getQuestionText = item => {
   let text = _get(item, 'text');
   if (!text) {
@@ -30,7 +28,8 @@ const getQuestionText = item => {
   return text;
 };
 
-const renderQuestions = questions => {
+const Questions = props => {
+  const { questions, prepareItems } = props;
   if (!Array.isArray(questions) || questions.length === 0) {
     return null;
   }
@@ -65,7 +64,9 @@ const renderQuestions = questions => {
                 )}
               </div>
             )}
-            {item.item && renderGroup(item.item)}
+            {item.item && (
+              <Group data={item.item} prepareItems={prepareItems} />
+            )}
           </li>
         );
       })}
@@ -73,7 +74,13 @@ const renderQuestions = questions => {
   );
 };
 
-const renderGroup = data => {
+Questions.propTypes = {
+  questions: PropTypes.array,
+  prepareItems: PropTypes.func.isRequired,
+};
+
+const Group = props => {
+  const { data, prepareItems } = props;
   if (!Array.isArray(data) || data.length === 0) {
     return null;
   }
@@ -94,32 +101,53 @@ const renderGroup = data => {
           <Badge>{linkId}</Badge>
           <span>{text}</span>
         </li>
-        {!isGroup && <li>{renderQuestions(nestedItems)}</li>}
-        {isGroup && <li>{renderGroup(nestedItems)}</li>}
+        {!isGroup && (
+          <li>
+            {<Questions questions={nestedItems} prepareItems={prepareItems} />}
+          </li>
+        )}
+        {isGroup && (
+          <li>
+            <Group data={nestedItems} prepareItems={prepareItems} />
+          </li>
+        )}
       </ul>
     );
   });
 };
 
-const renderItems = fhirVersion => data => {
+Group.propTypes = {
+  data: PropTypes.array,
+  prepareItems: PropTypes.func.isRequired,
+};
+
+const Items = props => {
+  const { fhirVersion, data } = props;
+
   if (fhirVersion === fhirVersions.DSTU2) {
-    prepareItems = item => ({
+    const prepareItems = item => ({
       ...item,
       item: _get(item, 'question') || _get(item, 'group') || [],
       isGroup: !!_get(item, 'group'),
     });
-    return renderGroup(data);
+    return <Group data={data} prepareItems={prepareItems} />;
   }
 
   if (fhirVersion === fhirVersions.STU3) {
-    prepareItems = item => ({
+    const prepareItems = item => ({
       ...item,
       isGroup: _get(item, 'type') === 'group',
     });
-    return renderGroup(data);
+    return <Group data={data} prepareItems={prepareItems} />;
   }
 
   return null;
+};
+
+Items.propTypes = {
+  data: PropTypes.array,
+  fhirVersion: PropTypes.oneOf([fhirVersions.DSTU2, fhirVersions.STU3])
+    .isRequired,
 };
 
 const commonDTO = fhirResource => {
@@ -194,7 +222,7 @@ const Questionnaire = props => {
     return <UnhandledResourceDataStructure resourceName="Questionnaire" />;
   }
   const { title, status, dateTime, rootItems } = fhirResourceData;
-  const renderQuestionnaireItems = renderItems(fhirVersion);
+
   return (
     <Root name="Questionnaire">
       <Header>
@@ -207,7 +235,12 @@ const Questionnaire = props => {
         )}
       </Header>
       <Body>
-        {rootItems && <div>{renderQuestionnaireItems(rootItems)}</div>}
+        {/* {rootItems && <div>{renderQuestionnaireItems(rootItems)}</div>} */}
+        {rootItems && (
+          <div>
+            <Items fhirVersion={fhirVersion} data={rootItems} />
+          </div>
+        )}
       </Body>
     </Root>
   );

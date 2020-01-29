@@ -105,7 +105,7 @@ describe('Questionnaire should render component correctly', () => {
     );
   });
 
-  it('should render component correctly with DSTU2 source data with nested group of questions', () => {
+  it('should render component correctly with STU3 source data with nested group of questions', () => {
     const defaultProps = {
       fhirResource: stu3Example2,
       fhirVersion: fhirVersions.STU3,

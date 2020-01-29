@@ -94,5 +94,6 @@
     {
       "text": "Example comment 2"
     }
-  ]
+  ],
+  "description": "Example markdown list:\n* abc\n* def"
 }

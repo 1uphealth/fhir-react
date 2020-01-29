@@ -5,6 +5,7 @@ import Annotation from '../../datatypes/Annotation';
 import CodeableConcept from '../../datatypes/CodeableConcept';
 import Coding from '../../datatypes/Coding';
 import DateType from '../../datatypes/Date';
+import Markdown from '../../datatypes/Markdown';
 import Reference from '../../datatypes/Reference';
 import Telecom from '../../datatypes/Telecom';
 
@@ -45,10 +46,12 @@ const commonDTO = fhirResource => {
   );
   const siteReferences = _get(fhirResource, 'site', []);
   const comments = _get(fhirResource, 'note', []);
+  const description = _get(fhirResource, 'description');
 
   return {
     title,
     status,
+    description,
     categoryCoding,
     focusCoding,
     protocolReference,
@@ -91,6 +94,7 @@ const ResearchStudy = props => {
     principalInvestigatorReference,
     siteReferences,
     comments,
+    description,
   } = fhirResourceData;
 
   const hasContacts = contacts.length > 0;
@@ -126,6 +130,11 @@ const ResearchStudy = props => {
         {focusCoding && (
           <Value label="Focus" data-testid="focus">
             <Coding fhirData={focusCoding} />
+          </Value>
+        )}
+        {description && (
+          <Value label="Description" data-testid="description">
+            <Markdown fhirData={description} />
           </Value>
         )}
         {protocolReference && (

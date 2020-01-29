@@ -8,6 +8,27 @@ import Coding from '../../datatypes/Coding';
 
 import './Questionnaire.css';
 import Reference from '../../datatypes/Reference/Reference';
+import fhirVersions from '../fhirResourceVersions';
+import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
+
+let prepareItems;
+
+const getQuestionText = item => {
+  let text = _get(item, 'text');
+  if (!text) {
+    // DSTU2
+    const groupConcept = _get(item, 'concept.0');
+    if (groupConcept) {
+      text = <Coding fhirData={groupConcept} />;
+    }
+    // STU3
+    const groupCode = _get(item, 'code.0');
+    if (!text && groupCode) {
+      text = <Coding fhirData={groupCode} />;
+    }
+  }
+  return text;
+};
 
 const renderQuestions = questions => {
   if (!Array.isArray(questions) || questions.length === 0) {
@@ -18,15 +39,13 @@ const renderQuestions = questions => {
     <ul className="fhir-resource__Questionnaire-questions-list">
       {questions.map((item, i) => {
         const hasLinkId = item.linkId;
-        const type = _get(item, 'type');
-        const options = _get(item, 'options');
-        let text = item.text;
-        if (!text) {
-          const groupConcept = _get(item, 'concept.0');
-          if (groupConcept) {
-            text = <Coding fhirData={groupConcept} />;
-          }
+        let type = _get(item, 'type');
+        if (type === 'group') {
+          type = '';
         }
+        const options = _get(item, 'options');
+
+        const text = getQuestionText(item);
         const hasDetails = type || options;
         return (
           <li key={`item-${i}`} data-testid={`linkId-${item.linkId}`}>
@@ -46,7 +65,7 @@ const renderQuestions = questions => {
                 )}
               </div>
             )}
-            {item.group && renderGroup(item.group)}
+            {item.item && renderGroup(item.item)}
           </li>
         );
       })}
@@ -59,17 +78,13 @@ const renderGroup = data => {
     return null;
   }
 
-  return data.map((item, i) => {
+  return data.map(prepareItems).map((item, i) => {
     const linkId = _get(item, 'linkId', '');
-    let text = _get(item, 'text');
-    if (!text) {
-      const groupConcept = _get(item, 'concept.0');
-      if (groupConcept) {
-        text = <Coding fhirData={groupConcept} />;
-      }
-    }
-    const questions = _get(item, 'question');
-    const group = _get(item, 'group');
+
+    const text = getQuestionText(item);
+    let nestedItems = _get(item, 'item', []);
+    nestedItems = nestedItems.map(prepareItems);
+    const isGroup = _get(item, 'isGroup');
     return (
       <ul key={`item-${i}`} className="fhir-resource__Questionnaire-list">
         <li
@@ -79,16 +94,42 @@ const renderGroup = data => {
           <Badge>{linkId}</Badge>
           <span>{text}</span>
         </li>
-        {questions && <li>{renderQuestions(questions)}</li>}
-        {group && <li>{renderGroup(group)}</li>}
+        {!isGroup && <li>{renderQuestions(nestedItems)}</li>}
+        {isGroup && <li>{renderGroup(nestedItems)}</li>}
       </ul>
     );
   });
 };
 
-const Questionnaire = props => {
-  const { fhirResource } = props;
+const renderItems = fhirVersion => data => {
+  if (fhirVersion === fhirVersions.DSTU2) {
+    prepareItems = item => ({
+      ...item,
+      item: _get(item, 'question') || _get(item, 'group') || [],
+      isGroup: !!_get(item, 'group'),
+    });
+    return renderGroup(data);
+  }
 
+  if (fhirVersion === fhirVersions.STU3) {
+    prepareItems = item => ({
+      ...item,
+      isGroup: _get(item, 'type') === 'group',
+    });
+    return renderGroup(data);
+  }
+
+  return null;
+};
+
+const commonDTO = fhirResource => {
+  const status = _get(fhirResource, 'status');
+  const dateTime = _get(fhirResource, 'date');
+
+  return { status, dateTime };
+};
+
+const dstu2DTO = fhirResource => {
   let title = _get(fhirResource, 'group.title');
   if (!title) {
     const groupConcept = _get(fhirResource, 'group.concept.0');
@@ -96,12 +137,64 @@ const Questionnaire = props => {
       title = <Coding fhirData={groupConcept} />;
     }
   }
-  const status = _get(fhirResource, 'status');
-  const dateTime = _get(fhirResource, 'date');
+  const rootItems =
+    _get(fhirResource, 'group.group') ||
+    _get(fhirResource, 'group.question') ||
+    [];
+  return {
+    title,
+    rootItems,
+  };
+};
 
-  const rootGroup = _get(fhirResource, 'group.group');
-  const rootQuestion = _get(fhirResource, 'group.question');
-  const showDataTable = rootGroup || rootQuestion;
+const stu3DTO = fhirResource => {
+  let title = _get(fhirResource, 'title');
+  if (!title) {
+    const groupConcept = _get(fhirResource, 'code.0');
+    if (groupConcept) {
+      title = <Coding fhirData={groupConcept} />;
+    }
+  }
+
+  const rootItems = _get(fhirResource, 'item');
+  return {
+    title,
+    rootItems,
+  };
+};
+
+const resourceDTO = (fhirVersion, fhirResource) => {
+  switch (fhirVersion) {
+    case fhirVersions.DSTU2: {
+      return {
+        ...commonDTO(fhirResource),
+        ...dstu2DTO(fhirResource),
+      };
+    }
+    case fhirVersions.STU3: {
+      return {
+        ...commonDTO(fhirResource),
+        ...stu3DTO(fhirResource),
+      };
+    }
+
+    default:
+      throw Error('Unrecognized the fhir version property type.');
+  }
+};
+
+const Questionnaire = props => {
+  const { fhirResource, fhirVersion } = props;
+  let fhirResourceData = {};
+
+  try {
+    fhirResourceData = resourceDTO(fhirVersion, fhirResource);
+  } catch (error) {
+    console.warn(error.message);
+    return <UnhandledResourceDataStructure resourceName="Questionnaire" />;
+  }
+  const { title, status, dateTime, rootItems } = fhirResourceData;
+  const renderQuestionnaireItems = renderItems(fhirVersion);
   return (
     <Root name="Questionnaire">
       <Header>
@@ -114,7 +207,7 @@ const Questionnaire = props => {
         )}
       </Header>
       <Body>
-        {showDataTable && <div>{rootGroup && renderGroup(rootGroup)}</div>}
+        {rootItems && <div>{renderQuestionnaireItems(rootItems)}</div>}
       </Body>
     </Root>
   );
@@ -122,6 +215,8 @@ const Questionnaire = props => {
 
 Questionnaire.propTypes = {
   fhirResource: PropTypes.shape({}).isRequired,
+  fhirVersion: PropTypes.oneOf([fhirVersions.DSTU2, fhirVersions.STU3])
+    .isRequired,
 };
 
 export default Questionnaire;

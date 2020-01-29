@@ -235,7 +235,6 @@ const Questionnaire = props => {
         )}
       </Header>
       <Body>
-        {/* {rootItems && <div>{renderQuestionnaireItems(rootItems)}</div>} */}
         {rootItems && (
           <div>
             <Items fhirVersion={fhirVersion} data={rootItems} />

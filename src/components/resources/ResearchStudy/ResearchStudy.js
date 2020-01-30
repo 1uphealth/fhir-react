@@ -47,6 +47,12 @@ const commonDTO = fhirResource => {
   const siteReferences = _get(fhirResource, 'site', []);
   const comments = _get(fhirResource, 'note', []);
   const description = _get(fhirResource, 'description');
+  const arms = _get(fhirResource, 'arm', []).map(arm => {
+    const name = _get(arm, 'name');
+    const description = _get(arm, 'description');
+    const coding = _get(arm, 'code.coding[0]');
+    return { name, description, coding };
+  });
 
   return {
     title,
@@ -64,6 +70,7 @@ const commonDTO = fhirResource => {
     principalInvestigatorReference,
     siteReferences,
     comments,
+    arms,
   };
 };
 const resourceDTO = (fhirVersion, fhirResource) => {
@@ -95,6 +102,7 @@ const ResearchStudy = props => {
     siteReferences,
     comments,
     description,
+    arms,
   } = fhirResourceData;
 
   const hasContacts = contacts.length > 0;
@@ -103,6 +111,7 @@ const ResearchStudy = props => {
   const hasEnrollment = enrollmentReferences.length > 0;
   const hasSites = siteReferences.length > 0;
   const hasComments = comments.length > 0;
+  const hasArms = arms.length > 0;
 
   return (
     <Root name="ResearchStudy">
@@ -198,6 +207,19 @@ const ResearchStudy = props => {
         {hasComments && (
           <Value label="Comments" data-testid="comments">
             <Annotation fhirData={comments} />
+          </Value>
+        )}
+        {hasArms && (
+          <Value label="Study paths" data-testid="arms">
+            <ul>
+              {arms.map((arm, idx) => (
+                <li key={idx}>
+                  <div data-testid="arms.name">{arm.name}</div>
+                  <Coding fhirData={arm.coding} />
+                  <div data-testid="arms.description">{arm.description}</div>
+                </li>
+              ))}
+            </ul>
           </Value>
         )}
       </Body>

@@ -95,5 +95,31 @@
       "text": "Example comment 2"
     }
   ],
-  "description": "Example markdown list:\n* abc\n* def"
+  "description": "Example markdown list:\n* abc\n* def",
+  "arm": [
+    {
+      "name": "Study arm 1",
+      "code": {
+        "coding": [
+          {
+            "code": "GENE",
+            "display": "Gene expression"
+          }
+        ]
+      },
+      "description": "Study arm 1 description"
+    },
+    {
+      "name": "Study arm 2",
+      "code": {
+        "coding": [
+          {
+            "code": "PRC",
+            "display": "Prostate cancer"
+          }
+        ]
+      },
+      "description": "Study arm 2 description"
+    }
+  ]
 }

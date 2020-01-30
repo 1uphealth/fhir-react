@@ -39,6 +39,10 @@ describe('should render ResearchStudy component properly', () => {
     const principalInvestigator = getByTestId('principalInvestigator')
       .textContent;
     const sites = getAllByTestId('siteReference').map(n => n.textContent);
+    const armNames = getAllByTestId('arms.name').map(n => n.textContent);
+    const armDescriptions = getAllByTestId('arms.description').map(
+      n => n.textContent,
+    );
 
     expect(title).toEqual('Example study');
     expect(status).toEqual('completed');
@@ -55,5 +59,10 @@ describe('should render ResearchStudy component properly', () => {
     expect(sponsor).toEqual('Organization/spn1');
     expect(principalInvestigator).toEqual('Practitioner/pnv1');
     expect(sites).toEqual(['Location/st1', 'Location/st2']);
+    expect(armNames).toEqual(['Study arm 1', 'Study arm 2']);
+    expect(armDescriptions).toEqual([
+      'Study arm 1 description',
+      'Study arm 2 description',
+    ]);
   });
 });

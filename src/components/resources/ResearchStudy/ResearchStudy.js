@@ -131,14 +131,19 @@ const ResearchStudy = props => {
         )}
       </Header>
       <Body>
+        {partOfReference && (
+          <Value label="Part of another study" data-testid="partOf">
+            <Reference fhirData={partOfReference} />
+          </Value>
+        )}
         {categoryCoding && (
           <Value label="Category" data-testid="category">
             <Coding fhirData={categoryCoding} />
           </Value>
         )}
-        {focusCoding && (
-          <Value label="Focus" data-testid="focus">
-            <Coding fhirData={focusCoding} />
+        {hasKeywords && (
+          <Value label="Keywords" data-testid="keywords">
+            <CodeableConcept fhirData={keywordConcepts} />
           </Value>
         )}
         {description && (
@@ -146,14 +151,41 @@ const ResearchStudy = props => {
             <Markdown fhirData={description} />
           </Value>
         )}
+        {focusCoding && (
+          <Value label="Focus" data-testid="focus">
+            <Coding fhirData={focusCoding} />
+          </Value>
+        )}
+        {hasEnrollment && (
+          <Value label="Enrollment" data-testid="enrollment">
+            {enrollmentReferences.map((enrollmentReference, idx) => (
+              <div key={idx} data-testid="enrollmentReference">
+                <Reference fhirData={enrollmentReference} />
+              </div>
+            ))}
+          </Value>
+        )}
         {protocolReference && (
           <Value label="Protocol" data-testid="protocol">
             <Reference fhirData={protocolReference} />
           </Value>
         )}
-        {partOfReference && (
-          <Value label="Part of study" data-testid="partOf">
-            <Reference fhirData={partOfReference} />
+        {hasArms && (
+          <Value label="Study paths" data-testid="arms">
+            <ul>
+              {arms.map((arm, idx) => (
+                <li key={idx}>
+                  <div data-testid="arms.name">{arm.name}</div>
+                  <Coding fhirData={arm.coding} />
+                  <div data-testid="arms.description">{arm.description}</div>
+                </li>
+              ))}
+            </ul>
+          </Value>
+        )}
+        {hasComments && (
+          <Value label="Comments" data-testid="comments">
+            <Annotation fhirData={comments} />
           </Value>
         )}
         {hasContacts && (
@@ -168,31 +200,17 @@ const ResearchStudy = props => {
             ))}
           </Value>
         )}
-        {hasKeywords && (
-          <Value label="Keywords" data-testid="keywords">
-            <CodeableConcept fhirData={keywordConcepts} />
-          </Value>
-        )}
-        {hasEnrollment && (
-          <Value label="Enrollment" data-testid="enrollment">
-            {enrollmentReferences.map((enrollmentReference, idx) => (
-              <div key={idx} data-testid="enrollmentReference">
-                <Reference fhirData={enrollmentReference} />
-              </div>
-            ))}
-          </Value>
-        )}
-        {sponsorReference && (
-          <Value label="Sponsor" data-testid="sponsor">
-            <Reference fhirData={sponsorReference} />
-          </Value>
-        )}
         {principalInvestigatorReference && (
           <Value
             label="Principal investigator"
             data-testid="principalInvestigator"
           >
             <Reference fhirData={principalInvestigatorReference} />
+          </Value>
+        )}
+        {sponsorReference && (
+          <Value label="Sponsor" data-testid="sponsor">
+            <Reference fhirData={sponsorReference} />
           </Value>
         )}
         {hasSites && (
@@ -202,24 +220,6 @@ const ResearchStudy = props => {
                 <Reference fhirData={siteReference} />
               </div>
             ))}
-          </Value>
-        )}
-        {hasComments && (
-          <Value label="Comments" data-testid="comments">
-            <Annotation fhirData={comments} />
-          </Value>
-        )}
-        {hasArms && (
-          <Value label="Study paths" data-testid="arms">
-            <ul>
-              {arms.map((arm, idx) => (
-                <li key={idx}>
-                  <div data-testid="arms.name">{arm.name}</div>
-                  <Coding fhirData={arm.coding} />
-                  <div data-testid="arms.description">{arm.description}</div>
-                </li>
-              ))}
-            </ul>
           </Value>
         )}
       </Body>

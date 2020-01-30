@@ -3,7 +3,7 @@ import { object } from '@storybook/addon-knobs';
 
 import MedicationStatement from './MedicationStatement';
 
-import dstu2Example1 from '../../../fixtures/dstu2/resources/MedicationStatement/example1.json';
+import dstu2Example1 from '../../../fixtures/dstu2/resources/medicationStatement/example1.json';
 import stu3Example1 from '../../../fixtures/stu3/resources/medicationStatement/example1.json';
 import stu3Example2 from '../../../fixtures/stu3/resources/medicationStatement/example2.json';
 

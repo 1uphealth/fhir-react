@@ -3,21 +3,62 @@
 
 # fhir-react
 
-A component library for displaying [FHIR](https://1up.health/dev/doc/introduction-to-fhir) data.
+A React component library for displaying [FHIR](https://1up.health/dev/doc/introduction-to-fhir) data.
+
+## Installation
+
+```
+npm install --save fhir-react
+```
 
 ## Usage
 
-### Resources
+This package has two exports: a `FhirResource` React component and `fhirVersions` object.
 
-- `this.props.thorough` = if this is set to `true`, or if it is absent, all array items and supported attributes will be displayed. Otherwise if this is `false` then only the first or otherwise important items will be displayed
+```js
+import { FhirResource, fhirVersions } from "fhir-react";
+```
+
+Render the component providing the FHIR data as a JavaScript object:
+
+```jsx
+const MyComponent = () => {
+  const fhirResource = JSON.parse(fhirResourceAsJsonString);
+  return (
+    <FhirResource
+      fhirResource={fhirResource}
+      fhirVersion={fhirVersions.STU3}
+    />
+  );
+}
+```
+
+### `FhirResource` component props
+
+| Prop | Type | Default | Description |
+|-|-|-|-|
+| `fhirResource`* | Object | - | The FHIR resource to be rendered |
+| `fhirVersion`* | `fhirVersions.DSTU2`, `fhirVersions.STU3` | - | FHIR resource version |
+| `thorough` | Boolean | `false` | If this is set to `true`, or if it is absent, all array items and supported attributes will be displayed. Otherwise if this is `false` then only the first or otherwise important items will be displayed |
+
+\* required props
+
+### Available `fhirVersions`
+
+* `fhirVersions.DSTU2` - http://hl7.org/fhir/dstu2/index.html
+* `fhirVersions.STU3` - http://hl7.org/fhir/stu3/index.html
 
 ## Storybook
 
 Run storybook local server with:
 
-`npm run storybook`
+```
+npm run storybook
+```
 
-Now you can check how a component graphically presents information based on raw data.
+Now you can check how a component graphically presents information based on raw data at http://localhost:63653 .
+
+There's also an online version available at http://storybook-fhir-react-lib.s3-website-us-east-1.amazonaws.com .
 
 ## Development
 
@@ -28,7 +69,9 @@ Now you can check how a component graphically presents information based on raw 
 
 ### Test
 
-`npm run test`
+```
+npm run test
+```
 
 
 ### Lint

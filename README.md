@@ -48,6 +48,13 @@ const MyComponent = () => {
 * `fhirVersions.DSTU2` - http://hl7.org/fhir/dstu2/index.html
 * `fhirVersions.STU3` - http://hl7.org/fhir/stu3/index.html
 
+### Available resources
+
+| Resource | DSTU2 | STU3 |
+|-|:-:|:-:|
+| `AdverseEvent` | _N/A_ | ✅ |
+| `AllergyIntolerance` | ✅ | ✅ |
+
 ## Storybook
 
 Run storybook local server with:

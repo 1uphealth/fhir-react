@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import MedicationStatement from './MedicationStatement';
 import fhirVersions from '../fhirResourceVersions';
-import example1MedicationStatement from '../../../fixtures/dstu2/resources/MedicationStatement/example1.json';
+import example1MedicationStatement from '../../../fixtures/dstu2/resources/medicationStatement/example1.json';
 import stu3Example from '../../../fixtures/stu3/resources/medicationStatement/example1.json';
 
 describe('should render MedicationStatement component correctly', () => {

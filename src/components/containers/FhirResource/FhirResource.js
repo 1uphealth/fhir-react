@@ -31,6 +31,7 @@ import Organization from '../../resources/Organization';
 import MedicationRequest from '../../resources/MedicationRequest';
 import MedicationAdministration from '../../resources/MedicationAdministration';
 import Questionnaire from '../../resources/Questionnaire';
+import QuestionnaireResponse from '../../resources/QuestionnaireResponse';
 import ReferralRequest from '../../resources/ReferralRequest';
 import ResourceContainer from '../ResourceContainer';
 
@@ -258,6 +259,12 @@ class FhirResource extends React.Component {
         return (
           <ResourceContainer {...this.props}>
             <Questionnaire {...this.props} />
+          </ResourceContainer>
+        );
+      case 'QuestionnaireResponse':
+        return (
+          <ResourceContainer {...this.props}>
+            <QuestionnaireResponse {...this.props} />
           </ResourceContainer>
         );
       default:

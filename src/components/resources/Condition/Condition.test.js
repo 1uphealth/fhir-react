@@ -1,6 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import Condition from './Condition';
+import fhirVersions from '../fhirResourceVersions';
 
 import exampleCondition from '../../../fixtures/dstu2/resources/condition/example.json';
 import exampleConditionSeverity from '../../../fixtures/dstu2/resources/condition/example-severity.json';
@@ -12,6 +13,7 @@ describe('should render component correctly', () => {
   it('DSTU2 - without severity field', () => {
     const defaultProps = {
       fhirResource: exampleCondition,
+      fhirVersion: fhirVersions.DSTU2,
     };
     const { getByTestId, queryAllByTestId } = render(
       <Condition {...defaultProps} />,
@@ -24,6 +26,7 @@ describe('should render component correctly', () => {
   test('DSTU2 - with severity field', () => {
     const defaultProps = {
       fhirResource: exampleConditionSeverity,
+      fhirVersion: fhirVersions.DSTU2,
     };
     const { getByTestId } = render(<Condition {...defaultProps} />);
 
@@ -38,6 +41,7 @@ describe('should render component correctly', () => {
   it('STU3 - without severity field', () => {
     const defaultProps = {
       fhirResource: exampleConditionSTU3,
+      fhirVersion: fhirVersions.STU3,
     };
     const { getByTestId, queryAllByTestId } = render(
       <Condition {...defaultProps} />,
@@ -50,6 +54,7 @@ describe('should render component correctly', () => {
   it('STU3 - with severity field', () => {
     const defaultProps = {
       fhirResource: exampleConditionSeveritySTU3,
+      fhirVersion: fhirVersions.STU3,
     };
     const { getByTestId } = render(<Condition {...defaultProps} />);
 

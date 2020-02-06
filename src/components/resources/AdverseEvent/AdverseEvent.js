@@ -6,36 +6,43 @@ import { Root, Header, Title, Body, Value } from '../../ui';
 import Reference from '../../datatypes/Reference';
 import Date from '../../datatypes/Date';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
-import CodeableConcept from '../../datatypes/CodeableConcept';
+import CodeableConcept, { hasValue } from '../../datatypes/CodeableConcept';
 
 const commonDTO = fhirResource => {
   const subject = _get(fhirResource, 'subject');
   const date = _get(fhirResource, 'date');
   const seriousness = _get(fhirResource, 'seriousness', []);
+  const hasSeriousness = hasValue(seriousness);
 
   return {
     subject,
     date,
     seriousness,
+    hasSeriousness,
   };
 };
 
 const stu3DTO = fhirResource => {
   const description = _get(fhirResource, 'description');
-  const type = _get(fhirResource, 'type', []);
+  const eventType = _get(fhirResource, 'type', []);
+  const hasEventType = hasValue(eventType);
 
   return {
     description,
-    type,
+    eventType,
+    hasEventType,
   };
 };
 
 const stu4DTO = fhirResource => {
   const actuality = _get(fhirResource, 'actuality');
   const event = _get(fhirResource, 'event', []);
+  const hasEvent = hasValue(event);
+
   return {
     actuality,
     event,
+    hasEvent,
   };
 };
 
@@ -63,17 +70,20 @@ const AdverseEvent = props => {
     fhirResourceData = resourceDTO(fhirVersion, fhirResource);
   } catch (error) {
     console.warn(error.message);
-    return <UnhandledResourceDataStructure resourceName="AllergyIntolerance" />;
+    return <UnhandledResourceDataStructure resourceName="AdverseEvent" />;
   }
 
   const {
     subject,
     description,
-    type,
+    eventType,
+    hasEventType,
     date,
     seriousness,
+    hasSeriousness,
     actuality,
     event,
+    hasEvent,
   } = fhirResourceData;
 
   return (
@@ -91,12 +101,12 @@ const AdverseEvent = props => {
             <Date fhirData={date} />
           </Value>
         )}
-        {type && (
+        {hasEventType && (
           <Value label="Type" data-testid="type">
-            <CodeableConcept fhirData={type} />
+            <CodeableConcept fhirData={eventType} />
           </Value>
         )}
-        {event && (
+        {hasEvent && (
           <Value label="Event" data-testid="event">
             <CodeableConcept fhirData={event} />
           </Value>
@@ -106,7 +116,7 @@ const AdverseEvent = props => {
             {description}
           </Value>
         )}
-        {seriousness && (
+        {hasSeriousness && (
           <Value label="Seriousness" data-testid="hasSeriousness">
             <CodeableConcept fhirData={seriousness} />
           </Value>

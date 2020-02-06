@@ -1,20 +1,91 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _get from 'lodash/get';
+import fhirVersions from '../fhirResourceVersions';
 import { Root, Header, Title, Body, Value } from '../../ui';
 import Reference from '../../datatypes/Reference';
-import Coding from '../../datatypes/Coding';
 import Date from '../../datatypes/Date';
+import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
+import CodeableConcept, { hasValue } from '../../datatypes/CodeableConcept';
+
+const commonDTO = fhirResource => {
+  const subject = _get(fhirResource, 'subject');
+  const date = _get(fhirResource, 'date');
+  const seriousness = _get(fhirResource, 'seriousness', []);
+  const hasSeriousness = hasValue(seriousness);
+
+  return {
+    subject,
+    date,
+    seriousness,
+    hasSeriousness,
+  };
+};
+
+const stu3DTO = fhirResource => {
+  const description = _get(fhirResource, 'description');
+  const eventType = _get(fhirResource, 'type', []);
+  const hasEventType = hasValue(eventType);
+
+  return {
+    description,
+    eventType,
+    hasEventType,
+  };
+};
+
+const stu4DTO = fhirResource => {
+  const actuality = _get(fhirResource, 'actuality');
+  const event = _get(fhirResource, 'event', []);
+  const hasEvent = hasValue(event);
+
+  return {
+    actuality,
+    event,
+    hasEvent,
+  };
+};
+
+const resourceDTO = (fhirVersion, fhirResource) => {
+  switch (fhirVersion) {
+    case fhirVersions.STU3:
+      return {
+        ...commonDTO(fhirResource),
+        ...stu3DTO(fhirResource),
+      };
+    case fhirVersions.STU4:
+      return {
+        ...commonDTO(fhirResource),
+        ...stu4DTO(fhirResource),
+      };
+    default:
+      break;
+  }
+};
 
 const AdverseEvent = props => {
-  const { fhirResource } = props;
-  const subject = _get(fhirResource, 'subject');
-  const description = _get(fhirResource, 'description');
-  const typeCoding = _get(fhirResource, 'type.coding', []);
-  const hasTypeCoding = Array.isArray(typeCoding) && typeCoding.length > 0;
-  const date = _get(fhirResource, 'date');
-  const seriousness = _get(fhirResource, 'seriousness.coding', []);
-  const hasSeriousness = Array.isArray(seriousness) && seriousness.length > 0;
+  const { fhirResource, fhirVersion } = props;
+  let fhirResourceData = {};
+  try {
+    fhirResourceData = resourceDTO(fhirVersion, fhirResource);
+  } catch (error) {
+    console.warn(error.message);
+    return <UnhandledResourceDataStructure resourceName="AdverseEvent" />;
+  }
+
+  const {
+    subject,
+    description,
+    eventType,
+    hasEventType,
+    date,
+    seriousness,
+    hasSeriousness,
+    actuality,
+    event,
+    hasEvent,
+  } = fhirResourceData;
+
   return (
     <Root name="AdverseEvent">
       <Header>
@@ -30,11 +101,14 @@ const AdverseEvent = props => {
             <Date fhirData={date} />
           </Value>
         )}
-        {hasTypeCoding && (
+        {hasEventType && (
           <Value label="Type" data-testid="type">
-            {typeCoding.map((item, i) => (
-              <Coding key={`item-${i}`} fhirData={item} />
-            ))}
+            <CodeableConcept fhirData={eventType} />
+          </Value>
+        )}
+        {hasEvent && (
+          <Value label="Event" data-testid="event">
+            <CodeableConcept fhirData={event} />
           </Value>
         )}
         {description && (
@@ -44,9 +118,12 @@ const AdverseEvent = props => {
         )}
         {hasSeriousness && (
           <Value label="Seriousness" data-testid="hasSeriousness">
-            {seriousness.map((item, i) => (
-              <Coding key={`item-${i}`} fhirData={item} />
-            ))}
+            <CodeableConcept fhirData={seriousness} />
+          </Value>
+        )}
+        {actuality && (
+          <Value label="Actuality" data-testid="actuality">
+            {actuality}
           </Value>
         )}
       </Body>
@@ -56,6 +133,8 @@ const AdverseEvent = props => {
 
 AdverseEvent.propTypes = {
   fhirResource: PropTypes.shape({}).isRequired,
+  fhirVersion: PropTypes.oneOf([fhirVersions.STU3, fhirVersions.STU4])
+    .isRequired,
 };
 
 export default AdverseEvent;

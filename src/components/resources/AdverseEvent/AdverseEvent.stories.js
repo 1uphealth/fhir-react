@@ -18,7 +18,7 @@ export const DefaultVisualizationSTU3 = () => {
   );
 };
 
-export const Example1ofSTU4 = () => {
+export const Example1ofR4 = () => {
   const fhirResource = object('Resource', stu4Example1);
   return (
     <AdverseEvent fhirResource={fhirResource} fhirVersion={fhirVersions.STU4} />

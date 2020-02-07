@@ -58,11 +58,12 @@
   width: 100%;
   margin-bottom: 1rem;
   color: #212529;
+  font-size: 0.8rem;
 }
 
 .fhir-ui__TableHeader,
 .fhir-ui__TableCell {
-  padding: 0.75rem;
+  padding: 0.4rem 0.75rem;
   vertical-align: top;
   border-top: 1px solid #dee2e6;
 }

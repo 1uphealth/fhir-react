@@ -34,7 +34,7 @@ const stu3DTO = fhirResource => {
   };
 };
 
-const stu4DTO = fhirResource => {
+const r4DTO = fhirResource => {
   const actuality = _get(fhirResource, 'actuality');
   const event = _get(fhirResource, 'event', []);
   const hasEvent = hasValue(event);
@@ -53,10 +53,10 @@ const resourceDTO = (fhirVersion, fhirResource) => {
         ...commonDTO(fhirResource),
         ...stu3DTO(fhirResource),
       };
-    case fhirVersions.STU4:
+    case fhirVersions.R4:
       return {
         ...commonDTO(fhirResource),
-        ...stu4DTO(fhirResource),
+        ...r4DTO(fhirResource),
       };
     default:
       break;
@@ -133,8 +133,7 @@ const AdverseEvent = props => {
 
 AdverseEvent.propTypes = {
   fhirResource: PropTypes.shape({}).isRequired,
-  fhirVersion: PropTypes.oneOf([fhirVersions.STU3, fhirVersions.STU4])
-    .isRequired,
+  fhirVersion: PropTypes.oneOf([fhirVersions.STU3, fhirVersions.R4]).isRequired,
 };
 
 export default AdverseEvent;

@@ -59,7 +59,7 @@ const stu3DTO = fhirResource => {
   };
 };
 
-const stu4DTO = fhirResource => {
+const r4DTO = fhirResource => {
   const clinicalStatus = _get(fhirResource, 'clinicalStatus.coding.0.code');
   const dateRecorded = _get(fhirResource, 'recordedDate');
   return {
@@ -82,10 +82,10 @@ const resourceDTO = (fhirVersion, fhirResource) => {
         ...stu3DTO(fhirResource),
       };
     }
-    case fhirVersions.STU4: {
+    case fhirVersions.R4: {
       return {
         ...commonDTO(fhirResource),
-        ...stu4DTO(fhirResource),
+        ...r4DTO(fhirResource),
       };
     }
 
@@ -150,7 +150,7 @@ Condition.propTypes = {
   fhirVersion: PropTypes.oneOf([
     fhirVersions.DSTU2,
     fhirVersions.STU3,
-    fhirVersions.STU4,
+    fhirVersions.R4,
   ]).isRequired,
 };
 

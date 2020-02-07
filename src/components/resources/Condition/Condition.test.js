@@ -9,9 +9,9 @@ import exampleConditionSeverity from '../../../fixtures/dstu2/resources/conditio
 import exampleConditionSTU3 from '../../../fixtures/stu3/resources/condition/example.json';
 import exampleConditionSeveritySTU3 from '../../../fixtures/stu3/resources/condition/example-severity.json';
 
-import example1ConditionSeveritySTU4 from '../../../fixtures/stu4/resources/condition/example1.json';
-import example2ConditionSeveritySTU4 from '../../../fixtures/stu4/resources/condition/example2.json';
-import example3ConditionSeveritySTU4 from '../../../fixtures/stu4/resources/condition/example3.json';
+import example1ConditionSeverityR4 from '../../../fixtures/r4/resources/condition/example1.json';
+import example2ConditionSeverityR4 from '../../../fixtures/r4/resources/condition/example2.json';
+import example3ConditionSeverityR4 from '../../../fixtures/r4/resources/condition/example3.json';
 
 describe('should render component correctly', () => {
   it('DSTU2 - without severity field', () => {
@@ -70,10 +70,10 @@ describe('should render component correctly', () => {
     expect(getByTestId('asserter').textContent).toEqual('Practitioner/f201');
   });
 
-  it('STU4 - using example1 fixture', () => {
+  it('R4 - using example1 fixture', () => {
     const defaultProps = {
-      fhirResource: example1ConditionSeveritySTU4,
-      fhirVersion: fhirVersions.STU4,
+      fhirResource: example1ConditionSeverityR4,
+      fhirVersion: fhirVersions.R4,
     };
     const { getByTestId, queryAllByTestId } = render(
       <Condition {...defaultProps} />,
@@ -86,10 +86,10 @@ describe('should render component correctly', () => {
     expect(queryAllByTestId('dateRecorded').length).toEqual(0);
   });
 
-  it('STU4 - using example2 fixture', () => {
+  it('R4 - using example2 fixture', () => {
     const defaultProps = {
-      fhirResource: example2ConditionSeveritySTU4,
-      fhirVersion: fhirVersions.STU4,
+      fhirResource: example2ConditionSeverityR4,
+      fhirVersion: fhirVersions.R4,
     };
     const { getByTestId, queryAllByTestId } = render(
       <Condition {...defaultProps} />,
@@ -102,10 +102,10 @@ describe('should render component correctly', () => {
     expect(queryAllByTestId('dateRecorded').length).toEqual(0);
   });
 
-  it('STU4 - using example3 fixture', () => {
+  it('R4 - using example3 fixture', () => {
     const defaultProps = {
-      fhirResource: example3ConditionSeveritySTU4,
-      fhirVersion: fhirVersions.STU4,
+      fhirResource: example3ConditionSeverityR4,
+      fhirVersion: fhirVersions.R4,
     };
     const { getByTestId } = render(<Condition {...defaultProps} />);
 

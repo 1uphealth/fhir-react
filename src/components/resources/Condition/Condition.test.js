@@ -11,6 +11,7 @@ import exampleConditionSeveritySTU3 from '../../../fixtures/stu3/resources/condi
 
 import example1ConditionSeveritySTU4 from '../../../fixtures/stu4/resources/condition/example1.json';
 import example2ConditionSeveritySTU4 from '../../../fixtures/stu4/resources/condition/example2.json';
+import example3ConditionSeveritySTU4 from '../../../fixtures/stu4/resources/condition/example3.json';
 
 describe('should render component correctly', () => {
   it('DSTU2 - without severity field', () => {
@@ -99,5 +100,19 @@ describe('should render component correctly', () => {
     expect(queryAllByTestId('onsetDate').length).toEqual(0);
     expect(queryAllByTestId('asserter').length).toEqual(0);
     expect(queryAllByTestId('dateRecorded').length).toEqual(0);
+  });
+
+  it('STU4 - using example3 fixture', () => {
+    const defaultProps = {
+      fhirResource: example3ConditionSeveritySTU4,
+      fhirVersion: fhirVersions.STU4,
+    };
+    const { getByTestId } = render(<Condition {...defaultProps} />);
+
+    expect(getByTestId('clinicalStatus').textContent).toEqual('resolved');
+    expect(getByTestId('severity').textContent).toEqual('Mild severity');
+    expect(getByTestId('onsetDate').textContent).toEqual('2013-04-02');
+    expect(getByTestId('asserter').textContent).toEqual('Practitioner/f201');
+    expect(getByTestId('dateRecorded').textContent).toEqual('2013-04-04');
   });
 });

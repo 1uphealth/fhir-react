@@ -4,7 +4,7 @@ import AdverseEvent from './AdverseEvent';
 import fhirVersions from '../fhirResourceVersions';
 
 import stu3Example1 from '../../../fixtures/stu3/resources/adverseEvent/example1.json';
-import stu4Example1 from '../../../fixtures/stu4/resources/adverseEvent/example1.json';
+import r4Example1 from '../../../fixtures/r4/resources/adverseEvent/example1.json';
 
 describe('should render component correctly', () => {
   it('should render with STU3 source data', () => {
@@ -27,10 +27,10 @@ describe('should render component correctly', () => {
     expect(getByTestId('hasSeriousness').textContent).toContain('Mild');
   });
 
-  it('should render with STU4 source data', () => {
+  it('should render with R4 source data', () => {
     const defaultProps = {
-      fhirResource: stu4Example1,
-      fhirVersion: fhirVersions.STU4,
+      fhirResource: r4Example1,
+      fhirVersion: fhirVersions.R4,
     };
     const { getByTestId } = render(<AdverseEvent {...defaultProps} />);
 

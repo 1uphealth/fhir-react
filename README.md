@@ -32,11 +32,11 @@ const MyComponent = () => {
 
 ### `FhirResource` component props
 
-| Prop             | Type                                                           | Default | Description                                                                                                                                                                                               |
-| ---------------- | -------------------------------------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `fhirResource`\* | Object                                                         | -       | The FHIR resource to be rendered                                                                                                                                                                          |
-| `fhirVersion`\*  | `fhirVersions.DSTU2`, `fhirVersions.STU3`, `fhirVersions.STU4` | -       | FHIR resource version                                                                                                                                                                                     |
-| `thorough`       | Boolean                                                        | `false` | If this is set to `true`, or if it is absent, all array items and supported attributes will be displayed. Otherwise if this is `false` then only the first or otherwise important items will be displayed |
+| Prop             | Type                                      | Default | Description                                                                                                                                                                                               |
+| ---------------- | ----------------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `fhirResource`\* | Object                                    | -       | The FHIR resource to be rendered                                                                                                                                                                          |
+| `fhirVersion`\*  | `fhirVersions.DSTU2`, `fhirVersions.STU3` | -       | FHIR resource version                                                                                                                                                                                     |
+| `thorough`       | Boolean                                   | `false` | If this is set to `true`, or if it is absent, all array items and supported attributes will be displayed. Otherwise if this is `false` then only the first or otherwise important items will be displayed |
 
 \* required props
 
@@ -47,41 +47,41 @@ const MyComponent = () => {
 
 ### Available resources
 
-| Resource                   | DSTU2 | STU3 | STU4 |
-| -------------------------- | :---: | :--: | :--: |
-| `AdverseEvent`             | _N/A_ |  ✅  |  ✅  |
-| `AllergyIntolerance`       |  ✅   |  ✅  |      |
-| `AdverseEvent`             | _N/A_ |  ✅  |      |
-| `AllergyIntolerance`       |  ✅   |  ✅  |      |
-| `Appointment`              |  ✅   |  ✅  |      |
-| `CarePlan`                 |  ✅   |  ✅  |      |
-| `CareTeam`                 | _N/A_ |  ✅  |      |
-| `Claim`                    |  ✅   |  ✅  |      |
-| `ClaimResponse`            |  ✅   |  ✅  |      |
-| `Condition`                |  ✅   |  ✅  |      |
-| `Coverage`                 |  ✅   |  ✅  |      |
-| `Device`                   |  ✅   |  ✅  |      |
-| `DiagnosticReport`         |  ✅   |  ✅  |      |
-| `DocumentReference`        |  ✅   |  ✅  |      |
-| `Encounter`                |  ✅   |  ✅  |      |
-| `ExplanationOfBenefit`     |  ✅   |  ✅  |      |
-| `Goal`                     |  ✅   |  ✅  |      |
-| `Immunization`             |  ✅   |  ✅  |      |
-| `Location`                 |  ✅   |  ✅  |      |
-| `Medication`               |  ✅   |  ✅  |      |
-| `MedicationAdministration` |  ✅   |  ✅  |      |
-| `MedicationDispense`       |  ✅   |  ✅  |      |
-| `MedicationRequest`        | _N/A_ |  ✅  |      |
-| `MedicationStatement`      |  ✅   |  ✅  |      |
-| `Observation`              |  ✅   |  ✅  |      |
-| `Organization`             |  ✅   |  ✅  |      |
-| `Patient`                  |  ✅   |  ✅  |      |
-| `Practitioner`             |  ✅   |  ✅  |      |
-| `Procedure`                |  ✅   |  ✅  |      |
-| `Questionnaire`            |  ✅   |  ✅  |      |
-| `QuestionnaireResponse`    |  ✅   |  ✅  |      |
-| `ReferralRequest`          |  ✅   |  ✅  |      |
-| `ResearchStudy`            | _N/A_ |  ✅  |      |
+| Resource                   | DSTU2 | STU3 |     |
+| -------------------------- | :---: | :--: | :-: |
+| `AdverseEvent`             | _N/A_ |  ✅  |     |
+| `AllergyIntolerance`       |  ✅   |  ✅  |     |
+| `AdverseEvent`             | _N/A_ |  ✅  |     |
+| `AllergyIntolerance`       |  ✅   |  ✅  |     |
+| `Appointment`              |  ✅   |  ✅  |     |
+| `CarePlan`                 |  ✅   |  ✅  |     |
+| `CareTeam`                 | _N/A_ |  ✅  |     |
+| `Claim`                    |  ✅   |  ✅  |     |
+| `ClaimResponse`            |  ✅   |  ✅  |     |
+| `Condition`                |  ✅   |  ✅  |     |
+| `Coverage`                 |  ✅   |  ✅  |     |
+| `Device`                   |  ✅   |  ✅  |     |
+| `DiagnosticReport`         |  ✅   |  ✅  |     |
+| `DocumentReference`        |  ✅   |  ✅  |     |
+| `Encounter`                |  ✅   |  ✅  |     |
+| `ExplanationOfBenefit`     |  ✅   |  ✅  |     |
+| `Goal`                     |  ✅   |  ✅  |     |
+| `Immunization`             |  ✅   |  ✅  |     |
+| `Location`                 |  ✅   |  ✅  |     |
+| `Medication`               |  ✅   |  ✅  |     |
+| `MedicationAdministration` |  ✅   |  ✅  |     |
+| `MedicationDispense`       |  ✅   |  ✅  |     |
+| `MedicationRequest`        | _N/A_ |  ✅  |     |
+| `MedicationStatement`      |  ✅   |  ✅  |     |
+| `Observation`              |  ✅   |  ✅  |     |
+| `Organization`             |  ✅   |  ✅  |     |
+| `Patient`                  |  ✅   |  ✅  |     |
+| `Practitioner`             |  ✅   |  ✅  |     |
+| `Procedure`                |  ✅   |  ✅  |     |
+| `Questionnaire`            |  ✅   |  ✅  |     |
+| `QuestionnaireResponse`    |  ✅   |  ✅  |     |
+| `ReferralRequest`          |  ✅   |  ✅  |     |
+| `ResearchStudy`            | _N/A_ |  ✅  |     |
 
 ## Storybook
 

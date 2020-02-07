@@ -1,4 +1,3 @@
-import CodeableConcept, { hasValue } from './CodeableConcept';
+import CodeableConcept from './CodeableConcept';
 
 export default CodeableConcept;
-export { hasValue };

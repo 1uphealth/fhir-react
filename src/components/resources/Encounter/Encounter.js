@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import _get from 'lodash/get';
 import _has from 'lodash/has';
+import _unescape from 'lodash/unescape';
 import EncounterParticipants from './EncounterParticipants';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 import fhirVersions from '../fhirResourceVersions';
@@ -21,11 +22,12 @@ import {
 
 const commonDTO = fhirResource => {
   const resourceStatus = _get(fhirResource, 'status');
-  const locationDisplay = _get(
+  const locationDisplayRaw = _get(
     fhirResource,
     'location[0].location.display',
-    null,
+    'Encounter',
   );
+  const locationDisplay = _unescape(locationDisplayRaw);
   const encounterType = _get(fhirResource, 'type');
   const hasParticipant = _has(fhirResource, 'participant');
   return {

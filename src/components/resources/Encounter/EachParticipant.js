@@ -12,7 +12,9 @@ const EachParticipant = props => {
     <TableRow>
       <TableCell data-testid="display">{display}</TableCell>
       <TableCell data-testid="text">
-        {!isReferenceEmpty && <Reference fhirData={reference} />}
+        {!isReferenceEmpty && (
+          <Reference fhirData={reference} data-testid="reference" />
+        )}
         {isReferenceEmpty && !text ? <MissingValue /> : text}
       </TableCell>
       <TableCell data-testid="periodStart">{periodStart}</TableCell>

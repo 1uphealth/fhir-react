@@ -183,18 +183,22 @@ const Encounter = props => {
   return (
     <Root name="encounter">
       <Header>
-        <Title>{locationDisplay}</Title>
+        <Title data-testid="title">{locationDisplay}</Title>
         {resourceStatus && <Badge>{resourceStatus}</Badge>}
       </Header>
       <Body>
         {periodStart && <Value label="Start date">{periodStart}</Value>}
         {periodEnd && <Value label="End date">{periodEnd}</Value>}
         {encounterType && (
-          <Value label="Type">
+          <Value label="Type" data-testid="encounterType">
             <CodableConcept fhirData={encounterType} />
           </Value>
         )}
-        {resourceClass && <Value label="Class">{resourceClass}</Value>}
+        {resourceClass && (
+          <Value label="Class" data-testid="resourceClass">
+            {resourceClass}
+          </Value>
+        )}
         {hasParticipant && (
           <EncounterParticipants allParticipant={participant} />
         )}

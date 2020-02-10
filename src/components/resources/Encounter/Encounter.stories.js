@@ -44,12 +44,7 @@ export const ExampleWithoutParticipantSTU3 = () => {
   );
 };
 
-export const ExampleWithoutFHIRVersionProperty = () => {
-  const fhirResource = object('Resource', example2_STU3);
-  return <Encounter fhirResource={fhirResource} />;
-};
-
-export const Example1ofR4 = () => {
+export const ExampleWithoutParticipantR4 = () => {
   const fhirResource = object('Resource', example1_R4);
   return (
     <Encounter fhirVersion={fhirVersions.R4} fhirResource={fhirResource} />
@@ -68,4 +63,9 @@ export const Example3ofR4 = () => {
   return (
     <Encounter fhirVersion={fhirVersions.R4} fhirResource={fhirResource} />
   );
+};
+
+export const ExampleWithoutFHIRVersionProperty = () => {
+  const fhirResource = object('Resource', example2_STU3);
+  return <Encounter fhirResource={fhirResource} />;
 };

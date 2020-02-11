@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 
 const Money = props => {
   const { fhirData } = props;
-  const { value, code } = fhirData;
+  const { value, code, currency } = fhirData;
 
   return (
     <span className="fhir-datatype__Money">
       {Number.isFinite(value) ? value : null}
       &nbsp;
-      {code || null}
+      {code || currency || null}
     </span>
   );
 };

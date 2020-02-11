@@ -62,7 +62,7 @@ describe('should render component correctly', () => {
   it('should render with R4 source data', () => {
     const defaultProps = {
       fhirResource: exampleCoverageR4,
-      fhirVersion: fhirVersions.STU3,
+      fhirVersion: fhirVersions.R4,
     };
     const { getByTestId, queryAllByTestId } = render(
       <Coverage {...defaultProps} />,

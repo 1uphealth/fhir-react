@@ -7,7 +7,7 @@ import Coding from '../../datatypes/Coding';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 import fhirVersions from '../fhirResourceVersions';
 import { Root, Header, Title, Body, Value } from '../../ui';
-import Identifier from '../../datatypes/Identifier/Identifier';
+import Identifier from '../../datatypes/Identifier';
 
 const commonDTO = fhirResource => {
   const identifier = _get(fhirResource, 'identifier.0');
@@ -41,11 +41,14 @@ const stu3DTO = fhirResource => {
     classDescription: _get(fhirResource, 'grouping.classDisplay'),
   };
   const hasDetails = Object.values(details).filter(item => !!item).length > 0;
-  let extension = _get(fhirResource, 'extension');
-  const hasExtension = Array.isArray(extension) && extension.length > 0;
+  const extensionRaw = _get(fhirResource, 'extension');
+  const hasExtension = Array.isArray(extensionRaw) && extensionRaw.length > 0;
+
+  let extension = [];
   if (hasExtension) {
-    extension = extension.map(item => ({ coding: [item.valueCoding] }));
+    extension = extensionRaw.map(item => ({ coding: [item.valueCoding] }));
   }
+
   return {
     planId,
     issuer,
@@ -133,7 +136,8 @@ const Coverage = props => {
     hasExtension,
     identifier,
   } = fhirResourceData;
-
+  const issuerReferenceType = _get(issuer, 'reference');
+  const issuerIdentifierType = _get(issuer, 'identifier');
   return (
     <Root name="coverage">
       <Header>
@@ -144,12 +148,12 @@ const Coverage = props => {
         )}
       </Header>
       <Body>
-        {_get(issuer, 'reference') && (
+        {issuerReferenceType && (
           <Value label="Issuer" data-testid="issuer">
             <Reference fhirData={issuer} />
           </Value>
         )}
-        {_get(issuer, 'identifier') && (
+        {issuerIdentifierType && (
           <Value label="Issuer" data-testid="issuer">
             <Identifier fhirData={issuer.identifier} />
           </Value>

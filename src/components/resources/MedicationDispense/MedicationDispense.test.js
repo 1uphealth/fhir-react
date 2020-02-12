@@ -1,11 +1,11 @@
 import React from 'react';
-import { render } from '@testing-library/react';
-
+import { render, within } from '@testing-library/react';
 import MedicationDispense from './MedicationDispense';
 import fhirVersions from '../fhirResourceVersions';
 
 import dstu2Example1 from '../../../fixtures/dstu2/resources/medicationDispense/example1.json';
 import stu3Example1 from '../../../fixtures/stu3/resources/medicationDispense/example1.json';
+import R4Example2 from '../../../fixtures/r4/resources/medicationDispense/example2.json';
 
 describe('should render Device component properly', () => {
   it('should render with DSTU2 source data', () => {
@@ -21,6 +21,7 @@ describe('should render Device component properly', () => {
 
     expect(getByTestId('title').textContent).toEqual('prescribed medication');
     expect(getByTestId('typeCoding').textContent).toContain('Part Fill');
+    expect(getByTestId('whenPrepared').textContent).toContain('2015-03-01');
     expect(getByTestId('hasDosageInstruction').textContent).toContain(
       'or after food',
     );
@@ -32,17 +33,55 @@ describe('should render Device component properly', () => {
       fhirVersion: fhirVersions.STU3,
     };
 
-    const { container, getByTestId } = render(
+    const { container, getByTestId, queryAllByTestId } = render(
       <MedicationDispense {...defaultProps} />,
     );
     expect(container).not.toBeNull();
 
     expect(getByTestId('title').textContent).toContain('Capecitabine');
+    expect(queryAllByTestId('whenPrepared').length).toEqual(0);
     expect(getByTestId('medicationCoding').textContent).toContain(
       'Capecitabine 500mg oral tablet',
     );
     expect(getByTestId('hasDosageInstruction').textContent).toContain(
       'doral administration',
     );
+  });
+
+  it('should render with R4 source data', () => {
+    const defaultProps = {
+      fhirResource: R4Example2,
+      fhirVersion: fhirVersions.R4,
+    };
+
+    const { container, getByTestId } = render(
+      <MedicationDispense {...defaultProps} />,
+    );
+    expect(container).not.toBeNull();
+
+    expect(getByTestId('title').textContent).toContain('Novolog 100u/ml');
+    expect(getByTestId('whenPrepared').textContent).toEqual('2015-01-15');
+    expect(
+      within(getByTestId('hasDosageInstruction'))
+        .queryAllByTestId('dosageTiming')
+        .map(n => n.textContent),
+    ).toEqual(['1 / d', '1 / d', '1 / d']);
+
+    expect(
+      within(getByTestId('hasDosageInstruction'))
+        .queryAllByTestId('dosageQuantity')
+        .map(n => n.textContent),
+    ).toEqual(['10 U', '15 U', '20 U']);
+
+    expect(
+      within(getByTestId('hasDosageInstruction'))
+        .queryAllByTestId('dosageAdditionalInstructions')
+        .map(n =>
+          String(n.textContent)
+            .split('')
+            .map(el => String(el).trim())
+            .join(''),
+        ),
+    ).toEqual(['Ordered(ordered)', 'Ordered(ordered)', 'Ordered(ordered)']);
   });
 });

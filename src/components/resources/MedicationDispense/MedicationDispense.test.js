@@ -33,13 +33,13 @@ describe('should render Device component properly', () => {
       fhirVersion: fhirVersions.STU3,
     };
 
-    const { container, getByTestId, queryAllByTestId } = render(
+    const { container, getByTestId, queryByTestId } = render(
       <MedicationDispense {...defaultProps} />,
     );
     expect(container).not.toBeNull();
 
     expect(getByTestId('title').textContent).toContain('Capecitabine');
-    expect(queryAllByTestId('whenPrepared').length).toEqual(0);
+    expect(queryByTestId('whenPrepared')).toBeNull();
     expect(getByTestId('medicationCoding').textContent).toContain(
       'Capecitabine 500mg oral tablet',
     );

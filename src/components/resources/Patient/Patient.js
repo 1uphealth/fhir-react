@@ -7,7 +7,8 @@ import HumanName from '../../datatypes/HumanName';
 import Telecom from '../../datatypes/Telecom';
 import Address from '../../datatypes/Address';
 import Coding from '../../datatypes/Coding';
-import { Root, Header, Body, Value, MissingValue } from '../../ui';
+import Date from '../../datatypes/Date';
+import { Root, Header, Body, Value, MissingValue, Badge } from '../../ui';
 import './Patient.css';
 
 function PatientContact(props) {
@@ -18,7 +19,9 @@ function PatientContact(props) {
   return (
     <div>
       <HumanName fhirData={name} />
-      <small className="fhir-resource__Patient__patientContact-relationship">{` (${relationship})`}</small>
+      {relationship && (
+        <small className="fhir-resource__Patient__patientContact-relationship">{` (${relationship})`}</small>
+      )}
     </div>
   );
 }
@@ -42,7 +45,11 @@ function Patient(props) {
     .map(item => item.language.coding);
   communicationLanguage = _get(communicationLanguage, '0', []);
   const hasCommunicationLanguage = communicationLanguage.length > 0;
-
+  const active = _get(fhirResource, 'active', false);
+  const activeStatus = active ? 'active' : 'inactive';
+  const deceasedBoolean = _get(fhirResource, 'deceasedBoolean', false);
+  const deceasedDate = _get(fhirResource, 'deceasedDateTime');
+  const isDeceased = deceasedBoolean || deceasedDate;
   return (
     <Root name="Patient">
       <Header>
@@ -75,6 +82,7 @@ function Patient(props) {
               })}
             </div>
             <div>
+              {active && <Badge>{activeStatus}</Badge>}
               {patientBirthDate && (
                 <span className="fhir-resource__Patient__BirthDate-block">
                   <strong>
@@ -97,6 +105,11 @@ function Patient(props) {
         </div>
       </Header>
       <Body>
+        {isDeceased && (
+          <Value label="Deceased" data-testid="deceasedDate">
+            {deceasedDate ? <Date fhirData={deceasedDate} /> : 'yes'}
+          </Value>
+        )}
         {patientAddress && (
           <Value label="Address" data-testid="patientAddress">
             <Address fhirData={patientAddress} />

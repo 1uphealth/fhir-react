@@ -65,6 +65,7 @@ const resourceDTO = (fhirVersion, fhirResource) => {
       };
     }
     case fhirVersions.R4: {
+      // there are not any breaking changes between STU3 and R4 version
       return {
         ...commonDTO(fhirResource),
         ...stu3DTO(fhirResource),

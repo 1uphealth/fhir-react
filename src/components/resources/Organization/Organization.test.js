@@ -10,6 +10,9 @@ import dstu2Example2 from '../../../fixtures/dstu2/resources/organization/exampl
 import stu3Example1 from '../../../fixtures/stu3/resources/organization/example1.json';
 import stu3Example2 from '../../../fixtures/stu3/resources/organization/example2.json';
 
+import r4Example1 from '../../../fixtures/r4/resources/organization/example1.json';
+import r4Example2 from '../../../fixtures/r4/resources/organization/example2.json';
+
 describe('should render Organization component properly', () => {
   it('should render with DSTU2 source data', () => {
     const defaultProps = {
@@ -68,6 +71,44 @@ describe('should render Organization component properly', () => {
 
     expect(getByTestId('type').textContent).toContain(
       'Academic Medical Center',
+    );
+    expect(getByTestId('type').textContent).toContain(
+      'University Medical Hospital',
+    );
+    expect(getByTestId('type').textContent).toContain('Healthcare Provider');
+  });
+
+  it('should render organization types with R4 source data - example 1', () => {
+    const defaultProps = {
+      fhirResource: r4Example1,
+      fhirVersion: fhirVersions.R4,
+    };
+
+    const { getByTestId, queryByTestId } = render(
+      <Organization {...defaultProps} />,
+    );
+    expect(getByTestId('title').textContent).toContain('Health Level');
+    expect(getByTestId('address').textContent).toContain('Washtenaw Avenue');
+    expect(getByTestId('contact').textContent).toContain('734-677-7777');
+    expect(queryByTestId('type')).toBeNull();
+  });
+
+  it('should render organization types with R4 source data - example 2', () => {
+    const defaultProps = {
+      fhirResource: r4Example2,
+      fhirVersion: fhirVersions.R4,
+    };
+
+    const { getByTestId } = render(<Organization {...defaultProps} />);
+    expect(getByTestId('title').textContent).toContain(
+      'Burgers University Medical Center',
+    );
+    expect(getByTestId('address').textContent).toContain(
+      'Galapagosweg 91Den Burg',
+    );
+    expect(getByTestId('contact').textContent).toContain('022-655 2300');
+    expect(getByTestId('type').textContent).toContain(
+      'University Medical Hospital',
     );
     expect(getByTestId('type').textContent).toContain(
       'University Medical Hospital',

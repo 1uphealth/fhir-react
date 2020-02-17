@@ -10,6 +10,10 @@ import dstu2Example2 from '../../../fixtures/dstu2/resources/organization/exampl
 import stu3Example1 from '../../../fixtures/stu3/resources/organization/example1.json';
 import stu3Example2 from '../../../fixtures/stu3/resources/organization/example2.json';
 
+import r4Example1 from '../../../fixtures/r4/resources/organization/example1.json';
+import r4Example2 from '../../../fixtures/r4/resources/organization/example2.json';
+import r4Example3 from '../../../fixtures/r4/resources/organization/example3.json';
+
 describe('should render Organization component properly', () => {
   it('should render with DSTU2 source data', () => {
     const defaultProps = {
@@ -62,6 +66,40 @@ describe('should render Organization component properly', () => {
     const defaultProps = {
       fhirResource: stu3Example2,
       fhirVersion: fhirVersions.STU3,
+    };
+
+    const { getByTestId } = render(<Organization {...defaultProps} />);
+
+    expect(getByTestId('type').textContent).toContain(
+      'Academic Medical Center',
+    );
+    expect(getByTestId('type').textContent).toContain(
+      'University Medical Hospital',
+    );
+    expect(getByTestId('type').textContent).toContain('Healthcare Provider');
+  });
+
+  it('should render organization types with R4 source data - example 1', () => {
+    const defaultProps = {
+      fhirResource: r4Example1,
+      fhirVersion: fhirVersions.R4,
+    };
+
+    const { getByTestId } = render(<Organization {...defaultProps} />);
+
+    expect(getByTestId('type').textContent).toContain(
+      'Academic Medical Center',
+    );
+    expect(getByTestId('type').textContent).toContain(
+      'University Medical Hospital',
+    );
+    expect(getByTestId('type').textContent).toContain('Healthcare Provider');
+  });
+
+  it('should render organization types with R4 source data - example 2', () => {
+    const defaultProps = {
+      fhirResource: r4Example2,
+      fhirVersion: fhirVersions.R4,
     };
 
     const { getByTestId } = render(<Organization {...defaultProps} />);

@@ -69,7 +69,7 @@ function Patient(props) {
                 } else {
                   return (
                     <React.Fragment key={index}>
-                      <span data-testid="patientName">
+                      <span data-testid={`patientName-${index}`}>
                         <HumanName
                           fhirData={patientName}
                           primary={index === 0}
@@ -82,7 +82,9 @@ function Patient(props) {
               })}
             </div>
             <div>
-              {active && <Badge>{activeStatus}</Badge>}
+              {active && (
+                <Badge data-testid="activeStatus">{activeStatus}</Badge>
+              )}
               {patientBirthDate && (
                 <span className="fhir-resource__Patient__BirthDate-block">
                   <strong>
@@ -106,7 +108,7 @@ function Patient(props) {
       </Header>
       <Body>
         {isDeceased && (
-          <Value label="Deceased" data-testid="deceasedDate">
+          <Value label="Deceased" data-testid="deceasedInfo">
             {deceasedDate ? <Date fhirData={deceasedDate} /> : 'yes'}
           </Value>
         )}
@@ -140,7 +142,7 @@ function Patient(props) {
   );
 }
 
-PatientContact.propTypes = {
+Patient.propTypes = {
   fhirResource: PropTypes.shape({}).isRequired,
 };
 

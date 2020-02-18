@@ -131,7 +131,7 @@ const Device = props => {
     <Root name="Device">
       <Header>
         {model && <Title>{model}</Title>}
-        {status && <Badge>{status}</Badge>}
+        {status && <Badge data-testid="status">{status}</Badge>}
         {hasExpiry && (
           <BadgeSecondary data-testid="expiry">
             expires on <Date fhirData={getExpiry} />
@@ -146,7 +146,7 @@ const Device = props => {
             ))}
           </Value>
         )}
-        <Value label="Unique device identifier">
+        <Value label="Unique device identifier" data-testid="uniqueId">
           {getUdi ? getUdi : <MissingValue />}
         </Value>
         {udiCarrierAIDC && <Value label="AIDC barcode">{udiCarrierAIDC}</Value>}

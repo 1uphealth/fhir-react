@@ -47,13 +47,14 @@ const stu3DTO = fhirResource => {
   const getUdi = _get(fhirResource, 'udi.name');
   const hasExpiry = _has(fhirResource, 'expirationDate');
   const getExpiry = _get(fhirResource, 'expirationDate');
-  const safety =
-    _get(fhirResource, 'safety[0]') || _get(fhirResource, 'safety');
+  const safety = _get(fhirResource, 'safety', []);
+  const hasSafety = hasValue(safety);
   return {
     getUdi,
     hasExpiry,
     getExpiry,
     safety,
+    hasSafety,
   };
 };
 

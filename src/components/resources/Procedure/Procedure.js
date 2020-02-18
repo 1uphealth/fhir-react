@@ -18,6 +18,7 @@ import {
   BadgeSecondary,
   MissingValue,
 } from '../../ui';
+import { isNotEmptyArray } from '../../../utils';
 
 const Procedure = props => {
   const { fhirResource } = props;
@@ -41,7 +42,6 @@ const Procedure = props => {
   const hasNote = _has(fhirResource, 'note');
   const note = _get(fhirResource, 'note', []);
   const outcome = _get(fhirResource, 'outcome');
-  const hasOutcome = Array.isArray(outcome) && outcome.length > 0;
   return (
     <Root name="Procedure">
       <Header>
@@ -109,7 +109,7 @@ const Procedure = props => {
             <Annotation fhirData={note} />
           </Value>
         )}
-        {hasOutcome && (
+        {isNotEmptyArray(outcome) && (
           <Value label="The result of procedure">
             <CodeableConcept fhirData={outcome} />
           </Value>

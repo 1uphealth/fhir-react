@@ -39,8 +39,8 @@ const resourceDTO = (fhirVersion, fhirResource) => {
         ...stu3DTO(fhirResource),
       };
     }
-
     case fhirVersions.R4: {
+      // there are not any breaking changes between STU3 and R4 version
       return {
         ...commonDTO(fhirResource),
         ...stu3DTO(fhirResource),
@@ -101,8 +101,11 @@ const Organization = props => {
 
 Organization.propTypes = {
   fhirResource: PropTypes.shape({}).isRequired,
-  fhirVersion: PropTypes.oneOf([fhirVersions.DSTU2, fhirVersions.STU3])
-    .isRequired,
+  fhirVersion: PropTypes.oneOf([
+    fhirVersions.DSTU2,
+    fhirVersions.STU3,
+    fhirVersions.R4,
+  ]).isRequired,
 };
 
 export default Organization;

@@ -148,8 +148,11 @@ const Practitioner = props => {
 
 Practitioner.propTypes = {
   fhirResource: PropTypes.shape({}).isRequired,
-  fhirVersion: PropTypes.oneOf([fhirVersions.DSTU2, fhirVersions.STU3])
-    .isRequired,
+  fhirVersion: PropTypes.oneOf([
+    fhirVersions.DSTU2,
+    fhirVersions.STU3,
+    fhirVersions.R4,
+  ]).isRequired,
 };
 
 export default Practitioner;

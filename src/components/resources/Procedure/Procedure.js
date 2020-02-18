@@ -7,6 +7,7 @@ import Annotation from '../../datatypes/Annotation';
 import Coding from '../../datatypes/Coding';
 import Date from '../../datatypes/Date';
 import Reference from '../../datatypes/Reference';
+import CodeableConcept from '../../datatypes/CodeableConcept';
 import {
   Root,
   Header,
@@ -39,13 +40,15 @@ const Procedure = props => {
   const reasonCode = _get(fhirResource, 'reasonCode', []);
   const hasNote = _has(fhirResource, 'note');
   const note = _get(fhirResource, 'note', []);
+  const outcome = _get(fhirResource, 'outcome');
+  const hasOutcome = Array.isArray(outcome) && outcome.length > 0;
   return (
     <Root name="Procedure">
       <Header>
         {display && <Title>{display}</Title>}
-        <Badge>{status}</Badge>
+        <Badge data-testid="status">{status}</Badge>
         {hasPerformedDateTime && (
-          <BadgeSecondary>
+          <BadgeSecondary data-testid="performedDateTime">
             on <Date fhirData={performedDateTime} />
           </BadgeSecondary>
         )}
@@ -104,6 +107,11 @@ const Procedure = props => {
             data-testid="hasNote"
           >
             <Annotation fhirData={note} />
+          </Value>
+        )}
+        {hasOutcome && (
+          <Value label="The result of procedure">
+            <CodeableConcept fhirData={outcome} />
           </Value>
         )}
       </Body>

@@ -24,11 +24,17 @@ const commonDTO = fhirResource => {
   const hasReaction = _get(fhirResource, 'reaction.0.manifestation');
   const reaction = _get(fhirResource, 'reaction', []);
   const asserter = _get(fhirResource, 'asserter');
+  const type = _get(fhirResource, 'type');
+  const category = _get(fhirResource, 'category');
+  const patient = _get(fhirResource, 'patient');
 
   return {
     hasReaction,
     reaction,
     asserter,
+    type,
+    category,
+    patient,
   };
 };
 
@@ -40,8 +46,16 @@ const dstu2DTO = fhirResource => {
   const recordedDate = _get(fhirResource, 'recordedDate');
   const substanceCoding = _get(fhirResource, 'substance.coding');
   const hasSubstanceCoding = Array.isArray(substanceCoding);
+  const asserter = _get(fhirResource, 'reporter');
 
-  return { title, status, recordedDate, substanceCoding, hasSubstanceCoding };
+  return {
+    title,
+    status,
+    recordedDate,
+    substanceCoding,
+    hasSubstanceCoding,
+    asserter,
+  };
 };
 const stu3DTO = fhirResource => {
   const title = _get(fhirResource, 'code.coding.0.display');
@@ -65,6 +79,29 @@ const stu3DTO = fhirResource => {
     hasNote,
   };
 };
+const r4DTO = fhirResource => {
+  const title = _get(fhirResource, 'code.coding.0.display');
+  const status = _get(fhirResource, 'verificationStatus.coding[0].display');
+  const recordedDate = _get(fhirResource, 'recordedDate');
+  let substanceCoding = _get(fhirResource, 'reaction', []).filter(item =>
+    _get(item, 'substance.coding'),
+  );
+  substanceCoding = _get(substanceCoding, '0.substance.coding');
+  const hasSubstanceCoding =
+    Array.isArray(substanceCoding) && substanceCoding.length > 0;
+  const note = _get(fhirResource, 'note');
+  const hasNote = Array.isArray(note);
+
+  return {
+    title,
+    status,
+    recordedDate,
+    substanceCoding,
+    hasSubstanceCoding,
+    note,
+    hasNote,
+  };
+};
 
 const resourceDTO = (fhirVersion, fhirResource) => {
   switch (fhirVersion) {
@@ -78,6 +115,12 @@ const resourceDTO = (fhirVersion, fhirResource) => {
       return {
         ...commonDTO(fhirResource),
         ...stu3DTO(fhirResource),
+      };
+    }
+    case fhirVersions.R4: {
+      return {
+        ...commonDTO(fhirResource),
+        ...r4DTO(fhirResource),
       };
     }
 
@@ -107,6 +150,9 @@ const AllergyIntolerance = props => {
     asserter,
     hasNote,
     note,
+    type,
+    category,
+    patient,
   } = fhirResourceData;
 
   return (
@@ -130,6 +176,26 @@ const AllergyIntolerance = props => {
             ))}
           </Value>
         )}
+        {type && (
+          <Value label="Type" data-testid="type">
+            {type}
+          </Value>
+        )}
+        {category && (
+          <Value label="Category" data-testid="category">
+            {category}
+          </Value>
+        )}
+        {patient && (
+          <Value label="Patient" data-testid="patient">
+            <Reference fhirData={patient} />
+          </Value>
+        )}
+        {asserter && (
+          <Value label="Asserted by" data-testid="asserter">
+            <Reference fhirData={asserter} />
+          </Value>
+        )}
         {hasReaction && (
           <Value label="Manifestation" data-testid="manifestation">
             {reaction.map((reaction, i) => {
@@ -149,11 +215,6 @@ const AllergyIntolerance = props => {
             })}
           </Value>
         )}
-        {asserter && (
-          <Value label="Asserted by" data-testid="asserter">
-            <Reference fhirData={asserter} />
-          </Value>
-        )}
         {hasNote && (
           <Value label="Notes" data-testid="hasNote">
             <Annotation fhirData={note} />
@@ -166,7 +227,11 @@ const AllergyIntolerance = props => {
 
 AllergyIntolerance.propTypes = {
   fhirResource: PropTypes.shape({}).isRequired,
-  fhirVersion: PropTypes.oneOf([fhirVersions.DSTU2, fhirVersions.STU3]),
+  fhirVersion: PropTypes.oneOf([
+    fhirVersions.DSTU2,
+    fhirVersions.STU3,
+    fhirVersions.R4,
+  ]),
 };
 
 export default AllergyIntolerance;

@@ -9,7 +9,9 @@ const CareTeamParticipant = props => {
 
   return (
     <TableRow>
-      <TableCell data-testid="participant.role">{participant.role}</TableCell>
+      <TableCell data-testid="participant.role">
+        {participant.role || <MissingValue />}
+      </TableCell>
       <TableCell data-testid="participant.display">
         {participant.display}
       </TableCell>

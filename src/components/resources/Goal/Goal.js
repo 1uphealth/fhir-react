@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Reference from '../../datatypes/Reference';
 import Coding from '../../datatypes/Coding';
+import Date from '../../datatypes/Date';
 import _get from 'lodash/get';
 import _has from 'lodash/has';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
@@ -15,14 +16,13 @@ import {
   BadgeSecondary,
   Body,
   Value,
-  MissingValue,
 } from '../../ui';
 
 const commonDTO = fhirResource => {
-  const title = _get(fhirResource, 'note[0].text');
+  const title = _get(fhirResource, 'note[0].text', 'Goal');
   const status = _get(fhirResource, 'status', '');
-  const _hasStatus = _has(fhirResource, 'status');
-  const startDate = _get(fhirResource, 'startDate', <MissingValue />);
+  const hasStatus = _has(fhirResource, 'status');
+  const startDate = _get(fhirResource, 'startDate');
   const category = _get(fhirResource, 'category');
   const hasCategory = Array.isArray(category);
   const hasUdi = _has(fhirResource, 'udi');
@@ -30,10 +30,13 @@ const commonDTO = fhirResource => {
   const addresses = _get(fhirResource, 'addresses');
   const hasAddresses = Array.isArray(addresses);
   const author = _get(fhirResource, 'author');
+  const priority = _get(fhirResource, 'priority.coding[0]');
+  const subject = _get(fhirResource, 'subject');
+  const statusDate = _get(fhirResource, 'statusDate');
   return {
     title,
     status,
-    _hasStatus,
+    hasStatus,
     startDate,
     hasCategory,
     category,
@@ -42,6 +45,9 @@ const commonDTO = fhirResource => {
     addresses,
     hasAddresses,
     author,
+    priority,
+    subject,
+    statusDate,
   };
 };
 const dstu2DTO = fhirResource => {
@@ -60,6 +66,19 @@ const stu3DTO = fhirResource => {
     outcomeReference,
   };
 };
+const r4DTO = fhirResource => {
+  const description = _get(fhirResource, 'description.text', null);
+  const status = _get(fhirResource, 'lifecycleStatus', '');
+  const hasStatus = _has(fhirResource, 'lifecycleStatus');
+  const achievementStatus = _get(fhirResource, 'achievementStatus.coding[0]');
+
+  return {
+    status,
+    hasStatus,
+    achievementStatus,
+    description,
+  };
+};
 
 const resourceDTO = (fhirVersion, fhirResource) => {
   switch (fhirVersion) {
@@ -73,6 +92,12 @@ const resourceDTO = (fhirVersion, fhirResource) => {
       return {
         ...commonDTO(fhirResource),
         ...stu3DTO(fhirResource),
+      };
+    }
+    case fhirVersions.R4: {
+      return {
+        ...commonDTO(fhirResource),
+        ...r4DTO(fhirResource),
       };
     }
 
@@ -93,7 +118,7 @@ const Goal = props => {
   const {
     title,
     status,
-    _hasStatus,
+    hasStatus,
     startDate,
     hasCategory,
     category,
@@ -104,16 +129,34 @@ const Goal = props => {
     author,
     description,
     outcomeReference,
+    achievementStatus,
+    priority,
+    subject,
+    statusDate,
   } = fhirResourceData;
 
   return (
     <Root name="Goal">
       <Header>
         <Title data-testid="title">{title}</Title>
-        <Badge data-testid="status">{status}</Badge>
-        {_hasStatus && <BadgeSecondary>starting on {startDate}</BadgeSecondary>}
+        {hasStatus && <Badge data-testid="status">{status}</Badge>}
+        {startDate && (
+          <BadgeSecondary data-testid="statusSecondary">
+            starting on {startDate}
+          </BadgeSecondary>
+        )}
       </Header>
       <Body>
+        {subject && (
+          <Value label="Subject" data-testid="subject">
+            <Reference fhirData={subject} />
+          </Value>
+        )}
+        {statusDate && (
+          <Value label="Status Date" data-testid="statusDate">
+            <Date fhirData={statusDate} />
+          </Value>
+        )}
         {description && (
           <Value label="Description" data-testid="description">
             {description}
@@ -146,6 +189,11 @@ const Goal = props => {
             })}
           </Value>
         )}
+        {priority && (
+          <Value label="Priority" data-testid="priority">
+            <Coding fhirData={priority} />
+          </Value>
+        )}
         {author && (
           <Value label="Author" data-testid="author">
             <Reference fhirData={author} />
@@ -158,6 +206,11 @@ const Goal = props => {
             ))}
           </Value>
         )}
+        {achievementStatus && (
+          <Value label="Achievement Status" data-testid="achievementStatus">
+            <Coding fhirData={achievementStatus} />
+          </Value>
+        )}
       </Body>
     </Root>
   );
@@ -165,8 +218,11 @@ const Goal = props => {
 
 Goal.propTypes = {
   fhirResource: PropTypes.shape({}).isRequired,
-  fhirVersion: PropTypes.oneOf([fhirVersions.DSTU2, fhirVersions.STU3])
-    .isRequired,
+  fhirVersion: PropTypes.oneOf([
+    fhirVersions.DSTU2,
+    fhirVersions.STU3,
+    fhirVersions.R4,
+  ]).isRequired,
 };
 
 export default Goal;

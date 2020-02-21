@@ -22,8 +22,8 @@ import {
 const commonDTO = fhirResource => {
   const title = _get(fhirResource, 'note[0].text', 'Goal');
   const status = _get(fhirResource, 'status', '');
-  const _hasStatus = _has(fhirResource, 'status');
-  const startDate = _get(fhirResource, 'startDate', <MissingValue />);
+  const hasStatus = _has(fhirResource, 'status');
+  const startDate = _get(fhirResource, 'startDate');
   const category = _get(fhirResource, 'category');
   const hasCategory = Array.isArray(category);
   const hasUdi = _has(fhirResource, 'udi');
@@ -37,7 +37,7 @@ const commonDTO = fhirResource => {
   return {
     title,
     status,
-    _hasStatus,
+    hasStatus,
     startDate,
     hasCategory,
     category,
@@ -70,12 +70,12 @@ const stu3DTO = fhirResource => {
 const r4DTO = fhirResource => {
   const description = _get(fhirResource, 'description.text', null);
   const status = _get(fhirResource, 'lifecycleStatus', '');
-  const _hasStatus = _has(fhirResource, 'lifecycleStatus');
+  const hasStatus = _has(fhirResource, 'lifecycleStatus');
   const achievementStatus = _get(fhirResource, 'achievementStatus.coding[0]');
 
   return {
     status,
-    _hasStatus,
+    hasStatus,
     achievementStatus,
     description,
   };
@@ -119,7 +119,7 @@ const Goal = props => {
   const {
     title,
     status,
-    _hasStatus,
+    hasStatus,
     startDate,
     hasCategory,
     category,
@@ -140,8 +140,8 @@ const Goal = props => {
     <Root name="Goal">
       <Header>
         <Title data-testid="title">{title}</Title>
-        <Badge data-testid="status">{status}</Badge>
-        {_hasStatus && (
+        {hasStatus && <Badge data-testid="status">{status}</Badge>}
+        {startDate && (
           <BadgeSecondary data-testid="statusSecondary">
             starting on {startDate}
           </BadgeSecondary>

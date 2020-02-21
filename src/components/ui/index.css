@@ -100,3 +100,10 @@
 .fhir-ui__MissingValue {
   font-weight: 700;
 }
+
+.fhir-ui__NotEnoughData {
+  background-color: rgba(0, 0, 0, 0.01);
+  padding: 5px 15px;
+  margin: 10px 0px;
+  border: 1px solid rgba(0, 0, 0, 0.03);
+}

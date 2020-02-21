@@ -71,3 +71,9 @@ export const ValueSection = props => (
 export const MissingValue = props => (
   <span className="fhir-ui__MissingValue">-</span>
 );
+
+export const NotEnoughData = props => (
+  <div data-testid={props['data-testid']} className="fhir-ui__NotEnoughData">
+    No additional data
+  </div>
+);

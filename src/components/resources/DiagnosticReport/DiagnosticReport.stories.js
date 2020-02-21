@@ -2,10 +2,13 @@ import React from 'react';
 import { object } from '@storybook/addon-knobs';
 
 import DiagnosticReport from './DiagnosticReport';
+import fhirVersions from '../fhirResourceVersions';
 
 import exampleDiagnosticReportDSTU2 from '../../../fixtures/dstu2/resources/diagnosticReport/example1.json';
 import exampleDiagnosticReportSTU3 from '../../../fixtures/stu3/resources/diagnosticReport/example1.json';
-import fhirVersions from '../fhirResourceVersions';
+import exampleDiagnosticReportR4 from '../../../fixtures/r4/resources/diagnosticReport/example1.json';
+import example2DiagnosticReportR4 from '../../../fixtures/r4/resources/diagnosticReport/example2.json';
+import example3DiagnosticReportR4 from '../../../fixtures/r4/resources/diagnosticReport/example3.json';
 
 export default { title: 'DiagnosticReport' };
 
@@ -24,6 +27,36 @@ export const ExampleDiagnosticReportSTU3 = () => {
   return (
     <DiagnosticReport
       fhirVersion={fhirVersions.STU3}
+      fhirResource={fhirResource}
+    />
+  );
+};
+
+export const ExampleDiagnosticReportR4 = () => {
+  const fhirResource = object('Resource', exampleDiagnosticReportR4);
+  return (
+    <DiagnosticReport
+      fhirVersion={fhirVersions.R4}
+      fhirResource={fhirResource}
+    />
+  );
+};
+
+export const Example2DiagnosticReportR4 = () => {
+  const fhirResource = object('Resource', example2DiagnosticReportR4);
+  return (
+    <DiagnosticReport
+      fhirVersion={fhirVersions.R4}
+      fhirResource={fhirResource}
+    />
+  );
+};
+
+export const Example3DiagnosticReportR4 = () => {
+  const fhirResource = object('Resource', example3DiagnosticReportR4);
+  return (
+    <DiagnosticReport
+      fhirVersion={fhirVersions.R4}
       fhirResource={fhirResource}
     />
   );

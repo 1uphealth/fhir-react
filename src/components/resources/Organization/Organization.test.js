@@ -12,6 +12,7 @@ import stu3Example2 from '../../../fixtures/stu3/resources/organization/example2
 
 import r4Example1 from '../../../fixtures/r4/resources/organization/example1.json';
 import r4Example2 from '../../../fixtures/r4/resources/organization/example2.json';
+import r4Example3 from '../../../fixtures/r4/resources/organization/example3.json';
 
 describe('should render Organization component properly', () => {
   it('should render with DSTU2 source data', () => {
@@ -114,5 +115,17 @@ describe('should render Organization component properly', () => {
       'University Medical Hospital',
     );
     expect(getByTestId('type').textContent).toContain('Healthcare Provider');
+  });
+
+  it('should render organization component with information that "no additional data"', () => {
+    const defaultProps = {
+      fhirResource: r4Example3,
+      fhirVersion: fhirVersions.R4,
+    };
+
+    const { getByTestId } = render(<Organization {...defaultProps} />);
+    expect(getByTestId('NotEnoughData').textContent).toContain(
+      'No additional data',
+    );
   });
 });

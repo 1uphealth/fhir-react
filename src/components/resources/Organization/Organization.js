@@ -7,7 +7,7 @@ import Address from '../../datatypes/Address';
 import Telecom from '../../datatypes/Telecom';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 import fhirVersions from '../fhirResourceVersions';
-import { Root, Header, Title, Body, Value } from '../../ui';
+import { Root, Header, Title, Body, Value, NotEnoughData } from '../../ui';
 
 const commonDTO = fhirResource => {
   const name = _get(fhirResource, 'name');
@@ -65,6 +65,7 @@ const Organization = props => {
   const hasAddresses = Array.isArray(addresses) && addresses.length > 0;
   const hasTelecom = Array.isArray(telecom) && telecom.length > 0;
   const hasTypes = Array.isArray(typeCodings) && typeCodings.length > 0;
+  const notEnoughData = !hasAddresses && !hasTelecom && !hasTypes;
   return (
     <Root name="Organization">
       {name && (
@@ -94,6 +95,7 @@ const Organization = props => {
             ))}
           </Value>
         )}
+        {notEnoughData && <NotEnoughData data-testid="NotEnoughData" />}
       </Body>
     </Root>
   );

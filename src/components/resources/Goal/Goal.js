@@ -16,7 +16,6 @@ import {
   BadgeSecondary,
   Body,
   Value,
-  MissingValue,
 } from '../../ui';
 
 const commonDTO = fhirResource => {

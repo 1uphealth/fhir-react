@@ -1,6 +1,7 @@
 import { configure, addParameters, addDecorator } from '@storybook/react';
 import { withKnobs } from '@storybook/addon-knobs';
 
+import '../src/components/ui/bootstrap-reboot.min.css';
 import '../src/style.css';
 
 addParameters({

@@ -1,6 +1,5 @@
 import React from 'react';
 
-import './bootstrap-reboot.min.css';
 import './index.css';
 
 export const Header = props => (

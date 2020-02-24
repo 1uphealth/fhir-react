@@ -6,13 +6,12 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * Forked from Normalize.css, licensed MIT (https://github.com/necolas/normalize.css/blob/master/LICENSE.md)
  */
-*,
-::after,
-::before {
+.fhir-resource *,
+.fhir-resource::after,
+.fhir-resource::before {
   box-sizing: border-box;
 }
-body {
-  margin: 0;
+.fhir-resource {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
     'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji',
     'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -23,55 +22,56 @@ body {
   background-color: #fff;
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: transparent;
+  padding: 1rem;
 }
-[tabindex='-1']:focus:not(:focus-visible) {
+.fhir-resource [tabindex='-1']:focus:not(:focus-visible) {
   outline: 0 !important;
 }
-hr {
+.fhir-resource hr {
   margin: 1rem 0;
   color: inherit;
   background-color: currentColor;
   border: 0;
   opacity: 0.25;
 }
-hr:not([size]) {
+.fhir-resource hr:not([size]) {
   height: 1px;
 }
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+.fhir-resource h1,
+.fhir-resource h2,
+.fhir-resource h3,
+.fhir-resource h4,
+.fhir-resource h5,
+.fhir-resource h6 {
   margin-top: 0;
   margin-bottom: 0.5rem;
   font-weight: 500;
   line-height: 1.2;
 }
-h1 {
+.fhir-resource h1 {
   font-size: 2.5rem;
 }
-h2 {
+.fhir-resource h2 {
   font-size: 2rem;
 }
-h3 {
+.fhir-resource h3 {
   font-size: 1.75rem;
 }
-h4 {
+.fhir-resource h4 {
   font-size: 1.5rem;
 }
-h5 {
+.fhir-resource h5 {
   font-size: 1.25rem;
 }
-h6 {
+.fhir-resource h6 {
   font-size: 1rem;
 }
-p {
+.fhir-resource p {
   margin-top: 0;
   margin-bottom: 1rem;
 }
-abbr[data-original-title],
-abbr[title] {
+.fhir-resource abbr[data-original-title],
+.fhir-resource abbr[title] {
   text-decoration: underline;
   -webkit-text-decoration: underline dotted;
   text-decoration: underline dotted;
@@ -79,144 +79,144 @@ abbr[title] {
   -webkit-text-decoration-skip-ink: none;
   text-decoration-skip-ink: none;
 }
-address {
+.fhir-resource address {
   margin-bottom: 1rem;
   font-style: normal;
   line-height: inherit;
 }
-ol,
-ul {
+.fhir-resource ol,
+.fhir-resource ul {
   padding-left: 2rem;
 }
-dl,
-ol,
-ul {
+.fhir-resource dl,
+.fhir-resource ol,
+.fhir-resource ul {
   margin-top: 0;
   margin-bottom: 0;
 }
-ol ol,
-ol ul,
-ul ol,
-ul ul {
+.fhir-resource ol ol,
+.fhir-resource ol ul,
+.fhir-resource ul ol,
+.fhir-resource ul ul {
   margin-bottom: 0;
 }
-dt {
+.fhir-resource dt {
   font-weight: 700;
 }
-dd {
+.fhir-resource dd {
   margin-bottom: 0.5rem;
   margin-left: 0;
 }
-blockquote {
+.fhir-resource blockquote {
   margin: 0 0 1rem;
 }
-b,
+.fhir-resource b,
 strong {
   font-weight: bolder;
 }
-small {
+.fhir-resource small {
   font-size: 0.875em;
 }
-sub,
+.fhir-resource sub,
 sup {
   position: relative;
   font-size: 0.75em;
   line-height: 0;
   vertical-align: baseline;
 }
-sub {
+.fhir-resource sub {
   bottom: -0.25em;
 }
-sup {
+.fhir-resource sup {
   top: -0.5em;
 }
-a {
+.fhir-resource a {
   color: #0d6efd;
   text-decoration: none;
 }
-a:hover {
+.fhir-resource a:hover {
   color: #024dbc;
   text-decoration: underline;
 }
-a:not([href]),
-a:not([href]):hover {
+.fhir-resource a:not([href]),
+.fhir-resource a:not([href]):hover {
   color: inherit;
   text-decoration: none;
 }
-code,
-kbd,
-pre,
-samp {
+.fhir-resource code,
+.fhir-resource kbd,
+.fhir-resource pre,
+.fhir-resource samp {
   font-family: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
     'Courier New', monospace;
   font-size: 1em;
 }
-pre {
+.fhir-resource pre {
   display: block;
   margin-top: 0;
   margin-bottom: 1rem;
   overflow: auto;
   font-size: 0.875em;
 }
-pre code {
+.fhir-resource pre code {
   font-size: inherit;
   color: inherit;
   word-break: normal;
 }
-code {
+.fhir-resource code {
   font-size: 0.875em;
   color: #d63384;
   word-wrap: break-word;
 }
-a > code {
+.fhir-resource a > code {
   color: inherit;
 }
-kbd {
+.fhir-resource kbd {
   padding: 0.2rem 0.4rem;
   font-size: 0.875em;
   color: #fff;
   background-color: #212529;
   border-radius: 0.2rem;
 }
-kbd kbd {
+.fhir-resource kbd kbd {
   padding: 0;
   font-size: 1em;
   font-weight: 700;
 }
-figure {
+.fhir-resource figure {
   margin: 0 0 1rem;
 }
-img {
+.fhir-resource img {
   vertical-align: middle;
 }
-svg {
+.fhir-resource svg {
   overflow: hidden;
   vertical-align: middle;
 }
-table {
+.fhir-resource table {
   border-collapse: collapse;
 }
-caption {
+.fhir-resource caption {
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
   color: #6c757d;
   text-align: left;
   caption-side: bottom;
 }
-th {
+.fhir-resource th {
   text-align: inherit;
 }
-label {
+.fhir-resource label {
   display: inline-block;
 }
-button {
+.fhir-resource button {
   border-radius: 0;
 }
-button:focus {
+.fhir-resource button:focus {
   outline: 1px dotted;
   outline: 5px auto -webkit-focus-ring-color;
 }
-button,
+.fhir-resource button,
 input,
 optgroup,
 select,
@@ -226,53 +226,53 @@ textarea {
   font-size: inherit;
   line-height: inherit;
 }
-button,
+.fhir-resource button,
 input {
   overflow: visible;
 }
-button,
+.fhir-resource button,
 select {
   text-transform: none;
 }
-select {
+.fhir-resource select {
   word-wrap: normal;
 }
-[list]::-webkit-calendar-picker-indicator {
+.fhir-resource [list]::-webkit-calendar-picker-indicator {
   display: none;
 }
-[type='button'],
+.fhir-resource [type='button'],
 [type='reset'],
 [type='submit'],
 button {
   -webkit-appearance: button;
 }
-[type='button']:not(:disabled),
+.fhir-resource [type='button']:not(:disabled),
 [type='reset']:not(:disabled),
 [type='submit']:not(:disabled),
 button:not(:disabled) {
   cursor: pointer;
 }
-::-moz-focus-inner {
+.fhir-resource ::-moz-focus-inner {
   padding: 0;
   border-style: none;
 }
-input[type='date'],
+.fhir-resource input[type='date'],
 input[type='datetime-local'],
 input[type='month'],
 input[type='time'] {
   -webkit-appearance: textfield;
 }
-textarea {
+.fhir-resource textarea {
   overflow: auto;
   resize: vertical;
 }
-fieldset {
+.fhir-resource fieldset {
   min-width: 0;
   padding: 0;
   margin: 0;
   border: 0;
 }
-legend {
+.fhir-resource legend {
   float: left;
   width: 100%;
   padding: 0;
@@ -282,45 +282,45 @@ legend {
   color: inherit;
   white-space: normal;
 }
-mark {
+.fhir-resource mark {
   padding: 0.2em;
   background-color: #fcf8e3;
 }
-progress {
+.fhir-resource progress {
   vertical-align: baseline;
 }
-::-webkit-datetime-edit {
+.fhir-resource ::-webkit-datetime-edit {
   overflow: visible;
   line-height: 0;
 }
-[type='search'] {
+.fhir-resource [type='search'] {
   outline-offset: -2px;
   -webkit-appearance: textfield;
 }
-::-webkit-search-decoration {
+.fhir-resource ::-webkit-search-decoration {
   -webkit-appearance: none;
 }
-::-webkit-color-swatch-wrapper {
+.fhir-resource ::-webkit-color-swatch-wrapper {
   padding: 0;
 }
-::-webkit-file-upload-button {
+.fhir-resource ::-webkit-file-upload-button {
   font: inherit;
   -webkit-appearance: button;
 }
-output {
+.fhir-resource output {
   display: inline-block;
 }
-summary {
+.fhir-resource summary {
   display: list-item;
   cursor: pointer;
 }
-template {
+.fhir-resource template {
   display: none;
 }
-main {
+.fhir-resource main {
   display: block;
 }
-[hidden] {
+.fhir-resource [hidden] {
   display: none !important;
 }
 /*# sourceMappingURL=bootstrap-reboot.min.css.map */

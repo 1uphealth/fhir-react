@@ -67,6 +67,23 @@ const stu3DTO = fhirResource => {
   };
 };
 
+const r4DTO = fhirResource => {
+  const subject = _get(fhirResource, 'subject');
+  const periodTimeStart = _get(fhirResource, 'effectivePeriod.start');
+  const periodTimeEnd = _get(fhirResource, 'effectivePeriod.end');
+  const practitioner = _get(fhirResource, 'performer.0.actor');
+  const dosageQuantityVal = _get(fhirResource, 'dosage.dose.value', '');
+  const dosageQuantityUnit = _get(fhirResource, 'dosage.dose.unit', '');
+  const dosageQuantity = `${dosageQuantityVal} ${dosageQuantityUnit}`.trim();
+  return {
+    subject,
+    practitioner,
+    periodTimeStart,
+    periodTimeEnd,
+    dosageQuantity,
+  };
+};
+
 const resourceDTO = (fhirVersion, fhirResource) => {
   switch (fhirVersion) {
     case fhirVersions.DSTU2: {
@@ -79,6 +96,12 @@ const resourceDTO = (fhirVersion, fhirResource) => {
       return {
         ...commonDTO(fhirResource),
         ...stu3DTO(fhirResource),
+      };
+    }
+    case fhirVersions.R4: {
+      return {
+        ...commonDTO(fhirResource),
+        ...r4DTO(fhirResource),
       };
     }
 
@@ -171,8 +194,11 @@ const MedicationAdministration = props => {
 
 MedicationAdministration.propTypes = {
   fhirResource: PropTypes.shape({}).isRequired,
-  fhirVersion: PropTypes.oneOf([fhirVersions.DSTU2, fhirVersions.STU3])
-    .isRequired,
+  fhirVersion: PropTypes.oneOf([
+    fhirVersions.DSTU2,
+    fhirVersions.STU3,
+    fhirVersions.R4,
+  ]).isRequired,
 };
 
 export default MedicationAdministration;

@@ -17,8 +17,8 @@
 
 .fhir-container__ResourceContainer__json-button-wrapper {
   position: absolute;
-  right: 1rem;
-  top: 1rem;
+  right: 2rem;
+  top: 0.5rem;
 }
 
 .fhir-container__ResourceContainer__json--visible {
@@ -34,16 +34,15 @@
   color: #6c757d;
   border-color: #6c757d;
   cursor: pointer;
-  padding: 0.25rem 0.5rem;
+  padding: 0.15rem 0.5rem;
   font-size: 0.875rem;
-  line-height: 1.5;
+  line-height: 1rem;
   border-radius: 0.2rem;
   display: inline-block;
   font-weight: 400;
   text-align: center;
   vertical-align: middle;
   user-select: none;
-  background-color: transparent;
   border: 1px solid #6c6c6c;
   transition: all 0.15s ease-in-out;
 }
@@ -52,4 +51,10 @@
   color: #fff;
   background-color: #6c757d;
   border-color: #6c757d;
+}
+
+.fhir-container__ResourceContainer__json-button-fhir-version {
+  font-size: 0.7rem;
+  color: red;
+  text-transform: uppercase;
 }

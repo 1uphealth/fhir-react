@@ -17,7 +17,6 @@ class ResourceContainer extends React.Component {
     return (
       <div className="fhir-container__ResourceContainer__card">
         <div className="fhir-container__ResourceContainer__card-body">
-          {this.props.children}
           <div className="fhir-container__ResourceContainer__json-button-wrapper">
             <button
               type="button"
@@ -26,8 +25,14 @@ class ResourceContainer extends React.Component {
               data-target={`${this.props.fhirResource.resourceType}/${this.props.fhirResource.id}`}
             >
               JSON
+              {this.props.fhirVersion && (
+                <span className="fhir-container__ResourceContainer__json-button-fhir-version">
+                  &nbsp;{this.props.fhirVersion}
+                </span>
+              )}
             </button>
           </div>
+          {this.props.children}
           <div
             className={
               this.state.jsonOpen

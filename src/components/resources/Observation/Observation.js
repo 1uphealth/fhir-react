@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import _get from 'lodash/get';
+import { toTrimedFixedNumber } from '../../../utils';
 import Coding from '../../datatypes/Coding';
 import Date from '../../datatypes/Date';
 import ObservationGraph from './ObservationGraph';
@@ -36,7 +37,10 @@ const Observation = props => {
     'valueCodeableConcept.coding',
     [],
   );
-  const valueQuantityString = `${valueQuantityValue}${valueQuantityUnit}`.trim();
+  const convertedValue = valueQuantityValue
+    ? toTrimedFixedNumber(valueQuantityValue)
+    : '';
+  const valueQuantityString = `${convertedValue}${valueQuantityUnit}`.trim();
   return (
     <Root name="Observation">
       <Header>

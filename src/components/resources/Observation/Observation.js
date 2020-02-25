@@ -42,7 +42,7 @@ const Observation = props => {
   return (
     <Root name="Observation">
       <Header>
-        <Title data-testid="title">
+        <Title>
           {codeCodingDisplay || codeText} &nbsp;
           <code>
             {valueQuantityValue}

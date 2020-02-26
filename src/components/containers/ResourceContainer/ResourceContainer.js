@@ -25,11 +25,6 @@ class ResourceContainer extends React.Component {
               data-target={`${this.props.fhirResource.resourceType}/${this.props.fhirResource.id}`}
             >
               JSON
-              {this.props.fhirVersion && (
-                <span className="fhir-container__ResourceContainer__json-button-fhir-version">
-                  &nbsp;{this.props.fhirVersion}
-                </span>
-              )}
             </button>
           </div>
           {this.props.children}

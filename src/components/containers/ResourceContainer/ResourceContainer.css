@@ -52,9 +52,3 @@
   background-color: #6c757d;
   border-color: #6c757d;
 }
-
-.fhir-container__ResourceContainer__json-button-fhir-version {
-  font-size: 0.7rem;
-  color: red;
-  text-transform: uppercase;
-}

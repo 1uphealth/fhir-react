@@ -110,6 +110,13 @@ const resourceDTO = (fhirVersion, fhirResource) => {
         ...stu3DTO(fhirResource),
       };
     }
+    case fhirVersions.R4: {
+      // there are not any breaking changes between STU3 and R4 version
+      return {
+        ...commonDTO(fhirResource),
+        ...stu3DTO(fhirResource),
+      };
+    }
 
     default:
       throw Error('Unrecognized the fhir version property type.');
@@ -135,7 +142,7 @@ const MedicationStatement = props => {
     hasMedications,
     hasDosage,
     hasReasonCode,
-    title,
+    title = 'Medication Statement',
     contained,
     reasonCode,
     hasNote,

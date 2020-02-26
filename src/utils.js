@@ -1,4 +1,3 @@
-
 export function toTrimedFixedNumber(number, digits = 4) {
   const n = Number(number);
   if (isNaN(n)) return number;
@@ -7,4 +6,3 @@ export function toTrimedFixedNumber(number, digits = 4) {
 }
 
 export const isNotEmptyArray = data => Array.isArray(data) && data.length > 0;
-

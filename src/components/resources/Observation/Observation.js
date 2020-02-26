@@ -36,15 +36,19 @@ const Observation = props => {
     'valueCodeableConcept.coding',
     [],
   );
+
+  const valueQuantityString = `${valueQuantityValue}${valueQuantityUnit}`.trim();
   return (
     <Root name="Observation">
       <Header>
         <Title>
-          {codeCodingDisplay || codeText} &nbsp;
-          <code>
-            {valueQuantityValue}
-            {valueQuantityUnit}
-          </code>
+          {codeCodingDisplay || codeText}
+          {valueQuantityString && (
+            <>
+              &nbsp;
+              <code>{valueQuantityString}</code>
+            </>
+          )}
         </Title>
         <Badge>{status}</Badge>
         <BadgeSecondary>

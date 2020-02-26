@@ -9,6 +9,7 @@ import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 import fhirVersions from '../fhirResourceVersions';
 import Date from '../../datatypes/Date';
 import Annotation from '../../datatypes/Annotation';
+import './AllergyIntolerance.css';
 
 import {
   Root,
@@ -19,6 +20,7 @@ import {
   Body,
   Value,
 } from '../../ui';
+import CodeableConcept from '../../datatypes/CodeableConcept';
 
 const commonDTO = fhirResource => {
   const hasReaction = _get(fhirResource, 'reaction.0.manifestation');
@@ -134,17 +136,17 @@ const AllergyIntolerance = props => {
           <Value label="Manifestation" data-testid="manifestation">
             {reaction.map((reaction, i) => {
               const manifestations = _get(reaction, 'manifestation', []);
+              const severity = _get(reaction, 'severity');
               return manifestations.map((manifestation, j) => {
-                const coding = _get(manifestation, 'coding', []);
-                return coding.map((item, c) => {
-                  const severity = _get(item, 'severity');
-                  return (
-                    <div key={`item-${i}${j}${c}`}>
-                      <Coding fhirData={item} />
-                      {severity && <span>{severity} severity</span>}
-                    </div>
-                  );
-                });
+                return (
+                  <div
+                    key={`item-${i}${j}`}
+                    className="fhir-resource__AllergyIntolerance__grouping"
+                  >
+                    <CodeableConcept fhirData={manifestation} />
+                    {severity && <BadgeSecondary>{severity}</BadgeSecondary>}
+                  </div>
+                );
               });
             })}
           </Value>

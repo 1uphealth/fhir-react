@@ -28,6 +28,7 @@ const commonDTO = fhirResource => {
   const categoryCoding = _get(fhirResource, 'category.coding');
   const hasCategoryCoding = Array.isArray(categoryCoding);
   const conclusion = _get(fhirResource, 'conclusion');
+  const issued = _get(fhirResource, 'issued');
 
   return {
     title,
@@ -36,6 +37,7 @@ const commonDTO = fhirResource => {
     categoryCoding,
     hasCategoryCoding,
     conclusion,
+    issued,
   };
 };
 
@@ -56,6 +58,22 @@ const stu3DTO = fhirResource => {
   };
 };
 
+const r4DTO = fhirResource => {
+  let performer = _get(fhirResource, 'performer.0.actor');
+  if (!performer) {
+    performer = _get(fhirResource, 'performer.0');
+  }
+  const hasPerformer = !!performer;
+  const categoryCoding = _get(fhirResource, 'category.coding');
+  const hasCategoryCoding = Array.isArray(categoryCoding);
+  return {
+    hasPerformer,
+    performer,
+    categoryCoding,
+    hasCategoryCoding,
+  };
+};
+
 const resourceDTO = (fhirVersion, fhirResource) => {
   switch (fhirVersion) {
     case fhirVersions.DSTU2: {
@@ -68,6 +86,12 @@ const resourceDTO = (fhirVersion, fhirResource) => {
       return {
         ...commonDTO(fhirResource),
         ...stu3DTO(fhirResource),
+      };
+    }
+    case fhirVersions.R4: {
+      return {
+        ...commonDTO(fhirResource),
+        ...r4DTO(fhirResource),
       };
     }
 
@@ -95,6 +119,7 @@ const DiagnosticReport = props => {
     hasPerformer,
     conclusion,
     performer,
+    issued,
   } = fhirResourceData;
   return (
     <Root name="DiagnosticReport">
@@ -108,6 +133,11 @@ const DiagnosticReport = props => {
         )}
       </Header>
       <Body>
+        {issued && (
+          <Value label="Issued" data-testid="issued">
+            <Date fhirData={issued} />
+          </Value>
+        )}
         {hasCategoryCoding && (
           <Value label="Category" data-testid="categoryCoding">
             {categoryCoding.map((coding, i) => (
@@ -132,6 +162,10 @@ const DiagnosticReport = props => {
 
 DiagnosticReport.propTypes = {
   fhirResource: PropTypes.shape({}).isRequired,
-  fhirVersion: PropTypes.oneOf([fhirVersions.DSTU2, fhirVersions.STU3]),
+  fhirVersion: PropTypes.oneOf([
+    fhirVersions.DSTU2,
+    fhirVersions.STU3,
+    fhirVersions.R4,
+  ]),
 };
 export default DiagnosticReport;

@@ -4,6 +4,7 @@ import _get from 'lodash/get';
 import Reference from '../../datatypes/Reference';
 import CodeableConcept from '../../datatypes/CodeableConcept';
 import Coding from '../../datatypes/Coding';
+import Date from '../../datatypes/Date';
 
 import { Root, Header, Title, Body, Value } from '../../ui';
 
@@ -16,10 +17,14 @@ const MedicationRequest = props => {
   );
   const showMedicationCodeableConcept =
     !medicationReference && medicationCodeableConcept;
-  const reasonCode = _get(fhirResource, 'reasonCode', []);
+  const reasonCode = _get(fhirResource, 'reasonCode');
   const dosageInstruction = _get(fhirResource, 'dosageInstruction');
   const hasDosageInstruction =
     Array.isArray(dosageInstruction) && dosageInstruction.length > 0;
+  const requester =
+    _get(fhirResource, 'requester.agent') || _get(fhirResource, 'requester');
+  const created = _get(fhirResource, 'authoredOn');
+  const intent = _get(fhirResource, 'intent');
   return (
     <Root name="MedicationRequest">
       <Header>
@@ -31,6 +36,21 @@ const MedicationRequest = props => {
         {showMedicationCodeableConcept && (
           <Value label="Medication" data-testid="medication">
             <Coding fhirData={medicationCodeableConcept} />
+          </Value>
+        )}
+        {requester && (
+          <Value label="Requester" data-testid="requester">
+            <Reference fhirData={requester} />
+          </Value>
+        )}
+        {created && (
+          <Value label="Created" data-testid="created">
+            <Date fhirData={created} />
+          </Value>
+        )}
+        {intent && (
+          <Value label="Type of request" data-testid="intent">
+            {intent}
           </Value>
         )}
         {reasonCode && (

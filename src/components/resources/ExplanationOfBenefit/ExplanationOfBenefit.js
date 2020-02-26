@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _get from 'lodash/get';
-import Reference from '../../datatypes/Reference';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 import fhirVersions from '../fhirResourceVersions';
 import {
@@ -15,16 +14,19 @@ import {
   TableRow,
   TableCell,
   MissingValue,
+  Badge,
 } from '../../ui';
 import Coding from '../../datatypes/Coding';
 import Date from '../../datatypes/Date';
 import Money from '../../datatypes/Money';
+import Reference from '../../datatypes/Reference';
+import TotalSum from './TotalSum';
 
 const commonDTO = fhirResource => {
   const disposition = _get(fhirResource, 'disposition');
   const created = _get(fhirResource, 'created');
-  const insurer = _get(fhirResource, 'organization');
-  const hasInsurer = _get(fhirResource, 'organization.reference');
+  const insurer = _get(fhirResource, 'insurer');
+  const hasInsurer = _get(fhirResource, 'insurer.reference');
   return {
     disposition,
     created,
@@ -46,6 +48,8 @@ const stu3DTO = fhirResource => {
   const hasServices = Array.isArray(services) && services.length > 0;
   const information = _get(fhirResource, 'information', []);
   const hasInformation = Array.isArray(information) && information.length > 0;
+  const provider = _get(fhirResource, 'provider');
+
   return {
     totalBenefit,
     totalCost,
@@ -55,6 +59,35 @@ const stu3DTO = fhirResource => {
     services,
     information,
     hasInformation,
+    provider,
+  };
+};
+
+const r4DTO = fhirResource => {
+  const type = _get(fhirResource, 'type.coding', []);
+  const hasType = Array.isArray(type) && type.length > 0;
+  const resourceStatus = _get(fhirResource, 'status');
+  const useCode = _get(fhirResource, 'use');
+  const patient = _get(fhirResource, 'patient');
+  const provider = _get(fhirResource, 'provider');
+  const total = _get(fhirResource, 'total', []);
+  const hasTotal = total.length > 0;
+
+  // Person can have multiple insurances, but one with focal = true is used to judge this claim
+  const insuranceList = _get(fhirResource, 'insurance', []);
+  const adjudicationInsurance = insuranceList.filter(item => item.focal)[0];
+  const insurance = _get(adjudicationInsurance, 'coverage');
+
+  return {
+    type,
+    hasType,
+    resourceStatus,
+    useCode,
+    patient,
+    provider,
+    insurance,
+    total,
+    hasTotal,
   };
 };
 
@@ -72,7 +105,12 @@ const resourceDTO = (fhirVersion, fhirResource) => {
         ...stu3DTO(fhirResource),
       };
     }
-
+    case fhirVersions.R4: {
+      return {
+        ...commonDTO(fhirResource),
+        ...r4DTO(fhirResource),
+      };
+    }
     default:
       throw Error('Unrecognized the fhir version property type.');
   }
@@ -103,12 +141,20 @@ const ExplanationOfBenefit = props => {
     services,
     information,
     hasInformation,
+    resourceStatus,
+    useCode,
+    patient,
+    provider,
+    insurance,
+    total,
+    hasTotal,
   } = fhirResourceData;
 
   return (
     <Root name="ExplanationOfBenefit">
       <Header>
         <Title>{disposition}</Title>
+        {resourceStatus && <Badge>{resourceStatus}</Badge>}
       </Header>
       <Body>
         {hasType && (
@@ -128,6 +174,11 @@ const ExplanationOfBenefit = props => {
             <Reference fhirData={insurer} />
           </Value>
         )}
+        {provider && (
+          <Value label="Claim provider" data-testid="provider">
+            <Reference fhirData={provider} />
+          </Value>
+        )}
         {totalCost && (
           <Value label="Total cost" data-testid="totalCost">
             <Money fhirData={totalCost} />
@@ -136,6 +187,26 @@ const ExplanationOfBenefit = props => {
         {totalBenefit && (
           <Value label="Total benefit" data-testid="totalBenefit">
             <Money fhirData={totalBenefit} />
+          </Value>
+        )}
+        {hasTotal && (
+          <Value label="Total" data-testid="totalSum">
+            <TotalSum fhirData={total} />
+          </Value>
+        )}
+        {useCode && (
+          <Value label="Purpose" data-testid="purpose">
+            {useCode}
+          </Value>
+        )}
+        {patient && (
+          <Value label="Patient" data-testid="patient">
+            <Reference fhirData={patient} />
+          </Value>
+        )}
+        {insurance && (
+          <Value label="Insurance" data-testid="insurance">
+            <Reference fhirData={insurance} />
           </Value>
         )}
         {hasServices && (
@@ -219,8 +290,11 @@ const ExplanationOfBenefit = props => {
 
 ExplanationOfBenefit.propTypes = {
   fhirResource: PropTypes.shape({}).isRequired,
-  fhirVersion: PropTypes.oneOf([fhirVersions.DSTU2, fhirVersions.STU3])
-    .isRequired,
+  fhirVersion: PropTypes.oneOf([
+    fhirVersions.DSTU2,
+    fhirVersions.STU3,
+    fhirVersions.R4,
+  ]).isRequired,
 };
 
 export default ExplanationOfBenefit;

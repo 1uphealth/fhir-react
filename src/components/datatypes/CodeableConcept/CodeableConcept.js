@@ -6,6 +6,19 @@ import Coding from '../Coding';
 
 import './CodeableConcept.css';
 
+/**
+ * Helper function for checking if parameter is not empty array or object
+ * with at least one key
+ * @param {any} data
+ * @returns {boolean}
+ */
+export const hasValue = data => {
+  if (Array.isArray(data)) return data.length > 0;
+  if (_isObject(data)) return Object.keys(data).length > 0;
+
+  return false;
+};
+
 const CodeableConcept = props => {
   const { fhirData } = props;
   if (!_isObject(fhirData)) return null;

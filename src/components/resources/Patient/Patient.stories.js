@@ -9,6 +9,10 @@ import example2PatientDSTU2 from '../../../fixtures/dstu2/resources/patient/exam
 import examplePatientSTU3 from '../../../fixtures/stu3/resources/patient/example.json';
 import example2PatientSTU3 from '../../../fixtures/stu3/resources/patient/example2.json';
 
+import example1PatientR4 from '../../../fixtures/r4/resources/patient/example1.json';
+import example2PatientR4 from '../../../fixtures/r4/resources/patient/example2.json';
+import example3PatientR4 from '../../../fixtures/r4/resources/patient/example3.json';
+
 export default { title: 'Patient' };
 
 export const DefaultVisualizationDSTU2 = () => {
@@ -28,5 +32,20 @@ export const ExampleSTU3 = () => {
 
 export const Example2STU3 = () => {
   const fhirResource = object('Resource', example2PatientSTU3);
+  return <Patient fhirResource={fhirResource} />;
+};
+
+export const Example1R4 = () => {
+  const fhirResource = object('Resource', example1PatientR4);
+  return <Patient fhirResource={fhirResource} />;
+};
+
+export const Example2R4 = () => {
+  const fhirResource = object('Resource', example2PatientR4);
+  return <Patient fhirResource={fhirResource} />;
+};
+
+export const Example3R4 = () => {
+  const fhirResource = object('Resource', example3PatientR4);
   return <Patient fhirResource={fhirResource} />;
 };

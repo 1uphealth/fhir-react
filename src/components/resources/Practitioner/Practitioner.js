@@ -10,6 +10,7 @@ import fhirVersions from '../fhirResourceVersions';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 import Address from '../../datatypes/Address';
 import Telecom from '../../datatypes/Telecom';
+import Date from '../../datatypes/Date';
 import { Root, Header, Title, Body, Value, Badge } from '../../ui';
 import './Practitioner.css';
 
@@ -18,6 +19,7 @@ const commonDTO = fhirResource => {
   const gender = _get(fhirResource, 'gender', '');
   const status = _get(fhirResource, 'active') === true ? 'active' : '';
   const isContactData = _has(fhirResource, 'contact[0]');
+  const birthDate = _get(fhirResource, 'birthDate');
   const contactData = {
     name: _get(fhirResource, 'contact[0].name'),
     relationship: _get(fhirResource, 'contact[0].relationship[0].text'),
@@ -28,6 +30,7 @@ const commonDTO = fhirResource => {
     status,
     isContactData,
     contactData,
+    birthDate,
   };
 };
 const dstu2DTO = fhirResource => {
@@ -61,6 +64,13 @@ const resourceDTO = (fhirVersion, fhirResource) => {
         ...stu3DTO(fhirResource),
       };
     }
+    case fhirVersions.R4: {
+      // there are not any breaking changes between STU3 and R4 version
+      return {
+        ...commonDTO(fhirResource),
+        ...stu3DTO(fhirResource),
+      };
+    }
 
     default:
       throw Error('Unrecognized the fhir version property type.');
@@ -85,6 +95,7 @@ const Practitioner = props => {
     contactData,
     telecom,
     address,
+    birthDate,
   } = fhirResourceData;
   return (
     <Root name="Practitioner">
@@ -105,6 +116,11 @@ const Practitioner = props => {
         {gender && (
           <Value label="Gender" data-testid="gender">
             {gender}
+          </Value>
+        )}
+        {birthDate && (
+          <Value label="Birth date" data-testid="birthDate">
+            <Date fhirData={birthDate} />
           </Value>
         )}
         {isContactData && (
@@ -132,8 +148,11 @@ const Practitioner = props => {
 
 Practitioner.propTypes = {
   fhirResource: PropTypes.shape({}).isRequired,
-  fhirVersion: PropTypes.oneOf([fhirVersions.DSTU2, fhirVersions.STU3])
-    .isRequired,
+  fhirVersion: PropTypes.oneOf([
+    fhirVersions.DSTU2,
+    fhirVersions.STU3,
+    fhirVersions.R4,
+  ]).isRequired,
 };
 
 export default Practitioner;

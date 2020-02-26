@@ -7,7 +7,7 @@ import Address from '../../datatypes/Address';
 import Telecom from '../../datatypes/Telecom';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 import fhirVersions from '../fhirResourceVersions';
-import { Root, Header, Title, Body, Value } from '../../ui';
+import { Root, Header, Title, Body, Value, NotEnoughData } from '../../ui';
 
 const commonDTO = fhirResource => {
   const name = _get(fhirResource, 'name');
@@ -39,6 +39,13 @@ const resourceDTO = (fhirVersion, fhirResource) => {
         ...stu3DTO(fhirResource),
       };
     }
+    case fhirVersions.R4: {
+      // there are not any breaking changes between STU3 and R4 version
+      return {
+        ...commonDTO(fhirResource),
+        ...stu3DTO(fhirResource),
+      };
+    }
 
     default:
       throw Error('Unrecognized the fhir version property type.');
@@ -58,6 +65,7 @@ const Organization = props => {
   const hasAddresses = Array.isArray(addresses) && addresses.length > 0;
   const hasTelecom = Array.isArray(telecom) && telecom.length > 0;
   const hasTypes = Array.isArray(typeCodings) && typeCodings.length > 0;
+  const notEnoughData = !hasAddresses && !hasTelecom && !hasTypes;
   return (
     <Root name="Organization">
       {name && (
@@ -87,6 +95,7 @@ const Organization = props => {
             ))}
           </Value>
         )}
+        {notEnoughData && <NotEnoughData data-testid="NotEnoughData" />}
       </Body>
     </Root>
   );
@@ -94,8 +103,11 @@ const Organization = props => {
 
 Organization.propTypes = {
   fhirResource: PropTypes.shape({}).isRequired,
-  fhirVersion: PropTypes.oneOf([fhirVersions.DSTU2, fhirVersions.STU3])
-    .isRequired,
+  fhirVersion: PropTypes.oneOf([
+    fhirVersions.DSTU2,
+    fhirVersions.STU3,
+    fhirVersions.R4,
+  ]).isRequired,
 };
 
 export default Organization;

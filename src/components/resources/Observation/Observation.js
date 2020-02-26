@@ -14,6 +14,7 @@ import {
   Body,
   Value,
 } from '../../ui';
+import Reference from '../../datatypes/Reference';
 
 const Observation = props => {
   const { fhirResource } = props;
@@ -38,6 +39,8 @@ const Observation = props => {
   );
 
   const valueQuantityString = `${valueQuantityValue}${valueQuantityUnit}`.trim();
+  const subject = _get(fhirResource, 'subject');
+
   return (
     <Root name="Observation">
       <Header>
@@ -50,8 +53,8 @@ const Observation = props => {
             </>
           )}
         </Title>
-        <Badge>{status}</Badge>
-        <BadgeSecondary>
+        <Badge data-testid="status">{status}</Badge>
+        <BadgeSecondary data-testid="secondaryStatus">
           {valueCodeableConceptText || valueCodeableConceptCodingDisplay}
         </BadgeSecondary>
       </Header>
@@ -61,12 +64,17 @@ const Observation = props => {
           referenceRange={fhirResource.referenceRange}
         />
         {issued && (
-          <Value label="Issued on">
+          <Value label="Issued on" data-testid="issuedOn">
             <Date fhirData={issued} />
           </Value>
         )}
-        {valueCodeableConceptCoding.map(coding => (
-          <Coding fhirData={coding} />
+        {subject && (
+          <Value label="Subject" data-testid="subject">
+            <Reference fhirData={subject} />
+          </Value>
+        )}
+        {valueCodeableConceptCoding.map((coding, i) => (
+          <Coding fhirData={coding} key={`value-coding-${i}`} />
         ))}
       </Body>
     </Root>

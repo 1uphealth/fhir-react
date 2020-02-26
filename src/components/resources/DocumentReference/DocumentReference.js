@@ -80,6 +80,16 @@ const stu3DTO = fhirResource => {
   };
 };
 
+const r4DTO = fhirResource => {
+  const classCoding = _get(fhirResource, 'category.coding[0]');
+  const createdAt = _get(fhirResource, 'date');
+
+  return {
+    classCoding,
+    createdAt,
+  };
+};
+
 const contentDTO = (fhirVersion, fhirResource) => {
   return {
     content: _get(fhirResource, 'content', []).map(item => {
@@ -93,6 +103,10 @@ const contentDTO = (fhirVersion, fhirResource) => {
           break;
         }
         case fhirVersions.STU3: {
+          formatCoding = _get(item, 'format');
+          break;
+        }
+        case fhirVersions.R4: {
           formatCoding = _get(item, 'format');
           break;
         }
@@ -125,8 +139,16 @@ const resourceDTO = (fhirVersion, fhirResource) => {
         ...stu3DTO(fhirResource),
       };
     }
-    default:
+    case fhirVersions.R4: {
+      return {
+        ...commonDTO(fhirResource),
+        ...contentDTO(fhirVersion, fhirResource),
+        ...r4DTO(fhirResource),
+      };
+    }
+    default: {
       throw Error('Unrecognized the fhir version property type.');
+    }
   }
 };
 
@@ -206,9 +228,11 @@ const DocumentReference = props => {
         )}
       </Header>
       <Body>
-        <Value label="Document type" data-testid="type">
-          <Coding fhirData={typeCoding} />
-        </Value>
+        {typeCoding && (
+          <Value label="Document type" data-testid="type">
+            <Coding fhirData={typeCoding} />
+          </Value>
+        )}
         {classCoding && (
           <Value label="Document categorization" data-testid="class">
             <Coding fhirData={classCoding} />
@@ -261,8 +285,11 @@ const DocumentReference = props => {
 
 DocumentReference.propTypes = {
   fhirResource: PropTypes.shape({}).isRequired,
-  fhirVersion: PropTypes.oneOf([fhirVersions.DSTU2, fhirVersions.STU3])
-    .isRequired,
+  fhirVersion: PropTypes.oneOf([
+    fhirVersions.DSTU2,
+    fhirVersions.STU3,
+    fhirVersions.R4,
+  ]).isRequired,
 };
 
 export default DocumentReference;

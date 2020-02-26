@@ -7,6 +7,8 @@ import fhirVersions from '../fhirResourceVersions';
 import example1Dstu2 from '../../../fixtures/dstu2/resources/explanationOfBenefit/example1.json';
 import example1Stu3 from '../../../fixtures/stu3/resources/explanationOfBenefit/example1.json';
 import example2Stu3 from '../../../fixtures/stu3/resources/explanationOfBenefit/example2.json';
+import example1R4 from '../../../fixtures/r4/resources/explanationOfBenefit/personPrimaryCoverage.json';
+import example2R4 from '../../../fixtures/r4/resources/explanationOfBenefit/eobForClaimWithErrors.json';
 
 export default {
   title: 'ExplanationOfBenefit',
@@ -36,6 +38,24 @@ export const Example2OfSTU3 = () => {
   return (
     <ExplanationOfBenefit
       fhirVersion={fhirVersions.STU3}
+      fhirResource={fhirResource}
+    />
+  );
+};
+export const PersonPrimaryCoverageR4 = () => {
+  const fhirResource = object('Resource', example1R4);
+  return (
+    <ExplanationOfBenefit
+      fhirVersion={fhirVersions.R4}
+      fhirResource={fhirResource}
+    />
+  );
+};
+export const EOBForClaimWithErrorsR4 = () => {
+  const fhirResource = object('Resource', example2R4);
+  return (
+    <ExplanationOfBenefit
+      fhirVersion={fhirVersions.R4}
       fhirResource={fhirResource}
     />
   );

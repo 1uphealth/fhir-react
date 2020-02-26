@@ -1,7 +1,7 @@
 import React from 'react';
 
 const UnhandledResourceDataStructure = ({ resourceName = '' }) => (
-  <div>
+  <div className="fhir-resource">
     <h4>Unhandled data structure for {resourceName} resource component</h4>
     <small>
       Please check if component has proper <b>fhirVersion</b> property.

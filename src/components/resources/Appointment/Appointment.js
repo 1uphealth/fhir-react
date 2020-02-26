@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _get from 'lodash/get';
 
+import fhirVersions from '../fhirResourceVersions';
 import {
   Root,
   Header,
@@ -21,9 +22,9 @@ import Date from '../../datatypes/Date';
 import Coding from '../../datatypes/Coding';
 import Reference from '../../datatypes/Reference';
 import CodeableConcept from '../../datatypes/CodeableConcept';
+import { isNotEmptyArray } from '../../../utils';
 
 const prepareParticipantData = data => {
-  // let participantPatient = <MissingValue />;
   let participantPatient = [];
   let participantPractitioner = [];
   let participantLocation = [];
@@ -66,16 +67,13 @@ const prepareParticipantData = data => {
   };
 };
 
-const Appointment = props => {
-  const { fhirResource } = props;
+const commonDTO = fhirResource => {
   const description = _get(fhirResource, 'description');
   const status = _get(fhirResource, 'status');
   const start = _get(fhirResource, 'start');
   const typeCoding = _get(fhirResource, 'type.coding');
-  const hasTypeCoding = Array.isArray(typeCoding) && typeCoding.length > 0;
   const comment = _get(fhirResource, 'comment');
   const participant = _get(fhirResource, 'participant');
-  const hasParticipant = Array.isArray(participant) && participant.length > 0;
   const {
     participantPatient,
     participantPractitioner,
@@ -83,7 +81,88 @@ const Appointment = props => {
   } = prepareParticipantData(participant);
   const minutesDuration = _get(fhirResource, 'minutesDuration');
   const reason = _get(fhirResource, 'reason', []);
-  const hasReason = Array.isArray(reason) && reason.length > 0;
+
+  return {
+    description,
+    status,
+    start,
+    typeCoding,
+    comment,
+    participant,
+    participantPatient,
+    participantPractitioner,
+    participantLocation,
+    minutesDuration,
+    reason,
+  };
+};
+
+const stu3DTO = fhirResource => {
+  const serviceCategory = _get(fhirResource, 'serviceCategory', []);
+  const typeCoding = _get(fhirResource, 'appointmentType.coding');
+  return {
+    serviceCategory,
+    typeCoding,
+  };
+};
+
+const r4DTO = fhirResource => {
+  const reason = _get(fhirResource, 'reasonCode', []);
+  const cancelationReason = _get(fhirResource, 'cancelationReason', []);
+  const serviceCategory = _get(fhirResource, 'serviceCategory', []);
+  const typeCoding = _get(fhirResource, 'appointmentType.coding');
+
+  return {
+    reason,
+    cancelationReason,
+    serviceCategory,
+    typeCoding,
+  };
+};
+
+const resourceDTO = (fhirVersion, fhirResource) => {
+  switch (fhirVersion) {
+    case fhirVersions.DSTU2: {
+      return {
+        ...commonDTO(fhirResource),
+      };
+    }
+    case fhirVersions.STU3: {
+      return {
+        ...commonDTO(fhirResource),
+        ...stu3DTO(fhirResource),
+      };
+    }
+    case fhirVersions.R4: {
+      return {
+        ...commonDTO(fhirResource),
+        ...r4DTO(fhirResource),
+      };
+    }
+
+    default:
+      throw Error('Unrecognized the fhir version property type.');
+  }
+};
+
+const Appointment = props => {
+  const { fhirResource, fhirVersion } = props;
+  const {
+    description,
+    status,
+    start,
+    typeCoding,
+    comment,
+    participant,
+    participantPatient,
+    participantPractitioner,
+    participantLocation,
+    minutesDuration,
+    reason,
+    cancelationReason,
+    serviceCategory,
+  } = resourceDTO(fhirVersion, fhirResource);
+
   return (
     <Root name="Appointment">
       <Header>
@@ -96,7 +175,7 @@ const Appointment = props => {
         )}
       </Header>
       <Body>
-        {hasTypeCoding && (
+        {isNotEmptyArray(typeCoding) && (
           <Value label="Type" data-testid="type">
             {typeCoding.map((item, i) => (
               <Coding key={`item-${i}`} fhirData={item} />
@@ -108,12 +187,22 @@ const Appointment = props => {
             {minutesDuration}
           </Value>
         )}
-        {hasReason && (
+        {isNotEmptyArray(reason) && (
           <Value label="Reason" data-testid="reason">
             <CodeableConcept fhirData={reason} />
           </Value>
         )}
-        {hasParticipant && (
+        {isNotEmptyArray(cancelationReason) && (
+          <Value label="Cancelation Reason" data-testid="cancelationReason">
+            <CodeableConcept fhirData={cancelationReason} />
+          </Value>
+        )}
+        {isNotEmptyArray(serviceCategory) && (
+          <Value label="Service Category" data-testid="serviceCategory">
+            <CodeableConcept fhirData={serviceCategory} />
+          </Value>
+        )}
+        {isNotEmptyArray(participant) && (
           <ValueSection label="Participant" data-testid="participant">
             <Table>
               <thead>
@@ -133,7 +222,11 @@ const Appointment = props => {
             </Table>
           </ValueSection>
         )}
-        {comment && <Value label="Comment">{comment}</Value>}
+        {comment && (
+          <Value label="Comment" data-testid="comment">
+            {comment}
+          </Value>
+        )}
       </Body>
     </Root>
   );
@@ -141,6 +234,11 @@ const Appointment = props => {
 
 Appointment.propTypes = {
   fhirResource: PropTypes.shape({}).isRequired,
+  fhirVersion: PropTypes.oneOf([
+    fhirVersions.DSTU2,
+    fhirVersions.STU3,
+    fhirVersions.R4,
+  ]),
 };
 
 export default Appointment;

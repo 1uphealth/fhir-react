@@ -2,11 +2,13 @@ import React from 'react';
 import { object } from '@storybook/addon-knobs';
 
 import MedicationStatement from './MedicationStatement';
+import fhirVersions from '../fhirResourceVersions';
 
 import dstu2Example1 from '../../../fixtures/dstu2/resources/medicationStatement/example1.json';
 import stu3Example1 from '../../../fixtures/stu3/resources/medicationStatement/example1.json';
 import stu3Example2 from '../../../fixtures/stu3/resources/medicationStatement/example2.json';
-import fhirVersions from '../fhirResourceVersions';
+import r4Example1 from '../../../fixtures/r4/resources/medicationStatement/example1.json';
+import r4Example2 from '../../../fixtures/r4/resources/medicationStatement/example2.json';
 
 export default {
   title: 'MedicationStatement',
@@ -37,6 +39,26 @@ export const Example2OfSTU3 = () => {
   return (
     <MedicationStatement
       fhirVersion={fhirVersions.STU3}
+      fhirResource={fhirResource}
+    />
+  );
+};
+
+export const Example1OfR4 = () => {
+  const fhirResource = object('Resource', r4Example1);
+  return (
+    <MedicationStatement
+      fhirVersion={fhirVersions.R4}
+      fhirResource={fhirResource}
+    />
+  );
+};
+
+export const Example2OfR4 = () => {
+  const fhirResource = object('Resource', r4Example2);
+  return (
+    <MedicationStatement
+      fhirVersion={fhirVersions.R4}
       fhirResource={fhirResource}
     />
   );

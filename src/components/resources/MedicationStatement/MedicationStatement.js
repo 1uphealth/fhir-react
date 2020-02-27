@@ -39,6 +39,8 @@ const MedicationDetails = props => {
   );
 };
 
+const DEFAULT_TITLE = 'Medication Statement';
+
 const commonDTO = fhirResource => {
   const status = _get(fhirResource, 'status', '');
   const hasEffectivePeriod = _has(fhirResource, 'effectivePeriod');
@@ -71,7 +73,11 @@ const dstu2DTO = fhirResource => {
   const title = _get(
     fhirResource,
     'medicationCodeableConcept.text',
-    _get(fhirResource, 'medicationCodeableConcept.coding[0].display'),
+    _get(
+      fhirResource,
+      'medicationCodeableConcept.coding[0].display',
+      DEFAULT_TITLE,
+    ),
   );
   return {
     title,
@@ -81,7 +87,11 @@ const stu3DTO = fhirResource => {
   const title = _get(
     fhirResource,
     'medicationCodeableConcept.text',
-    _get(fhirResource, 'medicationCodeableConcept.coding[0].display'),
+    _get(
+      fhirResource,
+      'medicationCodeableConcept.coding[0].display',
+      DEFAULT_TITLE,
+    ),
   );
   const reasonCode = _get(fhirResource, 'reasonCode');
   const hasReasonCode = Array.isArray(reasonCode);
@@ -105,6 +115,13 @@ const resourceDTO = (fhirVersion, fhirResource) => {
       };
     }
     case fhirVersions.STU3: {
+      return {
+        ...commonDTO(fhirResource),
+        ...stu3DTO(fhirResource),
+      };
+    }
+    case fhirVersions.R4: {
+      // there are not any breaking changes between STU3 and R4 version
       return {
         ...commonDTO(fhirResource),
         ...stu3DTO(fhirResource),

@@ -203,6 +203,12 @@ const resourceDTO = (fhirVersion, fhirResource) => {
         ...stu3DTO(fhirResource),
       };
     }
+    case fhirVersions.R4: {
+      return {
+        ...commonDTO(fhirResource),
+        ...stu3DTO(fhirResource),
+      };
+    }
     default:
       throw Error('Unrecognized the fhir version property type.');
   }

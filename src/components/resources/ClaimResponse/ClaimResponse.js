@@ -217,9 +217,9 @@ const r4DTO = fhirResource => {
     return { sequenceLinkId, adjudication, subItems };
   }
   function mapAddedItem(addedItem, level) {
-    const sequenceLinkId = _get(addedItem, 'itemSequence');
-    const service = _get(addedItem, 'service.coding[0]');
-    const fee = _get(addedItem, 'fee');
+    const sequenceLinkId = _get(addedItem, 'itemSequence.0');
+    const service = _get(addedItem, 'productOrService.coding[0]');
+    const fee = _get(addedItem, 'net');
     const adjudication = _get(addedItem, 'adjudication', []).map(
       mapAdjudication,
     );
@@ -362,7 +362,7 @@ const ClaimResponse = props => {
           </ValueSection>
         )}
         {hasPayment && (
-          <ValueSection label="Payment">
+          <ValueSection label="Payment" data-testid="paymentSection">
             <Value label="Type" data-testid="payment.type">
               {payment.typeCoding ? (
                 <Coding fhirData={payment.typeCoding} />

@@ -8,6 +8,8 @@ import dstu2Example1 from '../../../fixtures/dstu2/resources/claimResponse/examp
 import stu3Example1 from '../../../fixtures/stu3/resources/claimResponse/example-1.json';
 import stu3Example2 from '../../../fixtures/stu3/resources/claimResponse/example-2.json';
 import r4Example1 from '../../../fixtures/r4/resources/claimResponse/example1.json';
+import r4Example2 from '../../../fixtures/r4/resources/claimResponse/example2.json';
+import r4Example3 from '../../../fixtures/r4/resources/claimResponse/example3.json';
 
 describe('should render the ClaimResponse component properly', () => {
   it('with DSTU2 source data', () => {
@@ -203,6 +205,55 @@ describe('should render the ClaimResponse component properly', () => {
         ' (eligpercent):80',
         ' (benefit):90.47 USD',
       ],
+    ]);
+  });
+
+  it("shouldn't render payment section if there is no data to render - R4", () => {
+    const defaultProps = {
+      fhirResource: r4Example2,
+      fhirVersion: fhirVersions.R4,
+    };
+    const { queryByTestId } = render(<ClaimResponse {...defaultProps} />);
+
+    expect(queryByTestId('paymentSection')).toBeNull();
+  });
+
+  it('includes added items with R4 source data', () => {
+    const defaultProps = {
+      fhirResource: r4Example3,
+      fhirVersion: fhirVersions.R4,
+    };
+    const { getAllByTestId } = render(<ClaimResponse {...defaultProps} />);
+
+    const adjucationNodes = getAllByTestId('addedItems.adjudication');
+    const singleAdjucations = adjucationNodes
+      .map(n =>
+        n.querySelectorAll(
+          '[data-testid="addedItems.adjudication.singleAdjudication"]',
+        ),
+      )
+      .map(nodes => Array.from(nodes))
+      .map(nodes =>
+        nodes.map(n => n.textContent).map(t => t.replace(nbspRegex, ' ')),
+      );
+    expect(singleAdjucations).toEqual([
+      [
+        ' (eligible):100 USD',
+        ' (copay):10 USD',
+        ' (eligpercent):80',
+        ' (benefit):72 USD',
+      ],
+      [' (eligible):35.57 USD', ' (eligpercent):80', ' (benefit):28.47 USD'],
+      [' (eligible):350 USD', ' (eligpercent):80', ' (benefit):270 USD'],
+    ]);
+
+    const services = getAllByTestId('addedItems.service')
+      .map(n => n.textContent)
+      .map(t => t.replace(nbspRegex, ' '));
+    expect(services).toEqual([
+      ' (1101)',
+      'Radiograph, bytewing (2141)',
+      ' (expense)',
     ]);
   });
 });

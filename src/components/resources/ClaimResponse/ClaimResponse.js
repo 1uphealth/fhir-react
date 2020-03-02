@@ -201,7 +201,8 @@ const r4DTO = fhirResource => {
     return { category, amount, value };
   }
   function mapItem(item, level) {
-    const sequenceLinkId = _get(item, 'itemSequence');
+    const sequenceLinkId =
+      _get(item, 'itemSequence') || _get(item, 'detailSequence');
     const adjudication = _get(item, 'adjudication', []).map(mapAdjudication);
 
     let subItemProperty;
@@ -279,6 +280,11 @@ const resourceDTO = (fhirVersion, fhirResource) => {
   }
 };
 
+// Is any of payment fields not empty
+const hasPaymentInfo = payment => {
+  return Object.values(payment).filter(item => item).length > 0;
+};
+
 const ClaimResponse = props => {
   const { fhirVersion, fhirResource } = props;
   let fhirResourceData = {};
@@ -306,6 +312,7 @@ const ClaimResponse = props => {
 
   const hasItems = items.length > 0;
   const hasAddedItems = addedItems.length > 0;
+  const hasPayment = hasPaymentInfo(payment);
 
   return (
     <Root name="ClaimResponse">
@@ -356,36 +363,38 @@ const ClaimResponse = props => {
             )}
           </ValueSection>
         )}
-        <ValueSection label="Payment">
-          <Value label="Type" data-testid="payment.type">
-            {payment.typeCoding ? (
-              <Coding fhirData={payment.typeCoding} />
-            ) : (
-              <MissingValue />
-            )}
-          </Value>
-          <Value label="Amount" data-testid="payment.amount">
-            {payment.amount ? (
-              <Money fhirData={payment.amount} />
-            ) : (
-              <MissingValue />
-            )}
-          </Value>
-          <Value label="Date" data-testid="payment.date">
-            {payment.date ? (
-              <DateType fhirData={payment.date} />
-            ) : (
-              <MissingValue />
-            )}
-          </Value>
-          <Value label="Reference" data-testid="payment.ref">
-            {payment.ref ? (
-              <Identifier fhirData={payment.ref} />
-            ) : (
-              <MissingValue />
-            )}
-          </Value>
-        </ValueSection>
+        {hasPayment && (
+          <ValueSection label="Payment">
+            <Value label="Type" data-testid="payment.type">
+              {payment.typeCoding ? (
+                <Coding fhirData={payment.typeCoding} />
+              ) : (
+                <MissingValue />
+              )}
+            </Value>
+            <Value label="Amount" data-testid="payment.amount">
+              {payment.amount ? (
+                <Money fhirData={payment.amount} />
+              ) : (
+                <MissingValue />
+              )}
+            </Value>
+            <Value label="Date" data-testid="payment.date">
+              {payment.date ? (
+                <DateType fhirData={payment.date} />
+              ) : (
+                <MissingValue />
+              )}
+            </Value>
+            <Value label="Reference" data-testid="payment.ref">
+              {payment.ref ? (
+                <Identifier fhirData={payment.ref} />
+              ) : (
+                <MissingValue />
+              )}
+            </Value>
+          </ValueSection>
+        )}
         {hasAddedItems && <AddedItems addedItems={addedItems} />}
         {hasItems && <Items items={items} />}
       </Body>

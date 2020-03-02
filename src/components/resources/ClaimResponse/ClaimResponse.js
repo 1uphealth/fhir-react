@@ -319,7 +319,9 @@ const ClaimResponse = props => {
       <Header>
         <Title>Claim response #{id}</Title>
         {outcome && <Badge data-testid="outcome">{outcome}</Badge>}
-        {status && <BadgeSecondary>{status}</BadgeSecondary>}
+        {status && (
+          <BadgeSecondary data-testid="status">{status}</BadgeSecondary>
+        )}
       </Header>
       <Body>
         {created && (
@@ -348,15 +350,11 @@ const ClaimResponse = props => {
           </Value>
         )}
         {isNotEmptyArray(totalCostsArr) && (
-          <ValueSection label="Total">
+          <ValueSection label="Total" data-testid="totalSection">
             {totalCostsArr.map(
               ({ category, amount }, i) =>
                 category && (
-                  <Value
-                    label={category}
-                    data-testid="totalCost"
-                    key={`total-value-${i}`}
-                  >
+                  <Value label={category} key={`total-value-${i}`}>
                     <Money fhirData={amount} />
                   </Value>
                 ),

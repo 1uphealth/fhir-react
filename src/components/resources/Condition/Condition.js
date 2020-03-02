@@ -112,7 +112,9 @@ function Condition(props) {
     <Root name="condition">
       <Header>
         <Title>{codeText || ''}</Title>
-        <Badge data-testid="clinicalStatus">{clinicalStatus || ''}</Badge>
+        {clinicalStatus && (
+          <Badge data-testid="clinicalStatus">{clinicalStatus}</Badge>
+        )}
         {severityText && (
           <BadgeSecondary data-testid="severity">
             {severityText} severity

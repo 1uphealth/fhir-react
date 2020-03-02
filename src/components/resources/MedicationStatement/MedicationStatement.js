@@ -7,6 +7,7 @@ import Date from '../../datatypes/Date';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 import fhirVersions from '../fhirResourceVersions';
 import Annotation from '../../datatypes/Annotation';
+import Reference from '../../datatypes/Reference';
 import {
   Root,
   Header,
@@ -54,6 +55,7 @@ const commonDTO = fhirResource => {
   const hasDosage = Array.isArray(_get(fhirResource, 'dosage'));
   const reasonCode = _get(fhirResource, 'reasonCode');
   const hasReasonCode = Array.isArray(reasonCode);
+  const medicationReference = _get(fhirResource, 'medicationReference');
   return {
     status,
     hasEffectivePeriod,
@@ -64,6 +66,7 @@ const commonDTO = fhirResource => {
     reasonCode,
     hasReasonCode,
     contained,
+    medicationReference,
   };
 };
 
@@ -140,6 +143,7 @@ const MedicationStatement = props => {
     reasonCode,
     hasNote,
     note,
+    medicationReference,
   } = fhirResourceData;
 
   return (
@@ -178,6 +182,11 @@ const MedicationStatement = props => {
               }
               return null;
             })}
+          </Value>
+        )}
+        {medicationReference && (
+          <Value label="Medication Reference" data-testid="medicationReference">
+            <Reference fhirData={medicationReference} />
           </Value>
         )}
         {hasReasonCode && (

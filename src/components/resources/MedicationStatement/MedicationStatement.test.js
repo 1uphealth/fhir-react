@@ -11,12 +11,15 @@ describe('should render MedicationStatement component correctly', () => {
       fhirResource: example1MedicationStatement,
       fhirVersion: fhirVersions.DSTU2,
     };
-    const { getByTestId } = render(<MedicationStatement {...defaultProps} />);
+    const { getByTestId, queryByTestId } = render(
+      <MedicationStatement {...defaultProps} />,
+    );
 
     expect(getByTestId('title').textContent).toContain(
       'amphetamine-dextroamphetamine',
     );
     expect(getByTestId('hasEffectivePeriod').textContent).toContain('from');
+    expect(queryByTestId('medicationReference')).toBeNull();
 
     expect(getByTestId('dosageInstruction').textContent).toContain(
       'Take 1 capsule',
@@ -42,5 +45,8 @@ describe('should render MedicationStatement component correctly', () => {
     expect(getByTestId('hasNote').textContent).toContain('occasional');
 
     expect(getByTestId('hasReasonCode').textContent).toContain('Legs');
+    expect(getByTestId('medicationReference').textContent).toContain(
+      '#med0309',
+    );
   });
 });

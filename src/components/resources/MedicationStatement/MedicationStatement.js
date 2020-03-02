@@ -201,7 +201,9 @@ const MedicationStatement = props => {
                 dosage,
                 'additionalInstruction[0].text',
               );
-              const route = _get(dosage, 'route.coding[0].display');
+              const route =
+                _get(dosage, 'route.coding[0].display') ||
+                `${_get(dosage, 'route.text')} ${_get(dosage, 'text')}`;
               return (
                 <div key={`dosage-${i}`}>
                   <Value label="Instructions" data-testid="dosageInstruction">

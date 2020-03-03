@@ -46,6 +46,7 @@
   margin-bottom: 5px;
   font-size: 90%;
 }
+
 .fhir-ui__Value :not(.fhir-ui__Value-label) {
   word-break: break-all;
 }

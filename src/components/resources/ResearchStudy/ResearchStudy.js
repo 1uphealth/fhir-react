@@ -117,7 +117,7 @@ const ResearchStudy = props => {
     <Root name="ResearchStudy">
       <Header>
         {title && <Title data-testid="title">{title}</Title>}
-        <Badge data-testid="status">{status}</Badge>
+        {status && <Badge data-testid="status">{status}</Badge>}
         {hasPeriod && (
           <BadgeSecondary data-testid="period">
             {period.start ? (

@@ -222,7 +222,7 @@ const DocumentReference = props => {
     <Root name="DocumentReference">
       <Header>
         <Title data-testid="description">{description}</Title>
-        <Badge data-testid="status">{status}</Badge>
+        {status && <Badge data-testid="status">{status}</Badge>}
         {docStatus && (
           <BadgeSecondary data-testid="docStatus">{docStatus}</BadgeSecondary>
         )}

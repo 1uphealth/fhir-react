@@ -150,7 +150,7 @@ const MedicationStatement = props => {
     <Root name="MedicationStatement">
       <Header>
         <Title>{title}</Title>
-        <Badge data-testid="hasStatus">{status}</Badge>
+        {status && <Badge data-testid="hasStatus">{status}</Badge>}
         {hasEffectivePeriod && (
           <BadgeSecondary data-testid="hasEffectivePeriod">
             from <Date fhirData={statusDesc.from} /> {'to '}

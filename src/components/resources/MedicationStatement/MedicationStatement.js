@@ -212,7 +212,8 @@ const MedicationStatement = props => {
               );
               const route =
                 _get(dosage, 'route.coding[0].display') ||
-                `${_get(dosage, 'route.text')} ${_get(dosage, 'text')}`;
+                `${_get(dosage, 'route.text', '')} ${_get(dosage, 'text', '')}`;
+              const hasRoute = route.trim() !== '';
               return (
                 <div key={`dosage-${i}`}>
                   <Value label="Instructions" data-testid="dosageInstruction">
@@ -223,7 +224,7 @@ const MedicationStatement = props => {
                       {additionalInstructionText}
                     </Value>
                   )}
-                  {route && <Value label="Route">{route}</Value>}
+                  {hasRoute && <Value label="Route">{route}</Value>}
                 </div>
               );
             })}

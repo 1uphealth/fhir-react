@@ -46,7 +46,7 @@ const Procedure = props => {
     <Root name="Procedure">
       <Header>
         {display && <Title>{display}</Title>}
-        <Badge data-testid="status">{status}</Badge>
+        {status && <Badge data-testid="status">{status}</Badge>}
         {hasPerformedDateTime && (
           <BadgeSecondary data-testid="performedDateTime">
             on <Date fhirData={performedDateTime} />

@@ -53,10 +53,12 @@ const Observation = props => {
             </>
           )}
         </Title>
-        <Badge data-testid="status">{status}</Badge>
-        <BadgeSecondary data-testid="secondaryStatus">
-          {valueCodeableConceptText || valueCodeableConceptCodingDisplay}
-        </BadgeSecondary>
+        {status && <Badge data-testid="status">{status}</Badge>}
+        {(valueCodeableConceptText || valueCodeableConceptCodingDisplay) && (
+          <BadgeSecondary data-testid="secondaryStatus">
+            {valueCodeableConceptText || valueCodeableConceptCodingDisplay}
+          </BadgeSecondary>
+        )}
       </Header>
       <Body>
         <ObservationGraph

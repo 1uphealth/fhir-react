@@ -7,6 +7,7 @@ import Date from '../../datatypes/Date';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 import fhirVersions from '../fhirResourceVersions';
 import Annotation from '../../datatypes/Annotation';
+import Reference from '../../datatypes/Reference';
 import {
   Root,
   Header,
@@ -54,6 +55,7 @@ const commonDTO = fhirResource => {
   const hasDosage = Array.isArray(_get(fhirResource, 'dosage'));
   const reasonCode = _get(fhirResource, 'reasonCode');
   const hasReasonCode = Array.isArray(reasonCode);
+  const medicationReference = _get(fhirResource, 'medicationReference');
   return {
     status,
     hasEffectivePeriod,
@@ -64,6 +66,7 @@ const commonDTO = fhirResource => {
     reasonCode,
     hasReasonCode,
     contained,
+    medicationReference,
   };
 };
 
@@ -140,13 +143,14 @@ const MedicationStatement = props => {
     reasonCode,
     hasNote,
     note,
+    medicationReference,
   } = fhirResourceData;
 
   return (
     <Root name="MedicationStatement">
       <Header>
         <Title>{title}</Title>
-        <Badge data-testid="hasStatus">{status}</Badge>
+        {status && <Badge data-testid="hasStatus">{status}</Badge>}
         {hasEffectivePeriod && (
           <BadgeSecondary data-testid="hasEffectivePeriod">
             from <Date fhirData={statusDesc.from} /> {'to '}
@@ -180,6 +184,11 @@ const MedicationStatement = props => {
             })}
           </Value>
         )}
+        {medicationReference && (
+          <Value label="Medication Reference" data-testid="medicationReference">
+            <Reference fhirData={medicationReference} />
+          </Value>
+        )}
         {hasReasonCode && (
           <Value label="Reason" data-testid="hasReasonCode">
             <ul>
@@ -201,7 +210,10 @@ const MedicationStatement = props => {
                 dosage,
                 'additionalInstruction[0].text',
               );
-              const route = _get(dosage, 'route.coding[0].display');
+              const route =
+                _get(dosage, 'route.coding[0].display') ||
+                `${_get(dosage, 'route.text', '')} ${_get(dosage, 'text', '')}`;
+              const hasRoute = route.trim() !== '';
               return (
                 <div key={`dosage-${i}`}>
                   <Value label="Instructions" data-testid="dosageInstruction">
@@ -212,7 +224,7 @@ const MedicationStatement = props => {
                       {additionalInstructionText}
                     </Value>
                   )}
-                  {route && <Value label="Route">{route}</Value>}
+                  {hasRoute && <Value label="Route">{route}</Value>}
                 </div>
               );
             })}

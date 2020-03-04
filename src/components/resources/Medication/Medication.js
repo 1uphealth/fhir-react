@@ -23,12 +23,10 @@ const commonDTO = fhirResource => {
   if (!title) {
     title = { display: _get(fhirResource, 'code.text', '') };
   }
-  const isBrand = _get(fhirResource, 'isBrand');
   const manufacturer = _get(fhirResource, 'manufacturer');
 
   return {
     title,
-    isBrand,
     manufacturer,
   };
 };
@@ -42,6 +40,7 @@ const dstu2DTO = fhirResource => {
   const packageCoding = _get(fhirResource, 'package.container.coding', []);
   const hasPackageCoding =
     Array.isArray(packageCoding) && packageCoding.length > 0;
+  const isBrand = _get(fhirResource, 'isBrand');
 
   return {
     productForm,
@@ -51,6 +50,7 @@ const dstu2DTO = fhirResource => {
     hasProduct,
     packageCoding,
     hasPackageCoding,
+    isBrand,
   };
 };
 const stu3DTO = fhirResource => {
@@ -71,6 +71,8 @@ const stu3DTO = fhirResource => {
   ) {
     hasImages = false;
   }
+  const isBrand = _get(fhirResource, 'isBrand');
+
   return {
     productForm,
     hasProductForm,
@@ -81,6 +83,26 @@ const stu3DTO = fhirResource => {
     hasPackageCoding,
     hasImages,
     images,
+    isBrand,
+  };
+};
+
+const r4DTO = fhirResource => {
+  const productForm = _get(fhirResource, 'form.coding', []);
+  const hasProductForm = Array.isArray(productForm) && productForm.length > 0;
+  const productIngredient = _get(fhirResource, 'ingredient', []);
+  const hasProductIngredient =
+    Array.isArray(productIngredient) && productIngredient.length > 0;
+  const status = _get(fhirResource, 'status');
+  const hasProduct = hasProductForm || hasProductIngredient;
+
+  return {
+    productForm,
+    hasProductForm,
+    productIngredient,
+    hasProductIngredient,
+    hasProduct,
+    status,
   };
 };
 
@@ -98,6 +120,12 @@ const resourceDTO = (fhirVersion, fhirResource) => {
         ...stu3DTO(fhirResource),
       };
     }
+    case fhirVersions.R4: {
+      return {
+        ...commonDTO(fhirResource),
+        ...r4DTO(fhirResource),
+      };
+    }
 
     default:
       throw Error('Unrecognized the fhir version property type.');
@@ -112,20 +140,25 @@ const Quantity = props => (
 
 const Ingredient = props => {
   const itemDisplay =
-    _get(props, 'item') || _get(props, 'itemCodeableConcept.coding.0', '');
+    _get(props, 'item') || _get(props, 'itemCodeableConcept.coding.0', {});
+  const reference = _get(props, 'itemReference');
   const amountNumerator = _get(props, 'amount.numerator');
   const amountDenominator = _get(props, 'amount.denominator');
+  const hasAmount = amountNumerator && amountDenominator;
+
   const amount = (
     <span>
       <Quantity {...amountNumerator} />/<Quantity {...amountDenominator} />
     </span>
   );
+
   return (
     <div>
       <label>
         <Coding fhirData={itemDisplay} />
       </label>
-      <BadgeSecondary>{amount}</BadgeSecondary>
+      <Reference fhirData={reference} />
+      {hasAmount && <BadgeSecondary>{amount}</BadgeSecondary>}
     </div>
   );
 };
@@ -151,6 +184,7 @@ const Medication = props => {
     hasPackageCoding,
     hasImages,
     images,
+    status,
   } = fhirResourceData;
 
   return (
@@ -160,6 +194,7 @@ const Medication = props => {
           <Coding fhirData={title} />
         </Title>
         {isBrand && <Badge>Brand</Badge>}
+        {status && <Badge>{status}</Badge>}
       </Header>
       <Body>
         {manufacturer && (
@@ -206,8 +241,11 @@ const Medication = props => {
 
 Medication.propTypes = {
   fhirResource: PropTypes.shape({}).isRequired,
-  fhirVersion: PropTypes.oneOf([fhirVersions.DSTU2, fhirVersions.STU3])
-    .isRequired,
+  fhirVersion: PropTypes.oneOf([
+    fhirVersions.DSTU2,
+    fhirVersions.STU3,
+    fhirVersions.R4,
+  ]).isRequired,
 };
 
 export default Medication;

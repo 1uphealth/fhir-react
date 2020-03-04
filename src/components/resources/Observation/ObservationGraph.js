@@ -7,6 +7,8 @@ const ObservationGraph = props => {
   if (props.referenceRange && _isNumber(_get(props, 'valueQuantity.value'))) {
     const tooLow = _get(props, 'referenceRange[0].low.value');
     const tooHigh = _get(props, 'referenceRange[0].high.value');
+    if (!tooLow || !tooHigh) return null;
+
     const actual = props.valueQuantity.value;
     const maxNum = Math.max(tooHigh, actual);
     const minNum = Math.min(tooLow, actual);

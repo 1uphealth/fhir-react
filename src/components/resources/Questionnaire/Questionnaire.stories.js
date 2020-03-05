@@ -11,6 +11,10 @@ import dstu2Example3 from '../../../fixtures/dstu2/resources/questionnaire/examp
 import stu3Example1 from '../../../fixtures/stu3/resources/questionnaire/example1.json';
 import stu3Example2 from '../../../fixtures/stu3/resources/questionnaire/example2.json';
 
+import r4Example1 from '../../../fixtures/r4/resources/questionnaire/example1.json';
+import r4Example2 from '../../../fixtures/r4/resources/questionnaire/example2.json';
+import r4Example3 from '../../../fixtures/r4/resources/questionnaire/example3.json';
+
 export default { title: 'Questionnaire' };
 
 export const DefaultVisualizationDSTU2 = () => {
@@ -60,5 +64,26 @@ export const Example2OfSTU3 = () => {
       fhirResource={fhirResource}
       fhirVersion={fhirVersions.STU3}
     />
+  );
+};
+
+export const Example1OfR4 = () => {
+  const fhirResource = object('Resource', r4Example1);
+  return (
+    <Questionnaire fhirResource={fhirResource} fhirVersion={fhirVersions.R4} />
+  );
+};
+
+export const Example2OfR4 = () => {
+  const fhirResource = object('Resource', r4Example2);
+  return (
+    <Questionnaire fhirResource={fhirResource} fhirVersion={fhirVersions.R4} />
+  );
+};
+
+export const Example3OfR4 = () => {
+  const fhirResource = object('Resource', r4Example3);
+  return (
+    <Questionnaire fhirResource={fhirResource} fhirVersion={fhirVersions.R4} />
   );
 };

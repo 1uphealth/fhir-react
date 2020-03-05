@@ -125,7 +125,7 @@ const DiagnosticReport = props => {
     <Root name="DiagnosticReport">
       <Header>
         <Title data-testid="title">{title}</Title>
-        <Badge data-testid="status">{status}</Badge>
+        {status && <Badge data-testid="status">{status}</Badge>}
         {effectiveDateTime && (
           <BadgeSecondary data-testid="effectiveDateTime">
             <Date fhirData={effectiveDateTime} />

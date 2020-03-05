@@ -129,12 +129,20 @@ const CareTeam = props => {
             <Reference fhirData={managingOrganization} />
           </Value>
         )}
-        <Value label="Care Period Start" data-testid="periodStart">
-          {periodStart ? <DateType fhirData={periodStart} /> : <MissingValue />}
-        </Value>
-        <Value label="Care Period End" data-testid="periodEnd">
-          {periodEnd ? <DateType fhirData={periodEnd} /> : <MissingValue />}
-        </Value>
+        {periodStart && (
+          <Value label="Care Period Start" data-testid="periodStart">
+            {periodStart ? (
+              <DateType fhirData={periodStart} />
+            ) : (
+              <MissingValue />
+            )}
+          </Value>
+        )}
+        {periodEnd && (
+          <Value label="Care Period End" data-testid="periodEnd">
+            {periodEnd ? <DateType fhirData={periodEnd} /> : <MissingValue />}
+          </Value>
+        )}
         {hasParticipants && (
           <CareTeamParticipants participants={participants} />
         )}

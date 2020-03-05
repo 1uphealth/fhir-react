@@ -15,13 +15,15 @@ describe('should render the CareTeam component properly', () => {
       fhirVersion: fhirVersions.STU3,
     };
 
-    const { getByTestId } = render(<CareTeam {...defaultProps} />);
+    const { getByTestId, queryByTestId } = render(
+      <CareTeam {...defaultProps} />,
+    );
 
     expect(getByTestId('title').textContent).toEqual(
       'Peter James Charlmers Care Plan for Inpatient Encounter',
     );
     expect(getByTestId('status').textContent).toEqual('active');
-    expect(getByTestId('periodStart').textContent).toEqual('-');
+    expect(queryByTestId('periodStart')).toBeNull();
     expect(getByTestId('periodEnd').textContent).toEqual('2013-01-01');
     expect(getByTestId('category').textContent.trim()).toEqual('(encounter)');
     expect(getByTestId('subject').textContent).toContain(
@@ -72,13 +74,15 @@ describe('should render the CareTeam component properly', () => {
       fhirVersion: fhirVersions.R4,
     };
 
-    const { getByTestId } = render(<CareTeam {...defaultProps} />);
+    const { getByTestId, queryByTestId } = render(
+      <CareTeam {...defaultProps} />,
+    );
 
     expect(getByTestId('title').textContent).toEqual(
       'Peter James Charlmers Care Plan for Inpatient Encounter',
     );
     expect(getByTestId('status').textContent).toEqual('active');
-    expect(getByTestId('periodStart').textContent).toEqual('-');
+    expect(queryByTestId('periodStart')).toBeNull();
     expect(getByTestId('periodEnd').textContent).toEqual('2013-01-01');
     expect(getByTestId('encounter').textContent).toEqual('Encounter/example');
     expect(getByTestId('category').textContent).toContain(

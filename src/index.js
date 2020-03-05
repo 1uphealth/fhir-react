@@ -6,7 +6,7 @@ import MedicationOrder from './components/resources/MedicationOrder';
 import Encounter from './components/resources/Encounter';
 
 import './style.css';
-console.log('');
+
 export const Resources = {
   Patient,
   Encounter,

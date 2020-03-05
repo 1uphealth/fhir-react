@@ -161,7 +161,7 @@ const AllergyIntolerance = props => {
     <Root name="AllergyIntolerance">
       <Header>
         <Title>{title}</Title>
-        <Badge data-testid="status">{status}</Badge>
+        {status && <Badge data-testid="status">{status}</Badge>}
         {recordedDate && (
           <BadgeSecondary data-testid="recordedDate">
             recorded on <Date fhirData={recordedDate} />

@@ -2,6 +2,7 @@
   width: 100%;
   margin-bottom: 10px;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
 }
 
@@ -46,6 +47,10 @@
   font-size: 90%;
 }
 
+.fhir-ui__Value :not(.fhir-ui__Value-label) {
+  word-break: break-all;
+}
+
 .fhir-ui__Value-label {
   text-transform: uppercase;
   font-weight: bold;
@@ -58,7 +63,6 @@
   width: 100%;
   margin-bottom: 1rem;
   color: #212529;
-  font-size: 0.8rem;
 }
 
 .fhir-ui__TableHeader,

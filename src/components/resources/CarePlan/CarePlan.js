@@ -199,7 +199,7 @@ const CarePlan = props => {
     <Root name="CarePlan">
       <Header>
         <Title>Care Plan</Title>
-        <Badge data-testid="status">{status}</Badge>
+        {status && <Badge data-testid="status">{status}</Badge>}
         {expiry && <BadgeSecondary>expires on ${expiry}</BadgeSecondary>}
       </Header>
       <Body>

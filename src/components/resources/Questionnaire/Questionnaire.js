@@ -19,7 +19,7 @@ const getQuestionText = item => {
     if (groupConcept) {
       text = <Coding fhirData={groupConcept} />;
     }
-    // STU3
+    // STU3 & R4
     const groupCode = _get(item, 'code.0');
     if (!text && groupCode) {
       text = <Coding fhirData={groupCode} />;
@@ -141,13 +141,24 @@ const Items = props => {
     return <Group data={data} prepareItems={prepareItems} />;
   }
 
+  if (fhirVersion === fhirVersions.R4) {
+    const prepareItems = item => ({
+      ...item,
+      isGroup: _get(item, 'type') === 'group',
+    });
+    return <Group data={data} prepareItems={prepareItems} />;
+  }
+
   return null;
 };
 
 Items.propTypes = {
   data: PropTypes.array,
-  fhirVersion: PropTypes.oneOf([fhirVersions.DSTU2, fhirVersions.STU3])
-    .isRequired,
+  fhirVersion: PropTypes.oneOf([
+    fhirVersions.DSTU2,
+    fhirVersions.STU3,
+    fhirVersions.R4,
+  ]).isRequired,
 };
 
 const commonDTO = fhirResource => {
@@ -199,7 +210,9 @@ const resourceDTO = (fhirVersion, fhirResource) => {
         ...dstu2DTO(fhirResource),
       };
     }
-    case fhirVersions.STU3: {
+    // STU3 and R4 can use the same function
+    case fhirVersions.STU3:
+    case fhirVersions.R4: {
       return {
         ...commonDTO(fhirResource),
         ...stu3DTO(fhirResource),
@@ -247,8 +260,11 @@ const Questionnaire = props => {
 
 Questionnaire.propTypes = {
   fhirResource: PropTypes.shape({}).isRequired,
-  fhirVersion: PropTypes.oneOf([fhirVersions.DSTU2, fhirVersions.STU3])
-    .isRequired,
+  fhirVersion: PropTypes.oneOf([
+    fhirVersions.DSTU2,
+    fhirVersions.STU3,
+    fhirVersions.R4,
+  ]).isRequired,
 };
 
 export default Questionnaire;

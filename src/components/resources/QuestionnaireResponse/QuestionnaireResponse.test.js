@@ -9,6 +9,8 @@ import dstu2Example2 from '../../../fixtures/dstu2/resources/questionnaireRespon
 
 import stu3Example from '../../../fixtures/stu3/resources/questionnaireResponse/example2.json';
 
+import r4Example1 from '../../../fixtures/r4/resources/questionnaireResponse/example1.json';
+
 describe('QuestionnaireResponse should render component correctly', () => {
   it('should render component correctly with DSTU2 source data', () => {
     const defaultProps = {
@@ -17,7 +19,9 @@ describe('QuestionnaireResponse should render component correctly', () => {
     };
     const { getByTestId } = render(<QuestionnaireResponse {...defaultProps} />);
 
-    expect(String(getByTestId('title').textContent).trim()).toContain('-');
+    expect(String(getByTestId('title').textContent).trim()).toContain(
+      'Questionnaire Response',
+    );
     expect(getByTestId('status').textContent).toEqual('completed');
     expect(getByTestId('dateTime').textContent).toEqual('2013-06-18');
     expect(getByTestId('subject').textContent).toEqual('RoelPatient/f201');
@@ -64,12 +68,48 @@ describe('QuestionnaireResponse should render component correctly', () => {
     };
     const { getByTestId } = render(<QuestionnaireResponse {...defaultProps} />);
 
-    expect(String(getByTestId('title').textContent).trim()).toContain('-');
+    expect(String(getByTestId('title').textContent).trim()).toContain(
+      'Questionnaire Response',
+    );
     expect(getByTestId('status').textContent).toEqual('completed');
     expect(getByTestId('dateTime').textContent).toEqual('2013-02-19');
 
     expect(getByTestId('answer-nameOfChild-0').textContent).toContain(
       'Cathy Jones',
+    );
+  });
+
+  it('should render component correctly with R4 source data', () => {
+    const defaultProps = {
+      fhirResource: r4Example1,
+      fhirVersion: fhirVersions.R4,
+    };
+    const { getByTestId } = render(<QuestionnaireResponse {...defaultProps} />);
+
+    expect(String(getByTestId('title').textContent).trim()).toContain(
+      'Questionnaire Response',
+    );
+    expect(getByTestId('status').textContent).toEqual('completed');
+    expect(getByTestId('dateTime').textContent).toEqual('2013-06-18');
+    expect(getByTestId('subject').textContent).toEqual('RoelPatient/f201');
+    expect(getByTestId('author').textContent).toEqual('Practitioner/f201');
+
+    expect(getByTestId('linkId-1.1').textContent).toEqual(
+      'Do you have allergies?',
+    );
+    expect(getByTestId('linkId-2.1').textContent).toEqual(
+      'What is your gender?',
+    );
+    expect(getByTestId('linkId-2.2').textContent).toEqual(
+      'What is your date of birth?',
+    );
+    expect(getByTestId('linkId-2.3').textContent).toEqual(
+      'What is your country of birth?',
+    );
+    expect(getByTestId('linkId-3').textContent).toContain('Intoxications');
+    expect(getByTestId('linkId-3.1').textContent).toEqual('Do you smoke?');
+    expect(getByTestId('linkId-3.2').textContent).toEqual(
+      'Do you drink alchohol?',
     );
   });
 });

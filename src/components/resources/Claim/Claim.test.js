@@ -8,6 +8,7 @@ import dstu2Example1 from '../../../fixtures/dstu2/resources/claim/example-1.jso
 import stu3Example1 from '../../../fixtures/stu3/resources/claim/example-1.json';
 import stu3Example2 from '../../../fixtures/stu3/resources/claim/example-2.json';
 import stu3Example3 from '../../../fixtures/stu3/resources/claim/example-3.json';
+import r4Example1 from '../../../fixtures/r4/resources/claim/example1.json';
 
 describe('should render the Claim component properly', () => {
   it('with DSTU2 source data', () => {
@@ -236,5 +237,55 @@ describe('should render the Claim component properly', () => {
       '11 USD',
       '15.4 USD',
     ]);
+  });
+
+  it('with R4 source data', () => {
+    const defaultProps = {
+      fhirResource: r4Example1,
+      fhirVersion: fhirVersions.R4,
+    };
+    const { getByTestId, queryAllByTestId } = render(
+      <Claim {...defaultProps} />,
+    );
+
+    expect(getByTestId('title').textContent).toEqual('Claim #100150');
+    expect(getByTestId('use').textContent).toEqual('claim');
+    expect(getByTestId('type').textContent).toContain('oral');
+    expect(getByTestId('created').textContent).toEqual('2014-08-16');
+    expect(getByTestId('priority').textContent).toContain('normal');
+    expect(getByTestId('insurer').textContent).toEqual('Organization/2');
+    expect(getByTestId('payee.type').textContent).toContain('provider');
+    expect(queryAllByTestId('careTeam')).toHaveLength(1);
+    expect(queryAllByTestId('diagnosis')).toHaveLength(1);
+    expect(queryAllByTestId('accident')).toHaveLength(0);
+    expect(queryAllByTestId('insurance')).toHaveLength(1);
+  });
+
+  it('including the items with R4 source data', () => {
+    const defaultProps = {
+      fhirResource: r4Example1,
+      fhirVersion: fhirVersions.R4,
+    };
+    const { getAllByTestId } = render(<Claim {...defaultProps} />);
+
+    const sequences = getAllByTestId('items.sequence').map(n => n.textContent);
+    const services = getAllByTestId('items.service')
+      .map(n => n.textContent)
+      .map(t => t.replace(nbspRegex, ' '));
+    const unitPrices = getAllByTestId('items.unitPrice')
+      .map(n => n.textContent)
+      .map(t => t.replace(nbspRegex, ' '));
+    const quantities = getAllByTestId('items.quantity')
+      .map(n => n.textContent)
+      .map(t => t.replace(nbspRegex, ' '));
+    const netPrices = getAllByTestId('items.net')
+      .map(n => n.textContent)
+      .map(t => t.replace(nbspRegex, ' '));
+
+    expect(sequences).toEqual(['1']);
+    expect(services).toEqual([' (1200)']);
+    expect(unitPrices).toEqual(['135.57 USD']);
+    expect(quantities).toEqual(['-']);
+    expect(netPrices).toEqual(['135.57 USD']);
   });
 });

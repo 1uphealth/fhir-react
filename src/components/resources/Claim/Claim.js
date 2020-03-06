@@ -189,6 +189,90 @@ const stu3DTO = fhirResource => {
   };
 };
 
+const r4DTO = fhirResource => {
+  const status = _get(fhirResource, 'status');
+  const typeCoding = _get(fhirResource, 'type.coding[0]');
+  const insurer = _get(fhirResource, 'insurer');
+  const payeeCoding = _get(fhirResource, 'payee.type.coding[0]');
+  const payeeParty = _get(fhirResource, 'payee.party');
+  const careTeam = _get(fhirResource, 'careTeam', []).map(team => {
+    const provider = team.provider;
+    const role = _get(team, 'role.coding[0]');
+    const qualification = _get(team, 'role.coding[0]');
+    return { provider, role, qualification };
+  });
+  const priorityCoding = _get(fhirResource, 'priority.coding[0]');
+  const diagnosis = _get(fhirResource, 'diagnosis', []).map(diagnosis => {
+    const coding = _get(diagnosis, 'diagnosisCodeableConcept.coding[0]');
+    const reference = _get(diagnosis, 'diagnosisReference');
+    const typeCoding = _get(diagnosis, 'type[0].coding[0]');
+    const packageCodeCoding = _get(diagnosis, 'packageCode.coding[0]');
+    return { coding, reference, typeCoding, packageCodeCoding };
+  });
+  const accidentCoding = _get(fhirResource, 'accident.type.coding[0]');
+  const accidentDate = _get(fhirResource, 'accident.date');
+  const accident =
+    accidentCoding || accidentDate
+      ? { coding: accidentCoding, date: accidentDate }
+      : null;
+  const insurance = _get(fhirResource, 'insurance', []).map(insurance => {
+    const focal = insurance.focal;
+    const coverage = insurance.coverage;
+    const businessArrangement = insurance.businessArrangement;
+    const claimResponse = insurance.claimResponse;
+    return { focal, coverage, businessArrangement, claimResponse };
+  });
+  const employmentImpactedStart = _get(
+    fhirResource,
+    'employmentImpacted.start',
+  );
+  const employmentImpactedEnd = _get(fhirResource, 'employmentImpacted.end');
+  const employmentImpacted =
+    employmentImpactedStart || employmentImpactedEnd
+      ? { start: employmentImpactedStart, end: employmentImpactedEnd }
+      : null;
+  const hospitalizationStart = _get(fhirResource, 'hospitalization.start');
+  const hospitalizationEnd = _get(fhirResource, 'hospitalization.end');
+  const hospitalization =
+    hospitalizationStart || hospitalizationEnd
+      ? { start: hospitalizationStart, end: hospitalizationEnd }
+      : null;
+  const total = _get(fhirResource, 'total');
+  function mapItem(item, level) {
+    const sequence = _get(item, 'sequence');
+    const service = _get(item, 'productOrService.coding[0]');
+    const quantity = _get(item, 'quantity.value');
+    const factor = _get(item, 'factor');
+    const unitPrice = _get(item, 'unitPrice');
+    const net = _get(item, 'net');
+    let subItemProperty;
+    if (level === 0) subItemProperty = 'detail';
+    else if (level === 1) subItemProperty = 'subDetail';
+    const subItems = subItemProperty
+      ? _get(item, subItemProperty, []).map(subItem =>
+          mapItem(subItem, level + 1),
+        )
+      : [];
+    return { sequence, service, quantity, factor, unitPrice, net, subItems };
+  }
+  const items = _get(fhirResource, 'item').map(item => mapItem(item, 0));
+  return {
+    status,
+    typeCoding,
+    insurer,
+    payee: { coding: payeeCoding, party: payeeParty },
+    careTeam,
+    priorityCoding,
+    diagnosis,
+    accident,
+    insurance,
+    employmentImpacted,
+    hospitalization,
+    total,
+    items,
+  };
+};
+
 const resourceDTO = (fhirVersion, fhirResource) => {
   switch (fhirVersion) {
     case fhirVersions.DSTU2: {
@@ -201,6 +285,12 @@ const resourceDTO = (fhirVersion, fhirResource) => {
       return {
         ...commonDTO(fhirResource),
         ...stu3DTO(fhirResource),
+      };
+    }
+    case fhirVersions.R4: {
+      return {
+        ...commonDTO(fhirResource),
+        ...r4DTO(fhirResource),
       };
     }
     default:

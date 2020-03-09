@@ -25,7 +25,7 @@ import {
 } from '../../ui';
 
 const commonDTO = fhirResource => {
-  const title = _get(fhirResource, 'title');
+  const title = _get(fhirResource, 'title', 'Research Study');
   const status = _get(fhirResource, 'status');
   const categoryCoding = _get(fhirResource, 'category[0].coding[0]');
   const focusCoding = _get(fhirResource, 'focus[0].coding[0]');
@@ -73,8 +73,33 @@ const commonDTO = fhirResource => {
     arms,
   };
 };
+
+const r4DTO = fhirResource => {
+  const location = _get(fhirResource, 'location');
+  const primaryPurposeType = _get(fhirResource, 'primaryPurposeType');
+  return {
+    location,
+    primaryPurposeType,
+  };
+};
+
 const resourceDTO = (fhirVersion, fhirResource) => {
-  return commonDTO(fhirResource);
+  switch (fhirVersion) {
+    case fhirVersions.STU3: {
+      return {
+        ...commonDTO(fhirResource),
+      };
+    }
+    case fhirVersions.R4: {
+      return {
+        ...commonDTO(fhirResource),
+        ...r4DTO(fhirResource),
+      };
+    }
+    default: {
+      throw Error('Unrecognized the fhir version property type.');
+    }
+  }
 };
 
 const ResearchStudy = props => {
@@ -103,6 +128,8 @@ const ResearchStudy = props => {
     comments,
     description,
     arms,
+    location,
+    primaryPurposeType,
   } = fhirResourceData;
 
   const hasContacts = contacts.length > 0;
@@ -222,6 +249,16 @@ const ResearchStudy = props => {
             ))}
           </Value>
         )}
+        {location && (
+          <Value label="Location" data-testid="location">
+            <CodeableConcept fhirData={location} />
+          </Value>
+        )}
+        {primaryPurposeType && (
+          <Value label="Primary Purpose Type" data-testid="primaryPurposeType">
+            <CodeableConcept fhirData={primaryPurposeType} />
+          </Value>
+        )}
       </Body>
     </Root>
   );
@@ -229,7 +266,7 @@ const ResearchStudy = props => {
 
 ResearchStudy.propTypes = {
   fhirResource: PropTypes.shape({}).isRequired,
-  fhirVersion: PropTypes.oneOf([fhirVersions.STU3]),
+  fhirVersion: PropTypes.oneOf([fhirVersions.STU3, fhirVersions.R4]),
 };
 
 export default ResearchStudy;

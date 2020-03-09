@@ -4,6 +4,8 @@ import { render } from '@testing-library/react';
 import ResearchStudy from './ResearchStudy';
 import fhirVersions from '../fhirResourceVersions';
 import stu3Example1 from '../../../fixtures/stu3/resources/researchStudy/example-1.json';
+import r4Example1 from '../../../fixtures/r4/resources/researchStudy/example1.json';
+
 import { nbspRegex } from '../../../testUtils';
 
 describe('should render ResearchStudy component properly', () => {
@@ -64,5 +66,20 @@ describe('should render ResearchStudy component properly', () => {
       'Study arm 1 description',
       'Study arm 2 description',
     ]);
+  });
+
+  it('with R4 source data', () => {
+    const defaultProps = {
+      fhirResource: r4Example1,
+      fhirVersion: fhirVersions.R4,
+    };
+
+    const { getByTestId } = render(<ResearchStudy {...defaultProps} />);
+
+    const title = getByTestId('title').textContent;
+    expect(title).toEqual('Research Study');
+
+    const status = getByTestId('status').textContent;
+    expect(status).toEqual('completed');
   });
 });

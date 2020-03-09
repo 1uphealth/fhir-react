@@ -20,6 +20,8 @@ import Attachment from '../../datatypes/Attachment';
 import Quantity from '../../datatypes/Quantity';
 import './QuestionnaireResponse.css';
 
+const DEFAULT_TITLE = 'Questionnaire Response';
+
 const getQuestionText = item => {
   let text = _get(item, 'text');
   if (!text) {
@@ -194,7 +196,7 @@ const Items = props => {
     );
   }
 
-  if (fhirVersion === fhirVersions.STU3) {
+  if (fhirVersion === fhirVersions.STU3 || fhirVersion === fhirVersions.R4) {
     const prepareItems = item => ({
       ...item,
       group: !!_get(item, 'item') ? _get(item, 'item') : null,
@@ -207,9 +209,12 @@ const Items = props => {
 };
 
 Items.propTypes = {
-  data: PropTypes.array,
-  fhirVersion: PropTypes.oneOf([fhirVersions.DSTU2, fhirVersions.STU3])
-    .isRequired,
+  data: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
+  fhirVersion: PropTypes.oneOf([
+    fhirVersions.DSTU2,
+    fhirVersions.STU3,
+    fhirVersions.R4,
+  ]).isRequired,
 };
 
 const commonDTO = fhirResource => {
@@ -242,17 +247,8 @@ const dstu2DTO = fhirResource => {
 };
 
 const stu3DTO = fhirResource => {
-  let title = _get(fhirResource, 'title');
-  if (!title) {
-    const groupConcept = _get(fhirResource, 'code.0');
-    if (groupConcept) {
-      title = <Coding fhirData={groupConcept} />;
-    }
-  }
-
   const rootItems = _get(fhirResource, 'item');
   return {
-    title,
     rootItems,
   };
 };
@@ -265,7 +261,9 @@ const resourceDTO = (fhirVersion, fhirResource) => {
         ...dstu2DTO(fhirResource),
       };
     }
-    case fhirVersions.STU3: {
+    // Same for STU3 and R4
+    case fhirVersions.STU3:
+    case fhirVersions.R4: {
       return {
         ...commonDTO(fhirResource),
         ...stu3DTO(fhirResource),
@@ -301,7 +299,7 @@ const QuestionnaireResponse = props => {
   return (
     <Root name="Questionnaire">
       <Header>
-        <Title>{title || <MissingValue />}</Title>
+        <Title>{title || DEFAULT_TITLE}</Title>
         {status && <Badge data-testid="status">{status}</Badge>}
         {dateTime && (
           <BadgeSecondary data-testid="dateTime">
@@ -332,8 +330,11 @@ const QuestionnaireResponse = props => {
 
 QuestionnaireResponse.propTypes = {
   fhirResource: PropTypes.shape({}).isRequired,
-  fhirVersion: PropTypes.oneOf([fhirVersions.DSTU2, fhirVersions.STU3])
-    .isRequired,
+  fhirVersion: PropTypes.oneOf([
+    fhirVersions.DSTU2,
+    fhirVersions.STU3,
+    fhirVersions.R4,
+  ]).isRequired,
 };
 
 export default QuestionnaireResponse;

@@ -3,9 +3,21 @@ import PropTypes from 'prop-types';
 
 import Reference from '../../datatypes/Reference';
 import _get from 'lodash/get';
+import _has from 'lodash/has';
+import fhirVersions from '../fhirResourceVersions';
+import CodeableConcept from '../../datatypes/CodeableConcept';
 
-function Condition(props) {
-  const { fhirResource } = props;
+import {
+  Root,
+  Header,
+  Title,
+  Badge,
+  BadgeSecondary,
+  Body,
+  Value,
+} from '../../ui';
+
+const commonDTO = fhirResource => {
   const codeText =
     _get(fhirResource, 'code.coding.0.display') ||
     _get(fhirResource, 'code.text') ||
@@ -13,60 +25,135 @@ function Condition(props) {
   const severityText =
     _get(fhirResource, 'severity.coding.0.display') ||
     _get(fhirResource, 'severity.text');
-  const clinicalStatus = _get(fhirResource, 'clinicalStatus');
   const onsetDateTime = _get(fhirResource, 'onsetDateTime');
-  const dateRecorded = _get(fhirResource, 'dateRecorded');
+  const hasAsserter = _has(fhirResource, 'asserter');
   const asserter = _get(fhirResource, 'asserter');
+  const hasBodySite = _get(fhirResource, 'bodySite.0.coding.0.display');
+  const bodySite = _get(fhirResource, 'bodySite');
+
+  return {
+    codeText,
+    severityText,
+    onsetDateTime,
+    hasAsserter,
+    asserter,
+    hasBodySite,
+    bodySite,
+  };
+};
+const dstu2DTO = fhirResource => {
+  const clinicalStatus = _get(fhirResource, 'clinicalStatus');
+  const dateRecorded = _get(fhirResource, 'dateRecorded');
+  return {
+    clinicalStatus,
+    dateRecorded,
+  };
+};
+
+const stu3DTO = fhirResource => {
+  const clinicalStatus = _get(fhirResource, 'clinicalStatus');
+  const dateRecorded = _get(fhirResource, 'assertedDate');
+  return {
+    clinicalStatus,
+    dateRecorded,
+  };
+};
+
+const r4DTO = fhirResource => {
+  const clinicalStatus = _get(fhirResource, 'clinicalStatus.coding.0.code');
+  const dateRecorded = _get(fhirResource, 'recordedDate');
+  return {
+    clinicalStatus,
+    dateRecorded,
+  };
+};
+
+const resourceDTO = (fhirVersion, fhirResource) => {
+  switch (fhirVersion) {
+    case fhirVersions.DSTU2: {
+      return {
+        ...commonDTO(fhirResource),
+        ...dstu2DTO(fhirResource),
+      };
+    }
+    case fhirVersions.STU3: {
+      return {
+        ...commonDTO(fhirResource),
+        ...stu3DTO(fhirResource),
+      };
+    }
+    case fhirVersions.R4: {
+      return {
+        ...commonDTO(fhirResource),
+        ...r4DTO(fhirResource),
+      };
+    }
+
+    default:
+      throw Error('Unrecognized the fhir version property type.');
+  }
+};
+function Condition(props) {
+  const { fhirResource, fhirVersion } = props;
+
+  const {
+    codeText,
+    severityText,
+    onsetDateTime,
+    hasAsserter,
+    asserter,
+    hasBodySite,
+    bodySite,
+    clinicalStatus,
+    dateRecorded,
+  } = resourceDTO(fhirVersion, fhirResource);
 
   return (
-    <div>
-      <div>
-        <h4 style={{ display: 'inline-block' }}>{codeText || ''}</h4>
-        &nbsp;(
-        <span data-testid="clinicalStatus">{clinicalStatus || ''}</span>
-        <span className="text-muted" data-testid="severity">
-          {severityText && `, ${severityText} severity`}
-        </span>
-        )
-      </div>
-      <div className="row pl-0 pr-0">
-        <div className="col-md-12">
-          {onsetDateTime && (
-            <div data-testid="onsetDate">
-              <small className="text-muted text-uppercase">
-                <strong>Onset Date: </strong>
-              </small>
-              {onsetDateTime}
-            </div>
-          )}
-        </div>
-        <div className="col-md-12">
-          {dateRecorded && (
-            <div data-testid="dateRecorded">
-              <small className="text-muted text-uppercase">
-                <strong>Date recorded: </strong>
-              </small>
-              {dateRecorded}
-            </div>
-          )}
-        </div>
-        <div className="col-md-12">
-          {asserter && (
-            <div data-testid="asserter">
-              <small className="text-muted text-uppercase">
-                <strong>Asserted by: </strong>
-              </small>
-              {<Reference fhirData={asserter} />}
-            </div>
-          )}
-        </div>
-      </div>
-    </div>
+    <Root name="condition">
+      <Header>
+        <Title>{codeText || ''}</Title>
+        {clinicalStatus && (
+          <Badge data-testid="clinicalStatus">{clinicalStatus}</Badge>
+        )}
+        {severityText && (
+          <BadgeSecondary data-testid="severity">
+            {severityText} severity
+          </BadgeSecondary>
+        )}
+      </Header>
+      <Body>
+        {onsetDateTime && (
+          <Value label="Onset Date" data-testid="onsetDate">
+            {onsetDateTime}
+          </Value>
+        )}
+        {dateRecorded && (
+          <Value label="Date recorded" data-testid="dateRecorded">
+            {dateRecorded}
+          </Value>
+        )}
+        {hasAsserter && (
+          <Value label="Asserted by" data-testid="asserter">
+            <Reference fhirData={asserter} />
+          </Value>
+        )}
+        {hasBodySite && (
+          <Value label="Anatomical locations" data-testid="bodySite">
+            <CodeableConcept fhirData={bodySite} />
+          </Value>
+        )}
+      </Body>
+    </Root>
   );
 }
 
 Condition.propTypes = {
   fhirResource: PropTypes.shape({}).isRequired,
+  fhirVersion: PropTypes.oneOf([
+    fhirVersions.DSTU2,
+    fhirVersions.STU3,
+    fhirVersions.R4,
+  ]).isRequired,
 };
 
 export default Condition;

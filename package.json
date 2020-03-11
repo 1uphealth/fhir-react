@@ -1,13 +1,17 @@
 {
   "name": "fhir-react",
-  "version": "0.0.8",
-  "description": "FHIR Resource component library for react",
+  "version": "0.1.0",
+  "description": "React component library for displaying FHIR Resources ",
   "main": "build/index.js",
   "peerDependencies": {
     "react": "^16.8.3"
   },
   "dependencies": {
+    "dompurify": "^2.0.7",
     "lodash": "^4.17.15",
+    "marked": "^0.8.0",
+    "md5": "^2.2.1",
+    "pretty-bytes": "^5.3.0",
     "prop-types": "^15.7.2",
     "react": "^16.12.0"
   },
@@ -17,9 +21,11 @@
     "test:watch": "NODE_ENV=test jest --watchAll .",
     "start": "NODE_ENV=production webpack --watch",
     "build": "NODE_ENV=production webpack",
-    "lint": "eslint .",
+    "lint": "eslint --max-warnings 0 .",
     "lint:fix": "eslint --fix .",
-    "storybook": "start-storybook",
+    "stylelint": "stylelint 'src/**/*.css'",
+    "stylelint:fix": "stylelint --fix 'src/**/*.css'",
+    "storybook": "start-storybook --port 63653",
     "deploy-storybook": "storybook-to-aws-s3 --bucket-path=storybook-fhir-react-lib --aws-profile=storybook-deployer"
   },
   "author": {
@@ -78,6 +84,10 @@
     "babel-eslint": "^10.0.3",
     "babel-jest": "^24.9.0",
     "babel-loader": "^8.0.6",
+    "babel-plugin-transform-imports": "^2.0.0",
+    "copy-webpack-plugin": "^5.1.1",
+    "css-loader": "^3.4.2",
+    "dedent": "^0.7.0",
     "eslint": "^6.7.2",
     "eslint-config-prettier": "^6.7.0",
     "eslint-config-react-app": "^5.0.2",
@@ -88,8 +98,11 @@
     "eslint-plugin-react": "^7.17.0",
     "eslint-plugin-react-hooks": "^1.7.0",
     "jest": "^24.9.0",
+    "mini-css-extract-plugin": "^0.9.0",
     "prettier": "1.19.1",
     "react-dom": "^16.12.0",
+    "stylelint": "^13.0.0",
+    "stylelint-config-standard": "^19.0.0",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.10"
   }

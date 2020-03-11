@@ -1,0 +1,8 @@
+.fhir-datatype__BinaryText__block {
+  background-color: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 0.25rem;
+  word-break: break-word;
+  font-family: monospace;
+  font-size: 16px;
+}

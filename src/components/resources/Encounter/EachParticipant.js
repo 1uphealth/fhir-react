@@ -1,19 +1,24 @@
 import React from 'react';
+import _isEmpty from 'lodash/isEmpty';
+import { TableRow, TableCell, MissingValue } from '../../ui';
+import Reference from '../../datatypes/Reference';
 
 const EachParticipant = props => {
   const { eachParticipant } = props;
+  const { display, reference, text, periodStart } = eachParticipant;
+  const isReferenceEmpty = _isEmpty(reference);
+
   return (
-    <div className="row">
-      <div className="col-sm-3" data-testid="display">
-        {eachParticipant.display}
-      </div>
-      <div className="col-sm-3" data-testid="text">
-        {eachParticipant.text}
-      </div>
-      <div className="col-sm-6" data-testid="periodStart">
-        {eachParticipant.periodStart}
-      </div>
-    </div>
+    <TableRow>
+      <TableCell data-testid="display">{display}</TableCell>
+      <TableCell data-testid="text">
+        {!isReferenceEmpty && (
+          <Reference fhirData={reference} data-testid="reference" />
+        )}
+        {isReferenceEmpty && !text ? <MissingValue /> : text}
+      </TableCell>
+      <TableCell data-testid="periodStart">{periodStart}</TableCell>
+    </TableRow>
   );
 };
 

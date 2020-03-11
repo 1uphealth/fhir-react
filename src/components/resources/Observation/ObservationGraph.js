@@ -1,11 +1,14 @@
 import React from 'react';
 import _get from 'lodash/get';
 import _isNumber from 'lodash/isNumber';
+import './ObservationGraph.css';
 
 const ObservationGraph = props => {
   if (props.referenceRange && _isNumber(_get(props, 'valueQuantity.value'))) {
     const tooLow = _get(props, 'referenceRange[0].low.value');
     const tooHigh = _get(props, 'referenceRange[0].high.value');
+    if (!tooLow || !tooHigh) return null;
+
     const actual = props.valueQuantity.value;
     const maxNum = Math.max(tooHigh, actual);
     const minNum = Math.min(tooLow, actual);
@@ -16,68 +19,45 @@ const ObservationGraph = props => {
     const rangeBar = Math.round(((zeroShift + tooHigh) / endAt) * 100) - lowBar;
     const valueBar = Math.round(((zeroShift + actual) / endAt) * 100) + 3;
     const higherBar = 100 - rangeBar - lowBar;
+
     return (
-      <div className="col-md-6 mt-2 mb-2 pl-0 pr-0">
+      <div className="fhir-resource__ObservationGraph">
         <div
-          style={{
-            position: 'absolute',
-            left: `${valueBar - Math.max(2.5, actual.toString().length * 2)}%`,
-          }}
+          className="fhir-resource__ObservationGraph__value-wrapper"
+          style={{ left: `${valueBar}%` }}
         >
-          <code style={{ display: 'inline-block' }}>
-            <h4>
-              <strong>{actual}</strong>
-            </h4>
+          <code className="fhir-resource__ObservationGraph__value-actual">
+            {actual}
           </code>
-          <span className="text-muted">&nbsp;{props.valueQuantity.unit}</span>
+          &nbsp;
+          <span className="fhir-resource__ObservationGraph__value-unit">
+            {props.valueQuantity.unit}
+          </span>
         </div>
-        <br />
-        <div className="progress mt-2">
+        <div className="fhir-resource__ObservationGraph__progress">
           <div
-            className="progress-bar bg-transparent text-dark text-muted"
-            role="progressbar"
+            className="fhir-resource__ObservationGraph__progress-bar--outside-range"
             style={{ width: `${lowBar}%` }}
-            aria-valuenow={`${lowBar}`}
-            aria-valuemin="0"
-            aria-valuemax="100"
           >
             <small>
               <strong data-testid="tooLow">{`< ${tooLow}`}</strong>
             </small>
           </div>
           <div
-            className="progress-bar"
+            className="fhir-resource__ObservationGraph__progress-bar--inside-range"
             role="progressbar"
-            style={{
-              backgroundColor: 'rgba(0,0,0,.2)',
-              width: `${rangeBar}%`,
-            }}
-            aria-valuenow={`${rangeBar}`}
-            aria-valuemin="0"
-            aria-valuemax="100"
+            style={{ width: `${rangeBar}%` }}
+            aria-valuenow={actual}
+            aria-valuemin={tooLow}
+            aria-valuemax={tooHigh}
           ></div>
           <div
-            className="progress-bar bg-primary rounded-circle"
-            role="progressbar"
-            style={{
-              opacity: 0.5,
-              width: `12px`,
-              height: '12px',
-              marginTop: '2px',
-              position: 'absolute',
-              left: `${valueBar - 2.5}%`,
-            }}
-            aria-valuenow={`${valueBar}`}
-            aria-valuemin="0"
-            aria-valuemax="100"
+            className="fhir-resource__ObservationGraph__progress-value"
+            style={{ left: `${valueBar}%` }}
           ></div>
           <div
-            className="progress-bar bg-transparent text-dark text-muted"
-            role="progressbar"
+            className="fhir-resource__ObservationGraph__progress-bar--outside-range"
             style={{ width: `${higherBar}%` }}
-            aria-valuenow={`${higherBar}`}
-            aria-valuemin="0"
-            aria-valuemax="100"
           >
             <small>
               <strong data-testid="tooHigh">{`> ${tooHigh}`}</strong>

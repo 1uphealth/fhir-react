@@ -5,68 +5,90 @@ import _get from 'lodash/get';
 import _has from 'lodash/has';
 import EncounterParticipants from './EncounterParticipants';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
-import fhirTypes from '../fhirResourceTypes';
+import fhirVersions from '../fhirResourceVersions';
 import DateType from '../../datatypes/Date';
+import CodableConcept from '../../datatypes/CodeableConcept';
+
+import {
+  Root,
+  Header,
+  Title,
+  Body,
+  Value,
+  MissingValue,
+  Badge,
+} from '../../ui';
 
 const commonDTO = fhirResource => {
-  let periodEnd = _get(fhirResource, 'period.end');
-  periodEnd = periodEnd ? new Date(periodEnd).toLocaleString() : ' - ';
-
-  let periodStart = _get(fhirResource, 'period.start');
-  periodStart = periodStart
-    ? new Date(_get(fhirResource, 'period.start')).toLocaleString()
-    : ' - ';
+  const resourceStatus = _get(fhirResource, 'status');
   const locationDisplay = _get(
     fhirResource,
     'location[0].location.display',
-    null,
+    'Encounter',
   );
+  const encounterType = _get(fhirResource, 'type');
   const hasParticipant = _has(fhirResource, 'participant');
   return {
-    periodEnd,
-    periodStart,
+    resourceStatus,
     locationDisplay,
     hasParticipant,
+    encounterType,
   };
 };
 
 const dstu2DTO = fhirResource => {
+  let periodEnd = _get(fhirResource, 'period.end');
+  periodEnd = periodEnd ? new Date(periodEnd).toLocaleString() : ' - ';
+
+  let periodStart = _get(fhirResource, 'period.start');
+  periodStart = periodStart ? (
+    new Date(_get(fhirResource, 'period.start')).toLocaleString()
+  ) : (
+    <MissingValue />
+  );
   const resourceClass = _get(fhirResource, 'class');
-  const resourceStatus = _get(fhirResource, 'status');
   const participant = _get(fhirResource, 'participant', []).map(item => {
     let periodStart = _get(item, 'period.start');
     periodStart = new Date(periodStart).toLocaleString();
-
+    const reference = _get(item, 'individual', {});
     return {
-      display: _get(item, 'type[0].coding[0].display'),
+      display: _get(item, 'type[0].coding[0].display', <MissingValue />),
+      reference: reference,
       text: _get(item, 'type[0].text'),
       periodStart,
     };
   });
 
   return {
+    periodEnd,
+    periodStart,
     resourceClass,
-    resourceStatus,
     participant,
   };
 };
 
 const stu3DTO = fhirResource => {
   let periodEnd = _get(fhirResource, 'period.end');
-  periodEnd = periodEnd ? <DateType fhirData={periodEnd} /> : ' - ';
+  periodEnd = periodEnd ? <DateType fhirData={periodEnd} /> : <MissingValue />;
 
   let periodStart = _get(fhirResource, 'period.start');
-  periodStart = periodStart ? <DateType fhirData={periodStart} /> : ' - ';
+  periodStart = periodStart ? (
+    <DateType fhirData={periodStart} />
+  ) : (
+    <MissingValue />
+  );
+
   const resourceClass = _get(fhirResource, 'class.display');
-  const resourceStatus = _get(fhirResource, 'status');
   const participant = _get(fhirResource, 'participant', []).map(item => {
     let periodStart = _get(item, 'period.start');
     if (periodStart) {
       periodStart = <DateType fhirData={periodStart} />;
     }
+    const reference = _get(item, 'individual', {});
     return {
-      display: ' - ',
-      text: _get(item, 'individual.display'),
+      display: _get(item, 'type[0].coding[0].display', <MissingValue />),
+      reference: reference,
+      text: _get(item, 'type[0].text'),
       periodStart,
     };
   });
@@ -75,23 +97,60 @@ const stu3DTO = fhirResource => {
     periodStart,
     periodEnd,
     resourceClass,
-    resourceStatus,
+    participant,
+  };
+};
+
+const r4DTO = fhirResource => {
+  let periodEnd = _get(fhirResource, 'period.end');
+  periodEnd = periodEnd ? <DateType fhirData={periodEnd} /> : <MissingValue />;
+
+  let periodStart = _get(fhirResource, 'period.start');
+  periodStart = periodStart ? (
+    <DateType fhirData={periodStart} />
+  ) : (
+    <MissingValue />
+  );
+  const resourceClass = _get(fhirResource, 'class.display');
+  const participant = _get(fhirResource, 'participant', []).map(item => {
+    let periodStart = _get(item, 'period.start');
+    if (periodStart) {
+      periodStart = <DateType fhirData={periodStart} />;
+    }
+    const reference = _get(item, 'individual', {});
+    return {
+      display: _get(item, 'type[0].coding[0].display', <MissingValue />),
+      reference: reference,
+      text: _get(item, 'type[0].text'),
+      periodStart,
+    };
+  });
+  return {
+    resourceClass,
+    periodStart,
+    periodEnd,
     participant,
   };
 };
 
 const resourceDTO = (fhirVersion, fhirResource) => {
   switch (fhirVersion) {
-    case fhirTypes.DSTU2: {
+    case fhirVersions.DSTU2: {
       return {
         ...commonDTO(fhirResource),
         ...dstu2DTO(fhirResource),
       };
     }
-    case fhirTypes.STU3: {
+    case fhirVersions.STU3: {
       return {
         ...commonDTO(fhirResource),
         ...stu3DTO(fhirResource),
+      };
+    }
+    case fhirVersions.R4: {
+      return {
+        ...commonDTO(fhirResource),
+        ...r4DTO(fhirResource),
       };
     }
 
@@ -114,66 +173,45 @@ const Encounter = props => {
     periodStart,
     hasParticipant,
     locationDisplay,
+    encounterType,
     resourceClass,
     resourceStatus,
     participant,
   } = fhirResourceData;
-
   return (
-    <div>
-      <div className="container">
-        <div className="row">
-          <div className=" ">
-            <div>
-              <h4>{locationDisplay}</h4>
-              <div className="row">
-                <div className="col-sm-3">
-                  <span className="text-muted">
-                    <small className="text-uppercase">
-                      <strong>Start Date </strong>
-                    </small>
-                  </span>
-                </div>
-                <div className="col-sm-9">{periodStart}</div>
-                <div className="col-sm-3">
-                  <span className="text-muted">
-                    <small className="text-uppercase">
-                      <strong>End Date</strong>
-                    </small>
-                  </span>
-                </div>
-                <div className="col-sm-9">{periodEnd}</div>
-                <div className="col-sm-3">
-                  <span className="text-muted">
-                    <small className="text-uppercase">
-                      <strong>Class</strong>
-                    </small>
-                  </span>
-                </div>
-                <div className="col-sm-9">{resourceClass}</div>
-                <div className="col-sm-3">
-                  <span className="text-muted">
-                    <small className="text-uppercase">
-                      <strong>Status</strong>
-                    </small>
-                  </span>
-                </div>
-                <div className="col-sm-9">{resourceStatus}</div>
-              </div>
-            </div>
-          </div>
-        </div>
+    <Root name="encounter">
+      <Header>
+        <Title data-testid="title">{locationDisplay}</Title>
+        {resourceStatus && <Badge>{resourceStatus}</Badge>}
+      </Header>
+      <Body>
+        {periodStart && <Value label="Start date">{periodStart}</Value>}
+        {periodEnd && <Value label="End date">{periodEnd}</Value>}
+        {encounterType && (
+          <Value label="Type" data-testid="encounterType">
+            <CodableConcept fhirData={encounterType} />
+          </Value>
+        )}
+        {resourceClass && (
+          <Value label="Class" data-testid="resourceClass">
+            {resourceClass}
+          </Value>
+        )}
         {hasParticipant && (
           <EncounterParticipants allParticipant={participant} />
         )}
-      </div>
-    </div>
+      </Body>
+    </Root>
   );
 };
 
 Encounter.propTypes = {
   fhirResource: PropTypes.shape({}).isRequired,
-  fhirVersion: PropTypes.string.isRequired,
+  fhirVersion: PropTypes.oneOf([
+    fhirVersions.DSTU2,
+    fhirVersions.STU3,
+    fhirVersions.R4,
+  ]).isRequired,
 };
 
 export default Encounter;

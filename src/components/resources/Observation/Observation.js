@@ -5,6 +5,16 @@ import _get from 'lodash/get';
 import Coding from '../../datatypes/Coding';
 import Date from '../../datatypes/Date';
 import ObservationGraph from './ObservationGraph';
+import {
+  Root,
+  Header,
+  Title,
+  Badge,
+  BadgeSecondary,
+  Body,
+  Value,
+} from '../../ui';
+import Reference from '../../datatypes/Reference';
 
 const Observation = props => {
   const { fhirResource } = props;
@@ -27,45 +37,49 @@ const Observation = props => {
     'valueCodeableConcept.coding',
     [],
   );
+
+  const valueQuantityString = `${valueQuantityValue}${valueQuantityUnit}`.trim();
+  const subject = _get(fhirResource, 'subject');
+
   return (
-    <div>
-      <div style={{ width: '100%', display: 'inline-block' }}>
-        <h4 style={{ display: 'inline-block' }}>
-          {codeCodingDisplay || codeText} &nbsp;
-          <code>
-            {valueQuantityValue}
-            {valueQuantityUnit}
-          </code>
-        </h4>
-        &nbsp;({status}&nbsp;
-        <span className="text-muted">
-          {valueCodeableConceptText || valueCodeableConceptCodingDisplay}
-        </span>
-        )
-      </div>
-      <div className="container">
-        <div className="row">
-          <ObservationGraph
-            valueQuantity={fhirResource.valueQuantity}
-            referenceRange={fhirResource.referenceRange}
-          />
-        </div>
-        {issued && (
-          <div className="row" style={{ display: 'unset !important' }}>
-            <small className="text-muted text-uppercase">
-              <strong>Issued on:</strong>
-            </small>
-            &nbsp;
-            <Date fhirData={issued} />
-          </div>
+    <Root name="Observation">
+      <Header>
+        <Title>
+          {codeCodingDisplay || codeText}
+          {valueQuantityString && (
+            <>
+              &nbsp;
+              <code>{valueQuantityString}</code>
+            </>
+          )}
+        </Title>
+        {status && <Badge data-testid="status">{status}</Badge>}
+        {(valueCodeableConceptText || valueCodeableConceptCodingDisplay) && (
+          <BadgeSecondary data-testid="secondaryStatus">
+            {valueCodeableConceptText || valueCodeableConceptCodingDisplay}
+          </BadgeSecondary>
         )}
-        <div className="row">
-          {valueCodeableConceptCoding.map(coding => (
-            <Coding fhirData={coding} />
-          ))}
-        </div>
-      </div>
-    </div>
+      </Header>
+      <Body>
+        <ObservationGraph
+          valueQuantity={fhirResource.valueQuantity}
+          referenceRange={fhirResource.referenceRange}
+        />
+        {issued && (
+          <Value label="Issued on" data-testid="issuedOn">
+            <Date fhirData={issued} />
+          </Value>
+        )}
+        {subject && (
+          <Value label="Subject" data-testid="subject">
+            <Reference fhirData={subject} />
+          </Value>
+        )}
+        {valueCodeableConceptCoding.map((coding, i) => (
+          <Coding fhirData={coding} key={`value-coding-${i}`} />
+        ))}
+      </Body>
+    </Root>
   );
 };
 

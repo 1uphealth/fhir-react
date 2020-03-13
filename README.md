@@ -85,7 +85,7 @@ const MyComponent = () => {
 
 ### Styles
 
-Optional CSS styles are provided with this library. They are splitted into two files:
+Optional CSS styles are provided with this library. They are split into two files:
 
 - `style.css` with basic styling of the components
 - `bootstrap-reboot.min.css` further enhancing those styles

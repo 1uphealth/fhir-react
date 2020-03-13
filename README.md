@@ -48,41 +48,41 @@ const MyComponent = () => {
 
 ### Available resources
 
-| Resource                   | DSTU2 | STU3 | R4  |
-| -------------------------- | :---: | :--: | :-: |
-| `AdverseEvent`             | _N/A_ |  ✅  | ✅  |
-| `AllergyIntolerance`       |  ✅   |  ✅  | ✅  |
-| `AdverseEvent`             | _N/A_ |  ✅  | ✅  |
-| `AllergyIntolerance`       |  ✅   |  ✅  | ✅  |
-| `Appointment`              |  ✅   |  ✅  | ✅  |
-| `CarePlan`                 |  ✅   |  ✅  | ✅  |
-| `CareTeam`                 | _N/A_ |  ✅  | ✅  |
-| `Claim`                    |  ✅   |  ✅  | ✅  |
-| `ClaimResponse`            |  ✅   |  ✅  | ✅  |
-| `Condition`                |  ✅   |  ✅  | ✅  |
-| `Coverage`                 |  ✅   |  ✅  | ✅  |
-| `Device`                   |  ✅   |  ✅  | ✅  |
-| `DiagnosticReport`         |  ✅   |  ✅  | ✅  |
-| `DocumentReference`        |  ✅   |  ✅  | ✅  |
-| `Encounter`                |  ✅   |  ✅  | ✅  |
-| `ExplanationOfBenefit`     |  ✅   |  ✅  | ✅  |
-| `Goal`                     |  ✅   |  ✅  | ✅  |
-| `Immunization`             |  ✅   |  ✅  | ✅  |
-| `Location`                 |  ✅   |  ✅  | ✅  |
-| `Medication`               |  ✅   |  ✅  | ✅  |
-| `MedicationAdministration` |  ✅   |  ✅  | ✅  |
-| `MedicationDispense`       |  ✅   |  ✅  | ✅  |
-| `MedicationRequest`        | _N/A_ |  ✅  | ✅  |
-| `MedicationStatement`      |  ✅   |  ✅  | ✅  |
-| `Observation`              |  ✅   |  ✅  | ✅  |
-| `Organization`             |  ✅   |  ✅  | ✅  |
-| `Patient`                  |  ✅   |  ✅  | ✅  |
-| `Practitioner`             |  ✅   |  ✅  | ✅  |
-| `Procedure`                |  ✅   |  ✅  | ✅  |
-| `Questionnaire`            |  ✅   |  ✅  | ✅  |
-| `QuestionnaireResponse`    |  ✅   |  ✅  | ✅  |
-| `ReferralRequest`          |  ✅   |  ✅  | ✅  |
-| `ResearchStudy`            | _N/A_ |  ✅  | ✅  |
+| Resource                   | DSTU2 | STU3 |  R4   |
+| -------------------------- | :---: | :--: | :---: |
+| `AdverseEvent`             | _N/A_ |  ✅  |  ✅   |
+| `AllergyIntolerance`       |  ✅   |  ✅  |  ✅   |
+| `AdverseEvent`             | _N/A_ |  ✅  |  ✅   |
+| `AllergyIntolerance`       |  ✅   |  ✅  |  ✅   |
+| `Appointment`              |  ✅   |  ✅  |  ✅   |
+| `CarePlan`                 |  ✅   |  ✅  |  ✅   |
+| `CareTeam`                 | _N/A_ |  ✅  |  ✅   |
+| `Claim`                    |  ✅   |  ✅  |  ✅   |
+| `ClaimResponse`            |  ✅   |  ✅  |  ✅   |
+| `Condition`                |  ✅   |  ✅  |  ✅   |
+| `Coverage`                 |  ✅   |  ✅  |  ✅   |
+| `Device`                   |  ✅   |  ✅  |  ✅   |
+| `DiagnosticReport`         |  ✅   |  ✅  |  ✅   |
+| `DocumentReference`        |  ✅   |  ✅  |  ✅   |
+| `Encounter`                |  ✅   |  ✅  |  ✅   |
+| `ExplanationOfBenefit`     |  ✅   |  ✅  |  ✅   |
+| `Goal`                     |  ✅   |  ✅  |  ✅   |
+| `Immunization`             |  ✅   |  ✅  |  ✅   |
+| `Location`                 |  ✅   |  ✅  |  ✅   |
+| `Medication`               |  ✅   |  ✅  |  ✅   |
+| `MedicationAdministration` |  ✅   |  ✅  |  ✅   |
+| `MedicationDispense`       |  ✅   |  ✅  |  ✅   |
+| `MedicationRequest`        | _N/A_ |  ✅  |  ✅   |
+| `MedicationStatement`      |  ✅   |  ✅  |  ✅   |
+| `Observation`              |  ✅   |  ✅  |  ✅   |
+| `Organization`             |  ✅   |  ✅  |  ✅   |
+| `Patient`                  |  ✅   |  ✅  |  ✅   |
+| `Practitioner`             |  ✅   |  ✅  |  ✅   |
+| `Procedure`                |  ✅   |  ✅  |  ✅   |
+| `Questionnaire`            |  ✅   |  ✅  |  ✅   |
+| `QuestionnaireResponse`    |  ✅   |  ✅  |  ✅   |
+| `ReferralRequest`          |  ✅   |  ✅  | _N/A_ |
+| `ResearchStudy`            | _N/A_ |  ✅  |  ✅   |
 
 ## Storybook
 

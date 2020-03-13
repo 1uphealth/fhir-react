@@ -44,44 +44,45 @@ const MyComponent = () => {
 
 - `fhirVersions.DSTU2` - http://hl7.org/fhir/dstu2/index.html
 - `fhirVersions.STU3` - http://hl7.org/fhir/stu3/index.html
+- `fhirVersions.R4` - http://hl7.org/fhir/r4/
 
 ### Available resources
 
-| Resource                   | DSTU2 | STU3 |     |
+| Resource                   | DSTU2 | STU3 | R4  |
 | -------------------------- | :---: | :--: | :-: |
-| `AdverseEvent`             | _N/A_ |  ✅  |     |
-| `AllergyIntolerance`       |  ✅   |  ✅  |     |
-| `AdverseEvent`             | _N/A_ |  ✅  |     |
-| `AllergyIntolerance`       |  ✅   |  ✅  |     |
-| `Appointment`              |  ✅   |  ✅  |     |
-| `CarePlan`                 |  ✅   |  ✅  |     |
-| `CareTeam`                 | _N/A_ |  ✅  |     |
-| `Claim`                    |  ✅   |  ✅  |     |
-| `ClaimResponse`            |  ✅   |  ✅  |     |
-| `Condition`                |  ✅   |  ✅  |     |
-| `Coverage`                 |  ✅   |  ✅  |     |
-| `Device`                   |  ✅   |  ✅  |     |
-| `DiagnosticReport`         |  ✅   |  ✅  |     |
-| `DocumentReference`        |  ✅   |  ✅  |     |
-| `Encounter`                |  ✅   |  ✅  |     |
-| `ExplanationOfBenefit`     |  ✅   |  ✅  |     |
-| `Goal`                     |  ✅   |  ✅  |     |
-| `Immunization`             |  ✅   |  ✅  |     |
-| `Location`                 |  ✅   |  ✅  |     |
-| `Medication`               |  ✅   |  ✅  |     |
-| `MedicationAdministration` |  ✅   |  ✅  |     |
-| `MedicationDispense`       |  ✅   |  ✅  |     |
-| `MedicationRequest`        | _N/A_ |  ✅  |     |
-| `MedicationStatement`      |  ✅   |  ✅  |     |
-| `Observation`              |  ✅   |  ✅  |     |
-| `Organization`             |  ✅   |  ✅  |     |
-| `Patient`                  |  ✅   |  ✅  |     |
-| `Practitioner`             |  ✅   |  ✅  |     |
-| `Procedure`                |  ✅   |  ✅  |     |
-| `Questionnaire`            |  ✅   |  ✅  |     |
-| `QuestionnaireResponse`    |  ✅   |  ✅  |     |
-| `ReferralRequest`          |  ✅   |  ✅  |     |
-| `ResearchStudy`            | _N/A_ |  ✅  |     |
+| `AdverseEvent`             | _N/A_ |  ✅  | ✅  |
+| `AllergyIntolerance`       |  ✅   |  ✅  | ✅  |
+| `AdverseEvent`             | _N/A_ |  ✅  | ✅  |
+| `AllergyIntolerance`       |  ✅   |  ✅  | ✅  |
+| `Appointment`              |  ✅   |  ✅  | ✅  |
+| `CarePlan`                 |  ✅   |  ✅  | ✅  |
+| `CareTeam`                 | _N/A_ |  ✅  | ✅  |
+| `Claim`                    |  ✅   |  ✅  | ✅  |
+| `ClaimResponse`            |  ✅   |  ✅  | ✅  |
+| `Condition`                |  ✅   |  ✅  | ✅  |
+| `Coverage`                 |  ✅   |  ✅  | ✅  |
+| `Device`                   |  ✅   |  ✅  | ✅  |
+| `DiagnosticReport`         |  ✅   |  ✅  | ✅  |
+| `DocumentReference`        |  ✅   |  ✅  | ✅  |
+| `Encounter`                |  ✅   |  ✅  | ✅  |
+| `ExplanationOfBenefit`     |  ✅   |  ✅  | ✅  |
+| `Goal`                     |  ✅   |  ✅  | ✅  |
+| `Immunization`             |  ✅   |  ✅  | ✅  |
+| `Location`                 |  ✅   |  ✅  | ✅  |
+| `Medication`               |  ✅   |  ✅  | ✅  |
+| `MedicationAdministration` |  ✅   |  ✅  | ✅  |
+| `MedicationDispense`       |  ✅   |  ✅  | ✅  |
+| `MedicationRequest`        | _N/A_ |  ✅  | ✅  |
+| `MedicationStatement`      |  ✅   |  ✅  | ✅  |
+| `Observation`              |  ✅   |  ✅  | ✅  |
+| `Organization`             |  ✅   |  ✅  | ✅  |
+| `Patient`                  |  ✅   |  ✅  | ✅  |
+| `Practitioner`             |  ✅   |  ✅  | ✅  |
+| `Procedure`                |  ✅   |  ✅  | ✅  |
+| `Questionnaire`            |  ✅   |  ✅  | ✅  |
+| `QuestionnaireResponse`    |  ✅   |  ✅  | ✅  |
+| `ReferralRequest`          |  ✅   |  ✅  | ✅  |
+| `ResearchStudy`            | _N/A_ |  ✅  | ✅  |
 
 ## Storybook
 

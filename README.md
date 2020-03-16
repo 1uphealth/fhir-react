@@ -44,44 +44,61 @@ const MyComponent = () => {
 
 - `fhirVersions.DSTU2` - http://hl7.org/fhir/dstu2/index.html
 - `fhirVersions.STU3` - http://hl7.org/fhir/stu3/index.html
+- `fhirVersions.R4` - http://hl7.org/fhir/r4/
 
 ### Available resources
 
-| Resource                   | DSTU2 | STU3 |     |
-| -------------------------- | :---: | :--: | :-: |
-| `AdverseEvent`             | _N/A_ |  ✅  |     |
-| `AllergyIntolerance`       |  ✅   |  ✅  |     |
-| `AdverseEvent`             | _N/A_ |  ✅  |     |
-| `AllergyIntolerance`       |  ✅   |  ✅  |     |
-| `Appointment`              |  ✅   |  ✅  |     |
-| `CarePlan`                 |  ✅   |  ✅  |     |
-| `CareTeam`                 | _N/A_ |  ✅  |     |
-| `Claim`                    |  ✅   |  ✅  |     |
-| `ClaimResponse`            |  ✅   |  ✅  |     |
-| `Condition`                |  ✅   |  ✅  |     |
-| `Coverage`                 |  ✅   |  ✅  |     |
-| `Device`                   |  ✅   |  ✅  |     |
-| `DiagnosticReport`         |  ✅   |  ✅  |     |
-| `DocumentReference`        |  ✅   |  ✅  |     |
-| `Encounter`                |  ✅   |  ✅  |     |
-| `ExplanationOfBenefit`     |  ✅   |  ✅  |     |
-| `Goal`                     |  ✅   |  ✅  |     |
-| `Immunization`             |  ✅   |  ✅  |     |
-| `Location`                 |  ✅   |  ✅  |     |
-| `Medication`               |  ✅   |  ✅  |     |
-| `MedicationAdministration` |  ✅   |  ✅  |     |
-| `MedicationDispense`       |  ✅   |  ✅  |     |
-| `MedicationRequest`        | _N/A_ |  ✅  |     |
-| `MedicationStatement`      |  ✅   |  ✅  |     |
-| `Observation`              |  ✅   |  ✅  |     |
-| `Organization`             |  ✅   |  ✅  |     |
-| `Patient`                  |  ✅   |  ✅  |     |
-| `Practitioner`             |  ✅   |  ✅  |     |
-| `Procedure`                |  ✅   |  ✅  |     |
-| `Questionnaire`            |  ✅   |  ✅  |     |
-| `QuestionnaireResponse`    |  ✅   |  ✅  |     |
-| `ReferralRequest`          |  ✅   |  ✅  |     |
-| `ResearchStudy`            | _N/A_ |  ✅  |     |
+| Resource                   | DSTU2 | STU3 |  R4   |
+| -------------------------- | :---: | :--: | :---: |
+| `AdverseEvent`             | _N/A_ |  ✅  |  ✅   |
+| `AllergyIntolerance`       |  ✅   |  ✅  |  ✅   |
+| `AdverseEvent`             | _N/A_ |  ✅  |  ✅   |
+| `AllergyIntolerance`       |  ✅   |  ✅  |  ✅   |
+| `Appointment`              |  ✅   |  ✅  |  ✅   |
+| `CarePlan`                 |  ✅   |  ✅  |  ✅   |
+| `CareTeam`                 | _N/A_ |  ✅  |  ✅   |
+| `Claim`                    |  ✅   |  ✅  |  ✅   |
+| `ClaimResponse`            |  ✅   |  ✅  |  ✅   |
+| `Condition`                |  ✅   |  ✅  |  ✅   |
+| `Coverage`                 |  ✅   |  ✅  |  ✅   |
+| `Device`                   |  ✅   |  ✅  |  ✅   |
+| `DiagnosticReport`         |  ✅   |  ✅  |  ✅   |
+| `DocumentReference`        |  ✅   |  ✅  |  ✅   |
+| `Encounter`                |  ✅   |  ✅  |  ✅   |
+| `ExplanationOfBenefit`     |  ✅   |  ✅  |  ✅   |
+| `Goal`                     |  ✅   |  ✅  |  ✅   |
+| `Immunization`             |  ✅   |  ✅  |  ✅   |
+| `Location`                 |  ✅   |  ✅  |  ✅   |
+| `Medication`               |  ✅   |  ✅  |  ✅   |
+| `MedicationAdministration` |  ✅   |  ✅  |  ✅   |
+| `MedicationDispense`       |  ✅   |  ✅  |  ✅   |
+| `MedicationRequest`        | _N/A_ |  ✅  |  ✅   |
+| `MedicationStatement`      |  ✅   |  ✅  |  ✅   |
+| `Observation`              |  ✅   |  ✅  |  ✅   |
+| `Organization`             |  ✅   |  ✅  |  ✅   |
+| `Patient`                  |  ✅   |  ✅  |  ✅   |
+| `Practitioner`             |  ✅   |  ✅  |  ✅   |
+| `Procedure`                |  ✅   |  ✅  |  ✅   |
+| `Questionnaire`            |  ✅   |  ✅  |  ✅   |
+| `QuestionnaireResponse`    |  ✅   |  ✅  |  ✅   |
+| `ReferralRequest`          |  ✅   |  ✅  | _N/A_ |
+| `ResearchStudy`            | _N/A_ |  ✅  |  ✅   |
+
+### Styles
+
+Optional CSS styles are provided with this library. They are split into two files:
+
+- `style.css` with basic styling of the components
+- `bootstrap-reboot.min.css` further enhancing those styles
+
+To use provided styles include them in the React component:
+
+```js
+import 'fhir-react/build/style.css';
+import 'fhir-react/build/bootstrap-reboot.min.css';
+```
+
+The working demo example with styles included can be viewed [here](https://codesandbox.io/s/infallible-diffie-r6ln5).
 
 ## Storybook
 

@@ -11,6 +11,12 @@ const Binary = props => {
       {(() => {
         switch (fhirResource.contentType) {
           case 'application/pdf':
+            if (props.children && typeof props.children === 'function') {
+              return props.children(
+                fhirResource.content,
+                fhirResource.contentType,
+              );
+            }
             return <Pdf fhirResource={fhirResource} />;
           case 'image/jpeg':
             return <Img fhirResource={fhirResource} />;

@@ -52,12 +52,14 @@ function PatientSimple(props) {
               })}
             </div>
             <div>
-              <span className="fhir-resource__PatientSimple__item">
-                <label className="fhir-resource__PatientSimple__label">
-                  ID
-                </label>
-                <span data-testid="patientId">{id}</span>
-              </span>
+              {id && (
+                <span className="fhir-resource__PatientSimple__item">
+                  <label className="fhir-resource__PatientSimple__label">
+                    ID
+                  </label>
+                  <span data-testid="patientId">{id}</span>
+                </span>
+              )}
               {patientBirthDate && (
                 <span className="fhir-resource__PatientSimple__item">
                   <label className="fhir-resource__PatientSimple__label">

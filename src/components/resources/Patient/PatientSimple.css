@@ -1,0 +1,31 @@
+.fhir-resource__PatientSimple__patientContact-relationship {
+  font-weight: 700;
+}
+
+.fhir-resource__PatientSimple__patient-avatar {
+  border: 4px solid #fff;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.fhir-resource__PatientSimple__patient-block {
+  display: flex;
+  align-items: baseline;
+}
+
+.fhir-resource__PatientSimple__item {
+  font-weight: normal;
+  color: #6c757d;
+  margin-right: 20px;
+}
+
+.fhir-resource__PatientSimple__label {
+  font-weight: 900;
+  margin-right: 5px;
+}
+
+.fhir-resource__PatientSimple__gender {
+  font-size: 1em;
+  margin-right: 5px;
+  align-self: flex-start;
+}

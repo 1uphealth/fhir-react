@@ -26,15 +26,28 @@ function PatientContact(props) {
   );
 }
 
+export function getId(fhirResource) {
+  return _get(fhirResource, 'id');
+}
+export function getNames(fhirResource) {
+  return _get(fhirResource, 'name', []);
+}
+export function getBirthDate(fhirResource) {
+  return _get(fhirResource, 'birthDate');
+}
+export function getGender(fhirResource) {
+  return _get(fhirResource, 'gender');
+}
+
 function Patient(props) {
   const { fhirResource } = props;
 
-  const id = _get(fhirResource, 'id');
+  const id = getId(fhirResource);
   const idHash = md5(id || '');
   const avatarSrc = `http://www.gravatar.com/avatar/${idHash}?s=50&r=any&default=identicon&forcedefault=1`;
-  const patientNames = _get(fhirResource, 'name', []);
-  const patientBirthDate = _get(fhirResource, 'birthDate');
-  const patientGender = _get(fhirResource, 'gender');
+  const patientNames = getNames(fhirResource);
+  const patientBirthDate = getBirthDate(fhirResource);
+  const patientGender = getGender(fhirResource);
   const patientContact = _get(fhirResource, 'contact[0]');
   const patientAddress = _get(fhirResource, 'address[0]');
   const patientPhones = _get(fhirResource, 'telecom', []).filter(

@@ -10,6 +10,7 @@
 
 .fhir-resource__Patient__patient-block {
   display: flex;
+  align-items: baseline;
 }
 
 .fhir-resource__Patient__BirthDate-block {

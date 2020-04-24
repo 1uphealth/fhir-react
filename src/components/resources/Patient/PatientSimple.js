@@ -1,38 +1,75 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import _get from 'lodash/get';
+import md5 from 'md5';
 
 import HumanName from '../../datatypes/HumanName';
-import { Root, Header, Body } from '../../ui';
-import { getId, getNames, getBirthDate, getGender } from './Patient';
+import Address from '../../datatypes/Address';
+import Date from '../../datatypes/Date';
+import { Root, Header, Body, Value, Badge } from '../../ui';
+import './Patient.css';
 
-import './PatientSimple.css';
+function PatientContact(props) {
+  const { fhirData } = props;
+  const name = _get(fhirData, 'name');
+  const relationship = _get(fhirData, 'relationship[0].text');
 
-function PatientSimple(props) {
-  const { fhirResource } = props;
+  return (
+    <div>
+      <HumanName fhirData={name} />
+      {relationship && (
+        <small className="fhir-resource__Patient__patientContact-relationship">{` (${relationship})`}</small>
+      )}
+    </div>
+  );
+}
+
+export function getId(fhirResource) {
+  return _get(fhirResource, 'id');
+}
+export function getNames(fhirResource) {
+  return _get(fhirResource, 'name', []);
+}
+export function getBirthDate(fhirResource) {
+  return _get(fhirResource, 'birthDate');
+}
+export function getGender(fhirResource) {
+  return _get(fhirResource, 'gender');
+}
+
+function Patientsimple(props) {
+  const { fhirResource, fhirVersion, renderName } = props;
 
   const id = getId(fhirResource);
+  const idHash = md5(id || '');
+  const avatarSrc = `http://www.gravatar.com/avatar/${idHash}?s=50&r=any&default=identicon&forcedefault=1`;
   const patientNames = getNames(fhirResource);
   const patientBirthDate = getBirthDate(fhirResource);
   const patientGender = getGender(fhirResource);
+  const patientContact = _get(fhirResource, 'contact[0]');
+  const active = _get(fhirResource, 'active', false);
+  const activeStatus = active ? 'active' : 'inactive';
+  const deceasedBoolean = _get(fhirResource, 'deceasedBoolean', false);
+  const deceasedDate = _get(fhirResource, 'deceasedDateTime');
+  const isDeceased = deceasedBoolean || deceasedDate;
 
-  let genderSign = null;
-  if (patientGender === 'male') {
-    genderSign = '♂';
-  } else if (patientGender === 'female') {
-    genderSign = '♀';
-  }
+  const defaultName = (patientName, index) => {
+    return <HumanName fhirData={patientName} primary={index === 0} />;
+  };
+
   return (
-    <Root name="PatientSimple">
+    <Root name="Patient">
       <Header>
-        <div className="fhir-resource__PatientSimple__patient-block">
+        <div className="fhir-resource__Patient__patient-block">
           <div>
-            <div className="fhir-resource__PatientSimple__patient-block">
-              <span
-                className="fhir-resource__PatientSimple__gender"
-                data-testid="patientGender"
-              >
-                {genderSign && genderSign}
-              </span>
+            <img
+              className="fhir-resource__Patient__patient-avatar"
+              src={avatarSrc}
+              alt=""
+            />
+          </div>
+          <div>
+            <div className="fhir-resource__Patient__patient-block">
               {patientNames.map((patientName, index) => {
                 if (props.thorough === false && index !== 0) {
                   return null;
@@ -40,10 +77,14 @@ function PatientSimple(props) {
                   return (
                     <React.Fragment key={index}>
                       <span data-testid={`patientName-${index}`}>
-                        <HumanName
-                          fhirData={patientName}
-                          primary={index === 0}
-                        />
+                        {renderName
+                          ? renderName({
+                              patientName,
+                              defaultName,
+                              fhirVersion,
+                              id,
+                            })
+                          : defaultName(patientName, index)}
                       </span>
                       &nbsp;&nbsp;
                     </React.Fragment>
@@ -52,33 +93,43 @@ function PatientSimple(props) {
               })}
             </div>
             <div>
-              {id && (
-                <span className="fhir-resource__PatientSimple__item">
-                  <label className="fhir-resource__PatientSimple__label">
-                    ID
-                  </label>
-                  <span data-testid="patientId">{id}</span>
-                </span>
+              {active && (
+                <Badge data-testid="activeStatus">{activeStatus}</Badge>
               )}
               {patientBirthDate && (
-                <span className="fhir-resource__PatientSimple__item">
-                  <label className="fhir-resource__PatientSimple__label">
-                    DOB
-                  </label>
-                  <span data-testid="patientBirthDate">{patientBirthDate}</span>
+                <span className="fhir-resource__Patient__BirthDate-block">
+                  <strong>
+                    <span data-testid="patientGender">
+                      {patientGender || 'unknown'}
+                    </span>
+                    {', '}
+                    <span data-testid="patientBirthDate">
+                      {patientBirthDate}
+                    </span>
+                  </strong>
+                  <small> (DOB)</small>
                 </span>
               )}
+            </div>
+            <div>
+              {patientContact && <PatientContact fhirData={patientContact} />}
             </div>
           </div>
         </div>
       </Header>
-      <Body></Body>
+      <Body>
+        {isDeceased && (
+          <Value label="Deceased" data-testid="deceasedInfo">
+            {deceasedDate ? <Date fhirData={deceasedDate} /> : 'yes'}
+          </Value>
+        )}
+      </Body>
     </Root>
   );
 }
 
-PatientSimple.propTypes = {
+Patientsimple.propTypes = {
   fhirResource: PropTypes.shape({}).isRequired,
 };
 
-export default PatientSimple;
+export default Patientsimple;

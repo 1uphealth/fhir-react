@@ -24,7 +24,7 @@ import MedicationOrder from './components/resources/MedicationOrder';
 import MedicationStatement from './components/resources/MedicationStatement';
 import Observation from './components/resources/Observation';
 import Patient from './components/resources/Patient';
-import PatientSimple from './components/resources/Patient';
+import PatientSimple from './components/resources/Patient/PatientSimple';
 import Practitioner from './components/resources/Practitioner';
 import Procedure from './components/resources/Procedure';
 import ExplanationOfBenefit from './components/resources/ExplanationOfBenefit';

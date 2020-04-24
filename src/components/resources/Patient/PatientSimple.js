@@ -4,7 +4,6 @@ import _get from 'lodash/get';
 import md5 from 'md5';
 
 import HumanName from '../../datatypes/HumanName';
-import Address from '../../datatypes/Address';
 import Date from '../../datatypes/Date';
 import { Root, Header, Body, Value, Badge } from '../../ui';
 import './Patient.css';

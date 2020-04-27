@@ -11,7 +11,7 @@ import Date from '../../datatypes/Date';
 import { Root, Header, Body, Value, MissingValue, Badge } from '../../ui';
 import './Patient.css';
 
-function PatientContact(props) {
+export function PatientContact(props) {
   const { fhirData } = props;
   const name = _get(fhirData, 'name');
   const relationship = _get(fhirData, 'relationship[0].text');
@@ -40,7 +40,7 @@ export function getGender(fhirResource) {
 }
 
 function Patient(props) {
-  const { fhirResource } = props;
+  const { fhirResource, fhirVersion, renderName, patientSimple } = props;
 
   const id = getId(fhirResource);
   const idHash = md5(id || '');
@@ -63,6 +63,11 @@ function Patient(props) {
   const deceasedBoolean = _get(fhirResource, 'deceasedBoolean', false);
   const deceasedDate = _get(fhirResource, 'deceasedDateTime');
   const isDeceased = deceasedBoolean || deceasedDate;
+
+  const defaultName = (patientName, index) => {
+    return <HumanName fhirData={patientName} primary={index === 0} />;
+  };
+
   return (
     <Root name="Patient">
       <Header>
@@ -83,10 +88,14 @@ function Patient(props) {
                   return (
                     <React.Fragment key={index}>
                       <span data-testid={`patientName-${index}`}>
-                        <HumanName
-                          fhirData={patientName}
-                          primary={index === 0}
-                        />
+                        {renderName
+                          ? renderName({
+                              patientName,
+                              defaultName,
+                              fhirVersion,
+                              id,
+                            })
+                          : defaultName(patientName, index)}
                       </span>
                       &nbsp;&nbsp;
                     </React.Fragment>
@@ -119,38 +128,40 @@ function Patient(props) {
           </div>
         </div>
       </Header>
-      <Body>
-        {isDeceased && (
-          <Value label="Deceased" data-testid="deceasedInfo">
-            {deceasedDate ? <Date fhirData={deceasedDate} /> : 'yes'}
-          </Value>
-        )}
-        {patientAddress && (
-          <Value label="Address" data-testid="patientAddress">
-            <Address fhirData={patientAddress} />
-          </Value>
-        )}
-        {patientPhones && (
-          <Value label="TELEPHONE" data-testid="patientPhones">
-            {patientPhones.map((telecom, index) => (
-              <div key={index}>
-                <Telecom fhirData={telecom} />
-              </div>
-            ))}
-            {patientPhones.length === 0 && <MissingValue />}
-          </Value>
-        )}
-        {hasCommunicationLanguage && (
-          <Value
-            label="Communication - language"
-            data-testid="communicationLanguage"
-          >
-            {communicationLanguage.map((item, i) => (
-              <Coding key={`item-${i}`} fhirData={item} />
-            ))}
-          </Value>
-        )}
-      </Body>
+      {!patientSimple && (
+        <Body>
+          {isDeceased && (
+            <Value label="Deceased" data-testid="deceasedInfo">
+              {deceasedDate ? <Date fhirData={deceasedDate} /> : 'yes'}
+            </Value>
+          )}
+          {patientAddress && (
+            <Value label="Address" data-testid="patientAddress">
+              <Address fhirData={patientAddress} />
+            </Value>
+          )}
+          {patientPhones && (
+            <Value label="TELEPHONE" data-testid="patientPhones">
+              {patientPhones.map((telecom, index) => (
+                <div key={index}>
+                  <Telecom fhirData={telecom} />
+                </div>
+              ))}
+              {patientPhones.length === 0 && <MissingValue />}
+            </Value>
+          )}
+          {hasCommunicationLanguage && (
+            <Value
+              label="Communication - language"
+              data-testid="communicationLanguage"
+            >
+              {communicationLanguage.map((item, i) => (
+                <Coding key={`item-${i}`} fhirData={item} />
+              ))}
+            </Value>
+          )}
+        </Body>
+      )}
     </Root>
   );
 }

@@ -18,7 +18,7 @@ import Reference from '../../datatypes/Reference';
 
 const Observation = props => {
   const { fhirResource } = props;
-  const { issued } = fhirResource;
+  const effectiveDate = _get(fhirResource, 'effectiveDateTime');
   const codeCodingDisplay = _get(fhirResource, 'code.coding.0.display');
   const codeText = _get(fhirResource, 'code.text', '');
   const valueQuantityValue = _get(fhirResource, 'valueQuantity.value', '');
@@ -65,9 +65,9 @@ const Observation = props => {
           valueQuantity={fhirResource.valueQuantity}
           referenceRange={fhirResource.referenceRange}
         />
-        {issued && (
+        {effectiveDate && (
           <Value label="Issued on" data-testid="issuedOn">
-            <Date fhirData={issued} />
+            <Date fhirData={effectiveDate} />
           </Value>
         )}
         {subject && (

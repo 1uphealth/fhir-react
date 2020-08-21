@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import _get from 'lodash/get';
+import _isFinite from 'lodash/isFinite';
 import Coding from '../../datatypes/Coding';
 import Date from '../../datatypes/Date';
 import ObservationGraph from './ObservationGraph';
@@ -38,7 +39,19 @@ const Observation = props => {
     [],
   );
 
-  const valueQuantityString = `${valueQuantityValue}${valueQuantityUnit}`.trim();
+  let valueQuantityValueNumber = valueQuantityValue;
+
+  if (
+    _isFinite(Number(props.digitsToRoundForQuantity)) &&
+    valueQuantityValue != '' &&
+    _isFinite(Number(valueQuantityValue))
+  ) {
+    valueQuantityValueNumber = Number(valueQuantityValue).toFixed(
+      props.digitsToRoundForQuantity,
+    );
+  }
+
+  const valueQuantityString = `${valueQuantityValueNumber}${valueQuantityUnit}`.trim();
   const subject = _get(fhirResource, 'subject');
 
   return (
@@ -49,7 +62,7 @@ const Observation = props => {
           {valueQuantityString && (
             <>
               &nbsp;
-              <code>{valueQuantityString}</code>
+              <code data-testid="valueQuantity">{valueQuantityString}</code>
             </>
           )}
         </Title>
@@ -85,6 +98,11 @@ const Observation = props => {
 
 Observation.propTypes = {
   fhirResource: PropTypes.shape({}).isRequired,
+  digitsToRoundForQuantity: PropTypes.number,
+};
+
+Observation.defaultProps = {
+  digitsToRoundForQuantity: 2,
 };
 
 export default Observation;

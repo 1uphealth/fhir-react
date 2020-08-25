@@ -43,7 +43,7 @@ const Observation = props => {
 
   if (
     _isFinite(Number(props.digitsToRoundForQuantity)) &&
-    valueQuantityValue != '' &&
+    valueQuantityValue !== '' &&
     _isFinite(Number(valueQuantityValue))
   ) {
     valueQuantityValueNumber = Number(valueQuantityValue).toFixed(

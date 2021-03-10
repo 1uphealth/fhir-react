@@ -9,8 +9,11 @@ function HumanName(props) {
   const givenName = _get(fhirData, 'given', []).join(', ');
   const familyName = _flatten(Array(_get(fhirData, 'family', ''))).join(', ');
   const suffix = _get(fhirData, 'suffix', []).join(' ');
+  const textName = _get(fhirData, 'text');
   const use = _get(fhirData, 'use');
-  const header = `${givenName} ${familyName} ${suffix}`;
+  const header = textName
+    ? textName
+    : `${givenName} ${familyName} ${suffix}`.trim();
 
   const headerElement = primary ? (
     <span className="fhir-datatype__HumanName__Header--primary">{header}</span>
@@ -25,7 +28,9 @@ function HumanName(props) {
     <div className={`fhir-datatype__HumanName ${rootClassName}`}>
       {headerElement}
       {use && (
-        <small className="fhir-datatype__HumanName__use-block">({use})</small>
+        <small className="fhir-datatype__HumanName__use-block">
+          {` (${use})`}
+        </small>
       )}
     </div>
   );

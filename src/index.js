@@ -25,6 +25,7 @@ import MedicationStatement from './components/resources/MedicationStatement';
 import Observation from './components/resources/Observation';
 import Patient from './components/resources/Patient';
 import Practitioner from './components/resources/Practitioner';
+import PractitionerRole from './components/resources/PractitionerRole';
 import Procedure from './components/resources/Procedure';
 import ExplanationOfBenefit from './components/resources/ExplanationOfBenefit';
 import Coverage from './components/resources/Coverage';
@@ -66,6 +67,7 @@ export {
   Observation,
   Patient,
   Practitioner,
+  PractitionerRole,
   Procedure,
   ExplanationOfBenefit,
   Coverage,

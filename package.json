@@ -13,46 +13,7 @@
     "md5": "^2.2.1",
     "pretty-bytes": "^5.3.0",
     "prop-types": "^15.7.2",
-    "react": "^16.12.0"
-  },
-  "scripts": {
-    "test": "NODE_ENV=test jest",
-    "test:coverage": "NODE_ENV=test jest --coverage .",
-    "test:watch": "NODE_ENV=test jest --watchAll .",
-    "start": "NODE_ENV=production webpack --watch",
-    "build": "NODE_ENV=production webpack",
-    "lint": "eslint --max-warnings 0 .",
-    "lint:fix": "eslint --fix .",
-    "stylelint": "stylelint 'src/**/*.css'",
-    "stylelint:fix": "stylelint --fix 'src/**/*.css'",
-    "storybook": "start-storybook --port 63653",
-    "deploy-storybook": "storybook-to-aws-s3 --bucket-path=storybook-fhir-react-lib --aws-profile=storybook-deployer",
-    "postinstall": "npm run build"
-  },
-  "author": {
-    "name": "1upHealth",
-    "email": "eng@1up.health"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/1uphealth/fhir-react.git"
-  },
-  "bugs": {
-    "url": "https://github.com/1uphealth/fhir-react/issues"
-  },
-  "homepage": "https://github.com/1uphealth/fhir-react#readme",
-  "keywords": [
-    "fhir",
-    "react",
-    "hl7",
-    "dstu2",
-    "stu3",
-    "bootstrap",
-    "material",
-    "ui"
-  ],
-  "license": "MIT",
-  "devDependencies": {
+    "react": "^16.12.0",
     "@babel/cli": "^7.7.4",
     "@babel/core": "^7.0.0",
     "@babel/plugin-proposal-class-properties": "^7.0.0",
@@ -106,5 +67,43 @@
     "stylelint-config-standard": "^19.0.0",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.10"
-  }
+  },
+  "scripts": {
+    "test": "NODE_ENV=test jest",
+    "test:coverage": "NODE_ENV=test jest --coverage .",
+    "test:watch": "NODE_ENV=test jest --watchAll .",
+    "start": "NODE_ENV=production webpack --watch",
+    "build": "NODE_ENV=production webpack",
+    "lint": "eslint --max-warnings 0 .",
+    "lint:fix": "eslint --fix .",
+    "stylelint": "stylelint 'src/**/*.css'",
+    "stylelint:fix": "stylelint --fix 'src/**/*.css'",
+    "storybook": "start-storybook --port 63653",
+    "deploy-storybook": "storybook-to-aws-s3 --bucket-path=storybook-fhir-react-lib --aws-profile=storybook-deployer",
+    "postinstall": "npm run build"
+  },
+  "author": {
+    "name": "1upHealth",
+    "email": "eng@1up.health"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/1uphealth/fhir-react.git"
+  },
+  "bugs": {
+    "url": "https://github.com/1uphealth/fhir-react/issues"
+  },
+  "homepage": "https://github.com/1uphealth/fhir-react#readme",
+  "keywords": [
+    "fhir",
+    "react",
+    "hl7",
+    "dstu2",
+    "stu3",
+    "bootstrap",
+    "material",
+    "ui"
+  ],
+  "license": "MIT",
+  "devDependencies": {}
 }

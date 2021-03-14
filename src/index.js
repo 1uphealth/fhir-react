@@ -6,6 +6,7 @@ import Generic from './components/resources/Generic';
 import AdverseEvent from './components/resources/AdverseEvent';
 import AllergyIntolerance from './components/resources/AllergyIntolerance/AllergyIntolerance';
 import Binary from './components/resources/Binary';
+import Bundle from './components/resources/Bundle';
 import CarePlan from './components/resources/CarePlan';
 import CareTeam from './components/resources/CareTeam';
 import Claim from './components/resources/Claim';
@@ -48,6 +49,7 @@ export {
   AdverseEvent,
   AllergyIntolerance,
   Binary,
+  Bundle,
   CarePlan,
   CareTeam,
   Claim,

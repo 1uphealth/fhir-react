@@ -24,6 +24,7 @@ import MedicationStatement from '../../resources/MedicationStatement';
 import Observation from '../../resources/Observation';
 import Patient from '../../resources/Patient';
 import Practitioner from '../../resources/Practitioner';
+import PractitionerRole from '../../resources/PractitionerRole';
 import Procedure from '../../resources/Procedure';
 import ExplanationOfBenefit from '../../resources/ExplanationOfBenefit';
 import Coverage from '../../resources/Coverage';
@@ -207,6 +208,12 @@ class FhirResource extends React.Component {
         return (
           <ResourceContainer {...this.props}>
             <Practitioner {...this.props} />
+          </ResourceContainer>
+        );
+      case 'PractitionerRole':
+        return (
+          <ResourceContainer {...this.props}>
+            <PractitionerRole {...this.props} />
           </ResourceContainer>
         );
       case 'Procedure':

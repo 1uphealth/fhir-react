@@ -7,6 +7,7 @@ import { Root, Header, Title, Badge, Body, BadgeSecondary } from '../../ui';
 import { FhirResource } from '../../../index';
 
 import './Bundle.css';
+import Generic from '../Generic';
 
 const Bundle = props => {
   const commonDTO = fhirResource => {
@@ -69,10 +70,14 @@ const Bundle = props => {
                     {resource.resourceType}
                   </BadgeSecondary>
                 )}
-                <FhirResource
-                  fhirResource={resource}
-                  fhirVersion={fhirVersion}
-                />
+                {resource.resourceType !== 'Bundle' ? (
+                  <FhirResource
+                    fhirResource={resource}
+                    fhirVersion={fhirVersion}
+                  />
+                ) : (
+                  <Generic fhirResource={resource} fhirVersion={fhirVersion} />
+                )}
               </div>
             );
           })}

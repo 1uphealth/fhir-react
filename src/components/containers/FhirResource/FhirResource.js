@@ -5,6 +5,7 @@ import Generic from '../../resources/Generic';
 import AdverseEvent from '../../resources/AdverseEvent';
 import AllergyIntolerance from '../../resources/AllergyIntolerance/AllergyIntolerance';
 import Binary from '../../resources/Binary';
+import Bundle from '../../resources/Bundle';
 import CarePlan from '../../resources/CarePlan';
 import CareTeam from '../../resources/CareTeam';
 import Claim from '../../resources/Claim';
@@ -92,6 +93,12 @@ class FhirResource extends React.Component {
         return (
           <ResourceContainer {...this.props}>
             <Appointment {...this.props} />
+          </ResourceContainer>
+        );
+      case 'Bundle':
+        return (
+          <ResourceContainer {...this.props}>
+            <Bundle {...this.props} />
           </ResourceContainer>
         );
       case 'Binary':

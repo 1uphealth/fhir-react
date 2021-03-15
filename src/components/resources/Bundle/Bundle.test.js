@@ -14,10 +14,11 @@ describe('Bundle should render component correctly', () => {
       fhirVersion: fhirVersions.DSTU2,
       fhirResource: dstu2Example1,
     };
-    const { getByTestId, getByText, queryByTestId } = render(
+    const { getByTestId, getByText, queryByTestId, getAllByText } = render(
       <Bundle {...defaultProps} />,
     );
 
+    expect(getAllByText('Patient').length).toBe(2);
     expect(getByTestId('title').textContent).toEqual('transaction');
     expect(queryByTestId('total')).toBeNull();
     expect(getByText('Claudio955 Ramón841')).toBeDefined();

@@ -3,8 +3,10 @@ import _get from 'lodash/get';
 
 import fhirVersions from '../fhirResourceVersions';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
-import { Root, Header, Title, Badge, Body } from '../../ui';
+import { Root, Header, Title, Badge, Body, BadgeSecondary } from '../../ui';
 import { FhirResource } from '../../../index';
+
+import './Bundle.css';
 
 const Bundle = props => {
   const commonDTO = fhirResource => {
@@ -58,11 +60,20 @@ const Bundle = props => {
         {resources.length > 0 &&
           resources.map((resource, index) => {
             return (
-              <FhirResource
+              <div
+                className="fhir-resource__Bundle__item"
                 key={resource.id || index}
-                fhirResource={resource}
-                fhirVersion={fhirVersion}
-              />
+              >
+                {resource.resourceType && (
+                  <BadgeSecondary data-testid="resourceType">
+                    {resource.resourceType}
+                  </BadgeSecondary>
+                )}
+                <FhirResource
+                  fhirResource={resource}
+                  fhirVersion={fhirVersion}
+                />
+              </div>
             );
           })}
       </Body>

@@ -54,7 +54,7 @@ function Patient(props) {
     telecom => telecom.system === 'phone',
   );
   let communicationLanguage = _get(fhirResource, 'communication', [])
-    .filter(item => _get(item, 'language.coding', []))
+    .filter(item => Boolean(_get(item, 'language.coding', null)))
     .map(item => item.language.coding);
   communicationLanguage = _get(communicationLanguage, '0', []);
   const hasCommunicationLanguage = communicationLanguage.length > 0;

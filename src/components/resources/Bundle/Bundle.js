@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _get from 'lodash/get';
-import objectHash from 'object-hash';
 
 import fhirVersions from '../fhirResourceVersions';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
@@ -70,7 +69,7 @@ export default function Bundle(props) {
             return (
               <div
                 className="fhir-resource__Bundle__item"
-                key={objectHash.sha1(resource)}
+                key={`${resource.id}-${index}`}
               >
                 {resourceType && (
                   <BadgeSecondary data-testid="resourceType">

@@ -194,14 +194,7 @@
                 "status": "generated",
                 "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Severe burn of left ear (Date: 24-May 2012)</div>"
               },
-              "clinicalStatus": {
-                "coding": [
-                  {
-                    "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
-                    "code": "active"
-                  }
-                ]
-              },
+              "clinicalStatus": "active",
               "verificationStatus": {
                 "coding": [
                   {
@@ -279,14 +272,7 @@
                 "status": "generated",
                 "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Mild Asthma (Date: 12-Nov 2012)</div>"
               },
-              "clinicalStatus": {
-                "coding": [
-                  {
-                    "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
-                    "code": "active"
-                  }
-                ]
-              },
+              "clinicalStatus": "active",
               "verificationStatus": {
                 "coding": [
                   {
@@ -340,14 +326,7 @@
                 "status": "generated",
                 "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Family history of cancer of colon</div>"
               },
-              "clinicalStatus": {
-                "coding": [
-                  {
-                    "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
-                    "code": "active"
-                  }
-                ]
-              },
+              "clinicalStatus": "active",
               "category": [
                 {
                   "coding": [
@@ -389,14 +368,7 @@
                 "status": "generated",
                 "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Ischemic stroke, July 18, 2010</div>"
               },
-              "clinicalStatus": {
-                "coding": [
-                  {
-                    "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
-                    "code": "active"
-                  }
-                ]
-              },
+              "clinicalStatus": "active",
               "verificationStatus": {
                 "coding": [
                   {

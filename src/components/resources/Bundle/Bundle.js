@@ -1,15 +1,16 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import _get from 'lodash/get';
+import objectHash from 'object-hash';
 
 import fhirVersions from '../fhirResourceVersions';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 import { Root, Header, Title, Badge, Body, BadgeSecondary } from '../../ui';
-import { FhirResource } from '../../../index';
+import * as FhirResourceTypes from '../../supportedFhirResourceList';
 
 import './Bundle.css';
-import Generic from '../Generic';
 
-const Bundle = props => {
+export default function Bundle(props) {
   const commonDTO = fhirResource => {
     const type = _get(fhirResource, 'type', null);
     const total = _get(fhirResource, 'total');
@@ -48,7 +49,7 @@ const Bundle = props => {
   const { type, total, entries } = fhirResourceData;
 
   const resources = entries
-    .map(entry => entry.resource || null)
+    .map(entry => entry.resource || entry)
     .filter(Boolean);
 
   return (
@@ -60,30 +61,39 @@ const Bundle = props => {
       <Body>
         {resources.length > 0 &&
           resources.map((resource, index) => {
+            const resourceType = resource.resourceType;
+            const FhirComponent =
+              FhirResourceTypes[resourceType] !== undefined
+                ? FhirResourceTypes[resourceType]
+                : FhirResourceTypes.Generic;
+
             return (
               <div
                 className="fhir-resource__Bundle__item"
-                key={resource.id || index}
+                key={objectHash.sha1(resource)}
               >
-                {resource.resourceType && (
+                {resourceType && (
                   <BadgeSecondary data-testid="resourceType">
-                    {resource.resourceType}
+                    {resourceType}
                   </BadgeSecondary>
                 )}
-                {resource.resourceType !== 'Bundle' ? (
-                  <FhirResource
-                    fhirResource={resource}
-                    fhirVersion={fhirVersion}
-                  />
-                ) : (
-                  <Generic fhirResource={resource} fhirVersion={fhirVersion} />
-                )}
+                <FhirComponent
+                  fhirResource={resource}
+                  fhirVersion={fhirVersion}
+                />
               </div>
             );
           })}
       </Body>
     </Root>
   );
-};
+}
 
-export default Bundle;
+Bundle.propTypes = {
+  fhirResource: PropTypes.shape({}).isRequired,
+  fhirVersion: PropTypes.oneOf([
+    fhirVersions.DSTU2,
+    fhirVersions.STU3,
+    fhirVersions.R4,
+  ]),
+};

@@ -30,16 +30,18 @@ describe('Bundle should render component correctly', () => {
       fhirVersion: fhirVersions.DSTU2,
       fhirResource: dstu2Example2,
     };
-    const { getByTestId, getByText, getAllByTestId } = render(
-      <Bundle {...defaultProps} />,
-    );
+    const { getByText, getAllByTestId } = render(<Bundle {...defaultProps} />);
     expect(getAllByTestId('title').map(title => title.textContent)).toEqual([
       'batch-response',
-      'Bundle/2c2fb771-6c4b-4df8-89b2-47a1178e7c',
-      'Bundle/86846953-60dd-47ba-b37a-7e7d7e3312',
-      'Bundle/4bafe9c4-ba53-4d7b-89d0-d92ee0859a',
+      'searchset',
+      'Burn of ear',
+      'Asthma',
+      'Family history of cancer of colon',
+      'Ischemic stroke (disorder)',
+      'searchset',
+      'searchset',
     ]);
-    expect(getByTestId('total').textContent).toEqual('4');
+    expect(getAllByTestId('total')[0].textContent).toEqual('4');
     expect(getByText('Peter, James Chalmers')).toBeDefined();
   });
 

@@ -22,7 +22,6 @@ class ResourceContainer extends React.Component {
               type="button"
               className="fhir-container__ResourceContainer__json-button"
               onClick={() => this.setState({ jsonOpen: !this.state.jsonOpen })}
-              data-target={`${this.props.fhirResource.resourceType}/${this.props.fhirResource.id}`}
             >
               JSON
             </button>

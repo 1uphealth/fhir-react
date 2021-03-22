@@ -1,18 +1,21 @@
 import React from 'react';
 import * as FhirResourceTypes from '../../supportedFhirResourceList';
 import ResourceContainer from '../ResourceContainer';
-
 class ErrorBoundary extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { hasError: false };
+    this.state = { hasError: false, error: null };
   }
 
   componentDidCatch(error, info) {
     // Display fallback UI
-    this.setState({ hasError: true });
+    this.setState({ hasError: true, error });
     // You can also log the error to an error reporting service
     // logErrorToMyService(error, info);
+    console.error(
+      'An error occured when trying to render a FHIR Component:',
+      error,
+    );
   }
 
   render() {
@@ -29,17 +32,8 @@ class ErrorBoundary extends React.Component {
 }
 
 class FhirResource extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { hasError: false };
-  }
-
-  componentDidCatch(error, info) {
-    this.setState({ hasError: true });
-  }
-
   renderSwitch() {
-    const { resourceType } = this.props.fhirResource;
+    const { resourceType } = this.props.fhirResource || {};
     switch (resourceType) {
       case 'Binary':
         return <FhirResourceTypes.Binary {...this.props} />;

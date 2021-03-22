@@ -5,7 +5,9 @@ import { Root, Header, Title, Body } from '../../ui';
 
 const Generic = props => {
   const { fhirResource } = props;
-  const title = `${fhirResource.resourceType}/${fhirResource.id}`;
+  const title = fhirResource
+    ? `${fhirResource.resourceType}/${fhirResource.id}`
+    : `Unknown Resource`;
   const code =
     _get(fhirResource, 'code.coding[0].display') ||
     _get(fhirResource, 'code.text');
@@ -15,7 +17,7 @@ const Generic = props => {
       <Header>
         <Title>{title}</Title>
       </Header>
-      <Body>{code && <p>{code}</p>}</Body>
+      {code && <Body>{code && <p>{code}</p>}</Body>}
     </Root>
   );
 };

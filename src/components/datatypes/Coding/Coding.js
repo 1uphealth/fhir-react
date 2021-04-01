@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _get from 'lodash/get';
 
+import './Coding.css';
+
 const Coding = props => {
   const { fhirData } = props;
   const display = _get(fhirData, 'display', '');
@@ -12,13 +14,9 @@ const Coding = props => {
     <div className="fhir-datatype__Coding">
       <span className="fhir-datatype__Coding__title">{display}</span>&nbsp;
       {hasAdditionalInfo && (
-        <>
-          (
-          <abbr className="fhir-datatype__Coding__code" title={system}>
-            {code}
-          </abbr>
-          )
-        </>
+        <span className="fhir-datatype__Coding__code" title={system}>
+          ({code})
+        </span>
       )}
     </div>
   );

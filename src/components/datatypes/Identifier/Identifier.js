@@ -2,15 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _get from 'lodash/get';
 
+import './Identifier.css';
+
 const Identifier = props => {
   const { fhirData } = props;
   const value = _get(fhirData, 'value', '');
   const system = _get(fhirData, 'system', '');
 
   return value ? (
-    <abbr className="fhir-datatype__Identifier" title={system}>
+    <span className="fhir-datatype__Identifier" title={system}>
       {value}
-    </abbr>
+    </span>
   ) : null;
 };
 

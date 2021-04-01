@@ -48,7 +48,7 @@ describe('should render component correctly', () => {
     expect(getByTestId('subject').textContent).toContain('P. van de Heuvel');
   });
 
-  test('R4 renders properly, example 2', () => {
+  test.only('R4 renders properly, example 2', () => {
     const defaultProps = {
       fhirResource: example2ObservationExcessR4,
     };
@@ -64,7 +64,7 @@ describe('should render component correctly', () => {
     expect(getByTestId('secondaryStatus').textContent).toEqual('YES');
     expect(getByTestId('issuedOn').textContent).toEqual('2016-05-18');
     expect(getByTestId('subject').textContent).toContain('Patient/infant');
-    expect(queryByText('373066001')).not.toBeNull();
+    expect(queryByText(/373066001/g)).not.toBeNull();
   });
 
   test('should round the quantity to default value of digitsToRoundForQuantity props ', () => {

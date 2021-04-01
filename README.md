@@ -55,6 +55,7 @@ const MyComponent = () => {
 | `AdverseEvent`             | _N/A_ |  ✅  |  ✅   |
 | `AllergyIntolerance`       |  ✅   |  ✅  |  ✅   |
 | `Appointment`              |  ✅   |  ✅  |  ✅   |
+| `Bundle`              |  ✅   |  ✅  |  ✅   |
 | `CarePlan`                 |  ✅   |  ✅  |  ✅   |
 | `CareTeam`                 | _N/A_ |  ✅  |  ✅   |
 | `Claim`                    |  ✅   |  ✅  |  ✅   |
@@ -78,6 +79,7 @@ const MyComponent = () => {
 | `Organization`             |  ✅   |  ✅  |  ✅   |
 | `Patient`                  |  ✅   |  ✅  |  ✅   |
 | `Practitioner`             |  ✅   |  ✅  |  ✅   |
+| `PractitionerRole`             |  _N/A_   |  ✅  |  ✅   |
 | `Procedure`                |  ✅   |  ✅  |  ✅   |
 | `Questionnaire`            |  ✅   |  ✅  |  ✅   |
 | `QuestionnaireResponse`    |  ✅   |  ✅  |  ✅   |

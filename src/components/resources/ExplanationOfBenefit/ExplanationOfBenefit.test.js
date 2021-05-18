@@ -85,7 +85,40 @@ describe('should render ExplanationOfBenefit component properly', () => {
     expect(getByTestId('purpose').textContent).toEqual('claim');
     expect(getByTestId('patient').textContent).toEqual('Patient/pat1');
     expect(getByTestId('insurance').textContent).toEqual('Coverage/9876B1');
-    expect(queryByTestId('hasServices')).toBeNull();
+
+    expect(queryByTestId('hasServices')).not.toBeNull();
+    const tablesContent = [];
+    getByTestId('hasServices')
+      .querySelectorAll('.fhir-ui__TableRow')
+      .forEach(el => {
+        const tds = [];
+        el.querySelectorAll('.fhir-ui__TableCell').forEach(item => {
+          tds.push(String(item.textContent).trim());
+        });
+        tablesContent.push(tds);
+      });
+    // table header
+    expect(tablesContent[0]).toEqual([
+      'Service',
+      'Service date',
+      'Quantity',
+      'Item cost',
+    ]);
+
+    // table 1st row
+    expect(tablesContent[1]).toEqual([
+      '(1205)',
+      '2014-08-16',
+      '-',
+      `135.57${String.fromCharCode(160)}USD`,
+    ]);
+    // table 2nd row
+    expect(tablesContent[2]).toEqual([
+      '(group)',
+      '2014-08-16',
+      '-',
+      `200${String.fromCharCode(160)}USD`,
+    ]);
     expect(queryByTestId('hasInformation')).toBeNull();
     expect(queryByTestId('totalBenefit')).toBeNull();
     expect(queryByTestId('totalCost')).toBeNull();

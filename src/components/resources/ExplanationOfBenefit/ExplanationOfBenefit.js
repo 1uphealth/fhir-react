@@ -22,6 +22,14 @@ import Money from '../../datatypes/Money';
 import Reference from '../../datatypes/Reference';
 import TotalSum from './TotalSum';
 
+/**
+ * @typedef ExplanationOfBenefitServiceItem
+ * @property {Object} serviceCoding
+ * @property {String} [servicedDate]
+ * @property {Number} [quantity]
+ * @property {Object} [itemCost]
+ */
+
 const commonDTO = fhirResource => {
   const disposition = _get(fhirResource, 'disposition');
   const created = _get(fhirResource, 'created');
@@ -50,13 +58,27 @@ const stu3DTO = fhirResource => {
   const hasInformation = Array.isArray(information) && information.length > 0;
   const provider = _get(fhirResource, 'provider');
 
+  /**
+   *
+   * @param {Array} services
+   * @returns {ExplanationOfBenefitServiceItem}
+   */
+  const prepareServiceItem = services =>
+    services.map(serviceItem => {
+      const coding = _get(serviceItem, 'service.coding.0');
+      const servicedDate = _get(serviceItem, 'servicedDate');
+      const quantity = _get(serviceItem, 'quantity.value');
+      const itemCost = _get(serviceItem, 'net');
+      return { coding, servicedDate, quantity, itemCost };
+    });
+
   return {
     totalBenefit,
     totalCost,
     type,
     hasType,
     hasServices,
-    services,
+    services: prepareServiceItem(services),
     information,
     hasInformation,
     provider,
@@ -72,11 +94,29 @@ const r4DTO = fhirResource => {
   const provider = _get(fhirResource, 'provider');
   const total = _get(fhirResource, 'total', []);
   const hasTotal = total.length > 0;
+  const services = _get(fhirResource, 'item', []);
+  const hasServices = Array.isArray(services) && services.length > 0;
+  const information = _get(fhirResource, 'supportingInfo', []);
+  const hasInformation = Array.isArray(information) && information.length > 0;
 
   // Person can have multiple insurances, but one with focal = true is used to judge this claim
   const insuranceList = _get(fhirResource, 'insurance', []);
   const adjudicationInsurance = insuranceList.filter(item => item.focal)[0];
   const insurance = _get(adjudicationInsurance, 'coverage');
+
+  /**
+   *
+   * @param {Array} services
+   * @returns {ExplanationOfBenefitServiceItem}
+   */
+  const prepareServiceItem = services =>
+    services.map(serviceItem => {
+      const coding = _get(serviceItem, 'productOrService.coding.0');
+      const servicedDate = _get(serviceItem, 'servicedDate');
+      const quantity = _get(serviceItem, 'quantity.value');
+      const itemCost = _get(serviceItem, 'net');
+      return { coding, servicedDate, quantity, itemCost };
+    });
 
   return {
     type,
@@ -88,6 +128,10 @@ const r4DTO = fhirResource => {
     insurance,
     total,
     hasTotal,
+    hasServices,
+    services: prepareServiceItem(services),
+    hasInformation,
+    information,
   };
 };
 
@@ -217,27 +261,38 @@ const ExplanationOfBenefit = props => {
                   <TableCell>Service</TableCell>
                   <TableCell>Service date</TableCell>
                   <TableCell>Quantity</TableCell>
+                  <TableCell>Item cost</TableCell>
                 </TableRow>
               </thead>
               <tbody>
                 {services.map((serviceItem, i) => {
-                  const coding = _get(serviceItem, 'service.coding.0');
-                  const servicedDate = _get(serviceItem, 'servicedDate');
-                  const quantity = _get(serviceItem, 'quantity.value');
                   return (
                     <TableRow key={`serviceItem-${i}`}>
                       <TableCell>
-                        <Coding fhirData={coding} />
+                        <Coding fhirData={serviceItem.coding} />
                       </TableCell>
                       <TableCell>
-                        {servicedDate ? (
-                          <Date fhirData={_get(serviceItem, 'servicedDate')} />
+                        {serviceItem.servicedDate ? (
+                          <Date fhirData={serviceItem.servicedDate} />
                         ) : (
                           <MissingValue />
                         )}
                       </TableCell>
                       <TableCell>
-                        {!Number.isNaN(quantity) ? quantity : <MissingValue />}
+                        {Number.isFinite(Number(serviceItem.quantity)) ? (
+                          serviceItem.quantity
+                        ) : (
+                          <MissingValue />
+                        )}
+                      </TableCell>
+                      <TableCell>
+                        {Number.isFinite(
+                          Number(_get(serviceItem, 'itemCost.value')),
+                        ) ? (
+                          <Money fhirData={serviceItem.itemCost} />
+                        ) : (
+                          <MissingValue />
+                        )}
                       </TableCell>
                     </TableRow>
                   );

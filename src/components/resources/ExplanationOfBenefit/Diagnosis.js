@@ -9,15 +9,12 @@ const Diagnosis = ({ fhirData }) => {
   return fhirData.map((diagnosis, index) => {
     const sequence = _get(diagnosis, 'sequence');
     const reference = _get(diagnosis, 'diagnosisReference');
-    const codeableConcept = _get(diagnosis, 'codeableConcept	');
+    const codeableConcept = _get(diagnosis, 'codeableConcept');
     const type = _get(diagnosis, 'type');
 
     return (
       <div key={`total-${index}`}>
-        <ValueSection
-          label={`Diagnosis ${sequence}.`}
-          data-testid="hasServices"
-        >
+        <ValueSection label={`Diagnosis ${sequence}.`} data-testid="diagnosis">
           {reference && (
             <Value label="Diagnosis" data-testid="reference">
               <Reference fhirData={reference} />
@@ -29,7 +26,7 @@ const Diagnosis = ({ fhirData }) => {
             </Value>
           )}
           {type && (
-            <Value label="Type" data-testid="type">
+            <Value label="Type" data-testid="diagnosisType">
               <CodeableConcept fhirData={type} />
             </Value>
           )}

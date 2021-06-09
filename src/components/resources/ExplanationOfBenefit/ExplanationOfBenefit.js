@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { object } from 'prop-types';
 import _get from 'lodash/get';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 import fhirVersions from '../fhirResourceVersions';
@@ -40,7 +40,7 @@ import Related from './Related';
 
 const commonDTO = fhirResource => {
   const disposition = _get(fhirResource, 'disposition');
-  const created = _get(fhirResource, 'created');
+  const created = String(_get(fhirResource, 'created')).slice(0, 10);
   const insurer = _get(fhirResource, 'insurer');
   const hasInsurer = _get(fhirResource, 'insurer.reference');
   return {
@@ -65,6 +65,7 @@ const stu3DTO = fhirResource => {
   const information = _get(fhirResource, 'information', []);
   const hasInformation = Array.isArray(information) && information.length > 0;
   const provider = _get(fhirResource, 'provider');
+  const outcome = _get(fhirResource, 'outcome.coding[0]');
 
   /**
    *
@@ -90,6 +91,7 @@ const stu3DTO = fhirResource => {
     information,
     hasInformation,
     provider,
+    outcome,
   };
 };
 
@@ -260,6 +262,9 @@ const ExplanationOfBenefit = props => {
     related,
   } = fhirResourceData;
 
+  const outcomeValue =
+    typeof outcome === 'object' ? _get(outcome, 'coding[0].code', '') : outcome;
+
   return (
     <Root name="ExplanationOfBenefit">
       <Header>
@@ -281,16 +286,16 @@ const ExplanationOfBenefit = props => {
         )}
         {identifier && (
           <Value label="Identifier" data-testid="identifier">
-            {identifier.map(id => (
-              <div>
+            {identifier.map((id, index) => (
+              <div key={`identifier-${index}`}>
                 <Identifier fhirData={id} />
               </div>
             ))}
           </Value>
         )}
-        {outcome && (
+        {outcomeValue && (
           <Value label="Outcome" data-testid="outcome">
-            {outcome}
+            {outcomeValue}
           </Value>
         )}
         {hasInsurer && (

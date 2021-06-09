@@ -18,30 +18,36 @@ const SupportingInfo = ({ fhirData }) => {
       <div key={`total-${index}`}>
         <ValueSection
           label={`Supporting information ${sequence}.`}
-          data-testid="hasServices"
+          data-testid="supportingInfo"
         >
           {category && (
-            <Value label="Category" data-testid="category">
+            <Value label="Category" data-testid="supportingInfo.category">
               <CodeableConcept fhirData={category} />
             </Value>
           )}
           {code && (
-            <Value label="Code" data-testid="code">
+            <Value label="Code" data-testid="supportingInfo.code">
               <CodeableConcept fhirData={code} />
             </Value>
           )}
           {timingDate && (
-            <Value label="Date" data-testid="timingDate">
+            <Value label="Date" data-testid="supportingInfo.timingDate">
               <Date fhirData={timingDate} />
             </Value>
           )}
           {timingPeriodStart && (
-            <Value label="Start date" data-testid="timingPeriodStart">
+            <Value
+              label="Start date"
+              data-testid="supportingInfo.timingPeriodStart"
+            >
               <Date fhirData={timingPeriodStart} />
             </Value>
           )}
           {timingPeriodEnd && (
-            <Value label="End date" data-testid="timingPeriodEnd">
+            <Value
+              label="End date"
+              data-testid="supportingInfo.timingPeriodEnd"
+            >
               <Date fhirData={timingPeriodEnd} />
             </Value>
           )}

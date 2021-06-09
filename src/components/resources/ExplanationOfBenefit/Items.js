@@ -44,11 +44,11 @@ const Items = ({ fhirData: items = [] }) => {
 };
 
 const Adjudication = ({ fhirData: adjudication = [] }) => {
-  return adjudication.map(item => {
+  return adjudication.map((item, index) => {
     const category = _get(item, 'category');
     const amount = _get(item, 'amount');
     return (
-      <div>
+      <div key={index}>
         {category && <CodeableConcept fhirData={category} />}
         {amount && <Money fhirData={amount} />}
       </div>
@@ -92,7 +92,7 @@ const Item = props => {
           {category && <CodeableConcept fhirData={category} />}
         </TableCell>
         <TableCell data-testid="items.productOrService">
-          <CodeableConcept fhirData={productOrService} />
+          {productOrService && <CodeableConcept fhirData={productOrService} />}
         </TableCell>
         <TableCell data-testid="items.servicedDate">
           {servicedDate && <Date fhirData={servicedDate} />}

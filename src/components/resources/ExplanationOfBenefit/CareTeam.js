@@ -51,13 +51,13 @@ const TeamMember = props => {
       <TableRow>
         <TableCell data-testid="member.sequence">{sequence}</TableCell>
         <TableCell data-testid="member.provider">
-          <Reference fhirData={provider} />
+          {provider && <Reference fhirData={provider} />}
         </TableCell>
         <TableCell data-testid="member.role">
-          <CodeableConcept fhirData={role} />
+          {role && <CodeableConcept fhirData={role} />}
         </TableCell>
         <TableCell data-testid="member.qualification">
-          <CodeableConcept fhirData={qualification} />
+          {qualification && <CodeableConcept fhirData={qualification} />}
         </TableCell>
       </TableRow>
     </>

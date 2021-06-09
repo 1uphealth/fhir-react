@@ -32,11 +32,11 @@ const MyComponent = () => {
 
 ### `FhirResource` component props
 
-| Prop             | Type                                      | Default | Description                                                                                                                                                                                               |
-| ---------------- | ----------------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `fhirResource`\* | Object                                    | -       | The FHIR resource to be rendered                                                                                                                                                                          |
-| `fhirVersion`\*  | `fhirVersions.DSTU2`, `fhirVersions.STU3` | -       | FHIR resource version                                                                                                                                                                                     |
-| `thorough`       | Boolean                                   | `false` | If this is set to `true`, or if it is absent, all array items and supported attributes will be displayed. Otherwise if this is `false` then only the first or otherwise important items will be displayed |
+| Prop             | Type                                                       | Default | Description                                                                                                                                                                                               |
+| ---------------- | ---------------------------------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `fhirResource`\* | Object                                                     | -       | The FHIR resource to be rendered                                                                                                                                                                          |
+| `fhirVersion`\*  | `fhirVersions.DSTU2`, `fhirVersions.STU3, fhirVersions.R4` | -       | FHIR resource version                                                                                                                                                                                     |
+| `thorough`       | Boolean                                                    | `false` | If this is set to `true`, or if it is absent, all array items and supported attributes will be displayed. Otherwise if this is `false` then only the first or otherwise important items will be displayed |
 
 \* required props
 
@@ -55,7 +55,7 @@ const MyComponent = () => {
 | `AdverseEvent`             | _N/A_ |  ✅  |  ✅   |
 | `AllergyIntolerance`       |  ✅   |  ✅  |  ✅   |
 | `Appointment`              |  ✅   |  ✅  |  ✅   |
-| `Bundle`              |  ✅   |  ✅  |  ✅   |
+| `Bundle`                   |  ✅   |  ✅  |  ✅   |
 | `CarePlan`                 |  ✅   |  ✅  |  ✅   |
 | `CareTeam`                 | _N/A_ |  ✅  |  ✅   |
 | `Claim`                    |  ✅   |  ✅  |  ✅   |
@@ -79,7 +79,7 @@ const MyComponent = () => {
 | `Organization`             |  ✅   |  ✅  |  ✅   |
 | `Patient`                  |  ✅   |  ✅  |  ✅   |
 | `Practitioner`             |  ✅   |  ✅  |  ✅   |
-| `PractitionerRole`             |  _N/A_   |  ✅  |  ✅   |
+| `PractitionerRole`         | _N/A_ |  ✅  |  ✅   |
 | `Procedure`                |  ✅   |  ✅  |  ✅   |
 | `Questionnaire`            |  ✅   |  ✅  |  ✅   |
 | `QuestionnaireResponse`    |  ✅   |  ✅  |  ✅   |

@@ -191,14 +191,12 @@ const resourceDTO = (fhirVersion, fhirResource) => {
       return {
         ...commonDTO(fhirResource),
         ...dstu2DTO(fhirResource),
-        ...c4bbDTO(fhirResource),
       };
     }
     case fhirVersions.STU3: {
       return {
         ...commonDTO(fhirResource),
         ...stu3DTO(fhirResource),
-        ...c4bbDTO(fhirResource),
       };
     }
     case fhirVersions.R4: {

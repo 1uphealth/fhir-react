@@ -4,6 +4,7 @@ import { render } from '@testing-library/react';
 import ExplanationOfBenefit from './ExplanationOfBenefit';
 import { nbspRegex } from '../../../testUtils';
 import fhirVersions from '../fhirResourceVersions';
+import availableProfiles from '../availableProfiles';
 import dstu2Example1 from '../../../fixtures/dstu2/resources/explanationOfBenefit/example1.json';
 import example1Stu3 from '../../../fixtures/stu3/resources/explanationOfBenefit/example1.json';
 import example2Stu3 from '../../../fixtures/stu3/resources/explanationOfBenefit/example2.json';
@@ -125,10 +126,34 @@ describe('should render ExplanationOfBenefit component properly', () => {
     expect(queryByTestId('totalCost')).toBeNull();
   });
 
+  it('should not render C4BB fields without profile set in the params', () => {
+    const defaultProps = {
+      fhirResource: exampleC4BB,
+      fhirVersion: fhirVersions.R4,
+      profiles: [],
+    };
+
+    const { container, queryByTestId } = render(
+      <ExplanationOfBenefit {...defaultProps} />,
+    );
+    expect(container).not.toBeNull();
+
+    expect(queryByTestId('outcome')).toBeNull();
+    expect(queryByTestId('insurer')).toBeNull();
+    expect(queryByTestId('related')).toBeNull();
+    expect(queryByTestId('diagnosisType')).toBeNull();
+    expect(queryByTestId('supportingInfo.category')).toBeNull();
+    expect(queryByTestId('supportingInfo.timingDate')).toBeNull();
+    expect(queryByTestId('items.level')).toBeNull();
+    expect(queryByTestId('items.sequence')).toBeNull();
+    expect(queryByTestId('items.sequence')).toBeNull();
+  });
+
   it('should render with C4BB source data', () => {
     const defaultProps = {
       fhirResource: exampleC4BB,
       fhirVersion: fhirVersions.R4,
+      profiles: [availableProfiles.CARIN_BB],
     };
 
     const { container, getByTestId, queryByTestId, queryAllByTestId } = render(

@@ -1,8 +1,10 @@
 import React from 'react';
-import PropTypes, { object } from 'prop-types';
+import PropTypes from 'prop-types';
 import _get from 'lodash/get';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 import fhirVersions from '../fhirResourceVersions';
+import availableProfiles from '../availableProfiles';
+
 import {
   Root,
   Header,
@@ -55,6 +57,7 @@ const dstu2DTO = fhirResource => {
   const hasInsurer = _get(fhirResource, 'organization.reference');
   return { insurer, hasInsurer };
 };
+
 const stu3DTO = fhirResource => {
   const totalBenefit = _get(fhirResource, 'totalBenefit');
   const totalCost = _get(fhirResource, 'totalCost');
@@ -65,7 +68,6 @@ const stu3DTO = fhirResource => {
   const information = _get(fhirResource, 'information', []);
   const hasInformation = Array.isArray(information) && information.length > 0;
   const provider = _get(fhirResource, 'provider');
-  const outcome = _get(fhirResource, 'outcome.coding[0]');
 
   /**
    *
@@ -91,7 +93,6 @@ const stu3DTO = fhirResource => {
     information,
     hasInformation,
     provider,
-    outcome,
   };
 };
 
@@ -185,7 +186,7 @@ const c4bbDTO = fhirResource => {
   };
 };
 
-const resourceDTO = (fhirVersion, fhirResource) => {
+const resourceDTO = (fhirVersion, fhirResource, profiles) => {
   switch (fhirVersion) {
     case fhirVersions.DSTU2: {
       return {
@@ -200,10 +201,21 @@ const resourceDTO = (fhirVersion, fhirResource) => {
       };
     }
     case fhirVersions.R4: {
+      const dto = {
+        ...commonDTO(fhirResource),
+        ...r4DTO(fhirResource),
+      };
+
+      if (profiles.includes(availableProfiles.CARIN_BB)) {
+        return {
+          ...dto,
+          ...c4bbDTO(fhirResource),
+        };
+      }
+
       return {
         ...commonDTO(fhirResource),
         ...r4DTO(fhirResource),
-        ...c4bbDTO(fhirResource),
       };
     }
     default:
@@ -212,10 +224,10 @@ const resourceDTO = (fhirVersion, fhirResource) => {
 };
 
 const ExplanationOfBenefit = props => {
-  const { fhirResource, fhirVersion } = props;
+  const { fhirResource, fhirVersion, profiles = [] } = props;
   let fhirResourceData = {};
   try {
-    fhirResourceData = resourceDTO(fhirVersion, fhirResource);
+    fhirResourceData = resourceDTO(fhirVersion, fhirResource, profiles);
   } catch (error) {
     console.warn(error.message);
     return (
@@ -260,9 +272,6 @@ const ExplanationOfBenefit = props => {
     related,
   } = fhirResourceData;
 
-  const outcomeValue =
-    typeof outcome === 'object' ? _get(outcome, 'coding[0].code', '') : outcome;
-
   return (
     <Root name="ExplanationOfBenefit">
       <Header>
@@ -291,9 +300,9 @@ const ExplanationOfBenefit = props => {
             ))}
           </Value>
         )}
-        {outcomeValue && (
+        {outcome && (
           <Value label="Outcome" data-testid="outcome">
-            {outcomeValue}
+            {outcome}
           </Value>
         )}
         {hasInsurer && (
@@ -459,6 +468,7 @@ ExplanationOfBenefit.propTypes = {
     fhirVersions.STU3,
     fhirVersions.R4,
   ]).isRequired,
+  profiles: PropTypes.arrayOf(PropTypes.oneOf([availableProfiles.CARIN_BB])),
 };
 
 export default ExplanationOfBenefit;

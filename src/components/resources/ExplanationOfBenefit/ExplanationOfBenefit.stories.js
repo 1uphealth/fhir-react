@@ -3,6 +3,7 @@ import { object } from '@storybook/addon-knobs';
 
 import ExplanationOfBenefit from './ExplanationOfBenefit';
 import fhirVersions from '../fhirResourceVersions';
+import availableProfiles from '../availableProfiles';
 
 import example1Dstu2 from '../../../fixtures/dstu2/resources/explanationOfBenefit/example1.json';
 import example1Stu3 from '../../../fixtures/stu3/resources/explanationOfBenefit/example1.json';
@@ -73,6 +74,7 @@ export const EOBCarinBlueButtonExample = () => {
     <ExplanationOfBenefit
       fhirVersion={fhirVersions.R4}
       fhirResource={fhirResource}
+      profiles={[availableProfiles.CARIN_BB]}
     />
   );
 };

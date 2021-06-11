@@ -93,7 +93,19 @@ const r4DTO = fhirResource => {
 const contentDTO = (fhirVersion, fhirResource) => {
   return {
     content: _get(fhirResource, 'content', []).map(item => {
-      const url = _get(item, 'attachment.url');
+      const attachmentUrl = _get(item, 'attachment.url');
+      let url = attachmentUrl;
+      let isUrlBinaryResourceReference = false;
+
+      // Check if URL ends with "/Binary/someId". If so, swap the url for this reference, and change the flag to render different component.
+      // For now raw link to the resource won't open properly, so it's better to show more valuable info for the user.
+      const regex = /\/(Binary\/[\w-]+$)/gm;
+      const matches = Array.from(attachmentUrl.matchAll(regex), m => m[1]);
+      if (matches.length > 0) {
+        url = matches[0];
+        isUrlBinaryResourceReference = true;
+      }
+
       const size = _get(item, 'attachment.size');
 
       let formatCoding = null;
@@ -116,6 +128,7 @@ const contentDTO = (fhirVersion, fhirResource) => {
 
       return {
         url,
+        isUrlBinaryResourceReference,
         size,
         formatCoding,
       };
@@ -154,21 +167,31 @@ const resourceDTO = (fhirVersion, fhirResource) => {
 
 const ContentItem = props => {
   const { item } = props;
-  const hasSize = Number.isFinite(item.size);
-  const hasFormat = !!item.formatCoding;
-  const hasURL = !!item.url;
+  const { url, isUrlBinaryResourceReference, size, formatCoding } = item;
+  const hasSize = Number.isFinite(size);
+  const hasFormat = !!formatCoding;
+  const hasURL = !!url;
+
+  let linkComponent;
+  if (hasURL) {
+    linkComponent = isUrlBinaryResourceReference ? (
+      url
+    ) : (
+      <Attachment fhirData={item} />
+    );
+  } else {
+    linkComponent = <MissingValue />;
+  }
 
   return (
     <TableRow>
       <TableCell data-testid="content.format">
-        {hasFormat ? <Coding fhirData={item.formatCoding} /> : <MissingValue />}
+        {hasFormat ? <Coding fhirData={formatCoding} /> : <MissingValue />}
       </TableCell>
       <TableCell data-testid="content.size">
-        {hasSize ? prettyBytes(item.size) : <MissingValue />}
+        {hasSize ? prettyBytes(size) : <MissingValue />}
       </TableCell>
-      <TableCell data-testid="content.url">
-        {hasURL ? <Attachment fhirData={item} /> : <MissingValue />}
-      </TableCell>
+      <TableCell data-testid="content.url">{linkComponent}</TableCell>
     </TableRow>
   );
 };
@@ -185,7 +208,7 @@ const Content = props => {
           <TableRow>
             <TableHeader>Format</TableHeader>
             <TableHeader>Size</TableHeader>
-            <TableHeader>URL</TableHeader>
+            <TableHeader>Resource</TableHeader>
           </TableRow>
         </thead>
         <tbody>{allContent}</tbody>

@@ -7,7 +7,6 @@ import {
   TableRow,
   TableHeader,
   TableCell,
-  MissingValue,
 } from '../../ui/index';
 import Reference from '../../datatypes/Reference';
 import CodeableConcept from '../../datatypes/CodeableConcept';

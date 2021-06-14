@@ -56,7 +56,7 @@ describe('should render the DocumentReference component properly', () => {
     const sizes = getAllByTestId('content.size').map(node => node.textContent);
     expect(sizes).toEqual(['3.65 kB']);
     const urls = getAllByTestId('content.url').map(node => node.textContent);
-    expect(urls).toEqual(['Link']);
+    expect(urls).toEqual(['Binary/07a6483f-732b-461e-86b6-edb665c45510']);
   });
 
   it('should render with STU3 source data', () => {
@@ -105,7 +105,7 @@ describe('should render the DocumentReference component properly', () => {
     const sizes = getAllByTestId('content.size').map(node => node.textContent);
     expect(sizes).toEqual(['3.65 kB']);
     const urls = getAllByTestId('content.url').map(node => node.textContent);
-    expect(urls).toEqual(['Link']);
+    expect(urls).toEqual(['Binary/07a6483f-732b-461e-86b6-edb665c45510']);
   });
 
   it('should render with R4 source data', () => {
@@ -151,6 +151,50 @@ describe('should render the DocumentReference component properly', () => {
     const sizes = getAllByTestId('content.size').map(node => node.textContent);
     expect(sizes).toEqual(['3.65 kB']);
     const urls = getAllByTestId('content.url').map(node => node.textContent);
+    expect(urls).toEqual(['Binary/07a6483f-732b-461e-86b6-edb665c45510']);
+  });
+
+  it("should render link if it doesn't point to the Binary resource", () => {
+    const resource = JSON.parse(JSON.stringify(r4Example1));
+    resource.content[0].attachment.url = 'http://example.org/resource.pdf';
+    const { getAllByTestId } = render(
+      <DocumentReference
+        fhirResource={resource}
+        fhirVersion={fhirVersions.R4}
+      />,
+    );
+
+    const urls = getAllByTestId('content.url').map(node => node.textContent);
     expect(urls).toEqual(['Link']);
+  });
+
+  it('should render resource type and id if the URL points to the Binary resource in the 1up API', () => {
+    const resource = JSON.parse(JSON.stringify(r4Example1));
+    resource.content[0].attachment.url =
+      'https://api.1up.health/fhir/dstu2/Binary/123fds3fds45GDF4';
+    const { getAllByTestId } = render(
+      <DocumentReference
+        fhirResource={resource}
+        fhirVersion={fhirVersions.R4}
+      />,
+    );
+
+    const urls = getAllByTestId('content.url').map(node => node.textContent);
+    expect(urls).toEqual(['Binary/123fds3fds45GDF4']);
+  });
+
+  it('should render resource type and id if the URL points to the Binary resource on some domain', () => {
+    const resource = JSON.parse(JSON.stringify(r4Example1));
+    resource.content[0].attachment.url =
+      'http://example.org/xds/mhd/Binary/07a6483f-732b-461e-86b6-edb665c45510';
+    const { getAllByTestId } = render(
+      <DocumentReference
+        fhirResource={resource}
+        fhirVersion={fhirVersions.R4}
+      />,
+    );
+
+    const urls = getAllByTestId('content.url').map(node => node.textContent);
+    expect(urls).toEqual(['Binary/07a6483f-732b-461e-86b6-edb665c45510']);
   });
 });

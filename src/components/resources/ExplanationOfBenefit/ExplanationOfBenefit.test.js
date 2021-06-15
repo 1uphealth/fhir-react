@@ -4,7 +4,6 @@ import { render } from '@testing-library/react';
 import ExplanationOfBenefit from './ExplanationOfBenefit';
 import { nbspRegex } from '../../../testUtils';
 import fhirVersions from '../fhirResourceVersions';
-import availableProfiles from '../availableProfiles';
 import dstu2Example1 from '../../../fixtures/dstu2/resources/explanationOfBenefit/example1.json';
 import example1Stu3 from '../../../fixtures/stu3/resources/explanationOfBenefit/example1.json';
 import example2Stu3 from '../../../fixtures/stu3/resources/explanationOfBenefit/example2.json';
@@ -153,7 +152,7 @@ describe('should render ExplanationOfBenefit component properly', () => {
     const defaultProps = {
       fhirResource: exampleC4BB,
       fhirVersion: fhirVersions.R4,
-      profiles: [availableProfiles.CARIN_BB],
+      withCarinBBProfile: true,
     };
 
     const { container, getByTestId, queryByTestId, queryAllByTestId } = render(

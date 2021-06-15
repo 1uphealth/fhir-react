@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import _get from 'lodash/get';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 import fhirVersions from '../fhirResourceVersions';
-import availableProfiles from '../availableProfiles';
 
 import {
   Root,
@@ -31,6 +30,7 @@ import Identifier from '../../datatypes/Identifier/Identifier';
 import CareTeam from './CareTeam';
 import CodeableConcept from '../../datatypes/CodeableConcept';
 import Related from './Related';
+import { boolean } from '@storybook/addon-knobs';
 
 /**
  * @typedef ExplanationOfBenefitServiceItem
@@ -186,7 +186,7 @@ const c4bbDTO = fhirResource => {
   };
 };
 
-const resourceDTO = (fhirVersion, fhirResource, profiles) => {
+const resourceDTO = (fhirVersion, fhirResource, withCarinBBProfile) => {
   switch (fhirVersion) {
     case fhirVersions.DSTU2: {
       return {
@@ -206,7 +206,7 @@ const resourceDTO = (fhirVersion, fhirResource, profiles) => {
         ...r4DTO(fhirResource),
       };
 
-      if (profiles.includes(availableProfiles.CARIN_BB)) {
+      if (withCarinBBProfile) {
         return {
           ...dto,
           ...c4bbDTO(fhirResource),
@@ -224,10 +224,14 @@ const resourceDTO = (fhirVersion, fhirResource, profiles) => {
 };
 
 const ExplanationOfBenefit = props => {
-  const { fhirResource, fhirVersion, profiles = [] } = props;
+  const { fhirResource, fhirVersion, withCarinBBProfile = false } = props;
   let fhirResourceData = {};
   try {
-    fhirResourceData = resourceDTO(fhirVersion, fhirResource, profiles);
+    fhirResourceData = resourceDTO(
+      fhirVersion,
+      fhirResource,
+      withCarinBBProfile,
+    );
   } catch (error) {
     console.warn(error.message);
     return (
@@ -468,7 +472,7 @@ ExplanationOfBenefit.propTypes = {
     fhirVersions.STU3,
     fhirVersions.R4,
   ]).isRequired,
-  profiles: PropTypes.arrayOf(PropTypes.oneOf([availableProfiles.CARIN_BB])),
+  withCarinBBProfile: PropTypes.bool,
 };
 
 export default ExplanationOfBenefit;

@@ -16,7 +16,7 @@ npm install --save fhir-react
 This package has two exports: a `FhirResource` React component and `fhirVersions` object.
 
 ```js
-import { FhirResource, fhirVersions, availableProfiles } from 'fhir-react';
+import { FhirResource, fhirVersions } from 'fhir-react';
 ```
 
 Render the component providing the FHIR data as a JavaScript object:
@@ -28,7 +28,7 @@ const MyComponent = () => {
     <FhirResource
       fhirResource={fhirResource}
       fhirVersion={fhirVersions.R4}
-      profiles={[availableProfiles.CARIN_BB]}
+      withCarinBBProfile
     />
   );
 };
@@ -36,12 +36,12 @@ const MyComponent = () => {
 
 ### `FhirResource` component props
 
-| Prop             | Type                                                       | Default | Description                                                                                                                                                                                               |
-| ---------------- | ---------------------------------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `fhirResource`\* | Object                                                     | -       | The FHIR resource to be rendered                                                                                                                                                                          |
-| `fhirVersion`\*  | `fhirVersions.DSTU2`, `fhirVersions.STU3, fhirVersions.R4` | -       | FHIR resource version                                                                                                                                                                                     |
-| `profiles`       | Array                                                      | []      | An array of FHIR profiles that should be incorporated in the rendered FHIR components. When not provided, will use default HL7 FHIR specification                                                         |
-| `thorough`       | Boolean                                                    | `false` | If this is set to `true`, or if it is absent, all array items and supported attributes will be displayed. Otherwise if this is `false` then only the first or otherwise important items will be displayed |
+| Prop                 | Type                                                       | Default | Description                                                                                                                                                                                               |
+| -------------------- | ---------------------------------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `fhirResource`\*     | Object                                                     | -       | The FHIR resource to be rendered                                                                                                                                                                          |
+| `fhirVersion`\*      | `fhirVersions.DSTU2`, `fhirVersions.STU3, fhirVersions.R4` | -       | FHIR resource version                                                                                                                                                                                     |
+| `withCarinBBProfile` | Boolean                                                    | `false` | Use Carin BB profile extension on top of the HL7 default FHIR specification https://build.fhir.org/ig/HL7/carin-bb/index.html                                                                             |
+| `thorough`           | Boolean                                                    | `false` | If this is set to `true`, or if it is absent, all array items and supported attributes will be displayed. Otherwise if this is `false` then only the first or otherwise important items will be displayed |
 
 \* required props
 
@@ -50,10 +50,6 @@ const MyComponent = () => {
 - `fhirVersions.DSTU2` - http://hl7.org/fhir/dstu2/index.html
 - `fhirVersions.STU3` - http://hl7.org/fhir/stu3/index.html
 - `fhirVersions.R4` - http://hl7.org/fhir/r4/
-
-### Available `profiles`
-
-- `availableProfiles.CARIN_BB` - https://build.fhir.org/ig/HL7/carin-bb/index.html
 
 ### Available resources
 

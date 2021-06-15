@@ -27,7 +27,7 @@ const MyComponent = () => {
   return (
     <FhirResource
       fhirResource={fhirResource}
-      fhirVersion={fhirVersions.STU3}
+      fhirVersion={fhirVersions.R4}
       profiles={[availableProfiles.CARIN_BB]}
     />
   );

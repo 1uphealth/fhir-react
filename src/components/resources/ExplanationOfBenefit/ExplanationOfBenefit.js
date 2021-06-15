@@ -30,7 +30,6 @@ import Identifier from '../../datatypes/Identifier/Identifier';
 import CareTeam from './CareTeam';
 import CodeableConcept from '../../datatypes/CodeableConcept';
 import Related from './Related';
-import { boolean } from '@storybook/addon-knobs';
 
 /**
  * @typedef ExplanationOfBenefitServiceItem

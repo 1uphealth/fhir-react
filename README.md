@@ -55,7 +55,7 @@ const MyComponent = () => {
 | `AdverseEvent`             | _N/A_ |  ✅  |  ✅   |
 | `AllergyIntolerance`       |  ✅   |  ✅  |  ✅   |
 | `Appointment`              |  ✅   |  ✅  |  ✅   |
-| `Bundle`              |  ✅   |  ✅  |  ✅   |
+| `Bundle`                   |  ✅   |  ✅  |  ✅   |
 | `CarePlan`                 |  ✅   |  ✅  |  ✅   |
 | `CareTeam`                 | _N/A_ |  ✅  |  ✅   |
 | `Claim`                    |  ✅   |  ✅  |  ✅   |
@@ -79,7 +79,7 @@ const MyComponent = () => {
 | `Organization`             |  ✅   |  ✅  |  ✅   |
 | `Patient`                  |  ✅   |  ✅  |  ✅   |
 | `Practitioner`             |  ✅   |  ✅  |  ✅   |
-| `PractitionerRole`             |  _N/A_   |  ✅  |  ✅   |
+| `PractitionerRole`         | _N/A_ |  ✅  |  ✅   |
 | `Procedure`                |  ✅   |  ✅  |  ✅   |
 | `Questionnaire`            |  ✅   |  ✅  |  ✅   |
 | `QuestionnaireResponse`    |  ✅   |  ✅  |  ✅   |
@@ -161,3 +161,8 @@ npm run build
 ```
 npm publish
 ```
+
+### Storybook for the changes
+
+When creating a new PR, changes will be available in the storybook at: <br>
+http://storybook-fhir-react-lib.s3-website-us-east-1.amazonaws.com/dev/{branch-name}/

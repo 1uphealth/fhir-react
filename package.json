@@ -26,7 +26,8 @@
     "stylelint": "stylelint 'src/**/*.css'",
     "stylelint:fix": "stylelint --fix 'src/**/*.css'",
     "storybook": "start-storybook --port 63653",
-    "deploy-storybook": "storybook-to-aws-s3 --bucket-path=storybook-fhir-react-lib --aws-profile=storybook-deployer"
+    "deploy-storybook": "storybook-to-aws-s3 --bucket-path=storybook-fhir-react-lib --aws-profile=storybook-deployer",
+    "deploy-storybook-branch": "storybook-to-aws-s3 --aws-profile=storybook-deployer"
   },
   "author": {
     "name": "1upHealth",

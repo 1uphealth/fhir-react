@@ -319,7 +319,7 @@ const QuestionnaireResponse = props => {
           </Value>
         )}
         {rootItems && (
-          <div>
+          <div className="overflow-auto">
             <Items fhirVersion={fhirVersion} data={rootItems} />
           </div>
         )}

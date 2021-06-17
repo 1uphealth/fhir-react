@@ -90,6 +90,7 @@
 .fhir-ui__Table tbody .fhir-ui__TableRow:nth-of-type(odd) {
   background-color: rgba(0, 0, 0, 0.05);
 }
+
 .fhir-ui__ValueSection {
   overflow: auto;
 }

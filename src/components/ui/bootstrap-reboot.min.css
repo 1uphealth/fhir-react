@@ -408,3 +408,7 @@ input[type='time'] {
 .fhir-resource [hidden] {
   display: none !important;
 }
+
+.overflow-auto {
+  overflow: auto;
+}

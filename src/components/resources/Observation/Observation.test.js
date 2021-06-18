@@ -48,7 +48,7 @@ describe('should render component correctly', () => {
     expect(getByTestId('subject').textContent).toContain('P. van de Heuvel');
   });
 
-  test.only('R4 renders properly, example 2', () => {
+  test('R4 renders properly, example 2', () => {
     const defaultProps = {
       fhirResource: example2ObservationExcessR4,
     };

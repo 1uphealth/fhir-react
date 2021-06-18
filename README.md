@@ -25,18 +25,23 @@ Render the component providing the FHIR data as a JavaScript object:
 const MyComponent = () => {
   const fhirResource = JSON.parse(fhirResourceAsJsonString);
   return (
-    <FhirResource fhirResource={fhirResource} fhirVersion={fhirVersions.STU3} />
+    <FhirResource
+      fhirResource={fhirResource}
+      fhirVersion={fhirVersions.R4}
+      withCarinBBProfile
+    />
   );
 };
 ```
 
 ### `FhirResource` component props
 
-| Prop             | Type                                      | Default | Description                                                                                                                                                                                               |
-| ---------------- | ----------------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `fhirResource`\* | Object                                    | -       | The FHIR resource to be rendered                                                                                                                                                                          |
-| `fhirVersion`\*  | `fhirVersions.DSTU2`, `fhirVersions.STU3` | -       | FHIR resource version                                                                                                                                                                                     |
-| `thorough`       | Boolean                                   | `false` | If this is set to `true`, or if it is absent, all array items and supported attributes will be displayed. Otherwise if this is `false` then only the first or otherwise important items will be displayed |
+| Prop                 | Type                                                       | Default | Description                                                                                                                                                                                               |
+| -------------------- | ---------------------------------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `fhirResource`\*     | Object                                                     | -       | The FHIR resource to be rendered                                                                                                                                                                          |
+| `fhirVersion`\*      | `fhirVersions.DSTU2`, `fhirVersions.STU3, fhirVersions.R4` | -       | FHIR resource version                                                                                                                                                                                     |
+| `withCarinBBProfile` | Boolean                                                    | `false` | Use Carin BB profile extension on top of the HL7 default FHIR specification https://build.fhir.org/ig/HL7/carin-bb/index.html                                                                             |
+| `thorough`           | Boolean                                                    | `false` | If this is set to `true`, or if it is absent, all array items and supported attributes will be displayed. Otherwise if this is `false` then only the first or otherwise important items will be displayed |
 
 \* required props
 
@@ -48,8 +53,8 @@ const MyComponent = () => {
 
 ### Available resources
 
-| Resource                   | DSTU2 | STU3 |  R4   |
-| -------------------------- | :---: | :--: | :---: |
+| Resource                   | DSTU2 | STU3 |  R4   | Carin BB Profile |
+| -------------------------- | :---: | :--: | :---: | :--------------: |
 | `AdverseEvent`             | _N/A_ |  ✅  |  ✅   |
 | `AllergyIntolerance`       |  ✅   |  ✅  |  ✅   |
 | `AdverseEvent`             | _N/A_ |  ✅  |  ✅   |
@@ -66,7 +71,7 @@ const MyComponent = () => {
 | `DiagnosticReport`         |  ✅   |  ✅  |  ✅   |
 | `DocumentReference`        |  ✅   |  ✅  |  ✅   |
 | `Encounter`                |  ✅   |  ✅  |  ✅   |
-| `ExplanationOfBenefit`     |  ✅   |  ✅  |  ✅   |
+| `ExplanationOfBenefit`     |  ✅   |  ✅  |  ✅   |        ✅        |
 | `Goal`                     |  ✅   |  ✅  |  ✅   |
 | `Immunization`             |  ✅   |  ✅  |  ✅   |
 | `Location`                 |  ✅   |  ✅  |  ✅   |

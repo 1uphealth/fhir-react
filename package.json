@@ -13,7 +13,7 @@
     "md5": "^2.2.1",
     "pretty-bytes": "^5.3.0",
     "prop-types": "^15.7.2",
-    "react": "^16.12.0"
+    "react": "^17.0.1"
   },
   "scripts": {
     "test": "NODE_ENV=test jest",
@@ -26,7 +26,8 @@
     "stylelint": "stylelint 'src/**/*.css'",
     "stylelint:fix": "stylelint --fix 'src/**/*.css'",
     "storybook": "start-storybook --port 63653",
-    "deploy-storybook": "storybook-to-aws-s3 --bucket-path=storybook-fhir-react-lib --aws-profile=storybook-deployer"
+    "deploy-storybook": "storybook-to-aws-s3 --bucket-path=storybook-fhir-react-lib --aws-profile=storybook-deployer",
+    "deploy-storybook-branch": "storybook-to-aws-s3 --aws-profile=storybook-deployer"
   },
   "author": {
     "name": "1upHealth",

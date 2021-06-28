@@ -44,9 +44,10 @@ export const Table = props => (
 );
 
 export const TableHeader = props => {
-  const { expand } = props;
+  const { expand, noWordWrap } = props;
   let className = 'fhir-ui__TableHeader';
   if (expand) className += ' fhir-ui__TableHeader--expand';
+  if (noWordWrap) className += ' fhir-ui__TableHeader--no-word-wrap';
   return <th className={className}>{props.children}</th>;
 };
 

@@ -95,32 +95,34 @@ const ReferralRequest = props => {
             <Coding fhirData={typeCoding} />
           </Value>
         )}
-        <Table>
-          <thead>
-            <TableRow>
-              <TableHeader>Request sent</TableHeader>
-              <TableHeader>Patient</TableHeader>
-              <TableHeader>Requester</TableHeader>
-              <TableHeader>status</TableHeader>
-            </TableRow>
-          </thead>
-          <tbody>
-            <TableRow>
-              <TableCell data-testid="dateSent">
-                {dateSent ? <Date fhirData={dateSent} /> : <MissingValue />}
-              </TableCell>
-              <TableCell data-testid="subject">
-                {subject ? <span>{subject}</span> : <MissingValue />}
-              </TableCell>
-              <TableCell data-testid="requester">
-                {requester ? <span>{requester}</span> : <MissingValue />}
-              </TableCell>
-              <TableCell data-testid="status">
-                {status ? <span>{status}</span> : <MissingValue />}
-              </TableCell>
-            </TableRow>
-          </tbody>
-        </Table>
+        <div className="overflow-auto">
+          <Table>
+            <thead>
+              <TableRow>
+                <TableHeader>Request sent</TableHeader>
+                <TableHeader>Patient</TableHeader>
+                <TableHeader>Requester</TableHeader>
+                <TableHeader>status</TableHeader>
+              </TableRow>
+            </thead>
+            <tbody>
+              <TableRow>
+                <TableCell data-testid="dateSent">
+                  {dateSent ? <Date fhirData={dateSent} /> : <MissingValue />}
+                </TableCell>
+                <TableCell data-testid="subject">
+                  {subject ? <span>{subject}</span> : <MissingValue />}
+                </TableCell>
+                <TableCell data-testid="requester">
+                  {requester ? <span>{requester}</span> : <MissingValue />}
+                </TableCell>
+                <TableCell data-testid="status">
+                  {status ? <span>{status}</span> : <MissingValue />}
+                </TableCell>
+              </TableRow>
+            </tbody>
+          </Table>
+        </div>
         {reason && <div data-testid="reason">{reason}</div>}
         {description && <small data-testid="description">{description}</small>}
       </Body>

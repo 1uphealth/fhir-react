@@ -4,6 +4,7 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  word-break: break-word;
 }
 
 .fhir-ui__Title {
@@ -39,6 +40,7 @@
   border-radius: 3px;
   background-color: #f8f9fa;
   color: #000;
+  overflow: auto;
 }
 
 .fhir-ui__Value {
@@ -81,12 +83,20 @@
   width: 100%;
 }
 
+.fhir-ui__TableHeader--no-word-wrap {
+  white-space: nowrap;
+}
+
 .fhir-ui__Table tbody + tbody {
   border-top: 2px solid #dee2e6;
 }
 
 .fhir-ui__Table tbody .fhir-ui__TableRow:nth-of-type(odd) {
   background-color: rgba(0, 0, 0, 0.05);
+}
+
+.fhir-ui__ValueSection {
+  overflow: auto;
 }
 
 .fhir-ui__ValueSection-label {

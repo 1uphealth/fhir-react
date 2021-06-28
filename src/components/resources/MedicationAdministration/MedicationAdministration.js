@@ -149,44 +149,46 @@ const MedicationAdministration = props => {
             <Reference fhirData={practitioner} />
           </Value>
         )}
-        <Table>
-          <thead>
-            <TableRow>
-              <TableHeader>Period start</TableHeader>
-              <TableHeader>Period end</TableHeader>
-              <TableHeader>Dosage route</TableHeader>
-              <TableHeader>Dosage quantity</TableHeader>
-            </TableRow>
-          </thead>
-          <tbody>
-            <TableRow>
-              <TableCell data-testid="periodTimeStart">
-                {periodTimeStart ? (
-                  <Date fhirData={periodTimeStart} />
-                ) : (
-                  <MissingValue />
-                )}
-              </TableCell>
-              <TableCell data-testid="periodTimeEnd">
-                {periodTimeEnd ? (
-                  <Date fhirData={periodTimeEnd} />
-                ) : (
-                  <MissingValue />
-                )}
-              </TableCell>
-              <TableCell data-testid="dosageRoute">
-                {dosageRoute ? (
-                  <Coding fhirData={dosageRoute} />
-                ) : (
-                  <MissingValue />
-                )}
-              </TableCell>
-              <TableCell data-testid="dosageQuantity">
-                {dosageQuantity ? dosageQuantity : <MissingValue />}
-              </TableCell>
-            </TableRow>
-          </tbody>
-        </Table>
+        <div className="overflow-auto">
+          <Table>
+            <thead>
+              <TableRow>
+                <TableHeader>Period start</TableHeader>
+                <TableHeader>Period end</TableHeader>
+                <TableHeader>Dosage route</TableHeader>
+                <TableHeader>Dosage quantity</TableHeader>
+              </TableRow>
+            </thead>
+            <tbody>
+              <TableRow>
+                <TableCell data-testid="periodTimeStart">
+                  {periodTimeStart ? (
+                    <Date fhirData={periodTimeStart} />
+                  ) : (
+                    <MissingValue />
+                  )}
+                </TableCell>
+                <TableCell data-testid="periodTimeEnd">
+                  {periodTimeEnd ? (
+                    <Date fhirData={periodTimeEnd} />
+                  ) : (
+                    <MissingValue />
+                  )}
+                </TableCell>
+                <TableCell data-testid="dosageRoute">
+                  {dosageRoute ? (
+                    <Coding fhirData={dosageRoute} />
+                  ) : (
+                    <MissingValue />
+                  )}
+                </TableCell>
+                <TableCell data-testid="dosageQuantity">
+                  {dosageQuantity ? dosageQuantity : <MissingValue />}
+                </TableCell>
+              </TableRow>
+            </tbody>
+          </Table>
+        </div>
       </Body>
     </Root>
   );

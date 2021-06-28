@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import _get from 'lodash/get';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 import fhirVersions from '../fhirResourceVersions';
+
 import {
   Root,
   Header,
@@ -20,7 +21,15 @@ import Coding from '../../datatypes/Coding';
 import Date from '../../datatypes/Date';
 import Money from '../../datatypes/Money';
 import Reference from '../../datatypes/Reference';
+import Period from '../../datatypes/Period';
 import TotalSum from './TotalSum';
+import Diagnosis from './Diagnosis';
+import SupportingInfo from './SupportingInfo';
+import Items from './Items';
+import Identifier from '../../datatypes/Identifier/Identifier';
+import CareTeam from './CareTeam';
+import CodeableConcept from '../../datatypes/CodeableConcept';
+import Related from './Related';
 
 /**
  * @typedef ExplanationOfBenefitServiceItem
@@ -32,7 +41,7 @@ import TotalSum from './TotalSum';
 
 const commonDTO = fhirResource => {
   const disposition = _get(fhirResource, 'disposition');
-  const created = _get(fhirResource, 'created');
+  const created = String(_get(fhirResource, 'created')).slice(0, 10);
   const insurer = _get(fhirResource, 'insurer');
   const hasInsurer = _get(fhirResource, 'insurer.reference');
   return {
@@ -47,6 +56,7 @@ const dstu2DTO = fhirResource => {
   const hasInsurer = _get(fhirResource, 'organization.reference');
   return { insurer, hasInsurer };
 };
+
 const stu3DTO = fhirResource => {
   const totalBenefit = _get(fhirResource, 'totalBenefit');
   const totalCost = _get(fhirResource, 'totalCost');
@@ -135,7 +145,47 @@ const r4DTO = fhirResource => {
   };
 };
 
-const resourceDTO = (fhirVersion, fhirResource) => {
+const c4bbDTO = fhirResource => {
+  const diagnosis = _get(fhirResource, 'diagnosis', []);
+  const hasDiagnosis = diagnosis.length > 0;
+  const supportingInfo = _get(fhirResource, 'supportingInfo', []);
+  const hasSupportingInfo = supportingInfo.length > 0;
+  const items = _get(fhirResource, 'item', []);
+  const hasItems = items.length > 0;
+  const total = _get(fhirResource, 'total', []);
+  const hasTotal = total.length > 0;
+  const payment = _get(fhirResource, 'payment.amount');
+  const billablePeriod = _get(fhirResource, 'billablePeriod');
+  const identifier = _get(fhirResource, 'identifier');
+  const outcome = _get(fhirResource, 'outcome');
+  const careTeam = _get(fhirResource, 'careTeam', []);
+  const hasCareTeam = careTeam.length > 0;
+  const payeeType = _get(fhirResource, 'payee.type');
+  const payeeParty = _get(fhirResource, 'payee.party');
+  const related = _get(fhirResource, 'related');
+
+  return {
+    diagnosis,
+    hasDiagnosis,
+    supportingInfo,
+    hasSupportingInfo,
+    items,
+    hasItems,
+    total,
+    hasTotal,
+    payment,
+    billablePeriod,
+    identifier,
+    outcome,
+    careTeam,
+    hasCareTeam,
+    payeeType,
+    payeeParty,
+    related,
+  };
+};
+
+const resourceDTO = (fhirVersion, fhirResource, withCarinBBProfile) => {
   switch (fhirVersion) {
     case fhirVersions.DSTU2: {
       return {
@@ -150,6 +200,18 @@ const resourceDTO = (fhirVersion, fhirResource) => {
       };
     }
     case fhirVersions.R4: {
+      const dto = {
+        ...commonDTO(fhirResource),
+        ...r4DTO(fhirResource),
+      };
+
+      if (withCarinBBProfile) {
+        return {
+          ...dto,
+          ...c4bbDTO(fhirResource),
+        };
+      }
+
       return {
         ...commonDTO(fhirResource),
         ...r4DTO(fhirResource),
@@ -161,10 +223,14 @@ const resourceDTO = (fhirVersion, fhirResource) => {
 };
 
 const ExplanationOfBenefit = props => {
-  const { fhirResource, fhirVersion } = props;
+  const { fhirResource, fhirVersion, withCarinBBProfile = false } = props;
   let fhirResourceData = {};
   try {
-    fhirResourceData = resourceDTO(fhirVersion, fhirResource);
+    fhirResourceData = resourceDTO(
+      fhirVersion,
+      fhirResource,
+      withCarinBBProfile,
+    );
   } catch (error) {
     console.warn(error.message);
     return (
@@ -192,6 +258,21 @@ const ExplanationOfBenefit = props => {
     insurance,
     total,
     hasTotal,
+    diagnosis,
+    hasDiagnosis,
+    supportingInfo,
+    hasSupportingInfo,
+    items,
+    hasItems,
+    payment,
+    billablePeriod,
+    identifier,
+    outcome,
+    careTeam,
+    hasCareTeam,
+    payeeType,
+    payeeParty,
+    related,
   } = fhirResourceData;
 
   return (
@@ -211,6 +292,20 @@ const ExplanationOfBenefit = props => {
         {created && (
           <Value label="Created" data-testid="created">
             {created}
+          </Value>
+        )}
+        {identifier && (
+          <Value label="Identifier" data-testid="identifier">
+            {identifier.map((id, index) => (
+              <div key={`identifier-${index}`}>
+                <Identifier fhirData={id} />
+              </div>
+            ))}
+          </Value>
+        )}
+        {outcome && (
+          <Value label="Outcome" data-testid="outcome">
+            {outcome}
           </Value>
         )}
         {hasInsurer && (
@@ -238,6 +333,22 @@ const ExplanationOfBenefit = props => {
             <TotalSum fhirData={total} />
           </Value>
         )}
+        {payment && (
+          <Value label="Payment" data-testid="payment">
+            <Money fhirData={payment} />
+          </Value>
+        )}
+        {(payeeType || payeeParty) && (
+          <Value label="Payee" data-testid="payee">
+            {payeeType && <CodeableConcept fhirData={payeeType} />}
+            {payeeParty && <Reference fhirData={payeeParty} />}
+          </Value>
+        )}
+        {billablePeriod && (
+          <Value label="Billable period" data-testid="billablePeriod">
+            <Period fhirData={billablePeriod} />
+          </Value>
+        )}
         {useCode && (
           <Value label="Purpose" data-testid="purpose">
             {useCode}
@@ -253,6 +364,14 @@ const ExplanationOfBenefit = props => {
             <Reference fhirData={insurance} />
           </Value>
         )}
+        {related && (
+          <Value label="Related" data-testid="related">
+            <Related fhirData={related} />
+          </Value>
+        )}
+        {hasDiagnosis && <Diagnosis fhirData={diagnosis} />}
+        {hasSupportingInfo && <SupportingInfo fhirData={supportingInfo} />}
+
         {hasServices && (
           <ValueSection label="Services" data-testid="hasServices">
             <Table>
@@ -338,6 +457,8 @@ const ExplanationOfBenefit = props => {
             </Table>
           </ValueSection>
         )}
+        {hasItems && <Items fhirData={items} />}
+        {hasCareTeam && <CareTeam fhirData={careTeam} />}
       </Body>
     </Root>
   );
@@ -350,6 +471,7 @@ ExplanationOfBenefit.propTypes = {
     fhirVersions.STU3,
     fhirVersions.R4,
   ]).isRequired,
+  withCarinBBProfile: PropTypes.bool,
 };
 
 export default ExplanationOfBenefit;

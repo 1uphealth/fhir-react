@@ -5,16 +5,18 @@ import _flatten from 'lodash/flatten';
 import Coding from '../../datatypes/Coding';
 import Address from '../../datatypes/Address';
 import Telecom from '../../datatypes/Telecom';
+import Identifier from '../../datatypes/Identifier';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 import fhirVersions from '../fhirResourceVersions';
 import { Root, Header, Title, Body, Value, NotEnoughData } from '../../ui';
 
 const commonDTO = fhirResource => {
+  const identifier = _get(fhirResource, 'identifier', '');
   const name = _get(fhirResource, 'name');
   const addresses = _get(fhirResource, 'address');
   const telecom = _get(fhirResource, 'telecom');
 
-  return { name, addresses, telecom };
+  return { identifier, name, addresses, telecom };
 };
 const dstu2DTO = fhirResource => {
   const typeCodings = _get(fhirResource, 'type.coding');
@@ -61,7 +63,13 @@ const Organization = props => {
     console.warn(error.message);
     return <UnhandledResourceDataStructure resourceName="Practitioner" />;
   }
-  const { name, addresses, telecom, typeCodings } = fhirResourceData;
+  const {
+    identifier,
+    name,
+    addresses,
+    telecom,
+    typeCodings,
+  } = fhirResourceData;
   const hasAddresses = Array.isArray(addresses) && addresses.length > 0;
   const hasTelecom = Array.isArray(telecom) && telecom.length > 0;
   const hasTypes = Array.isArray(typeCodings) && typeCodings.length > 0;
@@ -74,6 +82,11 @@ const Organization = props => {
         </Header>
       )}
       <Body>
+        {identifier && (
+          <Value label="Identifiers" data-testid="identifier">
+            <Identifier fhirData={identifier} />
+          </Value>
+        )}
         {hasAddresses && (
           <Value label="Addresses" data-testid="address">
             {addresses.map((item, i) => (

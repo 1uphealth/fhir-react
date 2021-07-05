@@ -13,9 +13,11 @@ import Telecom from '../../datatypes/Telecom';
 import Date from '../../datatypes/Date';
 import { Root, Header, Title, Body, Value, Badge } from '../../ui';
 import './Practitioner.css';
+import Identifier from '../../datatypes/Identifier';
 
 const commonDTO = fhirResource => {
   const id = _get(fhirResource, 'id', '');
+  const identifier = _get(fhirResource, 'identifier', '');
   const gender = _get(fhirResource, 'gender', '');
   const status = _get(fhirResource, 'active') === true ? 'active' : '';
   const isContactData = _has(fhirResource, 'contact[0]');
@@ -26,6 +28,7 @@ const commonDTO = fhirResource => {
   };
   return {
     id,
+    identifier,
     gender,
     status,
     isContactData,
@@ -88,6 +91,7 @@ const Practitioner = props => {
   }
   const {
     id,
+    identifier,
     name,
     gender,
     status,
@@ -113,6 +117,11 @@ const Practitioner = props => {
         {status && <Badge data-testid="status">{status}</Badge>}
       </Header>
       <Body>
+        {identifier && (
+          <Value label="Identifiers" data-testid="identifier">
+            <Identifier fhirData={identifier} />
+          </Value>
+        )}
         {gender && (
           <Value label="Gender" data-testid="gender">
             {gender}

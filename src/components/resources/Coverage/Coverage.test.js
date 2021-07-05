@@ -3,6 +3,7 @@ import { render } from '@testing-library/react';
 import Coverage from './Coverage';
 import fhirVersions from '../fhirResourceVersions';
 
+import { nbspRegex } from '../../../testUtils';
 import exampleCoverage from '../../../fixtures/dstu2/resources/coverage/example1.json';
 import exampleCoverageStu3 from '../../../fixtures/stu3/resources/coverage/example1.json';
 import example2CoverageStu3 from '../../../fixtures/stu3/resources/coverage/example2.json';
@@ -16,8 +17,8 @@ describe('should render component correctly', () => {
     };
     const { getByTestId } = render(<Coverage {...defaultProps} />);
 
-    expect(getByTestId('title').textContent).toContain(
-      'Coverage Identifier 12345',
+    expect(getByTestId('title').textContent.replace(nbspRegex, ' ')).toContain(
+      'Coverage Identifier: 12345',
     );
     expect(getByTestId('issuer').textContent).toContain('Organization/2');
     expect(getByTestId('planId').textContent).toContain('CBI35');
@@ -33,8 +34,8 @@ describe('should render component correctly', () => {
     };
     const { getByTestId } = render(<Coverage {...defaultProps} />);
 
-    expect(getByTestId('title').textContent).toContain(
-      'Coverage Identifier 12345',
+    expect(getByTestId('title').textContent.replace(nbspRegex, ' ')).toContain(
+      'Coverage Identifier: 12345',
     );
     expect(getByTestId('issuer').textContent).toContain('Organization/2');
     expect(getByTestId('planId').textContent).toContain('B37FC');
@@ -68,8 +69,8 @@ describe('should render component correctly', () => {
       <Coverage {...defaultProps} />,
     );
 
-    expect(getByTestId('title').textContent).toContain(
-      'Coverage Identifier 12345',
+    expect(getByTestId('title').textContent.replace(nbspRegex, ' ')).toContain(
+      'Coverage Identifier: 12345',
     );
     expect(getByTestId('issuer').textContent).toContain('Organization/2');
     expect(queryAllByTestId('planId').length).toEqual(0);

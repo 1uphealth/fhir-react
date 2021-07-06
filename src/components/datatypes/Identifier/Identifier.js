@@ -3,24 +3,45 @@ import PropTypes from 'prop-types';
 import _get from 'lodash/get';
 
 import './Identifier.css';
+import CodeableConcept from '../CodeableConcept';
 
 const Identifier = props => {
   const { fhirData } = props;
-  const value = _get(fhirData, 'value', '');
-  const system = _get(fhirData, 'system', '');
+  const identifierArray = Array.isArray(fhirData) ? fhirData : [fhirData];
 
-  return value ? (
-    <span className="fhir-datatype__Identifier" title={system}>
-      {value}
-    </span>
-  ) : null;
+  return identifierArray.map(identifier => {
+    const value = _get(identifier, 'value', '');
+    const system = _get(identifier, 'system', '');
+    const type = _get(identifier, 'type', null);
+
+    const displayIdentifierName = type ? (
+      <>
+        <CodeableConcept fhirData={type} />
+        <span>:&nbsp;</span>
+      </>
+    ) : (
+      <span>Identifier:&nbsp;</span>
+    );
+
+    return value ? (
+      <div className="fhir-datatype__Identifier" title={system} key={value}>
+        <div style={{ display: 'flex' }}>
+          {displayIdentifierName}
+          <span>{value}</span>
+        </div>
+      </div>
+    ) : null;
+  });
 };
 
 Identifier.propTypes = {
-  fhirData: PropTypes.shape({
-    value: PropTypes.string,
-    system: PropTypes.string,
-  }).isRequired,
+  fhirData: PropTypes.oneOfType([
+    PropTypes.shape({
+      value: PropTypes.string,
+      system: PropTypes.string,
+    }),
+    PropTypes.array,
+  ]).isRequired,
 };
 
 export default Identifier;

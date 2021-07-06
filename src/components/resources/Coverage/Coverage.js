@@ -143,7 +143,7 @@ const Coverage = props => {
       <Header>
         {identifier && (
           <Title>
-            Coverage Identifier <Identifier fhirData={identifier} />
+            Coverage <Identifier fhirData={identifier} />
           </Title>
         )}
       </Header>

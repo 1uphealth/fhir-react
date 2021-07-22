@@ -132,4 +132,8 @@ const DrugTierDefinitionExtension = props => {
   );
 };
 
+DrugTierDefinitionExtension.propTypes = {
+  drugTierDefinitionExtension: PropTypes.shape({}).isRequired,
+};
+
 export default DrugTierDefinitionExtension;

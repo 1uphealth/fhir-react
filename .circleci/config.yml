@@ -10,10 +10,10 @@ jobs:
       - run:
           name: Update Python version
           command: |
-            sudo apt-get install software-properties-common
+            sudo apt update
+            sudo apt install software-properties-common
             sudo add-apt-repository ppa:deadsnakes/ppa
-            sudo apt-get update
-            sudo apt-get install python3.8
+            sudo apt install python3.7
       - run:
           name: Install dependencies
           command: npm install

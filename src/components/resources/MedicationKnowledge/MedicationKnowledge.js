@@ -3,8 +3,17 @@ import PropTypes from 'prop-types';
 import _get from 'lodash/get';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 import fhirVersions from '../fhirResourceVersions';
+import { getExtension, isBoolean } from './utils';
 
-import { Root, Header, Title, Value, Body, Badge } from '../../ui';
+import {
+  Root,
+  Header,
+  Title,
+  Value,
+  Body,
+  Badge,
+  ValueSection,
+} from '../../ui';
 import Reference from '../../datatypes/Reference';
 import CodeableConcept from '../../datatypes/CodeableConcept';
 
@@ -31,44 +40,34 @@ const daVinciPDex = fhirResource => {
   const hasExtensions = extension.length > 0;
 
   if (hasExtensions) {
-    const usdfDrugTierDefinition = getExtension(
-      'usdf-DrugTierDefinition-extension',
-      extension,
+    const usdfPriorAuthorization = _get(
+      getExtension('usdf-PriorAuthorization-extension', extension),
+      'valueBoolean',
     );
-    const usdfNetwork = _get(
-      getExtension('usdf-Network-extension', extension),
+    const usdfStepTherapyLimit = _get(
+      getExtension('usdf-StepTherapyLimit-extension', extension),
+      'valueBoolean',
+    );
+    const usdfQuantityLimit = _get(
+      getExtension('usdf-QuantityLimit-extension', extension),
+      'valueBoolean',
+    );
+    const usdfPlanID = _get(
+      getExtension('usdf-PlanID-extension', extension),
       'valueString',
     );
-    const usdfSummaryURL = _get(
-      getExtension('usdf-SummaryURL-extension', extension),
-      'valueString',
-    );
-    const usdfFormularyURL = _get(
-      getExtension('usdf-FormularyURL-extension', extension),
-      'valueString',
-    );
-    const usdfEmailPlanContact = _get(
-      getExtension('usdf-EmailPlanContact-extension', extension),
-      'valueString',
-    );
-    const usdfMarketingURL = _get(
-      getExtension('usdf-MarketingURL-extension', extension),
-      'valueString',
-    );
-    const usdfPlanIDType = _get(
-      getExtension('usdf-PlanIDType-extension', extension),
-      'valueString',
+    const usdfDrugTierID = _get(
+      getExtension('usdf-DrugTierID-extension', extension),
+      'valueCodeableConcept',
     );
 
     return {
       hasExtensions,
-      usdfDrugTierDefinition,
-      usdfNetwork,
-      usdfSummaryURL,
-      usdfFormularyURL,
-      usdfEmailPlanContact,
-      usdfMarketingURL,
-      usdfPlanIDType,
+      usdfPriorAuthorization,
+      usdfStepTherapyLimit,
+      usdfQuantityLimit,
+      usdfPlanID,
+      usdfDrugTierID,
     };
   }
 
@@ -90,12 +89,12 @@ const resourceDTO = (fhirVersion, fhirResource, withDaVinciPDex) => {
         ...commonDTO(fhirResource),
       };
 
-      // if (withDaVinciPDex) {
-      //   return {
-      //     ...dto,
-      //     ...daVinciPDex(fhirResource),
-      //   };
-      // }
+      if (withDaVinciPDex) {
+        return {
+          ...dto,
+          ...daVinciPDex(fhirResource),
+        };
+      }
 
       return dto;
     }
@@ -116,7 +115,20 @@ const MedicationKnowledge = props => {
     );
   }
 
-  const { id, code, status, manufacturer, amount, synonym } = fhirResourceData;
+  const {
+    id,
+    code,
+    status,
+    manufacturer,
+    amount,
+    synonym,
+    hasExtensions,
+    usdfPriorAuthorization,
+    usdfStepTherapyLimit,
+    usdfQuantityLimit,
+    usdfPlanID,
+    usdfDrugTierID,
+  } = fhirResourceData;
 
   let amountDisplay = '';
   if (amount && amount.value) {
@@ -130,7 +142,8 @@ const MedicationKnowledge = props => {
     <Root name="MedicationKnowledge">
       <Header>
         <Title>
-          Medication knowledge {id && id} {status && <Badge>{status}</Badge>}
+          {id ? `Medication knowledge ID: ${id}` : 'Medication knowledge'}{' '}
+          {status && <Badge>{status}</Badge>}
         </Title>
       </Header>
       <Body>
@@ -153,6 +166,42 @@ const MedicationKnowledge = props => {
           <Value label="Synonym" data-testid="synonym">
             {synonym}
           </Value>
+        )}
+
+        {hasExtensions && (
+          <ValueSection label="USDF extensions" data-testid="usdfExtensions">
+            {isBoolean(usdfPriorAuthorization) && (
+              <Value
+                label="Prior Authorization"
+                data-testid="usdfPriorAuthorization"
+              >
+                {usdfPriorAuthorization === true ? 'yes' : 'no'}
+              </Value>
+            )}
+            {isBoolean(usdfStepTherapyLimit) && (
+              <Value
+                label="Step Therapy Limit"
+                data-testid="usdfStepTherapyLimit"
+              >
+                {usdfStepTherapyLimit === true ? 'yes' : 'no'}
+              </Value>
+            )}
+            {isBoolean(usdfQuantityLimit) && (
+              <Value label="Quantity Limit" data-testid="usdfQuantityLimit">
+                {usdfQuantityLimit === true ? 'yes' : 'no'}
+              </Value>
+            )}
+            {usdfPlanID && (
+              <Value label="Plan ID" data-testid="usdfPlanID">
+                {usdfPlanID}
+              </Value>
+            )}
+            {usdfDrugTierID && (
+              <Value label="Drug Tier ID" data-testid="usdfDrugTierID">
+                <CodeableConcept fhirData={usdfDrugTierID} />
+              </Value>
+            )}
+          </ValueSection>
         )}
       </Body>
     </Root>

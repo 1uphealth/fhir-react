@@ -8,6 +8,9 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Install npm
+          command: apt-get install -y npm
+      - run:
           name: Install dependencies
           command: npm install
       - run:

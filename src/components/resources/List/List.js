@@ -118,9 +118,7 @@ const resourceDTO = (fhirVersion, fhirResource, withDaVinciPDex) => {
         };
       }
 
-      return {
-        ...commonDTO(fhirResource),
-      };
+      return dto;
     }
     default:
       throw Error('Unrecognized the fhir version property type.');
@@ -201,50 +199,51 @@ const List = props => {
           </Value>
         )}
         {entry && <Entries fhirData={entry} />}
+
+        {hasExtensions && (
+          <ValueSection label="USDF extensions" data-testid="usdfExtensions">
+            {usdfDrugTierDefinition && (
+              <DrugTierDefinitionExtension
+                drugTierDefinitionExtension={usdfDrugTierDefinition}
+                data-testid="usdfDrugTierDefinition"
+              />
+            )}
+            {usdfNetwork && (
+              <Value label="Network" data-testid="usdfNetwork">
+                {usdfNetwork}
+              </Value>
+            )}
+            {usdfSummaryURL && (
+              <Value label="Summary URL" data-testid="usdfSummaryURL">
+                {usdfSummaryURL}
+              </Value>
+            )}
+            {usdfFormularyURL && (
+              <Value label="Formulary URL" data-testid="usdfFormularyURL">
+                {usdfFormularyURL}
+              </Value>
+            )}
+            {usdfEmailPlanContact && (
+              <Value
+                label="Email Plan Contact"
+                data-testid="usdfEmailPlanContact"
+              >
+                {usdfEmailPlanContact}
+              </Value>
+            )}
+            {usdfMarketingURL && (
+              <Value label="Marketing URL" data-testid="usdfMarketingURL">
+                {usdfMarketingURL}
+              </Value>
+            )}
+            {usdfPlanIDType && (
+              <Value label="Plan ID Type" data-testid="usdfPlanIDType">
+                {usdfPlanIDType}
+              </Value>
+            )}
+          </ValueSection>
+        )}
       </Body>
-      {hasExtensions && (
-        <ValueSection label="USDF extensions" data-testid="usdfExtensions">
-          {usdfDrugTierDefinition && (
-            <DrugTierDefinitionExtension
-              drugTierDefinitionExtension={usdfDrugTierDefinition}
-              data-testid="usdfDrugTierDefinition"
-            />
-          )}
-          {usdfNetwork && (
-            <Value label="Network" data-testid="usdfNetwork">
-              {usdfNetwork}
-            </Value>
-          )}
-          {usdfSummaryURL && (
-            <Value label="Summary URL" data-testid="usdfSummaryURL">
-              {usdfSummaryURL}
-            </Value>
-          )}
-          {usdfFormularyURL && (
-            <Value label="Formulary URL" data-testid="usdfFormularyURL">
-              {usdfFormularyURL}
-            </Value>
-          )}
-          {usdfEmailPlanContact && (
-            <Value
-              label="Email Plan Contact"
-              data-testid="usdfEmailPlanContact"
-            >
-              {usdfEmailPlanContact}
-            </Value>
-          )}
-          {usdfMarketingURL && (
-            <Value label="Marketing URL" data-testid="usdfMarketingURL">
-              {usdfMarketingURL}
-            </Value>
-          )}
-          {usdfPlanIDType && (
-            <Value label="Plan ID Type" data-testid="usdfPlanIDType">
-              {usdfPlanIDType}
-            </Value>
-          )}
-        </ValueSection>
-      )}
     </Root>
   );
 };

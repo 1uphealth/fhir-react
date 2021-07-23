@@ -16,8 +16,10 @@ import Encounter from './resources/Encounter';
 import FamilyMemberHistory from './resources/FamilyMemberHistory';
 import Goal from './resources/Goal';
 import Immunization from './resources/Immunization';
+import List from './resources/List';
 import Location from './resources/Location';
 import Medication from './resources/Medication';
+import MedicationKnowledge from './resources/MedicationKnowledge';
 import MedicationOrder from './resources/MedicationOrder';
 import MedicationStatement from './resources/MedicationStatement';
 import Observation from './resources/Observation';
@@ -55,8 +57,10 @@ export {
   FamilyMemberHistory,
   Goal,
   Immunization,
+  List,
   Location,
   Medication,
+  MedicationKnowledge,
   MedicationOrder,
   MedicationStatement,
   Observation,

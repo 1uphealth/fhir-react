@@ -41,6 +41,7 @@ const MyComponent = () => {
 | `fhirResource`\*     | Object                                                     | -       | The FHIR resource to be rendered                                                                                                                                                                          |
 | `fhirVersion`\*      | `fhirVersions.DSTU2`, `fhirVersions.STU3, fhirVersions.R4` | -       | FHIR resource version                                                                                                                                                                                     |
 | `withCarinBBProfile` | Boolean                                                    | `false` | Use Carin BB profile extension on top of the HL7 default FHIR specification https://build.fhir.org/ig/HL7/carin-bb/index.html                                                                             |
+| `withDaVinciPDex`    | Boolean                                                    | `false` | Use DaVinci Payer Data Exchange (PDex) profile extension on top of the HL7 default FHIR specification https://hl7.org/fhir/us/davinci-drug-formulary/index.html                                           |
 | `thorough`           | Boolean                                                    | `false` | If this is set to `true`, or if it is absent, all array items and supported attributes will be displayed. Otherwise if this is `false` then only the first or otherwise important items will be displayed |
 
 \* required props
@@ -53,43 +54,45 @@ const MyComponent = () => {
 
 ### Available resources
 
-| Resource                   | DSTU2 | STU3 |  R4   | Carin BB Profile |
-| -------------------------- | :---: | :--: | :---: | :--------------: |
-| `AdverseEvent`             | _N/A_ |  ✅  |  ✅   |
-| `AllergyIntolerance`       |  ✅   |  ✅  |  ✅   |
-| `AdverseEvent`             | _N/A_ |  ✅  |  ✅   |
-| `AllergyIntolerance`       |  ✅   |  ✅  |  ✅   |
-| `Appointment`              |  ✅   |  ✅  |  ✅   |
-| `Bundle`                   |  ✅   |  ✅  |  ✅   |
-| `CarePlan`                 |  ✅   |  ✅  |  ✅   |
-| `CareTeam`                 | _N/A_ |  ✅  |  ✅   |
-| `Claim`                    |  ✅   |  ✅  |  ✅   |
-| `ClaimResponse`            |  ✅   |  ✅  |  ✅   |
-| `Condition`                |  ✅   |  ✅  |  ✅   |
-| `Coverage`                 |  ✅   |  ✅  |  ✅   |
-| `Device`                   |  ✅   |  ✅  |  ✅   |
-| `DiagnosticReport`         |  ✅   |  ✅  |  ✅   |
-| `DocumentReference`        |  ✅   |  ✅  |  ✅   |
-| `Encounter`                |  ✅   |  ✅  |  ✅   |
-| `ExplanationOfBenefit`     |  ✅   |  ✅  |  ✅   |        ✅        |
-| `Goal`                     |  ✅   |  ✅  |  ✅   |
-| `Immunization`             |  ✅   |  ✅  |  ✅   |
-| `Location`                 |  ✅   |  ✅  |  ✅   |
-| `Medication`               |  ✅   |  ✅  |  ✅   |
-| `MedicationAdministration` |  ✅   |  ✅  |  ✅   |
-| `MedicationDispense`       |  ✅   |  ✅  |  ✅   |
-| `MedicationRequest`        | _N/A_ |  ✅  |  ✅   |
-| `MedicationStatement`      |  ✅   |  ✅  |  ✅   |
-| `Observation`              |  ✅   |  ✅  |  ✅   |
-| `Organization`             |  ✅   |  ✅  |  ✅   |
-| `Patient`                  |  ✅   |  ✅  |  ✅   |
-| `Practitioner`             |  ✅   |  ✅  |  ✅   |
-| `PractitionerRole`         | _N/A_ |  ✅  |  ✅   |
-| `Procedure`                |  ✅   |  ✅  |  ✅   |
-| `Questionnaire`            |  ✅   |  ✅  |  ✅   |
-| `QuestionnaireResponse`    |  ✅   |  ✅  |  ✅   |
-| `ReferralRequest`          |  ✅   |  ✅  | _N/A_ |
-| `ResearchStudy`            | _N/A_ |  ✅  |  ✅   |
+| Resource                   | DSTU2 | STU3  |  R4   | Carin BB Profile | DaVinci PDex |
+| -------------------------- | :---: | :---: | :---: | :--------------: | ------------ |
+| `AdverseEvent`             | _N/A_ |  ✅   |  ✅   |
+| `AllergyIntolerance`       |  ✅   |  ✅   |  ✅   |
+| `AdverseEvent`             | _N/A_ |  ✅   |  ✅   |
+| `AllergyIntolerance`       |  ✅   |  ✅   |  ✅   |
+| `Appointment`              |  ✅   |  ✅   |  ✅   |
+| `Bundle`                   |  ✅   |  ✅   |  ✅   |
+| `CarePlan`                 |  ✅   |  ✅   |  ✅   |
+| `CareTeam`                 | _N/A_ |  ✅   |  ✅   |
+| `Claim`                    |  ✅   |  ✅   |  ✅   |
+| `ClaimResponse`            |  ✅   |  ✅   |  ✅   |
+| `Condition`                |  ✅   |  ✅   |  ✅   |
+| `Coverage`                 |  ✅   |  ✅   |  ✅   |
+| `Device`                   |  ✅   |  ✅   |  ✅   |
+| `DiagnosticReport`         |  ✅   |  ✅   |  ✅   |
+| `DocumentReference`        |  ✅   |  ✅   |  ✅   |
+| `Encounter`                |  ✅   |  ✅   |  ✅   |
+| `ExplanationOfBenefit`     |  ✅   |  ✅   |  ✅   |        ✅        |
+| `Goal`                     |  ✅   |  ✅   |  ✅   |
+| `Immunization`             |  ✅   |  ✅   |  ✅   |
+| `List`                     |  ✅   |  ✅   |  ✅   |                  | ✅           |
+| `Location`                 |  ✅   |  ✅   |  ✅   |
+| `Medication`               |  ✅   |  ✅   |  ✅   |
+| `MedicationAdministration` |  ✅   |  ✅   |  ✅   |
+| `MedicationDispense`       |  ✅   |  ✅   |  ✅   |
+| `MedicationKnowledge`      | _N/A_ | _N/A_ |  ✅   |                  | ✅           |
+| `MedicationRequest`        | _N/A_ |  ✅   |  ✅   |
+| `MedicationStatement`      |  ✅   |  ✅   |  ✅   |
+| `Observation`              |  ✅   |  ✅   |  ✅   |
+| `Organization`             |  ✅   |  ✅   |  ✅   |
+| `Patient`                  |  ✅   |  ✅   |  ✅   |
+| `Practitioner`             |  ✅   |  ✅   |  ✅   |
+| `PractitionerRole`         | _N/A_ |  ✅   |  ✅   |
+| `Procedure`                |  ✅   |  ✅   |  ✅   |
+| `Questionnaire`            |  ✅   |  ✅   |  ✅   |
+| `QuestionnaireResponse`    |  ✅   |  ✅   |  ✅   |
+| `ReferralRequest`          |  ✅   |  ✅   | _N/A_ |
+| `ResearchStudy`            | _N/A_ |  ✅   |  ✅   |
 
 ### Styles
 

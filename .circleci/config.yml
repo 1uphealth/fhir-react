@@ -9,7 +9,9 @@ jobs:
       - checkout
       - run:
           name: Update Python version
-          command: sudo apt install python3.8
+          command: |
+            sudo apt update
+            sudo apt install python3.8
       - run:
           name: Install dependencies
           command: npm install

@@ -4,12 +4,12 @@ jobs:
     parallelism: 1
     shell: /bin/bash --login
     docker:
-      - image: circleci/python:3.9.6-browsers
+      - image: circleci/node:12.3.1-browsers
     steps:
       - checkout
       - run:
-          name: Install npm
-          command: sudo apt-get install -y npm
+          name: Update Python version
+          command: sudo apt install python3.8
       - run:
           name: Install dependencies
           command: npm install

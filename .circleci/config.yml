@@ -4,7 +4,7 @@ jobs:
     parallelism: 1
     shell: /bin/bash --login
     docker:
-      - image: circleci/node:16.5.0-browsers
+      - image: circleci/python:3.9.6-browsers
     steps:
       - checkout
       - run:

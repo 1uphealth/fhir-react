@@ -143,7 +143,7 @@ const MedicationKnowledge = props => {
       <Header>
         <Title>
           {id ? `Medication knowledge ID: ${id}` : 'Medication knowledge'}{' '}
-          {status && <Badge>{status}</Badge>}
+          {status && <Badge data-testid="status">{status}</Badge>}
         </Title>
       </Header>
       <Body>

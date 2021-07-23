@@ -160,7 +160,8 @@ const List = props => {
     <Root name="List">
       <Header>
         <Title>
-          {title || 'List'} {id && id} {status && <Badge>{status}</Badge>}
+          {title || 'List'} {id && id}{' '}
+          {status && <Badge data-testid="status">{status}</Badge>}
         </Title>
       </Header>
       <Body>

@@ -30,7 +30,7 @@ export function getId(fhirResource) {
   return _get(fhirResource, 'id');
 }
 export function getNames(fhirResource) {
-  return _get(fhirResource, 'name', []);
+  return _get(fhirResource, 'name.0', null);
 }
 export function getBirthDate(fhirResource) {
   return _get(fhirResource, 'birthDate');
@@ -45,7 +45,7 @@ function Patient(props) {
   const id = getId(fhirResource);
   const idHash = md5(id || '');
   const avatarSrc = `http://www.gravatar.com/avatar/${idHash}?s=50&r=any&default=identicon&forcedefault=1`;
-  const patientNames = getNames(fhirResource);
+  const patientName = getNames(fhirResource);
   const patientBirthDate = getBirthDate(fhirResource);
   const patientGender = getGender(fhirResource);
   const patientContact = _get(fhirResource, 'contact[0]');
@@ -81,27 +81,19 @@ function Patient(props) {
           </div>
           <div>
             <div className="fhir-resource__Patient__patient-block">
-              {patientNames.map((patientName, index) => {
-                if (props.thorough === false && index !== 0) {
-                  return null;
-                } else {
-                  return (
-                    <React.Fragment key={index}>
-                      <span data-testid={`patientName-${index}`}>
-                        {renderName
-                          ? renderName({
-                              patientName,
-                              defaultName,
-                              fhirVersion,
-                              id,
-                            })
-                          : defaultName(patientName, index)}
-                      </span>
-                      &nbsp;&nbsp;
-                    </React.Fragment>
-                  );
-                }
-              })}
+              <React.Fragment>
+                <span data-testid={`patientName`}>
+                  {renderName
+                    ? renderName({
+                        patientName,
+                        defaultName,
+                        fhirVersion,
+                        id,
+                      })
+                    : defaultName(patientName, 0)}
+                </span>
+                &nbsp;&nbsp;
+              </React.Fragment>
             </div>
             <div>
               {active && (

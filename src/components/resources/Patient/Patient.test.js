@@ -17,9 +17,9 @@ describe('should render component correctly', () => {
       <Patient {...defaultProps} />,
     );
 
-    expect(
-      getByTestId('patientName-0').textContent.replace(/\s+/g, ' '),
-    ).toEqual('Jason Argonaut (usual)');
+    expect(getByTestId('patientName').textContent.replace(/\s+/g, ' ')).toEqual(
+      'Jason Argonaut (usual)',
+    );
     expect(getByTestId('patientGender').textContent).toEqual('male');
     expect(getByTestId('patientBirthDate').textContent).toEqual('1985-08-01');
     expect(getByTestId('patientAddress').textContent).toEqual(
@@ -40,9 +40,9 @@ describe('should render component correctly', () => {
       <Patient {...defaultProps} />,
     );
 
-    expect(
-      getByTestId('patientName-0').textContent.replace(/\s+/g, ' '),
-    ).toEqual('John, X Doe (usual)');
+    expect(getByTestId('patientName').textContent.replace(/\s+/g, ' ')).toEqual(
+      'John, X Doe (usual)',
+    );
     expect(getByTestId('patientGender').textContent).toEqual('male');
     expect(getByTestId('patientBirthDate').textContent).toEqual('2014-06-01');
     expect(getByTestId('patientAddress').textContent).toEqual(' 05 99999 ');
@@ -67,9 +67,9 @@ describe('should render component correctly', () => {
       <Patient {...defaultProps} />,
     );
 
-    expect(
-      getByTestId('patientName-0').textContent.replace(/\s+/g, ' '),
-    ).toEqual('Peter, James Chalmers (official)');
+    expect(getByTestId('patientName').textContent.replace(/\s+/g, ' ')).toEqual(
+      'Peter, James Chalmers (official)',
+    );
     expect(getByTestId('patientGender').textContent).toEqual('male');
     expect(getByTestId('patientBirthDate').textContent).toEqual('1974-12-25');
     expect(getByTestId('patientAddress').textContent).toContain(

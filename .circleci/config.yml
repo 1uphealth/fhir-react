@@ -4,7 +4,7 @@ jobs:
     parallelism: 1
     shell: /bin/bash --login
     docker:
-      - image: circleci/node:12.3.1-browsers
+      - image: nojman/fhir-react
     steps:
       - checkout
       - run:

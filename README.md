@@ -110,22 +110,6 @@ import 'fhir-react/build/bootstrap-reboot.min.css';
 
 The working demo example with styles included can be viewed [here](https://codesandbox.io/s/infallible-diffie-r6ln5).
 
-### Styles
-
-Optional CSS styles are provided with this library. They are split into two files:
-
-- `style.css` with basic styling of the components
-- `bootstrap-reboot.min.css` further enhancing those styles
-
-To use provided styles include them in the React component:
-
-```js
-import 'fhir-react/build/style.css';
-import 'fhir-react/build/bootstrap-reboot.min.css';
-```
-
-The working demo example with styles included can be viewed [here](https://codesandbox.io/s/infallible-diffie-r6ln5).
-
 ## Storybook
 
 Run storybook local server with:

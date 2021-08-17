@@ -9,6 +9,7 @@ import example1Stu3 from '../../../fixtures/stu3/resources/explanationOfBenefit/
 import example2Stu3 from '../../../fixtures/stu3/resources/explanationOfBenefit/example2.json';
 import example1R4 from '../../../fixtures/r4/resources/explanationOfBenefit/personPrimaryCoverage.json';
 import exampleC4BB from '../../../fixtures/r4/resources/explanationOfBenefit/c4bbExample.json';
+import exampleC4BBExtendedDiagnosis from '../../../fixtures/r4/resources/explanationOfBenefit/c4bbExtendedDiagnosis.json';
 
 describe('should render ExplanationOfBenefit component properly', () => {
   it('should render with DSTU2 source data', () => {
@@ -219,5 +220,21 @@ describe('should render ExplanationOfBenefit component properly', () => {
     expect(queryAllByTestId('items.level')).not.toBeNull();
     expect(queryAllByTestId('items.sequence')).not.toBeNull();
     expect(queryAllByTestId('items.sequence')).toHaveLength(3);
+  });
+
+  it('should render C4BB diagnosis fields', () => {
+    const defaultProps = {
+      fhirResource: exampleC4BBExtendedDiagnosis,
+      fhirVersion: fhirVersions.R4,
+      withCarinBBProfile: true,
+    };
+
+    const { container, queryByTestId, getByTestId } = render(
+      <ExplanationOfBenefit {...defaultProps} />,
+    );
+    expect(container).not.toBeNull();
+
+    expect(getByTestId('diagnosisOnAdmission').textContent).toContain('?');
+    expect(queryByTestId('diagnosisPackageCode')).toBeNull();
   });
 });

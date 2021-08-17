@@ -10,6 +10,7 @@ import example2Stu3 from '../../../fixtures/stu3/resources/explanationOfBenefit/
 import example1R4 from '../../../fixtures/r4/resources/explanationOfBenefit/personPrimaryCoverage.json';
 import example2R4 from '../../../fixtures/r4/resources/explanationOfBenefit/eobForClaimWithErrors.json';
 import exampleC4BB from '../../../fixtures/r4/resources/explanationOfBenefit/c4bbExample.json';
+import exampleC4BBExtendedDiagnosis from '../../../fixtures/r4/resources/explanationOfBenefit/c4bbExtendedDiagnosis.json';
 
 export default {
   title: 'ExplanationOfBenefit',
@@ -69,6 +70,17 @@ export const ExampleWithoutFHIRVersionProperty = () => {
 
 export const EOBCarinBlueButtonExample = () => {
   const fhirResource = object('Resource', exampleC4BB);
+  return (
+    <ExplanationOfBenefit
+      fhirVersion={fhirVersions.R4}
+      fhirResource={fhirResource}
+      withCarinBBProfile
+    />
+  );
+};
+
+export const EOBCarinBlueButtonExtendedDiagnosis = () => {
+  const fhirResource = object('Resource', exampleC4BBExtendedDiagnosis);
   return (
     <ExplanationOfBenefit
       fhirVersion={fhirVersions.R4}

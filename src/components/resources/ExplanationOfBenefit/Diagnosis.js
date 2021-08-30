@@ -8,13 +8,19 @@ import CodeableConcept from '../../datatypes/CodeableConcept';
 const Diagnosis = ({ fhirData }) => {
   return fhirData.map((diagnosis, index) => {
     const sequence = _get(diagnosis, 'sequence');
+    const id = _get(diagnosis, 'id');
     const reference = _get(diagnosis, 'diagnosisReference');
-    const codeableConcept = _get(diagnosis, 'codeableConcept');
+    const codeableConcept = _get(diagnosis, 'diagnosisCodeableConcept');
     const type = _get(diagnosis, 'type');
+    const onAdmission = _get(diagnosis, 'onAdmission');
+    const packageCode = _get(diagnosis, 'packageCode');
 
     return (
       <div key={`total-${index}`}>
-        <ValueSection label={`Diagnosis ${sequence}.`} data-testid="diagnosis">
+        <ValueSection
+          label={`Diagnosis ${sequence}${id ? ` (id: ${id})` : ''}`}
+          data-testid="diagnosis"
+        >
           {reference && (
             <Value label="Diagnosis" data-testid="reference">
               <Reference fhirData={reference} />
@@ -28,6 +34,16 @@ const Diagnosis = ({ fhirData }) => {
           {type && (
             <Value label="Type" data-testid="diagnosisType">
               <CodeableConcept fhirData={type} />
+            </Value>
+          )}
+          {onAdmission && (
+            <Value label="On admission" data-testid="diagnosisOnAdmission">
+              <CodeableConcept fhirData={onAdmission} />
+            </Value>
+          )}
+          {packageCode && (
+            <Value label="Package code" data-testid="diagnosisPackageCode">
+              <CodeableConcept fhirData={packageCode} />
             </Value>
           )}
         </ValueSection>

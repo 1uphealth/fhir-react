@@ -15,7 +15,7 @@ const Coding = props => {
       <span className="fhir-datatype__Coding__title">{display}</span>&nbsp;
       {hasAdditionalInfo && (
         <span className="fhir-datatype__Coding__code" title={system}>
-          ({code})
+          ({code || '?'})
         </span>
       )}
     </div>

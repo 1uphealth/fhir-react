@@ -1,0 +1,8 @@
+.accordion-button::after {
+  background-image: url('../../../assets/containers/Accordion/arrow.svg');
+}
+
+.accordion-button:not(.collapsed)::after {
+  background-image: url('../../../assets/containers/Accordion/arrow.svg');
+  transform: rotate(-180deg);
+}

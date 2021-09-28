@@ -6,3 +6,7 @@
   background-image: url('../../../assets/containers/Accordion/arrow.svg');
   transform: rotate(-180deg);
 }
+
+.accordion-item-border-color {
+  border-color: #eff1f1;
+}

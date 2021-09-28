@@ -9,7 +9,7 @@ const Accordion = props => {
   return (
     <div className="accordion">
       <div className="accordion-body">
-        <div className="accordion-item">
+        <div className="accordion-item accordion-item-border-color">
           <div className="accordion-header" id="flush-headingOne">
             <button
               className="accordion-button collapsed text-dark bg-white shadow-none"

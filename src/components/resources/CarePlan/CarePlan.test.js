@@ -42,7 +42,7 @@ describe('should render component correctly', () => {
     expect(getByTestId('subject').textContent).toContain('Peter James');
     expect(getByTestId('subject').textContent).toContain('Patient/example');
     expect(getByTestId('author').textContent).toContain('Dr Adam Careful');
-    expect(getByTestId('periodEnd').textContent).toEqual('2017-06-01');
+    expect(getByTestId('periodEnd').textContent).toEqual('6/1/2017');
     expect(getByTestId('basedOn').textContent).toEqual(
       'Management of Type 2 Diabetes',
     );
@@ -67,7 +67,7 @@ describe('should render component correctly', () => {
     expect(getByTestId('subject').textContent).toContain('Peter James');
     expect(getByTestId('subject').textContent).toContain('Patient/example');
     expect(getByTestId('author').textContent).toContain('Dr Adam Careful');
-    expect(getByTestId('periodEnd').textContent).toEqual('2017-06-01');
+    expect(getByTestId('periodEnd').textContent).toEqual('6/1/2017');
     expect(getByTestId('basedOn').textContent).toEqual(
       'Management of Type 2 Diabetes',
     );
@@ -89,7 +89,7 @@ describe('should render component correctly', () => {
     expect(getByTestId('goals').textContent).toEqual('#goal');
     expect(getByTestId('subject').textContent).toContain('Eve Everywoman');
     expect(getByTestId('subject').textContent).toContain('Patient/1');
-    expect(getByTestId('periodStart').textContent).toEqual('2013-01-01');
-    expect(getByTestId('periodEnd').textContent).toEqual('2013-10-01');
+    expect(getByTestId('periodStart').textContent).toEqual('1/1/2013');
+    expect(getByTestId('periodEnd').textContent).toEqual('10/1/2013');
   });
 });

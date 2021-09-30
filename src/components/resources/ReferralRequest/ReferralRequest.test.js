@@ -21,7 +21,7 @@ describe('should render ReferralRequest component properly', () => {
     expect(getByTestId('typeCoding').textContent).toContain(
       'Referral for service',
     );
-    expect(getByTestId('dateSent').textContent).toContain('2014-02-14');
+    expect(getByTestId('dateSent').textContent).toContain('2/14/2014');
     expect(getByTestId('reason').textContent).toContain(
       'For consideration of Grommets',
     );
@@ -46,7 +46,7 @@ describe('should render ReferralRequest component properly', () => {
     expect(getByTestId('typeCoding').textContent).toContain(
       'Patient referral to specialist',
     );
-    expect(getByTestId('dateSent').textContent).toContain('2014-02-14');
+    expect(getByTestId('dateSent').textContent).toContain('2/14/2014');
     expect(getByTestId('reason').textContent).toContain(
       'For consideration of Grommets',
     );

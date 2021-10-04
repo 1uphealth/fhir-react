@@ -4,9 +4,8 @@ import './style.css';
 import FhirResource from './components/containers/FhirResource';
 import fhirVersions from './components/resources/fhirResourceVersions';
 
-let BootstrapLibrary;
 if (typeof document !== 'undefined') {
-  BootstrapLibrary = require('bootstrap/dist/js/bootstrap.min.js').default;
+  require('bootstrap/dist/js/bootstrap.min.js');
 }
 
 export { FhirResource, fhirVersions };

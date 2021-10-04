@@ -25,7 +25,7 @@ describe('should render List component properly', () => {
     expect(getByTestId('identifier').textContent).toContain('23974652');
     expect(getByTestId('mode').textContent).toContain('changes');
     expect(getByTestId('subject').textContent).toContain('Patient/example');
-    expect(getByTestId('date').textContent).toContain('2012-11-25');
+    expect(getByTestId('date').textContent).toContain('11/25/2012');
     expect(queryByTestId('code')).toBeNull();
     expect(getByTestId('source').textContent).toContain('Patient/example');
     expect(getByTestId('entries')).not.toBeNull();
@@ -45,7 +45,7 @@ describe('should render List component properly', () => {
 
     expect(getByTestId('identifier').textContent).toContain('test');
     expect(getByTestId('mode').textContent).toContain('snapshot');
-    expect(getByTestId('date').textContent).toContain('2015-06-12');
+    expect(getByTestId('date').textContent).toContain('6/12/20');
     expect(getByTestId('entries')).not.toBeNull();
     expect(queryByTestId('usdfExtensions')).toBeNull();
   });
@@ -64,7 +64,7 @@ describe('should render List component properly', () => {
 
     expect(getByTestId('identifier').textContent).toContain('test');
     expect(getByTestId('mode').textContent).toContain('snapshot');
-    expect(getByTestId('date').textContent).toContain('2015-06-12');
+    expect(getByTestId('date').textContent).toContain('6/12/2015');
     expect(getByTestId('entries')).not.toBeNull();
 
     expect(queryByTestId('usdfExtensions')).not.toBeNull();

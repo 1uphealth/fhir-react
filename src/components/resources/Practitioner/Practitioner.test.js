@@ -69,7 +69,7 @@ describe('Practitioner should render component correctly', () => {
     expect(getByTestId('gender').textContent).toEqual('male');
     expect(getByTestId('address').textContent).toContain('Galapagosweg 91');
     expect(getByTestId('telecom').textContent).toContain('phone0205569336');
-    expect(getByTestId('birthDate').textContent).toContain('1979-04-29');
+    expect(getByTestId('birthDate').textContent).toContain('4/29/1979');
   });
 
   it('component without fhirVersion props', () => {

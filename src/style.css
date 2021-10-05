@@ -3,3 +3,10 @@
  * The styles for individual components are located in CSS files
  * placed next to the components themselves.
  **/
+
+@import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600&display=swap');
+
+/* font-family in `body` selector has no effect on fonts in storybook - `fhir-resource` chosen instead */
+.fhir-resource {
+  font-family: 'Titillium Web', system-ui;
+}

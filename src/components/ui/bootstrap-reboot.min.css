@@ -14,13 +14,23 @@
 }
 
 .fhir-resource {
-  font-family: 'Titillium Web', -apple-system, BlinkMacSystemFont, 'Segoe UI',
-    Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif,
-    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    'Helvetica Neue',
+    Arial,
+    'Noto Sans',
+    sans-serif,
+    'Apple Color Emoji',
+    'Segoe UI Emoji',
+    'Segoe UI Symbol',
+    'Noto Color Emoji';
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
-  color: #475263;
+  color: #212529;
   background-color: #fff;
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: transparent;
@@ -68,9 +78,7 @@
 }
 
 .fhir-resource h4 {
-  font-size: 1.125rem;
-  font-weight: 600;
-  line-height: 1.75rem;
+  font-size: 1.5rem;
 }
 
 .fhir-resource h5 {
@@ -179,8 +187,14 @@ sup {
 .fhir-resource kbd,
 .fhir-resource pre,
 .fhir-resource samp {
-  font-family: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
-    'Courier New', monospace;
+  font-family:
+    SFMono-Regular,
+    Menlo,
+    Monaco,
+    Consolas,
+    'Liberation Mono',
+    'Courier New',
+    monospace;
   font-size: 1em;
 }
 

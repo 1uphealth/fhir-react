@@ -10,7 +10,6 @@
 .fhir-ui__Title {
   margin-right: 10px;
   margin-bottom: 0;
-  line-height: 1.5rem;
 }
 
 .fhir-ui__Badge {
@@ -55,14 +54,10 @@
 }
 
 .fhir-ui__Value-label {
-  font-weight: 300;
-  line-height: 1.5rem;
-  color: #8f939a;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: #6c757d;
   margin: 0 10px 0 0;
-}
-
-.fhir-ui__Value div {
-  line-height: 1.5rem;
 }
 
 /* Based on bootstrap striped-table */

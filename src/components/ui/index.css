@@ -43,23 +43,6 @@
   overflow: auto;
 }
 
-.fhir-ui__Value {
-  display: flex;
-  margin-bottom: 5px;
-  font-size: 90%;
-}
-
-.fhir-ui__Value :not(.fhir-ui__Value-label) {
-  word-break: break-all;
-}
-
-.fhir-ui__Value-label {
-  text-transform: uppercase;
-  font-weight: bold;
-  color: #6c757d;
-  margin: 0 10px 0 0;
-}
-
 /* Based on bootstrap striped-table */
 .fhir-ui__Table {
   width: 100%;

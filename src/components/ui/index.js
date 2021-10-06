@@ -34,7 +34,7 @@ export const Value = props => (
 );
 
 export const Label = props => (
-  <label className="fhir-ui__Label text-secondary fw-light lh-base ps-0 col-4 col-sm-2 col-lg-1 align-self-start">
+  <label className="fhir-ui__Label text-secondary fw-light lh-base ps-0 col-5 col-sm-3 col-xl-2 align-self-start">
     {props.children}
   </label>
 );

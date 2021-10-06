@@ -3,6 +3,7 @@ import { withKnobs } from '@storybook/addon-knobs';
 
 import '../src/components/ui/bootstrap-reboot.min.css';
 import '../src/style.css';
+import '../src/style.scss';
 
 addParameters({
   options: {

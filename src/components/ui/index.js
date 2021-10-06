@@ -27,7 +27,7 @@ export const BadgeSecondary = props => (
 export const Body = props => <div>{props.children}</div>;
 
 export const Value = props => (
-  <div class="fhir-ui__Value row py-1 justify-content-start">
+  <div className="fhir-ui__Value row py-1 justify-content-start">
     <Label>{props.label}</Label>
     <Data data-testid={props['data-testid']}>{props.children}</Data>
   </div>
@@ -40,7 +40,10 @@ export const Label = props => (
 );
 
 export const Data = props => (
-  <div className="fhir-ui__Data text-break fw-normal lh-base pe-0 col align-self-start">
+  <div
+    className="fhir-ui__Data text-break fw-normal lh-base pe-0 col align-self-start"
+    data-testid={props['data-testid']}
+  >
     {props.children}
   </div>
 );

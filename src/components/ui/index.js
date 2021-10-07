@@ -1,6 +1,6 @@
-import React from 'react';
-
 import './index.css';
+
+import React from 'react';
 
 export const Header = props => (
   <div className="fhir-ui__Header">{props.children}</div>
@@ -24,7 +24,9 @@ export const BadgeSecondary = props => (
   </span>
 );
 
-export const Body = props => <div>{props.children}</div>;
+export const Body = props => (
+  <div className="fhir-ui__Body container-fluid">{props.children}</div>
+);
 
 export const Value = props => (
   <div className="fhir-ui__Value">

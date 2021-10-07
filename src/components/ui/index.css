@@ -7,11 +7,6 @@
   word-break: break-word;
 }
 
-.fhir-ui__Title {
-  margin-right: 10px;
-  margin-bottom: 0;
-}
-
 .fhir-ui__Badge {
   margin-right: 10px;
   display: inline-block;

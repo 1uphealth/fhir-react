@@ -1,6 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600&display=swap');
 
-/* font-family in `body` selector has no effect on fonts in storybook - `fhir-resource` chosen instead */
-.fhir-resource {
-  font-family: 'Titillium Web', system-ui;
-}
+$font-family-base: 'Titillium Web', system-ui;
+
+$font-weight-bold: 600;
+
+$font-sizes: (
+  4: 1.125rem,
+);
+
+$line-height-lg: 1.75;
+
+$body-color: #475263;
+
+@import '~bootstrap/scss/bootstrap.scss';

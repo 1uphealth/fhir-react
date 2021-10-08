@@ -23,7 +23,7 @@ describe('should render Immunization component properly', () => {
 
     expect(getByTestId('title').textContent).toContain('Fluvax');
 
-    expect(getByTestId('providedDate').textContent).toContain('on 1/10/2013');
+    expect(getByTestId('providedDate').textContent).toContain('1/10/2013');
 
     expect(getByTestId('lotNumber').textContent).toContain('AAJN11K');
     expect(getByTestId('lotNumberExpirationDate').textContent).toContain(
@@ -63,7 +63,7 @@ describe('should render Immunization component properly', () => {
 
     expect(getByTestId('title').textContent).toContain('Fluvax');
 
-    expect(getByTestId('providedDate').textContent).toContain('on 1/10/2013');
+    expect(getByTestId('providedDate').textContent).toContain('1/10/2013');
 
     expect(getByTestId('lotNumber').textContent).toContain('AAJN11K');
     expect(getByTestId('lotNumberExpirationDate').textContent).toContain(
@@ -97,7 +97,7 @@ describe('should render Immunization component properly', () => {
 
     expect(getByTestId('title').textContent).toContain('Fluvax');
 
-    expect(getByTestId('providedDate').textContent).toContain('on 1/10/2013');
+    expect(getByTestId('providedDate').textContent).toContain('1/10/2013');
 
     expect(getByTestId('lotNumber').textContent).toContain('AAJN11K');
     expect(getByTestId('lotNumberExpirationDate').textContent).toContain(
@@ -131,7 +131,7 @@ describe('should render Immunization component properly', () => {
 
     expect(getByTestId('title').textContent).toContain('DTP');
 
-    expect(getByTestId('providedDate').textContent).toContain('on 1/10/2013');
+    expect(getByTestId('providedDate').textContent).toContain('1/10/2013');
 
     expect(getByTestId('patient').textContent).toEqual('Patient/example');
 

@@ -87,6 +87,6 @@ describe('should render component correctly', () => {
       fhirResource: example3PatientR4,
     };
     const { getByTestId } = render(<Patient {...defaultProps} />);
-    expect(getByTestId('deceasedInfo').textContent).toEqual('2015-02-14');
+    expect(getByTestId('deceasedInfo').textContent).toEqual('2/14/2015');
   });
 });

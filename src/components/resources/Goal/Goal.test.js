@@ -70,7 +70,7 @@ describe('should render Goal component properly', () => {
       'Peter James Chalmers',
     );
 
-    expect(getByTestId('statusDate').textContent).toEqual('2016-02-14');
+    expect(getByTestId('statusDate').textContent).toEqual('2/14/2016');
 
     expect(getByTestId('description').textContent).toEqual(
       'Target weight is 160 to 180 lbs.',

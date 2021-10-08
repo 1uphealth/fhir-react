@@ -24,7 +24,7 @@ describe('should render the CareTeam component properly', () => {
     );
     expect(getByTestId('status').textContent).toEqual('active');
     expect(queryByTestId('periodStart')).toBeNull();
-    expect(getByTestId('periodEnd').textContent).toEqual('2013-01-01');
+    expect(getByTestId('periodEnd').textContent).toEqual('1/1/2013');
     expect(getByTestId('category').textContent.trim()).toEqual('(encounter)');
     expect(getByTestId('subject').textContent).toContain(
       'Peter James Chalmers',
@@ -53,7 +53,7 @@ describe('should render the CareTeam component properly', () => {
     const periodEnds = getAllByTestId('participant.periodEnd').map(
       n => n.textContent,
     );
-    expect(periodEnds).toEqual(['-', '2013-01-01']);
+    expect(periodEnds).toEqual(['-', '1/1/2013']);
   });
 
   it('should render participants with STU3 source data when structure source data of Participants Role is coding array', () => {
@@ -83,7 +83,7 @@ describe('should render the CareTeam component properly', () => {
     );
     expect(getByTestId('status').textContent).toEqual('active');
     expect(queryByTestId('periodStart')).toBeNull();
-    expect(getByTestId('periodEnd').textContent).toEqual('2013-01-01');
+    expect(getByTestId('periodEnd').textContent).toEqual('1/1/2013');
     expect(getByTestId('encounter').textContent).toEqual('Encounter/example');
     expect(getByTestId('category').textContent).toContain(
       'Encounter-focused care team',
@@ -115,6 +115,6 @@ describe('should render the CareTeam component properly', () => {
     const periodEnds = getAllByTestId('participant.periodEnd').map(
       n => n.textContent,
     );
-    expect(periodEnds).toEqual(['-', '2013-01-01']);
+    expect(periodEnds).toEqual(['-', '1/1/2013']);
   });
 });

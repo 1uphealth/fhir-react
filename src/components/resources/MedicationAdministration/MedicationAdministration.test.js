@@ -30,9 +30,9 @@ describe('should render MedicationAdministration component properly', () => {
       'Practitioner/example',
     );
 
-    expect(getByTestId('periodTimeStart').textContent).toEqual('2015-01-15');
+    expect(getByTestId('periodTimeStart').textContent).toEqual('1/15/2015');
 
-    expect(getByTestId('periodTimeEnd').textContent).toEqual('2015-01-15');
+    expect(getByTestId('periodTimeEnd').textContent).toEqual('1/15/2015');
 
     expect(getByTestId('dosageRoute').textContent).toContain(
       'Intravenous route',
@@ -58,7 +58,7 @@ describe('should render MedicationAdministration component properly', () => {
 
     expect(getByTestId('practitioner').textContent).toContain('Patrick Pump');
 
-    expect(getByTestId('periodTimeStart').textContent).toEqual('2015-01-15');
+    expect(getByTestId('periodTimeStart').textContent).toEqual('1/15/2015');
 
     expect(getByTestId('periodTimeEnd').textContent).toEqual('-');
 
@@ -83,8 +83,8 @@ describe('should render MedicationAdministration component properly', () => {
     expect(getByTestId('status').textContent).toContain('on-hold');
     expect(getByTestId('patient').textContent).toContain('Donald Duck');
     expect(queryByTestId('practitioner')).toBeNull();
-    expect(getByTestId('periodTimeStart').textContent).toEqual('2015-01-15');
-    expect(getByTestId('periodTimeEnd').textContent).toEqual('2015-01-15');
+    expect(getByTestId('periodTimeStart').textContent).toEqual('1/15/2015');
+    expect(getByTestId('periodTimeEnd').textContent).toEqual('1/15/2015');
     expect(getByTestId('dosageRoute').textContent).toContain('-');
     expect(getByTestId('dosageQuantity').textContent).toEqual('-');
   });
@@ -103,8 +103,8 @@ describe('should render MedicationAdministration component properly', () => {
     expect(getByTestId('status').textContent).toContain('completed');
     expect(getByTestId('patient').textContent).toContain('Donald Duck');
     expect(getByTestId('practitioner').textContent).toContain('Patrick Pump');
-    expect(getByTestId('periodTimeStart').textContent).toEqual('2015-01-15');
-    expect(getByTestId('periodTimeEnd').textContent).toEqual('2015-01-15');
+    expect(getByTestId('periodTimeStart').textContent).toEqual('1/15/2015');
+    expect(getByTestId('periodTimeEnd').textContent).toEqual('1/15/2015');
     expect(getByTestId('dosageRoute').textContent).toContain('Oral Route');
     expect(getByTestId('dosageQuantity').textContent).toEqual('2 TAB');
   });

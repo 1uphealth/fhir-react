@@ -24,7 +24,7 @@ describe('should render component correctly', () => {
       'Discussion on the results',
     );
     expect(getByTestId('status').textContent).toEqual('booked');
-    expect(getByTestId('startDate').textContent).toContain('2013-12-10');
+    expect(getByTestId('startDate').textContent).toContain('12/10/2013');
     expect(getByTestId('type').textContent).toContain('General Discussion');
     expect(getByTestId('participant').textContent).toContain(
       'Peter James Chalmers',
@@ -71,7 +71,7 @@ describe('should render component correctly', () => {
       'Discussion on the results',
     );
     expect(getByTestId('status').textContent).toEqual('booked');
-    expect(getByTestId('startDate').textContent).toContain('2013-12-10');
+    expect(getByTestId('startDate').textContent).toContain('12/10/2013');
 
     expect(getByTestId('participant').textContent).toContain(
       'Peter James Chalmers',
@@ -108,7 +108,7 @@ describe('should render component correctly', () => {
       'Discussion on the results',
     );
     expect(getByTestId('status').textContent).toEqual('booked');
-    expect(getByTestId('startDate').textContent).toContain('2013-12-10');
+    expect(getByTestId('startDate').textContent).toContain('12/10/2013');
 
     expect(getByTestId('participant').textContent).toContain(
       'Peter James Chalmers',

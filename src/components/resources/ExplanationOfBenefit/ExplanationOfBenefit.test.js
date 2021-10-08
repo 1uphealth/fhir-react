@@ -110,14 +110,14 @@ describe('should render ExplanationOfBenefit component properly', () => {
     // table 1st row
     expect(tablesContent[1]).toEqual([
       '(1205)',
-      '2014-08-16',
+      '8/16/2014',
       '-',
       `135.57${String.fromCharCode(160)}USD`,
     ]);
     // table 2nd row
     expect(tablesContent[2]).toEqual([
       '(group)',
-      '2014-08-16',
+      '8/16/2014',
       '-',
       `200${String.fromCharCode(160)}USD`,
     ]);
@@ -176,7 +176,7 @@ describe('should render ExplanationOfBenefit component properly', () => {
       'Organization/iAxXvHiphwGGAL48m3B7XXtKlLZg6yXnC1ch84x1up',
     );
     expect(getByTestId('billablePeriod').textContent).toEqual(
-      'From: 2017-01-05; To: 2018-01-05',
+      'From: 1/5/2017; To: 1/5/2018',
     );
     expect(getByTestId('patient').textContent).toEqual(
       'Patient/f56391c2-dd54-b378-46ef-87c1643a2ba0',
@@ -193,7 +193,7 @@ describe('should render ExplanationOfBenefit component properly', () => {
       'clmrecvddate',
     );
     expect(getByTestId('supportingInfo.timingDate').textContent).toEqual(
-      '2017-01-05',
+      '1/5/2017',
     );
 
     const tablesContent = [];

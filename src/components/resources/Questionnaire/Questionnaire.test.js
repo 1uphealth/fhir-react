@@ -58,7 +58,7 @@ describe('Questionnaire should render component correctly', () => {
       'Cancer Quality Forum Questionnaire',
     );
     expect(getByTestId('status').textContent).toEqual('draft');
-    expect(getByTestId('dateTime').textContent).toEqual('2012-01');
+    expect(getByTestId('dateTime').textContent).toEqual('January 2012');
 
     // contain id and test of questions of subgroup
     expect(String(getByTestId('linkId-1.1').textContent).trim()).toContain(
@@ -119,7 +119,7 @@ describe('Questionnaire should render component correctly', () => {
       'Cancer Quality Forum Questionnaire',
     );
     expect(getByTestId('status').textContent).toEqual('draft');
-    expect(getByTestId('dateTime').textContent).toEqual('2012-01');
+    expect(getByTestId('dateTime').textContent).toEqual('January 2012');
 
     // contain id and test of questions of subgroup
     expect(String(getByTestId('linkId-1.1').textContent).trim()).toContain(
@@ -180,7 +180,7 @@ describe('Questionnaire should render component correctly', () => {
       'Cancer Quality Forum Questionnaire',
     );
     expect(getByTestId('status').textContent).toEqual('draft');
-    expect(getByTestId('dateTime').textContent).toEqual('2012-01');
+    expect(getByTestId('dateTime').textContent).toEqual('January 2012');
 
     // contain id and test of questions of subgroup
     expect(String(getByTestId('linkId-1.1').textContent).trim()).toContain(

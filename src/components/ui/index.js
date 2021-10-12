@@ -1,6 +1,6 @@
-import React from 'react';
-
 import './index.css';
+
+import React from 'react';
 
 export const Header = props => (
   <div className="fhir-ui__Header">{props.children}</div>
@@ -27,9 +27,24 @@ export const BadgeSecondary = props => (
 export const Body = props => <div>{props.children}</div>;
 
 export const Value = props => (
-  <div className="fhir-ui__Value">
-    <label className="fhir-ui__Value-label">{props.label}</label>
-    <div data-testid={props['data-testid']}>{props.children}</div>
+  <div className="fhir-ui__Value row py-1 justify-content-start">
+    <Label>{props.label}</Label>
+    <Data data-testid={props['data-testid']}>{props.children}</Data>
+  </div>
+);
+
+export const Label = props => (
+  <label className="fhir-ui__Label text-secondary fw-light lh-base ps-0 col-5 col-sm-3 col-xl-2 align-self-start">
+    {props.children}
+  </label>
+);
+
+export const Data = props => (
+  <div
+    className="fhir-ui__Data text-break fw-normal lh-base pe-0 col align-self-start"
+    data-testid={props['data-testid']}
+  >
+    {props.children}
   </div>
 );
 

@@ -8,7 +8,14 @@ const Date = props => {
   }
   const locale = 'en-US';
   const dateValue = formatDate(String(fhirData).slice(0, 10), locale);
-  return <span className="fhir-datatype__Date">{dateValue}</span>;
+  return (
+    <span
+      data-testid="providedDate"
+      className="fhir-datatype__Date text-secondary"
+    >
+      {dateValue}
+    </span>
+  );
 };
 
 export default Date;

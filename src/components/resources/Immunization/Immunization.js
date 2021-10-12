@@ -9,15 +9,7 @@ import Date from '../../datatypes/Date';
 import Annotation from '../../datatypes/Annotation';
 import fhirVersions from '../fhirResourceVersions';
 
-import {
-  Root,
-  Header,
-  Title,
-  Badge,
-  BadgeSecondary,
-  Body,
-  Value,
-} from '../../ui';
+import { Root, Header, Title, Badge, Body, Value } from '../../ui';
 
 const commonDTO = fhirResource => {
   const title =
@@ -117,7 +109,6 @@ const Immunization = props => {
     title,
     status,
     providedDate,
-    reported,
     manufacturerText,
     hasLotNumber,
     lotNumber,
@@ -139,12 +130,7 @@ const Immunization = props => {
       <Header>
         <Title data-testid="title">{title}</Title>
         {status && <Badge data-testid="status">{status}</Badge>}
-        {providedDate && (
-          <BadgeSecondary data-testid="providedDate">
-            provided on <Date fhirData={providedDate} />
-            {reported || ''}
-          </BadgeSecondary>
-        )}
+        {providedDate && <Date fhirData={providedDate} />}
       </Header>
       <Body>
         {manufacturerText && (

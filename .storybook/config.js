@@ -1,6 +1,6 @@
 import '../src/components/ui/bootstrap-reboot.min.css';
 import '../src/style.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import '../src/style.scss';
 
 import { addDecorator, addParameters, configure } from '@storybook/react';
 

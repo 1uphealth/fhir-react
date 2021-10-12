@@ -24,7 +24,9 @@ export const BadgeSecondary = props => (
   </span>
 );
 
-export const Body = props => <div>{props.children}</div>;
+export const Body = props => (
+  <div className="fhir-ui__Body container-fluid">{props.children}</div>
+);
 
 export const Value = props => (
   <div className="fhir-ui__Value row py-1 justify-content-start">

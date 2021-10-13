@@ -13,9 +13,12 @@ export const Title = props => (
 );
 
 export const Badge = props => (
-  <span className="fhir-ui__Badge" data-testid={props['data-testid']}>
+  <small
+    className="fhir-ui__Badge px-2 py-1 bg-light rounded-1"
+    data-testid={props['data-testid']}
+  >
     {props.children}
-  </span>
+  </small>
 );
 
 export const BadgeSecondary = props => (

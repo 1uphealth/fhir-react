@@ -319,15 +319,14 @@ const ExplanationOfBenefit = props => {
             <Reference fhirData={provider} />
           </Value>
         )}
-        {totalCost && (
-          <Value label="Total cost" data-testid="totalCost">
-            <Money fhirData={totalCost} />
+        {hasTotal && (
+          <Value label="Total" data-testid="totalSum">
+            <TotalSum fhirData={total} />
           </Value>
         )}
-        {totalCost ||
-          (totalBenefit && (
-            <AccountBalance totalCost={totalCost} totalBenefit={totalBenefit} />
-          ))}
+        {(totalCost || totalBenefit) && (
+          <AccountBalance totalCost={totalCost} totalBenefit={totalBenefit} />
+        )}
         {payment && (
           <Value label="Payment" data-testid="payment">
             <Money fhirData={payment} />

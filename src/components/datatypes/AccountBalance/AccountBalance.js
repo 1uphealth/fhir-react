@@ -6,13 +6,13 @@ const AccountBalance = props => {
 
   return (
     <div className="fhir-datatype__AccountBalance container-fluid p-0 m-0 ">
-      <Value label="Total cost" secondary>
+      <Value label="Total cost" data-testid="totalCost" secondary>
         {new Intl.NumberFormat('en-US', {
           style: 'currency',
           currency: totalCost.code,
         }).format(Math.round(totalCost.value * 100) / 100)}
       </Value>
-      <Value label="Coverd by benefit" secondary>
+      <Value label="Coverd by benefit" data-testid="totalBenefit" secondary>
         {new Intl.NumberFormat('en-US', {
           style: 'currency',
           currency: totalBenefit.code,

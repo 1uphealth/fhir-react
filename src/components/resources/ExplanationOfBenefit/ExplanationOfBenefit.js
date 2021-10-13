@@ -1,35 +1,36 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import _get from 'lodash/get';
-import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
-import fhirVersions from '../fhirResourceVersions';
-
 import {
-  Root,
+  Badge,
+  Body,
   Header,
+  MissingValue,
+  Root,
+  Table,
+  TableCell,
+  TableRow,
   Title,
   Value,
-  Body,
   ValueSection,
-  Table,
-  TableRow,
-  TableCell,
-  MissingValue,
-  Badge,
 } from '../../ui';
-import Coding from '../../datatypes/Coding';
-import Date from '../../datatypes/Date';
-import Money from '../../datatypes/Money';
-import Reference from '../../datatypes/Reference';
-import Period from '../../datatypes/Period';
-import TotalSum from './TotalSum';
-import Diagnosis from './Diagnosis';
-import SupportingInfo from './SupportingInfo';
-import Items from './Items';
-import Identifier from '../../datatypes/Identifier/Identifier';
+
+import AccountBalance from '../../datatypes/AccountBalance/AccountBalance';
 import CareTeam from './CareTeam';
 import CodeableConcept from '../../datatypes/CodeableConcept';
+import Coding from '../../datatypes/Coding';
+import Date from '../../datatypes/Date';
+import Diagnosis from './Diagnosis';
+import Identifier from '../../datatypes/Identifier/Identifier';
+import Items from './Items';
+import Money from '../../datatypes/Money';
+import Period from '../../datatypes/Period';
+import PropTypes from 'prop-types';
+import React from 'react';
+import Reference from '../../datatypes/Reference';
 import Related from './Related';
+import SupportingInfo from './SupportingInfo';
+import TotalSum from './TotalSum';
+import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
+import _get from 'lodash/get';
+import fhirVersions from '../fhirResourceVersions';
 
 /**
  * @typedef ExplanationOfBenefitServiceItem
@@ -459,6 +460,9 @@ const ExplanationOfBenefit = props => {
         )}
         {hasItems && <Items fhirData={items} />}
         {hasCareTeam && <CareTeam fhirData={careTeam} />}
+        {totalCost && totalBenefit && (
+          <AccountBalance totalCost={totalCost} totalBenefit={totalBenefit} />
+        )}
       </Body>
     </Root>
   );

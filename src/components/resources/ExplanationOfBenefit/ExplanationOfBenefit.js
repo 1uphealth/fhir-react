@@ -324,16 +324,10 @@ const ExplanationOfBenefit = props => {
             <Money fhirData={totalCost} />
           </Value>
         )}
-        {totalBenefit && (
-          <Value label="Total benefit" data-testid="totalBenefit">
-            <Money fhirData={totalBenefit} />
-          </Value>
-        )}
-        {hasTotal && (
-          <Value label="Total" data-testid="totalSum">
-            <TotalSum fhirData={total} />
-          </Value>
-        )}
+        {totalCost ||
+          (totalBenefit && (
+            <AccountBalance totalCost={totalCost} totalBenefit={totalBenefit} />
+          ))}
         {payment && (
           <Value label="Payment" data-testid="payment">
             <Money fhirData={payment} />
@@ -460,9 +454,6 @@ const ExplanationOfBenefit = props => {
         )}
         {hasItems && <Items fhirData={items} />}
         {hasCareTeam && <CareTeam fhirData={careTeam} />}
-        {totalCost && totalBenefit && (
-          <AccountBalance totalCost={totalCost} totalBenefit={totalBenefit} />
-        )}
       </Body>
     </Root>
   );

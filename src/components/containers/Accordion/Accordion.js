@@ -27,7 +27,7 @@ const Accordion = props => {
             className="accordion-collapse collapse fhir-container__Accordion__data"
             id="collapseTarget"
           >
-            <div className="accordion-body pe-5 fhir-container__Accordion__data__text">
+            <div className="accordion-body pe-4 fhir-container__Accordion__data__text">
               {bodyData}
             </div>
           </div>

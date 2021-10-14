@@ -14,6 +14,7 @@ import Annotation from '../../datatypes/Annotation';
 import CodeableConcept from '../../datatypes/CodeableConcept';
 import Coding from '../../datatypes/Coding';
 import Date from '../../datatypes/Date';
+import HeaderIcon from '../../datatypes/HeaderIcon/HeaderIcon';
 import PropTypes from 'prop-types';
 import React from 'react';
 import Reference from '../../datatypes/Reference';
@@ -48,36 +49,44 @@ const Procedure = props => {
       <Accordion
         headerData={
           <Header>
-            <div
-              className={`fhir-resource__Procedure__header-left d-flex ${
-                display ? 'flex-column' : 'align-items-center'
-              }`}
-            >
-              <div className="fhir-resource__Procedure__header-title d-flex">
-                {display && <Title>{display}</Title>}{' '}
+            <div className="d-flex align-items-center justify-content-between ">
+              <div className={`pe-3${display ? ' pb-4 mb-2' : ''}`}>
+                <HeaderIcon />
               </div>
-              <div className="fhir-resource__Procedure__header-performed-date d-flex">
-                {hasPerformedDateTime && <Date fhirData={performedDateTime} />}
-              </div>
-              <div className="fhir-resource__Procedure__header-performed-period d-flex">
-                {hasPerformedPeriod && (
-                  <BadgeSecondary>
-                    {'performed '}
-                    {performedPeriodStart ? (
-                      <Date fhirData={performedPeriodStart} />
-                    ) : (
-                      <MissingValue />
-                    )}
-                    {' to '}
-                    {performedPeriodEnd ? (
-                      <Date fhirData={performedPeriodEnd} />
-                    ) : (
-                      <MissingValue />
-                    )}
-                  </BadgeSecondary>
-                )}
+              <div
+                className={`fhir-resource__Procedure__header-left d-flex${
+                  display ? ' flex-column' : ''
+                }`}
+              >
+                <div className="fhir-resource__Procedure__header-title d-flex">
+                  {display && <Title>{display}</Title>}{' '}
+                </div>
+                <div className="fhir-resource__Procedure__header-performed-date d-flex">
+                  {hasPerformedDateTime && (
+                    <Date fhirData={performedDateTime} />
+                  )}
+                </div>
+                <div className="fhir-resource__Procedure__header-performed-period d-flex">
+                  {hasPerformedPeriod && (
+                    <div>
+                      {'performed   '}
+                      {performedPeriodStart ? (
+                        <Date fhirData={performedPeriodStart} />
+                      ) : (
+                        <MissingValue />
+                      )}
+                      {'   to   '}
+                      {performedPeriodEnd ? (
+                        <Date fhirData={performedPeriodEnd} />
+                      ) : (
+                        <MissingValue />
+                      )}
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
+
             <div className="fhir-resource__Procedure__header-right d-flex align-items-center pe-3">
               {status && <Badge data-testid="status">{status}</Badge>}
             </div>
@@ -98,7 +107,7 @@ const Procedure = props => {
               </Value>
             )}
             {hasPerformerData && (
-              <Value label="Performed the procedure">
+              <Value label="Performed by">
                 {performer.map((item, i) => (
                   <div key={`item-${i}`}>
                     {_get(item, 'actor.display', <MissingValue />)}

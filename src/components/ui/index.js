@@ -30,7 +30,7 @@ export const BadgeSecondary = props => (
 );
 
 export const Body = props => (
-  <div className="fhir-ui__Body container-fluid pe-4">{props.children}</div>
+  <div className="fhir-ui__Body container-fluid pe-5">{props.children}</div>
 );
 
 export const Value = props => (

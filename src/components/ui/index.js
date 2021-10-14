@@ -3,7 +3,7 @@ import './index.css';
 import React from 'react';
 
 export const Header = props => (
-  <div className="fhir-ui__Header d-flex align-items-center align-self-center">
+  <div className="fhir-ui__Header d-flex align-items-start justify-content-between align-self-center">
     {props.children}
   </div>
 );

@@ -3,7 +3,9 @@ import './index.css';
 import React from 'react';
 
 export const Header = props => (
-  <div className="fhir-ui__Header">{props.children}</div>
+  <div className="fhir-ui__Header d-flex align-items-center align-self-center">
+    {props.children}
+  </div>
 );
 
 export const Title = props => (

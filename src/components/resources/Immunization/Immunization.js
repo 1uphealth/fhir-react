@@ -10,6 +10,7 @@ import Annotation from '../../datatypes/Annotation';
 import fhirVersions from '../fhirResourceVersions';
 
 import { Root, Header, Title, Badge, Body, Value } from '../../ui';
+import HeaderIcon from '../../datatypes/HeaderIcon';
 
 const commonDTO = fhirResource => {
   const title =
@@ -76,7 +77,7 @@ const r4DTO = fhirResource => {
   };
 };
 
-const resourceDTO = (fhirVersion, fhirResource) => {
+const resourceDTO = (fhirVersion, fhirResource, fhirIcons) => {
   switch (fhirVersion) {
     case fhirVersions.DSTU2: {
       return {
@@ -128,6 +129,7 @@ const Immunization = props => {
   return (
     <Root name="Immunization">
       <Header>
+        <HeaderIcon></HeaderIcon>
         <Title data-testid="title">{title}</Title>
         {status && <Badge data-testid="status">{status}</Badge>}
         {providedDate && <Date fhirData={providedDate} />}

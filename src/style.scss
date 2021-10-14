@@ -16,4 +16,10 @@ $secondary: #8f939a;
 
 $light: #dedddd;
 
+.header-icon__placeholder {
+  width: 24px;
+  height: 24px;
+  background-color: #a3a3a3;
+}
+
 @import '~bootstrap/scss/bootstrap.scss';

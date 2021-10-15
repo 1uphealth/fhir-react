@@ -19,9 +19,10 @@ import {
   MissingValue,
 } from '../../ui';
 import { isNotEmptyArray } from '../../../utils';
+import HeaderIcon from '../../datatypes/HeaderIcon';
 
 const Procedure = props => {
-  const { fhirResource } = props;
+  const { fhirResource, fhirIcons } = props;
   const display =
     _get(fhirResource, 'code.coding[0].display') ||
     _get(fhirResource, 'code.text');
@@ -42,9 +43,13 @@ const Procedure = props => {
   const hasNote = _has(fhirResource, 'note');
   const note = _get(fhirResource, 'note', []);
   const outcome = _get(fhirResource, 'outcome');
+
+  const headerIcon = fhirIcons[fhirResource.resourceType];
+
   return (
     <Root name="Procedure">
       <Header>
+        <HeaderIcon headerIcon={headerIcon}></HeaderIcon>
         {display && <Title>{display}</Title>}
         {status && <Badge data-testid="status">{status}</Badge>}
         {hasPerformedDateTime && (

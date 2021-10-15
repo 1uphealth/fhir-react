@@ -3,8 +3,16 @@
 // 3. In HeaderIcon conditionally choose the behavior for ulr/path, node or base64
 import React from 'react';
 
-const HeaderIcon = () => {
-  return <div className="header-icon__placeholder rounded-1"></div>;
+const HeaderIcon = ({ headerIcon }) => {
+  return (
+    <div>
+      {headerIcon ? (
+        <img src={headerIcon} alt="header icon" />
+      ) : (
+        <div className="header-icon__placeholder rounded-1" />
+      )}
+    </div>
+  );
 };
 
 export default HeaderIcon;

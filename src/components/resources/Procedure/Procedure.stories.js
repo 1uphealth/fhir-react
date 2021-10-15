@@ -11,11 +11,13 @@ import r4Example1 from '../../../fixtures/r4/resources/procedure/example1.json';
 import r4Example2 from '../../../fixtures/r4/resources/procedure/example2.json';
 import r4Example3 from '../../../fixtures/r4/resources/procedure/example3.json';
 
+import fhirIcons from '../../../fixtures/dstu2/resources/immunization/example-icons.json';
+
 export default { title: 'Procedure' };
 
 export const DefaultVisualizationDSTU2 = () => {
   const fhirResource = object('Resource', example1);
-  return <Procedure fhirResource={fhirResource} />;
+  return <Procedure fhirResource={fhirResource} fhirIcons={fhirIcons} />;
 };
 
 export const ExampleOfSTU3 = () => {

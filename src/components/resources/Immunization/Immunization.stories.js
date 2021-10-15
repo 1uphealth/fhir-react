@@ -10,6 +10,7 @@ import stu3Example from '../../../fixtures/stu3/resources/immunization/example1.
 import r4Example1 from '../../../fixtures/r4/resources/immunization/example1.json';
 import r4Example2 from '../../../fixtures/r4/resources/immunization/example2.json';
 import r4Example3 from '../../../fixtures/r4/resources/immunization/example3.json';
+import fhirIcons from '../../../fixtures/dstu2/resources/immunization/example-icons.json';
 
 export default {
   title: 'Immunization',
@@ -21,6 +22,7 @@ export const DefaultVisualizationDSTU2 = () => {
     <Immunization
       fhirResource={fhirResource}
       fhirVersion={fhirVersions.DSTU2}
+      fhirIcons={fhirIcons}
     />
   );
 };

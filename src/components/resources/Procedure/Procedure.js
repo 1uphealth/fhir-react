@@ -1,6 +1,5 @@
 import {
   Badge,
-  BadgeSecondary,
   Body,
   Header,
   MissingValue,
@@ -50,14 +49,14 @@ const Procedure = props => {
         headerData={
           <Header>
             <div className="d-flex align-items-center justify-content-between ">
-              <div class="container">
-                <div class="row row-cols-2">
-                  <div class="col-auto p-0">
+              <div className="fhir-resource__Procedure__header__title-segment container">
+                <div className="fhir-resource__Procedure__header__title-segment__row row row-cols-2">
+                  <div className="fhir-resource__Procedure__header__title-segment__icon-column col-auto p-0">
                     <div className={`${display ? 'pt-1 px-1' : ''}`}>
                       <HeaderIcon />
                     </div>
                   </div>
-                  <div class="col-auto">
+                  <div className="fhir-resource__Procedure__header__title-segment__title-column col-auto">
                     {display && <Title>{display}</Title>}
                     {hasPerformedDateTime && (
                       <Date fhirData={performedDateTime} />

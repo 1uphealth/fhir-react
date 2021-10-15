@@ -50,39 +50,35 @@ const Procedure = props => {
         headerData={
           <Header>
             <div className="d-flex align-items-center justify-content-between ">
-              <div className={`pe-3${display ? ' pb-4 mb-2' : ''}`}>
-                <HeaderIcon />
-              </div>
-              <div
-                className={`fhir-resource__Procedure__header-left d-flex${
-                  display ? ' flex-column' : ''
-                }`}
-              >
-                <div className="fhir-resource__Procedure__header-title d-flex">
-                  {display && <Title>{display}</Title>}{' '}
-                </div>
-                <div className="fhir-resource__Procedure__header-performed-date d-flex">
-                  {hasPerformedDateTime && (
-                    <Date fhirData={performedDateTime} />
-                  )}
-                </div>
-                <div className="fhir-resource__Procedure__header-performed-period d-flex">
-                  {hasPerformedPeriod && (
-                    <div>
-                      {'performed   '}
-                      {performedPeriodStart ? (
-                        <Date fhirData={performedPeriodStart} />
-                      ) : (
-                        <MissingValue />
-                      )}
-                      {'   to   '}
-                      {performedPeriodEnd ? (
-                        <Date fhirData={performedPeriodEnd} />
-                      ) : (
-                        <MissingValue />
-                      )}
+              <div class="container">
+                <div class="row row-cols-2">
+                  <div class="col-auto p-0">
+                    <div className={`${display ? 'pt-1 px-1' : ''}`}>
+                      <HeaderIcon />
                     </div>
-                  )}
+                  </div>
+                  <div class="col-auto">
+                    {display && <Title>{display}</Title>}
+                    {hasPerformedDateTime && (
+                      <Date fhirData={performedDateTime} />
+                    )}
+                    {hasPerformedPeriod && (
+                      <div>
+                        {'performed   '}
+                        {performedPeriodStart ? (
+                          <Date fhirData={performedPeriodStart} />
+                        ) : (
+                          <MissingValue />
+                        )}
+                        {'   to   '}
+                        {performedPeriodEnd ? (
+                          <Date fhirData={performedPeriodEnd} />
+                        ) : (
+                          <MissingValue />
+                        )}
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>

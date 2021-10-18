@@ -132,14 +132,14 @@ const Immunization = props => {
         headerData={
           <Header>
             <div className="d-flex align-items-center justify-content-between ">
-              <div className="fhir-resource__Procedure__header__title-segment container">
-                <div className="fhir-resource__Procedure__header__title-segment__row row row-cols-2">
-                  <div className="fhir-resource__Procedure__header__title-segment__icon-column col-auto p-0">
-                    <div className="pt-1 px-1">
+              <div className="fhir-resource__Immunization__header__title-segment container">
+                <div className="fhir-resource__Immunization__header__title-segment__row row row-cols-2">
+                  <div className="fhir-resource__Immunization__header__title-segment__icon-column col-auto p-0">
+                    <div className="pt-1 px-sm-1">
                       <HeaderIcon />
                     </div>
                   </div>
-                  <div className="fhir-resource__Procedure__header__title-segment__title-column col-auto">
+                  <div className="fhir-resource__Immunization__header__title-segment__title-column col-auto">
                     <Title data-testid="title">{title}</Title>
                     {providedDate && <Date fhirData={providedDate} />}
                   </div>
@@ -147,7 +147,7 @@ const Immunization = props => {
               </div>
             </div>
 
-            <div className="fhir-resource__Procedure__header-right d-flex align-items-center pe-3">
+            <div className="fhir-resource__Immunization__header-right d-flex align-items-center pe-3">
               {status && <Badge data-testid="status">{status}</Badge>}
             </div>
           </Header>

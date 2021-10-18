@@ -82,7 +82,7 @@ const Procedure = props => {
               </div>
             </div>
 
-            <div className="fhir-resource__Procedure__header-right d-flex align-items-center pe-3">
+            <div className="fhir-resource__Procedure__header-right d-flex align-items-center pe-3 pt-1">
               {status && <Badge data-testid="status">{status}</Badge>}
             </div>
           </Header>

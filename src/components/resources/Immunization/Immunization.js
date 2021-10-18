@@ -147,7 +147,7 @@ const Immunization = props => {
               </div>
             </div>
 
-            <div className="fhir-resource__Immunization__header-right d-flex align-items-center pe-3">
+            <div className="fhir-resource__Immunization__header-right d-flex align-items-center pe-3 pt-1">
               {status && <Badge data-testid="status">{status}</Badge>}
             </div>
           </Header>
@@ -161,9 +161,14 @@ const Immunization = props => {
               <Value label="Lot number" data-testid="lotNumber">
                 {lotNumber}
                 {lotNumberExpirationDate && (
-                  <span data-testid="lotNumberExpirationDate">
+                  <span>
                     {' '}
-                    expires on {lotNumberExpirationDate}
+                    expires on{' '}
+                    <Date
+                      testId="lotNumberExpirationDate"
+                      fhirData={lotNumberExpirationDate}
+                      isBlack
+                    />
                   </span>
                 )}
               </Value>

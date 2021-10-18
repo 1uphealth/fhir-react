@@ -3,11 +3,13 @@ import './index.css';
 import React from 'react';
 
 export const Header = props => (
-  <div className="fhir-ui__Header">{props.children}</div>
+  <div className="fhir-ui__Header d-flex w-100 align-items-center justify-content-between align-self-center">
+    {props.children}
+  </div>
 );
 
 export const Title = props => (
-  <h4 className="fhir-ui__Title fw-bold fs-4 lh-lg" data-testid="title">
+  <h4 className="fhir-ui__Title fw-bold fs-4 lh-lg mb-1" data-testid="title">
     {props.children}
   </h4>
 );
@@ -28,7 +30,7 @@ export const BadgeSecondary = props => (
 );
 
 export const Body = props => (
-  <div className="fhir-ui__Body container-fluid">{props.children}</div>
+  <div className="fhir-ui__Body container-fluid pe-5">{props.children}</div>
 );
 
 export const Value = props => (

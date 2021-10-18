@@ -1,12 +1,3 @@
-.fhir-ui__Header {
-  width: 100%;
-  margin-bottom: 10px;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  word-break: break-word;
-}
-
 .fhir-ui__BadgeSecondary {
   margin-right: 10px;
   display: inline-block;

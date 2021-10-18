@@ -18,7 +18,7 @@ const Accordion = props => {
               aria-controls="collapseTarget"
               aria-expanded="false"
             >
-              <div className="d-flex justify-content-start fhir-container__Accordion__header__text">
+              <div className="d-flex w-100 justify-content-start fhir-container__Accordion__header__text">
                 {headerData}
               </div>
             </button>
@@ -27,7 +27,7 @@ const Accordion = props => {
             className="accordion-collapse collapse fhir-container__Accordion__data"
             id="collapseTarget"
           >
-            <div className="accordion-body fhir-container__Accordion__data__text">
+            <div className="accordion-body pe-4 fhir-container__Accordion__data__text">
               {bodyData}
             </div>
           </div>

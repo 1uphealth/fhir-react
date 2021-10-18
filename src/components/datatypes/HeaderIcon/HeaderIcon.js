@@ -4,13 +4,33 @@
 import React from 'react';
 
 const HeaderIcon = ({ headerIcon }) => {
+  const isUrl = () => {
+    let url;
+
+    try {
+      url = new URL(headerIcon);
+    } catch (err) {
+      return false;
+    }
+    return url.protocol === 'http:' || url.protocol === 'https:';
+  };
+
+  const Image = () => {
+    if (!headerIcon) {
+      return <div className="header-icon__placeholder rounded-1" />;
+    }
+    if (isUrl()) {
+      return <img src={headerIcon} alt="header icon" />;
+    }
+    if (!isUrl()) {
+      return <img src={require(`${headerIcon}`)} alt="header icon" />;
+    }
+    return <div className="header-icon__placeholder rounded-1" />;
+  };
+
   return (
     <div>
-      {headerIcon ? (
-        <img src={headerIcon} alt="header icon" />
-      ) : (
-        <div className="header-icon__placeholder rounded-1" />
-      )}
+      <Image />
     </div>
   );
 };

@@ -1,12 +1,4 @@
-import {
-  Badge,
-  BadgeSecondary,
-  Body,
-  Header,
-  Root,
-  Title,
-  Value,
-} from '../../ui';
+import { Badge, Body, Header, Root, Title, Value } from '../../ui';
 
 import Accordion from '../../containers/Accordion';
 import CodeableConcept from '../../datatypes/CodeableConcept';
@@ -113,31 +105,24 @@ function Condition(props) {
     <Root name="condition">
       <Accordion
         headerData={
-          <Header>
-            <div className="d-flex align-items-center justify-content-between ">
-              <div className="fhir-resource__Immunization__header__title-segment container">
-                <div className="fhir-resource__Immunization__header__title-segment__row row row-cols-2">
-                  <div className="fhir-resource__Immunization__header__title-segment__icon-column col-auto p-0">
-                    <div className="pt-1 px-sm-1">
-                      <HeaderIcon />
-                    </div>
-                  </div>
-                  <div className="fhir-resource__Immunization__header__title-segment__title-column col-auto">
-                    <Title>{codeText || ''}</Title>
-                    {severityText && (
-                      <div data-testid="severity">{severityText} severity</div>
-                    )}
-                  </div>
-                </div>
+          <Header
+            resourceName="Condition"
+            icon={
+              <div className="pt-1 px-sm-1">
+                <HeaderIcon />
               </div>
-            </div>
-
-            <div className="fhir-resource__Immunization__header-right d-flex align-items-center pe-3 pt-1">
-              {clinicalStatus && (
-                <Badge data-testid="clinicalStatus">{clinicalStatus}</Badge>
-              )}
-            </div>
-          </Header>
+            }
+            badgeStatus={clinicalStatus}
+            badge={<Badge data-testid="clinicalStatus">{clinicalStatus}</Badge>}
+            titleSegment={
+              <>
+                <Title>{codeText || ''}</Title>
+                {severityText && (
+                  <div data-testid="severity">{severityText} severity</div>
+                )}
+              </>
+            }
+          />
         }
         bodyData={
           <Body>

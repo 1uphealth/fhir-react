@@ -130,27 +130,22 @@ const Immunization = props => {
     <Root name="Immunization">
       <Accordion
         headerData={
-          <Header>
-            <div className="d-flex align-items-center justify-content-between ">
-              <div className="fhir-resource__Immunization__header__title-segment container">
-                <div className="fhir-resource__Immunization__header__title-segment__row row row-cols-2">
-                  <div className="fhir-resource__Immunization__header__title-segment__icon-column col-auto p-0">
-                    <div className="pt-1 px-sm-1">
-                      <HeaderIcon />
-                    </div>
-                  </div>
-                  <div className="fhir-resource__Immunization__header__title-segment__title-column col-auto">
-                    <Title data-testid="title">{title}</Title>
-                    {providedDate && <Date fhirData={providedDate} />}
-                  </div>
-                </div>
+          <Header
+            resourceName="Immunization"
+            icon={
+              <div className="pt-1 px-sm-1">
+                <HeaderIcon />
               </div>
-            </div>
-
-            <div className="fhir-resource__Immunization__header-right d-flex align-items-center pe-3 pt-1">
-              {status && <Badge data-testid="status">{status}</Badge>}
-            </div>
-          </Header>
+            }
+            badgeStatus={status}
+            badge={<Badge data-testid="status">{status}</Badge>}
+            titleSegment={
+              <>
+                <Title data-testid="title">{title}</Title>
+                {providedDate && <Date fhirData={providedDate} />}
+              </>
+            }
+          />
         }
         bodyData={
           <Body>

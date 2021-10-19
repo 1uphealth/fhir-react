@@ -47,45 +47,38 @@ const Procedure = props => {
     <Root name="Procedure">
       <Accordion
         headerData={
-          <Header>
-            <div className="d-flex align-items-center justify-content-between ">
-              <div className="fhir-resource__Procedure__header__title-segment container">
-                <div className="fhir-resource__Procedure__header__title-segment__row row row-cols-2">
-                  <div className="fhir-resource__Procedure__header__title-segment__icon-column col-auto p-0">
-                    <div className={`${display ? 'pt-1 px-1' : ''}`}>
-                      <HeaderIcon />
-                    </div>
-                  </div>
-                  <div className="fhir-resource__Procedure__header__title-segment__title-column col-auto">
-                    {display && <Title>{display}</Title>}
-                    {hasPerformedDateTime && (
-                      <Date fhirData={performedDateTime} />
-                    )}
-                    {hasPerformedPeriod && (
-                      <div>
-                        {'performed   '}
-                        {performedPeriodStart ? (
-                          <Date fhirData={performedPeriodStart} />
-                        ) : (
-                          <MissingValue />
-                        )}
-                        {'   to   '}
-                        {performedPeriodEnd ? (
-                          <Date fhirData={performedPeriodEnd} />
-                        ) : (
-                          <MissingValue />
-                        )}
-                      </div>
-                    )}
-                  </div>
-                </div>
+          <Header
+            resourceName="Procedure"
+            icon={
+              <div className={`${display ? 'pt-1 px-1' : ''}`}>
+                <HeaderIcon />
               </div>
-            </div>
-
-            <div className="fhir-resource__Procedure__header-right d-flex align-items-center pe-3 pt-1">
-              {status && <Badge data-testid="status">{status}</Badge>}
-            </div>
-          </Header>
+            }
+            badgeStatus={status}
+            badge={<Badge data-testid="status">{status}</Badge>}
+            titleSegment={
+              <>
+                {display && <Title>{display}</Title>}
+                {hasPerformedDateTime && <Date fhirData={performedDateTime} />}
+                {hasPerformedPeriod && (
+                  <div>
+                    {'performed   '}
+                    {performedPeriodStart ? (
+                      <Date fhirData={performedPeriodStart} />
+                    ) : (
+                      <MissingValue />
+                    )}
+                    {'   to   '}
+                    {performedPeriodEnd ? (
+                      <Date fhirData={performedPeriodEnd} />
+                    ) : (
+                      <MissingValue />
+                    )}
+                  </div>
+                )}
+              </>
+            }
+          />
         }
         bodyData={
           <Body>

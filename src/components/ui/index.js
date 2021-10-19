@@ -4,7 +4,38 @@ import React from 'react';
 
 export const Header = props => (
   <div className="fhir-ui__Header d-flex w-100 align-items-start justify-content-between align-self-center">
-    {props.children}
+    {!props.children && (
+      <>
+        <div className="d-flex align-items-center justify-content-between ">
+          <div
+            className={`fhir-resource__${props.resourceName}__header__title-segment container`}
+          >
+            <div
+              className={`fhir-resource__${props.resourceName}__header__title-segment__row row row-cols-2`}
+            >
+              <div
+                className={`fhir-resource__${props.resourceName}__header__title-segment__icon-column col-auto p-0`}
+              >
+                {props.icon}
+              </div>
+              <div
+                className={`fhir-resource__${props.resourceName}__header__title-segment__title-column col-auto`}
+              >
+                {props.titleSegment}
+              </div>
+            </div>
+          </div>
+        </div>
+        {props.badgeStatus && (
+          <div
+            className={`fhir-resource__${props.resourceName}__header-right d-flex align-items-center pe-3 pt-1`}
+          >
+            {props.badge}
+          </div>
+        )}
+      </>
+    )}
+    {props.children && props.children}
   </div>
 );
 

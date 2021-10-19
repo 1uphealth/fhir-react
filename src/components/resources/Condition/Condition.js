@@ -1,21 +1,22 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import {
+  Badge,
+  BadgeSecondary,
+  Body,
+  Header,
+  Root,
+  Title,
+  Value,
+} from '../../ui';
 
+import Accordion from '../../containers/Accordion';
+import CodeableConcept from '../../datatypes/CodeableConcept';
+import HeaderIcon from '../../datatypes/HeaderIcon';
+import PropTypes from 'prop-types';
+import React from 'react';
 import Reference from '../../datatypes/Reference';
 import _get from 'lodash/get';
 import _has from 'lodash/has';
 import fhirVersions from '../fhirResourceVersions';
-import CodeableConcept from '../../datatypes/CodeableConcept';
-
-import {
-  Root,
-  Header,
-  Title,
-  Badge,
-  BadgeSecondary,
-  Body,
-  Value,
-} from '../../ui';
 
 const commonDTO = fhirResource => {
   const codeText =
@@ -110,39 +111,57 @@ function Condition(props) {
 
   return (
     <Root name="condition">
-      <Header>
-        <Title>{codeText || ''}</Title>
-        {clinicalStatus && (
-          <Badge data-testid="clinicalStatus">{clinicalStatus}</Badge>
-        )}
-        {severityText && (
-          <BadgeSecondary data-testid="severity">
-            {severityText} severity
-          </BadgeSecondary>
-        )}
-      </Header>
-      <Body>
-        {onsetDateTime && (
-          <Value label="Onset Date" data-testid="onsetDate">
-            {onsetDateTime}
-          </Value>
-        )}
-        {dateRecorded && (
-          <Value label="Date recorded" data-testid="dateRecorded">
-            {dateRecorded}
-          </Value>
-        )}
-        {hasAsserter && (
-          <Value label="Asserted by" data-testid="asserter">
-            <Reference fhirData={asserter} />
-          </Value>
-        )}
-        {hasBodySite && (
-          <Value label="Anatomical locations" data-testid="bodySite">
-            <CodeableConcept fhirData={bodySite} />
-          </Value>
-        )}
-      </Body>
+      <Accordion
+        headerData={
+          <Header>
+            <div className="d-flex align-items-center justify-content-between ">
+              <div className="fhir-resource__Immunization__header__title-segment container">
+                <div className="fhir-resource__Immunization__header__title-segment__row row row-cols-2">
+                  <div className="fhir-resource__Immunization__header__title-segment__icon-column col-auto p-0">
+                    <div className="pt-1 px-sm-1">
+                      <HeaderIcon />
+                    </div>
+                  </div>
+                  <div className="fhir-resource__Immunization__header__title-segment__title-column col-auto">
+                    <Title>{codeText || ''}</Title>
+                    {severityText && <div>{severityText} severity</div>}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="fhir-resource__Immunization__header-right d-flex align-items-center pe-3 pt-1">
+              {clinicalStatus && (
+                <Badge data-testid="clinicalStatus">{clinicalStatus}</Badge>
+              )}
+            </div>
+          </Header>
+        }
+        bodyData={
+          <Body>
+            {onsetDateTime && (
+              <Value label="Onset Date" data-testid="onsetDate">
+                {onsetDateTime}
+              </Value>
+            )}
+            {dateRecorded && (
+              <Value label="Date recorded" data-testid="dateRecorded">
+                {dateRecorded}
+              </Value>
+            )}
+            {hasAsserter && (
+              <Value label="Asserted by" data-testid="asserter">
+                <Reference fhirData={asserter} />
+              </Value>
+            )}
+            {hasBodySite && (
+              <Value label="Anatomical locations" data-testid="bodySite">
+                <CodeableConcept fhirData={bodySite} />
+              </Value>
+            )}
+          </Body>
+        }
+      />
     </Root>
   );
 }

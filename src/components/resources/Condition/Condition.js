@@ -124,7 +124,9 @@ function Condition(props) {
                   </div>
                   <div className="fhir-resource__Immunization__header__title-segment__title-column col-auto">
                     <Title>{codeText || ''}</Title>
-                    {severityText && <div>{severityText} severity</div>}
+                    {severityText && (
+                      <div data-testid="severity">{severityText} severity</div>
+                    )}
                   </div>
                 </div>
               </div>

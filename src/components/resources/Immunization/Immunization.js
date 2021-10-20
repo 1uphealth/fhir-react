@@ -125,7 +125,7 @@ const Immunization = props => {
     note,
   } = resourceDTO(fhirVersion, fhirResource);
 
-  const headerIcon = fhirIcons[fhirResource.resourceType];
+  const headerIcon = fhirIcons[_get(fhirResource, 'resourceType')];
 
   return (
     <Root name="Immunization">

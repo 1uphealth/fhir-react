@@ -19,7 +19,7 @@ export const Header = props => (
                 {props.icon}
               </div>
               <div
-                className={`fhir-resource__${props.resourceName}__header__title-segment__title-column col-auto`}
+                className={`fhir-resource__${props.resourceName}__header__title-segment__title-column col col-sm-auto`}
               >
                 {props.titleSegment}
               </div>

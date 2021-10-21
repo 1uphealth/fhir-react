@@ -77,7 +77,7 @@ const r4DTO = fhirResource => {
   };
 };
 
-const resourceDTO = (fhirVersion, fhirResource, fhirIcons) => {
+const resourceDTO = (fhirVersion, fhirResource) => {
   switch (fhirVersion) {
     case fhirVersions.DSTU2: {
       return {

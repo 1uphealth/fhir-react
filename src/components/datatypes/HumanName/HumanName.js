@@ -16,7 +16,7 @@ function HumanName(props) {
   return (
     <>
       {header}
-      {!isTitle && <span>{` (${use})`}</span>}
+      {!isTitle && use && <span>{` (${use})`}</span>}
     </>
   );
 }

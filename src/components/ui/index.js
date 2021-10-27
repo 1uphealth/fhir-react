@@ -47,7 +47,8 @@ export const Title = props => (
 
 export const Badge = props => (
   <small
-    className="fhir-ui__Badge px-2 py-1 bg-light rounded-1"
+    className={`fhir-ui__Badge px-2 py-1 alert ${props.bootstrapAlertType ||
+      'alert-secondary'}`}
     data-testid={props['data-testid']}
   >
     {props.children}

@@ -125,7 +125,10 @@ const Practitioner = props => {
                 <Title>
                   <HumanName fhirData={name} isTitle />
                 </Title>
-                <p className="mb-0 mt-n2">{`(${use})`}</p>
+                <p
+                  className="mb-0 mt-n2"
+                  data-testid="subtitle"
+                >{`(${use})`}</p>
               </div>
             }
             badge={status && <Badge data-testid="status">{status}</Badge>}

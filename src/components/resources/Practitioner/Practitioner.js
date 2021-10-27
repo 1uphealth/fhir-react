@@ -14,6 +14,7 @@ import Date from '../../datatypes/Date';
 import { Root, Header, Title, Body, Value, Badge } from '../../ui';
 import './Practitioner.css';
 import Identifier from '../../datatypes/Identifier';
+import Accordion from '../../containers/Accordion';
 
 const commonDTO = fhirResource => {
   const id = _get(fhirResource, 'id', '');
@@ -26,6 +27,7 @@ const commonDTO = fhirResource => {
     name: _get(fhirResource, 'contact[0].name'),
     relationship: _get(fhirResource, 'contact[0].relationship[0].text'),
   };
+
   return {
     id,
     identifier,
@@ -101,56 +103,72 @@ const Practitioner = props => {
     address,
     birthDate,
   } = fhirResourceData;
+
+  const use = _get(name, 'use');
+
   return (
     <Root name="Practitioner">
-      <Header>
-        <img
-          className="fhir-resource__Practitioner__practitioner-avatar"
-          src={`http://www.gravatar.com/avatar/${md5(
-            id,
-          )}?s=30&r=any&default=identicon&forcedefault=1`}
-          alt=""
-        />
-        <Title>
-          <HumanName fhirData={name} primary={true} />
-        </Title>
-        {status && <Badge data-testid="status">{status}</Badge>}
-      </Header>
-      <Body>
-        {identifier && (
-          <Value label="Identifiers" data-testid="identifier">
-            <Identifier fhirData={identifier} />
-          </Value>
-        )}
-        {gender && (
-          <Value label="Gender" data-testid="gender">
-            {gender}
-          </Value>
-        )}
-        {birthDate && (
-          <Value label="Birth date" data-testid="birthDate">
-            <Date fhirData={birthDate} />
-          </Value>
-        )}
-        {isContactData && (
-          <Value label="Contact" data-testid="contact">
-            <PatientContact
-              name={contactData.name}
-              relationship={contactData.relationship}
-            />
-          </Value>
-        )}
-        {address && (
-          <Value label="Address" data-testid="address">
-            <Address fhirData={address} />
-          </Value>
-        )}
-        {telecom && (
-          <Value label="Telephone" data-testid="telecom">
-            <Telecom fhirData={telecom} />
-          </Value>
-        )}
-      </Body>
+      <Accordion
+        headerData={
+          <Header
+            icon={
+              <img
+                className="header-icon__practitioner-avatar rounded-1"
+                src={`http://www.gravatar.com/avatar/${md5(
+                  id,
+                )}?s=30&r=any&default=identicon&forcedefault=1`}
+                alt=""
+              />
+            }
+            titleSegment={
+              <div>
+                <Title>
+                  <HumanName fhirData={name} isTitle />
+                </Title>
+                <p>{`(${use})`}</p>
+              </div>
+            }
+            badge={status && <Badge data-testid="status">{status}</Badge>}
+          />
+        }
+        bodyData={
+          <Body>
+            {identifier && (
+              <Value label="Identifiers" data-testid="identifier">
+                <Identifier fhirData={identifier} />
+              </Value>
+            )}
+            {gender && (
+              <Value label="Gender" data-testid="gender">
+                {gender}
+              </Value>
+            )}
+            {birthDate && (
+              <Value label="Birth date" data-testid="birthDate">
+                <Date fhirData={birthDate} />
+              </Value>
+            )}
+            {isContactData && (
+              <Value label="Contact" data-testid="contact">
+                <PatientContact
+                  name={contactData.name}
+                  relationship={contactData.relationship}
+                />
+              </Value>
+            )}
+            {address && (
+              <Value label="Address" data-testid="address">
+                <Address fhirData={address} />
+              </Value>
+            )}
+            {telecom && (
+              <Value label="Telephone" data-testid="telecom">
+                <Telecom fhirData={telecom} />
+              </Value>
+            )}
+          </Body>
+        }
+      />
     </Root>
   );
 };

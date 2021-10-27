@@ -30,4 +30,8 @@ $enable-negative-margins: true;
   height: 40px;
 }
 
+.value__label {
+  width: 20%;
+}
+
 @import '~bootstrap/scss/bootstrap.scss';

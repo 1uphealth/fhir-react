@@ -11,7 +11,7 @@ export const Header = props => (
       <div className="d-flex w-100 justify-content-between align-items-start">
         <div className="me-3">{props.icon}</div>
         <div className="flex-grow-1 mt-n1">{props.titleSegment}</div>
-        <div className="me-3">{props.badge}</div>
+        <div className="me-3 pt-1">{props.badge}</div>
       </div>
     )}
   </>
@@ -40,7 +40,7 @@ export const BadgeSecondary = props => (
 );
 
 export const Body = props => (
-  <div className="fhir-ui__Body ps-3 pe-4">
+  <div className="fhir-ui__Body ps-2 pe-4">
     <table className="fhir-ui__Body__table table table-borderless table-sm">
       <tbody>{props.children}</tbody>
     </table>
@@ -55,7 +55,7 @@ export const Value = props => (
 );
 
 export const Label = props => (
-  <td className="fhir-ui__Label text-secondary fw-light lh-base">
+  <td className="fhir-ui__Label value__label text-secondary fw-light lh-base">
     {props.children}
   </td>
 );

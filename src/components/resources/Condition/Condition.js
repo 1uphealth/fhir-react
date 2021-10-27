@@ -108,7 +108,7 @@ function Condition(props) {
           <Header
             resourceName="Condition"
             icon={
-              <div className="pt-1 px-sm-1">
+              <div className="px-sm-1">
                 <HeaderIcon />
               </div>
             }

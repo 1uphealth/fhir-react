@@ -8,6 +8,7 @@ import React from 'react';
 import Reference from '../../datatypes/Reference';
 import _get from 'lodash/get';
 import example1 from '../../../fixtures/dstu2/resources/procedure/example1.json';
+import fhirIcons from '../../../fixtures/example-icons';
 import { object } from '@storybook/addon-knobs';
 import stu3Example1 from '../../../fixtures/stu3/resources/procedure/example1.json';
 
@@ -68,7 +69,7 @@ export const ProcedureVisualization = () => {
   return (
     <Accordion
       headerData={<div className=""></div>}
-      bodyData={<Procedure fhirResource={fhirResource} />}
+      bodyData={<Procedure fhirResource={fhirResource} fhirIcons={fhirIcons} />}
     />
   );
 };

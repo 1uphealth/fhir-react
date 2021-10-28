@@ -103,6 +103,32 @@ function Condition(props) {
   } = resourceDTO(fhirVersion, fhirResource);
 
   const headerIcon = fhirIcons[_get(fhirResource, 'resourceType')];
+  const tableData = [
+    {
+      label: 'Onset Date',
+      testId: 'onsetDate',
+      data: <Date fhirData={onsetDateTime} />,
+      status: onsetDateTime,
+    },
+    {
+      label: 'Date recorded',
+      testId: 'dateRecorded',
+      data: <Date fhirData={dateRecorded} />,
+      status: dateRecorded,
+    },
+    {
+      label: 'Asserted by',
+      testId: 'asserter',
+      data: <Reference fhirData={asserter} />,
+      status: asserter,
+    },
+    {
+      label: 'Anatomical locations',
+      testId: 'bodySite',
+      data: <CodeableConcept fhirData={bodySite} />,
+      status: bodySite,
+    },
+  ];
 
   return (
     <Root name="condition">
@@ -110,13 +136,12 @@ function Condition(props) {
         headerContent={
           <Header
             resourceName="Condition"
-            icon={
-              <div className="px-sm-1">
-                <HeaderIcon headerIcon={headerIcon} />
-              </div>
+            icon={<HeaderIcon headerIcon={headerIcon} />}
+            badge={
+              clinicalStatus && (
+                <Badge data-testid="clinicalStatus">{clinicalStatus}</Badge>
+              )
             }
-            badgeStatus={clinicalStatus}
-            badge={<Badge data-testid="clinicalStatus">{clinicalStatus}</Badge>}
             titleSegment={
               <>
                 <Title>{codeText || ''}</Title>
@@ -127,30 +152,7 @@ function Condition(props) {
             }
           />
         }
-        bodyContent={
-          <Body>
-            {onsetDateTime && (
-              <Value label="Onset Date" data-testid="onsetDate">
-                <Date fhirData={onsetDateTime} />
-              </Value>
-            )}
-            {dateRecorded && (
-              <Value label="Date recorded" data-testid="dateRecorded">
-                <Date fhirData={dateRecorded} />
-              </Value>
-            )}
-            {hasAsserter && (
-              <Value label="Asserted by" data-testid="asserter">
-                <Reference fhirData={asserter} />
-              </Value>
-            )}
-            {hasBodySite && (
-              <Value label="Anatomical locations" data-testid="bodySite">
-                <CodeableConcept fhirData={bodySite} />
-              </Value>
-            )}
-          </Body>
-        }
+        bodyContent={<Body tableData={tableData} />}
       />
     </Root>
   );

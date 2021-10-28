@@ -50,13 +50,8 @@ const Procedure = props => {
         headerContent={
           <Header
             resourceName="Procedure"
-            icon={
-              <div className={`${display ? 'pt-1 px-1' : ''}`}>
-                <HeaderIcon />
-              </div>
-            }
-            badgeStatus={status}
-            badge={<Badge data-testid="status">{status}</Badge>}
+            icon={<HeaderIcon />}
+            badge={status && <Badge data-testid="status">{status}</Badge>}
             titleSegment={
               <>
                 {display && <Title>{display}</Title>}

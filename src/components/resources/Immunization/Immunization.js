@@ -1,16 +1,16 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import { Badge, Body, Header, Root, Title, Value } from '../../ui';
 
-import Reference from '../../datatypes/Reference';
+import Accordion from '../../containers/Accordion';
+import Annotation from '../../datatypes/Annotation';
 import Coding from '../../datatypes/Coding';
+import Date from '../../datatypes/Date';
+import HeaderIcon from '../../datatypes/HeaderIcon';
+import PropTypes from 'prop-types';
+import React from 'react';
+import Reference from '../../datatypes/Reference';
 import _get from 'lodash/get';
 import _has from 'lodash/has';
-import Date from '../../datatypes/Date';
-import Annotation from '../../datatypes/Annotation';
 import fhirVersions from '../fhirResourceVersions';
-
-import { Root, Header, Title, Badge, Body, Value } from '../../ui';
-import HeaderIcon from '../../datatypes/HeaderIcon';
 
 const commonDTO = fhirResource => {
   const title =
@@ -129,78 +129,104 @@ const Immunization = props => {
 
   return (
     <Root name="Immunization">
-      <Header>
-        <HeaderIcon headerIcon={headerIcon}></HeaderIcon>
-        <Title data-testid="title">{title}</Title>
-        {status && <Badge data-testid="status">{status}</Badge>}
-        {providedDate && <Date fhirData={providedDate} />}
-      </Header>
-      <Body>
-        {manufacturerText && (
-          <Value label="Manufacturer Text">{manufacturerText}</Value>
-        )}
-        {hasLotNumber && (
-          <Value label="Lot number" data-testid="lotNumber">
-            {lotNumber}
-            {lotNumberExpirationDate && (
-              <span data-testid="lotNumberExpirationDate">
-                {' '}
-                expires on {lotNumberExpirationDate}
-              </span>
-            )}
-          </Value>
-        )}
-        {hasDoseQuantity && (
-          <Value label="Dosage" data-testid="doseQuantity">
-            <div>
-              {_get(doseQuantity, 'value')} &nbsp;
-              {_get(doseQuantity, 'unit') || _get(doseQuantity, 'code')}
+      <Accordion
+        headerData={
+          <Header>
+            <div className="d-flex align-items-center justify-content-between ">
+              <div className="fhir-resource__Immunization__header__title-segment container">
+                <div className="fhir-resource__Immunization__header__title-segment__row row row-cols-2">
+                  <div className="fhir-resource__Immunization__header__title-segment__icon-column col-auto p-0">
+                    <div className="pt-1 px-sm-1">
+                      <HeaderIcon headerIcon={headerIcon} />
+                    </div>
+                  </div>
+                  <div className="fhir-resource__Immunization__header__title-segment__title-column col-auto">
+                    <Title data-testid="title">{title}</Title>
+                    {providedDate && <Date fhirData={providedDate} />}
+                  </div>
+                </div>
+              </div>
             </div>
-          </Value>
-        )}
-        {patient && (
-          <Value label="Patient" data-testid="patient">
-            <Reference fhirData={patient} />
-          </Value>
-        )}
-        {requester && (
-          <Value label="Requester" data-testid="requester">
-            <Reference fhirData={requester} />
-          </Value>
-        )}
-        {performer && (
-          <Value label="Performer" data-testid="performer">
-            <Reference fhirData={performer} />
-          </Value>
-        )}
-        {note && (
-          <Value label="Note" data-testid="note">
-            <Annotation fhirData={note} />
-          </Value>
-        )}
-        {hasRoute && (
-          <Value label="Route" data-testid="route">
-            {route.map((coding, i) => {
-              return (
-                <div key={`item-${i}`}>
-                  <Coding fhirData={coding} />
+
+            <div className="fhir-resource__Immunization__header-right d-flex align-items-center pe-3 pt-1">
+              {status && <Badge data-testid="status">{status}</Badge>}
+            </div>
+          </Header>
+        }
+        bodyData={
+          <Body>
+            {manufacturerText && (
+              <Value label="Manufacturer Text">{manufacturerText}</Value>
+            )}
+            {hasLotNumber && (
+              <Value label="Lot number" data-testid="lotNumber">
+                {lotNumber}
+                {lotNumberExpirationDate && (
+                  <span>
+                    {' '}
+                    expires on{' '}
+                    <Date
+                      testId="lotNumberExpirationDate"
+                      fhirData={lotNumberExpirationDate}
+                      isBlack
+                    />
+                  </span>
+                )}
+              </Value>
+            )}
+            {hasDoseQuantity && (
+              <Value label="Dosage" data-testid="doseQuantity">
+                <div>
+                  {_get(doseQuantity, 'value')} &nbsp;
+                  {_get(doseQuantity, 'unit') || _get(doseQuantity, 'code')}
                 </div>
-              );
-            })}
-          </Value>
-        )}
-        {hasSite && (
-          <Value label="Site" data-testid="site">
-            {site.map((coding, i) => {
-              return (
-                <div key={`item-${i}`}>
-                  <Coding fhirData={coding} />
-                </div>
-              );
-            })}
-          </Value>
-        )}
-      </Body>
+              </Value>
+            )}
+            {patient && (
+              <Value label="Patient" data-testid="patient">
+                <Reference fhirData={patient} />
+              </Value>
+            )}
+            {requester && (
+              <Value label="Requester" data-testid="requester">
+                <Reference fhirData={requester} />
+              </Value>
+            )}
+            {performer && (
+              <Value label="Performer" data-testid="performer">
+                <Reference fhirData={performer} />
+              </Value>
+            )}
+            {note && (
+              <Value label="Note" data-testid="note">
+                <Annotation fhirData={note} />
+              </Value>
+            )}
+            {hasRoute && (
+              <Value label="Route" data-testid="route">
+                {route.map((coding, i) => {
+                  return (
+                    <div key={`item-${i}`}>
+                      <Coding fhirData={coding} />
+                    </div>
+                  );
+                })}
+              </Value>
+            )}
+            {hasSite && (
+              <Value label="Site" data-testid="site">
+                {site.map((coding, i) => {
+                  return (
+                    <div key={`item-${i}`}>
+                      <Coding fhirData={coding} />
+                    </div>
+                  );
+                })}
+              </Value>
+            )}
+          </Body>
+        }
+      />
     </Root>
   );
 };

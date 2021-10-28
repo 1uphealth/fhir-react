@@ -22,7 +22,7 @@ import _has from 'lodash/has';
 import { isNotEmptyArray } from '../../../utils';
 
 const Procedure = props => {
-  const { fhirResource } = props;
+  const { fhirResource, fhirIcons } = props;
   const display =
     _get(fhirResource, 'code.coding[0].display') ||
     _get(fhirResource, 'code.text');
@@ -44,6 +44,8 @@ const Procedure = props => {
   const note = _get(fhirResource, 'note', []);
   const outcome = _get(fhirResource, 'outcome');
 
+  const headerIcon = fhirIcons[_get(fhirResource, 'resourceType')];
+
   return (
     <Root name="Procedure">
       <Accordion
@@ -54,7 +56,7 @@ const Procedure = props => {
                 <div className="fhir-resource__Procedure__header__title-segment__row row row-cols-2">
                   <div className="fhir-resource__Procedure__header__title-segment__icon-column col-auto p-0">
                     <div className={`${display ? 'pt-1 px-1' : ''}`}>
-                      <HeaderIcon />
+                      <HeaderIcon headerIcon={headerIcon} />
                     </div>
                   </div>
                   <div className="fhir-resource__Procedure__header__title-segment__title-column col-auto">
@@ -83,7 +85,7 @@ const Procedure = props => {
               </div>
             </div>
 
-            <div className="fhir-resource__Procedure__header-right d-flex align-items-center pe-3">
+            <div className="fhir-resource__Procedure__header-right d-flex align-items-center pe-3 pt-1">
               {status && <Badge data-testid="status">{status}</Badge>}
             </div>
           </Header>

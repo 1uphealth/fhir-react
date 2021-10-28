@@ -8,11 +8,14 @@ import stu3Example from '../../../fixtures/stu3/resources/immunization/example1.
 import r4Example1 from '../../../fixtures/r4/resources/immunization/example1.json';
 import r4Example2 from '../../../fixtures/r4/resources/immunization/example2.json';
 
+import fhirIcons from '../../../fixtures/example-icons';
+
 describe('should render Immunization component properly', () => {
   it('should render with DSTU2 source data', () => {
     const defaultProps = {
       fhirResource: dstu2Example,
       fhirVersion: fhirVersions.DSTU2,
+      fhirIcons: fhirIcons,
     };
 
     const { container, getByTestId } = render(
@@ -53,6 +56,7 @@ describe('should render Immunization component properly', () => {
     const defaultProps = {
       fhirResource: stu3Example,
       fhirVersion: fhirVersions.STU3,
+      fhirIcons: fhirIcons,
     };
 
     const { container, getByTestId } = render(
@@ -87,6 +91,7 @@ describe('should render Immunization component properly', () => {
     const defaultProps = {
       fhirResource: r4Example1,
       fhirVersion: fhirVersions.R4,
+      fhirIcons: fhirIcons,
     };
 
     const { container, getByTestId } = render(
@@ -121,6 +126,7 @@ describe('should render Immunization component properly', () => {
     const defaultProps = {
       fhirResource: r4Example2,
       fhirVersion: fhirVersions.R4,
+      fhirIcons: fhirIcons,
     };
 
     const { container, getByTestId, queryByTestId } = render(

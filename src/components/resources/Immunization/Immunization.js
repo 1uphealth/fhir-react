@@ -10,6 +10,7 @@ import Annotation from '../../datatypes/Annotation';
 import fhirVersions from '../fhirResourceVersions';
 
 import { Root, Header, Title, Badge, Body, Value } from '../../ui';
+import HeaderIcon from '../../datatypes/HeaderIcon';
 
 const commonDTO = fhirResource => {
   const title =
@@ -103,8 +104,7 @@ const resourceDTO = (fhirVersion, fhirResource) => {
 };
 
 const Immunization = props => {
-  const { fhirVersion, fhirResource } = props;
-
+  const { fhirVersion, fhirResource, fhirIcons } = props;
   const {
     title,
     status,
@@ -125,9 +125,12 @@ const Immunization = props => {
     note,
   } = resourceDTO(fhirVersion, fhirResource);
 
+  const headerIcon = fhirIcons[_get(fhirResource, 'resourceType')];
+
   return (
     <Root name="Immunization">
       <Header>
+        <HeaderIcon headerIcon={headerIcon}></HeaderIcon>
         <Title data-testid="title">{title}</Title>
         {status && <Badge data-testid="status">{status}</Badge>}
         {providedDate && <Date fhirData={providedDate} />}

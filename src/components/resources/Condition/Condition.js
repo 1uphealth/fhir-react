@@ -6,6 +6,7 @@ import _get from 'lodash/get';
 import _has from 'lodash/has';
 import fhirVersions from '../fhirResourceVersions';
 import CodeableConcept from '../../datatypes/CodeableConcept';
+import HeaderIcon from '../../datatypes/HeaderIcon';
 
 import {
   Root,
@@ -94,7 +95,7 @@ const resourceDTO = (fhirVersion, fhirResource) => {
   }
 };
 function Condition(props) {
-  const { fhirResource, fhirVersion } = props;
+  const { fhirResource, fhirVersion, fhirIcons } = props;
 
   const {
     codeText,
@@ -108,9 +109,12 @@ function Condition(props) {
     dateRecorded,
   } = resourceDTO(fhirVersion, fhirResource);
 
+  const headerIcon = fhirIcons[_get(fhirResource, 'resourceType')];
+
   return (
     <Root name="condition">
       <Header>
+        <HeaderIcon headerIcon={headerIcon}></HeaderIcon>
         <Title>{codeText || ''}</Title>
         {clinicalStatus && (
           <Badge data-testid="clinicalStatus">{clinicalStatus}</Badge>

@@ -28,9 +28,31 @@ const MyComponent = () => {
     <FhirResource
       fhirResource={fhirResource}
       fhirVersion={fhirVersions.R4}
+      fhirIcons={fhirIcons}
       withCarinBBProfile
     />
   );
+};
+```
+
+Optionally custom header icons could be passed as `fhirIcons` props. The shape of the passed object should be as in example below with resource type as the key and image url or DOM node as the value:
+
+```jsx
+import React from 'react';
+
+export default {
+  Condition: (
+    <img
+      src={require('./dstu2/resources/condition/condition.svg')}
+      alt="header icon"
+    />
+  ),
+  Immunization: (
+    <img
+      src={require('./dstu2/resources/immunization/immunization.svg')}
+      alt="header icon"
+    />
+  ),
 };
 ```
 

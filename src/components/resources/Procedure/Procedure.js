@@ -13,7 +13,7 @@ import Annotation from '../../datatypes/Annotation';
 import CodeableConcept from '../../datatypes/CodeableConcept';
 import Coding from '../../datatypes/Coding';
 import Date from '../../datatypes/Date';
-import HeaderIcon from '../../datatypes/HeaderIcon/HeaderIcon';
+import HeaderIcon from '../../datatypes/HeaderIcon';
 import PropTypes from 'prop-types';
 import React from 'react';
 import Reference from '../../datatypes/Reference';
@@ -43,6 +43,7 @@ const Procedure = props => {
   const hasNote = _has(fhirResource, 'note');
   const note = _get(fhirResource, 'note', []);
   const outcome = _get(fhirResource, 'outcome');
+
   return (
     <Root name="Procedure">
       <Accordion

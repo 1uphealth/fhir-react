@@ -9,7 +9,7 @@ import * as FhirResourceTypes from '../../supportedFhirResourceList';
 
 import './Bundle.css';
 
-export default function Bundle(props) {
+export default function Bundle({ fhirResource, fhirVersion, fhirIcons }) {
   const commonDTO = fhirResource => {
     const type = _get(fhirResource, 'type', null);
     const total = _get(fhirResource, 'total');
@@ -36,7 +36,6 @@ export default function Bundle(props) {
     }
   };
 
-  const { fhirResource, fhirVersion } = props;
   let fhirResourceData = {};
   try {
     fhirResourceData = resourceDTO(fhirVersion, fhirResource);
@@ -79,6 +78,7 @@ export default function Bundle(props) {
                 <FhirComponent
                   fhirResource={resource}
                   fhirVersion={fhirVersion}
+                  fhirIcons={fhirIcons}
                 />
               </div>
             );

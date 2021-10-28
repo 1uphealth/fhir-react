@@ -112,7 +112,7 @@ function Condition(props) {
             resourceName="Condition"
             icon={
               <div className="px-sm-1">
-                <HeaderIcon />
+                <HeaderIcon headerIcon={headerIcon} />
               </div>
             }
             badgeStatus={clinicalStatus}

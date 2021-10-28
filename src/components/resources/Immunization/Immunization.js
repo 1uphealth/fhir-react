@@ -135,7 +135,7 @@ const Immunization = props => {
             resourceName="Immunization"
             icon={
               <div className="pt-1 px-sm-1">
-                <HeaderIcon />
+                <HeaderIcon headerIcon={headerIcon} />
               </div>
             }
             badgeStatus={status}

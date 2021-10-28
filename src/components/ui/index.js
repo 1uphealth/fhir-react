@@ -4,7 +4,7 @@ import React from 'react';
 
 export const Header = props => (
   <>
-    {// TODO comment why children
+    {// This condition was left due to fact, that to much changes in Header will generate many errors in tests. This condition will be removed after all changes have been made.
     props.children ? (
       props.children
     ) : (

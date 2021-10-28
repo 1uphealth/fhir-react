@@ -2,6 +2,7 @@ import { Badge, Body, Header, Root, Title, Value } from '../../ui';
 
 import Accordion from '../../containers/Accordion';
 import CodeableConcept from '../../datatypes/CodeableConcept';
+import Date from '../../datatypes/Date';
 import HeaderIcon from '../../datatypes/HeaderIcon';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -128,12 +129,12 @@ function Condition(props) {
           <Body>
             {onsetDateTime && (
               <Value label="Onset Date" data-testid="onsetDate">
-                {onsetDateTime}
+                <Date fhirData={onsetDateTime} />
               </Value>
             )}
             {dateRecorded && (
               <Value label="Date recorded" data-testid="dateRecorded">
-                {dateRecorded}
+                <Date fhirData={dateRecorded} />
               </Value>
             )}
             {hasAsserter && (

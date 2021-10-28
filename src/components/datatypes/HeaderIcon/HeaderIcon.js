@@ -1,10 +1,29 @@
-// 1. Pass optional prop with image map to FhirResource
-// 2. In resource component determine which icon (or placeholder) to pass to HeaderIcon
-// 3. In HeaderIcon conditionally choose the behavior for ulr/path, node or base64
 import React from 'react';
+import { isUrl } from '../../../utils/isUrl';
 
-const HeaderIcon = () => {
-  return <div className="header-icon__placeholder rounded-1"></div>;
+const HeaderIcon = ({ headerIcon }) => {
+  const PlaceholderImage = () => {
+    return <div className="header-icon__placeholder rounded-1" />;
+  };
+
+  const Image = () => {
+    if (
+      React.isValidElement(headerIcon) &&
+      typeof headerIcon.type === 'string'
+    ) {
+      return headerIcon;
+    }
+    if (isUrl(headerIcon)) {
+      return <img src={headerIcon} alt="header icon" />;
+    }
+    return <PlaceholderImage />;
+  };
+
+  return (
+    <div>
+      <Image />
+    </div>
+  );
 };
 
 export default HeaderIcon;

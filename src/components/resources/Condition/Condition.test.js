@@ -10,11 +10,14 @@ import exampleConditionSeveritySTU3 from '../../../fixtures/stu3/resources/condi
 import fhirVersions from '../fhirResourceVersions';
 import { render } from '@testing-library/react';
 
+import fhirIcons from '../../../fixtures/example-icons';
+
 describe('should render component correctly', () => {
   it('DSTU2 - without severity field', () => {
     const defaultProps = {
       fhirResource: exampleCondition,
       fhirVersion: fhirVersions.DSTU2,
+      fhirIcons: fhirIcons,
     };
     const { getByTestId, queryAllByTestId } = render(
       <Condition {...defaultProps} />,
@@ -28,6 +31,7 @@ describe('should render component correctly', () => {
     const defaultProps = {
       fhirResource: exampleConditionSeverity,
       fhirVersion: fhirVersions.DSTU2,
+      fhirIcons: fhirIcons,
     };
     const { getByTestId } = render(<Condition {...defaultProps} />);
 
@@ -43,6 +47,7 @@ describe('should render component correctly', () => {
     const defaultProps = {
       fhirResource: exampleConditionSTU3,
       fhirVersion: fhirVersions.STU3,
+      fhirIcons: fhirIcons,
     };
     const { getByTestId, queryAllByTestId } = render(
       <Condition {...defaultProps} />,
@@ -56,6 +61,7 @@ describe('should render component correctly', () => {
     const defaultProps = {
       fhirResource: exampleConditionSeveritySTU3,
       fhirVersion: fhirVersions.STU3,
+      fhirIcons: fhirIcons,
     };
     const { getByTestId } = render(<Condition {...defaultProps} />);
 
@@ -71,6 +77,7 @@ describe('should render component correctly', () => {
     const defaultProps = {
       fhirResource: example1ConditionSeverityR4,
       fhirVersion: fhirVersions.R4,
+      fhirIcons: fhirIcons,
     };
     const { getByTestId, queryAllByTestId } = render(
       <Condition {...defaultProps} />,
@@ -87,6 +94,7 @@ describe('should render component correctly', () => {
     const defaultProps = {
       fhirResource: example2ConditionSeverityR4,
       fhirVersion: fhirVersions.R4,
+      fhirIcons: fhirIcons,
     };
     const { getByTestId, queryAllByTestId } = render(
       <Condition {...defaultProps} />,
@@ -103,6 +111,7 @@ describe('should render component correctly', () => {
     const defaultProps = {
       fhirResource: example3ConditionSeverityR4,
       fhirVersion: fhirVersions.R4,
+      fhirIcons: fhirIcons,
     };
     const { getByTestId } = render(<Condition {...defaultProps} />);
 

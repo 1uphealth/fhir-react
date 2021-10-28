@@ -129,7 +129,7 @@ const Immunization = props => {
   return (
     <Root name="Immunization">
       <Accordion
-        headerData={
+        headerContent={
           <Header
             resourceName="Immunization"
             icon={
@@ -147,7 +147,7 @@ const Immunization = props => {
             }
           />
         }
-        bodyData={
+        bodyContent={
           <Body>
             {manufacturerText && (
               <Value label="Manufacturer Text">{manufacturerText}</Value>

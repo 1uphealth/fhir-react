@@ -109,7 +109,7 @@ const Practitioner = props => {
   return (
     <Root name="Practitioner">
       <Accordion
-        headerData={
+        headerContent={
           <Header
             icon={
               <img
@@ -131,7 +131,7 @@ const Practitioner = props => {
             badge={status && <Badge data-testid="status">{status}</Badge>}
           />
         }
-        bodyData={
+        bodyContent={
           <Body>
             {identifier && (
               <Value label="Identifiers" data-testid="identifier">

@@ -104,7 +104,7 @@ function Condition(props) {
   return (
     <Root name="condition">
       <Accordion
-        headerData={
+        headerContent={
           <Header
             resourceName="Condition"
             icon={
@@ -124,7 +124,7 @@ function Condition(props) {
             }
           />
         }
-        bodyData={
+        bodyContent={
           <Body>
             {onsetDateTime && (
               <Value label="Onset Date" data-testid="onsetDate">

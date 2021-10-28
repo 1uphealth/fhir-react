@@ -46,7 +46,7 @@ const Procedure = props => {
   return (
     <Root name="Procedure">
       <Accordion
-        headerData={
+        headerContent={
           <Header
             resourceName="Procedure"
             icon={
@@ -80,7 +80,7 @@ const Procedure = props => {
             }
           />
         }
-        bodyData={
+        bodyContent={
           <Body>
             {hasCoding && (
               <Value label="Identification" data-testid="hasCoding">

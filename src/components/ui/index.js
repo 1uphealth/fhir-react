@@ -35,20 +35,28 @@ export const Body = props => (
 
 export const Value = props => (
   <div className="fhir-ui__Value row py-1 justify-content-start">
-    <Label>{props.label}</Label>
-    <Data data-testid={props['data-testid']}>{props.children}</Data>
+    <Label secondary={props.secondary}>{props.label}</Label>
+    <Data secondary={props.secondary} data-testid={props['data-testid']}>
+      {props.children}
+    </Data>
   </div>
 );
 
 export const Label = props => (
-  <label className="fhir-ui__Label text-secondary fw-light lh-base ps-0 col-5 col-sm-3 col-xl-2 align-self-start">
+  <label
+    className={`fhir-ui__Label text-secondary fw-light lh-base ps-0 ${
+      props.secondary ? 'col-6' : 'col-5 col-sm-3 col-xl-2'
+    } align-self-start`}
+  >
     {props.children}
   </label>
 );
 
 export const Data = props => (
   <div
-    className="fhir-ui__Data text-break fw-normal lh-base pe-0 col align-self-start"
+    className={`fhir-ui__Data text-break fw-normal lh-base pe-0 col ${
+      props.secondary ? 'text-end align-self-center' : 'align-self-start'
+    }`}
     data-testid={props['data-testid']}
   >
     {props.children}

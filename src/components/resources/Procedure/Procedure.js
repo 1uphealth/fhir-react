@@ -20,9 +20,10 @@ import Reference from '../../datatypes/Reference';
 import _get from 'lodash/get';
 import _has from 'lodash/has';
 import { isNotEmptyArray } from '../../../utils';
+import HeaderIcon from '../../datatypes/HeaderIcon';
 
 const Procedure = props => {
-  const { fhirResource } = props;
+  const { fhirResource, fhirIcons } = props;
   const display =
     _get(fhirResource, 'code.coding[0].display') ||
     _get(fhirResource, 'code.text');
@@ -43,6 +44,9 @@ const Procedure = props => {
   const hasNote = _has(fhirResource, 'note');
   const note = _get(fhirResource, 'note', []);
   const outcome = _get(fhirResource, 'outcome');
+
+  const headerIcon = fhirIcons[_get(fhirResource, 'resourceType')];
+
   return (
     <Root name="Procedure">
       <Accordion

@@ -77,7 +77,7 @@ const r4DTO = fhirResource => {
   };
 };
 
-const resourceDTO = (fhirVersion, fhirResource, fhirIcons) => {
+const resourceDTO = (fhirVersion, fhirResource) => {
   switch (fhirVersion) {
     case fhirVersions.DSTU2: {
       return {
@@ -104,8 +104,7 @@ const resourceDTO = (fhirVersion, fhirResource, fhirIcons) => {
 };
 
 const Immunization = props => {
-  const { fhirVersion, fhirResource } = props;
-
+  const { fhirVersion, fhirResource, fhirIcons } = props;
   const {
     title,
     status,
@@ -126,10 +125,12 @@ const Immunization = props => {
     note,
   } = resourceDTO(fhirVersion, fhirResource);
 
+  const headerIcon = fhirIcons[_get(fhirResource, 'resourceType')];
+
   return (
     <Root name="Immunization">
       <Header>
-        <HeaderIcon></HeaderIcon>
+        <HeaderIcon headerIcon={headerIcon}></HeaderIcon>
         <Title data-testid="title">{title}</Title>
         {status && <Badge data-testid="status">{status}</Badge>}
         {providedDate && <Date fhirData={providedDate} />}

@@ -4,27 +4,32 @@ import { Value } from '../../ui';
 const AccountBalance = props => {
   const { totalBenefit, totalCost } = props;
 
+  const parseValueIntoMonetaryValueOfGivenCurrency = (value, currency) => {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: currency,
+    }).format(Math.round(value * 100) / 100);
+  };
+
   return (
     <div className="fhir-datatype__AccountBalance container-fluid p-0 m-0 ">
       <Value label="Total cost" data-testid="totalCost" secondary>
-        {new Intl.NumberFormat('en-US', {
-          style: 'currency',
-          currency: totalCost.code,
-        }).format(Math.round(totalCost.value * 100) / 100)}
+        {parseValueIntoMonetaryValueOfGivenCurrency(
+          totalCost.value,
+          totalCost.code,
+        )}
       </Value>
       <Value label="Coverd by benefit" data-testid="totalBenefit" secondary>
-        {new Intl.NumberFormat('en-US', {
-          style: 'currency',
-          currency: totalBenefit.code,
-        }).format(Math.round(totalBenefit.value * -1 * 100) / 100)}
+        {parseValueIntoMonetaryValueOfGivenCurrency(
+          totalBenefit.value * -1,
+          totalBenefit.code,
+        )}
       </Value>
-      <div class="border-top my-1 row border-secondary" />
+      <div className="border-top my-1 row border-secondary" />
       <Value label="Patient Owed" secondary>
-        {new Intl.NumberFormat('en-US', {
-          style: 'currency',
-          currency: totalBenefit.code,
-        }).format(
-          Math.round((totalCost.value - totalBenefit.value) * 100) / 100,
+        {parseValueIntoMonetaryValueOfGivenCurrency(
+          totalCost.value - totalBenefit.value,
+          totalBenefit.code,
         )}
       </Value>
     </div>

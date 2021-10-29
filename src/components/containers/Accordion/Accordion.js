@@ -7,11 +7,11 @@ const Accordion = props => {
       <div className="accordion-body fhir-container__Accordion__body">
         <div className="accordion-item fhir-container__Accordion__item">
           <div
-            className="accordion-header fhir-container__Accordion__header"
+            className="accordion-header border-bottom border-1 fhir-container__Accordion__header"
             id="flush-headingOne"
           >
             <button
-              className="accordion-button collapsed text-dark bg-white shadow-none fhir-container__Accordion__header"
+              className="w-100 border-0 rounded-top collapsed text-dark bg-white shadow-none fhir-container__Accordion__header"
               type="button"
               data-bs-target="#collapseTarget"
               data-bs-toggle="collapse"

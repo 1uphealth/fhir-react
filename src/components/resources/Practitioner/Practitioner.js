@@ -154,24 +154,25 @@ const Practitioner = props => {
       <Accordion
         headerContent={
           <Header
-            icon={
-              <img
-                className="header-icon__practitioner-avatar rounded-1"
-                src={`http://www.gravatar.com/avatar/${md5(
-                  id,
-                )}?s=30&r=any&default=identicon&forcedefault=1`}
-                alt=""
-              />
+            upperRowContentLeftSide={<p className="mb-0">{`(${use})`}</p>}
+            upperRowContentRightSide={
+              status && <Badge data-testid="status">{status}</Badge>
             }
-            titleSegment={
-              <div>
+            lowerRowContent={
+              <>
+                <img
+                  className="header-icon__practitioner-avatar rounded-1"
+                  src={`http://www.gravatar.com/avatar/${md5(
+                    id,
+                  )}?s=30&r=any&default=identicon&forcedefault=1`}
+                  alt=""
+                />
+                <div className="ps-2 pe-2" />
                 <Title>
                   <HumanName fhirData={name} isTitle />
                 </Title>
-                <p className="mb-0 mt-n2">{`(${use})`}</p>
-              </div>
+              </>
             }
-            badge={status && <Badge data-testid="status">{status}</Badge>}
           />
         }
         bodyContent={<Body tableData={tableData} />}

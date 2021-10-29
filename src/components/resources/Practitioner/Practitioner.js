@@ -1,6 +1,6 @@
 import './Practitioner.css';
 
-import { Badge, Body, Header, Root, Title, Value } from '../../ui';
+import { Badge, Body, Header, Root, Title } from '../../ui';
 
 import Accordion from '../../containers/Accordion/Accordion';
 import Address from '../../datatypes/Address';
@@ -105,6 +105,49 @@ const Practitioner = props => {
   } = fhirResourceData;
 
   const use = _get(name, 'use');
+  const tableData = [
+    {
+      label: 'Identifiers',
+      testId: 'identifier',
+      data: identifier && <Identifier fhirData={identifier} />,
+      status: identifier,
+    },
+    {
+      label: 'Gender',
+      testId: 'gender',
+      data: gender && gender,
+      status: gender !== '',
+    },
+    {
+      label: 'Birth date',
+      testId: 'birthDate',
+      data: birthDate && <Date fhirData={birthDate} />,
+      status: birthDate,
+    },
+    {
+      label: 'Contact',
+      testId: 'contact',
+      data: contactData && (
+        <PatientContact
+          name={contactData.name}
+          relationship={contactData.relationship}
+        />
+      ),
+      status: isContactData,
+    },
+    {
+      label: 'Address',
+      testId: 'address',
+      data: address && <Address fhirData={address} />,
+      status: address,
+    },
+    {
+      label: 'Telephone',
+      testId: 'telecom',
+      data: telecom && <Telecom fhirData={telecom} />,
+      status: telecom,
+    },
+  ];
 
   return (
     <Root name="Practitioner">
@@ -131,43 +174,7 @@ const Practitioner = props => {
             badge={status && <Badge data-testid="status">{status}</Badge>}
           />
         }
-        bodyContent={
-          <Body>
-            {identifier && (
-              <Value label="Identifiers" data-testid="identifier">
-                <Identifier fhirData={identifier} />
-              </Value>
-            )}
-            {gender && (
-              <Value label="Gender" data-testid="gender">
-                {gender}
-              </Value>
-            )}
-            {birthDate && (
-              <Value label="Birth date" data-testid="birthDate">
-                <Date fhirData={birthDate} />
-              </Value>
-            )}
-            {isContactData && (
-              <Value label="Contact" data-testid="contact">
-                <PatientContact
-                  name={contactData.name}
-                  relationship={contactData.relationship}
-                />
-              </Value>
-            )}
-            {address && (
-              <Value label="Address" data-testid="address">
-                <Address fhirData={address} />
-              </Value>
-            )}
-            {telecom && (
-              <Value label="Telephone" data-testid="telecom">
-                <Telecom fhirData={telecom} />
-              </Value>
-            )}
-          </Body>
-        }
+        bodyContent={<Body tableData={tableData} />}
       />
     </Root>
   );

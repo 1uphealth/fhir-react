@@ -1,12 +1,4 @@
-import {
-  Badge,
-  Body,
-  Header,
-  MissingValue,
-  Root,
-  Title,
-  Value,
-} from '../../ui';
+import { Badge, Body, Header, MissingValue, Root, Title } from '../../ui';
 
 import Accordion from '../../containers/Accordion/Accordion';
 import Annotation from '../../datatypes/Annotation';
@@ -22,7 +14,7 @@ import _has from 'lodash/has';
 import { isNotEmptyArray } from '../../../utils';
 
 const Procedure = props => {
-  const { fhirResource } = props;
+  const { fhirResource, fhirIcons } = props;
   const display =
     _get(fhirResource, 'code.coding[0].display') ||
     _get(fhirResource, 'code.text');
@@ -44,13 +36,73 @@ const Procedure = props => {
   const note = _get(fhirResource, 'note', []);
   const outcome = _get(fhirResource, 'outcome');
 
+  const headerIcon = fhirIcons[_get(fhirResource, 'resourceType')];
+  const tableData = [
+    {
+      label: 'Identification',
+      testId: 'hasCoding',
+      data: coding && (
+        <>
+          {coding.map((coding, i) => (
+            <Coding key={`item-${i}`} fhirData={coding} />
+          ))}
+        </>
+      ),
+      status: hasCoding,
+    },
+    {
+      label: 'Category',
+      testId: 'category',
+      data: category && <Coding fhirData={category} />,
+      status: category,
+    },
+    {
+      label: 'Performed by',
+      testId: 'dateRecorded',
+      data: performer && (
+        <>
+          {performer.map((item, i) => (
+            <div key={`item-${i}`}>
+              {_get(item, 'actor.display', <MissingValue />)}
+            </div>
+          ))}
+        </>
+      ),
+      status: hasPerformerData,
+    },
+    {
+      label: 'Reason procedure performed',
+      testId: 'hasReasonCode',
+      data: reasonCode && <Annotation fhirData={reasonCode} />,
+      status: hasReasonCode,
+    },
+    {
+      label: 'Location',
+      testId: 'location',
+      data: locationReference && <Reference fhirData={locationReference} />,
+      status: locationReference,
+    },
+    {
+      label: 'Additional information about the procedure',
+      testId: 'hasNote',
+      data: note && <Annotation fhirData={note} />,
+      status: hasNote,
+    },
+    {
+      label: 'The result of procedure',
+      testId: '',
+      data: outcome && <CodeableConcept fhirData={outcome} />,
+      status: isNotEmptyArray(outcome),
+    },
+  ];
+
   return (
     <Root name="Procedure">
       <Accordion
         headerContent={
           <Header
             resourceName="Procedure"
-            icon={<HeaderIcon />}
+            icon={<HeaderIcon headerIcon={headerIcon} />}
             badge={status && <Badge data-testid="status">{status}</Badge>}
             titleSegment={
               <>
@@ -76,57 +128,7 @@ const Procedure = props => {
             }
           />
         }
-        bodyContent={
-          <Body>
-            {hasCoding && (
-              <Value label="Identification" data-testid="hasCoding">
-                {coding.map((coding, i) => (
-                  <Coding key={`item-${i}`} fhirData={coding} />
-                ))}
-              </Value>
-            )}
-            {category && (
-              <Value label="Category" data-testid="category">
-                <Coding fhirData={category} />
-              </Value>
-            )}
-            {hasPerformerData && (
-              <Value label="Performed by">
-                {performer.map((item, i) => (
-                  <div key={`item-${i}`}>
-                    {_get(item, 'actor.display', <MissingValue />)}
-                  </div>
-                ))}
-              </Value>
-            )}
-            {hasReasonCode && (
-              <Value
-                label="Reason procedure performed"
-                data-testid="hasReasonCode"
-              >
-                <Annotation fhirData={reasonCode} />
-              </Value>
-            )}
-            {locationReference && (
-              <Value label="Location" data-testid="location">
-                <Reference fhirData={locationReference} />
-              </Value>
-            )}
-            {hasNote && (
-              <Value
-                label="Additional information about the procedure"
-                data-testid="hasNote"
-              >
-                <Annotation fhirData={note} />
-              </Value>
-            )}
-            {isNotEmptyArray(outcome) && (
-              <Value label="The result of procedure">
-                <CodeableConcept fhirData={outcome} />
-              </Value>
-            )}
-          </Body>
-        }
+        bodyContent={<Body tableData={tableData} />}
       />
     </Root>
   );

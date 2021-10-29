@@ -40,15 +40,15 @@ export const BadgeSecondary = props => (
 );
 
 export const Body = props => (
-  <div className="fhir-ui__Body ps-2 pe-4">
+  <div className="fhir-ui__Body pe-4">
     {props.tableData && (
       <table className="table table-borderless mb-0">
         <tbody>
-          {props.tableData.map(value => {
+          {props.tableData.map((value, index) => {
             return (
               value.status && (
-                <tr>
-                  <td className="value__label py-1">
+                <tr key={`body-table-row-key-${index}`}>
+                  <td className="value__label py-1 ps-0">
                     <Label>{value.label}</Label>
                   </td>
                   <td className="py-1">

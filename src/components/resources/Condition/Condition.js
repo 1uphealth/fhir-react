@@ -1,4 +1,4 @@
-import { Badge, Body, Header, Root, Title, Value } from '../../ui';
+import { Badge, Body, Header, Root, Title } from '../../ui';
 
 import Accordion from '../../containers/Accordion';
 import CodeableConcept from '../../datatypes/CodeableConcept';
@@ -107,26 +107,26 @@ function Condition(props) {
     {
       label: 'Onset Date',
       testId: 'onsetDate',
-      data: <Date fhirData={onsetDateTime} />,
+      data: onsetDateTime && <Date fhirData={onsetDateTime} />,
       status: onsetDateTime,
     },
     {
       label: 'Date recorded',
       testId: 'dateRecorded',
-      data: <Date fhirData={dateRecorded} />,
+      data: dateRecorded && <Date fhirData={dateRecorded} />,
       status: dateRecorded,
     },
     {
       label: 'Asserted by',
       testId: 'asserter',
-      data: <Reference fhirData={asserter} />,
-      status: asserter,
+      data: asserter && <Reference fhirData={asserter} />,
+      status: hasAsserter,
     },
     {
       label: 'Anatomical locations',
       testId: 'bodySite',
-      data: <CodeableConcept fhirData={bodySite} />,
-      status: bodySite,
+      data: bodySite && <CodeableConcept fhirData={bodySite} />,
+      status: hasBodySite,
     },
   ];
 

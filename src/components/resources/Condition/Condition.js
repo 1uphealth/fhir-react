@@ -87,7 +87,7 @@ const resourceDTO = (fhirVersion, fhirResource) => {
   }
 };
 function Condition(props) {
-  const { fhirResource, fhirVersion } = props;
+  const { fhirResource, fhirVersion, fhirIcons } = props;
 
   const {
     codeText,
@@ -100,6 +100,8 @@ function Condition(props) {
     clinicalStatus,
     dateRecorded,
   } = resourceDTO(fhirVersion, fhirResource);
+
+  const headerIcon = fhirIcons[_get(fhirResource, 'resourceType')];
 
   return (
     <Root name="condition">

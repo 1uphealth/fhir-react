@@ -6,10 +6,13 @@ import r4Example3 from '../../../fixtures/r4/resources/procedure/example3.json';
 import { render } from '@testing-library/react';
 import stu3Example1 from '../../../fixtures/stu3/resources/procedure/example1.json';
 
+import fhirIcons from '../../../fixtures/example-icons';
+
 describe('Procedure should render component correctly', () => {
   it('should render component correctly with DSTU2 source data', () => {
     const defaultProps = {
       fhirResource: dstu2Example1,
+      fhirIcons: fhirIcons,
     };
     const { getByTestId } = render(<Procedure {...defaultProps} />);
 
@@ -20,6 +23,7 @@ describe('Procedure should render component correctly', () => {
   it('should render component correctly with STU3 source data', () => {
     const defaultProps = {
       fhirResource: stu3Example1,
+      fhirIcons: fhirIcons,
     };
     const { getByTestId } = render(<Procedure {...defaultProps} />);
 
@@ -32,6 +36,7 @@ describe('Procedure should render component correctly', () => {
   it('should render component that contain extra fields based of STU3 source data', () => {
     const defaultProps = {
       fhirResource: stu3Example1,
+      fhirIcons: fhirIcons,
     };
     const { getByTestId } = render(<Procedure {...defaultProps} />);
 
@@ -46,6 +51,7 @@ describe('Procedure should render component correctly', () => {
   it('should render component correctly with R4 source data - example 1', () => {
     const defaultProps = {
       fhirResource: r4Example2,
+      fhirIcons: fhirIcons,
     };
     const { getByTestId, queryByTestId } = render(
       <Procedure {...defaultProps} />,
@@ -73,6 +79,7 @@ describe('Procedure should render component correctly', () => {
   it('should render component correctly with STU3 source data - example 2', () => {
     const defaultProps = {
       fhirResource: r4Example3,
+      fhirIcons: fhirIcons,
     };
     const { getByTestId, queryByTestId } = render(
       <Procedure {...defaultProps} />,

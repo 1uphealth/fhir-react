@@ -102,8 +102,11 @@ const Procedure = props => {
         headerContent={
           <Header
             resourceName="Procedure"
-            upperRowContentLeftSide={
+            icon={<HeaderIcon headerIcon={headerIcon} />}
+            badge={status && <Badge data-testid="status">{status}</Badge>}
+            titleSegment={
               <>
+                {display && <Title>{display}</Title>}
                 {hasPerformedDateTime && <Date fhirData={performedDateTime} />}
                 {hasPerformedPeriod && (
                   <div>
@@ -121,16 +124,6 @@ const Procedure = props => {
                     )}
                   </div>
                 )}
-              </>
-            }
-            upperRowContentRightSide={
-              status && <Badge data-testid="status">{status}</Badge>
-            }
-            lowerRowContent={
-              <>
-                <HeaderIcon headerIcon={headerIcon} />
-                <div className="ps-2 pe-2" />
-                {display && <Title>{display}</Title>}
               </>
             }
           />

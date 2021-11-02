@@ -8,17 +8,10 @@ export const Header = props => (
     props.children ? (
       props.children
     ) : (
-      <div className="w-100 p-4">
-        <div className="d-flex justify-content-between pb-2">
-          {props.upperRowContentLeftSide || <div />}
-          {props.upperRowContentRightSide || <div />}
-        </div>
-        <div className="d-flex justify-content-between">
-          <div className="d-flex justify-content-between">
-            {props.lowerRowContent}
-          </div>
-          <div className="accordion-arrow mt-2 me-2" />
-        </div>
+      <div className="d-flex w-100 justify-content-between align-items-start">
+        <div className="me-3">{props.icon}</div>
+        <div className="flex-grow-1 mt-n1">{props.titleSegment}</div>
+        <div className="me-3 pt-1">{props.badge}</div>
       </div>
     )}
   </>
@@ -32,7 +25,7 @@ export const Title = props => (
 
 export const Badge = props => (
   <small
-    className={`fhir-ui__Badge px-2 py-1 mb-0 alert ${props.bootstrapAlertType ||
+    className={`fhir-ui__Badge px-2 py-1 alert ${props.bootstrapAlertType ||
       'alert-secondary'}`}
     data-testid={props['data-testid']}
   >

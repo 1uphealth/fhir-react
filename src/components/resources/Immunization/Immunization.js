@@ -229,17 +229,17 @@ const Immunization = props => {
         headerContent={
           <Header
             resourceName="Immunization"
-            upperRowContentLeftSide={
-              providedDate && <Date fhirData={providedDate} />
-            }
-            upperRowContentRightSide={
-              status && <Badge data-testid="status">{status}</Badge>
-            }
-            lowerRowContent={
-              <>
+            icon={
+              <div className="pt-1 px-sm-1">
                 <HeaderIcon headerIcon={headerIcon} />
-                <div className="ps-2 pe-2" />
+              </div>
+            }
+            badgeStatus={status}
+            badge={<Badge data-testid="status">{status}</Badge>}
+            titleSegment={
+              <>
                 <Title data-testid="title">{title}</Title>
+                {providedDate && <Date fhirData={providedDate} />}
               </>
             }
           />

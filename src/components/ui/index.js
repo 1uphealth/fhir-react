@@ -66,9 +66,9 @@ export const Body = props => (
 );
 
 export const Value = props => (
-  <div>
+  <div className="fhir-ui__Value">
     <Label>{props.label}</Label>
-    <Data data-testid={props['data-testid']}>{props.children}</Data>
+    <Data data-testid={props['data-testid']}>{props.children}</Data>r-react-next
   </div>
 );
 

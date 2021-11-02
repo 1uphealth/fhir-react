@@ -1,15 +1,14 @@
-import React from 'react';
-import { render } from '@testing-library/react';
-
 import ExplanationOfBenefit from './ExplanationOfBenefit';
-import { nbspRegex } from '../../../testUtils';
-import fhirVersions from '../fhirResourceVersions';
+import React from 'react';
 import dstu2Example1 from '../../../fixtures/dstu2/resources/explanationOfBenefit/example1.json';
+import example1R4 from '../../../fixtures/r4/resources/explanationOfBenefit/personPrimaryCoverage.json';
 import example1Stu3 from '../../../fixtures/stu3/resources/explanationOfBenefit/example1.json';
 import example2Stu3 from '../../../fixtures/stu3/resources/explanationOfBenefit/example2.json';
-import example1R4 from '../../../fixtures/r4/resources/explanationOfBenefit/personPrimaryCoverage.json';
 import exampleC4BB from '../../../fixtures/r4/resources/explanationOfBenefit/c4bbExample.json';
 import exampleC4BBExtendedDiagnosis from '../../../fixtures/r4/resources/explanationOfBenefit/c4bbExtendedDiagnosis.json';
+import fhirVersions from '../fhirResourceVersions';
+import { nbspRegex } from '../../../testUtils';
+import { render } from '@testing-library/react';
 
 describe('should render ExplanationOfBenefit component properly', () => {
   it('should render with DSTU2 source data', () => {
@@ -43,10 +42,10 @@ describe('should render ExplanationOfBenefit component properly', () => {
     expect(getByTestId('created').textContent).toContain('2014-08-16');
     expect(
       getByTestId('totalCost').textContent.replace(nbspRegex, ' '),
-    ).toEqual('135.57 USD');
+    ).toEqual('$135.57');
     expect(
       getByTestId('totalBenefit').textContent.replace(nbspRegex, ' '),
-    ).toContain('96 USD');
+    ).toContain('$96.00');
     expect(getByTestId('hasServices').textContent).toContain('(1200)');
   });
 

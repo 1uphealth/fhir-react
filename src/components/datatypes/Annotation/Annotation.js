@@ -7,13 +7,13 @@ const Annotation = props => {
     return null;
   }
   return (
-    <div className="fhir-datatype__Annotation">
+    <ul className="fhir-datatype__Annotation">
       {fhirData.map((item, i) => (
         <li className="fhir-datatype__Annotation__item" key={`item-${i}`}>
           {item.text}
         </li>
       ))}
-    </div>
+    </ul>
   );
 };
 

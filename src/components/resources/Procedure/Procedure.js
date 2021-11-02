@@ -54,7 +54,7 @@ const Procedure = props => {
             resourceName="Procedure"
             icon={
               <div className={`${display ? 'pt-1 px-1' : ''}`}>
-                <HeaderIcon />
+                <HeaderIcon headerIcon={headerIcon}></HeaderIcon>
               </div>
             }
             badgeStatus={status}

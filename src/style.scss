@@ -17,10 +17,22 @@ $secondary: #8f939a;
 
 $light: #dedddd;
 
+$enable-negative-margins: true;
+
 .header-icon__placeholder {
+  // TODO constrain custom images size
   width: 24px;
   height: 24px;
   background-color: #a3a3a3;
+}
+
+.header-icon__practitioner-avatar {
+  width: 40px;
+  height: 40px;
+}
+
+.value__label {
+  width: 20%;
 }
 
 @import '~bootstrap/scss/bootstrap.scss';

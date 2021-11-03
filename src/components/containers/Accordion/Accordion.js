@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Accordion = props => {
-  const { headerData, bodyData } = props;
+  const { headerContent, bodyContent } = props;
   return (
     <div className="accordion fhir-container__Accordion">
       <div className="accordion-body fhir-container__Accordion__body">
@@ -19,7 +19,7 @@ const Accordion = props => {
               aria-expanded="false"
             >
               <div className="d-flex w-100 justify-content-start fhir-container__Accordion__header__text">
-                {headerData}
+                {headerContent}
               </div>
             </button>
           </div>
@@ -28,7 +28,7 @@ const Accordion = props => {
             id="collapseTarget"
           >
             <div className="accordion-body pe-4 fhir-container__Accordion__data__text">
-              {bodyData}
+              {bodyContent}
             </div>
           </div>
         </div>

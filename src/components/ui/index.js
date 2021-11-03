@@ -3,9 +3,18 @@ import './index.css';
 import React from 'react';
 
 export const Header = props => (
-  <div className="fhir-ui__Header d-flex w-100 align-items-start justify-content-between align-self-center">
-    {props.children}
-  </div>
+  <>
+    {// This condition was left due to fact, that to much changes in Header will generate many errors in tests. This condition will be removed after all changes have been made.
+    props.children ? (
+      props.children
+    ) : (
+      <div className="d-flex w-100 justify-content-between align-items-start">
+        <div className="me-3">{props.icon}</div>
+        <div className="flex-grow-1 mt-n1">{props.titleSegment}</div>
+        <div className="me-3 pt-1">{props.badge}</div>
+      </div>
+    )}
+  </>
 );
 
 export const Title = props => (
@@ -16,7 +25,8 @@ export const Title = props => (
 
 export const Badge = props => (
   <small
-    className="fhir-ui__Badge px-2 py-1 bg-light rounded-1"
+    className={`fhir-ui__Badge px-2 py-1 alert ${props.bootstrapAlertType ||
+      'alert-secondary'}`}
     data-testid={props['data-testid']}
   >
     {props.children}
@@ -30,33 +40,47 @@ export const BadgeSecondary = props => (
 );
 
 export const Body = props => (
-  <div className="fhir-ui__Body container-fluid pe-5">{props.children}</div>
+  <div className="fhir-ui__Body pe-4">
+    {props.tableData && (
+      <table className="table table-borderless mb-0">
+        <tbody>
+          {props.tableData.map((value, index) => {
+            return (
+              value.status && (
+                <tr key={`body-table-row-key-${index}`}>
+                  <td className="value__label py-1 ps-0">
+                    <Label>{value.label}</Label>
+                  </td>
+                  <td className="py-1">
+                    <Data data-testid={value.testId}>{value.data}</Data>
+                  </td>
+                </tr>
+              )
+            );
+          })}
+        </tbody>
+      </table>
+    )}
+    <div>{props.children}</div>
+  </div>
 );
 
 export const Value = props => (
-  <div className="fhir-ui__Value row py-1 justify-content-start">
-    <Label secondary={props.secondary}>{props.label}</Label>
-    <Data secondary={props.secondary} data-testid={props['data-testid']}>
-      {props.children}
-    </Data>
+  <div className="fhir-ui__Value">
+    <Label>{props.label}</Label>
+    <Data data-testid={props['data-testid']}>{props.children}</Data>r-react-next
   </div>
 );
 
 export const Label = props => (
-  <label
-    className={`fhir-ui__Label text-secondary fw-light lh-base ps-0 ${
-      props.secondary ? 'col-6' : 'col-5 col-sm-3 col-xl-2'
-    } align-self-start`}
-  >
+  <div className="fhir-ui__Label text-secondary fw-light lh-base">
     {props.children}
-  </label>
+  </div>
 );
 
 export const Data = props => (
   <div
-    className={`fhir-ui__Data text-break fw-normal lh-base pe-0 col ${
-      props.secondary ? 'text-end align-self-center' : 'align-self-start'
-    }`}
+    className="fhir-ui__Data text-break fw-normal lh-base"
     data-testid={props['data-testid']}
   >
     {props.children}

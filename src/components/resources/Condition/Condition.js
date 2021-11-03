@@ -136,18 +136,21 @@ function Condition(props) {
         headerContent={
           <Header
             resourceName="Condition"
-            icon={<HeaderIcon headerIcon={headerIcon} />}
-            badge={
+            upperRowContentLeftSide={
+              severityText && (
+                <div data-testid="severity">{severityText} severity</div>
+              )
+            }
+            upperRowContentRightSide={
               clinicalStatus && (
                 <Badge data-testid="clinicalStatus">{clinicalStatus}</Badge>
               )
             }
-            titleSegment={
+            lowerRowContent={
               <>
+                <HeaderIcon headerIcon={headerIcon} />
+                <div className="ps-2 pe-2" />
                 <Title>{codeText || ''}</Title>
-                {severityText && (
-                  <div data-testid="severity">{severityText} severity</div>
-                )}
               </>
             }
           />

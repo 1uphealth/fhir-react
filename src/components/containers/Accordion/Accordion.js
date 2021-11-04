@@ -6,13 +6,13 @@ const Accordion = props => {
   return (
     <div onClick={onClick} className="accordion fhir-container__Accordion">
       <div className="accordion-body fhir-container__Accordion__body">
-        <div className="accordion-item fhir-container__Accordion__item">
+        <div className="accordion-item border-0 rounded-2 shadow-sm  fhir-container__Accordion__item">
           <div
-            className="accordion-header border-bottom border-1 fhir-container__Accordion__header"
+            className="accordion-header fhir-container__Accordion__header"
             id="flush-headingOne"
           >
             <button
-              className="w-100 p-0 border-0 rounded-top collapsed text-dark bg-white shadow-none fhir-container__Accordion__header"
+              className="w-100 p-0 border-0 rounded-2 collapsed text-dark bg-white shadow-none fhir-container__Accordion__header"
               type="button"
               data-bs-target="#collapseTarget"
               data-bs-toggle="collapse"

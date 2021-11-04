@@ -1,9 +1,10 @@
 import React from 'react';
 
 const Accordion = props => {
-  const { headerContent, bodyContent } = props;
+  const { headerContent, bodyContent, onClick } = props;
+
   return (
-    <div className="accordion fhir-container__Accordion">
+    <div onClick={onClick} className="accordion fhir-container__Accordion">
       <div className="accordion-body fhir-container__Accordion__body">
         <div className="accordion-item fhir-container__Accordion__item">
           <div
@@ -11,7 +12,7 @@ const Accordion = props => {
             id="flush-headingOne"
           >
             <button
-              className="w-100 border-0 rounded-top collapsed text-dark bg-white shadow-none fhir-container__Accordion__header"
+              className="w-100 p-0 border-0 rounded-top collapsed text-dark bg-white shadow-none fhir-container__Accordion__header"
               type="button"
               data-bs-target="#collapseTarget"
               data-bs-toggle="collapse"

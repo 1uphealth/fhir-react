@@ -126,13 +126,8 @@ const Procedure = props => {
             upperRowContentRightSide={
               status && <Badge data-testid="status">{status}</Badge>
             }
-            lowerRowContent={
-              <>
-                <HeaderIcon headerIcon={headerIcon} />
-                <div className="ps-2 pe-2" />
-                {display && <Title>{display}</Title>}
-              </>
-            }
+            icon={<HeaderIcon headerIcon={headerIcon} />}
+            title={display && <Title>{display}</Title>}
           />
         }
         bodyContent={<Body tableData={tableData} />}

@@ -1,31 +1,46 @@
 import './index.css';
 
-import React from 'react';
+import React, { useState } from 'react';
 
-export const Header = props => (
-  <>
-    {// This condition was left due to fact, that to much changes in Header will generate many errors in tests. This condition will be removed after all changes have been made.
-    props.children ? (
-      props.children
-    ) : (
-      <div className="w-100 p-4">
-        <div className="d-flex justify-content-between pb-2">
-          {props.upperRowContentLeftSide || <div />}
-          {props.upperRowContentRightSide || <div />}
-        </div>
-        <div className="d-flex justify-content-between">
-          <div className="d-flex justify-content-between">
-            {props.lowerRowContent}
+export const Header = props => {
+  const [rotate, setRotate] = useState(false);
+
+  const handleAccordionClick = () => {
+    if (rotate) {
+      setRotate(false);
+    } else {
+      setRotate(true);
+    }
+  };
+
+  return (
+    <>
+      {// This condition was left due to fact, that to much changes in Header will generate many errors in tests. This condition will be removed after all changes have been made.
+      props.children ? (
+        props.children
+      ) : (
+        <div className="w-100 p-4 grid" onClick={handleAccordionClick}>
+          <div className="item-upper-row-left text-start pb-2">
+            {props.upperRowContentLeftSide}
           </div>
-          <div className="accordion-arrow mt-2 me-2" />
+          <div className="item-upper-row-right text-end pb-2">
+            {props.upperRowContentRightSide}
+          </div>
+          <div className="item-icon m-auto">{props.icon}</div>
+          <div className="item-title text-start ps-2">{props.title}</div>
+          <div
+            className={`item-arrow accordion-arrow mt-3${
+              rotate ? ' header-rotate' : ''
+            }`}
+          />
         </div>
-      </div>
-    )}
-  </>
-);
+      )}
+    </>
+  );
+};
 
 export const Title = props => (
-  <h4 className="fhir-ui__Title fw-bold fs-4 lh-lg mb-1" data-testid="title">
+  <h4 className="fhir-ui__Title fw-bold fs-4 lh-lg mb-0" data-testid="title">
     {props.children}
   </h4>
 );

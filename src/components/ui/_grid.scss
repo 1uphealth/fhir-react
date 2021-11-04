@@ -1,0 +1,26 @@
+.item-upper-row-left {
+  grid-area: upper-row-left;
+}
+
+.item-upper-row-right {
+  grid-area: upper-row-right;
+}
+
+.item-icon {
+  grid-area: icon;
+}
+.item-title {
+  grid-area: title;
+}
+.item-arrow {
+  grid-area: arrow;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 30px auto auto auto 20px;
+  grid-template-rows: auto;
+  grid-template-areas:
+    'upper-row-left upper-row-left . upper-row-right upper-row-right'
+    'icon title . . arrow';
+}

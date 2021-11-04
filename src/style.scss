@@ -1,4 +1,5 @@
 @use 'components/ui/grid';
+@use 'components/ui/header';
 @import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600&display=swap');
 
 $font-family-base: 'Titillium Web', system-ui;
@@ -37,6 +38,7 @@ $enable-negative-margins: true;
 
 .accordion-arrow {
   background-image: url('./assets/containers/Accordion/arrow.svg');
+  transition: transform 0.5s;
   width: 17px;
   height: 10px;
 }

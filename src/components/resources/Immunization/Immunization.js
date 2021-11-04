@@ -235,13 +235,8 @@ const Immunization = props => {
             upperRowContentRightSide={
               status && <Badge data-testid="status">{status}</Badge>
             }
-            lowerRowContent={
-              <>
-                <HeaderIcon headerIcon={headerIcon} />
-                <div className="ps-2 pe-2" />
-                <Title data-testid="title">{title}</Title>
-              </>
-            }
+            icon={<HeaderIcon headerIcon={headerIcon} />}
+            title={<Title data-testid="title">{title}</Title>}
           />
         }
         bodyContent={<Body tableData={tableData} />}

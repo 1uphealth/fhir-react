@@ -158,20 +158,19 @@ const Practitioner = props => {
             upperRowContentRightSide={
               status && <Badge data-testid="status">{status}</Badge>
             }
-            lowerRowContent={
-              <>
-                <img
-                  className="header-icon__practitioner-avatar rounded-1"
-                  src={`http://www.gravatar.com/avatar/${md5(
-                    id,
-                  )}?s=30&r=any&default=identicon&forcedefault=1`}
-                  alt=""
-                />
-                <div className="ps-2 pe-2" />
-                <Title>
-                  <HumanName fhirData={name} isTitle />
-                </Title>
-              </>
+            icon={
+              <img
+                className="header-icon__practitioner-avatar rounded-1"
+                src={`http://www.gravatar.com/avatar/${md5(
+                  id,
+                )}?s=30&r=any&default=identicon&forcedefault=1`}
+                alt=""
+              />
+            }
+            title={
+              <Title>
+                <HumanName fhirData={name} isTitle />
+              </Title>
             }
           />
         }

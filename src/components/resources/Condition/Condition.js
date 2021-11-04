@@ -146,13 +146,8 @@ function Condition(props) {
                 <Badge data-testid="clinicalStatus">{clinicalStatus}</Badge>
               )
             }
-            lowerRowContent={
-              <>
-                <HeaderIcon headerIcon={headerIcon} />
-                <div className="ps-2 pe-2" />
-                <Title>{codeText || ''}</Title>
-              </>
-            }
+            icon={<HeaderIcon headerIcon={headerIcon} />}
+            title={<Title>{codeText || ''}</Title>}
           />
         }
         bodyContent={<Body tableData={tableData} />}

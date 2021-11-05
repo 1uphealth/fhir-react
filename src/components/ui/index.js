@@ -110,9 +110,7 @@ export const Data = props => (
 );
 
 export const Root = props => (
-  <div className={`fhir-resource fhir-resource__${props.name}`}>
-    {props.children}
-  </div>
+  <div className={`fhir-resource__${props.name}`}>{props.children}</div>
 );
 
 export const Table = props => (

@@ -1,3 +1,16 @@
 .header-rotate {
+  background-image: url('./assets/containers/Accordion/chevron_up_hover.svg') !important;
   transform: rotate(-180deg);
+}
+
+.accordion-arrow {
+  background-image: url('./assets/containers/Accordion/chevron_down_hover.svg');
+  transition: transform 0.5s;
+  width: 24px;
+  height: 24px;
+}
+
+.accordion-arrow:hover {
+  background-color: #f4f8fd;
+  border-radius: 8px;
 }

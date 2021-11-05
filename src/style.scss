@@ -38,11 +38,4 @@ $enable-negative-margins: true;
   width: 20%;
 }
 
-.accordion-arrow {
-  background-image: url('./assets/containers/Accordion/arrow.svg');
-  transition: transform 0.5s;
-  width: 17px;
-  height: 10px;
-}
-
 @import '~bootstrap/scss/bootstrap.scss';

@@ -154,10 +154,8 @@ const Practitioner = props => {
       <Accordion
         headerContent={
           <Header
-            upperRowContentLeftSide={<p className="mb-0">{`(${use})`}</p>}
-            upperRowContentRightSide={
-              status && <Badge data-testid="status">{status}</Badge>
-            }
+            additionalContent={<p className="mb-0">{`(${use})`}</p>}
+            badge={status && <Badge data-testid="status">{status}</Badge>}
             icon={
               <img
                 className="header-icon__practitioner-avatar rounded-1"

@@ -1,9 +1,9 @@
-.item-upper-row-left {
-  grid-area: upper-row-left;
+.item-additional {
+  grid-area: additional;
 }
 
-.item-upper-row-right {
-  grid-area: upper-row-right;
+.item-badge {
+  grid-area: badge;
 }
 
 .item-icon {
@@ -21,6 +21,6 @@
   grid-template-columns: 30px auto auto auto 20px;
   grid-template-rows: auto;
   grid-template-areas:
-    'upper-row-left upper-row-left . upper-row-right upper-row-right'
-    'icon title . . arrow';
+    'icon title . badge arrow'
+    'additional additional additional . .';
 }

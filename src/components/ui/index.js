@@ -20,19 +20,21 @@ export const Header = props => {
         props.children
       ) : (
         <div className="w-100 p-4 grid" onClick={handleAccordionClick}>
-          <div className="item-upper-row-left text-start pb-2">
-            {props.upperRowContentLeftSide}
-          </div>
-          <div className="item-upper-row-right text-end pb-2">
-            {props.upperRowContentRightSide}
-          </div>
           <div className="item-icon m-auto">{props.icon}</div>
           <div className="item-title text-start ps-2">{props.title}</div>
+          <div className="item-badge text-end me-1">{props.badge}</div>
           <div
-            className={`item-arrow accordion-arrow mt-3${
+            className={`item-arrow accordion-arrow ms-2${
               rotate ? ' header-rotate' : ''
             }`}
           />
+          <div
+            className={`item-additional text-start${
+              props.additionalContent ? ' pt-2' : ''
+            }`}
+          >
+            {props.additionalContent}
+          </div>
         </div>
       )}
     </>

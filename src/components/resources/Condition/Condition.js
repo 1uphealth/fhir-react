@@ -107,13 +107,13 @@ function Condition(props) {
     {
       label: 'Onset Date',
       testId: 'onsetDate',
-      data: onsetDateTime && <Date fhirData={onsetDateTime} />,
+      data: onsetDateTime && <Date isBlack fhirData={onsetDateTime} />,
       status: onsetDateTime,
     },
     {
       label: 'Date recorded',
       testId: 'dateRecorded',
-      data: dateRecorded && <Date fhirData={dateRecorded} />,
+      data: dateRecorded && <Date isBlack fhirData={dateRecorded} />,
       status: dateRecorded,
     },
     {
@@ -137,14 +137,48 @@ function Condition(props) {
           <Header
             resourceName="Condition"
             additionalContent={
-              severityText && (
-                <div data-testid="severity">{severityText} severity</div>
+              (onsetDateTime || dateRecorded) && (
+                <>
+                  <div>
+                    {onsetDateTime && (
+                      <>
+                        <span className="text-secondary me-2">Onset Date</span>
+                        <Date isBlack fhirData={onsetDateTime} />
+                      </>
+                    )}
+                  </div>
+                  <div className="ms-4">
+                    {dateRecorded && (
+                      <>
+                        <span className="text-secondary me-2 font-source">
+                          Date recorded
+                        </span>
+                        <Date isBlack fhirData={dateRecorded} />
+                      </>
+                    )}
+                  </div>
+                </>
               )
             }
             badge={
-              clinicalStatus && (
-                <Badge data-testid="clinicalStatus">{clinicalStatus}</Badge>
-              )
+              <>
+                {clinicalStatus && (
+                  <Badge
+                    bootstrapAlertType="alert-success"
+                    data-testid="clinicalStatus"
+                  >
+                    {clinicalStatus}
+                  </Badge>
+                )}
+                {severityText && (
+                  <>
+                    <div className="ps-2" />
+                    <Badge data-testid="severity">
+                      {severityText} severity
+                    </Badge>
+                  </>
+                )}
+              </>
             }
             icon={<HeaderIcon headerIcon={headerIcon} />}
             title={<Title>{codeText || ''}</Title>}

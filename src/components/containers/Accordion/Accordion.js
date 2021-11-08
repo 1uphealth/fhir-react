@@ -6,13 +6,13 @@ const Accordion = props => {
   return (
     <div onClick={onClick} className="accordion fhir-container__Accordion">
       <div className="accordion-body fhir-container__Accordion__body">
-        <div className="accordion-item border-0 rounded-3 shadow-sm  fhir-container__Accordion__item">
+        <div className="accordion-item border-1 shadow-sm  fhir-container__Accordion__item">
           <div
             className="accordion-header fhir-container__Accordion__header"
             id="flush-headingOne"
           >
             <button
-              className="w-100 p-0 border-0 rounded-3 collapsed text-dark bg-white shadow-none fhir-container__Accordion__header"
+              className="w-100 p-0 border-0 rounded-1 collapsed text-dark bg-white shadow-none fhir-container__Accordion__header"
               type="button"
               data-bs-target="#collapseTarget"
               data-bs-toggle="collapse"
@@ -28,7 +28,7 @@ const Accordion = props => {
             className="accordion-collapse collapse fhir-container__Accordion__data"
             id="collapseTarget"
           >
-            <div className="accordion-body pe-4 fhir-container__Accordion__data__text">
+            <div className="accordion-body ps-4 border-top pe-4 fhir-container__Accordion__data__text">
               {bodyContent}
             </div>
           </div>

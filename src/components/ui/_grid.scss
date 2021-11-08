@@ -18,7 +18,7 @@
 
 .grid {
   display: grid;
-  grid-template-columns: 24px auto auto auto 20px;
+  grid-template-columns: 24px auto auto auto 30px;
   grid-template-rows: auto;
   grid-template-areas:
     'icon title . badge arrow'

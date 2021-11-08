@@ -20,16 +20,18 @@ export const Header = props => {
         props.children
       ) : (
         <div className="w-100 p-4 grid" onClick={handleAccordionClick}>
-          <div className="item-icon m-auto">{props.icon}</div>
+          <div className="item-icon m-half">{props.icon}</div>
           <div className="item-title text-start ps-2">{props.title}</div>
-          <div className="item-badge text-end me-1">{props.badge}</div>
+          <div className="item-badge d-flex justify-content-end">
+            {props.badge}
+          </div>
           <div
-            className={`item-arrow accordion-arrow ms-2${
+            className={`item-arrow accordion-arrow mt-1 ms-2${
               rotate ? ' header-rotate' : ''
             }`}
           />
           <div
-            className={`item-additional text-start${
+            className={`item-additional justify-content-start d-flex${
               props.additionalContent ? ' pt-2' : ''
             }`}
           >
@@ -49,7 +51,7 @@ export const Title = props => (
 
 export const Badge = props => (
   <small
-    className={`fhir-ui__Badge px-2 py-1 mb-0 alert ${props.bootstrapAlertType ||
+    className={`fhir-ui__Badge border-0 px-2 py-1 mb-0 alert ${props.bootstrapAlertType ||
       'alert-secondary'}`}
     data-testid={props['data-testid']}
   >
@@ -97,14 +99,14 @@ export const Value = props => (
 );
 
 export const Label = props => (
-  <div className="fhir-ui__Label text-secondary fw-light lh-base">
+  <div className="fhir-ui__Label font-source fw-normal text-secondary lh-base">
     {props.children}
   </div>
 );
 
 export const Data = props => (
   <div
-    className="fhir-ui__Data text-break fw-normal lh-base"
+    className="fhir-ui__Data font-source fw-normal lh-base text-break"
     data-testid={props['data-testid']}
   >
     {props.children}

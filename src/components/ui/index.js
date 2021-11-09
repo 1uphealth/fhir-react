@@ -2,16 +2,27 @@ import './index.css';
 
 import React, { useState } from 'react';
 
+const headerChevron = (
+  <svg
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M20 8L12.3769 15.8393C12.277 15.9422 12.1414 16 12 16C11.8586 16 11.723 15.9422 11.6231 15.8393L4 8"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
 export const Header = props => {
   const [rotate, setRotate] = useState(false);
 
-  const handleAccordionClick = () => {
-    if (rotate) {
-      setRotate(false);
-    } else {
-      setRotate(true);
-    }
-  };
+  const handleAccordionClick = () => setRotate(!rotate);
 
   return (
     <>
@@ -26,10 +37,12 @@ export const Header = props => {
             {props.badge}
           </div>
           <div
-            className={`item-arrow accordion-arrow mt-1 ms-2${
-              rotate ? ' header-rotate' : ''
+            className={`item-arrow accordion-arrow mt-1 ms-2 ${
+              rotate ? 'header-rotate' : 'accordion-arrow-color'
             }`}
-          />
+          >
+            {headerChevron}
+          </div>
           <div
             className={`item-additional justify-content-start d-flex${
               props.additionalContent ? ' pt-2' : ''

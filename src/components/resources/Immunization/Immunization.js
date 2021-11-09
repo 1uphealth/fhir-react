@@ -230,7 +230,7 @@ const Immunization = props => {
           <Header
             resourceName="Immunization"
             additionalContent={providedDate && <Date fhirData={providedDate} />}
-            badge={status && <Badge data-testid="status">{status}</Badge>}
+            badges={status && <Badge data-testid="status">{status}</Badge>}
             icon={<HeaderIcon headerIcon={headerIcon} />}
             title={<Title data-testid="title">{title}</Title>}
           />

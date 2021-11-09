@@ -1,34 +1,34 @@
 import React from 'react';
 
 const Accordion = props => {
-  const { headerContent, bodyContent, onClick } = props;
+  const { headerContent, bodyContent } = props;
 
   return (
-    <div onClick={onClick} className="accordion fhir-container__Accordion">
-      <div className="accordion-body fhir-container__Accordion__body">
-        <div className="accordion-item border-1 shadow-sm  fhir-container__Accordion__item">
+    <div className="fhir-container__Accordion accordion">
+      <div className="fhir-container__Accordion__body accordion-body">
+        <div className="fhir-container__Accordion__body-data accordion-item border-1 shadow-sm">
           <div
-            className="accordion-header fhir-container__Accordion__header"
+            className="fhir-container__Accordion__header accordion-header"
             id="flush-headingOne"
           >
             <button
-              className="w-100 p-0 border-0 rounded-1 collapsed text-dark bg-white shadow-none fhir-container__Accordion__header"
+              className="fhir-container__Accordion__header-button w-100 p-0 border-0 rounded-1 collapsed text-dark bg-white shadow-none"
               type="button"
               data-bs-target="#collapseTarget"
               data-bs-toggle="collapse"
               aria-controls="collapseTarget"
               aria-expanded="false"
             >
-              <div className="d-flex w-100 justify-content-start fhir-container__Accordion__header__text">
+              <div className="fhir-container__Accordion__header-text d-flex w-100 justify-content-start">
                 {headerContent}
               </div>
             </button>
           </div>
           <div
-            className="accordion-collapse collapse fhir-container__Accordion__data"
+            className="fhir-container__Accordion__data accordion-collapse collapse"
             id="collapseTarget"
           >
-            <div className="accordion-body ps-4 pt-3 pe-4 border-top fhir-container__Accordion__data__text">
+            <div className="fhir-container__Accordion__data-text accordion-body ps-4 pt-3 pe-4 border-top">
               {bodyContent}
             </div>
           </div>

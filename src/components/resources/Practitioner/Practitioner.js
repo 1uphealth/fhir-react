@@ -155,7 +155,7 @@ const Practitioner = props => {
         headerContent={
           <Header
             additionalContent={<p className="mb-0">{`(${use})`}</p>}
-            badge={status && <Badge data-testid="status">{status}</Badge>}
+            badges={status && <Badge data-testid="status">{status}</Badge>}
             icon={
               <img
                 className="header-icon__practitioner-avatar rounded-1"

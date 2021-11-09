@@ -5,29 +5,30 @@ const DatePeriod = props => {
   const {
     periodBeginLabel,
     periodBeginDate,
+    periodBeginTestId,
     periodEndLabel,
     periodEndDate,
+    periodEndTestId,
   } = props;
-  if (!periodBeginDate && !periodEndDate) {
-    return null;
-  }
+
+  const SingleDateSpan = props => (
+    <span className="fhir-datetype__DatePeriod__begin-date text-black-50 me-2 font-source fw-normal lh-lg">
+      {props.label}
+    </span>
+  );
 
   return (
     <div className="d-flex">
       {periodBeginDate && (
         <div>
-          <span className="text-black-50 me-2 font-source fw-normal lh-lg">
-            {periodBeginLabel}
-          </span>
-          <Date isBlack fhirData={periodBeginDate} />
+          <SingleDateSpan label={periodBeginLabel} />
+          <Date testId={periodBeginTestId} isBlack fhirData={periodBeginDate} />
         </div>
       )}
       {periodEndDate && (
         <div className="ms-4">
-          <span className="text-black-50 me-2 font-source fw-normal lh-lg">
-            {periodEndLabel}
-          </span>
-          <Date isBlack fhirData={periodEndDate} />
+          <SingleDateSpan label={periodEndLabel} />
+          <Date testId={periodEndTestId} isBlack fhirData={periodEndDate} />
         </div>
       )}
     </div>

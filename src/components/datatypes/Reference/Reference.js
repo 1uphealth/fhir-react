@@ -12,7 +12,9 @@ const Reference = props => {
       className="fhir-datatype__Reference"
       data-testid={props['data-testid']}
     >
-      {display && <span className="pe-1">{display}</span>}
+      {display && (
+        <span className="fhir-datatype__Reference__title pe-1">{display}</span>
+      )}
       <span className="fhir-datatype__Reference__details">{reference}</span>
     </div>
   );

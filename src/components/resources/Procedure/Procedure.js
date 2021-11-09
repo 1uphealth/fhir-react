@@ -5,6 +5,7 @@ import Annotation from '../../datatypes/Annotation';
 import CodeableConcept from '../../datatypes/CodeableConcept';
 import Coding from '../../datatypes/Coding';
 import Date from '../../datatypes/Date';
+import DatePeriod from '../../datatypes/DatePeriod/DatePeriod';
 import HeaderIcon from '../../datatypes/HeaderIcon';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -106,24 +107,16 @@ const Procedure = props => {
               <>
                 {hasPerformedDateTime && <Date fhirData={performedDateTime} />}
                 {hasPerformedPeriod && (
-                  <div>
-                    {'performed   '}
-                    {performedPeriodStart ? (
-                      <Date fhirData={performedPeriodStart} />
-                    ) : (
-                      <MissingValue />
-                    )}
-                    {'   to   '}
-                    {performedPeriodEnd ? (
-                      <Date fhirData={performedPeriodEnd} />
-                    ) : (
-                      <MissingValue />
-                    )}
-                  </div>
+                  <DatePeriod
+                    periodBeginLabel="performed"
+                    periodBeginDate={performedPeriodStart}
+                    periodEndLabel="to"
+                    periodEndDate={performedPeriodEnd}
+                  />
                 )}
               </>
             }
-            badge={status && <Badge data-testid="status">{status}</Badge>}
+            badges={status && <Badge data-testid="status">{status}</Badge>}
             icon={<HeaderIcon headerIcon={headerIcon} />}
             title={display && <Title>{display}</Title>}
           />

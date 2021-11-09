@@ -1,5 +1,3 @@
-import './index.css';
-
 import React, { useState } from 'react';
 
 export const Header = props => {
@@ -12,15 +10,32 @@ export const Header = props => {
       props.children ? (
         props.children
       ) : (
-        <div className="w-100 p-4" onClick={handleAccordionClick}>
-          <div className="d-flex w-100">
-            <div className="flex-shrink-1 m-half">{props.icon}</div>
-            <div className="flex-fill text-start ps-2">{props.title}</div>
-            <div className="flex-fill d-flex justify-content-end">
-              {props.badge}
+        <div
+          className={`fhir-ui__${props.resourceName}-Header w-100 p-4`}
+          onClick={handleAccordionClick}
+        >
+          <div
+            className={`fhir-ui__${props.resourceName}-Header__title-data d-flex w-100`}
+          >
+            <div
+              className={`fhir-ui__${props.resourceName}-Header__icon flex-shrink-1 m-half`}
+            >
+              {props.icon}
             </div>
             <div
-              className={`flex-shrink-1 accordion-arrow mt-1 ms-2${
+              className={`fhir-ui__${props.resourceName}-Header__title flex-fill text-start ps-2`}
+            >
+              {props.title}
+            </div>
+            <div
+              className={`fhir-ui__${props.resourceName}-Header__badges flex-fill d-flex justify-content-end`}
+            >
+              {props.badges}
+            </div>
+            <div
+              className={`fhir-ui__${
+                props.resourceName
+              }-Header__chevron flex-shrink-1 accordion-arrow mt-1 ms-2${
                 rotate ? ' header-rotate' : ''
               }`}
             >
@@ -28,7 +43,9 @@ export const Header = props => {
             </div>
           </div>
           <div
-            className={`w-100 justify-content-start d-flex${
+            className={`fhir-ui__${
+              props.resourceName
+            }-Header__additional-content w-100 justify-content-start d-flex${
               props.additionalContent ? ' pt-2' : ''
             }`}
           >
@@ -65,16 +82,19 @@ export const BadgeSecondary = props => (
 export const Body = props => (
   <div className="fhir-ui__Body pe-4">
     {props.tableData && (
-      <table className="table table-borderless mb-0">
+      <table className="fhir-ui__Body__table table table-borderless mb-0">
         <tbody>
           {props.tableData.map((value, index) => {
             return (
               value.status && (
-                <tr key={`body-table-row-key-${index}`}>
-                  <td className="value__label py-2 ps-0">
+                <tr
+                  className="fhir-ui__Body__row py-2"
+                  key={`body-table-row-key-${index}`}
+                >
+                  <td className="fhir-ui__Body__label-cell value__label ps-0">
                     <Label>{value.label}</Label>
                   </td>
-                  <td className="py-2">
+                  <td className="fhir-ui__Body__data-cell">
                     <Data data-testid={value.testId}>{value.data}</Data>
                   </td>
                 </tr>

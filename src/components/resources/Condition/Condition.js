@@ -2,7 +2,6 @@ import { Badge, Body, Header, Root, Title } from '../../ui';
 
 import Accordion from '../../containers/Accordion';
 import CodeableConcept from '../../datatypes/CodeableConcept';
-import Date from '../../datatypes/Date';
 import DatePeriod from '../../datatypes/DatePeriod/DatePeriod';
 import HeaderIcon from '../../datatypes/HeaderIcon';
 import PropTypes from 'prop-types';
@@ -106,18 +105,6 @@ function Condition(props) {
   const headerIcon = fhirIcons[_get(fhirResource, 'resourceType')];
   const tableData = [
     {
-      label: 'Onset Date',
-      testId: 'onsetDate',
-      data: onsetDateTime && <Date isBlack fhirData={onsetDateTime} />,
-      status: onsetDateTime,
-    },
-    {
-      label: 'Date recorded',
-      testId: 'dateRecorded',
-      data: dateRecorded && <Date isBlack fhirData={dateRecorded} />,
-      status: dateRecorded,
-    },
-    {
       label: 'Asserted by',
       testId: 'asserter',
       data: asserter && <Reference fhirData={asserter} />,
@@ -141,11 +128,13 @@ function Condition(props) {
               <DatePeriod
                 periodBeginLabel="Onset Date"
                 periodBeginDate={onsetDateTime}
+                periodBeginTestId="onsetDate"
                 periodEndLabel="Date recorded"
                 periodEndDate={dateRecorded}
+                periodEndTestId="dateRecorded"
               />
             }
-            badge={
+            badges={
               <>
                 {clinicalStatus && (
                   <Badge

@@ -2,26 +2,8 @@ import './index.css';
 
 import React, { useState } from 'react';
 
-const headerChevron = (
-  <svg
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      d="M20 8L12.3769 15.8393C12.277 15.9422 12.1414 16 12 16C11.8586 16 11.723 15.9422 11.6231 15.8393L4 8"
-      stroke="currentColor"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
-
 export const Header = props => {
   const [rotate, setRotate] = useState(false);
-
   const handleAccordionClick = () => setRotate(!rotate);
 
   return (
@@ -30,21 +12,23 @@ export const Header = props => {
       props.children ? (
         props.children
       ) : (
-        <div className="w-100 p-4 grid" onClick={handleAccordionClick}>
-          <div className="item-icon m-half">{props.icon}</div>
-          <div className="item-title text-start ps-2">{props.title}</div>
-          <div className="item-badge d-flex justify-content-end">
-            {props.badge}
+        <div className="w-100 p-4" onClick={handleAccordionClick}>
+          <div className="d-flex w-100">
+            <div className="flex-shrink-1 m-half">{props.icon}</div>
+            <div className="flex-fill text-start ps-2">{props.title}</div>
+            <div className="flex-fill d-flex justify-content-end">
+              {props.badge}
+            </div>
+            <div
+              className={`flex-shrink-1 accordion-arrow mt-1 ms-2${
+                rotate ? ' header-rotate' : ''
+              }`}
+            >
+              <Chevron strokeColor={rotate ? '#2a6fd7' : '#6f83a9'} />
+            </div>
           </div>
           <div
-            className={`item-arrow accordion-arrow mt-1 ms-2 ${
-              rotate ? 'header-rotate' : 'accordion-arrow-color'
-            }`}
-          >
-            {headerChevron}
-          </div>
-          <div
-            className={`item-additional justify-content-start d-flex${
+            className={`w-100 justify-content-start d-flex${
               props.additionalContent ? ' pt-2' : ''
             }`}
           >
@@ -87,10 +71,10 @@ export const Body = props => (
             return (
               value.status && (
                 <tr key={`body-table-row-key-${index}`}>
-                  <td className="value__label py-1 ps-0">
+                  <td className="value__label py-2 ps-0">
                     <Label>{value.label}</Label>
                   </td>
-                  <td className="py-1">
+                  <td className="py-2">
                     <Data data-testid={value.testId}>{value.data}</Data>
                   </td>
                 </tr>
@@ -112,14 +96,14 @@ export const Value = props => (
 );
 
 export const Label = props => (
-  <div className="fhir-ui__Label font-source fw-normal text-secondary lh-base">
+  <div className="fhir-ui__Label font-source fw-bold text-secondary lh-lg">
     {props.children}
   </div>
 );
 
 export const Data = props => (
   <div
-    className="fhir-ui__Data font-source fw-normal lh-base text-break"
+    className="fhir-ui__Data font-source fw-normal lh-lg text-break"
     data-testid={props['data-testid']}
   >
     {props.children}
@@ -167,4 +151,21 @@ export const NotEnoughData = props => (
   <div data-testid={props['data-testid']} className="fhir-ui__NotEnoughData">
     No additional data
   </div>
+);
+
+export const Chevron = props => (
+  <svg
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M20 8L12.3769 15.8393C12.277 15.9422 12.1414 16 12 16C11.8586 16 11.723 15.9422 11.6231 15.8393L4 8"
+      stroke={props.strokeColor}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
 );

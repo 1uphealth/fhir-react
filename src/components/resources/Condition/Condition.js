@@ -3,6 +3,7 @@ import { Badge, Body, Header, Root, Title } from '../../ui';
 import Accordion from '../../containers/Accordion';
 import CodeableConcept from '../../datatypes/CodeableConcept';
 import Date from '../../datatypes/Date';
+import DatePeriod from '../../datatypes/DatePeriod/DatePeriod';
 import HeaderIcon from '../../datatypes/HeaderIcon';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -137,28 +138,12 @@ function Condition(props) {
           <Header
             resourceName="Condition"
             additionalContent={
-              (onsetDateTime || dateRecorded) && (
-                <>
-                  <div>
-                    {onsetDateTime && (
-                      <>
-                        <span className="text-secondary me-2">Onset Date</span>
-                        <Date isBlack fhirData={onsetDateTime} />
-                      </>
-                    )}
-                  </div>
-                  <div className="ms-4">
-                    {dateRecorded && (
-                      <>
-                        <span className="text-secondary me-2 font-source">
-                          Date recorded
-                        </span>
-                        <Date isBlack fhirData={dateRecorded} />
-                      </>
-                    )}
-                  </div>
-                </>
-              )
+              <DatePeriod
+                periodBeginLabel="Onset Date"
+                periodBeginDate={onsetDateTime}
+                periodEndLabel="Date recorded"
+                periodEndDate={dateRecorded}
+              />
             }
             badge={
               <>

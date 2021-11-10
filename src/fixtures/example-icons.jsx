@@ -13,4 +13,10 @@ export default {
       alt="header icon"
     />
   ),
+  ResourceCategoryPlaceholder: (
+    <img
+      src={require('../assets/containers/ResourceCategory/resource-placeholder.svg')}
+      alt="header icon"
+    />
+  ),
 };

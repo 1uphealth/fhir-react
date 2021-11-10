@@ -1,4 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600&display=swap');
+@import 'node_modules/bootstrap/scss/functions';
+@import 'node_modules/bootstrap/scss/variables';
+@import 'node_modules/bootstrap/scss/mixins';
 
 $font-family-base: 'Titillium Web', system-ui;
 
@@ -21,5 +24,44 @@ $light: #dedddd;
   height: 24px;
   background-color: #a3a3a3;
 }
+
+// adding custom colors to the theme
+
+$theme-colors: map-merge(
+  $theme-colors,
+  (
+    'teal-100': $teal-100,
+    'teal-600': $teal-600,
+    'yellow-100': $yellow-100,
+    'yellow-600': $yellow-600,
+    'red-100': $red-100,
+    'red-600': $red-600,
+    'gray-200': $gray-200,
+    'blue-900': $blue-900,
+    'orange-100': $orange-100,
+    'orange-600': $orange-600,
+    'gray-100': $gray-100,
+    'gray-600': $gray-600,
+    'pink-500': $pink-500,
+    'indigo-100': $indigo-100,
+    'indigo-600': $indigo-600,
+    'cyan-100': $cyan-100,
+    'cyan-600': $cyan-600,
+    'blue-100': $blue-100,
+    'blue-600': $blue-600,
+    'blue-500': $blue-500,
+  )
+);
+
+// additional sass map merges to enable bg-xxx in 5.1.1
+$theme-colors-rgb: map-loop($theme-colors, to-rgb, '$value');
+$utilities-colors: map-merge($utilities-colors, $theme-colors-rgb);
+$utilities-text-colors: map-loop(
+  $utilities-colors,
+  rgba-css-var,
+  '$key',
+  'text'
+);
+$utilities-bg-colors: map-loop($utilities-colors, rgba-css-var, '$key', 'bg');
 
 @import '~bootstrap/scss/bootstrap.scss';

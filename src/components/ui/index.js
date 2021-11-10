@@ -1,6 +1,9 @@
 import './index.css';
 
 import React from 'react';
+import badgeColors from '../../constants/badge-status.jsx';
+
+import _get from 'lodash/get';
 
 export const Header = props => (
   <div className="fhir-ui__Header d-flex w-100 align-items-start justify-content-between align-self-center">
@@ -14,14 +17,20 @@ export const Title = props => (
   </h4>
 );
 
-export const Badge = props => (
-  <small
-    className="fhir-ui__Badge px-2 py-1 bg-light rounded-1"
-    data-testid={props['data-testid']}
-  >
-    {props.children}
-  </small>
-);
+export const Badge = props => {
+  const getBadgeColor = () => {
+    return badgeColors[_get(props, 'children')] || 'bg-gray-200 text-blue-900';
+  };
+
+  return (
+    <small
+      className={`${getBadgeColor()} fhir-ui__Badge px-2 py-1 rounded-1 fw-bold`}
+      data-testid={props['data-testid']}
+    >
+      {props.children}
+    </small>
+  );
+};
 
 export const BadgeSecondary = props => (
   <span className="fhir-ui__BadgeSecondary" data-testid={props['data-testid']}>

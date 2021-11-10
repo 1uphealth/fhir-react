@@ -1,22 +1,22 @@
-const getColors = color => {
-  return `bg-${color}-100 text-${color}-600`;
-};
+import { getBootstrapClass } from '../utils/getBootstrapClass';
 
 export default {
   // condition
-  active: getColors('teal'),
+  active: getBootstrapClass('teal'),
   recurrence: '',
-  relapse: getColors('indigo'),
-  inactive: `${getColors('gray')} border border-1 rounded-1 border-gray-200`,
-  remission: getColors('cyan'),
-  resolved: getColors('blue'),
+  relapse: getBootstrapClass('indigo'),
+  inactive: `${getBootstrapClass(
+    'gray',
+  )} border border-1 rounded-1 border-gray-200`,
+  remission: getBootstrapClass('cyan'),
+  resolved: getBootstrapClass('blue'),
   // immunization
-  'in-progress': getColors('orange'),
+  'in-progress': getBootstrapClass('orange'),
   'on-hold': 'bg-gray-100 text-pink-500',
-  completed: getColors('teal'),
-  'entered-in-error': getColors('red'),
-  stopped: getColors('gray'),
-  'not-done': getColors('yellow'),
+  completed: getBootstrapClass('teal'),
+  'entered-in-error': getBootstrapClass('red'),
+  stopped: getBootstrapClass('gray'),
+  'not-done': getBootstrapClass('yellow'),
   // procedure
   preparation: 'border border-1 rounded-1 border-blue-200 text-blue-600',
   suspended: '',

@@ -29,7 +29,7 @@ const ResourceCategory = props => {
               className="rounded-pill py-1 px-2 bg-primary"
               data-testid="itemsCount"
             >
-              <span className="text-white fw-bold">
+              <span className="text-white fw-bold text-nowrap">
                 {itemsCount} {Number(itemsCount) === 1 ? 'item' : 'items'}
               </span>
             </div>

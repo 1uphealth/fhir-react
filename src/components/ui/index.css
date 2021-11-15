@@ -14,41 +14,6 @@
   overflow: auto;
 }
 
-/* Based on bootstrap striped-table */
-.fhir-ui__Table {
-  width: 100%;
-  margin-bottom: 1rem;
-  color: #212529;
-}
-
-.fhir-ui__TableHeader,
-.fhir-ui__TableCell {
-  padding: 0.4rem 0.75rem;
-  vertical-align: top;
-  border-top: 1px solid #dee2e6;
-}
-
-.fhir-ui__TableHeader {
-  vertical-align: bottom;
-  border-bottom: 2px solid #dee2e6;
-}
-
-.fhir-ui__TableHeader--expand {
-  width: 100%;
-}
-
-.fhir-ui__TableHeader--no-word-wrap {
-  white-space: nowrap;
-}
-
-.fhir-ui__Table tbody + tbody {
-  border-top: 2px solid #dee2e6;
-}
-
-.fhir-ui__Table tbody .fhir-ui__TableRow:nth-of-type(odd) {
-  background-color: rgba(0, 0, 0, 0.05);
-}
-
 .fhir-ui__ValueSection {
   overflow: auto;
 }

@@ -19,9 +19,9 @@ export const Title = props => (
 export const Badge = props => {
   return (
     <small
-      className={`${getBadgeColor(
+      className={`fhir-ui__Badge px-2 py-1 rounded-1 fw-bold ${getBadgeColor(
         props,
-      )} fhir-ui__Badge px-2 py-1 rounded-1 fw-bold`}
+      )}`}
       data-testid={props['data-testid']}
     >
       {props.children}
@@ -31,9 +31,9 @@ export const Badge = props => {
 
 export const BadgeSecondary = props => (
   <small
-    className={`${getBadgeColor(
+    className={`fhir-ui__BadgeSecondary px-2 py-1 rounded-1 fw-bold ${getBadgeColor(
       props,
-    )} fhir-ui__BadgeSecondary px-2 py-1 rounded-1 fw-bold`}
+    )}`}
     data-testid={props['data-testid']}
   >
     {props.children}

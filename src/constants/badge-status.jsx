@@ -1,22 +1,19 @@
-import { getBootstrapClass } from '../utils/getBootstrapClass';
-
 export default {
   // condition
-  active: getBootstrapClass('teal'),
+  active: 'bg-teal-100 text-teal-600',
   recurrence: '',
-  relapse: getBootstrapClass('indigo'),
-  inactive: `${getBootstrapClass(
-    'gray',
-  )} border border-1 rounded-1 border-gray-200`,
-  remission: getBootstrapClass('cyan'),
-  resolved: getBootstrapClass('blue'),
+  relapse: 'bg-indigo-100 text-indigo-600',
+  inactive:
+    'bg-gray-100 text-gray-600 border border-1 rounded-1 border-gray-200',
+  remission: 'bg-cyan-100 text-cyan-600',
+  resolved: 'bg-blue-100 text-blue-600',
   // immunization
-  'in-progress': getBootstrapClass('orange'),
+  'in-progress': 'bg-orange-100 text-orange-600',
   'on-hold': 'bg-gray-100 text-pink-500',
-  completed: getBootstrapClass('teal'),
-  'entered-in-error': getBootstrapClass('red'),
-  stopped: getBootstrapClass('gray'),
-  'not-done': getBootstrapClass('yellow'),
+  completed: 'bg-teal-100 text-teal-600',
+  'entered-in-error': 'bg-red-100 text-red-600',
+  stopped: 'bg-gray-100 text-gray-600',
+  'not-done': 'bg-yellow-100 text-yellow-600',
   // procedure
   preparation: 'border border-1 rounded-1 border-blue-200 text-blue-600',
   suspended: '',

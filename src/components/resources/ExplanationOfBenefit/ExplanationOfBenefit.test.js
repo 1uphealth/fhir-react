@@ -71,7 +71,7 @@ describe('should render ExplanationOfBenefit component properly', () => {
       fhirVersion: fhirVersions.R4,
     };
 
-    const { container, getByTestId, queryByTestId } = render(
+    const { container, getByTestId, queryByTestId, getAllByTestId } = render(
       <ExplanationOfBenefit {...defaultProps} />,
     );
     expect(container).not.toBeNull();
@@ -88,38 +88,32 @@ describe('should render ExplanationOfBenefit component properly', () => {
     expect(getByTestId('insurance').textContent).toEqual('Coverage/9876B1');
 
     expect(queryByTestId('hasServices')).not.toBeNull();
-    const tablesContent = [];
-    getByTestId('hasServices')
-      .querySelectorAll('.fhir-ui__TableRow')
-      .forEach(el => {
-        const tds = [];
-        el.querySelectorAll('.fhir-ui__TableCell').forEach(item => {
-          tds.push(String(item.textContent).trim());
-        });
-        tablesContent.push(tds);
-      });
-    // table header
-    expect(tablesContent[0]).toEqual([
-      'Service',
-      'Service date',
-      'Quantity',
-      'Item cost',
-    ]);
 
-    // table 1st row
-    expect(tablesContent[1]).toEqual([
-      '(1205)',
-      '8/16/2014',
-      '-',
+    // checking if text content of each column is equal to mocked data
+    const explanationService = getAllByTestId('explanation.service').map(
+      n => n.textContent,
+    );
+    const expectedArray = ['(1205)', '(group)'];
+    explanationService.forEach((x, i) => expect(x).toContain(expectedArray[i]));
+
+    const explanationServicedDate = getAllByTestId(
+      'explanation.servicedDate',
+    ).map(n => n.textContent);
+    expect(explanationServicedDate).toEqual(['8/16/2014', '8/16/2014']);
+
+    const explanationQuantity = getAllByTestId('explanation.quantity').map(
+      n => n.textContent,
+    );
+    expect(explanationQuantity).toEqual(['-', '-']);
+
+    const explanationItemCost = getAllByTestId('explanation.itemCost').map(
+      n => n.textContent,
+    );
+    expect(explanationItemCost).toEqual([
       `135.57${String.fromCharCode(160)}USD`,
-    ]);
-    // table 2nd row
-    expect(tablesContent[2]).toEqual([
-      '(group)',
-      '8/16/2014',
-      '-',
       `200${String.fromCharCode(160)}USD`,
     ]);
+
     expect(queryByTestId('hasInformation')).toBeNull();
     expect(queryByTestId('totalBenefit')).toBeNull();
     expect(queryByTestId('totalCost')).toBeNull();
@@ -155,9 +149,13 @@ describe('should render ExplanationOfBenefit component properly', () => {
       withCarinBBProfile: true,
     };
 
-    const { container, getByTestId, queryByTestId, queryAllByTestId } = render(
-      <ExplanationOfBenefit {...defaultProps} />,
-    );
+    const {
+      container,
+      getByTestId,
+      queryByTestId,
+      queryAllByTestId,
+      getAllByTestId,
+    } = render(<ExplanationOfBenefit {...defaultProps} />);
     expect(container).not.toBeNull();
 
     expect(getByTestId('created').textContent).toEqual('2017-01-05');
@@ -195,26 +193,21 @@ describe('should render ExplanationOfBenefit component properly', () => {
       '1/5/2017',
     );
 
-    const tablesContent = [];
-    getByTestId('hasServices')
-      .querySelectorAll('.fhir-ui__TableRow')
-      .forEach(el => {
-        const tds = [];
-        el.querySelectorAll('.fhir-ui__TableCell').forEach(item => {
-          tds.push(String(item.textContent).trim());
-        });
-        tablesContent.push(tds);
-      });
-    // table header
-    expect(tablesContent[0]).toEqual([
-      'Service',
-      'Service date',
-      'Quantity',
-      'Item cost',
-    ]);
-
-    // table 1st row
-    expect(tablesContent[1][0]).toContain('(185345009)');
+    // checking if text content of first column is equal to mocked data
+    const explanationService = getAllByTestId('explanation.service').map(
+      n => n.textContent,
+    );
+    const expectedArray = [
+      'Encounter for symptom (185345009)',
+      'Acute bronchitis (disorder) (10509002)',
+      'Measurement of respiratory function (procedure) (23426006)',
+    ];
+    const replaceWhitespaces = text => text.replace(/\s+/g, ' ');
+    explanationService.forEach((x, i) => {
+      expect(replaceWhitespaces(x)).toEqual(
+        replaceWhitespaces(expectedArray[i]),
+      );
+    });
 
     expect(queryAllByTestId('items.level')).not.toBeNull();
     expect(queryAllByTestId('items.sequence')).not.toBeNull();

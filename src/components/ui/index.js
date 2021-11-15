@@ -70,7 +70,7 @@ export const Root = props => (
 );
 
 export const Table = props => (
-  <table class={`table table-striped ${props.className}`}>
+  <table className={`table table-striped ${props.className}`}>
     {props.children}
   </table>
 );

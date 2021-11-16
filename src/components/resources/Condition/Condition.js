@@ -144,7 +144,7 @@ function Condition(props) {
             }
             titleSegment={
               <>
-                <Title>{codeText || ''}</Title>
+                <Title>{codeText}</Title>
                 {severityText && (
                   <div data-testid="severity">{severityText} severity</div>
                 )}

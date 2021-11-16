@@ -157,12 +157,12 @@ const Immunization = props => {
     {
       label: 'Dosage',
       testId: 'doseQuantity',
-      data: doseQuantity && (
-        <div>
-          {_get(doseQuantity, 'value')} &nbsp;
-          {_get(doseQuantity, 'unit') || _get(doseQuantity, 'code')}
-        </div>
-      ),
+      data:
+        doseQuantity &&
+        [
+          _get(doseQuantity, 'value'),
+          _get(doseQuantity, 'unit') || _get(doseQuantity, 'code'),
+        ].join(' '),
       status: hasDoseQuantity,
     },
     {

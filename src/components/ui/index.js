@@ -5,9 +5,7 @@ import React from 'react';
 export const Header = props => (
   <>
     {// This condition was left due to fact, that to much changes in Header will generate many errors in tests. This condition will be removed after all changes have been made.
-    props.children ? (
-      props.children
-    ) : (
+    props.children || (
       <div className="d-flex w-100 justify-content-between align-items-start">
         <div className="me-3">{props.icon}</div>
         <div className="flex-grow-1 mt-n1">{props.titleSegment}</div>

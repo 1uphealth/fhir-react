@@ -115,8 +115,8 @@ const Practitioner = props => {
     {
       label: 'Gender',
       testId: 'gender',
-      data: gender && gender,
-      status: gender !== '',
+      data: gender,
+      status: !!gender,
     },
     {
       label: 'Birth date',

@@ -2,6 +2,8 @@ import './index.css';
 
 import React from 'react';
 
+import { getBadgeColor } from '../../utils/getBadgeColor';
+
 export const Header = props => (
   <div className="fhir-ui__Header d-flex w-100 align-items-start justify-content-between align-self-center">
     {props.children}
@@ -14,19 +16,28 @@ export const Title = props => (
   </h4>
 );
 
-export const Badge = props => (
+export const Badge = props => {
+  return (
+    <small
+      className={`fhir-ui__Badge px-2 py-1 rounded-1 fw-bold ${getBadgeColor(
+        props,
+      )}`}
+      data-testid={props['data-testid']}
+    >
+      {props.children}
+    </small>
+  );
+};
+
+export const BadgeSecondary = props => (
   <small
-    className="fhir-ui__Badge px-2 py-1 bg-light rounded-1"
+    className={`fhir-ui__BadgeSecondary px-2 py-1 rounded-1 fw-bold ${getBadgeColor(
+      props,
+    )}`}
     data-testid={props['data-testid']}
   >
     {props.children}
   </small>
-);
-
-export const BadgeSecondary = props => (
-  <span className="fhir-ui__BadgeSecondary" data-testid={props['data-testid']}>
-    {props.children}
-  </span>
 );
 
 export const Body = props => (

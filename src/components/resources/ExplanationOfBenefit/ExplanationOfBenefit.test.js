@@ -71,9 +71,13 @@ describe('should render ExplanationOfBenefit component properly', () => {
       fhirVersion: fhirVersions.R4,
     };
 
-    const { container, getByTestId, queryByTestId, getAllByTestId } = render(
-      <ExplanationOfBenefit {...defaultProps} />,
-    );
+    const {
+      container,
+      getByTestId,
+      queryByTestId,
+      getAllByTestId,
+      getAllByRole,
+    } = render(<ExplanationOfBenefit {...defaultProps} />);
     expect(container).not.toBeNull();
 
     expect(getByTestId('title').textContent).toEqual(
@@ -88,6 +92,17 @@ describe('should render ExplanationOfBenefit component properly', () => {
     expect(getByTestId('insurance').textContent).toEqual('Coverage/9876B1');
 
     expect(queryByTestId('hasServices')).not.toBeNull();
+
+    // checking if text content of each header cell is equal to mocked data
+    const headerCells = getAllByRole('cell')
+      .slice(0, 4)
+      .map(x => x.textContent);
+    expect(headerCells).toEqual([
+      'Service',
+      'Service date',
+      'Quantity',
+      'Item cost',
+    ]);
 
     // checking if text content of each column is equal to mocked data
     const explanationService = getAllByTestId('explanation.service').map(
@@ -155,6 +170,7 @@ describe('should render ExplanationOfBenefit component properly', () => {
       queryByTestId,
       queryAllByTestId,
       getAllByTestId,
+      getAllByRole,
     } = render(<ExplanationOfBenefit {...defaultProps} />);
     expect(container).not.toBeNull();
 
@@ -192,6 +208,17 @@ describe('should render ExplanationOfBenefit component properly', () => {
     expect(getByTestId('supportingInfo.timingDate').textContent).toEqual(
       '1/5/2017',
     );
+
+    // checking if text content of each header cell is equal to mocked data
+    const headerCells = getAllByRole('cell')
+      .slice(0, 4)
+      .map(x => x.textContent);
+    expect(headerCells).toEqual([
+      'Service',
+      'Service date',
+      'Quantity',
+      'Item cost',
+    ]);
 
     // checking if text content of first column is equal to mocked data
     const explanationService = getAllByTestId('explanation.service').map(

@@ -2,7 +2,7 @@ import { Badge, Body, Header, Root, Title } from '../../ui';
 
 import Accordion from '../../containers/Accordion';
 import CodeableConcept from '../../datatypes/CodeableConcept';
-import Date from '../../datatypes/Date';
+import DatePeriod from '../../datatypes/DatePeriod/DatePeriod';
 import HeaderIcon from '../../datatypes/HeaderIcon';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -105,18 +105,6 @@ function Condition(props) {
   const headerIcon = fhirIcons[_get(fhirResource, 'resourceType')];
   const tableData = [
     {
-      label: 'Onset Date',
-      testId: 'onsetDate',
-      data: onsetDateTime && <Date fhirData={onsetDateTime} />,
-      status: onsetDateTime,
-    },
-    {
-      label: 'Date recorded',
-      testId: 'dateRecorded',
-      data: dateRecorded && <Date fhirData={dateRecorded} />,
-      status: dateRecorded,
-    },
-    {
       label: 'Asserted by',
       testId: 'asserter',
       data: asserter && <Reference fhirData={asserter} />,
@@ -136,20 +124,38 @@ function Condition(props) {
         headerContent={
           <Header
             resourceName="Condition"
-            icon={<HeaderIcon headerIcon={headerIcon} />}
-            badge={
-              clinicalStatus && (
-                <Badge data-testid="clinicalStatus">{clinicalStatus}</Badge>
-              )
+            additionalContent={
+              <DatePeriod
+                periodBeginLabel="Onset Date"
+                periodBeginDate={onsetDateTime}
+                periodBeginTestId="onsetDate"
+                periodEndLabel="Date recorded"
+                periodEndDate={dateRecorded}
+                periodEndTestId="dateRecorded"
+              />
             }
-            titleSegment={
+            badges={
               <>
-                <Title>{codeText}</Title>
+                {clinicalStatus && (
+                  <Badge
+                    bootstrapAlertType="alert-success"
+                    data-testid="clinicalStatus"
+                  >
+                    {clinicalStatus}
+                  </Badge>
+                )}
                 {severityText && (
-                  <div data-testid="severity">{severityText} severity</div>
+                  <>
+                    <div className="ps-2" />
+                    <Badge data-testid="severity">
+                      {severityText} severity
+                    </Badge>
+                  </>
                 )}
               </>
             }
+            icon={<HeaderIcon headerIcon={headerIcon} />}
+            title={<Title>{codeText || ''}</Title>}
           />
         }
         bodyContent={<Body tableData={tableData} />}

@@ -1,7 +1,30 @@
+@use 'components/ui/header';
 @import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600&display=swap');
 @import 'node_modules/bootstrap/scss/functions';
 @import 'node_modules/bootstrap/scss/variables';
 @import 'node_modules/bootstrap/scss/mixins';
+@import 'bootstrap/scss/utilities';
+
+$utilities: (
+  'font-family': (
+    property: font-family,
+    class: font,
+    values: (
+      monospace: var(--#{$variable-prefix}font-monospace),
+      source: Source Sans Pro,
+    ),
+  ),
+);
+
+$space: 0.125rem;
+
+$spacers: map-merge(
+  $spacers,
+  (
+    half: $space,
+  )
+);
 
 $font-family-base: 'Titillium Web', system-ui;
 
@@ -12,6 +35,8 @@ $font-sizes: (
 );
 
 $line-height-lg: 1.75;
+$border-radius-lg: 16px;
+$box-shadow-sm: 0px 0px 24px rgba(0, 11, 79, 0.04);
 
 $body-color: #475263;
 
@@ -29,8 +54,8 @@ $enable-negative-margins: true;
 }
 
 .header-icon__practitioner-avatar {
-  width: 40px;
-  height: 40px;
+  width: 24px;
+  height: 24px;
 }
 
 .value__label {
@@ -61,6 +86,7 @@ $theme-colors: map-merge(
     'blue-100': $blue-100,
     'blue-600': $blue-600,
     'blue-500': $blue-500,
+    'white': $white,
   )
 );
 

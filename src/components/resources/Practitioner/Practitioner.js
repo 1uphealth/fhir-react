@@ -154,6 +154,8 @@ const Practitioner = props => {
       <Accordion
         headerContent={
           <Header
+            additionalContent={<p className="mb-0">{`(${use})`}</p>}
+            badges={status && <Badge data-testid="status">{status}</Badge>}
             icon={
               <img
                 className="header-icon__practitioner-avatar rounded-1"
@@ -163,15 +165,11 @@ const Practitioner = props => {
                 alt=""
               />
             }
-            titleSegment={
-              <div>
-                <Title>
-                  <HumanName fhirData={name} isTitle />
-                </Title>
-                <p className="mb-0 mt-n2">{`(${use})`}</p>
-              </div>
+            title={
+              <Title>
+                <HumanName fhirData={name} isTitle />
+              </Title>
             }
-            badge={status && <Badge data-testid="status">{status}</Badge>}
           />
         }
         bodyContent={<Body tableData={tableData} />}

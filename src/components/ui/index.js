@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import { getBadgeColor } from '../../utils/getBadgeColor';
+
 export const Header = props => {
   const [rotate, setRotate] = useState(false);
   const handleAccordionClick = () => setRotate(!rotate);
@@ -7,9 +9,7 @@ export const Header = props => {
   return (
     <>
       {// This condition was left due to fact, that to much changes in Header will generate many errors in tests. This condition will be removed after all changes have been made.
-      props.children ? (
-        props.children
-      ) : (
+      props.children || (
         <div
           className={`fhir-ui__${props.resourceName}-Header w-100 p-4`}
           onClick={handleAccordionClick}
@@ -63,20 +63,28 @@ export const Title = props => (
   </h4>
 );
 
-export const Badge = props => (
+export const Badge = props => {
+  return (
+    <small
+      className={`fhir-ui__Badge px-2 py-1 rounded-1 fw-bold ${getBadgeColor(
+        props,
+      )}`}
+      data-testid={props['data-testid']}
+    >
+      {props.children}
+    </small>
+  );
+};
+
+export const BadgeSecondary = props => (
   <small
-    className={`fhir-ui__Badge border-0 px-2 py-1 mb-0 alert ${props.bootstrapAlertType ||
-      'alert-secondary'}`}
+    className={`fhir-ui__BadgeSecondary px-2 py-1 rounded-1 fw-bold ${getBadgeColor(
+      props,
+    )}`}
     data-testid={props['data-testid']}
   >
     {props.children}
   </small>
-);
-
-export const BadgeSecondary = props => (
-  <span className="fhir-ui__BadgeSecondary" data-testid={props['data-testid']}>
-    {props.children}
-  </span>
 );
 
 export const Body = props => (

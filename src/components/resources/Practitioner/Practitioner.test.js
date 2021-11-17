@@ -19,9 +19,6 @@ describe('Practitioner should render component correctly', () => {
     expect(String(getByTestId('title').textContent).trim()).toEqual(
       'Physician Family Medicine',
     );
-    expect(String(getByTestId('subtitle').textContent).trim()).toEqual(
-      '(usual)',
-    );
     expect(getByTestId('gender').textContent).toEqual('male');
   });
 
@@ -34,9 +31,6 @@ describe('Practitioner should render component correctly', () => {
 
     expect(String(getByTestId('title').textContent).trim()).toEqual(
       'Sameer Sharma M.D.',
-    );
-    expect(String(getByTestId('subtitle').textContent).trim()).toEqual(
-      '(official)',
     );
     expect(getByTestId('gender').textContent).toEqual('male');
     expect(getByTestId('address').textContent).toContain('5815 S Calumet');
@@ -71,9 +65,6 @@ describe('Practitioner should render component correctly', () => {
 
     expect(String(getByTestId('title').textContent).trim()).toEqual(
       'Pieter Voigt MD',
-    );
-    expect(String(getByTestId('subtitle').textContent).trim()).toEqual(
-      '(official)',
     );
     expect(getByTestId('gender').textContent).toEqual('male');
     expect(getByTestId('address').textContent).toContain('Galapagosweg 91');

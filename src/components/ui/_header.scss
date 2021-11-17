@@ -1,0 +1,14 @@
+.header-rotate {
+  transform: rotate(-180deg);
+}
+
+.accordion-arrow {
+  transition: transform 0.5s;
+  width: 24px;
+  height: 24px;
+}
+
+.accordion-arrow:hover {
+  background-color: #f4f8fd;
+  border-radius: 8px;
+}

@@ -1,7 +1,8 @@
-import { Badge, Body, Header, Root, Title, Value } from '../../ui';
+import { Badge, Body, Header, Root, Title } from '../../ui';
 
 import Accordion from '../../containers/Accordion';
 import CodeableConcept from '../../datatypes/CodeableConcept';
+import DatePeriod from '../../datatypes/DatePeriod/DatePeriod';
 import HeaderIcon from '../../datatypes/HeaderIcon';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -102,54 +103,62 @@ function Condition(props) {
   } = resourceDTO(fhirVersion, fhirResource);
 
   const headerIcon = fhirIcons[_get(fhirResource, 'resourceType')];
+  const tableData = [
+    {
+      label: 'Asserted by',
+      testId: 'asserter',
+      data: asserter && <Reference fhirData={asserter} />,
+      status: hasAsserter,
+    },
+    {
+      label: 'Anatomical locations',
+      testId: 'bodySite',
+      data: bodySite && <CodeableConcept fhirData={bodySite} />,
+      status: hasBodySite,
+    },
+  ];
 
   return (
     <Root name="condition">
       <Accordion
-        headerData={
+        headerContent={
           <Header
             resourceName="Condition"
-            icon={
-              <div className="pt-1 px-sm-1">
-                <HeaderIcon headerIcon={headerIcon}></HeaderIcon>
-              </div>
+            additionalContent={
+              <DatePeriod
+                periodBeginLabel="Onset Date"
+                periodBeginDate={onsetDateTime}
+                periodBeginTestId="onsetDate"
+                periodEndLabel="Date recorded"
+                periodEndDate={dateRecorded}
+                periodEndTestId="dateRecorded"
+              />
             }
-            badgeStatus={clinicalStatus}
-            badge={<Badge data-testid="clinicalStatus">{clinicalStatus}</Badge>}
-            titleSegment={
+            badges={
               <>
-                <Title>{codeText || ''}</Title>
+                {clinicalStatus && (
+                  <Badge
+                    bootstrapAlertType="alert-success"
+                    data-testid="clinicalStatus"
+                  >
+                    {clinicalStatus}
+                  </Badge>
+                )}
                 {severityText && (
-                  <div data-testid="severity">{severityText} severity</div>
+                  <>
+                    <div className="ps-2" />
+                    <Badge data-testid="severity">
+                      {severityText} severity
+                    </Badge>
+                  </>
                 )}
               </>
             }
+            icon={<HeaderIcon headerIcon={headerIcon} />}
+            title={<Title>{codeText || ''}</Title>}
           />
         }
-        bodyData={
-          <Body>
-            {onsetDateTime && (
-              <Value label="Onset Date" data-testid="onsetDate">
-                {onsetDateTime}
-              </Value>
-            )}
-            {dateRecorded && (
-              <Value label="Date recorded" data-testid="dateRecorded">
-                {dateRecorded}
-              </Value>
-            )}
-            {hasAsserter && (
-              <Value label="Asserted by" data-testid="asserter">
-                <Reference fhirData={asserter} />
-              </Value>
-            )}
-            {hasBodySite && (
-              <Value label="Anatomical locations" data-testid="bodySite">
-                <CodeableConcept fhirData={bodySite} />
-              </Value>
-            )}
-          </Body>
-        }
+        bodyContent={<Body tableData={tableData} />}
       />
     </Root>
   );

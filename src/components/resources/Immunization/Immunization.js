@@ -1,4 +1,4 @@
-import { Badge, Body, Header, Root, Title, Value } from '../../ui';
+import { Badge, Body, Header, Root, Title } from '../../ui';
 
 import Accordion from '../../containers/Accordion';
 import Annotation from '../../datatypes/Annotation';
@@ -126,101 +126,116 @@ const Immunization = props => {
   } = resourceDTO(fhirVersion, fhirResource);
 
   const headerIcon = fhirIcons[_get(fhirResource, 'resourceType')];
+  const tableData = [
+    {
+      label: 'Manufacturer Text',
+      testId: '',
+      data: manufacturerText,
+      status: manufacturerText,
+    },
+    {
+      label: 'Manufacturer Text',
+      testId: 'lotNumber',
+      data: (
+        <>
+          {lotNumber}
+          {lotNumberExpirationDate && (
+            <span>
+              {' '}
+              expires on{' '}
+              <Date
+                testId="lotNumberExpirationDate"
+                fhirData={lotNumberExpirationDate}
+                isBlack
+              />
+            </span>
+          )}
+        </>
+      ),
+      status: hasLotNumber,
+    },
+    {
+      label: 'Dosage',
+      testId: 'doseQuantity',
+      data:
+        doseQuantity &&
+        [
+          _get(doseQuantity, 'value'),
+          _get(doseQuantity, 'unit') || _get(doseQuantity, 'code'),
+        ].join(' '),
+      status: hasDoseQuantity,
+    },
+    {
+      label: 'Patient',
+      testId: 'patient',
+      data: patient && <Reference fhirData={patient} />,
+      status: patient,
+    },
+    {
+      label: 'Requester',
+      testId: 'requester',
+      data: requester && <Reference fhirData={requester} />,
+      status: requester,
+    },
+    {
+      label: 'Performer',
+      testId: 'performer',
+      data: performer && <Reference fhirData={performer} />,
+      status: performer,
+    },
+    {
+      label: 'Note',
+      testId: 'note',
+      data: note && <Annotation fhirData={note} />,
+      status: note,
+    },
+    {
+      label: 'Route',
+      testId: 'route',
+      data: hasRoute && route && (
+        <>
+          {route.map((coding, i) => {
+            return (
+              <div key={`item-${i}`}>
+                <Coding fhirData={coding} />
+              </div>
+            );
+          })}
+        </>
+      ),
+      status: hasRoute,
+    },
+    {
+      label: 'Site',
+      testId: 'site',
+      data: hasSite && site && (
+        <>
+          {site.map((coding, i) => {
+            return (
+              <div key={`item-${i}`}>
+                <Coding fhirData={coding} />
+              </div>
+            );
+          })}
+        </>
+      ),
+      status: hasSite,
+    },
+  ];
 
   return (
     <Root name="Immunization">
       <Accordion
-        headerData={
+        headerContent={
           <Header
             resourceName="Immunization"
-            icon={
-              <div className="pt-1 px-sm-1">
-                <HeaderIcon headerIcon={headerIcon}></HeaderIcon>
-              </div>
-            }
-            badgeStatus={status}
-            badge={<Badge data-testid="status">{status}</Badge>}
-            titleSegment={
-              <>
-                <Title data-testid="title">{title}</Title>
-                {providedDate && <Date fhirData={providedDate} />}
-              </>
-            }
+            additionalContent={providedDate && <Date fhirData={providedDate} />}
+            badges={status && <Badge data-testid="status">{status}</Badge>}
+            icon={<HeaderIcon headerIcon={headerIcon} />}
+            title={<Title data-testid="title">{title}</Title>}
           />
         }
-        bodyData={
-          <Body>
-            {manufacturerText && (
-              <Value label="Manufacturer Text">{manufacturerText}</Value>
-            )}
-            {hasLotNumber && (
-              <Value label="Lot number" data-testid="lotNumber">
-                {lotNumber}
-                {lotNumberExpirationDate && (
-                  <span>
-                    {' '}
-                    expires on{' '}
-                    <Date
-                      testId="lotNumberExpirationDate"
-                      fhirData={lotNumberExpirationDate}
-                      isBlack
-                    />
-                  </span>
-                )}
-              </Value>
-            )}
-            {hasDoseQuantity && (
-              <Value label="Dosage" data-testid="doseQuantity">
-                <div>
-                  {_get(doseQuantity, 'value')} &nbsp;
-                  {_get(doseQuantity, 'unit') || _get(doseQuantity, 'code')}
-                </div>
-              </Value>
-            )}
-            {patient && (
-              <Value label="Patient" data-testid="patient">
-                <Reference fhirData={patient} />
-              </Value>
-            )}
-            {requester && (
-              <Value label="Requester" data-testid="requester">
-                <Reference fhirData={requester} />
-              </Value>
-            )}
-            {performer && (
-              <Value label="Performer" data-testid="performer">
-                <Reference fhirData={performer} />
-              </Value>
-            )}
-            {note && (
-              <Value label="Note" data-testid="note">
-                <Annotation fhirData={note} />
-              </Value>
-            )}
-            {hasRoute && (
-              <Value label="Route" data-testid="route">
-                {route.map((coding, i) => {
-                  return (
-                    <div key={`item-${i}`}>
-                      <Coding fhirData={coding} />
-                    </div>
-                  );
-                })}
-              </Value>
-            )}
-            {hasSite && (
-              <Value label="Site" data-testid="site">
-                {site.map((coding, i) => {
-                  return (
-                    <div key={`item-${i}`}>
-                      <Coding fhirData={coding} />
-                    </div>
-                  );
-                })}
-              </Value>
-            )}
-          </Body>
-        }
+        bodyContent={<Body tableData={tableData} />}
       />
     </Root>
   );

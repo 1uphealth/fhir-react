@@ -1,6 +1,6 @@
 import React from 'react';
-import _get from 'lodash/get';
 import _flatten from 'lodash/flatten';
+import _get from 'lodash/get';
 
 function HumanName(props) {
   const { fhirData, isTitle } = props;

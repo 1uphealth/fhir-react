@@ -1,22 +1,21 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-
-import _get from 'lodash/get';
-import fhirVersions from '../fhirResourceVersions';
-import DateType from '../../datatypes/Date';
-import CodableConcept from '../../datatypes/CodeableConcept';
-import Reference from '../../datatypes/Reference';
-import CareTeamParticipants from './CareTeamParticipants';
-
 import {
-  Root,
-  Header,
-  Title,
   Badge,
   Body,
-  Value,
+  Header,
   MissingValue,
+  Root,
+  Title,
+  Value,
 } from '../../ui';
+
+import CareTeamParticipants from './CareTeamParticipants';
+import CodableConcept from '../../datatypes/CodeableConcept';
+import DateType from '../../datatypes/Date';
+import PropTypes from 'prop-types';
+import React from 'react';
+import Reference from '../../datatypes/Reference';
+import _get from 'lodash/get';
+import fhirVersions from '../fhirResourceVersions';
 
 const commonDTO = fhirResource => {
   // Default value for title - "Care team"

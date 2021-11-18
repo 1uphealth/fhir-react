@@ -11,7 +11,9 @@ const Date = props => {
   return (
     <span
       data-testid={testId || 'providedDate'}
-      className={`fhir-datatype__Date${isBlack ? '' : ' text-secondary'}`}
+      className={`fhir-datatype__Date font-source${
+        isBlack ? '' : ' text-secondary'
+      }`}
     >
       {dateValue}
     </span>

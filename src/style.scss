@@ -1,4 +1,30 @@
+@use 'components/ui/header';
 @import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600&display=swap');
+@import 'node_modules/bootstrap/scss/functions';
+@import 'node_modules/bootstrap/scss/variables';
+@import 'node_modules/bootstrap/scss/mixins';
+@import 'bootstrap/scss/utilities';
+
+$utilities: (
+  'font-family': (
+    property: font-family,
+    class: font,
+    values: (
+      monospace: var(--#{$variable-prefix}font-monospace),
+      source: Source Sans Pro,
+    ),
+  ),
+);
+
+$space: 0.125rem;
+
+$spacers: map-merge(
+  $spacers,
+  (
+    half: $space,
+  )
+);
 
 $font-family-base: 'Titillium Web', system-ui;
 
@@ -9,6 +35,8 @@ $font-sizes: (
 );
 
 $line-height-lg: 1.75;
+$border-radius-lg: 16px;
+$box-shadow-sm: 0px 0px 24px rgba(0, 11, 79, 0.04);
 
 $body-color: #475263;
 
@@ -16,12 +44,65 @@ $secondary: #8f939a;
 
 $light: #dedddd;
 
+<<<<<<< HEAD
 $text-muted: #adb5bd;
+=======
+$enable-negative-margins: true;
+>>>>>>> origin/fhir-react-next
 
 .header-icon__placeholder {
+  // TODO constrain custom images size
   width: 24px;
   height: 24px;
   background-color: #a3a3a3;
 }
+
+.header-icon__practitioner-avatar {
+  width: 24px;
+  height: 24px;
+}
+
+.value__label {
+  width: 20%;
+}
+// adding custom colors to the theme
+
+$theme-colors: map-merge(
+  $theme-colors,
+  (
+    'teal-100': $teal-100,
+    'teal-600': $teal-600,
+    'yellow-100': $yellow-100,
+    'yellow-600': $yellow-600,
+    'red-100': $red-100,
+    'red-600': $red-600,
+    'gray-200': $gray-200,
+    'blue-900': $blue-900,
+    'orange-100': $orange-100,
+    'orange-600': $orange-600,
+    'gray-100': $gray-100,
+    'gray-600': $gray-600,
+    'pink-500': $pink-500,
+    'indigo-100': $indigo-100,
+    'indigo-600': $indigo-600,
+    'cyan-100': $cyan-100,
+    'cyan-600': $cyan-600,
+    'blue-100': $blue-100,
+    'blue-600': $blue-600,
+    'blue-500': $blue-500,
+    'white': $white,
+  )
+);
+
+// additional sass map merges to enable bg-xxx in 5.1.1
+$theme-colors-rgb: map-loop($theme-colors, to-rgb, '$value');
+$utilities-colors: map-merge($utilities-colors, $theme-colors-rgb);
+$utilities-text-colors: map-loop(
+  $utilities-colors,
+  rgba-css-var,
+  '$key',
+  'text'
+);
+$utilities-bg-colors: map-loop($utilities-colors, rgba-css-var, '$key', 'bg');
 
 @import '~bootstrap/scss/bootstrap.scss';

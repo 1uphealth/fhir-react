@@ -1,19 +1,21 @@
-import React from 'react';
+import './Practitioner.css';
+
+import { Badge, Body, Header, Root, Title } from '../../ui';
+
+import Accordion from '../../containers/Accordion/Accordion';
+import Address from '../../datatypes/Address';
+import Date from '../../datatypes/Date';
+import HumanName from '../../datatypes/HumanName';
+import Identifier from '../../datatypes/Identifier';
+import PatientContact from './PatientContact';
 import PropTypes from 'prop-types';
-import md5 from 'md5';
+import React from 'react';
+import Telecom from '../../datatypes/Telecom';
+import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 import _get from 'lodash/get';
 import _has from 'lodash/has';
-
-import HumanName from '../../datatypes/HumanName';
-import PatientContact from './PatientContact';
 import fhirVersions from '../fhirResourceVersions';
-import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
-import Address from '../../datatypes/Address';
-import Telecom from '../../datatypes/Telecom';
-import Date from '../../datatypes/Date';
-import { Root, Header, Title, Body, Value, Badge } from '../../ui';
-import './Practitioner.css';
-import Identifier from '../../datatypes/Identifier';
+import md5 from 'md5';
 
 const commonDTO = fhirResource => {
   const id = _get(fhirResource, 'id', '');
@@ -101,56 +103,77 @@ const Practitioner = props => {
     address,
     birthDate,
   } = fhirResourceData;
+
+  const use = _get(name, 'use');
+  const tableData = [
+    {
+      label: 'Identifiers',
+      testId: 'identifier',
+      data: identifier && <Identifier fhirData={identifier} />,
+      status: identifier,
+    },
+    {
+      label: 'Gender',
+      testId: 'gender',
+      data: gender,
+      status: !!gender,
+    },
+    {
+      label: 'Birth date',
+      testId: 'birthDate',
+      data: birthDate && <Date fhirData={birthDate} />,
+      status: birthDate,
+    },
+    {
+      label: 'Contact',
+      testId: 'contact',
+      data: contactData && (
+        <PatientContact
+          name={contactData.name}
+          relationship={contactData.relationship}
+        />
+      ),
+      status: isContactData,
+    },
+    {
+      label: 'Address',
+      testId: 'address',
+      data: address && <Address fhirData={address} />,
+      status: address,
+    },
+    {
+      label: 'Telephone',
+      testId: 'telecom',
+      data: telecom && <Telecom fhirData={telecom} />,
+      status: telecom,
+    },
+  ];
+
   return (
     <Root name="Practitioner">
-      <Header>
-        <img
-          className="fhir-resource__Practitioner__practitioner-avatar"
-          src={`http://www.gravatar.com/avatar/${md5(
-            id,
-          )}?s=30&r=any&default=identicon&forcedefault=1`}
-          alt=""
-        />
-        <Title>
-          <HumanName fhirData={name} primary={true} />
-        </Title>
-        {status && <Badge data-testid="status">{status}</Badge>}
-      </Header>
-      <Body>
-        {identifier && (
-          <Value label="Identifiers" data-testid="identifier">
-            <Identifier fhirData={identifier} />
-          </Value>
-        )}
-        {gender && (
-          <Value label="Gender" data-testid="gender">
-            {gender}
-          </Value>
-        )}
-        {birthDate && (
-          <Value label="Birth date" data-testid="birthDate">
-            <Date fhirData={birthDate} />
-          </Value>
-        )}
-        {isContactData && (
-          <Value label="Contact" data-testid="contact">
-            <PatientContact
-              name={contactData.name}
-              relationship={contactData.relationship}
-            />
-          </Value>
-        )}
-        {address && (
-          <Value label="Address" data-testid="address">
-            <Address fhirData={address} />
-          </Value>
-        )}
-        {telecom && (
-          <Value label="Telephone" data-testid="telecom">
-            <Telecom fhirData={telecom} />
-          </Value>
-        )}
-      </Body>
+      <Accordion
+        headerContent={
+          <Header
+            additionalContent={<p className="mb-0">{`(${use})`}</p>}
+            badges={status && <Badge data-testid="status">{status}</Badge>}
+            icon={
+              <img
+                className="header-icon__practitioner-avatar rounded-1"
+                src={`http://www.gravatar.com/avatar/${md5(
+                  id,
+                )}?s=30&r=any&default=identicon&forcedefault=1`}
+                alt=""
+              />
+            }
+            title={
+              <Title>
+                <HumanName fhirData={name} isTitle />
+              </Title>
+            }
+          />
+        }
+        bodyContent={<Body tableData={tableData} />}
+      />
     </Root>
   );
 };

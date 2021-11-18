@@ -1,18 +1,11 @@
-import {
-  Badge,
-  Body,
-  Header,
-  MissingValue,
-  Root,
-  Title,
-  Value,
-} from '../../ui';
+import { Badge, Body, Header, MissingValue, Root, Title } from '../../ui';
 
 import Accordion from '../../containers/Accordion/Accordion';
 import Annotation from '../../datatypes/Annotation';
 import CodeableConcept from '../../datatypes/CodeableConcept';
 import Coding from '../../datatypes/Coding';
 import Date from '../../datatypes/Date';
+import DatePeriod from '../../datatypes/DatePeriod/DatePeriod';
 import HeaderIcon from '../../datatypes/HeaderIcon';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -45,102 +38,90 @@ const Procedure = props => {
   const outcome = _get(fhirResource, 'outcome');
 
   const headerIcon = fhirIcons[_get(fhirResource, 'resourceType')];
+  const tableData = [
+    {
+      label: 'Identification',
+      testId: 'hasCoding',
+      data: coding && (
+        <>
+          {coding.map((coding, i) => (
+            <Coding key={`item-${i}`} fhirData={coding} />
+          ))}
+        </>
+      ),
+      status: hasCoding,
+    },
+    {
+      label: 'Category',
+      testId: 'category',
+      data: category && <Coding fhirData={category} />,
+      status: category,
+    },
+    {
+      label: 'Performed by',
+      testId: 'dateRecorded',
+      data: performer && (
+        <>
+          {performer.map((item, i) => (
+            <div key={`item-${i}`}>
+              {_get(item, 'actor.display', <MissingValue />)}
+            </div>
+          ))}
+        </>
+      ),
+      status: hasPerformerData,
+    },
+    {
+      label: 'Reason procedure performed',
+      testId: 'hasReasonCode',
+      data: reasonCode && <Annotation fhirData={reasonCode} />,
+      status: hasReasonCode,
+    },
+    {
+      label: 'Location',
+      testId: 'location',
+      data: locationReference && <Reference fhirData={locationReference} />,
+      status: locationReference,
+    },
+    {
+      label: 'Additional information about the procedure',
+      testId: 'hasNote',
+      data: note && <Annotation fhirData={note} />,
+      status: hasNote,
+    },
+    {
+      label: 'The result of procedure',
+      testId: '',
+      data: outcome && <CodeableConcept fhirData={outcome} />,
+      status: isNotEmptyArray(outcome),
+    },
+  ];
 
   return (
     <Root name="Procedure">
       <Accordion
-        headerData={
-          <Header>
-            <div className="d-flex align-items-center justify-content-between ">
-              <div className="fhir-resource__Procedure__header__title-segment container">
-                <div className="fhir-resource__Procedure__header__title-segment__row row row-cols-2">
-                  <div className="fhir-resource__Procedure__header__title-segment__icon-column col-auto p-0">
-                    <div className={`${display ? 'pt-1 px-1' : ''}`}>
-                      <HeaderIcon headerIcon={headerIcon} />
-                    </div>
-                  </div>
-                  <div className="fhir-resource__Procedure__header__title-segment__title-column col-auto">
-                    {display && <Title>{display}</Title>}
-                    {hasPerformedDateTime && (
-                      <Date fhirData={performedDateTime} />
-                    )}
-                    {hasPerformedPeriod && (
-                      <div>
-                        {'performed   '}
-                        {performedPeriodStart ? (
-                          <Date fhirData={performedPeriodStart} />
-                        ) : (
-                          <MissingValue />
-                        )}
-                        {'   to   '}
-                        {performedPeriodEnd ? (
-                          <Date fhirData={performedPeriodEnd} />
-                        ) : (
-                          <MissingValue />
-                        )}
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="fhir-resource__Procedure__header-right d-flex align-items-center pe-3 pt-1">
-              {status && <Badge data-testid="status">{status}</Badge>}
-            </div>
-          </Header>
+        headerContent={
+          <Header
+            resourceName="Procedure"
+            additionalContent={
+              <>
+                {hasPerformedDateTime && <Date fhirData={performedDateTime} />}
+                {hasPerformedPeriod && (
+                  <DatePeriod
+                    periodBeginLabel="performed"
+                    periodBeginDate={performedPeriodStart}
+                    periodEndLabel="to"
+                    periodEndDate={performedPeriodEnd}
+                  />
+                )}
+              </>
+            }
+            badges={status && <Badge data-testid="status">{status}</Badge>}
+            icon={<HeaderIcon headerIcon={headerIcon} />}
+            title={display && <Title>{display}</Title>}
+          />
         }
-        bodyData={
-          <Body>
-            {hasCoding && (
-              <Value label="Identification" data-testid="hasCoding">
-                {coding.map((coding, i) => (
-                  <Coding key={`item-${i}`} fhirData={coding} />
-                ))}
-              </Value>
-            )}
-            {category && (
-              <Value label="Category" data-testid="category">
-                <Coding fhirData={category} />
-              </Value>
-            )}
-            {hasPerformerData && (
-              <Value label="Performed by">
-                {performer.map((item, i) => (
-                  <div key={`item-${i}`}>
-                    {_get(item, 'actor.display', <MissingValue />)}
-                  </div>
-                ))}
-              </Value>
-            )}
-            {hasReasonCode && (
-              <Value
-                label="Reason procedure performed"
-                data-testid="hasReasonCode"
-              >
-                <Annotation fhirData={reasonCode} />
-              </Value>
-            )}
-            {locationReference && (
-              <Value label="Location" data-testid="location">
-                <Reference fhirData={locationReference} />
-              </Value>
-            )}
-            {hasNote && (
-              <Value
-                label="Additional information about the procedure"
-                data-testid="hasNote"
-              >
-                <Annotation fhirData={note} />
-              </Value>
-            )}
-            {isNotEmptyArray(outcome) && (
-              <Value label="The result of procedure">
-                <CodeableConcept fhirData={outcome} />
-              </Value>
-            )}
-          </Body>
-        }
+        bodyContent={<Body tableData={tableData} />}
       />
     </Root>
   );

@@ -1,8 +1,6 @@
 import React from 'react';
-import _get from 'lodash/get';
 import _flatten from 'lodash/flatten';
-
-import './HumanName.css';
+import _get from 'lodash/get';
 
 function HumanName(props) {
   const { fhirData, primary } = props;

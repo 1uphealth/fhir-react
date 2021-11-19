@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import { getBadgeColor } from '../../utils/getBadgeColor';
+import HeaderIcon from '../datatypes/HeaderIcon';
 
 export const Header = props => {
   const [rotate, setRotate] = useState(false);
@@ -18,12 +19,12 @@ export const Header = props => {
             className={`fhir-ui__${props.resourceName}-Header__title-data d-flex w-100`}
           >
             <div
-              className={`fhir-ui__${props.resourceName}-Header__icon flex-shrink-1 m-half`}
+              className={`fhir-ui__${props.resourceName}-Header__icon flex-shrink-1 m-half me-2`}
             >
-              {props.icon}
+              <HeaderIcon headerIcon={props.icon} />
             </div>
             <div
-              className={`fhir-ui__${props.resourceName}-Header__title flex-fill text-start ps-2`}
+              className={`fhir-ui__${props.resourceName}-Header__title flex-fill text-start`}
             >
               {props.title}
             </div>
@@ -90,13 +91,13 @@ export const BadgeSecondary = props => (
 export const Body = props => (
   <div className="fhir-ui__Body pe-4">
     {props.tableData && (
-      <table className="fhir-ui__Body__table table table-borderless mb-0">
+      <table className="fhir-ui__Body__table table table-borderless">
         <tbody>
           {props.tableData.map((value, index) => {
             return (
               value.status && (
                 <tr
-                  className="fhir-ui__Body__row py-2"
+                  className="fhir-ui__Body__row mb-4"
                   key={`body-table-row-key-${index}`}
                 >
                   <td className="fhir-ui__Body__label-cell value__label ps-0">
@@ -117,9 +118,9 @@ export const Body = props => (
 );
 
 export const Value = props => (
-  <div className="fhir-ui__Value">
+  <div className="fhir-ui__Value d-flex">
     <Label>{props.label}</Label>
-    <Data data-testid={props['data-testid']}>{props.children}</Data>r-react-next
+    <Data data-testid={props['data-testid']}>{props.children}</Data>
   </div>
 );
 
@@ -143,12 +144,12 @@ export const Root = props => (
 );
 
 export const Table = props => (
-  <table className="fhir-ui__Table">{props.children}</table>
+  <table className="fhir-ui__Table table table-striped">{props.children}</table>
 );
 
 export const TableHeader = props => {
   const { expand, noWordWrap } = props;
-  let className = 'fhir-ui__TableHeader';
+  let className = 'fhir-ui__TableHeader text-gray-500';
   if (expand) className += ' fhir-ui__TableHeader--expand';
   if (noWordWrap) className += ' fhir-ui__TableHeader--no-word-wrap';
   return <th className={className}>{props.children}</th>;
@@ -166,7 +167,7 @@ export const TableCell = props => (
 
 export const ValueSection = props => (
   <div className="fhir-ui__ValueSection" data-testid={props['data-testid']}>
-    <label className="fhir-ui__ValueSection-label">{props.label}</label>
+    <label className="fhir-ui__ValueSection-label fw-bold mb-2">{props.label}</label>
     <div className="fhir-ui__ValueSection-body">{props.children}</div>
   </div>
 );

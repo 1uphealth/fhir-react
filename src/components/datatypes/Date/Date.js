@@ -2,7 +2,7 @@ import React from 'react';
 import { formatDate } from '../../../utils/formatDate';
 
 const Date = props => {
-  const { fhirData, isBlack, testId } = props;
+  const { fhirData, isBlack, testId, className = "" } = props;
   if (!fhirData) {
     return null;
   }
@@ -11,7 +11,7 @@ const Date = props => {
   return (
     <span
       data-testid={testId || 'providedDate'}
-      className={`fhir-datatype__Date font-source${
+      className={`${[className, 'fhir-datatype__Date', 'font-source'].join(' ')}${
         isBlack ? '' : ' text-secondary'
       }`}
     >

@@ -18,7 +18,6 @@ export default {
 
 export const DefaultVisualization = () => {
   const fhirResource = object('Resource', stu3Example1);
-  console.log(fhirResource);
   const title =
     _get(fhirResource, 'code.coding[0].display') ||
     _get(fhirResource, 'code.text');

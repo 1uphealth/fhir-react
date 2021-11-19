@@ -100,8 +100,6 @@ const ObservationGraph = props => {
         ];
       }
     }
-    console.log(tooLow, actualValue, tooHigh);
-    console.log(graphRanges);
 
     return (
       <div className="fhir-resource__ObservationGraph">

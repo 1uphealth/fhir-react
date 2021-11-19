@@ -381,24 +381,24 @@ const ExplanationOfBenefit = props => {
                 {services.map((serviceItem, i) => {
                   return (
                     <TableRow key={`serviceItem-${i}`}>
-                      <TableCell>
+                      <TableCell data-testid="explanation.service">
                         <Coding fhirData={serviceItem.coding} />
                       </TableCell>
-                      <TableCell>
+                      <TableCell data-testid="explanation.servicedDate">
                         {serviceItem.servicedDate ? (
                           <Date fhirData={serviceItem.servicedDate} />
                         ) : (
                           <MissingValue />
                         )}
                       </TableCell>
-                      <TableCell>
+                      <TableCell data-testid="explanation.quantity">
                         {Number.isFinite(Number(serviceItem.quantity)) ? (
                           serviceItem.quantity
                         ) : (
                           <MissingValue />
                         )}
                       </TableCell>
-                      <TableCell>
+                      <TableCell data-testid="explanation.itemCost">
                         {Number.isFinite(
                           Number(_get(serviceItem, 'itemCost.value')),
                         ) ? (

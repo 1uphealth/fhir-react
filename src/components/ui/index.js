@@ -144,23 +144,27 @@ export const Root = props => (
 );
 
 export const Table = props => (
-  <table className="fhir-ui__Table table table-striped">{props.children}</table>
+  <table className={`table table-striped ${props.className}`}>
+    {props.children}
+  </table>
 );
 
 export const TableHeader = props => {
   const { expand, noWordWrap } = props;
-  let className = 'fhir-ui__TableHeader text-gray-500';
-  if (expand) className += ' fhir-ui__TableHeader--expand';
-  if (noWordWrap) className += ' fhir-ui__TableHeader--no-word-wrap';
-  return <th className={className}>{props.children}</th>;
+  return (
+    <th
+      className={`${expand && 'w-100'} ${noWordWrap &&
+        'text-nowrap'} text-muted text-gray-500`}
+    >
+      {props.children}
+    </th>
+  );
 };
 
-export const TableRow = props => (
-  <tr className="fhir-ui__TableRow">{props.children}</tr>
-);
+export const TableRow = props => <tr>{props.children}</tr>;
 
 export const TableCell = props => (
-  <td className="fhir-ui__TableCell" data-testid={props['data-testid']}>
+  <td className="align-text-top" data-testid={props['data-testid']}>
     {props.children}
   </td>
 );

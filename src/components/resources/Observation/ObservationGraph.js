@@ -13,10 +13,10 @@ const ObservationGraph = props => {
       width: 1,
       color: 'bg-dark rounded-circle border border-1 border-light',
     };
-    const edgeCaseValue =  {
+    const edgeCaseValue = {
       width: 1,
       color: 'bg-primary rounded border border-1 border-light',
-    },
+    };
     const edgeCompletionValue = {
       width: 94,
       color: 'bg-primary rounded border border-1 border-light',

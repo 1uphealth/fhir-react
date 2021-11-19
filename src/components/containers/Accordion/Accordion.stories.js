@@ -69,7 +69,9 @@ export const ProcedureVisualization = () => {
   return (
     <Accordion
       headerContent={<div className=""></div>}
-      bodyContent={<Procedure fhirResource={fhirResource} fhirIcons={fhirIcons} />}
+      bodyContent={
+        <Procedure fhirResource={fhirResource} fhirIcons={fhirIcons} />
+      }
     />
   );
 };

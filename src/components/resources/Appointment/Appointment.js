@@ -8,7 +8,6 @@ import {
   Header,
   Title,
   Badge,
-  BadgeSecondary,
   Body,
   Value,
   ValueSection,
@@ -168,9 +167,11 @@ const Appointment = props => {
     {
       label: 'Type',
       testId: 'type',
-      data: isNotEmptyArray(typeCoding) && typeCoding.map((item, i) => (
-        <Coding key={`item-${i}`} fhirData={item} />
-      )),
+      data:
+        isNotEmptyArray(typeCoding) &&
+        typeCoding.map((item, i) => (
+          <Coding key={`item-${i}`} fhirData={item} />
+        )),
       status: isNotEmptyArray(typeCoding),
     },
     {
@@ -188,16 +189,20 @@ const Appointment = props => {
     {
       label: 'Cancelation Reason',
       testId: 'cancelationReason',
-      data: isNotEmptyArray(cancelationReason) && <CodeableConcept fhirData={cancelationReason} />,
+      data: isNotEmptyArray(cancelationReason) && (
+        <CodeableConcept fhirData={cancelationReason} />
+      ),
       status: isNotEmptyArray(cancelationReason),
     },
     {
       label: 'Service Category',
       testId: 'serviceCategory',
-      data: isNotEmptyArray(serviceCategory) && <CodeableConcept fhirData={serviceCategory} />,
+      data: isNotEmptyArray(serviceCategory) && (
+        <CodeableConcept fhirData={serviceCategory} />
+      ),
       status: isNotEmptyArray(serviceCategory),
     },
-  ]
+  ];
 
   return (
     <Root name="Appointment">
@@ -205,7 +210,13 @@ const Appointment = props => {
         headerContent={
           <Header
             resourceName={fhirResource.resourceName}
-            additionalContent={start && <Value label="Start date" data-testid="headerStartDate"><Date className="ms-2" fhirData={start} /></Value>}
+            additionalContent={
+              start && (
+                <Value label="Start date" data-testid="headerStartDate">
+                  <Date className="ms-2" fhirData={start} />
+                </Value>
+              )
+            }
             badges={status && <Badge data-testid="status">{status}</Badge>}
             title={<Title data-testid="title">{description}</Title>}
           />

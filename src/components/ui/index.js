@@ -154,7 +154,7 @@ export const TableHeader = props => {
   return (
     <th
       className={`${expand && 'w-100'} ${noWordWrap &&
-        'text-nowrap'} text-muted text-gray-500`}
+        'text-nowrap'} text-gray-500`}
     >
       {props.children}
     </th>

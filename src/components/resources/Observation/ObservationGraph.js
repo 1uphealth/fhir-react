@@ -25,6 +25,7 @@ const rangeContent = (width, rangeClasses, value, small) => (
     className={`${rangeClasses} text-white text-center font-source`}
     style={{ width: `${width}%`, lineHeight: '14px' }}
     key={`range${width}-${Math.random()}`}
+    data-testid={`rangeContent${value && value.replace(/ /g, '')}`}
   >
     {!small && value}
   </div>
@@ -44,6 +45,7 @@ const observationValuePoint = (actualValue, unit, small, inRange) => {
         className={`position-absolute top-0 translate-middle ps-2 ${
           small ? 'pb-4 fs-1' : 'pb-5 fs-4'
         } w-max-content`}
+        data-testid="valuePoint"
       >
         {small ? smallRangeText : `${actualValue} ${unit}`}
       </span>

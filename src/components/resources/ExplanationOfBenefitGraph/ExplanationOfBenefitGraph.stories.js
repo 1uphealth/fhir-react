@@ -32,7 +32,12 @@ const CHART_DATA = [
 ];
 
 export const DefaultExplanationOfBenefitGraph = () => {
-  return <ExplanationOfBenefitGraph data={CHART_DATA} />;
+  return (
+    <ExplanationOfBenefitGraph
+      data={CHART_DATA}
+      margin={{ top: 10, bottom: 10 }}
+    />
+  );
 };
 
 export const ExplanationOfBenefitGraphWithCustomCenteredMetric = () => {

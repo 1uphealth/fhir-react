@@ -1,10 +1,10 @@
-import './ObservationGraph.css';
-
 import React from 'react';
 import _get from 'lodash/get';
 import _isNumber from 'lodash/isNumber';
 
 const OBSERVATION_VALUE = 'observationValue';
+const IN_RANGE = 'in range';
+const OUT_OF_RANGE = 'out of range';
 
 const rangeBaseClasses = `rounded-pill border border-1 border-light`;
 
@@ -24,21 +24,28 @@ const rangeContent = (width, rangeClasses, value, small) => (
   <div
     className={`${rangeClasses} text-white text-center font-source`}
     style={{ width: `${width}%`, lineHeight: '14px' }}
+    key={`range${width}-${Math.random()}`}
   >
-    {value}
+    {!small && value}
   </div>
 );
 
-const edgeRange = rangeContent(4, 'rounded-pill');
+const edgeRange = () => rangeContent(4, 'rounded-pill');
 
-const observationValuePoint = (actualValue, unit) => {
+const observationValuePoint = (actualValue, unit, small, inRange) => {
+  const smallRangeText = inRange ? IN_RANGE : OUT_OF_RANGE;
   return (
     <div
       className={`bg-dark ${rangeBaseClasses} mx-1`}
-      style={{ width: '15px' }}
+      style={{ width: small ? '8px' : '15px' }}
+      key={`ValuePoint-${Math.random()}`}
     >
-      <span className="position-absolute top-0 translate-middle ps-2 pb-5 fs-4 w-max-content">
-        {`${actualValue} ${unit}`}
+      <span
+        className={`position-absolute top-0 translate-middle ps-2 ${
+          small ? 'pb-4 fs-1' : 'pb-5 fs-4'
+        } w-max-content`}
+      >
+        {small ? smallRangeText : `${actualValue} ${unit}`}
       </span>
     </div>
   );
@@ -100,7 +107,7 @@ const valueIsOutOfRange = (actualValue, tooLow, tooHigh, rangeInOneRow) => {
   }
 };
 
-const ObservationGraph = ({ referenceRange, valueQuantity }) => {
+const ObservationGraph = ({ referenceRange, valueQuantity, small }) => {
   if (referenceRange && _isNumber(_get(valueQuantity, 'value'))) {
     const tooLow = _get(referenceRange[0], 'low.value');
     const tooHigh = _get(referenceRange[0], 'high.value');
@@ -110,29 +117,37 @@ const ObservationGraph = ({ referenceRange, valueQuantity }) => {
     if (!tooLow || !tooHigh) return null;
 
     const actualValue = valueQuantity.value;
-    const graphRanges =
-      actualValue >= tooLow && actualValue <= tooHigh
-        ? valueIsInRange(
-            actualValue,
-            tooLow,
-            tooHigh,
-            rangeInOneRow,
-            valueQuantity.unit,
-          )
-        : valueIsOutOfRange(actualValue, tooLow, tooHigh, rangeInOneRow);
+    const inRange = actualValue >= tooLow && actualValue <= tooHigh;
+    const graphRanges = inRange
+      ? valueIsInRange(
+          actualValue,
+          tooLow,
+          tooHigh,
+          rangeInOneRow,
+          valueQuantity.unit,
+        )
+      : valueIsOutOfRange(actualValue, tooLow, tooHigh, rangeInOneRow);
 
     return (
-      <div className="fhir-resource__ObservationGraph my-6">
-        <div className="fhir-resource__ObservationGraph__progress">
-          {edgeRange}
+      <div className={`position-relative ${small ? 'my-4' : 'my-6'}`}>
+        <div
+          className="d-flex overflow-hidden bg-gray-200 fs-75 rounded-pill"
+          style={{ height: small ? '0.5rem' : '1rem' }}
+        >
+          {edgeRange()}
           {graphRanges.map(graphRange => {
             if (graphRange === OBSERVATION_VALUE)
-              return observationValuePoint(actualValue, valueQuantity.unit);
+              return observationValuePoint(
+                actualValue,
+                valueQuantity.unit,
+                small,
+                inRange,
+              );
 
             const { rangeClasses, width, value } = graphRange;
-            return rangeContent(width, rangeClasses, value);
+            return rangeContent(width, rangeClasses, value, small);
           })}
-          {edgeRange}
+          {edgeRange()}
         </div>
       </div>
     );

@@ -77,6 +77,7 @@ const Observation = props => {
         <ObservationGraph
           valueQuantity={fhirResource.valueQuantity}
           referenceRange={fhirResource.referenceRange}
+          small
         />
         {effectiveDate && (
           <Value label="Issued on" data-testid="issuedOn">

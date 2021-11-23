@@ -144,7 +144,7 @@ export const Root = props => (
 );
 
 export const Table = props => (
-  <div className='table-responsive'>
+  <div className="table-responsive">
     <table className={`table table-striped ${props.className}`}>
       {props.children}
     </table>
@@ -155,8 +155,9 @@ export const TableHeader = props => {
   const { expand, noWordWrap } = props;
   return (
     <th
-      className={`${expand ? 'w-100' : ''} ${noWordWrap ?
-        'text-nowrap' : ''} text-gray-500`}
+      className={`${expand ? 'w-100' : ''} ${
+        noWordWrap ? 'text-nowrap' : ''
+      } text-gray-500`}
     >
       {props.children}
     </th>

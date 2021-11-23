@@ -6,7 +6,8 @@ import HeaderIcon from '../datatypes/HeaderIcon';
 export const Header = props => {
   const [rotate, setRotate] = useState(false);
   const handleAccordionClick = () => setRotate(!rotate);
-
+  const rightItemsClass =
+    'align-items-center flex-fill d-flex justify-content-end';
   return (
     <>
       {// This condition was left due to fact, that to much changes in Header will generate many errors in tests. This condition will be removed after all changes have been made.
@@ -26,17 +27,20 @@ export const Header = props => {
             <div
               className={`fhir-ui__${props.resourceName}-Header__title flex-fill text-start`}
             >
-              {props.title}
+              <Title data-testid="title">{props.title || ''}</Title>
             </div>
             <div
-              className={`fhir-ui__${props.resourceName}-Header__badges flex-fill d-flex justify-content-end`}
+              className={`fhir-ui__${props.resourceName}-Header__badges ${rightItemsClass}`}
             >
+              {props.prefixBadge && (
+                <div className="me-3">{props.prefixBadge}</div>
+              )}
               {props.badges}
             </div>
             <div
               className={`fhir-ui__${
                 props.resourceName
-              }-Header__chevron flex-shrink-1 accordion-arrow mt-1 ms-2${
+              }-Header__chevron flex-shrink-1 accordion-arrow mt-2 ms-2${
                 rotate ? ' header-rotate' : ''
               }`}
             >
@@ -51,6 +55,14 @@ export const Header = props => {
             }`}
           >
             {props.additionalContent}
+            <div
+              className={`fhir-ui__${props.resourceName}-Header__rightAdditionalContent ${rightItemsClass}`}
+            >
+              {props.rightAdditionalContent}
+              {props.additionalBadge && (
+                <div className="ms-3">{props.additionalBadge}</div>
+              )}
+            </div>
           </div>
         </div>
       )}
@@ -67,7 +79,7 @@ export const Title = props => (
 export const Badge = props => {
   return (
     <small
-      className={`fhir-ui__Badge px-2 py-1 rounded-1 fw-bold ${getBadgeColor(
+      className={`fhir-ui__Badge text-capitalize d-flex align-items-center px-2 py-1 rounded-1 fw-bold ${getBadgeColor(
         props,
       )}`}
       data-testid={props['data-testid']}
@@ -88,8 +100,18 @@ export const BadgeSecondary = props => (
   </small>
 );
 
+export const ValueUnit = props => (
+  <div className="fhir-ui__ValueUnitRoot">
+    <span className="fhir-ui__ValueUnitQty fw-bold me-1">{props.valueQty}</span>
+    <span className="fhir-ui__ValueUnit fw-bold text-gray-500">
+      {props.valueUnit}
+    </span>
+  </div>
+);
+
 export const Body = props => (
   <div className="fhir-ui__Body pe-4">
+    {props.reverseContent ? props.children : null}
     {props.tableData && (
       <table className="fhir-ui__Body__table table table-borderless">
         <tbody>
@@ -113,7 +135,7 @@ export const Body = props => (
         </tbody>
       </table>
     )}
-    <div>{props.children}</div>
+    {!props.reverseContent ? props.children : null}
   </div>
 );
 

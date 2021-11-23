@@ -1,6 +1,6 @@
 import './Practitioner.css';
 
-import { Badge, Body, Header, Root, Title } from '../../ui';
+import { Badge, Body, Header, Root } from '../../ui';
 
 import Accordion from '../../containers/Accordion/Accordion';
 import Address from '../../datatypes/Address';
@@ -165,11 +165,7 @@ const Practitioner = props => {
                 alt=""
               />
             }
-            title={
-              <Title>
-                <HumanName fhirData={name} isTitle />
-              </Title>
-            }
+            title={<HumanName fhirData={name} isTitle />}
           />
         }
         bodyContent={<Body tableData={tableData} />}

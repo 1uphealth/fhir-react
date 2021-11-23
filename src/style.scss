@@ -67,6 +67,17 @@ $enable-negative-margins: true;
 .fhir-ui__Body__data-cell {
   padding-left: 24px !important;
 }
+
+.fhir-ui__ValueUnitQty {
+  font-size: 28px;
+}
+.fhir-ui__ValueUnit {
+  font-size: 18px;
+}
+
+.fhir-ui__Badge {
+  height: 24px;
+}
 // adding custom colors to the theme
 
 $theme-colors: map-merge(

@@ -1,4 +1,4 @@
-import { Badge, Body, Header, Root, Title } from '../../ui';
+import { Badge, Body, Header, Root } from '../../ui';
 
 import Accordion from '../../containers/Accordion';
 import Annotation from '../../datatypes/Annotation';
@@ -231,7 +231,7 @@ const Immunization = props => {
             additionalContent={providedDate && <Date fhirData={providedDate} />}
             badges={status && <Badge data-testid="status">{status}</Badge>}
             icon={headerIcon}
-            title={<Title data-testid="title">{title}</Title>}
+            title={title}
           />
         }
         bodyContent={<Body tableData={tableData} />}

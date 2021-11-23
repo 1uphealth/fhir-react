@@ -1,4 +1,4 @@
-import { Badge, Body, Header, Root, Title } from '../../ui';
+import { Badge, Body, Header, Root } from '../../ui';
 
 import Accordion from '../../containers/Accordion';
 import CodeableConcept from '../../datatypes/CodeableConcept';
@@ -154,7 +154,7 @@ function Condition(props) {
               </>
             }
             icon={headerIcon}
-            title={<Title>{codeText || ''}</Title>}
+            title={codeText}
           />
         }
         bodyContent={<Body tableData={tableData} />}

@@ -2,37 +2,57 @@ import React from 'react';
 
 import { Root } from '../../ui';
 import { ResponsivePie } from '@nivo/pie';
+import PropTypes from 'prop-types';
 
 const ExplanationOfBenefitGraph = props => {
-  const { data, enableValueLabels, enableLinkLabels } = props;
+  const {
+    data,
+    totalLabel,
+    height,
+    margin,
+    enableValueLabels,
+    enableLinkLabels,
+    pieChartProperties,
+  } = props;
 
   const getTotalAmount = () => {
     const total = data.reduce((n, { value }) => n + value, 0);
     return `$${Number(total).toFixed(2)}`;
   };
 
-  const CenteredMetric = ({ centerX, centerY }) => {
-    return (
-      <text
-        x={centerX}
-        y={centerY + 20}
-        textAnchor="middle"
-        dominantBaseline="central"
-      >
-        <tspan className="fw-bold display-5">{getTotalAmount()}</tspan>
-        <tspan x={centerX} dy={-50} className="display-6">
-          Total
-        </tspan>
-      </text>
-    );
+  const getValidMargin = margin => {
+    const resultMargin = {};
+    if (margin) {
+      if ('top' in margin) resultMargin.top = margin.top;
+      if ('right' in margin) resultMargin.right = margin.right;
+      if ('bottom' in margin) resultMargin.bottom = margin.bottom;
+      if ('left' in margin) resultMargin.left = margin.left;
+    }
+    return resultMargin;
   };
+
+  const CenteredMetric = () => (
+    <div className="position-absolute d-flex flex-column w-100 translate-middle-y top-50">
+      <h6 className="text-secondary" data-testid="metricText">
+        {totalLabel || 'Total'}
+      </h6>
+      <h5 className="fw-bold text-dark" data-testid="metricAmount">
+        {getTotalAmount()}
+      </h5>
+    </div>
+  );
 
   return (
     <Root name="ExplanationOfBenefitGraph">
-      <div style={{ height: 400 }}>
+      <div
+        style={{ height: height || 200 }}
+        className="position-relative text-center"
+        data-testid="responsivePie"
+      >
         <ResponsivePie
           data={data}
-          margin={{ top: 40, right: 80, bottom: 40, left: 80 }}
+          margin={getValidMargin(margin)}
+          colors={{ datum: 'data.color' }}
           enableArcLabels={enableValueLabels || false}
           enableArcLinkLabels={enableLinkLabels || false}
           innerRadius={0.85}
@@ -40,11 +60,29 @@ const ExplanationOfBenefitGraph = props => {
           activeOuterRadiusOffset={1}
           borderWidth={1}
           borderColor={{ from: 'color', modifiers: [['darker', 0.2]] }}
-          layers={['arcs', CenteredMetric]}
+          {...pieChartProperties}
         />
+        <CenteredMetric />
       </div>
     </Root>
   );
+};
+
+ExplanationOfBenefitGraph.propTypes = {
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired,
+      value: PropTypes.oneOf(PropTypes.string, PropTypes.number).isRequired,
+      color: PropTypes.string.isRequired,
+    }),
+  ).isRequired,
+  height: PropTypes.string,
+  margin: PropTypes.shape({}),
+  enableValueLabels: PropTypes.bool,
+  enableLinkLabels: PropTypes.bool,
+  totalLabel: PropTypes.string.isRequired,
+  pieChartProperties: PropTypes.shape({}),
 };
 
 export default ExplanationOfBenefitGraph;

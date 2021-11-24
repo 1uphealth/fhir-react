@@ -23,7 +23,7 @@ class ResourceContainer extends React.Component {
               className="fhir-container__ResourceContainer__json-button"
               onClick={() => this.setState({ jsonOpen: !this.state.jsonOpen })}
             >
-              JSON
+              RAW
             </button>
           </div>
           {this.props.children}

@@ -28,6 +28,7 @@ const commonDTO = fhirResource => {
     name: _get(fhirResource, 'contact[0].name'),
     relationship: _get(fhirResource, 'contact[0].relationship[0].text'),
   };
+
   return {
     id,
     identifier,

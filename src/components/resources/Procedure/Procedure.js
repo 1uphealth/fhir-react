@@ -6,7 +6,6 @@ import CodeableConcept from '../../datatypes/CodeableConcept';
 import Coding from '../../datatypes/Coding';
 import Date from '../../datatypes/Date';
 import DatePeriod from '../../datatypes/DatePeriod/DatePeriod';
-import HeaderIcon from '../../datatypes/HeaderIcon';
 import PropTypes from 'prop-types';
 import React from 'react';
 import Reference from '../../datatypes/Reference';
@@ -117,7 +116,7 @@ const Procedure = props => {
               </>
             }
             badges={status && <Badge data-testid="status">{status}</Badge>}
-            icon={<HeaderIcon headerIcon={headerIcon} />}
+            icon={headerIcon}
             title={display && <Title>{display}</Title>}
           />
         }

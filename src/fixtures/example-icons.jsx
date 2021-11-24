@@ -160,4 +160,10 @@ export default {
       alt="finger pointing something in a book"
     />
   ),
+  ResourceCategoryPlaceholder: (
+    <img
+      src={require('../assets/containers/ResourceCategory/resource-placeholder.svg')}
+      alt="header icon"
+    />
+  ),
 };

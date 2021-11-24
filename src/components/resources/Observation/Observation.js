@@ -83,7 +83,7 @@ const Observation = props => {
       <Accordion
         headerContent={
           <Header
-            resourceName={fhirResource.resourceName}
+            resourceName={fhirResource.resourceType}
             additionalContent={
               issued && (
                 <Value label="Start date" data-testid="headerStartDate">

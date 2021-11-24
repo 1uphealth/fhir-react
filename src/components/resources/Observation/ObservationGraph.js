@@ -131,7 +131,7 @@ const ObservationGraph = ({ referenceRange, valueQuantity, small }) => {
       : valueIsOutOfRange(actualValue, tooLow, tooHigh, rangeInOneRow);
 
     return (
-      <div className={`position-relative ${small ? 'my-4' : 'my-6'}`}>
+      <div className={`position-relative ${small ? 'my-4 w-144' : 'my-6'}`}>
         <div
           className="d-flex overflow-hidden bg-gray-200 fs-75 rounded-pill"
           style={{ height: small ? '0.5rem' : '1rem' }}

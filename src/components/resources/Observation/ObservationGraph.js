@@ -6,12 +6,12 @@ const OBSERVATION_VALUE = 'observationValue';
 const IN_RANGE = 'in range';
 const OUT_OF_RANGE = 'out of range';
 
-const rangeBaseClasses = `rounded-pill border border-1 border-light`;
+const rangeBaseClasses = `border border-1 border-light`;
 
 const colorfulRange = ({
   width = 1,
   value = '',
-  rangeClasses = `bg-primary ${rangeBaseClasses}`,
+  rangeClasses = `bg-primary rounded-pill  ${rangeBaseClasses}`,
 }) => {
   return {
     width: width,
@@ -37,7 +37,7 @@ const observationValuePoint = (actualValue, unit, small, inRange) => {
   const smallRangeText = inRange ? IN_RANGE : OUT_OF_RANGE;
   return (
     <div
-      className={`bg-dark ${rangeBaseClasses} mx-1`}
+      className={`bg-dark ${rangeBaseClasses} rounded-circle mx-1`}
       style={{ width: small ? '8px' : '15px' }}
       key={`ValuePoint-${Math.random()}`}
     >

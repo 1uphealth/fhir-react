@@ -77,7 +77,9 @@ describe('should render component correctly', () => {
     const { getByTestId } = render(<Observation {...defaultProps} />);
 
     expect(getByTestId('valueQuantity')).not.toBeNull();
-    expect(getByTestId('valueQuantity').textContent).toEqual('6.44mmol/l');
+    expect(getByTestId('valueQuantity').textContent).toEqual('6.44');
+    expect(getByTestId('valueQuantityUnit')).not.toBeNull();
+    expect(getByTestId('valueQuantityUnit').textContent).toEqual('mmol/l');
   });
 
   test('should round the quantity to specific value of digitsToRoundForQuantity props ', () => {
@@ -91,6 +93,8 @@ describe('should render component correctly', () => {
     const { getByTestId } = render(<Observation {...defaultProps} />);
 
     expect(getByTestId('valueQuantity')).not.toBeNull();
-    expect(getByTestId('valueQuantity').textContent).toEqual('6.435mmol/l');
+    expect(getByTestId('valueQuantity').textContent).toEqual('6.435');
+    expect(getByTestId('valueQuantityUnit')).not.toBeNull();
+    expect(getByTestId('valueQuantityUnit').textContent).toEqual('mmol/l');
   });
 });

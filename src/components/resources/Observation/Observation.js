@@ -53,6 +53,7 @@ const Observation = props => {
       props.digitsToRoundForQuantity,
     );
   }
+
   const subject = _get(fhirResource, 'subject');
   const tableData = [
     {
@@ -107,11 +108,13 @@ const Observation = props => {
             }
             badges={status && <Badge data-testid="status">{status}</Badge>}
             title={codeCodingDisplay || codeText}
-            rightAdditionalContent={<ObservationGraph
-              valueQuantity={fhirResource.valueQuantity}
-              referenceRange={fhirResource.referenceRange}
-              small
-            />}
+            rightAdditionalContent={
+              <ObservationGraph
+                valueQuantity={fhirResource.valueQuantity}
+                referenceRange={fhirResource.referenceRange}
+                small
+              />
+            }
           />
         }
         bodyContent={

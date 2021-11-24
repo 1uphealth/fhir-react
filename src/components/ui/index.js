@@ -102,8 +102,16 @@ export const BadgeSecondary = props => (
 
 export const ValueUnit = props => (
   <div className="fhir-ui__ValueUnitRoot">
-    <span className="fhir-ui__ValueUnitQty fw-bold me-1">{props.valueQty}</span>
-    <span className="fhir-ui__ValueUnit fw-bold text-gray-500">
+    <span
+      data-testid="valueQuantity"
+      className="fhir-ui__ValueUnitQty fw-bold me-1"
+    >
+      {props.valueQty}
+    </span>
+    <span
+      data-testid="valueQuantityUnit"
+      className="fhir-ui__ValueUnit fw-bold text-gray-500"
+    >
       {props.valueUnit}
     </span>
   </div>

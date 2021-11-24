@@ -1,4 +1,5 @@
 @use 'components/ui/header';
+
 @import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600&display=swap');
 @import 'node_modules/bootstrap/scss/functions';
@@ -15,6 +16,18 @@ $utilities: (
       source: Source Sans Pro,
     ),
   ),
+  'width': (
+    property: width,
+    class: w,
+    values: (
+      25: 25%,
+      50: 50%,
+      75: 75%,
+      100: 100%,
+      auto: auto,
+      max-content: max-content,
+    ),
+  ),
 );
 
 $space: 0.125rem;
@@ -23,6 +36,7 @@ $spacers: map-merge(
   $spacers,
   (
     half: $space,
+    6: 3.5rem
   )
 );
 
@@ -31,14 +45,15 @@ $font-family-base: 'Titillium Web', system-ui;
 $font-weight-bold: 600;
 
 $font-sizes: (
+  75: 0.75rem,
   4: 1.125rem,
 );
 
 $line-height-lg: 1.75;
 $border-radius-lg: 16px;
-$box-shadow-sm: 0px 0px 24px rgba(0, 11, 79, 0.04);
+$box-shadow-sm: 0 0 24px rgba(0, 11, 79, 0.04);
 
-$body-color: #475263;
+$body-color: #152536;
 
 $table-striped-bg: $gray-100;
 

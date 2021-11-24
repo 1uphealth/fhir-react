@@ -14,16 +14,18 @@ const HeaderIcon = ({ headerIcon }) => {
       return headerIcon;
     }
     if (isUrl(headerIcon)) {
-      return <img src={headerIcon} alt="header icon" />;
+      return (
+        <img
+          className="header-icon__image"
+          src={headerIcon}
+          alt="header icon"
+        />
+      );
     }
     return <PlaceholderImage />;
   };
 
-  return (
-    <div>
-      <Image />
-    </div>
-  );
+  return <Image />;
 };
 
 export default HeaderIcon;

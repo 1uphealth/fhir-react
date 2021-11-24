@@ -59,7 +59,10 @@ export const Header = props => {
 };
 
 export const Title = props => (
-  <h4 className="fhir-ui__Title fw-bold fs-4 lh-lg mb-0" data-testid="title">
+  <h4
+    className="fhir-ui__Title fw-bold fs-4 lh-lg mb-0"
+    data-testid={props.dataTestID || 'title'}
+  >
     {props.children}
   </h4>
 );

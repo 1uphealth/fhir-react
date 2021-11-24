@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _get from 'lodash/get';
+import _isEmpty from 'lodash/isEmpty';
 import md5 from 'md5';
 
 import HumanName from '../../datatypes/HumanName';
@@ -8,8 +9,8 @@ import Telecom from '../../datatypes/Telecom';
 import Address from '../../datatypes/Address';
 import Coding from '../../datatypes/Coding';
 import Date from '../../datatypes/Date';
-import { Root, Header, Body, Value, MissingValue, Badge } from '../../ui';
-import './Patient.css';
+import Accordion from '../../containers/Accordion';
+import { Root, Header, MissingValue, Badge, Title, Body } from '../../ui';
 
 export function PatientContact(props) {
   const { fhirData } = props;
@@ -20,7 +21,7 @@ export function PatientContact(props) {
     <div>
       <HumanName fhirData={name} />
       {relationship && (
-        <small className="fhir-resource__Patient__patientContact-relationship">{` (${relationship})`}</small>
+        <small className="text-bold">{` (${relationship})`}</small>
       )}
     </div>
   );
@@ -57,7 +58,8 @@ function Patient(props) {
     .filter(item => Boolean(_get(item, 'language.coding', null)))
     .map(item => item.language.coding);
   communicationLanguage = _get(communicationLanguage, '0', []);
-  const hasCommunicationLanguage = communicationLanguage.length > 0;
+  const hasCommunicationLanguage = !_isEmpty(communicationLanguage);
+  const hasPatientPhones = !_isEmpty(patientPhones);
   const active = _get(fhirResource, 'active', false);
   const activeStatus = active ? 'active' : 'inactive';
   const deceasedBoolean = _get(fhirResource, 'deceasedBoolean', false);
@@ -68,92 +70,81 @@ function Patient(props) {
     return <HumanName fhirData={patientName} primary={index === 0} />;
   };
 
+  const tableData = [
+    {
+      label: 'Patient contact',
+      testId: 'patientContact',
+      data: patientContact && <PatientContact fhirData={patientContact} />,
+      status: patientContact,
+    },
+    {
+      label: 'Deceased',
+      testId: 'deceasedInfo',
+      data: deceasedDate ? <Date fhirData={deceasedDate} /> : 'yes',
+      status: !patientSimple && isDeceased,
+    },
+    {
+      label: 'Address',
+      testId: 'patientAddress',
+      data: patientAddress && <Address fhirData={patientAddress} />,
+      status: !patientSimple && patientAddress,
+    },
+    {
+      label: 'Telephone',
+      testId: 'patientPhones',
+      data: !hasPatientPhones ? (
+        <MissingValue />
+      ) : (
+        patientPhones.map((telecom, index) => (
+          <Telecom key={index} fhirData={telecom} />
+        ))
+      ),
+      status: !patientSimple,
+    },
+    {
+      label: 'Communication - language',
+      testId: 'communicationLanguage',
+      data:
+        hasCommunicationLanguage &&
+        communicationLanguage.map((item, i) => (
+          <Coding key={`item-${i}`} fhirData={item} />
+        )),
+      status: !patientSimple && hasCommunicationLanguage,
+    },
+  ];
+
   return (
     <Root name="Patient">
-      <Header>
-        <div className="fhir-resource__Patient__patient-block">
-          <div>
-            <img
-              className="fhir-resource__Patient__patient-avatar"
-              src={avatarSrc}
-              alt=""
-            />
-          </div>
-          <div>
-            <div className="fhir-resource__Patient__patient-block">
-              <React.Fragment>
-                <span data-testid={`patientName`}>
-                  {renderName
-                    ? renderName({
-                        patientName,
-                        defaultName,
-                        fhirVersion,
-                        id,
-                      })
-                    : defaultName(patientName, 0)}
+      <Accordion
+        headerContent={
+          <Header
+            resourceName={fhirResource.resourceType}
+            additionalContent={
+              patientBirthDate && (
+                <span className="text-gray-600">
+                  <span data-testid="patientGender" className="text-capitalize">
+                    {patientGender || 'unknown'}
+                  </span>
+                  {', '}
+                  <span data-testid="patientBirthDate">{patientBirthDate}</span>
                 </span>
-                &nbsp;&nbsp;
-              </React.Fragment>
-            </div>
-            <div>
-              {active && (
-                <Badge data-testid="activeStatus">{activeStatus}</Badge>
-              )}
-              {patientBirthDate && (
-                <span className="fhir-resource__Patient__BirthDate-block">
-                  <strong>
-                    <span data-testid="patientGender">
-                      {patientGender || 'unknown'}
-                    </span>
-                    {', '}
-                    <span data-testid="patientBirthDate">
-                      {patientBirthDate}
-                    </span>
-                  </strong>
-                  <small> (DOB)</small>
-                </span>
-              )}
-            </div>
-            <div>
-              {patientContact && <PatientContact fhirData={patientContact} />}
-            </div>
-          </div>
-        </div>
-      </Header>
-      {!patientSimple && (
-        <Body>
-          {isDeceased && (
-            <Value label="Deceased" data-testid="deceasedInfo">
-              {deceasedDate ? <Date fhirData={deceasedDate} /> : 'yes'}
-            </Value>
-          )}
-          {patientAddress && (
-            <Value label="Address" data-testid="patientAddress">
-              <Address fhirData={patientAddress} />
-            </Value>
-          )}
-          {patientPhones && (
-            <Value label="TELEPHONE" data-testid="patientPhones">
-              {patientPhones.map((telecom, index) => (
-                <div key={index}>
-                  <Telecom fhirData={telecom} />
-                </div>
-              ))}
-              {patientPhones.length === 0 && <MissingValue />}
-            </Value>
-          )}
-          {hasCommunicationLanguage && (
-            <Value
-              label="Communication - language"
-              data-testid="communicationLanguage"
-            >
-              {communicationLanguage.map((item, i) => (
-                <Coding key={`item-${i}`} fhirData={item} />
-              ))}
-            </Value>
-          )}
-        </Body>
-      )}
+              )
+            }
+            icon={avatarSrc}
+            badges={
+              active && <Badge data-testid="activeStatus">{activeStatus}</Badge>
+            }
+            title={
+              <Title dataTestID="patientName">
+                {renderName
+                  ? renderName({ patientName, defaultName, fhirVersion, id })
+                  : defaultName(patientName, 0)}
+              </Title>
+            }
+          />
+        }
+        bodyContent={<Body tableData={tableData} />}
+      />
     </Root>
   );
 }

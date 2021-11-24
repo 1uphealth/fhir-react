@@ -1,8 +1,7 @@
 import React from 'react';
 import { formatDate } from '../../../utils/formatDate';
 
-const Date = props => {
-  const { fhirData, isBlack, testId, className = '' } = props;
+const Date = ({ fhirData, isBlack, testId, className = '' }) => {
   if (!fhirData) {
     return null;
   }

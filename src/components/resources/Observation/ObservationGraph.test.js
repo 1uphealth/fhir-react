@@ -54,8 +54,7 @@ describe('ObservationGraph component', () => {
     );
 
     expect(container).not.toBeNull();
-    expect(getByTestId('valuePoint').textContent).toContain('in range');
-    expect(getByTestId('rangeContent41%-53%').textContent).toContain('');
+    expect(getByTestId('smallRangeText').textContent).toContain('in range');
   });
   it('should render component correctly with small props and out of range value', () => {
     defaultProps.small = true;
@@ -65,7 +64,6 @@ describe('ObservationGraph component', () => {
     );
 
     expect(container).not.toBeNull();
-    expect(getByTestId('valuePoint').textContent).toContain('out of range');
-    expect(getByTestId('rangeContent41%-53%').textContent).toContain('');
+    expect(getByTestId('smallRangeText').textContent).toContain('out of range');
   });
 });

@@ -23,7 +23,7 @@ const colorfulRange = ({
 const rangeContent = (width, rangeClasses, value, small) => (
   <div
     className={`${rangeClasses} text-white text-center font-source`}
-    style={{ width: `${width}%`, lineHeight: '14px' }}
+    style={{ width: `${width}%`, lineHeight: '14px', minWidth: '8px' }}
     key={`range${width}-${Math.random()}`}
     data-testid={`rangeContent${value && value.replace(/ /g, '')}`}
   >
@@ -31,24 +31,27 @@ const rangeContent = (width, rangeClasses, value, small) => (
   </div>
 );
 
-const edgeRange = () => rangeContent(4, 'rounded-pill');
+const edgeRange = () => rangeContent(2, 'rounded-pill');
 
-const observationValuePoint = (actualValue, unit, small, inRange) => {
-  const smallRangeText = inRange ? IN_RANGE : OUT_OF_RANGE;
+const observationValuePoint = (actualValue, unit, small) => {
   return (
     <div
-      className={`bg-dark ${rangeBaseClasses} rounded-circle mx-1`}
-      style={{ width: small ? '8px' : '15px' }}
+      className={`bg-dark ${rangeBaseClasses} rounded-circle ${
+        small ? 'mx-0' : 'mx-1'
+      }`}
+      style={{ width: small ? '9px' : '17px' }}
       key={`ValuePoint-${Math.random()}`}
     >
-      <span
-        className={`position-absolute top-0 translate-middle ps-2 ${
-          small ? 'pb-4 fs-1' : 'pb-5 fs-4'
-        } w-max-content`}
-        data-testid="valuePoint"
-      >
-        {small ? smallRangeText : `${actualValue} ${unit}`}
-      </span>
+      {!small && (
+        <span
+          className={`position-absolute top-0 translate-middle ps-2 ${
+            small ? 'pb-4 fs-1' : 'pb-5 fs-4'
+          } w-max-content`}
+          data-testid="valuePoint"
+        >
+          {`${actualValue} ${unit}`}
+        </span>
+      )}
     </div>
   );
 };
@@ -130,8 +133,18 @@ const ObservationGraph = ({ referenceRange, valueQuantity, small }) => {
         )
       : valueIsOutOfRange(actualValue, tooLow, tooHigh, rangeInOneRow);
 
+    const smallRangeText = inRange ? IN_RANGE : OUT_OF_RANGE;
+
     return (
       <div className={`position-relative ${small ? 'my-4 w-144' : 'my-6'}`}>
+        {small && (
+          <span
+            className={`pb-1 fs-75 font-source d-inline-block`}
+            data-testid="smallRangeText"
+          >
+            {smallRangeText}
+          </span>
+        )}
         <div
           className="d-flex overflow-hidden bg-gray-200 fs-75 rounded-pill"
           style={{ height: small ? '0.5rem' : '1rem' }}

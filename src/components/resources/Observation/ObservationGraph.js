@@ -137,7 +137,9 @@ const ObservationGraph = ({ referenceRange, valueQuantity, small }) => {
 
     return (
       <div
-        className={`position-relative ${small ? 'w-100 w-sm-144  ' : 'my-6'}`}
+        className={`position-relative ${
+          small ? 'w-100 graph-width-sm  ' : 'my-6'
+        }`}
       >
         {small && (
           <span

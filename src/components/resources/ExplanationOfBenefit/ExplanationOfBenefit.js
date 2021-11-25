@@ -278,13 +278,13 @@ const ExplanationOfBenefit = props => {
   } = fhirResourceData;
 
   const getRowItem = item =>
-    ('isLoaded' in item ? item.isLoaded : item.children) && (
+    ('isLoaded' in item ? item.isLoaded : item.data) && (
       <div className="col-12 col-sm-6 col-md-4 text-wrap mb-4">
         {item.noWrapWithValue ? (
-          item.children
+          item.data
         ) : (
           <Value label={item.label} data-testid={item.testId} dirColumn>
-            {item.children}
+            {item.data}
           </Value>
         )}
       </div>
@@ -302,54 +302,58 @@ const ExplanationOfBenefit = props => {
     {
       label: 'Type',
       testId: 'type',
-      children: type.map((typeItem, i) => (
-        <Coding key={`item-${i}`} fhirData={typeItem} />
-      )),
+      data:
+        hasType &&
+        type.map((typeItem, i) => (
+          <Coding key={`item-${i}`} fhirData={typeItem} />
+        )),
       isLoaded: hasType,
     },
     {
       label: 'Identifier',
       testId: 'identifier',
-      children: identifier.map((id, index) => (
-        <div key={`identifier-${index}`}>
-          <Identifier fhirData={id} />
-        </div>
-      )),
+      data:
+        identifier &&
+        identifier.map((id, index) => (
+          <div key={`identifier-${index}`}>
+            <Identifier fhirData={id} />
+          </div>
+        )),
       isLoaded: identifier,
     },
     {
       label: 'Outcome',
       testId: 'outcome',
-      children: outcome,
+      data: outcome,
     },
     {
       label: 'Insurer',
       testId: 'insurer',
-      children: <Reference fhirData={insurer} />,
+      data: <Reference fhirData={insurer} />,
       isLoaded: hasInsurer,
     },
     {
       label: 'Claim provider',
       testId: 'provider',
-      children: <Reference fhirData={provider} />,
+      data: <Reference fhirData={provider} />,
       isLoaded: provider,
     },
     {
       label: 'Total',
       testId: 'totalSum',
-      children: <TotalSum fhirData={total} />,
+      data: <TotalSum fhirData={total} />,
       isLoaded: hasTotal,
     },
     {
       label: 'Payment',
       testId: 'payment',
-      children: <Money fhirData={payment} />,
+      data: <Money fhirData={payment} />,
       isLoaded: payment,
     },
     {
       label: 'Payee',
       testId: 'payee',
-      children: (
+      data: (
         <>
           {payeeType && <CodeableConcept fhirData={payeeType} />}
           {payeeParty && <Reference fhirData={payeeParty} />}
@@ -360,39 +364,39 @@ const ExplanationOfBenefit = props => {
     {
       label: 'Billable period',
       testId: 'billablePeriod',
-      children: <Period fhirData={billablePeriod} />,
+      data: <Period fhirData={billablePeriod} />,
       isLoaded: billablePeriod,
     },
     {
       label: 'Purpose',
       testId: 'purpose',
-      children: useCode,
+      data: useCode,
     },
     {
       label: 'Patient',
       testId: 'patient',
-      children: <Reference fhirData={patient} />,
+      data: <Reference fhirData={patient} />,
       isLoaded: patient,
     },
     {
       label: 'Insurance',
       testId: 'insurance',
-      children: <Reference fhirData={insurance} />,
+      data: <Reference fhirData={insurance} />,
       isLoaded: insurance,
     },
     {
       label: 'Related',
       testId: 'related',
-      children: <Related fhirData={related} />,
+      data: <Related fhirData={related} />,
       isLoaded: related,
     },
     {
-      children: <Diagnosis fhirData={diagnosis} />,
+      data: <Diagnosis fhirData={diagnosis} />,
       isLoaded: hasDiagnosis,
       noWrapWithValue: true,
     },
     {
-      children: <SupportingInfo fhirData={supportingInfo} />,
+      data: <SupportingInfo fhirData={supportingInfo} />,
       isLoaded: hasSupportingInfo,
       noWrapWithValue: true,
     },

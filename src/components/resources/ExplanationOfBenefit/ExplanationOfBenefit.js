@@ -7,7 +7,6 @@ import {
   Table,
   TableCell,
   TableRow,
-  Title,
   Value,
   ValueSection,
 } from '../../ui';

@@ -12,7 +12,6 @@ import {
   ValueSection,
 } from '../../ui';
 
-import AccountBalance from '../../datatypes/AccountBalance/AccountBalance';
 import CareTeam from './CareTeam';
 import CodeableConcept from '../../datatypes/CodeableConcept';
 import Coding from '../../datatypes/Coding';
@@ -31,6 +30,9 @@ import TotalSum from './TotalSum';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 import _get from 'lodash/get';
 import fhirVersions from '../fhirResourceVersions';
+import Accordion from '../../containers/Accordion';
+import TotalGraph from './TotalGraph';
+import { parseValueIntoMonetaryValueOfGivenCurrency } from '../../../utils';
 
 /**
  * @typedef ExplanationOfBenefitServiceItem
@@ -276,184 +278,250 @@ const ExplanationOfBenefit = props => {
     related,
   } = fhirResourceData;
 
+  const getRowItem = item =>
+    ('isLoaded' in item ? item.isLoaded : item.children) && (
+      <div className="col-12 col-sm-6 col-md-4 text-wrap mb-4">
+        {item.noWrapWithValue ? (
+          item.children
+        ) : (
+          <Value label={item.label} data-testid={item.testId} dirColumn>
+            {item.children}
+          </Value>
+        )}
+      </div>
+    );
+
+  const getHeaderPrice = () => {
+    if (totalCost && totalBenefit)
+      return parseValueIntoMonetaryValueOfGivenCurrency(
+        totalCost.value,
+        totalCost.code,
+      );
+  };
+
+  const EOBRowData = [
+    {
+      label: 'Type',
+      testId: 'type',
+      children: type?.map((typeItem, i) => (
+        <Coding key={`item-${i}`} fhirData={typeItem} />
+      )),
+      isLoaded: hasType,
+    },
+    {
+      label: 'Identifier',
+      testId: 'identifier',
+      children: identifier?.map((id, index) => (
+        <div key={`identifier-${index}`}>
+          <Identifier fhirData={id} />
+        </div>
+      )),
+      isLoaded: identifier,
+    },
+    {
+      label: 'Outcome',
+      testId: 'outcome',
+      children: outcome,
+    },
+    {
+      label: 'Insurer',
+      testId: 'insurer',
+      children: <Reference fhirData={insurer} />,
+      isLoaded: hasInsurer,
+    },
+    {
+      label: 'Claim provider',
+      testId: 'provider',
+      children: <Reference fhirData={provider} />,
+      isLoaded: provider,
+    },
+    {
+      label: 'Total',
+      testId: 'totalSum',
+      children: <TotalSum fhirData={total} />,
+      isLoaded: hasTotal,
+    },
+    {
+      label: 'Payment',
+      testId: 'payment',
+      children: <Money fhirData={payment} />,
+      isLoaded: payment,
+    },
+    {
+      label: 'Payee',
+      testId: 'payee',
+      children: (
+        <>
+          {payeeType && <CodeableConcept fhirData={payeeType} />}
+          {payeeParty && <Reference fhirData={payeeParty} />}
+        </>
+      ),
+      isLoaded: payeeType || payeeParty,
+    },
+    {
+      label: 'Billable period',
+      testId: 'billablePeriod',
+      children: <Period fhirData={billablePeriod} />,
+      isLoaded: billablePeriod,
+    },
+    {
+      label: 'Purpose',
+      testId: 'purpose',
+      children: useCode,
+    },
+    {
+      label: 'Patient',
+      testId: 'patient',
+      children: <Reference fhirData={patient} />,
+      isLoaded: patient,
+    },
+    {
+      label: 'Insurance',
+      testId: 'insurance',
+      children: <Reference fhirData={insurance} />,
+      isLoaded: insurance,
+    },
+    {
+      label: 'Related',
+      testId: 'related',
+      children: <Related fhirData={related} />,
+      isLoaded: related,
+    },
+    {
+      children: <Diagnosis fhirData={diagnosis} />,
+      isLoaded: hasDiagnosis,
+      noWrapWithValue: true,
+    },
+    {
+      children: <SupportingInfo fhirData={supportingInfo} />,
+      isLoaded: hasSupportingInfo,
+      noWrapWithValue: true,
+    },
+  ];
+
   return (
     <Root name="ExplanationOfBenefit">
-      <Header>
-        <Title>{disposition}</Title>
-        {resourceStatus && <Badge>{resourceStatus}</Badge>}
-      </Header>
-      <Body>
-        {hasType && (
-          <Value label="Type" data-testid="type">
-            {type.map((typeItem, i) => (
-              <Coding key={`item-${i}`} fhirData={typeItem} />
-            ))}
-          </Value>
-        )}
-        {created && (
-          <Value label="Created" data-testid="created">
-            {created}
-          </Value>
-        )}
-        {identifier && (
-          <Value label="Identifier" data-testid="identifier">
-            {identifier.map((id, index) => (
-              <div key={`identifier-${index}`}>
-                <Identifier fhirData={id} />
-              </div>
-            ))}
-          </Value>
-        )}
-        {outcome && (
-          <Value label="Outcome" data-testid="outcome">
-            {outcome}
-          </Value>
-        )}
-        {hasInsurer && (
-          <Value label="Insurer" data-testid="insurer">
-            <Reference fhirData={insurer} />
-          </Value>
-        )}
-        {provider && (
-          <Value label="Claim provider" data-testid="provider">
-            <Reference fhirData={provider} />
-          </Value>
-        )}
-        {hasTotal && (
-          <Value label="Total" data-testid="totalSum">
-            <TotalSum fhirData={total} />
-          </Value>
-        )}
-        {(totalCost || totalBenefit) && (
-          <AccountBalance totalCost={totalCost} totalBenefit={totalBenefit} />
-        )}
-        {payment && (
-          <Value label="Payment" data-testid="payment">
-            <Money fhirData={payment} />
-          </Value>
-        )}
-        {(payeeType || payeeParty) && (
-          <Value label="Payee" data-testid="payee">
-            {payeeType && <CodeableConcept fhirData={payeeType} />}
-            {payeeParty && <Reference fhirData={payeeParty} />}
-          </Value>
-        )}
-        {billablePeriod && (
-          <Value label="Billable period" data-testid="billablePeriod">
-            <Period fhirData={billablePeriod} />
-          </Value>
-        )}
-        {useCode && (
-          <Value label="Purpose" data-testid="purpose">
-            {useCode}
-          </Value>
-        )}
-        {patient && (
-          <Value label="Patient" data-testid="patient">
-            <Reference fhirData={patient} />
-          </Value>
-        )}
-        {insurance && (
-          <Value label="Insurance" data-testid="insurance">
-            <Reference fhirData={insurance} />
-          </Value>
-        )}
-        {related && (
-          <Value label="Related" data-testid="related">
-            <Related fhirData={related} />
-          </Value>
-        )}
-        {hasDiagnosis && <Diagnosis fhirData={diagnosis} />}
-        {hasSupportingInfo && <SupportingInfo fhirData={supportingInfo} />}
+      <Accordion
+        headerContent={
+          <Header
+            resourceName={fhirResource.resourceName}
+            title={<Title data-testid="title">{disposition}</Title>}
+            badges={getHeaderPrice()}
+            rightAdditionalContent={
+              resourceStatus && <Badge>{resourceStatus}</Badge>
+            }
+            additionalContent={
+              created && (
+                <div>
+                  <span className="text-secondary pe-2">Start date</span>
+                  <Date isBlack fhirData={created} />
+                </div>
+              )
+            }
+          />
+        }
+        bodyContent={
+          <Body>
+            <ValueSection label="Details" data-testid="details">
+              <div className="row">{EOBRowData.map(x => getRowItem(x))}</div>
+            </ValueSection>
+            {totalCost && totalBenefit && (
+              <TotalGraph fhirData={{ totalCost, totalBenefit }} />
+            )}
 
-        {hasServices && (
-          <ValueSection label="Services" data-testid="hasServices">
-            <Table>
-              <thead>
-                <TableRow>
-                  <TableCell>Service</TableCell>
-                  <TableCell>Service date</TableCell>
-                  <TableCell>Quantity</TableCell>
-                  <TableCell>Item cost</TableCell>
-                </TableRow>
-              </thead>
-              <tbody>
-                {services.map((serviceItem, i) => {
-                  return (
-                    <TableRow key={`serviceItem-${i}`}>
-                      <TableCell data-testid="explanation.service">
-                        <Coding fhirData={serviceItem.coding} />
-                      </TableCell>
-                      <TableCell data-testid="explanation.servicedDate">
-                        {serviceItem.servicedDate ? (
-                          <Date fhirData={serviceItem.servicedDate} />
-                        ) : (
-                          <MissingValue />
-                        )}
-                      </TableCell>
-                      <TableCell data-testid="explanation.quantity">
-                        {Number.isFinite(Number(serviceItem.quantity)) ? (
-                          serviceItem.quantity
-                        ) : (
-                          <MissingValue />
-                        )}
-                      </TableCell>
-                      <TableCell data-testid="explanation.itemCost">
-                        {Number.isFinite(
-                          Number(_get(serviceItem, 'itemCost.value')),
-                        ) ? (
-                          <Money fhirData={serviceItem.itemCost} />
-                        ) : (
-                          <MissingValue />
-                        )}
-                      </TableCell>
+            {hasServices && (
+              <ValueSection label="Services" data-testid="hasServices">
+                <Table>
+                  <thead>
+                    <TableRow>
+                      <TableCell>Service</TableCell>
+                      <TableCell>Service date</TableCell>
+                      <TableCell>Quantity</TableCell>
+                      <TableCell>Item cost</TableCell>
                     </TableRow>
-                  );
-                })}
-              </tbody>
-            </Table>
-          </ValueSection>
-        )}
-        {hasInformation && (
-          <ValueSection label="Information" data-testid="hasInformation">
-            <Table>
-              <thead>
-                <TableRow>
-                  <TableCell />
-                  <TableCell>Status</TableCell>
-                </TableRow>
-              </thead>
-              <tbody>
-                {information.map((informationItem, i) => {
-                  const infoTitle = _get(informationItem, 'category.coding.0');
-                  const infoStatus = _get(informationItem, 'code.coding.0');
+                  </thead>
+                  <tbody>
+                    {services.map((serviceItem, i) => {
+                      return (
+                        <TableRow key={`serviceItem-${i}`}>
+                          <TableCell data-testid="explanation.service">
+                            <Coding fhirData={serviceItem.coding} />
+                          </TableCell>
+                          <TableCell data-testid="explanation.servicedDate">
+                            {serviceItem.servicedDate ? (
+                              <Date fhirData={serviceItem.servicedDate} />
+                            ) : (
+                              <MissingValue />
+                            )}
+                          </TableCell>
+                          <TableCell data-testid="explanation.quantity">
+                            {Number.isFinite(Number(serviceItem.quantity)) ? (
+                              serviceItem.quantity
+                            ) : (
+                              <MissingValue />
+                            )}
+                          </TableCell>
+                          <TableCell data-testid="explanation.itemCost">
+                            {Number.isFinite(
+                              Number(_get(serviceItem, 'itemCost.value')),
+                            ) ? (
+                              <Money fhirData={serviceItem.itemCost} />
+                            ) : (
+                              <MissingValue />
+                            )}
+                          </TableCell>
+                        </TableRow>
+                      );
+                    })}
+                  </tbody>
+                </Table>
+              </ValueSection>
+            )}
+            {hasInformation && (
+              <ValueSection label="Information" data-testid="hasInformation">
+                <Table>
+                  <thead>
+                    <TableRow>
+                      <TableCell />
+                      <TableCell>Status</TableCell>
+                    </TableRow>
+                  </thead>
+                  <tbody>
+                    {information.map((informationItem, i) => {
+                      const infoTitle = _get(
+                        informationItem,
+                        'category.coding.0',
+                      );
+                      const infoStatus = _get(informationItem, 'code.coding.0');
 
-                  return (
-                    <TableRow key={`serviceItem-${i}`}>
-                      <TableCell>
-                        {infoTitle ? (
-                          <Coding fhirData={infoTitle} />
-                        ) : (
-                          <MissingValue />
-                        )}
-                      </TableCell>
-                      <TableCell>
-                        {infoStatus ? (
-                          <Coding fhirData={infoStatus} />
-                        ) : (
-                          <MissingValue />
-                        )}
-                      </TableCell>
-                    </TableRow>
-                  );
-                })}
-              </tbody>
-            </Table>
-          </ValueSection>
-        )}
-        {hasItems && <Items fhirData={items} />}
-        {hasCareTeam && <CareTeam fhirData={careTeam} />}
-      </Body>
+                      return (
+                        <TableRow key={`serviceItem-${i}`}>
+                          <TableCell>
+                            {infoTitle ? (
+                              <Coding fhirData={infoTitle} />
+                            ) : (
+                              <MissingValue />
+                            )}
+                          </TableCell>
+                          <TableCell>
+                            {infoStatus ? (
+                              <Coding fhirData={infoStatus} />
+                            ) : (
+                              <MissingValue />
+                            )}
+                          </TableCell>
+                        </TableRow>
+                      );
+                    })}
+                  </tbody>
+                </Table>
+              </ValueSection>
+            )}
+            {hasItems && <Items fhirData={items} />}
+            {hasCareTeam && <CareTeam fhirData={careTeam} />}
+          </Body>
+        }
+      />
     </Root>
   );
 };

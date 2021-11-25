@@ -44,8 +44,9 @@ const ExplanationOfBenefitGraph = props => {
 
   return (
     <Root name="ExplanationOfBenefitGraph">
+      {/* according to nivo library documentation, to keep Pie Chart svg aligned, 'maxWidth' prop has to be constant */}
       <div
-        style={{ height: height || 200 }}
+        style={{ height: height || 200, maxWidth: 200 }}
         className="position-relative text-center"
         data-testid="responsivePie"
       >

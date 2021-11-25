@@ -1,15 +1,9 @@
 import React from 'react';
 import { Value } from '../../ui';
+import { parseValueIntoMonetaryValueOfGivenCurrency } from '../../../utils';
 
 const AccountBalance = props => {
   const { totalBenefit, totalCost } = props;
-
-  const parseValueIntoMonetaryValueOfGivenCurrency = (value, currency) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: currency,
-    }).format(Math.round(value * 100) / 100);
-  };
 
   return (
     <div className="fhir-datatype__AccountBalance container-fluid p-0 m-0 ">

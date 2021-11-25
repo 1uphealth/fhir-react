@@ -21,22 +21,31 @@ const SupportingInfo = ({ fhirData }) => {
           data-testid="supportingInfo"
         >
           {category && (
-            <Value label="Category" data-testid="supportingInfo.category">
+            <Value
+              dirColumn
+              label="Category"
+              data-testid="supportingInfo.category"
+            >
               <CodeableConcept fhirData={category} />
             </Value>
           )}
           {code && (
-            <Value label="Code" data-testid="supportingInfo.code">
+            <Value dirColumn label="Code" data-testid="supportingInfo.code">
               <CodeableConcept fhirData={code} />
             </Value>
           )}
           {timingDate && (
-            <Value label="Date" data-testid="supportingInfo.timingDate">
+            <Value
+              dirColumn
+              label="Date"
+              data-testid="supportingInfo.timingDate"
+            >
               <Date fhirData={timingDate} />
             </Value>
           )}
           {timingPeriodStart && (
             <Value
+              dirColumn
               label="Start date"
               data-testid="supportingInfo.timingPeriodStart"
             >
@@ -45,6 +54,7 @@ const SupportingInfo = ({ fhirData }) => {
           )}
           {timingPeriodEnd && (
             <Value
+              dirColumn
               label="End date"
               data-testid="supportingInfo.timingPeriodEnd"
             >

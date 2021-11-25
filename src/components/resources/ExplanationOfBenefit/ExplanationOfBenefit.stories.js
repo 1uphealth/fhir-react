@@ -16,6 +16,16 @@ export default {
   title: 'ExplanationOfBenefit',
 };
 
+export const EOBNew = () => {
+  const fhirResource = object('Resource', example1Stu3);
+  return (
+    <ExplanationOfBenefit
+      fhirVersion={fhirVersions.STU3}
+      fhirResource={fhirResource}
+    />
+  );
+};
+
 export const DefaultVisualizationDSTU2 = () => {
   const fhirResource = object('Resource', example1Dstu2);
   return (

@@ -310,7 +310,7 @@ const ExplanationOfBenefit = props => {
     {
       label: 'Identifier',
       testId: 'identifier',
-      children: identifier?.map((id, index) => (
+      children: identifier.map((id, index) => (
         <div key={`identifier-${index}`}>
           <Identifier fhirData={id} />
         </div>

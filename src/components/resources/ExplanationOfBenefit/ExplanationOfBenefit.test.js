@@ -23,7 +23,7 @@ describe('should render ExplanationOfBenefit component properly', () => {
     expect(container).not.toBeNull();
 
     expect(getByTestId('title').textContent).toContain('Claim settled as ');
-    expect(getByTestId('created').textContent).toContain('2014-08-16');
+    expect(getByTestId('created').textContent).toContain('8/16/2014');
     expect(getByTestId('insurer').textContent).toContain('Organization/2');
   });
 
@@ -39,12 +39,10 @@ describe('should render ExplanationOfBenefit component properly', () => {
     expect(container).not.toBeNull();
 
     expect(getByTestId('title').textContent).toContain('Claim settled as ');
-    expect(getByTestId('created').textContent).toContain('2014-08-16');
+    expect(getByTestId('created').textContent).toContain('8/16/2014');
+    expect(getByTestId('metricAmount').textContent).toContain('$135.57');
     expect(
-      getByTestId('totalCost').textContent.replace(nbspRegex, ' '),
-    ).toEqual('$135.57');
-    expect(
-      getByTestId('totalBenefit').textContent.replace(nbspRegex, ' '),
+      getByTestId('planDiscount').textContent.replace(nbspRegex, ' '),
     ).toContain('$96.00');
     expect(getByTestId('hasServices').textContent).toContain('(1200)');
   });
@@ -83,7 +81,7 @@ describe('should render ExplanationOfBenefit component properly', () => {
     expect(getByTestId('title').textContent).toEqual(
       'Claim settled as per contract.',
     );
-    expect(getByTestId('created').textContent).toEqual('2014-08-16');
+    expect(getByTestId('created').textContent).toEqual('8/16/2014');
     expect(getByTestId('insurer').textContent).toEqual('Organization/3');
     expect(getByTestId('provider').textContent).toEqual('Practitioner/1');
     expect(getByTestId('totalSum').textContent).toContain('135.57');
@@ -174,7 +172,7 @@ describe('should render ExplanationOfBenefit component properly', () => {
     } = render(<ExplanationOfBenefit {...defaultProps} />);
     expect(container).not.toBeNull();
 
-    expect(getByTestId('created').textContent).toEqual('2017-01-05');
+    expect(getByTestId('created').textContent).toEqual('1/5/2017');
     expect(getByTestId('identifier').textContent).toContain(
       'c145d3fe-d56e-dc26-75e9-01e90672f506',
     );

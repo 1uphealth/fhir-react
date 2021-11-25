@@ -405,7 +405,7 @@ const ExplanationOfBenefit = props => {
         headerContent={
           <Header
             resourceName={fhirResource.resourceName}
-            title={<Title data-testid="title">{disposition}</Title>}
+            title={disposition}
             badges={getHeaderPrice()}
             rightAdditionalContent={
               resourceStatus && <Badge>{resourceStatus}</Badge>
@@ -414,7 +414,7 @@ const ExplanationOfBenefit = props => {
               created && (
                 <div>
                   <span className="text-secondary pe-2">Start date</span>
-                  <Date isBlack fhirData={created} />
+                  <Date testId="created" isBlack fhirData={created} />
                 </div>
               )
             }

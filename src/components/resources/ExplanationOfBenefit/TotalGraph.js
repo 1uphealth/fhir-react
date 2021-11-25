@@ -14,13 +14,13 @@ const TotalGraph = ({ fhirData }) => {
     if (totalCost && totalBenefit) {
       return [
         {
-          id: 'Plan discount',
+          id: 'planDiscount',
           label: 'Plan discount',
           value: totalBenefit.value,
           color: '#3498DB',
         },
         {
-          id: 'You paid',
+          id: 'youPaid',
           label: 'You paid',
           value: totalCost.value - totalBenefit.value,
           color: '#17A589',
@@ -50,11 +50,7 @@ const TotalGraph = ({ fhirData }) => {
                   className="p-1 me-2 rounded-pill"
                   style={{ background: item.color }}
                 />
-                <Value
-                  dirColumn
-                  label={item.label}
-                  data-testid={item.label.toLowerCase()}
-                >
+                <Value dirColumn label={item.label} data-testid={item.id}>
                   {parseValueIntoMonetaryValueOfGivenCurrency(
                     item.value,
                     totalBenefit.code,

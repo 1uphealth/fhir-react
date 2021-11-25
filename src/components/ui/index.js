@@ -44,9 +44,9 @@ export const Header = props => {
             <div
               className={`fhir-ui__${
                 props.resourceName
-              }-Header__chevron flex-shrink-1 accordion-arrow mt-2 ms-2${
+              }-Header__chevron flex-shrink-1 mt-2 ms-2 position-absolute ${
                 rotate ? ' header-rotate' : ''
-              } position-absolute`}
+              }`}
               style={{ top: '15px', right: '24px' }}
             >
               <Chevron strokeColor={rotate ? '#2a6fd7' : '#6f83a9'} />

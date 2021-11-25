@@ -7,13 +7,13 @@ export const Header = props => {
   const [rotate, setRotate] = useState(false);
   const handleAccordionClick = () => setRotate(!rotate);
   const rightItemsClass =
-    'align-items-center flex-fill d-flex justify-content-start justify-content-sm-end ';
+    'align-items-center flex-fill d-flex justify-content-between justify-content-sm-end ';
   return (
     <>
       {// This condition was left due to fact, that to much changes in Header will generate many errors in tests. This condition will be removed after all changes have been made.
       props.children || (
         <div
-          className={`fhir-ui__${props.resourceName}-Header w-100 p-4 pe-6 position-relative`}
+          className={`fhir-ui__${props.resourceName}-Header w-100 p-4 position-relative pe-sm-6`}
           onClick={handleAccordionClick}
         >
           <div
@@ -33,13 +33,17 @@ export const Header = props => {
             </div>
 
             <div
-              className={`fhir-ui__${props.resourceName}-Header__badges ps-1 ps-sm-2 mt-3 mt-sm-0 ${rightItemsClass}`}
-              style={{ maxHeight: '24px' }}
+              className={`fhir-ui__${props.resourceName}-Header__badges ps-1 ps-sm-2 mt-3 mt-sm-0 badges-max-width-sm flex-wrap flex-sm-nowrap ${rightItemsClass}`}
             >
               {props.prefixBadge && (
                 <div className="me-3">{props.prefixBadge}</div>
               )}
-              {props.badges}
+              <div className="d-flex">
+                {props.badges}
+                {props.additionalBadge && (
+                  <div className="ms-3">{props.additionalBadge}</div>
+                )}
+              </div>
             </div>
             <div
               className={`fhir-ui__${
@@ -64,9 +68,6 @@ export const Header = props => {
               className={`fhir-ui__${props.resourceName}-Header__rightAdditionalContent ${rightItemsClass}`}
             >
               {props.rightAdditionalContent}
-              {props.additionalBadge && (
-                <div className="ms-3">{props.additionalBadge}</div>
-              )}
             </div>
           </div>
         </div>
@@ -76,7 +77,10 @@ export const Header = props => {
 };
 
 export const Title = props => (
-  <h4 className="fhir-ui__Title fw-bold fs-4 lh-base mb-0" data-testid="title">
+  <h4
+    className="fhir-ui__Title fw-bold fs-4 lh-base mb-0 w-90 title-width-sm"
+    data-testid="title"
+  >
     {props.children}
   </h4>
 );
@@ -153,7 +157,7 @@ export const Body = props => (
 );
 
 export const Value = props => (
-  <div className="fhir-ui__Value d-flex">
+  <div className="fhir-ui__Value d-flex align-items-center pt-3 pb-2 pt-sm-0 pb-sm-0 ">
     <Label>{props.label}</Label>
     <Data data-testid={props['data-testid']}>{props.children}</Data>
   </div>

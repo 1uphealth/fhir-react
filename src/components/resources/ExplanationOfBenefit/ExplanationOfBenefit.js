@@ -302,7 +302,7 @@ const ExplanationOfBenefit = props => {
     {
       label: 'Type',
       testId: 'type',
-      children: type?.map((typeItem, i) => (
+      children: type.map((typeItem, i) => (
         <Coding key={`item-${i}`} fhirData={typeItem} />
       )),
       isLoaded: hasType,

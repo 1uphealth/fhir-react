@@ -87,7 +87,7 @@ const Observation = props => {
             additionalContent={
               issued && (
                 <Value label="Start date" data-testid="headerStartDate">
-                  <Date className="ms-2" fhirData={issued} />
+                  <Date fhirData={issued} />
                 </Value>
               )
             }

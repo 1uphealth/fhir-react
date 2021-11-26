@@ -28,6 +28,7 @@ $utilities: (
       auto: auto,
       max-content: max-content,
       144: 144px,
+      110: 110px,
     ),
   ),
 );
@@ -102,7 +103,7 @@ $enable-negative-margins: true;
     width: 100% !important;
   }
 
-  .w-100.graph-width-sm {
+  .w-110.graph-width-sm {
     width: 144px !important;
   }
 

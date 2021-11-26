@@ -9,8 +9,7 @@ const CHEVRON_UP_COLOR = '#2a6fd7';
 export const Header = props => {
   const [rotate, setRotate] = useState(false);
   const handleAccordionClick = () => setRotate(!rotate);
-  const rightItemsClass =
-    'align-items-center flex-fill d-flex justify-content-between justify-content-sm-end ';
+  const rightItemsClass = 'align-items-center flex-fill d-flex';
   return (
     <>
       {// This condition was left due to fact, that to much changes in Header will generate many errors in tests. This condition will be removed after all changes have been made.
@@ -36,7 +35,7 @@ export const Header = props => {
             </div>
 
             <div
-              className={`fhir-ui__${props.resourceName}-Header__badges ps-1 ps-sm-2 mt-3 mt-sm-0 badges-max-width-sm flex-wrap flex-sm-nowrap ${rightItemsClass}`}
+              className={`fhir-ui__${props.resourceName}-Header__badges ps-1 ps-sm-2 mt-3 mt-sm-0 badges-max-width-sm flex-wrap flex-sm-nowrap justify-content-between justify-content-sm-end ${rightItemsClass}`}
             >
               {props.prefixBadge && (
                 <div className="me-3">{props.prefixBadge}</div>
@@ -64,13 +63,13 @@ export const Header = props => {
           <div
             className={`fhir-ui__${
               props.resourceName
-            }-Header__additional-content w-100 justify-content-start d-flex flex-column flex-sm-row ps-1 ps-sm-2 ${
+            }-Header__additional-content w-100 justify-content-start d-flex  ${
               props.additionalContent ? ' pt-2' : ''
             }`}
           >
             {props.additionalContent}
             <div
-              className={`fhir-ui__${props.resourceName}-Header__rightAdditionalContent ${rightItemsClass}`}
+              className={`fhir-ui__${props.resourceName}-Header__rightAdditionalContent justify-content-end  ${rightItemsClass}`}
             >
               {props.rightAdditionalContent}
             </div>
@@ -162,14 +161,14 @@ export const Body = props => (
 );
 
 export const Value = props => (
-  <div className="fhir-ui__Value d-flex align-items-center pt-3 pb-2 pt-sm-0 pb-sm-0 ">
+  <div className="fhir-ui__Value d-flex align-items-center flex-wrap flex-sm-nowrap pt-3 pb-2 pt-sm-0 pb-sm-0 ">
     <Label>{props.label}</Label>
     <Data data-testid={props['data-testid']}>{props.children}</Data>
   </div>
 );
 
 export const Label = props => (
-  <div className="fhir-ui__Label font-source fw-bold text-secondary lh-lg">
+  <div className="fhir-ui__Label font-source fw-bold text-secondary lh-lg me-2">
     {props.children}
   </div>
 );

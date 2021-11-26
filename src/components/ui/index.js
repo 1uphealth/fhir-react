@@ -3,6 +3,9 @@ import React, { useState } from 'react';
 import { getBadgeColor } from '../../utils/getBadgeColor';
 import HeaderIcon from '../datatypes/HeaderIcon';
 
+const CHEVRON_DOWN_COLOR = '#6f83a9';
+const CHEVRON_UP_COLOR = '#2a6fd7';
+
 export const Header = props => {
   const [rotate, setRotate] = useState(false);
   const handleAccordionClick = () => setRotate(!rotate);
@@ -53,7 +56,9 @@ export const Header = props => {
               }`}
               style={{ top: '15px', right: '24px' }}
             >
-              <Chevron strokeColor={rotate ? '#2a6fd7' : '#6f83a9'} />
+              <Chevron
+                strokeColor={rotate ? CHEVRON_UP_COLOR : CHEVRON_DOWN_COLOR}
+              />
             </div>
           </div>
           <div

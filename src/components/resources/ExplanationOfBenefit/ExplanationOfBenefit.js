@@ -32,6 +32,7 @@ import fhirVersions from '../fhirResourceVersions';
 import Accordion from '../../containers/Accordion';
 import TotalGraph from './TotalGraph';
 import { parseValueIntoMonetaryValueOfGivenCurrency } from '../../../utils';
+import { Title } from '../../ui';
 
 /**
  * @typedef ExplanationOfBenefitServiceItem
@@ -292,9 +293,13 @@ const ExplanationOfBenefit = props => {
 
   const getHeaderPrice = () => {
     if (totalCost && totalBenefit)
-      return parseValueIntoMonetaryValueOfGivenCurrency(
-        totalCost.value,
-        totalCost.code,
+      return (
+        <Title testId="headerPrice">
+          {parseValueIntoMonetaryValueOfGivenCurrency(
+            totalCost.value,
+            totalCost.code,
+          )}
+        </Title>
       );
   };
 
@@ -407,14 +412,17 @@ const ExplanationOfBenefit = props => {
       <Accordion
         headerContent={
           <Header
-            resourceName={fhirResource.resourceName}
-            title={disposition}
+            resourceName="ExplanationOfBenefit"
+            title={
+              disposition ? disposition : `Explanation Of Benefit (default)`
+            }
             badges={getHeaderPrice()}
             rightAdditionalContent={
               resourceStatus && <Badge>{resourceStatus}</Badge>
             }
             additionalContent={
-              created && (
+              created &&
+              created !== 'undefined' && (
                 <div>
                   <span className="text-secondary pe-2">Start date</span>
                   <Date testId="created" isBlack fhirData={created} />

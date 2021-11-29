@@ -8,8 +8,7 @@ import { parseValueIntoMonetaryValueOfGivenCurrency } from '../../../utils';
 const TotalGraph = ({ fhirData }) => {
   const { totalCost, totalBenefit } = fhirData;
 
-  // - Currently supported format: STU3
-  // - Graph legend was adjusted to multiple chart items
+  // currently supported format: STU3
   const getChartData = () => {
     if (totalCost && totalBenefit) {
       return [
@@ -32,7 +31,7 @@ const TotalGraph = ({ fhirData }) => {
   return (
     <ValueSection label="Total" data-testid="total">
       <div className="bg-light my-4 py-2 d-flex flex-column flex-sm-row">
-        <div style={{ width: 200 }}>
+        <div style={{ minWidth: 200 }}>
           <ExplanationOfBenefitGraph
             pieChartProperties={{ isInteractive: false }}
             data={getChartData({ totalCost, totalBenefit })}
@@ -40,11 +39,11 @@ const TotalGraph = ({ fhirData }) => {
           />
         </div>
         <div className="my-sm-auto">
-          <div className="row">
+          <div className="row justify-content-center">
             {getChartData({ totalCost, totalBenefit }).map(item => (
               <div
-                style={{ minWidth: 'fit-content' }}
-                className="d-flex flex-row col-12 col-sm-3 col-lg-2 mb-2 px-3 "
+                style={{ minWidth: 160 }}
+                className="d-flex mb-2 px-3 w-auto"
               >
                 <span
                   className="p-1 me-2 rounded-pill"

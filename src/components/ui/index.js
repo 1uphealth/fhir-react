@@ -151,7 +151,9 @@ export const Body = props => (
 );
 
 export const Value = props => (
-  <div className={`fhir-ui__Value d-flex ${props.dirColumn && 'flex-column'}`}>
+  <div
+    className={`fhir-ui__Value d-flex ${props.dirColumn ? 'flex-column' : ''}`}
+  >
     <Label>{props.label}</Label>
     <Data data-testid={props['data-testid']}>{props.children}</Data>
   </div>

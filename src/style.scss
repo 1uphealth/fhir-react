@@ -23,10 +23,12 @@ $utilities: (
       25: 25%,
       50: 50%,
       75: 75%,
+      90: 90%,
       100: 100%,
       auto: auto,
       max-content: max-content,
       144: 144px,
+      110: 110px,
     ),
   ),
 );
@@ -37,7 +39,7 @@ $spacers: map-merge(
   $spacers,
   (
     half: $space,
-    6: 3.5rem
+    6: 3.5rem,
   )
 );
 
@@ -87,12 +89,27 @@ $enable-negative-margins: true;
 .fhir-ui__ValueUnitQty {
   font-size: 28px;
 }
+
 .fhir-ui__ValueUnit {
   font-size: 18px;
 }
 
 .fhir-ui__Badge {
   height: 24px;
+}
+
+@include media-breakpoint-up(sm) {
+  .w-90.title-width-sm {
+    width: 100% !important;
+  }
+
+  .w-110.graph-width-sm {
+    width: 144px !important;
+  }
+
+  .badges-max-width-sm {
+    max-height: 24px;
+  }
 }
 // adding custom colors to the theme
 

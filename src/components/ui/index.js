@@ -3,65 +3,75 @@ import React, { useState } from 'react';
 import { getBadgeColor } from '../../utils/getBadgeColor';
 import HeaderIcon from '../datatypes/HeaderIcon';
 
+const CHEVRON_DOWN_COLOR = '#6f83a9';
+const CHEVRON_UP_COLOR = '#2a6fd7';
+
 export const Header = props => {
   const [rotate, setRotate] = useState(false);
   const handleAccordionClick = () => setRotate(!rotate);
-  const rightItemsClass =
-    'align-items-center flex-fill d-flex justify-content-end';
+  const rightItemsClass = 'align-items-center flex-fill d-flex';
   return (
     <>
       {// This condition was left due to fact, that to much changes in Header will generate many errors in tests. This condition will be removed after all changes have been made.
       props.children || (
         <div
-          className={`fhir-ui__${props.resourceName}-Header w-100 p-4`}
+          className={`fhir-ui__${props.resourceName}-Header w-100 p-4 position-relative pe-sm-6`}
           onClick={handleAccordionClick}
         >
           <div
-            className={`fhir-ui__${props.resourceName}-Header__title-data d-flex w-100`}
+            className={`fhir-ui__${props.resourceName}-Header__title-data d-flex w-100 flex-column flex-sm-row`}
           >
-            <div
-              className={`fhir-ui__${props.resourceName}-Header__icon flex-shrink-1 m-half me-2`}
-            >
-              <HeaderIcon headerIcon={props.icon} />
+            <div className="d-flex">
+              <div
+                className={`fhir-ui__${props.resourceName}-Header__icon flex-shrink-1 m-half me-2`}
+              >
+                <HeaderIcon headerIcon={props.icon} />
+              </div>
+              <div
+                className={`fhir-ui__${props.resourceName}-Header__title flex-fill text-start`}
+              >
+                <Title data-testid="title">{props.title || ''}</Title>
+              </div>
             </div>
+
             <div
-              className={`fhir-ui__${props.resourceName}-Header__title flex-fill text-start`}
-            >
-              <Title data-testid="title">{props.title || ''}</Title>
-            </div>
-            <div
-              className={`fhir-ui__${props.resourceName}-Header__badges ${rightItemsClass}`}
+              className={`fhir-ui__${props.resourceName}-Header__badges ps-1 ps-sm-2 mt-3 mt-sm-0 badges-max-width-sm flex-wrap flex-sm-nowrap justify-content-between justify-content-sm-end ${rightItemsClass}`}
             >
               {props.prefixBadge && (
                 <div className="me-3">{props.prefixBadge}</div>
               )}
-              {props.badges}
+              <div className="d-flex">
+                {props.badges}
+                {props.additionalBadge && (
+                  <div className="ms-3">{props.additionalBadge}</div>
+                )}
+              </div>
             </div>
             <div
               className={`fhir-ui__${
                 props.resourceName
-              }-Header__chevron flex-shrink-1 accordion-arrow mt-2 ms-2${
+              }-Header__chevron flex-shrink-1 mt-2 ms-2 position-absolute ${
                 rotate ? ' header-rotate' : ''
               }`}
+              style={{ top: '15px', right: '24px' }}
             >
-              <Chevron strokeColor={rotate ? '#2a6fd7' : '#6f83a9'} />
+              <Chevron
+                strokeColor={rotate ? CHEVRON_UP_COLOR : CHEVRON_DOWN_COLOR}
+              />
             </div>
           </div>
           <div
             className={`fhir-ui__${
               props.resourceName
-            }-Header__additional-content w-100 justify-content-start d-flex${
+            }-Header__additional-content w-100 justify-content-start d-flex  ${
               props.additionalContent ? ' pt-2' : ''
             }`}
           >
             {props.additionalContent}
             <div
-              className={`fhir-ui__${props.resourceName}-Header__rightAdditionalContent ${rightItemsClass}`}
+              className={`fhir-ui__${props.resourceName}-Header__rightAdditionalContent justify-content-end  ${rightItemsClass}`}
             >
               {props.rightAdditionalContent}
-              {props.additionalBadge && (
-                <div className="ms-3">{props.additionalBadge}</div>
-              )}
             </div>
           </div>
         </div>
@@ -72,7 +82,7 @@ export const Header = props => {
 
 export const Title = props => (
   <h4
-    className="fhir-ui__Title fw-bold fs-4 lh-lg mb-0"
+    className="fhir-ui__Title fw-bold fs-4 lh-base mb-0 w-90 title-width-sm"
     data-testid={`${props.testId || 'title'}`}
   >
     {props.children}
@@ -152,7 +162,9 @@ export const Body = props => (
 
 export const Value = props => (
   <div
-    className={`fhir-ui__Value d-flex ${props.dirColumn ? 'flex-column' : ''}`}
+    className={`fhir-ui__Value d-flex align-items-center flex-wrap flex-sm-nowrap pt-3 pb-2 pt-sm-0 pb-sm-0 ${
+      props.dirColumn ? 'flex-column align-items-baseline' : ''
+    }`}
   >
     <Label>{props.label}</Label>
     <Data data-testid={props['data-testid']}>{props.children}</Data>
@@ -160,7 +172,7 @@ export const Value = props => (
 );
 
 export const Label = props => (
-  <div className="fhir-ui__Label font-source fw-bold text-secondary lh-lg">
+  <div className="fhir-ui__Label font-source fw-bold text-secondary lh-lg me-2">
     {props.children}
   </div>
 );

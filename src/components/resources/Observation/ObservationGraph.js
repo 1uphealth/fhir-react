@@ -136,7 +136,11 @@ const ObservationGraph = ({ referenceRange, valueQuantity, small }) => {
     const smallRangeText = inRange ? IN_RANGE : OUT_OF_RANGE;
 
     return (
-      <div className={`position-relative ${small ? 'my-4 w-144' : 'my-6'}`}>
+      <div
+        className={`position-relative ${
+          small ? 'w-110 graph-width-sm ms-2 ms-sm-0' : 'my-6'
+        }`}
+      >
         {small && (
           <span
             className={`pb-1 fs-75 font-source d-inline-block`}

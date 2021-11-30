@@ -212,7 +212,7 @@ const Appointment = props => {
             additionalContent={
               start && (
                 <Value label="Start date" data-testid="headerStartDate">
-                  <Date className="ms-2" fhirData={start} />
+                  <Date fhirData={start} isBlack />
                 </Value>
               )
             }
@@ -244,7 +244,7 @@ const Appointment = props => {
             )}
             {comment && (
               <ValueSection label="Comment" data-testid="comment">
-                {comment}
+                <span className="text-secondary">{comment}</span>
               </ValueSection>
             )}
           </Body>

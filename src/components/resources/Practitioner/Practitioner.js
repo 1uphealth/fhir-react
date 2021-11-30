@@ -122,7 +122,7 @@ const Practitioner = props => {
     {
       label: 'Birth date',
       testId: 'birthDate',
-      data: birthDate && <Date fhirData={birthDate} />,
+      data: birthDate && <Date fhirData={birthDate} isBlack />,
       status: birthDate,
     },
     {

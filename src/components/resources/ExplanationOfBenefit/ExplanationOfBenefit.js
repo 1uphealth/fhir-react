@@ -31,8 +31,8 @@ import _get from 'lodash/get';
 import fhirVersions from '../fhirResourceVersions';
 import Accordion from '../../containers/Accordion';
 import TotalGraph from './TotalGraph';
-import { parseValueIntoMonetaryValueOfGivenCurrency } from '../../../utils';
-import { Title } from '../../ui';
+import PriceLabel from './PriceLabel';
+import { TableHeader } from '../../ui';
 
 /**
  * @typedef ExplanationOfBenefitServiceItem
@@ -292,15 +292,9 @@ const ExplanationOfBenefit = props => {
     );
 
   const getHeaderPrice = () => {
-    if (totalCost && totalBenefit)
-      return (
-        <Title testId="headerPrice">
-          {parseValueIntoMonetaryValueOfGivenCurrency(
-            totalCost.value,
-            totalCost.code,
-          )}
-        </Title>
-      );
+    if (totalCost) {
+      return <PriceLabel totalCost={totalCost} />;
+    }
   };
 
   const EOBRowData = [
@@ -423,10 +417,9 @@ const ExplanationOfBenefit = props => {
             additionalContent={
               created &&
               created !== 'undefined' && (
-                <div>
-                  <span className="text-secondary pe-2">Start date</span>
-                  <Date testId="created" isBlack fhirData={created} />
-                </div>
+                <Value label="Start date" data-testid="created">
+                  <Date fhirData={created} isBlack />
+                </Value>
               )
             }
           />
@@ -445,10 +438,10 @@ const ExplanationOfBenefit = props => {
                 <Table>
                   <thead>
                     <TableRow>
-                      <TableCell>Service</TableCell>
-                      <TableCell>Service date</TableCell>
-                      <TableCell>Quantity</TableCell>
-                      <TableCell>Item cost</TableCell>
+                      <TableHeader>Service</TableHeader>
+                      <TableHeader>Service date</TableHeader>
+                      <TableHeader>Quantity</TableHeader>
+                      <TableHeader>Item cost</TableHeader>
                     </TableRow>
                   </thead>
                   <tbody>
@@ -493,8 +486,8 @@ const ExplanationOfBenefit = props => {
                 <Table>
                   <thead>
                     <TableRow>
-                      <TableCell />
-                      <TableCell>Status</TableCell>
+                      <TableHeader />
+                      <TableHeader>Status</TableHeader>
                     </TableRow>
                   </thead>
                   <tbody>

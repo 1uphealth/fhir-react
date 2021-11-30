@@ -20,24 +20,28 @@ const ResourceCategory = props => {
     <Root name="ResourceCategory">
       <button
         type="button"
-        className="btn d-flex align-items-center justify-content-between w-100 py-3 px-4"
+        className="btn d-flex align-items-center justify-content-between w-100 py-4 px-4 bg-white"
       >
         <div className="d-flex gap-2">
           <HeaderIcon headerIcon={headerIcon} />
           <Title data-testid="resourceCategoryName">{title}</Title>
         </div>
-        <div className="d-flex gap-3">
+        <div className="d-flex gap-2 align-items-center">
           {parsedItemsCount > 0 && (
             <div
-              className="rounded-pill py-1 px-2 bg-primary"
+              className="d-flex rounded-pill py-1 px-2 bg-gray-200"
               data-testid="itemsCount"
             >
-              <span className="text-white fw-bold text-nowrap">
+              <small className="fw-bold text-nowrap ">
                 {getItemsCountLabel()}
-              </span>
+              </small>
             </div>
           )}
-          <img src={ChevronRight} alt="chevron" />
+          <img
+            src={ChevronRight}
+            alt="chevron"
+            style={{ height: 28, width: 28 }}
+          />
         </div>
       </button>
     </Root>

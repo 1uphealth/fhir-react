@@ -46,8 +46,8 @@ const TotalGraph = ({ fhirData }) => {
                 className="d-flex mb-2 px-3 w-auto"
               >
                 <span
-                  className="p-1 me-2 rounded-pill"
-                  style={{ background: item.color }}
+                  className="me-2 rounded-pill mt-3 mb-2 my-sm-0"
+                  style={{ width: 4, background: item.color }}
                 />
                 <Value dirColumn label={item.label} data-testid={item.id}>
                   {parseValueIntoMonetaryValueOfGivenCurrency(

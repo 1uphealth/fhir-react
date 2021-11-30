@@ -92,7 +92,7 @@ describe('should render ExplanationOfBenefit component properly', () => {
     expect(queryByTestId('hasServices')).not.toBeNull();
 
     // checking if text content of each header cell is equal to mocked data
-    const headerCells = getAllByRole('cell')
+    const headerCells = getAllByRole('columnheader')
       .slice(0, 4)
       .map(x => x.textContent);
     expect(headerCells).toEqual([
@@ -208,7 +208,7 @@ describe('should render ExplanationOfBenefit component properly', () => {
     );
 
     // checking if text content of each header cell is equal to mocked data
-    const headerCells = getAllByRole('cell')
+    const headerCells = getAllByRole('columnheader')
       .slice(0, 4)
       .map(x => x.textContent);
     expect(headerCells).toEqual([

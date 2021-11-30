@@ -18,7 +18,7 @@ const DatePeriod = props => {
   );
 
   return (
-    <div className="d-flex">
+    <div className="d-flex flex-column flex-sm-row align-items-start align-items-sm-start">
       {periodBeginDate && (
         <div>
           <SingleDateSpan label={periodBeginLabel} />
@@ -26,7 +26,7 @@ const DatePeriod = props => {
         </div>
       )}
       {periodEndDate && (
-        <div className="ms-4">
+        <div className="ms-sm-4">
           <SingleDateSpan label={periodEndLabel} />
           <Date testId={periodEndTestId} isBlack fhirData={periodEndDate} />
         </div>

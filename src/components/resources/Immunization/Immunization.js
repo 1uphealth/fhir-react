@@ -10,6 +10,7 @@ import Reference from '../../datatypes/Reference';
 import _get from 'lodash/get';
 import _has from 'lodash/has';
 import fhirVersions from '../fhirResourceVersions';
+import { Value } from '../../ui';
 
 const commonDTO = fhirResource => {
   const title =
@@ -228,7 +229,13 @@ const Immunization = props => {
         headerContent={
           <Header
             resourceName="Immunization"
-            additionalContent={providedDate && <Date fhirData={providedDate} />}
+            additionalContent={
+              providedDate && (
+                <Value label="Start date" data-testid="headerStartDate">
+                  <Date fhirData={providedDate} isBlack />
+                </Value>
+              )
+            }
             badges={status && <Badge data-testid="status">{status}</Badge>}
             icon={headerIcon}
             title={title}

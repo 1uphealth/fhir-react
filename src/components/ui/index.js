@@ -172,7 +172,7 @@ export const Value = props => (
 );
 
 export const Label = props => (
-  <div className="fhir-ui__Label font-source fw-bold text-secondary lh-lg me-2">
+  <div className="fhir-ui__Label font-source text-secondary lh-lg me-2">
     {props.children}
   </div>
 );

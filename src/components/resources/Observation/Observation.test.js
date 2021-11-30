@@ -67,9 +67,9 @@ describe('should render component correctly', () => {
     expect(queryByText(/373066001/g)).not.toBeNull();
   });
 
-  test('should round the quantity to default value of digitsToRoundForQuantity props ', () => {
+  test('should display not rounded value', () => {
     const resource = example1ObservationExcessR4;
-    resource.valueQuantity.value = 6.43534535434;
+    resource.valueQuantity.value = 6.443;
 
     const defaultProps = {
       fhirResource: example1ObservationExcessR4,
@@ -77,23 +77,7 @@ describe('should render component correctly', () => {
     const { getByTestId } = render(<Observation {...defaultProps} />);
 
     expect(getByTestId('valueQuantity')).not.toBeNull();
-    expect(getByTestId('valueQuantity').textContent).toEqual('6.44');
-    expect(getByTestId('valueQuantityUnit')).not.toBeNull();
-    expect(getByTestId('valueQuantityUnit').textContent).toEqual('mmol/l');
-  });
-
-  test('should round the quantity to specific value of digitsToRoundForQuantity props ', () => {
-    const resource = example1ObservationExcessR4;
-    resource.valueQuantity.value = 6.43534535434;
-
-    const defaultProps = {
-      fhirResource: example1ObservationExcessR4,
-      digitsToRoundForQuantity: 3,
-    };
-    const { getByTestId } = render(<Observation {...defaultProps} />);
-
-    expect(getByTestId('valueQuantity')).not.toBeNull();
-    expect(getByTestId('valueQuantity').textContent).toEqual('6.435');
+    expect(getByTestId('valueQuantity').textContent).toEqual('6.443');
     expect(getByTestId('valueQuantityUnit')).not.toBeNull();
     expect(getByTestId('valueQuantityUnit').textContent).toEqual('mmol/l');
   });

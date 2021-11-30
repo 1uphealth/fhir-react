@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import _get from 'lodash/get';
-import _isFinite from 'lodash/isFinite';
 import _isEmpty from 'lodash/isEmpty';
 import Accordion from '../../containers/Accordion';
 import Coding from '../../datatypes/Coding';
@@ -43,16 +42,6 @@ const Observation = props => {
   );
 
   let valueQuantityValueNumber = valueQuantityValue;
-
-  if (
-    _isFinite(Number(props.digitsToRoundForQuantity)) &&
-    valueQuantityValue !== '' &&
-    _isFinite(Number(valueQuantityValue))
-  ) {
-    valueQuantityValueNumber = Number(valueQuantityValue).toFixed(
-      props.digitsToRoundForQuantity,
-    );
-  }
 
   const subject = _get(fhirResource, 'subject');
   const tableData = [

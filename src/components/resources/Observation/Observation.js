@@ -121,11 +121,6 @@ const Observation = props => {
 
 Observation.propTypes = {
   fhirResource: PropTypes.shape({}).isRequired,
-  digitsToRoundForQuantity: PropTypes.number,
-};
-
-Observation.defaultProps = {
-  digitsToRoundForQuantity: 2,
 };
 
 export default Observation;

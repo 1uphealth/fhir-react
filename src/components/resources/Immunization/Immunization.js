@@ -4,7 +4,6 @@ import Accordion from '../../containers/Accordion';
 import Annotation from '../../datatypes/Annotation';
 import Coding from '../../datatypes/Coding';
 import Date from '../../datatypes/Date';
-import HeaderIcon from '../../datatypes/HeaderIcon';
 import PropTypes from 'prop-types';
 import React from 'react';
 import Reference from '../../datatypes/Reference';
@@ -231,7 +230,7 @@ const Immunization = props => {
             resourceName="Immunization"
             additionalContent={providedDate && <Date fhirData={providedDate} />}
             badges={status && <Badge data-testid="status">{status}</Badge>}
-            icon={<HeaderIcon headerIcon={headerIcon} />}
+            icon={headerIcon}
             title={<Title data-testid="title">{title}</Title>}
           />
         }

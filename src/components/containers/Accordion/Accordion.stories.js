@@ -30,7 +30,7 @@ export const DefaultVisualization = () => {
 
   return (
     <Accordion
-      headerData={
+      headerContent={
         <div className="">
           <Title>{title}</Title>
           <div className="pb-3" />
@@ -39,7 +39,7 @@ export const DefaultVisualization = () => {
           </BadgeSecondary>
         </div>
       }
-      bodyData={
+      bodyContent={
         <Body>
           <Value label="Performed by">
             {performer.map((item, i) => (
@@ -68,8 +68,10 @@ export const ProcedureVisualization = () => {
 
   return (
     <Accordion
-      headerData={<div className=""></div>}
-      bodyData={<Procedure fhirResource={fhirResource} fhirIcons={fhirIcons} />}
+      headerContent={<div className=""></div>}
+      bodyContent={
+        <Procedure fhirResource={fhirResource} fhirIcons={fhirIcons} />
+      }
     />
   );
 };

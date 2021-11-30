@@ -40,11 +40,11 @@ $box-shadow-sm: 0px 0px 24px rgba(0, 11, 79, 0.04);
 
 $body-color: #475263;
 
+$table-striped-bg: $gray-100;
+
 $secondary: #8f939a;
 
 $light: #dedddd;
-
-$text-muted: #adb5bd;
 
 $enable-negative-margins: true;
 
@@ -61,7 +61,11 @@ $enable-negative-margins: true;
 }
 
 .value__label {
-  width: 20%;
+  width: 130px;
+}
+
+.fhir-ui__Body__data-cell {
+  padding-left: 24px !important;
 }
 // adding custom colors to the theme
 
@@ -79,6 +83,7 @@ $theme-colors: map-merge(
     'orange-100': $orange-100,
     'orange-600': $orange-600,
     'gray-100': $gray-100,
+    'gray-500': $gray-500,
     'gray-600': $gray-600,
     'pink-500': $pink-500,
     'indigo-100': $indigo-100,

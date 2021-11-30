@@ -131,7 +131,7 @@ export const ValueUnit = props => (
 );
 
 export const Body = props => (
-  <div className="fhir-ui__Body pe-4">
+  <div className="fhir-ui__Body">
     {props.reverseContent ? props.children : null}
     {props.tableData && (
       <table className="fhir-ui__Body__table table table-borderless">

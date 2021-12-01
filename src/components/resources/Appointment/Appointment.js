@@ -6,7 +6,6 @@ import fhirVersions from '../fhirResourceVersions';
 import {
   Root,
   Header,
-  Title,
   Badge,
   Body,
   Value,
@@ -218,7 +217,7 @@ const Appointment = props => {
               )
             }
             badges={status && <Badge data-testid="status">{status}</Badge>}
-            title={<Title data-testid="title">{description}</Title>}
+            title={description}
           />
         }
         bodyContent={

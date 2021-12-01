@@ -1,4 +1,5 @@
 @use 'components/ui/header';
+
 @import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600&display=swap');
 @import 'node_modules/bootstrap/scss/functions';
@@ -15,6 +16,21 @@ $utilities: (
       source: Source Sans Pro,
     ),
   ),
+  'width': (
+    property: width,
+    class: w,
+    values: (
+      25: 25%,
+      50: 50%,
+      75: 75%,
+      90: 90%,
+      100: 100%,
+      auto: auto,
+      max-content: max-content,
+      144: 144px,
+      110: 110px,
+    ),
+  ),
 );
 
 $space: 0.125rem;
@@ -23,6 +39,7 @@ $spacers: map-merge(
   $spacers,
   (
     half: $space,
+    6: 3.5rem,
   )
 );
 
@@ -31,14 +48,17 @@ $font-family-base: 'Titillium Web', system-ui;
 $font-weight-bold: 600;
 
 $font-sizes: (
+  75: 0.75rem,
   4: 1.125rem,
 );
 
 $line-height-lg: 1.75;
 $border-radius-lg: 16px;
-$box-shadow-sm: 0px 0px 24px rgba(0, 11, 79, 0.04);
+$box-shadow-sm: 0 0 24px rgba(0, 11, 79, 0.04);
 
-$body-color: #475263;
+$body-color: #152536;
+
+$table-striped-bg: $gray-100;
 
 $table-striped-bg: $gray-100;
 
@@ -66,6 +86,32 @@ $enable-negative-margins: true;
 
 .fhir-ui__Body__data-cell {
   padding-left: 24px !important;
+}
+
+.fhir-ui__ValueUnitQty {
+  font-size: 28px;
+}
+
+.fhir-ui__ValueUnit {
+  font-size: 18px;
+}
+
+.fhir-ui__Badge {
+  height: 24px;
+}
+
+@include media-breakpoint-up(sm) {
+  .w-90.title-width-sm {
+    width: 100% !important;
+  }
+
+  .w-110.graph-width-sm {
+    width: 144px !important;
+  }
+
+  .badges-max-width-sm {
+    max-height: 24px;
+  }
 }
 // adding custom colors to the theme
 

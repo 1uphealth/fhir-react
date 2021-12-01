@@ -10,7 +10,7 @@ import Address from '../../datatypes/Address';
 import Coding from '../../datatypes/Coding';
 import Date from '../../datatypes/Date';
 import Accordion from '../../containers/Accordion';
-import { Root, Header, MissingValue, Badge, Title, Body } from '../../ui';
+import { Root, Header, MissingValue, Badge, Body } from '../../ui';
 
 export function PatientContact(props) {
   const { fhirData } = props;
@@ -134,9 +134,11 @@ function Patient(props) {
             badges={
               active && <Badge data-testid="activeStatus">{activeStatus}</Badge>
             }
-            title={renderName
-                  ? renderName({ patientName, defaultName, fhirVersion, id })
-                  : defaultName(patientName, 0)}
+            title={
+              renderName
+                ? renderName({ patientName, defaultName, fhirVersion, id })
+                : defaultName(patientName, 0)
+            }
             titleTestID="patientName"
           />
         }

@@ -30,7 +30,9 @@ export const Header = props => {
               <div
                 className={`fhir-ui__${props.resourceName}-Header__title flex-fill text-start`}
               >
-                <Title data-testid={props.titleTestID || "title"}>{props.title || ''}</Title>
+                <Title data-testid={props.titleTestID || 'title'}>
+                  {props.title || ''}
+                </Title>
               </div>
             </div>
 

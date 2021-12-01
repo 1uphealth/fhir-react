@@ -1,4 +1,4 @@
-import { Badge, Body, Header, MissingValue, Root, Title } from '../../ui';
+import { Badge, Body, Header, MissingValue, Root } from '../../ui';
 
 import Accordion from '../../containers/Accordion/Accordion';
 import Annotation from '../../datatypes/Annotation';
@@ -117,7 +117,7 @@ const Procedure = props => {
             }
             badges={status && <Badge data-testid="status">{status}</Badge>}
             icon={headerIcon}
-            title={display && <Title>{display}</Title>}
+            title={display}
           />
         }
         bodyContent={<Body tableData={tableData} />}

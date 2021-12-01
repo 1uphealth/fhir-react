@@ -134,13 +134,10 @@ function Patient(props) {
             badges={
               active && <Badge data-testid="activeStatus">{activeStatus}</Badge>
             }
-            title={
-              <Title dataTestID="patientName">
-                {renderName
+            title={renderName
                   ? renderName({ patientName, defaultName, fhirVersion, id })
                   : defaultName(patientName, 0)}
-              </Title>
-            }
+            titleTestID="patientName"
           />
         }
         bodyContent={<Body tableData={tableData} />}

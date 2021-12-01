@@ -2,16 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import _get from 'lodash/get';
-import _isFinite from 'lodash/isFinite';
+import _isEmpty from 'lodash/isEmpty';
+import Accordion from '../../containers/Accordion';
 import Coding from '../../datatypes/Coding';
 import Date from '../../datatypes/Date';
 import ObservationGraph from './ObservationGraph';
 import {
   Root,
   Header,
-  Title,
   Badge,
   BadgeSecondary,
+  ValueUnit,
   Body,
   Value,
 } from '../../ui';
@@ -23,6 +24,7 @@ const Observation = props => {
   const codeCodingDisplay = _get(fhirResource, 'code.coding.0.display');
   const codeText = _get(fhirResource, 'code.text', '');
   const valueQuantityValue = _get(fhirResource, 'valueQuantity.value', '');
+  const issued = _get(fhirResource, 'issued', '');
   const valueQuantityUnit = _get(fhirResource, 'valueQuantity.unit', '');
   const status = _get(fhirResource, 'status', '');
   const valueCodeableConceptText = _get(
@@ -41,68 +43,84 @@ const Observation = props => {
 
   let valueQuantityValueNumber = valueQuantityValue;
 
-  if (
-    _isFinite(Number(props.digitsToRoundForQuantity)) &&
-    valueQuantityValue !== '' &&
-    _isFinite(Number(valueQuantityValue))
-  ) {
-    valueQuantityValueNumber = Number(valueQuantityValue).toFixed(
-      props.digitsToRoundForQuantity,
-    );
-  }
-
-  const valueQuantityString = `${valueQuantityValueNumber}${valueQuantityUnit}`.trim();
   const subject = _get(fhirResource, 'subject');
+  const tableData = [
+    {
+      label: 'Issued on',
+      testId: 'issuedOn',
+      data: effectiveDate && <Date fhirData={effectiveDate} />,
+      status: effectiveDate,
+    },
+    {
+      label: 'Subject',
+      testId: 'subject',
+      data: subject && <Reference fhirData={subject} />,
+      status: subject,
+    },
+    {
+      label: 'Coding',
+      testId: 'coding',
+      data: valueCodeableConceptCoding.map((coding, i) => (
+        <Coding fhirData={coding} key={`value-coding-${i}`} />
+      )),
+      status: !_isEmpty(valueCodeableConceptCoding),
+    },
+  ];
 
   return (
     <Root name="Observation">
-      <Header>
-        <Title>
-          {codeCodingDisplay || codeText}
-          {valueQuantityString && (
-            <>
-              &nbsp;
-              <code data-testid="valueQuantity">{valueQuantityString}</code>
-            </>
-          )}
-        </Title>
-        {status && <Badge data-testid="status">{status}</Badge>}
-        {(valueCodeableConceptText || valueCodeableConceptCodingDisplay) && (
-          <BadgeSecondary data-testid="secondaryStatus">
-            {valueCodeableConceptText || valueCodeableConceptCodingDisplay}
-          </BadgeSecondary>
-        )}
-      </Header>
-      <Body>
-        <ObservationGraph
-          valueQuantity={fhirResource.valueQuantity}
-          referenceRange={fhirResource.referenceRange}
-        />
-        {effectiveDate && (
-          <Value label="Issued on" data-testid="issuedOn">
-            <Date fhirData={effectiveDate} />
-          </Value>
-        )}
-        {subject && (
-          <Value label="Subject" data-testid="subject">
-            <Reference fhirData={subject} />
-          </Value>
-        )}
-        {valueCodeableConceptCoding.map((coding, i) => (
-          <Coding fhirData={coding} key={`value-coding-${i}`} />
-        ))}
-      </Body>
+      <Accordion
+        headerContent={
+          <Header
+            resourceName={fhirResource.resourceType}
+            additionalContent={
+              issued && (
+                <Value label="Start date" data-testid="headerStartDate">
+                  <Date fhirData={issued} />
+                </Value>
+              )
+            }
+            prefixBadge={
+              <ValueUnit
+                valueQty={valueQuantityValueNumber}
+                valueUnit={valueQuantityUnit}
+              />
+            }
+            additionalBadge={
+              (valueCodeableConceptText ||
+                valueCodeableConceptCodingDisplay) && (
+                <BadgeSecondary data-testid="secondaryStatus">
+                  {valueCodeableConceptText ||
+                    valueCodeableConceptCodingDisplay}
+                </BadgeSecondary>
+              )
+            }
+            badges={status && <Badge data-testid="status">{status}</Badge>}
+            title={codeCodingDisplay || codeText}
+            rightAdditionalContent={
+              <ObservationGraph
+                valueQuantity={fhirResource.valueQuantity}
+                referenceRange={fhirResource.referenceRange}
+                small
+              />
+            }
+          />
+        }
+        bodyContent={
+          <Body tableData={tableData} reverseContent>
+            <ObservationGraph
+              valueQuantity={fhirResource.valueQuantity}
+              referenceRange={fhirResource.referenceRange}
+            />
+          </Body>
+        }
+      />
     </Root>
   );
 };
 
 Observation.propTypes = {
   fhirResource: PropTypes.shape({}).isRequired,
-  digitsToRoundForQuantity: PropTypes.number,
-};
-
-Observation.defaultProps = {
-  digitsToRoundForQuantity: 2,
 };
 
 export default Observation;

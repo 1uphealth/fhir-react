@@ -69,10 +69,13 @@ $light: #dedddd;
 $enable-negative-margins: true;
 
 .header-icon__placeholder {
-  // TODO constrain custom images size
+  background-color: #a3a3a3;
+}
+
+.header-icon__image,
+.header-icon__placeholder {
   width: 24px;
   height: 24px;
-  background-color: #a3a3a3;
 }
 
 .header-icon__practitioner-avatar {
@@ -80,8 +83,11 @@ $enable-negative-margins: true;
   height: 24px;
 }
 
-.value__label {
-  width: 130px;
+.dataTable__value-label {
+  width: auto;
+  @include media-breakpoint-up(sm) {
+    width: 130px;
+  }
 }
 
 .fhir-ui__Body__data-cell {

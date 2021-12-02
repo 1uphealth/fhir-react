@@ -30,7 +30,9 @@ export const Header = props => {
               <div
                 className={`fhir-ui__${props.resourceName}-Header__title flex-fill text-start`}
               >
-                <Title data-testid="title">{props.title || ''}</Title>
+                <Title data-testid={props.titleTestID || 'title'}>
+                  {props.title || ''}
+                </Title>
               </div>
             </div>
 
@@ -83,7 +85,7 @@ export const Header = props => {
 export const Title = props => (
   <h4
     className="fhir-ui__Title fw-bold fs-4 lh-base mb-0 w-90 title-width-sm"
-    data-testid="title"
+    data-testid={props['data-testid'] || 'title'}
   >
     {props.children}
   </h4>
@@ -130,33 +132,24 @@ export const ValueUnit = props => (
   </div>
 );
 
-export const Body = props => (
+export const Body = ({ tableData = [], reverseContent, children }) => (
   <div className="fhir-ui__Body pe-4">
-    {props.reverseContent ? props.children : null}
-    {props.tableData && (
-      <table className="fhir-ui__Body__table table table-borderless">
-        <tbody>
-          {props.tableData.map((value, index) => {
-            return (
-              value.status && (
-                <tr
-                  className="fhir-ui__Body__row mb-4"
-                  key={`body-table-row-key-${index}`}
-                >
-                  <td className="fhir-ui__Body__label-cell value__label ps-0">
-                    <Label>{value.label}</Label>
-                  </td>
-                  <td className="fhir-ui__Body__data-cell">
-                    <Data data-testid={value.testId}>{value.data}</Data>
-                  </td>
-                </tr>
-              )
-            );
-          })}
-        </tbody>
-      </table>
+    {reverseContent ? children : null}
+    {tableData.map(
+      (value, index) =>
+        value.status && (
+          <div
+            className="mb-4 d-flex flex-column flex-sm-row"
+            key={`table-data-item-${index}`}
+          >
+            <div className="dataTable__value-label ps-0">
+              <Label>{value.label}</Label>
+            </div>
+            <Data data-testid={value.testId}>{value.data}</Data>
+          </div>
+        ),
     )}
-    {!props.reverseContent ? props.children : null}
+    {!reverseContent ? children : null}
   </div>
 );
 

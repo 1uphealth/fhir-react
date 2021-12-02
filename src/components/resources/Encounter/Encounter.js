@@ -62,11 +62,15 @@ const dstu2DTO = fhirResource => {
 
 const stu3DTO = fhirResource => {
   let periodEnd = _get(fhirResource, 'period.end');
-  periodEnd = periodEnd ? <DateType fhirData={periodEnd} /> : <MissingValue />;
+  periodEnd = periodEnd ? (
+    <DateType fhirData={periodEnd} isBlack />
+  ) : (
+    <MissingValue />
+  );
 
   let periodStart = _get(fhirResource, 'period.start');
   periodStart = periodStart ? (
-    <DateType fhirData={periodStart} />
+    <DateType fhirData={periodStart} isBlack />
   ) : (
     <MissingValue />
   );
@@ -75,7 +79,7 @@ const stu3DTO = fhirResource => {
   const participant = _get(fhirResource, 'participant', []).map(item => {
     let periodStart = _get(item, 'period.start');
     if (periodStart) {
-      periodStart = <DateType fhirData={periodStart} />;
+      periodStart = <DateType fhirData={periodStart} isBlack />;
     }
     const reference = _get(item, 'individual', {});
     return {
@@ -96,11 +100,11 @@ const stu3DTO = fhirResource => {
 
 const r4DTO = fhirResource => {
   let periodEnd = _get(fhirResource, 'period.end');
-  periodEnd = periodEnd ? <DateType fhirData={periodEnd} /> : <MissingValue />;
+  periodEnd = periodEnd ? <DateType fhirData={periodEnd} isBlack /> : <MissingValue />;
 
   let periodStart = _get(fhirResource, 'period.start');
   periodStart = periodStart ? (
-    <DateType fhirData={periodStart} />
+    <DateType fhirData={periodStart} isBlack />
   ) : (
     <MissingValue />
   );
@@ -108,7 +112,7 @@ const r4DTO = fhirResource => {
   const participant = _get(fhirResource, 'participant', []).map(item => {
     let periodStart = _get(item, 'period.start');
     if (periodStart) {
-      periodStart = <DateType fhirData={periodStart} />;
+      periodStart = <DateType fhirData={periodStart} isBlack />;
     }
     const reference = _get(item, 'individual', {});
     return {
@@ -203,7 +207,7 @@ const Encounter = props => {
             additionalContent={
               periodStart && (
                 <Value label="Start date" data-testid="headerStartDate">
-                  <p className="ms-2">{periodStart}</p>
+                  {periodStart}
                 </Value>
               )
             }

@@ -181,7 +181,7 @@ export const Root = props => (
 
 export const Table = props => (
   <div className="table-responsive">
-    <table className={`table table-striped ${props.className}`}>
+    <table className={`table table-striped ${props.className || ''}`}>
       {props.children}
     </table>
   </div>

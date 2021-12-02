@@ -100,7 +100,11 @@ const stu3DTO = fhirResource => {
 
 const r4DTO = fhirResource => {
   let periodEnd = _get(fhirResource, 'period.end');
-  periodEnd = periodEnd ? <DateType fhirData={periodEnd} isBlack /> : <MissingValue />;
+  periodEnd = periodEnd ? (
+    <DateType fhirData={periodEnd} isBlack />
+  ) : (
+    <MissingValue />
+  );
 
   let periodStart = _get(fhirResource, 'period.start');
   periodStart = periodStart ? (

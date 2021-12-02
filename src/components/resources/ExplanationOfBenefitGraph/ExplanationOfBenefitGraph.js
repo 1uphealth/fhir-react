@@ -44,6 +44,7 @@ const ExplanationOfBenefitGraph = props => {
 
   return (
     <Root name="ExplanationOfBenefitGraph">
+      {/* according to nivo library documentation, to keep Pie Chart svg aligned, 'height' prop has to be constant */}
       <div
         style={{ height: height || 200 }}
         className="position-relative text-center"

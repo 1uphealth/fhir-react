@@ -48,7 +48,7 @@ const Observation = props => {
     {
       label: 'Issued on',
       testId: 'issuedOn',
-      data: effectiveDate && <Date fhirData={effectiveDate} />,
+      data: effectiveDate && <Date fhirData={effectiveDate} isBlack />,
       status: effectiveDate,
     },
     {
@@ -76,7 +76,7 @@ const Observation = props => {
             additionalContent={
               issued && (
                 <Value label="Start date" data-testid="headerStartDate">
-                  <Date fhirData={issued} />
+                  <Date fhirData={issued} isBlack />
                 </Value>
               )
             }

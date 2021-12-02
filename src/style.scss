@@ -60,9 +60,7 @@ $body-color: #152536;
 
 $table-striped-bg: $gray-100;
 
-$table-striped-bg: $gray-100;
-
-$secondary: #8f939a;
+$secondary: #68717A;
 
 $light: #dedddd;
 
@@ -118,6 +116,10 @@ $enable-negative-margins: true;
   .badges-max-width-sm {
     max-height: 24px;
   }
+
+  .graph-width-sm {
+    width: 200px !important;
+  }
 }
 // adding custom colors to the theme
 
@@ -146,6 +148,7 @@ $theme-colors: map-merge(
     'blue-600': $blue-600,
     'blue-500': $blue-500,
     'white': $white,
+    'secondary': $secondary,
   )
 );
 

@@ -12,6 +12,7 @@ import Reference from '../../datatypes/Reference';
 import _get from 'lodash/get';
 import _has from 'lodash/has';
 import { isNotEmptyArray } from '../../../utils';
+import { Value } from '../../ui';
 
 const Procedure = props => {
   const { fhirResource, fhirIcons } = props;
@@ -104,7 +105,11 @@ const Procedure = props => {
             resourceName="Procedure"
             additionalContent={
               <>
-                {hasPerformedDateTime && <Date fhirData={performedDateTime} />}
+                {hasPerformedDateTime && (
+                  <Value label="Start date" data-testid="headerStartDate">
+                    <Date fhirData={performedDateTime} isBlack />
+                  </Value>
+                )}
                 {hasPerformedPeriod && (
                   <DatePeriod
                     periodBeginLabel="performed"

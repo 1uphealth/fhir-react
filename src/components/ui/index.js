@@ -133,7 +133,7 @@ export const ValueUnit = props => (
 );
 
 export const Body = ({ tableData = [], reverseContent, children }) => (
-  <div className="fhir-ui__Body pe-4">
+  <div className="fhir-ui__Body">
     {reverseContent ? children : null}
     {tableData.map(
       (value, index) =>
@@ -154,14 +154,18 @@ export const Body = ({ tableData = [], reverseContent, children }) => (
 );
 
 export const Value = props => (
-  <div className="fhir-ui__Value d-flex align-items-center flex-wrap flex-sm-nowrap pt-3 pb-2 pt-sm-0 pb-sm-0 ">
+  <div
+    className={`fhir-ui__Value d-flex align-items-center flex-wrap flex-sm-nowrap pt-3 pb-2 pt-sm-0 pb-sm-0 ${
+      props.dirColumn ? 'flex-column align-items-baseline' : ''
+    }`}
+  >
     <Label>{props.label}</Label>
     <Data data-testid={props['data-testid']}>{props.children}</Data>
   </div>
 );
 
 export const Label = props => (
-  <div className="fhir-ui__Label font-source fw-bold text-secondary lh-lg me-2">
+  <div className="fhir-ui__Label font-source text-secondary lh-lg me-2">
     {props.children}
   </div>
 );

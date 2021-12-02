@@ -18,7 +18,7 @@ const EncounterParticipants = props => {
             <TableHeader>Date</TableHeader>
           </TableRow>
         </thead>
-        <tbody>{allParticipant}</tbody>
+        <tbody className="border-top-0">{allParticipant}</tbody>
       </Table>
     </ValueSection>
   );

@@ -24,7 +24,7 @@ const ResourceCategory = props => {
       >
         <div className="d-flex gap-2">
           <HeaderIcon headerIcon={headerIcon} />
-          <Title data-testid="resourceCategoryName">{title}</Title>
+          <Title data-testid="title">{title}</Title>
         </div>
         <div className="d-flex gap-2 align-items-center">
           {parsedItemsCount > 0 && (

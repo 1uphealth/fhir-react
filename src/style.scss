@@ -104,6 +104,10 @@ $enable-negative-margins: true;
   height: 24px;
 }
 
+.chevron:hover {
+  background-color: $gray-200;
+}
+
 @include media-breakpoint-up(sm) {
   .w-90.title-width-sm {
     width: 100% !important;

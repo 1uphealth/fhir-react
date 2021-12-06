@@ -13,7 +13,11 @@ import CodeableConcept from '../../datatypes/CodeableConcept';
 
 const CareTeam = ({ fhirData: careTeam = [] }) => {
   return (
-    <ValueSection label="Team members" data-testid="teamMembers">
+    <ValueSection
+      label="Team members"
+      data-testid="teamMembers"
+      className="mt-3"
+    >
       <Table>
         <thead>
           <TableRow>

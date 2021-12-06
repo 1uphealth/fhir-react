@@ -52,7 +52,7 @@ export const Header = props => {
             <div
               className={`fhir-ui__${
                 props.resourceName
-              }-Header__chevron flex-shrink-1 mt-2 ms-2 position-absolute ${
+              }-Header__chevron chevron flex-shrink-1 mt-2 ms-2 position-absolute ${
                 rotate ? ' header-rotate' : ''
               }`}
               style={{ top: '15px', right: '24px' }}
@@ -135,20 +135,24 @@ export const ValueUnit = props => (
 export const Body = ({ tableData = [], reverseContent, children }) => (
   <div className="fhir-ui__Body">
     {reverseContent ? children : null}
-    {tableData.map(
-      (value, index) =>
-        value.status && (
-          <div
-            className="mb-4 d-flex flex-column flex-sm-row"
-            key={`table-data-item-${index}`}
-          >
-            <div className="dataTable__value-label ps-0">
-              <Label>{value.label}</Label>
-            </div>
-            <Data data-testid={value.testId}>{value.data}</Data>
-          </div>
-        ),
-    )}
+    {
+      <div className="row gy-3">
+        {tableData.map(
+          (value, index) =>
+            value.status && (
+              <div
+                className="d-flex flex-column flex-sm-row"
+                key={`table-data-item-${index}`}
+              >
+                <div className="dataTable__value-label ps-0">
+                  <Label>{value.label}</Label>
+                </div>
+                <Data data-testid={value.testId}>{value.data}</Data>
+              </div>
+            ),
+        )}
+      </div>
+    }
     {!reverseContent ? children : null}
   </div>
 );
@@ -185,7 +189,7 @@ export const Root = props => (
 
 export const Table = props => (
   <div className="table-responsive">
-    <table className={`table table-striped ${props.className || ''}`}>
+    <table className={`table table-striped mb-0 ${props.className || ''}`}>
       {props.children}
     </table>
   </div>
@@ -213,7 +217,10 @@ export const TableCell = props => (
 );
 
 export const ValueSection = props => (
-  <div className="fhir-ui__ValueSection" data-testid={props['data-testid']}>
+  <div
+    className={`fhir-ui__ValueSection ${props.className || ''}`}
+    data-testid={props['data-testid']}
+  >
     <label className="fhir-ui__ValueSection-label fw-bold mb-2">
       {props.label}
     </label>

@@ -30,7 +30,7 @@ const TotalGraph = ({ fhirData }) => {
 
   return (
     <ValueSection label="Total" data-testid="total">
-      <div className="bg-light my-4 py-2 d-flex flex-column flex-sm-row">
+      <div className="bg-light my-3 py-2 d-flex flex-column flex-sm-row">
         <div className="graph-width-sm">
           <ExplanationOfBenefitGraph
             pieChartProperties={{ isInteractive: false }}

@@ -18,7 +18,7 @@ import Period from '../../datatypes/Period';
 const Items = ({ fhirData: items = [] }) => {
   if (items.length === 0) return null;
   return (
-    <ValueSection label="Items" data-testid="items">
+    <ValueSection label="Items" data-testid="items" className="mt-3">
       <Table>
         <thead>
           <TableRow>

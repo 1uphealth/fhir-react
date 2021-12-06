@@ -280,7 +280,7 @@ const ExplanationOfBenefit = props => {
 
   const getRowItem = item =>
     ('isLoaded' in item ? item.isLoaded : item.data) && (
-      <div className="col-12 col-sm-6 col-md-4 text-wrap mb-4">
+      <div className="col-12 col-sm-6 col-md-4 text-wrap">
         {item.noWrapWithValue ? (
           item.data
         ) : (
@@ -426,15 +426,25 @@ const ExplanationOfBenefit = props => {
         }
         bodyContent={
           <Body>
-            <ValueSection label="Details" data-testid="details">
-              <div className="row">{EOBRowData.map(x => getRowItem(x))}</div>
+            <ValueSection
+              label="Details"
+              data-testid="details"
+              className="mt-3"
+            >
+              <div className="row gy-3">
+                {EOBRowData.map(x => getRowItem(x))}
+              </div>
             </ValueSection>
             {totalCost && totalBenefit && (
               <TotalGraph fhirData={{ totalCost, totalBenefit }} />
             )}
 
             {hasServices && (
-              <ValueSection label="Services" data-testid="hasServices">
+              <ValueSection
+                label="Services"
+                data-testid="hasServices"
+                className="mt-3"
+              >
                 <Table>
                   <thead>
                     <TableRow>
@@ -482,7 +492,11 @@ const ExplanationOfBenefit = props => {
               </ValueSection>
             )}
             {hasInformation && (
-              <ValueSection label="Information" data-testid="hasInformation">
+              <ValueSection
+                label="Information"
+                data-testid="hasInformation"
+                className="mt-3"
+              >
                 <Table>
                   <thead>
                     <TableRow>

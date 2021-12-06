@@ -1,25 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { getBadgeColor } from '../../utils/getBadgeColor';
 import HeaderIcon from '../datatypes/HeaderIcon';
 
-const CHEVRON_DOWN_COLOR = '#6f83a9';
-const CHEVRON_UP_COLOR = '#2a6fd7';
-
 export const Header = props => {
-  const [rotate, setRotate] = useState(false);
-  const handleAccordionClick = () => setRotate(!rotate);
   const rightItemsClass = 'align-items-center flex-fill d-flex';
   return (
     <>
       {// This condition was left due to fact, that to much changes in Header will generate many errors in tests. This condition will be removed after all changes have been made.
       props.children || (
         <div
-          className={`fhir-ui__${props.resourceName}-Header w-100 p-4 position-relative pe-sm-6`}
-          onClick={handleAccordionClick}
+          className={`fhir-ui__${props.resourceName}-Header w-100 p-4 position-relative`}
         >
           <div
-            className={`fhir-ui__${props.resourceName}-Header__title-data d-flex w-100 flex-column flex-sm-row`}
+            className={`fhir-ui__${props.resourceName}-Header__title-data header__title-row d-flex w-100 flex-column flex-sm-row`}
           >
             <div className="d-flex">
               <div
@@ -48,18 +42,6 @@ export const Header = props => {
                   <div className="ms-3">{props.additionalBadge}</div>
                 )}
               </div>
-            </div>
-            <div
-              className={`fhir-ui__${
-                props.resourceName
-              }-Header__chevron chevron flex-shrink-1 mt-2 ms-2 position-absolute ${
-                rotate ? ' header-rotate' : ''
-              }`}
-              style={{ top: '15px', right: '24px' }}
-            >
-              <Chevron
-                strokeColor={rotate ? CHEVRON_UP_COLOR : CHEVRON_DOWN_COLOR}
-              />
             </div>
           </div>
           <div
@@ -135,7 +117,8 @@ export const ValueUnit = props => (
 export const Body = ({ tableData = [], reverseContent, children }) => (
   <div className="fhir-ui__Body">
     {reverseContent ? children : null}
-    {
+    {console.log(tableData)}
+    {tableData.filter(x => 'data' in x && x.data).length > 0 && (
       <div className="row gy-3">
         {tableData.map(
           (value, index) =>
@@ -152,7 +135,7 @@ export const Body = ({ tableData = [], reverseContent, children }) => (
             ),
         )}
       </div>
-    }
+    )}
     {!reverseContent ? children : null}
   </div>
 );
@@ -211,14 +194,16 @@ export const TableHeader = props => {
 export const TableRow = props => <tr>{props.children}</tr>;
 
 export const TableCell = props => (
-  <td className="align-text-top" data-testid={props['data-testid']}>
+  <td className="align-text-top border-0" data-testid={props['data-testid']}>
     {props.children}
   </td>
 );
 
 export const ValueSection = props => (
   <div
-    className={`fhir-ui__ValueSection ${props.className || ''}`}
+    className={`fhir-ui__ValueSection ${props.marginTop ? 'mt-40' : ''} ${
+      props.marginBottom ? 'mb-40' : ''
+    }`}
     data-testid={props['data-testid']}
   >
     <label className="fhir-ui__ValueSection-label fw-bold mb-2">

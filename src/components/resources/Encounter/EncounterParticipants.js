@@ -9,7 +9,7 @@ const EncounterParticipants = props => {
     />
   ));
   return (
-    <ValueSection label="Participants" className="mt-3">
+    <ValueSection label="Participants" marginTop>
       <Table>
         <thead>
           <TableRow>

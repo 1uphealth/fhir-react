@@ -13,11 +13,7 @@ import CodeableConcept from '../../datatypes/CodeableConcept';
 
 const CareTeam = ({ fhirData: careTeam = [] }) => {
   return (
-    <ValueSection
-      label="Team members"
-      data-testid="teamMembers"
-      className="mt-3"
-    >
+    <ValueSection label="Team members" data-testid="teamMembers" marginTop>
       <Table>
         <thead>
           <TableRow>
@@ -27,7 +23,7 @@ const CareTeam = ({ fhirData: careTeam = [] }) => {
             <TableHeader>Qualification</TableHeader>
           </TableRow>
         </thead>
-        <tbody>
+        <tbody className="border-top-0">
           {careTeam.map((member, idx) => (
             <TeamMember
               key={idx}

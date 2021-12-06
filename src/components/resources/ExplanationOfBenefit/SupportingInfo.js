@@ -19,6 +19,7 @@ const SupportingInfo = ({ fhirData }) => {
         <ValueSection
           label={`Supporting information ${sequence}.`}
           data-testid="supportingInfo"
+          marginTop
         >
           {category && (
             <Value

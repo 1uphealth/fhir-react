@@ -281,13 +281,9 @@ const ExplanationOfBenefit = props => {
   const getRowItem = item =>
     ('isLoaded' in item ? item.isLoaded : item.data) && (
       <div className="col-12 col-sm-6 col-md-4 text-wrap">
-        {item.noWrapWithValue ? (
-          item.data
-        ) : (
-          <Value label={item.label} data-testid={item.testId} dirColumn>
-            {item.data}
-          </Value>
-        )}
+        <Value label={item.label} data-testid={item.testId} dirColumn>
+          {item.data}
+        </Value>
       </div>
     );
 
@@ -389,16 +385,6 @@ const ExplanationOfBenefit = props => {
       data: <Related fhirData={related} />,
       isLoaded: related,
     },
-    {
-      data: <Diagnosis fhirData={diagnosis} />,
-      isLoaded: hasDiagnosis,
-      noWrapWithValue: true,
-    },
-    {
-      data: <SupportingInfo fhirData={supportingInfo} />,
-      isLoaded: hasSupportingInfo,
-      noWrapWithValue: true,
-    },
   ];
 
   return (
@@ -426,15 +412,13 @@ const ExplanationOfBenefit = props => {
         }
         bodyContent={
           <Body>
-            <ValueSection
-              label="Details"
-              data-testid="details"
-              className="mt-3"
-            >
+            <ValueSection label="Details" data-testid="details">
               <div className="row gy-3">
                 {EOBRowData.map(x => getRowItem(x))}
               </div>
             </ValueSection>
+            {hasDiagnosis && <Diagnosis fhirData={diagnosis} />}
+            {hasSupportingInfo && <SupportingInfo fhirData={supportingInfo} />}
             {totalCost && totalBenefit && (
               <TotalGraph fhirData={{ totalCost, totalBenefit }} />
             )}
@@ -443,7 +427,7 @@ const ExplanationOfBenefit = props => {
               <ValueSection
                 label="Services"
                 data-testid="hasServices"
-                className="mt-3"
+                marginTop
               >
                 <Table>
                   <thead>
@@ -454,7 +438,7 @@ const ExplanationOfBenefit = props => {
                       <TableHeader>Item cost</TableHeader>
                     </TableRow>
                   </thead>
-                  <tbody>
+                  <tbody className="border-top-0">
                     {services.map((serviceItem, i) => {
                       return (
                         <TableRow key={`serviceItem-${i}`}>
@@ -495,7 +479,7 @@ const ExplanationOfBenefit = props => {
               <ValueSection
                 label="Information"
                 data-testid="hasInformation"
-                className="mt-3"
+                marginTop
               >
                 <Table>
                   <thead>
@@ -504,7 +488,7 @@ const ExplanationOfBenefit = props => {
                       <TableHeader>Status</TableHeader>
                     </TableRow>
                   </thead>
-                  <tbody>
+                  <tbody className="border-top-0">
                     {information.map((informationItem, i) => {
                       const infoTitle = _get(
                         informationItem,

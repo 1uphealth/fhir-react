@@ -18,7 +18,7 @@ import Period from '../../datatypes/Period';
 const Items = ({ fhirData: items = [] }) => {
   if (items.length === 0) return null;
   return (
-    <ValueSection label="Items" data-testid="items" className="mt-3">
+    <ValueSection label="Items" data-testid="items" marginTop>
       <Table>
         <thead>
           <TableRow>
@@ -33,7 +33,7 @@ const Items = ({ fhirData: items = [] }) => {
             <TableHeader>Net</TableHeader>
           </TableRow>
         </thead>
-        <tbody>
+        <tbody className="border-top-0">
           {items.map((item, idx) => (
             <Item key={idx} item={item} level={0} parentSequences={[]} />
           ))}

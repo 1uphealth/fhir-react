@@ -226,7 +226,7 @@ const Appointment = props => {
               <ValueSection
                 label="Participant"
                 data-testid="participant"
-                className="mt-3"
+                marginTop
               >
                 <Table>
                   <thead>
@@ -247,11 +247,7 @@ const Appointment = props => {
               </ValueSection>
             )}
             {comment && (
-              <ValueSection
-                label="Comment"
-                data-testid="comment"
-                className="mt-3"
-              >
+              <ValueSection label="Comment" data-testid="comment" marginTop>
                 <span className="text-secondary">{comment}</span>
               </ValueSection>
             )}

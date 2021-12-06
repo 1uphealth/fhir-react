@@ -40,6 +40,7 @@ $spacers: map-merge(
   (
     half: $space,
     6: 3.5rem,
+    40: 40px,
   )
 );
 
@@ -104,8 +105,13 @@ $enable-negative-margins: true;
   height: 24px;
 }
 
+.header__title-row {
+  padding-right: 32px;
+}
+
 .chevron:hover {
   background-color: $gray-200;
+  border-radius: 4px;
 }
 
 @include media-breakpoint-up(sm) {

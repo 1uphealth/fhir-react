@@ -56,10 +56,9 @@ const ExplanationOfBenefitGraph = props => {
           colors={{ datum: 'data.color' }}
           enableArcLabels={enableValueLabels || false}
           enableArcLinkLabels={enableLinkLabels || false}
-          innerRadius={0.85}
-          cornerRadius={3}
+          innerRadius={0.88}
           activeOuterRadiusOffset={1}
-          borderWidth={1}
+          borderWidth={0.1}
           borderColor={{ from: 'color', modifiers: [['darker', 0.2]] }}
           {...pieChartProperties}
         />

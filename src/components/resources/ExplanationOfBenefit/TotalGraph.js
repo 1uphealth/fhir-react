@@ -13,16 +13,16 @@ const TotalGraph = ({ fhirData }) => {
     if (totalCost && totalBenefit) {
       return [
         {
-          id: 'planDiscount',
-          label: 'Plan discount',
-          value: totalBenefit.value,
-          color: '#3498DB',
-        },
-        {
           id: 'youPaid',
           label: 'You paid',
           value: totalCost.value - totalBenefit.value,
-          color: '#17A589',
+          color: '#0D6EFD',
+        },
+        {
+          id: 'planDiscount',
+          label: 'Plan discount',
+          value: totalBenefit.value,
+          color: '#FFC107',
         },
       ];
     }

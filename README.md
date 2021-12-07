@@ -116,6 +116,30 @@ export default {
 | `ReferralRequest`          |  ✅   |  ✅   | _N/A_ |
 | `ResearchStudy`            | _N/A_ |  ✅   |  ✅   |
 
+### Styles update `v0.3.0`
+
+The 0.3.0 version of the FHIR React Component library introduces the bootstrap Accordion component as the base of each available resource which provides any data. The RWD support is provided for each component.
+
+All of the changes can be tracked by viewing the current version of the [storybook](https://fhir-react-lib-test-storybook.s3.amazonaws.com/branch/fhir-react-next/index.html?path=/story/condition--default-visualization-dstu-2).
+
+### Available resources `v0.3.0`
+
+
+| Resource                   | DSTU2 | STU3  |  R4   | Carin BB Profile | DaVinci PDex |
+| -------------------------- | :---: | :---: | :---: | :--------------: | ------------ |
+| `Appointment`              |  ✅   |  ✅   |  ✅   |
+| `Condition`                |  ✅   |  ✅   |  ✅   |
+| `Encounter`                |  ✅   |  ✅   |  ✅   |
+| `ExplanationOfBenefit`     |  ✅   |  ✅   |  ✅   |        ✅        |
+| `Immunization`             |  ✅   |  ✅   |  ✅   |
+| `Observation`              |  ✅   |  ✅   |  ✅   |
+| `Patient`                  |  ✅   |  ✅   |  ✅   |
+| `Practitioner`             |  ✅   |  ✅   |  ✅   |
+| `Procedure`                |  ✅   |  ✅   |  ✅   |
+
+The update does not change the datasets which components are able to handle. It means that user can display the same particulars as in the previous version of the specific component.
+
+
 ### Styles
 
 Optional CSS styles are provided with this library. They are split into two files:

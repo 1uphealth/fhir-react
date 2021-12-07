@@ -143,18 +143,18 @@ function Condition(props) {
                     {clinicalStatus}
                   </Badge>
                 )}
-                {severityText && (
-                  <>
-                    <div className="ps-2" />
-                    <Badge data-testid="severity">
-                      {severityText} severity
-                    </Badge>
-                  </>
-                )}
               </>
             }
             icon={headerIcon}
             title={codeText}
+            rightAdditionalContent={
+              severityText && (
+                <>
+                  <div className="ps-2" />
+                  <Badge data-testid="severity">{severityText} severity</Badge>
+                </>
+              )
+            }
           />
         }
         bodyContent={<Body tableData={tableData} />}

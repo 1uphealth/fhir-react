@@ -9,7 +9,7 @@ const EncounterParticipants = props => {
     />
   ));
   return (
-    <ValueSection label="Participants">
+    <ValueSection label="Participants" marginTop>
       <Table>
         <thead>
           <TableRow>

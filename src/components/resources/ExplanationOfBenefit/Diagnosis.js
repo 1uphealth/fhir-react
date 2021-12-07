@@ -21,6 +21,7 @@ const Diagnosis = ({ fhirData }) => {
           dirColumn
           label={`Diagnosis ${sequence}${id ? ` (id: ${id})` : ''}`}
           data-testid="diagnosis"
+          marginTop
         >
           {reference && (
             <Value dirColumn label="Diagnosis" data-testid="reference">

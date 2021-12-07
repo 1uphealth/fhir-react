@@ -223,7 +223,11 @@ const Appointment = props => {
         bodyContent={
           <Body tableData={tableData}>
             {isNotEmptyArray(participant) && (
-              <ValueSection label="Participant" data-testid="participant">
+              <ValueSection
+                label="Participant"
+                data-testid="participant"
+                marginTop
+              >
                 <Table>
                   <thead>
                     <TableRow>
@@ -243,7 +247,7 @@ const Appointment = props => {
               </ValueSection>
             )}
             {comment && (
-              <ValueSection label="Comment" data-testid="comment">
+              <ValueSection label="Comment" data-testid="comment" marginTop>
                 <span className="text-secondary">{comment}</span>
               </ValueSection>
             )}

@@ -13,24 +13,24 @@ const TotalGraph = ({ fhirData }) => {
     if (totalCost && totalBenefit) {
       return [
         {
-          id: 'planDiscount',
-          label: 'Plan discount',
-          value: totalBenefit.value,
-          color: '#3498DB',
-        },
-        {
           id: 'youPaid',
           label: 'You paid',
           value: totalCost.value - totalBenefit.value,
-          color: '#17A589',
+          color: '#0D6EFD',
+        },
+        {
+          id: 'planDiscount',
+          label: 'Plan discount',
+          value: totalBenefit.value,
+          color: '#FFC107',
         },
       ];
     }
   };
 
   return (
-    <ValueSection label="Total" data-testid="total">
-      <div className="bg-light my-4 py-2 d-flex flex-column flex-sm-row">
+    <ValueSection label="Total" data-testid="total" marginTop>
+      <div className="bg-light my-3 py-2 d-flex flex-column flex-sm-row">
         <div className="graph-width-sm">
           <ExplanationOfBenefitGraph
             pieChartProperties={{ isInteractive: false }}
@@ -40,8 +40,9 @@ const TotalGraph = ({ fhirData }) => {
         </div>
         <div className="my-sm-auto">
           <div className="row justify-content-center">
-            {getChartData({ totalCost, totalBenefit }).map(item => (
+            {getChartData({ totalCost, totalBenefit }).map((item, index) => (
               <div
+                key={`graph-legend-item-${index}`}
                 style={{ minWidth: 160 }}
                 className="d-flex mb-2 px-3 w-auto"
               >

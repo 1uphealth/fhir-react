@@ -278,16 +278,15 @@ const ExplanationOfBenefit = props => {
     related,
   } = fhirResourceData;
 
-  const getRowItem = item =>
+  const getRowItem = (item, index) =>
     ('isLoaded' in item ? item.isLoaded : item.data) && (
-      <div className="col-12 col-sm-6 col-md-4 text-wrap mb-4">
-        {item.noWrapWithValue ? (
-          item.data
-        ) : (
-          <Value label={item.label} data-testid={item.testId} dirColumn>
-            {item.data}
-          </Value>
-        )}
+      <div
+        key={`details-item-${index}`}
+        className="col-12 col-sm-6 col-md-4 text-wrap"
+      >
+        <Value label={item.label} data-testid={item.testId} dirColumn>
+          {item.data}
+        </Value>
       </div>
     );
 
@@ -389,16 +388,6 @@ const ExplanationOfBenefit = props => {
       data: <Related fhirData={related} />,
       isLoaded: related,
     },
-    {
-      data: <Diagnosis fhirData={diagnosis} />,
-      isLoaded: hasDiagnosis,
-      noWrapWithValue: true,
-    },
-    {
-      data: <SupportingInfo fhirData={supportingInfo} />,
-      isLoaded: hasSupportingInfo,
-      noWrapWithValue: true,
-    },
   ];
 
   return (
@@ -426,15 +415,27 @@ const ExplanationOfBenefit = props => {
         }
         bodyContent={
           <Body>
-            <ValueSection label="Details" data-testid="details">
-              <div className="row">{EOBRowData.map(x => getRowItem(x))}</div>
+            <ValueSection
+              label="Details"
+              data-testid="details"
+              className="mt-3"
+            >
+              <div className="row gy-sm-3">
+                {EOBRowData.map((x, index) => getRowItem(x, index))}
+              </div>
             </ValueSection>
+            {hasDiagnosis && <Diagnosis fhirData={diagnosis} />}
+            {hasSupportingInfo && <SupportingInfo fhirData={supportingInfo} />}
             {totalCost && totalBenefit && (
               <TotalGraph fhirData={{ totalCost, totalBenefit }} />
             )}
 
             {hasServices && (
-              <ValueSection label="Services" data-testid="hasServices">
+              <ValueSection
+                label="Services"
+                data-testid="hasServices"
+                marginTop
+              >
                 <Table>
                   <thead>
                     <TableRow>
@@ -444,7 +445,7 @@ const ExplanationOfBenefit = props => {
                       <TableHeader>Item cost</TableHeader>
                     </TableRow>
                   </thead>
-                  <tbody>
+                  <tbody className="border-top-0">
                     {services.map((serviceItem, i) => {
                       return (
                         <TableRow key={`serviceItem-${i}`}>
@@ -482,7 +483,11 @@ const ExplanationOfBenefit = props => {
               </ValueSection>
             )}
             {hasInformation && (
-              <ValueSection label="Information" data-testid="hasInformation">
+              <ValueSection
+                label="Information"
+                data-testid="hasInformation"
+                marginTop
+              >
                 <Table>
                   <thead>
                     <TableRow>
@@ -490,7 +495,7 @@ const ExplanationOfBenefit = props => {
                       <TableHeader>Status</TableHeader>
                     </TableRow>
                   </thead>
-                  <tbody>
+                  <tbody className="border-top-0">
                     {information.map((informationItem, i) => {
                       const infoTitle = _get(
                         informationItem,

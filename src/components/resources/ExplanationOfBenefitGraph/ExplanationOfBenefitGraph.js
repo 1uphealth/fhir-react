@@ -56,10 +56,9 @@ const ExplanationOfBenefitGraph = props => {
           colors={{ datum: 'data.color' }}
           enableArcLabels={enableValueLabels || false}
           enableArcLinkLabels={enableLinkLabels || false}
-          innerRadius={0.85}
-          cornerRadius={3}
+          innerRadius={0.88}
           activeOuterRadiusOffset={1}
-          borderWidth={1}
+          borderWidth={0.1}
           borderColor={{ from: 'color', modifiers: [['darker', 0.2]] }}
           {...pieChartProperties}
         />
@@ -74,7 +73,8 @@ ExplanationOfBenefitGraph.propTypes = {
     PropTypes.shape({
       id: PropTypes.string.isRequired,
       label: PropTypes.string.isRequired,
-      value: PropTypes.oneOf(PropTypes.string, PropTypes.number).isRequired,
+      value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+        .isRequired,
       color: PropTypes.string.isRequired,
     }),
   ).isRequired,
@@ -82,7 +82,7 @@ ExplanationOfBenefitGraph.propTypes = {
   margin: PropTypes.shape({}),
   enableValueLabels: PropTypes.bool,
   enableLinkLabels: PropTypes.bool,
-  totalLabel: PropTypes.string.isRequired,
+  totalLabel: PropTypes.string,
   pieChartProperties: PropTypes.shape({}),
 };
 

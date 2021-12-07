@@ -5,6 +5,7 @@ import HeaderIcon from '../datatypes/HeaderIcon';
 
 export const Header = props => {
   const rightItemsClass = 'align-items-center flex-fill d-flex';
+
   return (
     <>
       {// This condition was left due to fact, that to much changes in Header will generate many errors in tests. This condition will be removed after all changes have been made.
@@ -13,7 +14,9 @@ export const Header = props => {
           className={`fhir-ui__${props.resourceName}-Header w-100 p-4 position-relative`}
         >
           <div
-            className={`fhir-ui__${props.resourceName}-Header__title-data header__title-row d-flex w-100 flex-column flex-sm-row`}
+            className={`fhir-ui__${props.resourceName}-Header__title-data ${
+              props.isAccordionOpenable ? 'header__title-row' : ''
+            } d-flex w-100 flex-column flex-sm-row`}
           >
             <div className="d-flex">
               <div
@@ -53,7 +56,7 @@ export const Header = props => {
           >
             {props.additionalContent}
             <div
-              className={`fhir-ui__${props.resourceName}-Header__rightAdditionalContent justify-content-end  ${rightItemsClass}`}
+              className={`fhir-ui__${props.resourceName}-Header__rightAdditionalContent justify-content-end ${rightItemsClass}`}
             >
               {props.rightAdditionalContent}
             </div>
@@ -117,25 +120,22 @@ export const ValueUnit = props => (
 export const Body = ({ tableData = [], reverseContent, children }) => (
   <div className="fhir-ui__Body">
     {reverseContent ? children : null}
-    {console.log(tableData)}
-    {tableData.filter(x => 'data' in x && x.data).length > 0 && (
-      <div className="row gy-3">
-        {tableData.map(
-          (value, index) =>
-            value.status && (
-              <div
-                className="d-flex flex-column flex-sm-row"
-                key={`table-data-item-${index}`}
-              >
-                <div className="dataTable__value-label ps-0">
-                  <Label>{value.label}</Label>
-                </div>
-                <Data data-testid={value.testId}>{value.data}</Data>
+    <div className="row gy-3">
+      {tableData.map(
+        (value, index) =>
+          value.status && (
+            <div
+              className="d-flex flex-column flex-sm-row"
+              key={`table-data-item-${index}`}
+            >
+              <div className="dataTable__value-label ps-0">
+                <Label>{value.label}</Label>
               </div>
-            ),
-        )}
-      </div>
-    )}
+              <Data data-testid={value.testId}>{value.data}</Data>
+            </div>
+          ),
+      )}
+    </div>
     {!reverseContent ? children : null}
   </div>
 );
@@ -203,7 +203,7 @@ export const ValueSection = props => (
   <div
     className={`fhir-ui__ValueSection ${props.marginTop ? 'mt-40' : ''} ${
       props.marginBottom ? 'mb-40' : ''
-    }`}
+    } ${props.className || ''}`}
     data-testid={props['data-testid']}
   >
     <label className="fhir-ui__ValueSection-label fw-bold mb-2">

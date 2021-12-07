@@ -278,9 +278,12 @@ const ExplanationOfBenefit = props => {
     related,
   } = fhirResourceData;
 
-  const getRowItem = item =>
+  const getRowItem = (item, index) =>
     ('isLoaded' in item ? item.isLoaded : item.data) && (
-      <div className="col-12 col-sm-6 col-md-4 text-wrap">
+      <div
+        key={`details-item-${index}`}
+        className="col-12 col-sm-6 col-md-4 text-wrap"
+      >
         <Value label={item.label} data-testid={item.testId} dirColumn>
           {item.data}
         </Value>
@@ -412,9 +415,13 @@ const ExplanationOfBenefit = props => {
         }
         bodyContent={
           <Body>
-            <ValueSection label="Details" data-testid="details">
-              <div className="row gy-3">
-                {EOBRowData.map(x => getRowItem(x))}
+            <ValueSection
+              label="Details"
+              data-testid="details"
+              className="mt-3"
+            >
+              <div className="row gy-sm-3">
+                {EOBRowData.map((x, index) => getRowItem(x, index))}
               </div>
             </ValueSection>
             {hasDiagnosis && <Diagnosis fhirData={diagnosis} />}

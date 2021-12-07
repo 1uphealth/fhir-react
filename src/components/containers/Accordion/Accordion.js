@@ -47,7 +47,9 @@ const Accordion = props => {
               onClick={handleAccordionClick}
             >
               <div className="fhir-container__Accordion__header-text d-flex w-100 justify-content-start position-relative">
-                {headerContent}
+                {React.cloneElement(headerContent, {
+                  isAccordionOpenable: isAccordionOpenable(),
+                })}
                 {getChevron()}
               </div>
             </button>

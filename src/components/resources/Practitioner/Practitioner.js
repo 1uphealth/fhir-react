@@ -128,7 +128,7 @@ const Practitioner = props => {
     {
       label: 'Contact',
       testId: 'contact',
-      data: contactData && (
+      data: isContactData && (
         <PatientContact
           name={contactData.name}
           relationship={contactData.relationship}

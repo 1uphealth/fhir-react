@@ -73,7 +73,8 @@ ExplanationOfBenefitGraph.propTypes = {
     PropTypes.shape({
       id: PropTypes.string.isRequired,
       label: PropTypes.string.isRequired,
-      value: PropTypes.oneOf(PropTypes.string, PropTypes.number).isRequired,
+      value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+        .isRequired,
       color: PropTypes.string.isRequired,
     }),
   ).isRequired,
@@ -81,7 +82,7 @@ ExplanationOfBenefitGraph.propTypes = {
   margin: PropTypes.shape({}),
   enableValueLabels: PropTypes.bool,
   enableLinkLabels: PropTypes.bool,
-  totalLabel: PropTypes.string.isRequired,
+  totalLabel: PropTypes.string,
   pieChartProperties: PropTypes.shape({}),
 };
 

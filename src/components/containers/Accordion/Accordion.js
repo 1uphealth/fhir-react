@@ -9,9 +9,18 @@ const Accordion = props => {
   const [rotate, setRotate] = useState(false);
   const handleAccordionClick = () => setRotate(!rotate);
 
-  const isAccordionOpenable = () =>
-    bodyContent.props.children?.length > 0 ||
-    bodyContent.props.tableData?.filter(x => 'data' in x && x.data).length > 0;
+  const isAccordionOpenable = () => {
+    let childrenCondition = false;
+    let tableDataCondition = false;
+    if (bodyContent.props.children)
+      childrenCondition = bodyContent.props.children.length > 0;
+    if (bodyContent.props.tableData)
+      tableDataCondition =
+        bodyContent.props.tableData.filter(x => 'data' in x && x.data).length >
+        0;
+
+    return childrenCondition || tableDataCondition;
+  };
 
   const getChevron = () =>
     isAccordionOpenable() && (

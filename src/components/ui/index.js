@@ -120,7 +120,7 @@ export const ValueUnit = props => (
 export const Body = ({ tableData = [], reverseContent, children }) => (
   <div className="fhir-ui__Body">
     {reverseContent ? children : null}
-    <div className="row gy-3">
+    <div className="row">
       {tableData.map(
         (value, index) =>
           value.status && (

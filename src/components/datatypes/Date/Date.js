@@ -1,12 +1,22 @@
 import React from 'react';
+import { formatDate } from '../../../utils/formatDate';
 
-const Date = props => {
-  const { fhirData } = props;
+const Date = ({ fhirData, isBlack, testId, className = '' }) => {
   if (!fhirData) {
     return null;
   }
-  const dateValue = String(fhirData).slice(0, 10);
-  return <span className="fhir-datatype__Date">{dateValue}</span>;
+  const locale = 'en-US';
+  const dateValue = formatDate(String(fhirData).slice(0, 10), locale);
+  return (
+    <span
+      data-testid={testId || 'providedDate'}
+      className={`${[className, 'fhir-datatype__Date', 'font-source'].join(
+        ' ',
+      )}${isBlack ? '' : ' text-secondary'}`}
+    >
+      {dateValue}
+    </span>
+  );
 };
 
 export default Date;

@@ -1,27 +1,21 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import _get from 'lodash/get';
-import _has from 'lodash/has';
+import { Badge, Body, Header, MissingValue, Root } from '../../ui';
 
+import Accordion from '../../containers/Accordion/Accordion';
 import Annotation from '../../datatypes/Annotation';
+import CodeableConcept from '../../datatypes/CodeableConcept';
 import Coding from '../../datatypes/Coding';
 import Date from '../../datatypes/Date';
+import DatePeriod from '../../datatypes/DatePeriod/DatePeriod';
+import PropTypes from 'prop-types';
+import React from 'react';
 import Reference from '../../datatypes/Reference';
-import CodeableConcept from '../../datatypes/CodeableConcept';
-import {
-  Root,
-  Header,
-  Title,
-  Body,
-  Value,
-  Badge,
-  BadgeSecondary,
-  MissingValue,
-} from '../../ui';
+import _get from 'lodash/get';
+import _has from 'lodash/has';
 import { isNotEmptyArray } from '../../../utils';
+import { Value } from '../../ui';
 
 const Procedure = props => {
-  const { fhirResource } = props;
+  const { fhirResource, fhirIcons } = props;
   const display =
     _get(fhirResource, 'code.coding[0].display') ||
     _get(fhirResource, 'code.text');
@@ -42,79 +36,97 @@ const Procedure = props => {
   const hasNote = _has(fhirResource, 'note');
   const note = _get(fhirResource, 'note', []);
   const outcome = _get(fhirResource, 'outcome');
+
+  const headerIcon = fhirIcons[_get(fhirResource, 'resourceType')];
+  const tableData = [
+    {
+      label: 'Identification',
+      testId: 'hasCoding',
+      data: coding && (
+        <>
+          {coding.map((coding, i) => (
+            <Coding key={`item-${i}`} fhirData={coding} />
+          ))}
+        </>
+      ),
+      status: hasCoding,
+    },
+    {
+      label: 'Category',
+      testId: 'category',
+      data: category && <Coding fhirData={category} />,
+      status: category,
+    },
+    {
+      label: 'Performed by',
+      testId: 'dateRecorded',
+      data: performer && (
+        <>
+          {performer.map((item, i) => (
+            <div key={`item-${i}`}>
+              {_get(item, 'actor.display', <MissingValue />)}
+            </div>
+          ))}
+        </>
+      ),
+      status: hasPerformerData,
+    },
+    {
+      label: 'Reason procedure performed',
+      testId: 'hasReasonCode',
+      data: reasonCode && <Annotation fhirData={reasonCode} />,
+      status: hasReasonCode,
+    },
+    {
+      label: 'Location',
+      testId: 'location',
+      data: locationReference && <Reference fhirData={locationReference} />,
+      status: locationReference,
+    },
+    {
+      label: 'Additional information about the procedure',
+      testId: 'hasNote',
+      data: note && <Annotation fhirData={note} />,
+      status: hasNote,
+    },
+    {
+      label: 'The result of procedure',
+      testId: '',
+      data: outcome && <CodeableConcept fhirData={outcome} />,
+      status: isNotEmptyArray(outcome),
+    },
+  ];
+
   return (
     <Root name="Procedure">
-      <Header>
-        {display && <Title>{display}</Title>}
-        {status && <Badge data-testid="status">{status}</Badge>}
-        {hasPerformedDateTime && (
-          <BadgeSecondary data-testid="performedDateTime">
-            on <Date fhirData={performedDateTime} />
-          </BadgeSecondary>
-        )}
-        {hasPerformedPeriod && (
-          <BadgeSecondary>
-            {'performed '}
-            {performedPeriodStart ? (
-              <Date fhirData={performedPeriodStart} />
-            ) : (
-              <MissingValue />
-            )}
-            {' to '}
-            {performedPeriodEnd ? (
-              <Date fhirData={performedPeriodEnd} />
-            ) : (
-              <MissingValue />
-            )}
-          </BadgeSecondary>
-        )}
-      </Header>
-      <Body>
-        {hasCoding && (
-          <Value label="Identification" data-testid="hasCoding">
-            {coding.map((coding, i) => (
-              <Coding key={`item-${i}`} fhirData={coding} />
-            ))}
-          </Value>
-        )}
-        {category && (
-          <Value label="Category" data-testid="category">
-            <Coding fhirData={category} />
-          </Value>
-        )}
-        {hasPerformerData && (
-          <Value label="Performed the procedure">
-            {performer.map((item, i) => (
-              <div key={`item-${i}`}>
-                {_get(item, 'actor.display', <MissingValue />)}
-              </div>
-            ))}
-          </Value>
-        )}
-        {hasReasonCode && (
-          <Value label="Reason procedure performed" data-testid="hasReasonCode">
-            <Annotation fhirData={reasonCode} />
-          </Value>
-        )}
-        {locationReference && (
-          <Value label="Location" data-testid="location">
-            <Reference fhirData={locationReference} />
-          </Value>
-        )}
-        {hasNote && (
-          <Value
-            label="Additional information about the procedure"
-            data-testid="hasNote"
-          >
-            <Annotation fhirData={note} />
-          </Value>
-        )}
-        {isNotEmptyArray(outcome) && (
-          <Value label="The result of procedure">
-            <CodeableConcept fhirData={outcome} />
-          </Value>
-        )}
-      </Body>
+      <Accordion
+        headerContent={
+          <Header
+            resourceName="Procedure"
+            additionalContent={
+              <>
+                {hasPerformedDateTime && (
+                  <Value label="Start date" data-testid="headerStartDate">
+                    <Date fhirData={performedDateTime} isBlack />
+                  </Value>
+                )}
+                {hasPerformedPeriod && (
+                  <DatePeriod
+                    periodBeginLabel="performed"
+                    periodBeginDate={performedPeriodStart}
+                    periodEndLabel="to"
+                    periodEndDate={performedPeriodEnd}
+                  />
+                )}
+              </>
+            }
+            badges={status && <Badge data-testid="status">{status}</Badge>}
+            icon={headerIcon}
+            title={display}
+          />
+        }
+        bodyContent={<Body tableData={tableData} />}
+      />
     </Root>
   );
 };

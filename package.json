@@ -1,12 +1,16 @@
 {
   "name": "fhir-react",
-  "version": "0.2.4",
+  "version": "0.3.0",
   "description": "React component library for displaying FHIR Resources ",
   "main": "build/index.js",
   "peerDependencies": {
     "react": "^17.0.1"
   },
   "dependencies": {
+    "@nivo/core": "^0.74.0",
+    "@nivo/pie": "^0.74.0",
+    "@popperjs/core": "^2.10.2",
+    "bootstrap": "^5.1.1",
     "dompurify": "^2.0.7",
     "lodash": "^4.17.15",
     "marked": "^0.8.0",
@@ -27,7 +31,8 @@
     "stylelint:fix": "stylelint --fix 'src/**/*.css'",
     "storybook": "start-storybook --port 63653",
     "deploy-storybook": "storybook-to-aws-s3 --bucket-path=storybook-fhir-react-lib --aws-profile=storybook-deployer",
-    "deploy-storybook-branch": "storybook-to-aws-s3 --aws-profile=storybook-deployer"
+    "deploy-storybook-branch": "storybook-to-aws-s3 --aws-profile=storybook-deployer",
+    "deploy-storybook-pr-branch": "storybook-to-aws-s3 --bucket-path=fhir-react-lib-test-storybook/branch/$(git branch --show-current) --aws-profile=1up-marketing-dev-admin"
   },
   "author": {
     "name": "1upHealth",
@@ -51,7 +56,7 @@
     "material",
     "ui"
   ],
-  "license": "MIT",
+  "license": "CC-BY-NC-SA-4.0",
   "devDependencies": {
     "@babel/cli": "^7.7.4",
     "@babel/core": "^7.0.0",
@@ -77,6 +82,7 @@
     "@babel/preset-env": "^7.0.0",
     "@babel/preset-react": "^7.7.4",
     "@storybook/addon-knobs": "^5.2.8",
+    "@storybook/preset-scss": "^1.0.3",
     "@storybook/react": "^5.2.8",
     "@storybook/storybook-deployer": "^2.8.1",
     "@testing-library/react": "^9.3.2",
@@ -87,7 +93,7 @@
     "babel-loader": "^8.0.6",
     "babel-plugin-transform-imports": "^2.0.0",
     "copy-webpack-plugin": "^5.1.1",
-    "css-loader": "^3.4.2",
+    "css-loader": "^3.6.0",
     "dedent": "^0.7.0",
     "eslint": "^6.7.2",
     "eslint-config-prettier": "^6.7.0",
@@ -102,6 +108,9 @@
     "mini-css-extract-plugin": "^0.9.0",
     "prettier": "1.19.1",
     "react-dom": "^16.12.0",
+    "sass": "^1.42.1",
+    "sass-loader": "^10.2.0",
+    "style-loader": "^2.0.0",
     "stylelint": "^13.0.0",
     "stylelint-config-standard": "^19.0.0",
     "webpack": "^4.41.2",

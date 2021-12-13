@@ -6,3 +6,10 @@ export function toTrimedFixedNumber(number, digits = 4) {
 }
 
 export const isNotEmptyArray = data => Array.isArray(data) && data.length > 0;
+
+export const parseValueIntoMonetaryValueOfGivenCurrency = (value, currency) => {
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: currency,
+  }).format(Math.round(value * 100) / 100);
+};

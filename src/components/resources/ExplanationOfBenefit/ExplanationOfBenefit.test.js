@@ -1,15 +1,14 @@
-import React from 'react';
-import { render } from '@testing-library/react';
-
 import ExplanationOfBenefit from './ExplanationOfBenefit';
-import { nbspRegex } from '../../../testUtils';
-import fhirVersions from '../fhirResourceVersions';
+import React from 'react';
 import dstu2Example1 from '../../../fixtures/dstu2/resources/explanationOfBenefit/example1.json';
+import example1R4 from '../../../fixtures/r4/resources/explanationOfBenefit/personPrimaryCoverage.json';
 import example1Stu3 from '../../../fixtures/stu3/resources/explanationOfBenefit/example1.json';
 import example2Stu3 from '../../../fixtures/stu3/resources/explanationOfBenefit/example2.json';
-import example1R4 from '../../../fixtures/r4/resources/explanationOfBenefit/personPrimaryCoverage.json';
 import exampleC4BB from '../../../fixtures/r4/resources/explanationOfBenefit/c4bbExample.json';
 import exampleC4BBExtendedDiagnosis from '../../../fixtures/r4/resources/explanationOfBenefit/c4bbExtendedDiagnosis.json';
+import fhirVersions from '../fhirResourceVersions';
+import { nbspRegex } from '../../../testUtils';
+import { render } from '@testing-library/react';
 
 describe('should render ExplanationOfBenefit component properly', () => {
   it('should render with DSTU2 source data', () => {
@@ -24,7 +23,7 @@ describe('should render ExplanationOfBenefit component properly', () => {
     expect(container).not.toBeNull();
 
     expect(getByTestId('title').textContent).toContain('Claim settled as ');
-    expect(getByTestId('created').textContent).toContain('2014-08-16');
+    expect(getByTestId('created').textContent).toContain('8/16/2014');
     expect(getByTestId('insurer').textContent).toContain('Organization/2');
   });
 
@@ -40,13 +39,11 @@ describe('should render ExplanationOfBenefit component properly', () => {
     expect(container).not.toBeNull();
 
     expect(getByTestId('title').textContent).toContain('Claim settled as ');
-    expect(getByTestId('created').textContent).toContain('2014-08-16');
+    expect(getByTestId('created').textContent).toContain('8/16/2014');
+    expect(getByTestId('metricAmount').textContent).toContain('$135.57');
     expect(
-      getByTestId('totalCost').textContent.replace(nbspRegex, ' '),
-    ).toEqual('135.57 USD');
-    expect(
-      getByTestId('totalBenefit').textContent.replace(nbspRegex, ' '),
-    ).toContain('96 USD');
+      getByTestId('planDiscount').textContent.replace(nbspRegex, ' '),
+    ).toContain('$96.00');
     expect(getByTestId('hasServices').textContent).toContain('(1200)');
   });
 
@@ -72,15 +69,19 @@ describe('should render ExplanationOfBenefit component properly', () => {
       fhirVersion: fhirVersions.R4,
     };
 
-    const { container, getByTestId, queryByTestId } = render(
-      <ExplanationOfBenefit {...defaultProps} />,
-    );
+    const {
+      container,
+      getByTestId,
+      queryByTestId,
+      getAllByTestId,
+      getAllByRole,
+    } = render(<ExplanationOfBenefit {...defaultProps} />);
     expect(container).not.toBeNull();
 
     expect(getByTestId('title').textContent).toEqual(
       'Claim settled as per contract.',
     );
-    expect(getByTestId('created').textContent).toEqual('2014-08-16');
+    expect(getByTestId('created').textContent).toEqual('8/16/2014');
     expect(getByTestId('insurer').textContent).toEqual('Organization/3');
     expect(getByTestId('provider').textContent).toEqual('Practitioner/1');
     expect(getByTestId('totalSum').textContent).toContain('135.57');
@@ -89,38 +90,43 @@ describe('should render ExplanationOfBenefit component properly', () => {
     expect(getByTestId('insurance').textContent).toEqual('Coverage/9876B1');
 
     expect(queryByTestId('hasServices')).not.toBeNull();
-    const tablesContent = [];
-    getByTestId('hasServices')
-      .querySelectorAll('.fhir-ui__TableRow')
-      .forEach(el => {
-        const tds = [];
-        el.querySelectorAll('.fhir-ui__TableCell').forEach(item => {
-          tds.push(String(item.textContent).trim());
-        });
-        tablesContent.push(tds);
-      });
-    // table header
-    expect(tablesContent[0]).toEqual([
+
+    // checking if text content of each header cell is equal to mocked data
+    const headerCells = getAllByRole('columnheader')
+      .slice(0, 4)
+      .map(x => x.textContent);
+    expect(headerCells).toEqual([
       'Service',
       'Service date',
       'Quantity',
       'Item cost',
     ]);
 
-    // table 1st row
-    expect(tablesContent[1]).toEqual([
-      '(1205)',
-      '2014-08-16',
-      '-',
+    // checking if text content of each column is equal to mocked data
+    const explanationService = getAllByTestId('explanation.service').map(
+      n => n.textContent,
+    );
+    const expectedArray = ['(1205)', '(group)'];
+    explanationService.forEach((x, i) => expect(x).toContain(expectedArray[i]));
+
+    const explanationServicedDate = getAllByTestId(
+      'explanation.servicedDate',
+    ).map(n => n.textContent);
+    expect(explanationServicedDate).toEqual(['8/16/2014', '8/16/2014']);
+
+    const explanationQuantity = getAllByTestId('explanation.quantity').map(
+      n => n.textContent,
+    );
+    expect(explanationQuantity).toEqual(['-', '-']);
+
+    const explanationItemCost = getAllByTestId('explanation.itemCost').map(
+      n => n.textContent,
+    );
+    expect(explanationItemCost).toEqual([
       `135.57${String.fromCharCode(160)}USD`,
-    ]);
-    // table 2nd row
-    expect(tablesContent[2]).toEqual([
-      '(group)',
-      '2014-08-16',
-      '-',
       `200${String.fromCharCode(160)}USD`,
     ]);
+
     expect(queryByTestId('hasInformation')).toBeNull();
     expect(queryByTestId('totalBenefit')).toBeNull();
     expect(queryByTestId('totalCost')).toBeNull();
@@ -156,12 +162,17 @@ describe('should render ExplanationOfBenefit component properly', () => {
       withCarinBBProfile: true,
     };
 
-    const { container, getByTestId, queryByTestId, queryAllByTestId } = render(
-      <ExplanationOfBenefit {...defaultProps} />,
-    );
+    const {
+      container,
+      getByTestId,
+      queryByTestId,
+      queryAllByTestId,
+      getAllByTestId,
+      getAllByRole,
+    } = render(<ExplanationOfBenefit {...defaultProps} />);
     expect(container).not.toBeNull();
 
-    expect(getByTestId('created').textContent).toEqual('2017-01-05');
+    expect(getByTestId('created').textContent).toEqual('1/5/2017');
     expect(getByTestId('identifier').textContent).toContain(
       'c145d3fe-d56e-dc26-75e9-01e90672f506',
     );
@@ -176,7 +187,7 @@ describe('should render ExplanationOfBenefit component properly', () => {
       'Organization/iAxXvHiphwGGAL48m3B7XXtKlLZg6yXnC1ch84x1up',
     );
     expect(getByTestId('billablePeriod').textContent).toEqual(
-      'From: 2017-01-05; To: 2018-01-05',
+      'From: 1/5/2017; To: 1/5/2018',
     );
     expect(getByTestId('patient').textContent).toEqual(
       'Patient/f56391c2-dd54-b378-46ef-87c1643a2ba0',
@@ -193,29 +204,35 @@ describe('should render ExplanationOfBenefit component properly', () => {
       'clmrecvddate',
     );
     expect(getByTestId('supportingInfo.timingDate').textContent).toEqual(
-      '2017-01-05',
+      '1/5/2017',
     );
 
-    const tablesContent = [];
-    getByTestId('hasServices')
-      .querySelectorAll('.fhir-ui__TableRow')
-      .forEach(el => {
-        const tds = [];
-        el.querySelectorAll('.fhir-ui__TableCell').forEach(item => {
-          tds.push(String(item.textContent).trim());
-        });
-        tablesContent.push(tds);
-      });
-    // table header
-    expect(tablesContent[0]).toEqual([
+    // checking if text content of each header cell is equal to mocked data
+    const headerCells = getAllByRole('columnheader')
+      .slice(0, 4)
+      .map(x => x.textContent);
+    expect(headerCells).toEqual([
       'Service',
       'Service date',
       'Quantity',
       'Item cost',
     ]);
 
-    // table 1st row
-    expect(tablesContent[1][0]).toContain('(185345009)');
+    // checking if text content of first column is equal to mocked data
+    const explanationService = getAllByTestId('explanation.service').map(
+      n => n.textContent,
+    );
+    const expectedArray = [
+      'Encounter for symptom (185345009)',
+      'Acute bronchitis (disorder) (10509002)',
+      'Measurement of respiratory function (procedure) (23426006)',
+    ];
+    const replaceWhitespaces = text => text.replace(/\s+/g, ' ');
+    explanationService.forEach((x, i) => {
+      expect(replaceWhitespaces(x)).toEqual(
+        replaceWhitespaces(expectedArray[i]),
+      );
+    });
 
     expect(queryAllByTestId('items.level')).not.toBeNull();
     expect(queryAllByTestId('items.sequence')).not.toBeNull();

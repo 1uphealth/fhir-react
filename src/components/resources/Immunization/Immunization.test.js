@@ -1,18 +1,20 @@
-import React from 'react';
-import { render } from '@testing-library/react';
-
-import fhirVersions from '../fhirResourceVersions';
 import Immunization from './Immunization';
+import React from 'react';
 import dstu2Example from '../../../fixtures/dstu2/resources/immunization/example1.json';
-import stu3Example from '../../../fixtures/stu3/resources/immunization/example1.json';
+import fhirVersions from '../fhirResourceVersions';
 import r4Example1 from '../../../fixtures/r4/resources/immunization/example1.json';
 import r4Example2 from '../../../fixtures/r4/resources/immunization/example2.json';
+import { render } from '@testing-library/react';
+import stu3Example from '../../../fixtures/stu3/resources/immunization/example1.json';
+
+import fhirIcons from '../../../fixtures/example-icons';
 
 describe('should render Immunization component properly', () => {
   it('should render with DSTU2 source data', () => {
     const defaultProps = {
       fhirResource: dstu2Example,
       fhirVersion: fhirVersions.DSTU2,
+      fhirIcons: fhirIcons,
     };
 
     const { container, getByTestId } = render(
@@ -23,11 +25,11 @@ describe('should render Immunization component properly', () => {
 
     expect(getByTestId('title').textContent).toContain('Fluvax');
 
-    expect(getByTestId('providedDate').textContent).toContain('on 2013-01-10');
+    expect(getByTestId('providedDate').textContent).toContain('1/10/2013');
 
     expect(getByTestId('lotNumber').textContent).toContain('AAJN11K');
     expect(getByTestId('lotNumberExpirationDate').textContent).toContain(
-      '2015-02-15',
+      '2/15/2015',
     );
 
     expect(getByTestId('doseQuantity').textContent).toContain('5');
@@ -53,6 +55,7 @@ describe('should render Immunization component properly', () => {
     const defaultProps = {
       fhirResource: stu3Example,
       fhirVersion: fhirVersions.STU3,
+      fhirIcons: fhirIcons,
     };
 
     const { container, getByTestId } = render(
@@ -63,11 +66,11 @@ describe('should render Immunization component properly', () => {
 
     expect(getByTestId('title').textContent).toContain('Fluvax');
 
-    expect(getByTestId('providedDate').textContent).toContain('on 2013-01-10');
+    expect(getByTestId('providedDate').textContent).toContain('1/10/2013');
 
     expect(getByTestId('lotNumber').textContent).toContain('AAJN11K');
     expect(getByTestId('lotNumberExpirationDate').textContent).toContain(
-      '2015-02-15',
+      '2/15/2015',
     );
 
     expect(getByTestId('doseQuantity').textContent).toContain('5');
@@ -87,6 +90,7 @@ describe('should render Immunization component properly', () => {
     const defaultProps = {
       fhirResource: r4Example1,
       fhirVersion: fhirVersions.R4,
+      fhirIcons: fhirIcons,
     };
 
     const { container, getByTestId } = render(
@@ -97,11 +101,11 @@ describe('should render Immunization component properly', () => {
 
     expect(getByTestId('title').textContent).toContain('Fluvax');
 
-    expect(getByTestId('providedDate').textContent).toContain('on 2013-01-10');
+    expect(getByTestId('providedDate').textContent).toContain('1/10/2013');
 
     expect(getByTestId('lotNumber').textContent).toContain('AAJN11K');
     expect(getByTestId('lotNumberExpirationDate').textContent).toContain(
-      '2015-02-15',
+      '2/15/2015',
     );
 
     expect(getByTestId('doseQuantity').textContent).toContain('5');
@@ -121,6 +125,7 @@ describe('should render Immunization component properly', () => {
     const defaultProps = {
       fhirResource: r4Example2,
       fhirVersion: fhirVersions.R4,
+      fhirIcons: fhirIcons,
     };
 
     const { container, getByTestId, queryByTestId } = render(
@@ -131,7 +136,7 @@ describe('should render Immunization component properly', () => {
 
     expect(getByTestId('title').textContent).toContain('DTP');
 
-    expect(getByTestId('providedDate').textContent).toContain('on 2013-01-10');
+    expect(getByTestId('providedDate').textContent).toContain('1/10/2013');
 
     expect(getByTestId('patient').textContent).toEqual('Patient/example');
 

@@ -21,7 +21,7 @@ describe('should render Device component properly', () => {
 
     expect(getByTestId('title').textContent).toEqual('prescribed medication');
     expect(getByTestId('typeCoding').textContent).toContain('Part Fill');
-    expect(getByTestId('whenPrepared').textContent).toContain('2015-03-01');
+    expect(getByTestId('whenPrepared').textContent).toContain('3/1/2015');
     expect(getByTestId('hasDosageInstruction').textContent).toContain(
       'or after food',
     );
@@ -60,7 +60,7 @@ describe('should render Device component properly', () => {
     expect(container).not.toBeNull();
 
     expect(getByTestId('title').textContent).toContain('Novolog 100u/ml');
-    expect(getByTestId('whenPrepared').textContent).toEqual('2015-01-15');
+    expect(getByTestId('whenPrepared').textContent).toEqual('1/15/2015');
     expect(
       within(getByTestId('hasDosageInstruction'))
         .queryAllByTestId('dosageTiming')

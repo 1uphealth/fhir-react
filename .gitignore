@@ -3,3 +3,6 @@
 /build
 /coverage
 /out*
+
+.vscode
+.idea

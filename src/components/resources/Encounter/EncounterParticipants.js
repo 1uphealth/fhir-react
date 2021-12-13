@@ -9,7 +9,7 @@ const EncounterParticipants = props => {
     />
   ));
   return (
-    <ValueSection label="Participants">
+    <ValueSection label="Participants" marginTop>
       <Table>
         <thead>
           <TableRow>
@@ -18,7 +18,7 @@ const EncounterParticipants = props => {
             <TableHeader>Date</TableHeader>
           </TableRow>
         </thead>
-        <tbody>{allParticipant}</tbody>
+        <tbody className="border-top-0">{allParticipant}</tbody>
       </Table>
     </ValueSection>
   );

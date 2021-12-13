@@ -19,12 +19,10 @@ describe('should render component correctly', () => {
     expect(getByTestId('title').textContent).toContain(
       'blood count (hemogram)',
     );
-    expect(getByTestId('effectiveDateTime').textContent).toContain(
-      '2013-04-02',
-    );
+    expect(getByTestId('effectiveDateTime').textContent).toContain('4/2/2013');
 
     expect(getByTestId('categoryCoding').textContent).toContain('Haematology');
-    expect(getByTestId('issued').textContent).toContain('2013-05-15');
+    expect(getByTestId('issued').textContent).toContain('5/15/2013');
     expect(getByTestId('performer').textContent).toContain(
       'University Medical ',
     );
@@ -40,7 +38,7 @@ describe('should render component correctly', () => {
     expect(getByTestId('title').textContent).toContain(
       'blood count (hemogram)',
     );
-    expect(getByTestId('issued').textContent).toContain('2013-05-15');
+    expect(getByTestId('issued').textContent).toContain('5/15/2013');
     expect(getByTestId('categoryCoding').textContent).toContain(
       'Haematology test',
     );
@@ -60,7 +58,7 @@ describe('should render component correctly', () => {
     expect(getByTestId('title').textContent).toContain(
       'blood count (hemogram)',
     );
-    expect(getByTestId('issued').textContent).toContain('2013-05-15');
+    expect(getByTestId('issued').textContent).toContain('5/15/2013');
     expect(getByTestId('categoryCoding').textContent).toContain(
       'Haematology test',
     );
@@ -78,7 +76,7 @@ describe('should render component correctly', () => {
     const { getByTestId } = render(<DiagnosticReport {...defaultProps} />);
 
     expect(getByTestId('title').textContent).toContain('Culture, MRSA');
-    expect(getByTestId('issued').textContent).toContain('2009-08-10');
+    expect(getByTestId('issued').textContent).toContain('8/10/2009');
     expect(getByTestId('categoryCoding').textContent).toContain('(MB)');
 
     expect(getByTestId('performer').textContent).toContain('Todd Ashby');

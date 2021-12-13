@@ -21,7 +21,7 @@ describe('should render the DocumentReference component properly', () => {
     expect(getByTestId('title').textContent).toEqual('Physical');
     expect(getByTestId('status').textContent).toEqual('current');
     expect(getByTestId('docStatus').textContent).toEqual('preliminary');
-    expect(getByTestId('createdAt').textContent).toEqual('2005-12-24');
+    expect(getByTestId('createdAt').textContent).toEqual('12/24/2005');
     expect(getByTestId('type').textContent.split(nbspRegex)).toEqual([
       'Outpatient Note',
       '(34108-1)',
@@ -70,7 +70,7 @@ describe('should render the DocumentReference component properly', () => {
     expect(getByTestId('title').textContent).toEqual('Physical');
     expect(getByTestId('status').textContent).toEqual('current');
     expect(getByTestId('docStatus').textContent).toEqual('preliminary');
-    expect(getByTestId('createdAt').textContent).toEqual('2005-12-24');
+    expect(getByTestId('createdAt').textContent).toEqual('12/24/2005');
     expect(getByTestId('type').textContent.split(nbspRegex)).toEqual([
       'Outpatient Note',
       '(34108-1)',
@@ -119,7 +119,7 @@ describe('should render the DocumentReference component properly', () => {
     expect(getByTestId('title').textContent).toEqual('Physical');
     expect(getByTestId('status').textContent).toEqual('current');
     expect(queryByTestId('docStatus')).toBeNull();
-    expect(getByTestId('createdAt').textContent).toEqual('2005-12-24');
+    expect(getByTestId('createdAt').textContent).toEqual('12/24/2005');
     expect(getByTestId('type').textContent.split(nbspRegex)).toEqual([
       'Outpatient Note',
       '(34108-1)',

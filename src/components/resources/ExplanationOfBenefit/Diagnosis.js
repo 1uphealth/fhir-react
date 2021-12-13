@@ -18,31 +18,41 @@ const Diagnosis = ({ fhirData }) => {
     return (
       <div key={`total-${index}`}>
         <ValueSection
+          dirColumn
           label={`Diagnosis ${sequence}${id ? ` (id: ${id})` : ''}`}
           data-testid="diagnosis"
+          marginTop
         >
           {reference && (
-            <Value label="Diagnosis" data-testid="reference">
+            <Value dirColumn label="Diagnosis" data-testid="reference">
               <Reference fhirData={reference} />
             </Value>
           )}
           {codeableConcept && (
-            <Value label="Diagnosis" data-testid="codeableConcept">
+            <Value dirColumn label="Diagnosis" data-testid="codeableConcept">
               <CodeableConcept fhirData={codeableConcept} />
             </Value>
           )}
           {type && (
-            <Value label="Type" data-testid="diagnosisType">
+            <Value dirColumn label="Type" data-testid="diagnosisType">
               <CodeableConcept fhirData={type} />
             </Value>
           )}
           {onAdmission && (
-            <Value label="On admission" data-testid="diagnosisOnAdmission">
+            <Value
+              dirColumn
+              label="On admission"
+              data-testid="diagnosisOnAdmission"
+            >
               <CodeableConcept fhirData={onAdmission} />
             </Value>
           )}
           {packageCode && (
-            <Value label="Package code" data-testid="diagnosisPackageCode">
+            <Value
+              dirColumn
+              label="Package code"
+              data-testid="diagnosisPackageCode"
+            >
               <CodeableConcept fhirData={packageCode} />
             </Value>
           )}

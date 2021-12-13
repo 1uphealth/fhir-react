@@ -244,7 +244,7 @@ const DocumentReference = props => {
   return (
     <Root name="DocumentReference">
       <Header>
-        <Title data-testid="description">{description}</Title>
+        <Title data-testid="title">{description}</Title>
         {status && <Badge data-testid="status">{status}</Badge>}
         {docStatus && (
           <BadgeSecondary data-testid="docStatus">{docStatus}</BadgeSecondary>

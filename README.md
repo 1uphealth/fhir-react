@@ -28,9 +28,31 @@ const MyComponent = () => {
     <FhirResource
       fhirResource={fhirResource}
       fhirVersion={fhirVersions.R4}
+      fhirIcons={fhirIcons}
       withCarinBBProfile
     />
   );
+};
+```
+
+Optionally custom header icons could be passed as `fhirIcons` props. The shape of the passed object should be as in example below with resource type as the key and image url or DOM node as the value:
+
+```jsx
+import React from 'react';
+
+export default {
+  Condition: (
+    <img
+      src={require('./dstu2/resources/condition/condition.svg')}
+      alt="header icon"
+    />
+  ),
+  Immunization: (
+    <img
+      src={require('./dstu2/resources/immunization/immunization.svg')}
+      alt="header icon"
+    />
+  ),
 };
 ```
 
@@ -93,6 +115,30 @@ const MyComponent = () => {
 | `QuestionnaireResponse`    |  ✅   |  ✅   |  ✅   |
 | `ReferralRequest`          |  ✅   |  ✅   | _N/A_ |
 | `ResearchStudy`            | _N/A_ |  ✅   |  ✅   |
+
+### Styles update `v0.3.0`
+
+The 0.3.0 version of the FHIR React Component library introduces the bootstrap Accordion component as the base of each available resource which provides any data. The RWD support is provided for each component.
+
+All of the changes can be tracked by viewing the current version of the [storybook](https://fhir-react-lib-test-storybook.s3.amazonaws.com/branch/fhir-react-next/index.html?path=/story/condition--default-visualization-dstu-2).
+
+### Available resources `v0.3.0`
+
+
+| Resource                   | DSTU2 | STU3  |  R4   | Carin BB Profile | DaVinci PDex |
+| -------------------------- | :---: | :---: | :---: | :--------------: | ------------ |
+| `Appointment`              |  ✅   |  ✅   |  ✅   |
+| `Condition`                |  ✅   |  ✅   |  ✅   |
+| `Encounter`                |  ✅   |  ✅   |  ✅   |
+| `ExplanationOfBenefit`     |  ✅   |  ✅   |  ✅   |        ✅        |
+| `Immunization`             |  ✅   |  ✅   |  ✅   |
+| `Observation`              |  ✅   |  ✅   |  ✅   |
+| `Patient`                  |  ✅   |  ✅   |  ✅   |
+| `Practitioner`             |  ✅   |  ✅   |  ✅   |
+| `Procedure`                |  ✅   |  ✅   |  ✅   |
+
+The update does not change the datasets which components are able to handle. It means that user can display the same particulars as in the previous version of the specific component.
+
 
 ### Styles
 

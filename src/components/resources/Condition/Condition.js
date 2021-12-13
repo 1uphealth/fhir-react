@@ -1,21 +1,14 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import { Badge, Body, Header, Root } from '../../ui';
 
+import Accordion from '../../containers/Accordion';
+import CodeableConcept from '../../datatypes/CodeableConcept';
+import DatePeriod from '../../datatypes/DatePeriod/DatePeriod';
+import PropTypes from 'prop-types';
+import React from 'react';
 import Reference from '../../datatypes/Reference';
 import _get from 'lodash/get';
 import _has from 'lodash/has';
 import fhirVersions from '../fhirResourceVersions';
-import CodeableConcept from '../../datatypes/CodeableConcept';
-
-import {
-  Root,
-  Header,
-  Title,
-  Badge,
-  BadgeSecondary,
-  Body,
-  Value,
-} from '../../ui';
 
 const commonDTO = fhirResource => {
   const codeText =
@@ -94,7 +87,7 @@ const resourceDTO = (fhirVersion, fhirResource) => {
   }
 };
 function Condition(props) {
-  const { fhirResource, fhirVersion } = props;
+  const { fhirResource, fhirVersion, fhirIcons } = props;
 
   const {
     codeText,
@@ -108,41 +101,64 @@ function Condition(props) {
     dateRecorded,
   } = resourceDTO(fhirVersion, fhirResource);
 
+  const headerIcon = fhirIcons[_get(fhirResource, 'resourceType')];
+  const tableData = [
+    {
+      label: 'Asserted by',
+      testId: 'asserter',
+      data: asserter && <Reference fhirData={asserter} />,
+      status: hasAsserter,
+    },
+    {
+      label: 'Anatomical locations',
+      testId: 'bodySite',
+      data: bodySite && <CodeableConcept fhirData={bodySite} />,
+      status: hasBodySite,
+    },
+  ];
+
   return (
     <Root name="condition">
-      <Header>
-        <Title>{codeText || ''}</Title>
-        {clinicalStatus && (
-          <Badge data-testid="clinicalStatus">{clinicalStatus}</Badge>
-        )}
-        {severityText && (
-          <BadgeSecondary data-testid="severity">
-            {severityText} severity
-          </BadgeSecondary>
-        )}
-      </Header>
-      <Body>
-        {onsetDateTime && (
-          <Value label="Onset Date" data-testid="onsetDate">
-            {onsetDateTime}
-          </Value>
-        )}
-        {dateRecorded && (
-          <Value label="Date recorded" data-testid="dateRecorded">
-            {dateRecorded}
-          </Value>
-        )}
-        {hasAsserter && (
-          <Value label="Asserted by" data-testid="asserter">
-            <Reference fhirData={asserter} />
-          </Value>
-        )}
-        {hasBodySite && (
-          <Value label="Anatomical locations" data-testid="bodySite">
-            <CodeableConcept fhirData={bodySite} />
-          </Value>
-        )}
-      </Body>
+      <Accordion
+        headerContent={
+          <Header
+            resourceName="Condition"
+            additionalContent={
+              <DatePeriod
+                periodBeginLabel="Onset Date"
+                periodBeginDate={onsetDateTime}
+                periodBeginTestId="onsetDate"
+                periodEndLabel="Date recorded"
+                periodEndDate={dateRecorded}
+                periodEndTestId="dateRecorded"
+              />
+            }
+            badges={
+              <>
+                {clinicalStatus && (
+                  <Badge
+                    bootstrapAlertType="alert-success"
+                    data-testid="clinicalStatus"
+                  >
+                    {clinicalStatus}
+                  </Badge>
+                )}
+              </>
+            }
+            icon={headerIcon}
+            title={codeText}
+            rightAdditionalContent={
+              severityText && (
+                <>
+                  <div className="ps-2" />
+                  <Badge data-testid="severity">{severityText} severity</Badge>
+                </>
+              )
+            }
+          />
+        }
+        bodyContent={<Body tableData={tableData} />}
+      />
     </Root>
   );
 }

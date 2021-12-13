@@ -8,16 +8,9 @@ import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 import fhirVersions from '../fhirResourceVersions';
 import DateType from '../../datatypes/Date';
 import CodableConcept from '../../datatypes/CodeableConcept';
+import Accordion from '../../containers/Accordion';
 
-import {
-  Root,
-  Header,
-  Title,
-  Body,
-  Value,
-  MissingValue,
-  Badge,
-} from '../../ui';
+import { Root, Header, Body, Value, MissingValue, Badge } from '../../ui';
 
 const commonDTO = fhirResource => {
   const resourceStatus = _get(fhirResource, 'status');
@@ -69,11 +62,15 @@ const dstu2DTO = fhirResource => {
 
 const stu3DTO = fhirResource => {
   let periodEnd = _get(fhirResource, 'period.end');
-  periodEnd = periodEnd ? <DateType fhirData={periodEnd} /> : <MissingValue />;
+  periodEnd = periodEnd ? (
+    <DateType fhirData={periodEnd} isBlack />
+  ) : (
+    <MissingValue />
+  );
 
   let periodStart = _get(fhirResource, 'period.start');
   periodStart = periodStart ? (
-    <DateType fhirData={periodStart} />
+    <DateType fhirData={periodStart} isBlack />
   ) : (
     <MissingValue />
   );
@@ -82,7 +79,7 @@ const stu3DTO = fhirResource => {
   const participant = _get(fhirResource, 'participant', []).map(item => {
     let periodStart = _get(item, 'period.start');
     if (periodStart) {
-      periodStart = <DateType fhirData={periodStart} />;
+      periodStart = <DateType fhirData={periodStart} isBlack />;
     }
     const reference = _get(item, 'individual', {});
     return {
@@ -103,11 +100,15 @@ const stu3DTO = fhirResource => {
 
 const r4DTO = fhirResource => {
   let periodEnd = _get(fhirResource, 'period.end');
-  periodEnd = periodEnd ? <DateType fhirData={periodEnd} /> : <MissingValue />;
+  periodEnd = periodEnd ? (
+    <DateType fhirData={periodEnd} isBlack />
+  ) : (
+    <MissingValue />
+  );
 
   let periodStart = _get(fhirResource, 'period.start');
   periodStart = periodStart ? (
-    <DateType fhirData={periodStart} />
+    <DateType fhirData={periodStart} isBlack />
   ) : (
     <MissingValue />
   );
@@ -115,7 +116,7 @@ const r4DTO = fhirResource => {
   const participant = _get(fhirResource, 'participant', []).map(item => {
     let periodStart = _get(item, 'period.start');
     if (periodStart) {
-      periodStart = <DateType fhirData={periodStart} />;
+      periodStart = <DateType fhirData={periodStart} isBlack />;
     }
     const reference = _get(item, 'individual', {});
     return {
@@ -176,31 +177,60 @@ const Encounter = props => {
     encounterType,
     resourceClass,
     resourceStatus,
+    resourceName,
     participant,
   } = fhirResourceData;
+
+  const tableData = [
+    {
+      label: 'End date',
+      testId: 'endDate',
+      data: periodEnd,
+      status: periodEnd,
+    },
+    {
+      label: 'Type',
+      testId: 'encounterType',
+      data: encounterType && <CodableConcept fhirData={encounterType} />,
+      status: encounterType,
+    },
+    {
+      label: 'Class',
+      testId: 'resourceClass',
+      data: resourceClass,
+      status: resourceClass,
+    },
+  ];
+
   return (
     <Root name="encounter">
-      <Header>
-        <Title data-testid="title">{locationDisplay}</Title>
-        {resourceStatus && <Badge>{resourceStatus}</Badge>}
-      </Header>
-      <Body>
-        {periodStart && <Value label="Start date">{periodStart}</Value>}
-        {periodEnd && <Value label="End date">{periodEnd}</Value>}
-        {encounterType && (
-          <Value label="Type" data-testid="encounterType">
-            <CodableConcept fhirData={encounterType} />
-          </Value>
-        )}
-        {resourceClass && (
-          <Value label="Class" data-testid="resourceClass">
-            {resourceClass}
-          </Value>
-        )}
-        {hasParticipant && (
-          <EncounterParticipants allParticipant={participant} />
-        )}
-      </Body>
+      <Accordion
+        headerContent={
+          <Header
+            resourceName={resourceName}
+            additionalContent={
+              periodStart && (
+                <Value label="Start date" data-testid="headerStartDate">
+                  {periodStart}
+                </Value>
+              )
+            }
+            badges={
+              resourceStatus && (
+                <Badge data-testid="status">{resourceStatus}</Badge>
+              )
+            }
+            title={locationDisplay}
+          />
+        }
+        bodyContent={
+          <Body tableData={tableData}>
+            {hasParticipant && (
+              <EncounterParticipants allParticipant={participant} />
+            )}
+          </Body>
+        }
+      />
     </Root>
   );
 };

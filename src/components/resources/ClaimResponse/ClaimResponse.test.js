@@ -23,7 +23,7 @@ describe('should render the ClaimResponse component properly', () => {
 
     expect(getByTestId('title').textContent).toEqual('Claim response #R3500');
     expect(getByTestId('outcome').textContent).toEqual('complete');
-    expect(getByTestId('created').textContent).toEqual('2014-08-16');
+    expect(getByTestId('created').textContent).toEqual('8/16/2014');
     expect(getByTestId('disposition').textContent).toEqual(
       'Claim settled as per contract.',
     );
@@ -40,7 +40,7 @@ describe('should render the ClaimResponse component properly', () => {
     expect(
       getByTestId('payment.amount').textContent.replace(nbspRegex, ' '),
     ).toEqual('100.47 USD');
-    expect(getByTestId('payment.date').textContent).toEqual('2014-08-31');
+    expect(getByTestId('payment.date').textContent).toEqual('8/31/2014');
     expect(
       getByTestId('payment.ref').textContent.replace(nbspRegex, ' '),
     ).toEqual('Identifier: 201408-2-1569478');
@@ -76,7 +76,7 @@ describe('should render the ClaimResponse component properly', () => {
 
     expect(getByTestId('title').textContent).toEqual('Claim response #R3500');
     expect(getByTestId('outcome').textContent).toEqual('complete');
-    expect(getByTestId('created').textContent).toEqual('2014-08-16');
+    expect(getByTestId('created').textContent).toEqual('8/16/2014');
     expect(getByTestId('disposition').textContent).toEqual(
       'Claim settled as per contract.',
     );
@@ -93,7 +93,7 @@ describe('should render the ClaimResponse component properly', () => {
     expect(
       getByTestId('payment.amount').textContent.replace(nbspRegex, ' '),
     ).toEqual('100.47 USD');
-    expect(getByTestId('payment.date').textContent).toEqual('2014-08-31');
+    expect(getByTestId('payment.date').textContent).toEqual('8/31/2014');
     expect(
       getByTestId('payment.ref').textContent.replace(nbspRegex, ' '),
     ).toEqual('Identifier: 201408-2-1569478');
@@ -169,7 +169,7 @@ describe('should render the ClaimResponse component properly', () => {
     expect(getByTestId('title').textContent).toEqual('Claim response #R3500');
     expect(getByTestId('status').textContent).toEqual('active');
     expect(queryByTestId('outcome')).toBeNull();
-    expect(getByTestId('created').textContent).toEqual('2014-08-16');
+    expect(getByTestId('created').textContent).toEqual('8/16/2014');
     expect(getByTestId('disposition').textContent).toEqual(
       'Claim settled as per contract.',
     );
@@ -189,7 +189,7 @@ describe('should render the ClaimResponse component properly', () => {
     expect(
       getByTestId('payment.amount').textContent.replace(nbspRegex, ' '),
     ).toEqual('100.47 USD');
-    expect(getByTestId('payment.date').textContent).toEqual('2014-08-31');
+    expect(getByTestId('payment.date').textContent).toEqual('8/31/2014');
     expect(
       getByTestId('payment.ref').textContent.replace(nbspRegex, ' '),
     ).toEqual('Identifier: 201408-2-1569478');

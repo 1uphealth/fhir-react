@@ -15,17 +15,17 @@ const Related = ({ fhirData }) => {
     return (
       <div key={`total-${index}`}>
         {claim && (
-          <Value label="Claim" data-testid="claim">
+          <Value label="Claim" data-testid="claim" dirColumn>
             <Reference fhirData={claim} />
           </Value>
         )}
         {relationship && (
-          <Value label="Relationship" data-testid="relationship">
+          <Value label="Relationship" data-testid="relationship" dirColumn>
             <CodeableConcept fhirData={relationship} />
           </Value>
         )}
         {reference && (
-          <Value label="Reference" data-testid="reference">
+          <Value label="Reference" data-testid="reference" dirColumn>
             <Identifier fhirData={reference} />
           </Value>
         )}

@@ -6,9 +6,7 @@ import fhirVersions from '../fhirResourceVersions';
 import {
   Root,
   Header,
-  Title,
   Badge,
-  BadgeSecondary,
   Body,
   Value,
   ValueSection,
@@ -23,6 +21,7 @@ import Coding from '../../datatypes/Coding';
 import Reference from '../../datatypes/Reference';
 import CodeableConcept from '../../datatypes/CodeableConcept';
 import { isNotEmptyArray } from '../../../utils';
+import Accordion from '../../containers/Accordion';
 
 const prepareParticipantData = data => {
   let participantPatient = [];
@@ -163,71 +162,98 @@ const Appointment = props => {
     serviceCategory,
   } = resourceDTO(fhirVersion, fhirResource);
 
+  const tableData = [
+    {
+      label: 'Type',
+      testId: 'type',
+      data:
+        isNotEmptyArray(typeCoding) &&
+        typeCoding.map((item, i) => (
+          <Coding key={`item-${i}`} fhirData={item} />
+        )),
+      status: isNotEmptyArray(typeCoding),
+    },
+    {
+      label: 'Duration [min]',
+      testId: 'minutesDuration',
+      data: minutesDuration,
+      status: minutesDuration,
+    },
+    {
+      label: 'Reason',
+      testId: 'reason',
+      data: isNotEmptyArray(reason) && <CodeableConcept fhirData={reason} />,
+      status: isNotEmptyArray(reason),
+    },
+    {
+      label: 'Cancelation Reason',
+      testId: 'cancelationReason',
+      data: isNotEmptyArray(cancelationReason) && (
+        <CodeableConcept fhirData={cancelationReason} />
+      ),
+      status: isNotEmptyArray(cancelationReason),
+    },
+    {
+      label: 'Service Category',
+      testId: 'serviceCategory',
+      data: isNotEmptyArray(serviceCategory) && (
+        <CodeableConcept fhirData={serviceCategory} />
+      ),
+      status: isNotEmptyArray(serviceCategory),
+    },
+  ];
+
   return (
     <Root name="Appointment">
-      <Header>
-        {description && <Title>{description}</Title>}
-        {status && <Badge data-testid="status">{status}</Badge>}
-        {start && (
-          <BadgeSecondary data-testid="startDate">
-            on <Date fhirData={start} />
-          </BadgeSecondary>
-        )}
-      </Header>
-      <Body>
-        {isNotEmptyArray(typeCoding) && (
-          <Value label="Type" data-testid="type">
-            {typeCoding.map((item, i) => (
-              <Coding key={`item-${i}`} fhirData={item} />
-            ))}
-          </Value>
-        )}
-        {minutesDuration && (
-          <Value label="Duration [min]" data-testid="minutesDuration">
-            {minutesDuration}
-          </Value>
-        )}
-        {isNotEmptyArray(reason) && (
-          <Value label="Reason" data-testid="reason">
-            <CodeableConcept fhirData={reason} />
-          </Value>
-        )}
-        {isNotEmptyArray(cancelationReason) && (
-          <Value label="Cancelation Reason" data-testid="cancelationReason">
-            <CodeableConcept fhirData={cancelationReason} />
-          </Value>
-        )}
-        {isNotEmptyArray(serviceCategory) && (
-          <Value label="Service Category" data-testid="serviceCategory">
-            <CodeableConcept fhirData={serviceCategory} />
-          </Value>
-        )}
-        {isNotEmptyArray(participant) && (
-          <ValueSection label="Participant" data-testid="participant">
-            <Table>
-              <thead>
-                <TableRow>
-                  <TableHeader>Patient</TableHeader>
-                  <TableHeader>Practitioner</TableHeader>
-                  <TableHeader>Other</TableHeader>
-                </TableRow>
-              </thead>
-              <tbody>
-                <TableRow>
-                  <TableCell>{participantPatient}</TableCell>
-                  <TableCell>{participantPractitioner}</TableCell>
-                  <TableCell>{participantLocation}</TableCell>
-                </TableRow>
-              </tbody>
-            </Table>
-          </ValueSection>
-        )}
-        {comment && (
-          <Value label="Comment" data-testid="comment">
-            {comment}
-          </Value>
-        )}
-      </Body>
+      <Accordion
+        headerContent={
+          <Header
+            resourceName={fhirResource.resourceName}
+            additionalContent={
+              start && (
+                <Value label="Start date" data-testid="headerStartDate">
+                  <Date fhirData={start} isBlack />
+                </Value>
+              )
+            }
+            badges={status && <Badge data-testid="status">{status}</Badge>}
+            title={description}
+          />
+        }
+        bodyContent={
+          <Body tableData={tableData}>
+            {isNotEmptyArray(participant) && (
+              <ValueSection
+                label="Participant"
+                data-testid="participant"
+                marginTop
+              >
+                <Table>
+                  <thead>
+                    <TableRow>
+                      <TableHeader>Patient</TableHeader>
+                      <TableHeader>Practitioner</TableHeader>
+                      <TableHeader>Other</TableHeader>
+                    </TableRow>
+                  </thead>
+                  <tbody className="border-top-0">
+                    <TableRow>
+                      <TableCell>{participantPatient}</TableCell>
+                      <TableCell>{participantPractitioner}</TableCell>
+                      <TableCell>{participantLocation}</TableCell>
+                    </TableRow>
+                  </tbody>
+                </Table>
+              </ValueSection>
+            )}
+            {comment && (
+              <ValueSection label="Comment" data-testid="comment" marginTop>
+                <span className="text-secondary">{comment}</span>
+              </ValueSection>
+            )}
+          </Body>
+        }
+      />
     </Root>
   );
 };

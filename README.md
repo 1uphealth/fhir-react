@@ -196,9 +196,7 @@ npm run build
 
 ### Publish to NPM Registry
 
-```
-npm publish
-```
+To publish, [create a new release in GitHub](https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository).
 
 ### Storybook for the changes
 

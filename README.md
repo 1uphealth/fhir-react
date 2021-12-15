@@ -116,13 +116,13 @@ export default {
 | `ReferralRequest`          |  ✅   |  ✅   | _N/A_ |
 | `ResearchStudy`            | _N/A_ |  ✅   |  ✅   |
 
-### Styles update `v0.3.0`
+### Styles update `v0.3`
 
-The 0.3.0 version of the FHIR React Component library introduces the bootstrap Accordion component as the base of each available resource which provides any data. The RWD support is provided for each component.
+The 0.3 version of the FHIR React Component library introduces the bootstrap Accordion component as the base of each available resource which provides any data. The RWD support is provided for each component.
 
 All of the changes can be tracked by viewing the current version of the [storybook](https://fhir-react-lib-test-storybook.s3.amazonaws.com/branch/fhir-react-next/index.html?path=/story/condition--default-visualization-dstu-2).
 
-### Available resources `v0.3.0`
+### Available resources `v0.3`
 
 
 | Resource                   | DSTU2 | STU3  |  R4   | Carin BB Profile | DaVinci PDex |

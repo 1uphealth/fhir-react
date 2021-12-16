@@ -25,7 +25,7 @@ module.exports = {
         },
       },
       {
-        test: /\.css$/,
+        test: /\.(css|scss)$/,
         exclude: path.resolve(
           __dirname,
           'src/components/ui/bootstrap-reboot.min.css',
@@ -35,6 +35,7 @@ module.exports = {
             loader: MiniCssExtractPlugin.loader,
           },
           'css-loader',
+          'sass-loader',
         ],
       },
     ],

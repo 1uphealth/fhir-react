@@ -1,5 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './style.css';
+import './style.scss';
 
 import FhirResource from './components/containers/FhirResource';
 import fhirVersions from './components/resources/fhirResourceVersions';

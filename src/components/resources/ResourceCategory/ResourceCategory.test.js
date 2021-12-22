@@ -5,7 +5,7 @@ import fhirIcons from '../../../fixtures/example-icons';
 import ResourceCategory from './ResourceCategory';
 
 describe('should render ResourceCategory component properly', () => {
-  const placeholderResource = fhirIcons['ResourceCategoryPlaceholder'].props;
+  const placeholderResource = fhirIcons['ResourceCategory'].props;
 
   it('should render ResourceCategory component with icon and itemsCount > 1 correctly', () => {
     const defaultProps = {

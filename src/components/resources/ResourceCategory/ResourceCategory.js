@@ -12,7 +12,7 @@ const ResourceCategory = props => {
   const getItemsCountLabel = () =>
     `${parsedItemsCount} ${parsedItemsCount === 1 ? 'item' : 'items'}`;
 
-  const headerIcon = fhirIcons && fhirIcons['ResourceCategoryPlaceholder'];
+  const headerIcon = fhirIcons && fhirIcons['ResourceCategory'];
   const parsedItemsCount = parseNumber(itemsCount);
 
   return (

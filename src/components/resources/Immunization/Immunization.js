@@ -125,7 +125,7 @@ const Immunization = props => {
     note,
   } = resourceDTO(fhirVersion, fhirResource);
 
-  const headerIcon = fhirIcons[_get(fhirResource, 'resourceType')];
+  const headerIcon = fhirIcons && fhirIcons[_get(fhirResource, 'resourceType')];
   const tableData = [
     {
       label: 'Manufacturer Text',

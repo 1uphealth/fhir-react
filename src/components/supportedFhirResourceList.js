@@ -37,6 +37,7 @@ import Questionnaire from './resources/Questionnaire';
 import QuestionnaireResponse from './resources/QuestionnaireResponse';
 import ReferralRequest from './resources/ReferralRequest';
 import ResearchStudy from './resources/ResearchStudy';
+import ResourceCategory from './resources/ResourceCategory';
 
 export {
   Appointment,
@@ -78,4 +79,5 @@ export {
   QuestionnaireResponse,
   ReferralRequest,
   ResearchStudy,
+  ResourceCategory,
 };

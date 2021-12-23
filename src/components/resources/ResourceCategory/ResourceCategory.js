@@ -1,5 +1,4 @@
 import { Root, Title } from '../../ui';
-import ChevronRight from '../../../assets/common/chevron-right.svg';
 import HeaderIcon from '../../datatypes/HeaderIcon';
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -13,7 +12,7 @@ const ResourceCategory = props => {
   const getItemsCountLabel = () =>
     `${parsedItemsCount} ${parsedItemsCount === 1 ? 'item' : 'items'}`;
 
-  const headerIcon = fhirIcons['ResourceCategoryPlaceholder'];
+  const headerIcon = fhirIcons && fhirIcons['ResourceCategory'];
   const parsedItemsCount = parseNumber(itemsCount);
 
   return (
@@ -38,7 +37,7 @@ const ResourceCategory = props => {
             </div>
           )}
           <img
-            src={ChevronRight}
+            src={require('../../../assets/common/chevron-right.svg')}
             alt="chevron"
             style={{ height: 28, width: 28 }}
           />

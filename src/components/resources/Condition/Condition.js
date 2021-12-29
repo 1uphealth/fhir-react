@@ -101,8 +101,6 @@ function Condition(props) {
     dateRecorded,
   } = resourceDTO(fhirVersion, fhirResource);
 
-  const headerIcon = fhirIcons && fhirIcons[_get(fhirResource, 'resourceType')];
-
   const tableData = [
     {
       label: 'Asserted by',
@@ -146,7 +144,7 @@ function Condition(props) {
                 )}
               </>
             }
-            icon={headerIcon}
+            icon={fhirIcons}
             title={codeText}
             rightAdditionalContent={
               severityText && (

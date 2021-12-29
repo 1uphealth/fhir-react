@@ -9,10 +9,49 @@ import exampleConditionSeverity from '../../../fixtures/dstu2/resources/conditio
 import exampleConditionSeveritySTU3 from '../../../fixtures/stu3/resources/condition/example-severity.json';
 import fhirVersions from '../fhirResourceVersions';
 import { render } from '@testing-library/react';
-
 import fhirIcons from '../../../fixtures/example-icons';
 
 describe('should render component correctly', () => {
+  it('component without a fhirIcons props should render a placeholder', () => {
+    const defaultProps = {
+      fhirVersion: fhirVersions.DSTU2,
+      fhirResource: exampleCondition,
+    };
+
+    const { getByTestId } = render(<Condition {...defaultProps} />);
+    const headerIcon = getByTestId('placeholder');
+
+    expect(headerIcon).toBeTruthy();
+  });
+
+  it('component with the img as a fhirIcons props should render an img', () => {
+    const defaultProps = {
+      fhirVersion: fhirVersions.DSTU2,
+      fhirResource: exampleCondition,
+      fhirIcons: fhirIcons,
+    };
+
+    const { getByAltText } = render(<Condition {...defaultProps} />);
+    const headerIcon = getByAltText('germ');
+
+    expect(headerIcon.getAttribute('src')).toContain('IMAGE_MOCK');
+  });
+
+  it('component with the url as a fhirIcons props should render an img', () => {
+    const avatarSrc =
+      'https://www.gravatar.com/avatar/?s=50&r=any&default=identicon&forcedefault=1';
+    const defaultProps = {
+      fhirVersion: fhirVersions.DSTU2,
+      fhirResource: exampleCondition,
+      fhirIcons: avatarSrc,
+    };
+
+    const { getByAltText } = render(<Condition {...defaultProps} />);
+    const headerIcon = getByAltText('header icon');
+
+    expect(headerIcon.getAttribute('src')).toContain(avatarSrc);
+  });
+
   it('DSTU2 - without severity field', () => {
     const defaultProps = {
       fhirResource: exampleCondition,

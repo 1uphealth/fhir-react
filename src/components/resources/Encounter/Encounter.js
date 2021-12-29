@@ -207,7 +207,7 @@ const Encounter = props => {
       <Accordion
         headerContent={
           <Header
-            resourceName={resourceName}
+            resourceName={'Encounter'}
             additionalContent={
               periodStart && (
                 <Value label="Start date" data-testid="headerStartDate">

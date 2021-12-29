@@ -529,7 +529,7 @@ const ExplanationOfBenefit = props => {
                               infoKey === 'timingDate' ? (
                                 <Date fhirData={infoStatus} />
                               ) : (
-                                <div>{infoStatus}</div>
+                                <Coding fhirData={infoStatus} />
                               )
                             ) : (
                               <MissingValue />

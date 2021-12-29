@@ -10,6 +10,46 @@ import stu3Example from '../../../fixtures/stu3/resources/immunization/example1.
 import fhirIcons from '../../../fixtures/example-icons';
 
 describe('should render Immunization component properly', () => {
+  it('component without a fhirIcons props should render a placeholder', () => {
+    const defaultProps = {
+      fhirVersion: fhirVersions.DSTU2,
+      fhirResource: dstu2Example,
+    };
+
+    const { getByTestId } = render(<Immunization {...defaultProps} />);
+    const headerIcon = getByTestId('placeholder');
+
+    expect(headerIcon).toBeTruthy();
+  });
+
+  it('component with the img as a fhirIcons props should render an img', () => {
+    const defaultProps = {
+      fhirVersion: fhirVersions.DSTU2,
+      fhirResource: dstu2Example,
+      fhirIcons: fhirIcons,
+    };
+
+    const { getByAltText } = render(<Immunization {...defaultProps} />);
+    const headerIcon = getByAltText('syringe');
+
+    expect(headerIcon.getAttribute('src')).toContain('IMAGE_MOCK');
+  });
+
+  it('component with the url as a fhirIcons props should render an img', () => {
+    const avatarSrc =
+      'https://www.gravatar.com/avatar/?s=50&r=any&default=identicon&forcedefault=1';
+    const defaultProps = {
+      fhirVersion: fhirVersions.DSTU2,
+      fhirResource: dstu2Example,
+      fhirIcons: avatarSrc,
+    };
+
+    const { getByAltText } = render(<Immunization {...defaultProps} />);
+    const headerIcon = getByAltText('header icon');
+
+    expect(headerIcon.getAttribute('src')).toContain(avatarSrc);
+  });
+
   it('should render with DSTU2 source data', () => {
     const defaultProps = {
       fhirResource: dstu2Example,

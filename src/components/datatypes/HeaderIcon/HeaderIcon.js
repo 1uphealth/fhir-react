@@ -3,7 +3,12 @@ import { isUrl } from '../../../utils/isUrl';
 
 const HeaderIcon = ({ headerIcon }) => {
   const PlaceholderImage = () => {
-    return <div className="header-icon__placeholder rounded-1" />;
+    return (
+      <div
+        className="header-icon__placeholder rounded-1"
+        data-testid="placeholder"
+      />
+    );
   };
 
   const Image = () => {

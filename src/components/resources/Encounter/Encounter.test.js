@@ -12,10 +12,23 @@ import example3_R4 from '../../../fixtures/r4/resources/encounter/example3.json'
 import fhirIcons from '../../../fixtures/example-icons';
 
 describe('should render component correctly', () => {
-  it('component without a fhirIcons props should render a placeholder', () => {
+  it('component without a fhirIcons props should render a default icon', () => {
     const defaultProps = {
       fhirVersion: fhirVersions.DSTU2,
       fhirResource: example1,
+    };
+
+    const { getByAltText } = render(<Encounter {...defaultProps} />);
+    const headerIcon = getByAltText('conversation between two individuals');
+
+    expect(headerIcon.getAttribute('src')).toContain('IMAGE_MOCK');
+  });
+
+  it('component with a false as a fhirIcons props should render a placeholder', () => {
+    const defaultProps = {
+      fhirVersion: fhirVersions.DSTU2,
+      fhirResource: example1,
+      fhirIcons: false,
     };
 
     const { getByTestId } = render(<Encounter {...defaultProps} />);
@@ -25,6 +38,24 @@ describe('should render component correctly', () => {
   });
 
   it('component with the img as a fhirIcons props should render an img', () => {
+    const defaultProps = {
+      fhirVersion: fhirVersions.DSTU2,
+      fhirResource: example1,
+      fhirIcons: (
+        <img
+          src={require('../assets/containers/Encounter/encounter.svg')}
+          alt="conversation between two individuals"
+        />
+      ),
+    };
+
+    const { getByAltText } = render(<Encounter {...defaultProps} />);
+    const headerIcon = getByAltText('conversation between two individuals');
+
+    expect(headerIcon.getAttribute('src')).toContain('IMAGE_MOCK');
+  });
+
+  it('component with the resources object as a fhirIcons props should render an img', () => {
     const defaultProps = {
       fhirVersion: fhirVersions.DSTU2,
       fhirResource: example1,

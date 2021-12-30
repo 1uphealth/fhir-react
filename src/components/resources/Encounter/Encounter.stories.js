@@ -12,6 +12,7 @@ import example2_R4 from '../../../fixtures/r4/resources/encounter/example2.json'
 import example3_R4 from '../../../fixtures/r4/resources/encounter/example3.json';
 import fhirVersions from '../fhirResourceVersions';
 import fhirIcons from '../../../fixtures/example-icons';
+import EncounterIcon from '../../../assets/containers/Encounter/encounter.svg';
 
 export default {
   title: 'Encounter',
@@ -23,7 +24,7 @@ export const DefaultVisualizationDSTU2 = () => {
     <Encounter
       fhirVersion={fhirVersions.DSTU2}
       fhirResource={fhirResource}
-      fhirIcons={fhirIcons}
+      fhirIcons={require('../../../assets/containers/Encounter/encounter.svg')}
     />
   );
 };
@@ -34,7 +35,7 @@ export const ExampleWithoutParticipantsDSTU2 = () => {
     <Encounter
       fhirVersion={fhirVersions.DSTU2}
       fhirResource={fhirResource}
-      fhirIcons={fhirIcons}
+      fhirIcons={EncounterIcon}
     />
   );
 };
@@ -56,7 +57,7 @@ export const ExampleWithoutParticipantSTU3 = () => {
     <Encounter
       fhirVersion={fhirVersions.STU3}
       fhirResource={fhirResource}
-      fhirIcons={fhirIcons}
+      fhirIcons={false}
     />
   );
 };
@@ -67,7 +68,7 @@ export const ExampleWithoutParticipantR4 = () => {
     <Encounter
       fhirVersion={fhirVersions.R4}
       fhirResource={fhirResource}
-      fhirIcons={fhirIcons}
+      fhirIcons={'random text'}
     />
   );
 };
@@ -75,26 +76,18 @@ export const ExampleWithoutParticipantR4 = () => {
 export const Example2ofR4 = () => {
   const fhirResource = object('Resource', example2_R4);
   return (
-    <Encounter
-      fhirVersion={fhirVersions.R4}
-      fhirResource={fhirResource}
-      fhirIcons={fhirIcons}
-    />
+    <Encounter fhirVersion={fhirVersions.R4} fhirResource={fhirResource} />
   );
 };
 
 export const Example3ofR4 = () => {
   const fhirResource = object('Resource', example3_R4);
   return (
-    <Encounter
-      fhirVersion={fhirVersions.R4}
-      fhirResource={fhirResource}
-      fhirIcons={fhirIcons}
-    />
+    <Encounter fhirVersion={fhirVersions.R4} fhirResource={fhirResource} />
   );
 };
 
 export const ExampleWithoutFHIRVersionProperty = () => {
   const fhirResource = object('Resource', example2_STU3);
-  return <Encounter fhirResource={fhirResource} fhirIcons={fhirIcons} />;
+  return <Encounter fhirResource={fhirResource} />;
 };

@@ -2,7 +2,6 @@ import React from 'react';
 
 import { getBadgeColor } from '../../utils/getBadgeColor';
 import HeaderIcon from '../datatypes/HeaderIcon';
-import { isUrl } from '../../utils/isUrl';
 
 export const Header = ({
   resourceName,
@@ -19,8 +18,6 @@ export const Header = ({
 }) => {
   const rightItemsClass = 'align-items-center flex-fill d-flex';
 
-  const headerIcon = isUrl(icon) ? icon : icon && icon[resourceName];
-
   return (
     <>
       {// This condition was left due to fact, that to much changes in Header will generate many errors in tests. This condition will be removed after all changes have been made.
@@ -35,9 +32,9 @@ export const Header = ({
           >
             <div className="d-flex">
               <div
-                className={`fhir-ui__${resourceName}-Header__icon flex-shrink-1 m-half me-2`}
+                className={`fhir-ui__${resourceName}-Header__icon d-flex align-items-center flex-shrink-1 m-half me-2`}
               >
-                <HeaderIcon headerIcon={headerIcon} />
+                <HeaderIcon headerIcon={icon} resourceName={resourceName} />
               </div>
               <div
                 className={`fhir-ui__${resourceName}-Header__title flex-fill text-start`}

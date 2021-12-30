@@ -12,10 +12,23 @@ import { render } from '@testing-library/react';
 import fhirIcons from '../../../fixtures/example-icons';
 
 describe('should render component correctly', () => {
-  it('component without a fhirIcons props should render a placeholder', () => {
+  it('component without a fhirIcons props should render a default icon', () => {
     const defaultProps = {
       fhirVersion: fhirVersions.DSTU2,
       fhirResource: exampleCondition,
+    };
+
+    const { getByAltText } = render(<Condition {...defaultProps} />);
+    const headerIcon = getByAltText('germ');
+
+    expect(headerIcon.getAttribute('src')).toContain('IMAGE_MOCK');
+  });
+
+  it('component with a false as a fhirIcons props should render a placeholder', () => {
+    const defaultProps = {
+      fhirVersion: fhirVersions.DSTU2,
+      fhirResource: exampleCondition,
+      fhirIcons: false,
     };
 
     const { getByTestId } = render(<Condition {...defaultProps} />);
@@ -25,6 +38,24 @@ describe('should render component correctly', () => {
   });
 
   it('component with the img as a fhirIcons props should render an img', () => {
+    const defaultProps = {
+      fhirVersion: fhirVersions.DSTU2,
+      fhirResource: exampleCondition,
+      fhirIcons: (
+        <img
+          src={require('../assets/containers/Condition/condition.svg')}
+          alt="germ"
+        />
+      ),
+    };
+
+    const { getByAltText } = render(<Condition {...defaultProps} />);
+    const headerIcon = getByAltText('germ');
+
+    expect(headerIcon.getAttribute('src')).toContain('IMAGE_MOCK');
+  });
+
+  it('component with the resources object as a fhirIcons props should render an img', () => {
     const defaultProps = {
       fhirVersion: fhirVersions.DSTU2,
       fhirResource: exampleCondition,

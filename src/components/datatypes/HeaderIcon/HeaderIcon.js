@@ -19,7 +19,11 @@ const defaultIconOrPlaceholder = (headerIcon, resourceName) => {
     imageSrc = null;
   }
   return imageSrc && headerIcon !== false ? (
-    <img src={imageSrc} alt={resourceName.toLowerCase()} />
+    <img
+      className="header-icon__image"
+      src={imageSrc}
+      alt={resourceName.toLowerCase()}
+    />
   ) : (
     <PlaceholderImage />
   );

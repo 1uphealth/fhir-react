@@ -11,13 +11,7 @@ import fhirVersions from '../fhirResourceVersions';
 import Date from '../../datatypes/Date';
 import Annotation from '../../datatypes/Annotation';
 
-import {
-  Root,
-  Header,
-  Badge,
-  BadgeSecondary,
-  Body
-} from '../../ui';
+import { Root, Header, Badge, BadgeSecondary, Body } from '../../ui';
 import CodeableConcept from '../../datatypes/CodeableConcept';
 
 const commonDTO = fhirResource => {
@@ -159,7 +153,11 @@ const AllergyIntolerance = props => {
     {
       label: 'Substance',
       testId: 'substance',
-      data: hasSubstanceCoding && substanceCoding.map((item, i) => <Coding key={`item-${i}`} fhirData={item} />),
+      data:
+        hasSubstanceCoding &&
+        substanceCoding.map((item, i) => (
+          <Coding key={`item-${i}`} fhirData={item} />
+        )),
       status: hasSubstanceCoding,
     },
     {
@@ -194,12 +192,13 @@ const AllergyIntolerance = props => {
         const severity = _get(reaction, 'severity');
         return manifestations.map((manifestation, j) => {
           return (
-            <div
-              key={`item-${i}${j}`}
-              className="d-flex"
-            >
+            <div key={`item-${i}${j}`} className="d-flex">
               <CodeableConcept fhirData={manifestation} />
-              {severity && <span className="ms-4"><BadgeSecondary>{severity}</BadgeSecondary></span>}
+              {severity && (
+                <span className="ms-4">
+                  <BadgeSecondary>{severity}</BadgeSecondary>
+                </span>
+              )}
             </div>
           );
         });
@@ -222,11 +221,13 @@ const AllergyIntolerance = props => {
             resourceName="AllergyIntollerance"
             badges={status && <Badge data-testid="status">{status}</Badge>}
             title={title}
-            rightAdditionalContent={recordedDate && (
-              <BadgeSecondary data-testid="recordedDate">
-                recorded on <Date fhirData={recordedDate} />
-              </BadgeSecondary>
-            )}
+            rightAdditionalContent={
+              recordedDate && (
+                <BadgeSecondary data-testid="recordedDate">
+                  recorded on <Date fhirData={recordedDate} />
+                </BadgeSecondary>
+              )
+            }
           />
         }
         bodyContent={<Body tableData={tableData} />}

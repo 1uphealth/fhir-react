@@ -3,62 +3,70 @@ import React from 'react';
 import { getBadgeColor } from '../../utils/getBadgeColor';
 import HeaderIcon from '../datatypes/HeaderIcon';
 
-export const Header = props => {
+export const Header = ({
+  resourceName,
+  isAccordionOpenable,
+  icon,
+  titleTestID,
+  title,
+  prefixBadge,
+  badges,
+  additionalBadge,
+  additionalContent,
+  rightAdditionalContent,
+  children,
+}) => {
   const rightItemsClass = 'align-items-center flex-fill d-flex';
 
   return (
     <>
       {// This condition was left due to fact, that to much changes in Header will generate many errors in tests. This condition will be removed after all changes have been made.
-      props.children || (
+      children || (
         <div
-          className={`fhir-ui__${props.resourceName}-Header w-100 p-4 position-relative`}
+          className={`fhir-ui__${resourceName}-Header w-100 p-4 position-relative`}
         >
           <div
-            className={`fhir-ui__${props.resourceName}-Header__title-data ${
-              props.isAccordionOpenable ? 'header__title-row' : ''
+            className={`fhir-ui__${resourceName}-Header__title-data ${
+              isAccordionOpenable ? 'header__title-row' : ''
             } d-flex w-100 flex-column flex-sm-row`}
           >
             <div className="d-flex">
               <div
-                className={`fhir-ui__${props.resourceName}-Header__icon flex-shrink-1 m-half me-2`}
+                className={`fhir-ui__${resourceName}-Header__icon d-flex align-items-center flex-shrink-1 m-half me-2`}
               >
-                <HeaderIcon headerIcon={props.icon} />
+                <HeaderIcon headerIcon={icon} resourceName={resourceName} />
               </div>
               <div
-                className={`fhir-ui__${props.resourceName}-Header__title flex-fill text-start`}
+                className={`fhir-ui__${resourceName}-Header__title flex-fill text-start`}
               >
-                <Title data-testid={props.titleTestID || 'title'}>
-                  {props.title || ''}
+                <Title data-testid={titleTestID || 'title'}>
+                  {title || ''}
                 </Title>
               </div>
             </div>
 
             <div
-              className={`fhir-ui__${props.resourceName}-Header__badges ps-1 ps-sm-2 mt-3 mt-sm-0 badges-max-width-sm flex-wrap flex-sm-nowrap justify-content-between justify-content-sm-end ${rightItemsClass}`}
+              className={`fhir-ui__${resourceName}-Header__badges ps-1 ps-sm-2 mt-3 mt-sm-0 badges-max-width-sm flex-wrap flex-sm-nowrap justify-content-between justify-content-sm-end ${rightItemsClass}`}
             >
-              {props.prefixBadge && (
-                <div className="me-3">{props.prefixBadge}</div>
-              )}
+              {prefixBadge && <div className="me-3">{prefixBadge}</div>}
               <div className="d-flex">
-                {props.badges}
-                {props.additionalBadge && (
-                  <div className="ms-3">{props.additionalBadge}</div>
+                {badges}
+                {additionalBadge && (
+                  <div className="ms-3">{additionalBadge}</div>
                 )}
               </div>
             </div>
           </div>
           <div
-            className={`fhir-ui__${
-              props.resourceName
-            }-Header__additional-content w-100 justify-content-start d-flex  ${
-              props.additionalContent ? ' pt-2' : ''
+            className={`fhir-ui__${resourceName}-Header__additional-content w-100 justify-content-start d-flex  ${
+              additionalContent ? ' pt-2' : ''
             }`}
           >
-            {props.additionalContent}
+            {additionalContent}
             <div
-              className={`fhir-ui__${props.resourceName}-Header__rightAdditionalContent justify-content-end ${rightItemsClass}`}
+              className={`fhir-ui__${resourceName}-Header__rightAdditionalContent justify-content-end ${rightItemsClass}`}
             >
-              {props.rightAdditionalContent}
+              {rightAdditionalContent}
             </div>
           </div>
         </div>
@@ -213,7 +221,7 @@ export const ValueSection = props => (
   </div>
 );
 
-export const MissingValue = props => (
+export const MissingValue = () => (
   <span className="fhir-ui__MissingValue">-</span>
 );
 

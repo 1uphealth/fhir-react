@@ -16,6 +16,8 @@ import example2ConditionR4 from '../../../fixtures/r4/resources/condition/exampl
 import example3ConditionR4 from '../../../fixtures/r4/resources/condition/example3.json';
 
 import fhirIcons from '../../../fixtures/example-icons';
+import ConditionIcon from '../../../assets/containers/Condition/condition.svg';
+
 export default { title: 'Condition' };
 
 export const DefaultVisualizationDSTU2 = () => {
@@ -24,7 +26,7 @@ export const DefaultVisualizationDSTU2 = () => {
     <Condition
       fhirResource={fhirResource}
       fhirVersion={fhirVersions.DSTU2}
-      fhirIcons={fhirIcons}
+      fhirIcons={require('../../../assets/containers/Condition/condition.svg')}
     />
   );
 };
@@ -35,7 +37,7 @@ export const ExampleWithoutSeverityDSTU2 = () => {
     <Condition
       fhirResource={fhirResource}
       fhirVersion={fhirVersions.DSTU2}
-      fhirIcons={fhirIcons}
+      fhirIcons={ConditionIcon}
     />
   );
 };
@@ -57,7 +59,7 @@ export const ExampleWithoutSeveritySTU3 = () => {
     <Condition
       fhirResource={fhirResource}
       fhirVersion={fhirVersions.STU3}
-      fhirIcons={fhirIcons}
+      fhirIcons={false}
     />
   );
 };
@@ -68,7 +70,7 @@ export const ExampleWithSeveritySTU3 = () => {
     <Condition
       fhirResource={fhirResource}
       fhirVersion={fhirVersions.STU3}
-      fhirIcons={fhirIcons}
+      fhirIcons={'random text'}
     />
   );
 };
@@ -76,32 +78,20 @@ export const ExampleWithSeveritySTU3 = () => {
 export const Example1ofR4 = () => {
   const fhirResource = object('Resource', example1ConditionR4);
   return (
-    <Condition
-      fhirResource={fhirResource}
-      fhirVersion={fhirVersions.R4}
-      fhirIcons={fhirIcons}
-    />
+    <Condition fhirResource={fhirResource} fhirVersion={fhirVersions.R4} />
   );
 };
 
 export const Example2ofR4 = () => {
   const fhirResource = object('Resource', example2ConditionR4);
   return (
-    <Condition
-      fhirResource={fhirResource}
-      fhirVersion={fhirVersions.R4}
-      fhirIcons={fhirIcons}
-    />
+    <Condition fhirResource={fhirResource} fhirVersion={fhirVersions.R4} />
   );
 };
 
 export const Example3ofR4 = () => {
   const fhirResource = object('Resource', example3ConditionR4);
   return (
-    <Condition
-      fhirResource={fhirResource}
-      fhirVersion={fhirVersions.R4}
-      fhirIcons={fhirIcons}
-    />
+    <Condition fhirResource={fhirResource} fhirVersion={fhirVersions.R4} />
   );
 };

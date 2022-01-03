@@ -35,7 +35,90 @@ const MyComponent = () => {
 };
 ```
 
-Optionally custom header icons could be passed as `fhirIcons` props. The shape of the passed object should be as in example below with resource type as the key and image url or DOM node as the value:
+Optionally custom header icons could be passed as `fhirIcons` props in few different way:
+
+1. As a URL 
+```jsx
+const MyComponent = () => {
+  const fhirResource = JSON.parse(fhirResourceAsJsonString);
+  return (
+    <FhirResource
+      fhirResource={fhirResource}
+      fhirVersion={fhirVersions.R4}
+      fhirIcons="https://www.gravatar.com/avatar/?s=50&r=any&default=identicon&forcedefault=1"
+      withCarinBBProfile
+    />
+  );
+};
+````
+2. As a ```<img>``` element 
+```jsx
+const MyComponent = () => {
+  const fhirResource = JSON.parse(fhirResourceAsJsonString);
+  return (
+    <FhirResource
+      fhirResource={fhirResource}
+      fhirVersion={fhirVersions.R4}
+      fhirIcons={<img
+        src={require('./dstu2/resources/condition/condition.svg')}
+        alt="header icon"
+      />}
+      withCarinBBProfile
+    />
+  );
+};
+````
+
+3. As a React src from import
+````jsx
+import EncounterIcon from '../../../assets/containers/Encounter/encounter.svg';
+
+const MyComponent = () => {
+  const fhirResource = JSON.parse(fhirResourceAsJsonString);
+  return (
+    <FhirResource
+      fhirResource={fhirResource}
+      fhirVersion={fhirVersions.R4}
+      fhirIcons={EncounterIcon}
+      withCarinBBProfile
+    />
+  );
+};
+````
+or
+````jsx
+const MyComponent = () => {
+  const fhirResource = JSON.parse(fhirResourceAsJsonString);
+  return (
+    <FhirResource
+      fhirResource={fhirResource}
+      fhirVersion={fhirVersions.R4}
+      fhirIcons={require('./dstu2/resources/condition/condition.svg')}
+      withCarinBBProfile
+    />
+  );
+};
+````
+
+4. As a ``false`` value to display the placeholder
+````jsx
+const MyComponent = () => {
+  const fhirResource = JSON.parse(fhirResourceAsJsonString);
+  return (
+    <FhirResource
+      fhirResource={fhirResource}
+      fhirVersion={fhirVersions.R4}
+      fhirIcons={false}
+      withCarinBBProfile
+    />
+  );
+};
+````
+5. Without a `fhirIcons` props
+The resource icon if it exists or a placeholder will be displayed.
+
+
+6. As the resources object with resource type as the key and image URL or DOM node as the value
 
 ```jsx
 import React from 'react';

@@ -160,8 +160,7 @@ const resourceDTO = (fhirVersion, fhirResource) => {
   }
 };
 
-const Encounter = props => {
-  const { fhirResource, fhirVersion } = props;
+const Encounter = ({ fhirResource, fhirVersion, fhirIcons }) => {
   let fhirResourceData = {};
   try {
     fhirResourceData = resourceDTO(fhirVersion, fhirResource);
@@ -177,7 +176,6 @@ const Encounter = props => {
     encounterType,
     resourceClass,
     resourceStatus,
-    resourceName,
     participant,
   } = fhirResourceData;
 
@@ -207,7 +205,7 @@ const Encounter = props => {
       <Accordion
         headerContent={
           <Header
-            resourceName={resourceName}
+            resourceName={'Encounter'}
             additionalContent={
               periodStart && (
                 <Value label="Start date" data-testid="headerStartDate">
@@ -221,6 +219,7 @@ const Encounter = props => {
               )
             }
             title={locationDisplay}
+            icon={fhirIcons}
           />
         }
         bodyContent={

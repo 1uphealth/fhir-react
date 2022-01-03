@@ -19,7 +19,7 @@ describe('should render component correctly', () => {
     };
 
     const { getByAltText } = render(<Encounter {...defaultProps} />);
-    const headerIcon = getByAltText('conversation between two individuals');
+    const headerIcon = getByAltText('encounter');
 
     expect(headerIcon.getAttribute('src')).toContain('IMAGE_MOCK');
   });
@@ -44,13 +44,13 @@ describe('should render component correctly', () => {
       fhirIcons: (
         <img
           src={require('../assets/containers/Encounter/encounter.svg')}
-          alt="conversation between two individuals"
+          alt="encounter"
         />
       ),
     };
 
     const { getByAltText } = render(<Encounter {...defaultProps} />);
-    const headerIcon = getByAltText('conversation between two individuals');
+    const headerIcon = getByAltText('encounter');
 
     expect(headerIcon.getAttribute('src')).toContain('IMAGE_MOCK');
   });
@@ -63,7 +63,7 @@ describe('should render component correctly', () => {
     };
 
     const { getByAltText } = render(<Encounter {...defaultProps} />);
-    const headerIcon = getByAltText('conversation between two individuals');
+    const headerIcon = getByAltText('encounter');
 
     expect(headerIcon.getAttribute('src')).toContain('IMAGE_MOCK');
   });

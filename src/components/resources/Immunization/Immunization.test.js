@@ -16,7 +16,7 @@ describe('should render Immunization component properly', () => {
     };
 
     const { getByAltText } = render(<Immunization {...defaultProps} />);
-    const headerIcon = getByAltText('syringe');
+    const headerIcon = getByAltText('immunization');
 
     expect(headerIcon.getAttribute('src')).toContain('IMAGE_MOCK');
   });
@@ -41,13 +41,13 @@ describe('should render Immunization component properly', () => {
       fhirIcons: (
         <img
           src={require('../assets/containers/Immunization/immunization.svg')}
-          alt="syringe"
+          alt="immunization"
         />
       ),
     };
 
     const { getByAltText } = render(<Immunization {...defaultProps} />);
-    const headerIcon = getByAltText('syringe');
+    const headerIcon = getByAltText('immunization');
 
     expect(headerIcon.getAttribute('src')).toContain('IMAGE_MOCK');
   });
@@ -60,7 +60,7 @@ describe('should render Immunization component properly', () => {
     };
 
     const { getByAltText } = render(<Immunization {...defaultProps} />);
-    const headerIcon = getByAltText('syringe');
+    const headerIcon = getByAltText('immunization');
 
     expect(headerIcon.getAttribute('src')).toContain('IMAGE_MOCK');
   });

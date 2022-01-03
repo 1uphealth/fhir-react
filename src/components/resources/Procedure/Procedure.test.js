@@ -16,7 +16,7 @@ describe('Procedure should render component correctly', () => {
     };
 
     const { getByAltText } = render(<Procedure {...defaultProps} />);
-    const headerIcon = getByAltText('block diagram');
+    const headerIcon = getByAltText('procedure');
 
     expect(headerIcon.getAttribute('src')).toContain('IMAGE_MOCK');
   });
@@ -41,13 +41,13 @@ describe('Procedure should render component correctly', () => {
       fhirIcons: (
         <img
           src={require('../assets/containers/Procedure/procedure.svg')}
-          alt="block diagram"
+          alt="procedure"
         />
       ),
     };
 
     const { getByAltText } = render(<Procedure {...defaultProps} />);
-    const headerIcon = getByAltText('block diagram');
+    const headerIcon = getByAltText('procedure');
 
     expect(headerIcon.getAttribute('src')).toContain('IMAGE_MOCK');
   });
@@ -60,7 +60,7 @@ describe('Procedure should render component correctly', () => {
     };
 
     const { getByAltText } = render(<Procedure {...defaultProps} />);
-    const headerIcon = getByAltText('block diagram');
+    const headerIcon = getByAltText('procedure');
 
     expect(headerIcon.getAttribute('src')).toContain('IMAGE_MOCK');
   });

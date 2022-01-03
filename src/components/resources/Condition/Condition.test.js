@@ -19,7 +19,7 @@ describe('should render component correctly', () => {
     };
 
     const { getByAltText } = render(<Condition {...defaultProps} />);
-    const headerIcon = getByAltText('germ');
+    const headerIcon = getByAltText('condition');
 
     expect(headerIcon.getAttribute('src')).toContain('IMAGE_MOCK');
   });
@@ -44,13 +44,13 @@ describe('should render component correctly', () => {
       fhirIcons: (
         <img
           src={require('../assets/containers/Condition/condition.svg')}
-          alt="germ"
+          alt="condition"
         />
       ),
     };
 
     const { getByAltText } = render(<Condition {...defaultProps} />);
-    const headerIcon = getByAltText('germ');
+    const headerIcon = getByAltText('condition');
 
     expect(headerIcon.getAttribute('src')).toContain('IMAGE_MOCK');
   });
@@ -63,7 +63,7 @@ describe('should render component correctly', () => {
     };
 
     const { getByAltText } = render(<Condition {...defaultProps} />);
-    const headerIcon = getByAltText('germ');
+    const headerIcon = getByAltText('condition');
 
     expect(headerIcon.getAttribute('src')).toContain('IMAGE_MOCK');
   });

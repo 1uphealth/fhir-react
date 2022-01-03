@@ -4,19 +4,19 @@ export default {
   Condition: (
     <img
       src={require('../assets/containers/Condition/condition.svg')}
-      alt="germ"
+      alt="condition"
     />
   ),
   Immunization: (
     <img
       src={require('../assets/containers/Immunization/immunization.svg')}
-      alt="syringe"
+      alt="immunization"
     />
   ),
   Procedure: (
     <img
       src={require('../assets/containers/Procedure/procedure.svg')}
-      alt="block diagram"
+      alt="procedure"
     />
   ),
   Practitioner: (
@@ -82,7 +82,7 @@ export default {
   Encounter: (
     <img
       src={require('../assets/containers/Encounter/encounter.svg')}
-      alt="conversation between two individuals"
+      alt="encounter"
     />
   ),
   ExplanationOfBenefit: (

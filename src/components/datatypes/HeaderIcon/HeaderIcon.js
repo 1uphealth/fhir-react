@@ -1,6 +1,5 @@
 import React from 'react';
 import { isUrl } from '../../../utils/isUrl';
-import fhirIcons from '../../../fixtures/example-icons';
 
 const PlaceholderImage = () => {
   return (
@@ -11,12 +10,20 @@ const PlaceholderImage = () => {
   );
 };
 
-const defaultIconOrPlaceholder = (headerIcon, resourceName) =>
-  fhirIcons[resourceName] && headerIcon !== false ? (
-    fhirIcons[resourceName]
+const defaultIconOrPlaceholder = (headerIcon, resourceName) => {
+  let imageSrc;
+
+  try {
+    imageSrc = require(`../../../assets/containers/${resourceName}/${resourceName.toLowerCase()}.svg`);
+  } catch (err) {
+    imageSrc = null;
+  }
+  return imageSrc && headerIcon !== false ? (
+    <img src={imageSrc} alt={resourceName.toLowerCase()} />
   ) : (
     <PlaceholderImage />
   );
+};
 
 const HeaderIcon = ({ headerIcon, resourceName }) => {
   if (!headerIcon) {

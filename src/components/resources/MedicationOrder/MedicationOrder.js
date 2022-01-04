@@ -1,14 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _get from 'lodash/get';
+import Accordion from '../../containers/Accordion/Accordion';
 import Reference from '../../datatypes/Reference';
 import CodeableConcept from '../../datatypes/CodeableConcept';
 import Coding from '../../datatypes/Coding';
 
-import { Root, Header, Title, Body, Value } from '../../ui';
+import { Root, Header, Body } from '../../ui';
 
 const MedicationOrder = props => {
-  const { fhirResource } = props;
+  const { fhirResource, fhirIcons } = props;
+  const headerIcon = fhirIcons && fhirIcons['Medication'];
   const medicationReference = _get(fhirResource, 'medicationReference');
   const medicationCodeableConcept = _get(
     fhirResource,
@@ -22,34 +24,49 @@ const MedicationOrder = props => {
   const dosageInstruction = _get(fhirResource, 'dosageInstruction');
   const hasDosageInstruction =
     Array.isArray(dosageInstruction) && dosageInstruction.length > 0;
+
+  const tableData = [
+    {
+      label: 'Medication',
+      testId: 'medication',
+      data: showMedicationCodeableConcept && (
+        <Coding fhirData={medicationCodeableConcept} />
+      ),
+      status: showMedicationCodeableConcept,
+    },
+    {
+      label: 'Reason',
+      testId: 'reasonCode',
+      data: reasonCode && <CodeableConcept fhirData={reasonCode} />,
+      status: reasonCode,
+    },
+    {
+      label: 'Dosage',
+      testId: 'hasDosageInstruction',
+      data:
+        hasDosageInstruction &&
+        dosageInstruction.map((item, i) => (
+          <p key={`dosage-instruction-item-${i}`}>{item.text}</p>
+        )),
+      status: hasDosageInstruction,
+    },
+  ];
   return (
     <Root name="MedicationOrder">
-      <Header>
-        <Title>
-          {medicationReference && <Reference fhirData={medicationReference} />}
-        </Title>
-      </Header>
-      <Body>
-        {showMedicationCodeableConcept && (
-          <Value label="Medication" data-testid="medication">
-            <Coding fhirData={medicationCodeableConcept} />
-          </Value>
-        )}
-        {reasonCode && (
-          <Value label="Reason" data-testid="reasonCode">
-            <CodeableConcept fhirData={reasonCode} />
-          </Value>
-        )}
-        {hasDosageInstruction && (
-          <Value label="Dosage" data-testid="hasDosageInstruction">
-            <ul>
-              {dosageInstruction.map((item, i) => (
-                <li key={`item-${i}`}>{item.text}</li>
-              ))}
-            </ul>
-          </Value>
-        )}
-      </Body>
+      <Accordion
+        headerContent={
+          <Header
+            icon={headerIcon}
+            resourceName="MedicationOrder"
+            title={
+              medicationReference && (
+                <Reference fhirData={medicationReference} />
+              )
+            }
+          />
+        }
+        bodyContent={<Body tableData={tableData} />}
+      />
     </Root>
   );
 };

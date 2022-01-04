@@ -3,23 +3,15 @@ import PropTypes from 'prop-types';
 
 import _get from 'lodash/get';
 
+import Accordion from '../../containers/Accordion';
 import Reference from '../../datatypes/Reference';
 import Coding from '../../datatypes/Coding';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 import fhirVersions from '../fhirResourceVersions';
 import Date from '../../datatypes/Date';
 import Annotation from '../../datatypes/Annotation';
-import './AllergyIntolerance.css';
 
-import {
-  Root,
-  Header,
-  Title,
-  Badge,
-  BadgeSecondary,
-  Body,
-  Value,
-} from '../../ui';
+import { Root, Header, Badge, BadgeSecondary, Body } from '../../ui';
 import CodeableConcept from '../../datatypes/CodeableConcept';
 
 const commonDTO = fhirResource => {
@@ -132,7 +124,8 @@ const resourceDTO = (fhirVersion, fhirResource) => {
 };
 
 const AllergyIntolerance = props => {
-  const { fhirResource, fhirVersion } = props;
+  const { fhirResource, fhirVersion, fhirIcons } = props;
+  const headerIcon = fhirIcons && fhirIcons['AllergyIntolerance'];
   let fhirResourceData = {};
   try {
     fhirResourceData = resourceDTO(fhirVersion, fhirResource);
@@ -157,72 +150,90 @@ const AllergyIntolerance = props => {
     patient,
   } = fhirResourceData;
 
+  const tableData = [
+    {
+      label: 'Substance',
+      testId: 'substance',
+      data:
+        hasSubstanceCoding &&
+        substanceCoding.map((item, i) => (
+          <Coding key={`item-${i}`} fhirData={item} />
+        )),
+      status: hasSubstanceCoding,
+    },
+    {
+      label: 'Type',
+      testId: 'type',
+      data: type,
+      status: type,
+    },
+    {
+      label: 'Category',
+      testId: 'category',
+      data: category,
+      status: category,
+    },
+    {
+      label: 'Patient',
+      testId: 'patient',
+      data: <Reference fhirData={patient} />,
+      status: patient,
+    },
+    {
+      label: 'Asserted by',
+      testId: 'asserter',
+      data: asserter && <Reference fhirData={asserter} />,
+      status: asserter,
+    },
+    {
+      label: 'Manifestation',
+      testId: 'manifestation',
+      data: reaction.map((reaction, i) => {
+        const manifestations = _get(reaction, 'manifestation', []);
+        const severity = _get(reaction, 'severity');
+        return manifestations.map((manifestation, j) => {
+          return (
+            <div key={`item-${i}${j}`} className="d-flex">
+              <CodeableConcept fhirData={manifestation} />
+              {severity && (
+                <span className="ms-4">
+                  <BadgeSecondary>{severity}</BadgeSecondary>
+                </span>
+              )}
+            </div>
+          );
+        });
+      }),
+      status: hasReaction,
+    },
+    {
+      label: 'Notes',
+      testId: 'hasNote',
+      data: hasNote && <Annotation fhirData={note} />,
+      status: hasNote,
+    },
+  ];
+
   return (
     <Root name="AllergyIntolerance">
-      <Header>
-        <Title>{title}</Title>
-        {status && <Badge data-testid="status">{status}</Badge>}
-        {recordedDate && (
-          <BadgeSecondary data-testid="recordedDate">
-            recorded on <Date fhirData={recordedDate} />
-          </BadgeSecondary>
-        )}
-      </Header>
-      <Body>
-        {hasSubstanceCoding && (
-          <Value label="Substance" data-testid="substance">
-            {substanceCoding.map((item, i) => (
-              <div key={`item-${i}`}>
-                <Coding fhirData={item} />
-              </div>
-            ))}
-          </Value>
-        )}
-        {type && (
-          <Value label="Type" data-testid="type">
-            {type}
-          </Value>
-        )}
-        {category && (
-          <Value label="Category" data-testid="category">
-            {category}
-          </Value>
-        )}
-        {patient && (
-          <Value label="Patient" data-testid="patient">
-            <Reference fhirData={patient} />
-          </Value>
-        )}
-        {asserter && (
-          <Value label="Asserted by" data-testid="asserter">
-            <Reference fhirData={asserter} />
-          </Value>
-        )}
-        {hasReaction && (
-          <Value label="Manifestation" data-testid="manifestation">
-            {reaction.map((reaction, i) => {
-              const manifestations = _get(reaction, 'manifestation', []);
-              const severity = _get(reaction, 'severity');
-              return manifestations.map((manifestation, j) => {
-                return (
-                  <div
-                    key={`item-${i}${j}`}
-                    className="fhir-resource__AllergyIntolerance__grouping"
-                  >
-                    <CodeableConcept fhirData={manifestation} />
-                    {severity && <BadgeSecondary>{severity}</BadgeSecondary>}
-                  </div>
-                );
-              });
-            })}
-          </Value>
-        )}
-        {hasNote && (
-          <Value label="Notes" data-testid="hasNote">
-            <Annotation fhirData={note} />
-          </Value>
-        )}
-      </Body>
+      <Accordion
+        headerContent={
+          <Header
+            resourceName="AllergyIntollerance"
+            badges={status && <Badge data-testid="status">{status}</Badge>}
+            title={title}
+            icon={headerIcon}
+            rightAdditionalContent={
+              recordedDate && (
+                <BadgeSecondary data-testid="recordedDate">
+                  recorded on <Date fhirData={recordedDate} />
+                </BadgeSecondary>
+              )
+            }
+          />
+        }
+        bodyContent={<Body tableData={tableData} />}
+      />
     </Root>
   );
 };

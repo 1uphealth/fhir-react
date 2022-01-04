@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState, useEffect, useRef } from 'react';
+import { convertCamelCaseToSentence } from '../../../utils/convertCamelCaseToSentence';
 
 const PlaceholderImage = () => {
   return (
@@ -12,9 +13,10 @@ const PlaceholderImage = () => {
 
 const defaultIconOrPlaceholder = (headerIcon, resourceName) => {
   let imageSrc;
-
+  const svgFileName =
+    resourceName && convertCamelCaseToSentence(resourceName).replace(/ /g, '-');
   try {
-    imageSrc = require(`../../../assets/containers/${resourceName}/${resourceName.toLowerCase()}.svg`);
+    imageSrc = require(`../../../assets/containers/${resourceName}/${svgFileName}.svg`);
   } catch (err) {
     imageSrc = null;
   }
@@ -22,7 +24,7 @@ const defaultIconOrPlaceholder = (headerIcon, resourceName) => {
     <img
       className="header-icon__image"
       src={imageSrc}
-      alt={resourceName.toLowerCase()}
+      alt={convertCamelCaseToSentence(resourceName)}
     />
   ) : (
     <PlaceholderImage />

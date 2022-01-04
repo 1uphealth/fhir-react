@@ -103,7 +103,7 @@ export default {
     <img
       className="header-icon__image"
       src={require('../assets/containers/ExplanationOfBenefit/explanation-of-benefit.svg')}
-      alt="percentage sign"
+      alt="explanation of benefit"
     />
   ),
   FamilyMemberHistory: (

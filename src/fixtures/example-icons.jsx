@@ -40,7 +40,7 @@ export default {
     <img
       className="header-icon__image"
       src={require('../assets/containers/Appointment/appointment.svg')}
-      alt="calendar"
+      alt="appointment"
     />
   ),
   CarePlan: (

@@ -144,8 +144,7 @@ const resourceDTO = (fhirVersion, fhirResource) => {
   }
 };
 
-const Appointment = props => {
-  const { fhirResource, fhirVersion } = props;
+const Appointment = ({ fhirResource, fhirVersion, fhirIcons }) => {
   const {
     description,
     status,
@@ -208,7 +207,7 @@ const Appointment = props => {
       <Accordion
         headerContent={
           <Header
-            resourceName={fhirResource.resourceName}
+            resourceName="Appointment"
             additionalContent={
               start && (
                 <Value label="Start date" data-testid="headerStartDate">
@@ -218,6 +217,7 @@ const Appointment = props => {
             }
             badges={status && <Badge data-testid="status">{status}</Badge>}
             title={description}
+            icon={fhirIcons}
           />
         }
         bodyContent={

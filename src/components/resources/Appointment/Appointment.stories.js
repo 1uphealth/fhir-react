@@ -13,38 +13,61 @@ import example1AppointmentR4 from '../../../fixtures/r4/resources/appointment/ex
 import example2AppointmentR4 from '../../../fixtures/r4/resources/appointment/example2.json';
 import example3AppointmentR4 from '../../../fixtures/r4/resources/appointment/example3.json';
 
+import fhirIcons from '../../../fixtures/example-icons';
+import AppointmentIcon from '../../../assets/containers/Appointment/appointment.svg';
+
 export default { title: 'Appointment' };
 
 export const DefaultVisualizationDSTU2 = () => {
   const fhirResource = object('Resource', exampleAppointmentDSTU2);
   return (
-    <Appointment fhirResource={fhirResource} fhirVersion={fhirVersions.DSTU2} />
+    <Appointment
+      fhirResource={fhirResource}
+      fhirVersion={fhirVersions.DSTU2}
+      fhirIcons={require('../../../assets/containers/Appointment/appointment.svg')}
+    />
   );
 };
 
 export const Example2OfDSTU2 = () => {
   const fhirResource = object('Resource', example2AppointmentDSTU2);
   return (
-    <Appointment fhirResource={fhirResource} fhirVersion={fhirVersions.DSTU2} />
+    <Appointment
+      fhirResource={fhirResource}
+      fhirVersion={fhirVersions.DSTU2}
+      fhirIcons={AppointmentIcon}
+    />
   );
 };
 
 export const Example1OfSTU3 = () => {
   const fhirResource = object('Resource', example1AppointmentSTU3);
   return (
-    <Appointment fhirResource={fhirResource} fhirVersion={fhirVersions.STU3} />
+    <Appointment
+      fhirResource={fhirResource}
+      fhirVersion={fhirVersions.STU3}
+      fhirIcons={fhirIcons}
+    />
   );
 };
 export const Example2OfSTU3 = () => {
   const fhirResource = object('Resource', example2AppointmentSTU3);
   return (
-    <Appointment fhirResource={fhirResource} fhirVersion={fhirVersions.STU3} />
+    <Appointment
+      fhirResource={fhirResource}
+      fhirVersion={fhirVersions.STU3}
+      fhirIcons={false}
+    />
   );
 };
 export const Example3OfSTU3 = () => {
   const fhirResource = object('Resource', example3AppointmentSTU3);
   return (
-    <Appointment fhirResource={fhirResource} fhirVersion={fhirVersions.STU3} />
+    <Appointment
+      fhirResource={fhirResource}
+      fhirVersion={fhirVersions.STU3}
+      fhirIcons={'random text'}
+    />
   );
 };
 

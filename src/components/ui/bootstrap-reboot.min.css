@@ -173,8 +173,14 @@ sup {
 .fhir-resource kbd,
 .fhir-resource pre,
 .fhir-resource samp {
-  font-family: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
-    'Courier New', monospace;
+  font-family:
+    SFMono-Regular,
+    Menlo,
+    Monaco,
+    Consolas,
+    'Liberation Mono',
+    'Courier New',
+    monospace;
   font-size: 1em;
 }
 

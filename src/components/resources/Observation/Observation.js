@@ -18,8 +18,7 @@ import {
 } from '../../ui';
 import Reference from '../../datatypes/Reference';
 
-const Observation = props => {
-  const { fhirResource } = props;
+const Observation = ({ fhirResource, fhirIcons }) => {
   const effectiveDate = _get(fhirResource, 'effectiveDateTime');
   const codeCodingDisplay = _get(fhirResource, 'code.coding.0.display');
   const codeText = _get(fhirResource, 'code.text', '');
@@ -72,7 +71,7 @@ const Observation = props => {
       <Accordion
         headerContent={
           <Header
-            resourceName={fhirResource.resourceType}
+            resourceName="Observation"
             additionalContent={
               issued && (
                 <Value label="Start date" data-testid="headerStartDate">
@@ -104,6 +103,7 @@ const Observation = props => {
                 small
               />
             }
+            icon={fhirIcons}
           />
         }
         bodyContent={

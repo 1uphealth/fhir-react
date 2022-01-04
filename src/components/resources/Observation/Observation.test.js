@@ -11,8 +11,75 @@ import exampleObservationExcessSTU3 from '../../../fixtures/stu3/resources/obser
 
 import example1ObservationExcessR4 from '../../../fixtures/r4/resources/observation/example2.json';
 import example2ObservationExcessR4 from '../../../fixtures/r4/resources/observation/example3.json';
+import fhirIcons from '../../../fixtures/example-icons';
 
 describe('should render component correctly', () => {
+  it('component without a fhirIcons props should render a default icon', () => {
+    const defaultProps = {
+      fhirResource: exampleObservationIssued,
+    };
+
+    const { getByAltText } = render(<Observation {...defaultProps} />);
+    const headerIcon = getByAltText('observation');
+
+    expect(headerIcon.getAttribute('src')).toContain('IMAGE_MOCK');
+  });
+
+  it('component with a false as a fhirIcons props should render a placeholder', () => {
+    const defaultProps = {
+      fhirResource: exampleObservationIssued,
+      fhirIcons: false,
+    };
+
+    const { getByTestId } = render(<Observation {...defaultProps} />);
+    const headerIcon = getByTestId('placeholder');
+
+    expect(headerIcon).toBeTruthy();
+  });
+
+  it('component with the img as a fhirIcons props should render an img', () => {
+    const defaultProps = {
+      fhirResource: exampleObservationIssued,
+      fhirIcons: (
+        <img
+          src={require('../assets/containers/ExplanationOfBenefit/explanation-of-benefit.svg.svg')}
+          alt="observation"
+        />
+      ),
+    };
+
+    const { getByAltText } = render(<Observation {...defaultProps} />);
+    const headerIcon = getByAltText('observation');
+
+    expect(headerIcon.getAttribute('src')).toContain('IMAGE_MOCK');
+  });
+
+  it('component with the resources object as a fhirIcons props should render an img', () => {
+    const defaultProps = {
+      fhirResource: exampleObservationIssued,
+      fhirIcons: fhirIcons,
+    };
+
+    const { getByAltText } = render(<Observation {...defaultProps} />);
+    const headerIcon = getByAltText('observation');
+
+    expect(headerIcon.getAttribute('src')).toContain('IMAGE_MOCK');
+  });
+
+  it('component with the url as a fhirIcons props should render an img', () => {
+    const avatarSrc =
+      'https://www.gravatar.com/avatar/?s=50&r=any&default=identicon&forcedefault=1';
+    const defaultProps = {
+      fhirResource: exampleObservationIssued,
+      fhirIcons: avatarSrc,
+    };
+
+    const { getByAltText } = render(<Observation {...defaultProps} />);
+    const headerIcon = getByAltText('header icon');
+
+    expect(headerIcon.getAttribute('src')).toContain(avatarSrc);
+  });
+
   test('DSTU2 renders properly', () => {
     const defaultProps = {
       fhirResource: exampleObservationIssued,

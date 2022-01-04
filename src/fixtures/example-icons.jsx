@@ -166,7 +166,7 @@ export default {
     <img
       className="header-icon__image"
       src={require('../assets/containers/Observation/observation.svg')}
-      alt="hospital bed"
+      alt="observation"
     />
   ),
   Questionnaire: (

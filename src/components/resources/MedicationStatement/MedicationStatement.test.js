@@ -19,7 +19,7 @@ describe('should render MedicationStatement component correctly', () => {
     expect(getByTestId('title').textContent).toContain(
       'amphetamine-dextroamphetamine',
     );
-    expect(getByTestId('hasEffectivePeriod').textContent).toContain('from');
+    expect(getByTestId('startDate').textContent).toContain('4/19/2016');
     expect(queryByTestId('medicationReference')).toBeNull();
 
     expect(getByTestId('dosageInstruction').textContent).toContain(
@@ -37,7 +37,8 @@ describe('should render MedicationStatement component correctly', () => {
     );
 
     expect(getByTestId('title').textContent).toEqual('Medication Statement');
-    expect(queryAllByTestId('hasEffectivePeriod')).toHaveLength(0);
+    expect(queryAllByTestId('startDate')).toHaveLength(0);
+    expect(queryAllByTestId('endDate')).toHaveLength(0);
 
     expect(getByTestId('dosageInstruction').textContent).toContain(
       '1-2 tablets once daily',
@@ -58,7 +59,8 @@ describe('should render MedicationStatement component correctly', () => {
     );
 
     expect(getByTestId('title').textContent).toEqual('Medication Statement');
-    expect(queryAllByTestId('hasEffectivePeriod')).toHaveLength(0);
+    expect(queryAllByTestId('startDate')).toHaveLength(0);
+    expect(queryAllByTestId('endDate')).toHaveLength(0);
 
     expect(getByTestId('dosageInstruction').textContent).toContain(
       '1-2 tablets once daily',

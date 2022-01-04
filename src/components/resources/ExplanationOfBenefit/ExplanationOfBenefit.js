@@ -14,6 +14,7 @@ import {
 import CareTeam from './CareTeam';
 import CodeableConcept from '../../datatypes/CodeableConcept';
 import Coding from '../../datatypes/Coding';
+import Quantity from '../../datatypes/Quantity';
 import Date from '../../datatypes/Date';
 import Diagnosis from './Diagnosis';
 import Identifier from '../../datatypes/Identifier/Identifier';
@@ -455,16 +456,12 @@ const ExplanationOfBenefit = props => {
                             <Coding fhirData={serviceItem.coding} />
                           </TableCell>
                           <TableCell data-testid="explanation.servicedDate">
-                            {serviceItem.servicedDate ||
-                            serviceItem.servicedPeriod ? (
-                              serviceItem.servicedDate ? (
-                                <Date fhirData={serviceItem.servicedDate} />
-                              ) : (
+                            {(serviceItem.servicedDate && (
+                              <Date fhirData={serviceItem.servicedDate} />
+                            )) ||
+                              (serviceItem.servicedPeriod && (
                                 <Period fhirData={serviceItem.servicedPeriod} />
-                              )
-                            ) : (
-                              <MissingValue />
-                            )}
+                              )) || <MissingValue />}
                           </TableCell>
                           <TableCell data-testid="explanation.quantity">
                             {Number.isFinite(Number(serviceItem.quantity)) ? (
@@ -514,6 +511,8 @@ const ExplanationOfBenefit = props => {
                         },
                       );
                       const infoStatus = _get(informationItem, infoKey);
+                      const StatusComponent =
+                        infoKey == 'timingDate' ? Date : Quantity;
 
                       return (
                         <TableRow key={`serviceItem-${i}`}>
@@ -526,11 +525,7 @@ const ExplanationOfBenefit = props => {
                           </TableCell>
                           <TableCell>
                             {infoStatus ? (
-                              infoKey === 'timingDate' ? (
-                                <Date fhirData={infoStatus} />
-                              ) : (
-                                <Coding fhirData={infoStatus} />
-                              )
+                              <StatusComponent fhirData={infoStatus} />
                             ) : (
                               <MissingValue />
                             )}

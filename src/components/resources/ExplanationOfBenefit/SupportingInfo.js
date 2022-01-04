@@ -4,6 +4,7 @@ import _get from 'lodash/get';
 import { ValueSection, Value } from '../../ui/index';
 import CodeableConcept from '../../datatypes/CodeableConcept';
 import Date from '../../datatypes/Date';
+import Quantity from '../../datatypes/Quantity';
 
 const SupportingInfo = ({ fhirData }) => {
   return fhirData.map((supportingInfo, index) => {
@@ -11,6 +12,7 @@ const SupportingInfo = ({ fhirData }) => {
     const category = _get(supportingInfo, 'category');
     const code = _get(supportingInfo, 'code	');
     const timingDate = _get(supportingInfo, 'timingDate');
+    const valueQuantity = _get(supportingInfo, 'valueQuantity');
     const timingPeriodStart = _get(supportingInfo, 'timingPeriod.start');
     const timingPeriodEnd = _get(supportingInfo, 'timingPeriod.end');
 
@@ -18,20 +20,24 @@ const SupportingInfo = ({ fhirData }) => {
       <div key={`total-${index}`}>
         <ValueSection
           label={`Supporting information ${sequence}.`}
-          data-testid="supportingInfo"
+          data-testid={`supportingInfo.${index}`}
           marginTop
         >
           {category && (
             <Value
               dirColumn
               label="Category"
-              data-testid="supportingInfo.category"
+              data-testid={`supportingInfo.${index}.category`}
             >
               <CodeableConcept fhirData={category} />
             </Value>
           )}
           {code && (
-            <Value dirColumn label="Code" data-testid="supportingInfo.code">
+            <Value
+              dirColumn
+              label="Code"
+              data-testid={`supportingInfo.${index}.category`}
+            >
               <CodeableConcept fhirData={code} />
             </Value>
           )}
@@ -39,16 +45,25 @@ const SupportingInfo = ({ fhirData }) => {
             <Value
               dirColumn
               label="Date"
-              data-testid="supportingInfo.timingDate"
+              data-testid={`supportingInfo.${index}.timingDate`}
             >
               <Date fhirData={timingDate} />
+            </Value>
+          )}
+          {valueQuantity && (
+            <Value
+              dirColumn
+              label="Quantity"
+              data-testid={`supportingInfo.${index}.valueQuantity`}
+            >
+              <Quantity fhirData={valueQuantity} />
             </Value>
           )}
           {timingPeriodStart && (
             <Value
               dirColumn
               label="Start date"
-              data-testid="supportingInfo.timingPeriodStart"
+              data-testid={`supportingInfo.${index}.timingPeriodStart`}
             >
               <Date fhirData={timingPeriodStart} />
             </Value>
@@ -57,7 +72,7 @@ const SupportingInfo = ({ fhirData }) => {
             <Value
               dirColumn
               label="End date"
-              data-testid="supportingInfo.timingPeriodEnd"
+              data-testid={`supportingInfo.${index}.timingPeriodEnd`}
             >
               <Date fhirData={timingPeriodEnd} />
             </Value>

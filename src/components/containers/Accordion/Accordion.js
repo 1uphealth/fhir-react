@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Chevron } from '../../ui';
+import uniqueId from 'lodash/uniqueId';
 
 const CHEVRON_DOWN_COLOR = '#6f83a9';
 const CHEVRON_UP_COLOR = '#2a6fd7';
@@ -8,6 +9,9 @@ const Accordion = props => {
   const { headerContent, bodyContent } = props;
   const [rotate, setRotate] = useState(false);
   const handleAccordionClick = () => setRotate(!rotate);
+  const accordionId = uniqueId(
+    `accordion-type-${headerContent.props.resourceName || 'default'}-`,
+  );
 
   const isAccordionOpenable = () => {
     let childrenCondition = false;
@@ -49,9 +53,9 @@ const Accordion = props => {
                 isAccordionOpenable() ? '' : 'pe-none'
               }`}
               type="button"
-              data-bs-target="#collapseTarget"
+              data-bs-target={`#${accordionId}`}
               data-bs-toggle={isAccordionOpenable() ? 'collapse' : null}
-              aria-controls="collapseTarget"
+              aria-controls={accordionId}
               aria-expanded="false"
               onClick={handleAccordionClick}
             >
@@ -65,7 +69,7 @@ const Accordion = props => {
           </div>
           <div
             className="fhir-container__Accordion__data accordion-collapse collapse"
-            id="collapseTarget"
+            id={accordionId}
           >
             <div className="fhir-container__Accordion__data-text accordion-body ps-4 pt-3 pe-4 border-top">
               {bodyContent}

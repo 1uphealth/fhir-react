@@ -1,5 +1,5 @@
 import React from 'react';
-import { isUrl } from '../../../utils/isUrl';
+import { useState, useEffect, useRef } from 'react';
 
 const PlaceholderImage = () => {
   return (
@@ -19,13 +19,35 @@ const defaultIconOrPlaceholder = (headerIcon, resourceName) => {
     imageSrc = null;
   }
   return imageSrc && headerIcon !== false ? (
-    <img src={imageSrc} alt={resourceName.toLowerCase()} />
+    <img
+      className="header-icon__image"
+      src={imageSrc}
+      alt={resourceName.toLowerCase()}
+    />
   ) : (
     <PlaceholderImage />
   );
 };
 
+const useImageError = () => {
+  const [error, setError] = useState(false);
+  const ref = useRef();
+
+  const onError = () => {
+    setError(true);
+  };
+
+  useEffect(() => {
+    if (ref.current && ref.current.error) {
+      onError();
+    }
+  });
+
+  return [ref, error, onError];
+};
+
 const HeaderIcon = ({ headerIcon, resourceName }) => {
+  const [ref, error, onError] = useImageError();
   if (!headerIcon) {
     return defaultIconOrPlaceholder(headerIcon, resourceName);
   }
@@ -35,12 +57,18 @@ const HeaderIcon = ({ headerIcon, resourceName }) => {
   if (React.isValidElement(headerIcon) && typeof headerIcon.type === 'string') {
     return headerIcon;
   }
-  if (isUrl(headerIcon) || headerIcon.search('static/media') !== -1) {
-    return (
-      <img className="header-icon__image" src={headerIcon} alt="header icon" />
-    );
-  }
-  return defaultIconOrPlaceholder(headerIcon, resourceName);
+
+  return !error ? (
+    <img
+      ref={ref}
+      onError={onError}
+      className="header-icon__image"
+      src={headerIcon}
+      alt="header icon"
+    />
+  ) : (
+    defaultIconOrPlaceholder(headerIcon, resourceName)
+  );
 };
 
 export default HeaderIcon;

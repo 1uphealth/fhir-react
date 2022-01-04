@@ -109,7 +109,6 @@ const resourceDTO = (fhirVersion, fhirResource) => {
 
 const MedicationStatement = props => {
   const { fhirResource, fhirVersion, fhirIcons } = props;
-  const headerIcon = fhirIcons && fhirIcons['MedicationStatement'];
   let fhirResourceData = {};
   try {
     fhirResourceData = resourceDTO(fhirVersion, fhirResource);
@@ -140,7 +139,7 @@ const MedicationStatement = props => {
       <Accordion
         headerContent={
           <Header
-            icon={headerIcon}
+            icon={fhirIcons}
             resourceName="MedicationStatement"
             badges={status && <Badge data-testid="hasStatus">{status}</Badge>}
             title={title}

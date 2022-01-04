@@ -9,7 +9,8 @@ import Coding from '../../datatypes/Coding';
 import { Root, Header, Body } from '../../ui';
 
 const MedicationOrder = props => {
-  const { fhirResource } = props;
+  const { fhirResource, fhirIcons } = props;
+  const headerIcon = fhirIcons && fhirIcons['Medication'];
   const medicationReference = _get(fhirResource, 'medicationReference');
   const medicationCodeableConcept = _get(
     fhirResource,
@@ -55,6 +56,7 @@ const MedicationOrder = props => {
       <Accordion
         headerContent={
           <Header
+            icon={headerIcon}
             resourceName="MedicationOrder"
             title={
               medicationReference && (

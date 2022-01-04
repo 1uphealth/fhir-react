@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _get from 'lodash/get';
 import _isEmpty from 'lodash/isEmpty';
-import md5 from 'md5';
 
 import HumanName from '../../datatypes/HumanName';
 import Telecom from '../../datatypes/Telecom';
@@ -41,11 +40,15 @@ export function getGender(fhirResource) {
 }
 
 function Patient(props) {
-  const { fhirResource, fhirVersion, renderName, patientSimple } = props;
+  const {
+    fhirResource,
+    fhirVersion,
+    renderName,
+    patientSimple,
+    fhirIcons,
+  } = props;
 
   const id = getId(fhirResource);
-  const idHash = md5(id || '');
-  const avatarSrc = `http://www.gravatar.com/avatar/${idHash}?s=50&r=any&default=identicon&forcedefault=1`;
   const patientName = getNames(fhirResource);
   const patientBirthDate = getBirthDate(fhirResource);
   const patientGender = getGender(fhirResource);
@@ -118,7 +121,7 @@ function Patient(props) {
       <Accordion
         headerContent={
           <Header
-            resourceName={fhirResource.resourceType}
+            resourceName="Patient"
             additionalContent={
               patientBirthDate && (
                 <span className="text-gray-600">
@@ -130,7 +133,7 @@ function Patient(props) {
                 </span>
               )
             }
-            icon={avatarSrc}
+            icon={fhirIcons}
             badges={
               active && <Badge data-testid="activeStatus">{activeStatus}</Badge>
             }

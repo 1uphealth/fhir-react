@@ -197,4 +197,11 @@ export default {
       alt="header icon"
     />
   ),
+  Patient: (
+    <img
+      className="header-icon__image"
+      src={require('../assets/containers/Patient/patient.svg')}
+      alt="patient"
+    />
+  ),
 };

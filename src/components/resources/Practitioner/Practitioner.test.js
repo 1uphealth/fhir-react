@@ -7,8 +7,80 @@ import dstu2Example1 from '../../../fixtures/dstu2/resources/practitioner/exampl
 import stu3Example1 from '../../../fixtures/stu3/resources/practitioner/example-1.json';
 import r4Example1 from '../../../fixtures/r4/resources/practitioner/example1.json';
 import r4Example2 from '../../../fixtures/r4/resources/practitioner/example3.json';
+import fhirIcons from '../../../fixtures/example-icons';
 
 describe('Practitioner should render component correctly', () => {
+  it('component without a fhirIcons props should render a default icon', () => {
+    const defaultProps = {
+      fhirVersion: fhirVersions.DSTU2,
+      fhirResource: dstu2Example1,
+    };
+
+    const { getByAltText } = render(<Practitioner {...defaultProps} />);
+    const headerIcon = getByAltText('practitioner');
+
+    expect(headerIcon.getAttribute('src')).toContain('IMAGE_MOCK');
+  });
+
+  it('component with a false as a fhirIcons props should render a placeholder', () => {
+    const defaultProps = {
+      fhirVersion: fhirVersions.DSTU2,
+      fhirResource: dstu2Example1,
+      fhirIcons: false,
+    };
+
+    const { getByTestId } = render(<Practitioner {...defaultProps} />);
+    const headerIcon = getByTestId('placeholder');
+
+    expect(headerIcon).toBeTruthy();
+  });
+
+  it('component with the img as a fhirIcons props should render an img', () => {
+    const defaultProps = {
+      fhirVersion: fhirVersions.DSTU2,
+      fhirResource: dstu2Example1,
+      fhirIcons: (
+        <img
+          src={require('../assets/containers/Practitioner/practitioner.svg')}
+          alt="practitioner"
+        />
+      ),
+    };
+
+    const { getByAltText } = render(<Practitioner {...defaultProps} />);
+    const headerIcon = getByAltText('practitioner');
+
+    expect(headerIcon.getAttribute('src')).toContain('IMAGE_MOCK');
+  });
+
+  it('component with the resources object as a fhirIcons props should render an img', () => {
+    const defaultProps = {
+      fhirVersion: fhirVersions.DSTU2,
+      fhirResource: dstu2Example1,
+      fhirIcons: fhirIcons,
+    };
+
+    const { getByAltText } = render(<Practitioner {...defaultProps} />);
+    const headerIcon = getByAltText('practitioner');
+
+    expect(headerIcon.getAttribute('src')).toContain('IMAGE_MOCK');
+  });
+
+  it('component with the url as a fhirIcons props should render an img', () => {
+    const avatarSrc =
+      'https://www.gravatar.com/avatar/?s=50&r=any&default=identicon&forcedefault=1';
+    const defaultProps = {
+      fhirVersion: fhirVersions.DSTU2,
+      fhirResource: dstu2Example1,
+      fhirIcons: avatarSrc,
+    };
+
+    const { getByAltText } = render(<Practitioner {...defaultProps} />);
+    const headerIcon = getByAltText('header icon');
+
+    expect(headerIcon.getAttribute('src')).toContain(avatarSrc);
+  });
+
   it('should render component correctly with DSTU2 source data', () => {
     const defaultProps = {
       fhirVersion: fhirVersions.DSTU2,

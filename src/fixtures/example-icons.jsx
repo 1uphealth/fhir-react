@@ -26,7 +26,7 @@ export default {
     <img
       className="header-icon__image"
       src={require('../assets/containers/Practitioner/practitioner.svg')}
-      alt="doctor avatar"
+      alt="practitioner"
     />
   ),
   AllergyIntolerance: (

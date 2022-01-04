@@ -10,6 +10,7 @@ import example2AllergyIntoleranceSTU3 from '../../../fixtures/stu3/resources/all
 import example1AllergyIntoleranceR4 from '../../../fixtures/r4/resources/allergyIntolerance/example1.json';
 import example2AllergyIntoleranceR4 from '../../../fixtures/r4/resources/allergyIntolerance/example2.json';
 import example3AllergyIntoleranceR4 from '../../../fixtures/r4/resources/allergyIntolerance/example3.json';
+import fhirIcons from '../../../fixtures/example-icons';
 import fhirVersions from '../fhirResourceVersions';
 
 export default { title: 'AllergyIntolerance' };
@@ -20,6 +21,7 @@ export const DefaultVisualizationDSTU2 = () => {
     <AllergyIntolerance
       fhirVersion={fhirVersions.DSTU2}
       fhirResource={fhirResource}
+      fhirIcons={fhirIcons}
     />
   );
 };
@@ -30,6 +32,7 @@ export const Example2ofDSTU2 = () => {
     <AllergyIntolerance
       fhirVersion={fhirVersions.DSTU2}
       fhirResource={fhirResource}
+      fhirIcons={fhirIcons}
     />
   );
 };
@@ -40,6 +43,7 @@ export const ExampleDiagnosticReportSTU3 = () => {
     <AllergyIntolerance
       fhirVersion={fhirVersions.STU3}
       fhirResource={fhirResource}
+      fhirIcons={fhirIcons}
     />
   );
 };
@@ -50,6 +54,7 @@ export const Example2DiagnosticReportSTU3 = () => {
     <AllergyIntolerance
       fhirVersion={fhirVersions.STU3}
       fhirResource={fhirResource}
+      fhirIcons={fhirIcons}
     />
   );
 };
@@ -60,6 +65,7 @@ export const Example1R4 = () => {
     <AllergyIntolerance
       fhirVersion={fhirVersions.R4}
       fhirResource={fhirResource}
+      fhirIcons={fhirIcons}
     />
   );
 };
@@ -70,6 +76,7 @@ export const Example2R4 = () => {
     <AllergyIntolerance
       fhirVersion={fhirVersions.R4}
       fhirResource={fhirResource}
+      fhirIcons={fhirIcons}
     />
   );
 };
@@ -80,11 +87,14 @@ export const Example3R4 = () => {
     <AllergyIntolerance
       fhirVersion={fhirVersions.R4}
       fhirResource={fhirResource}
+      fhirIcons={fhirIcons}
     />
   );
 };
 
 export const ExampleWithoutFhirVersionProperty = () => {
   const fhirResource = object('Resource', example2AllergyIntoleranceSTU3);
-  return <AllergyIntolerance fhirResource={fhirResource} />;
+  return (
+    <AllergyIntolerance fhirResource={fhirResource} fhirIcons={fhirIcons} />
+  );
 };

@@ -14,7 +14,6 @@ import {
   Body,
   Header,
   Badge,
-  BadgeSecondary,
   ValueSectionItem,
   ValueSection,
   Table,

@@ -7,16 +7,9 @@ import _get from 'lodash/get';
 import _has from 'lodash/has';
 import fhirVersions from '../fhirResourceVersions';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
+import Accordion from '../../containers/Accordion';
 
-import {
-  Root,
-  Header,
-  Title,
-  Badge,
-  BadgeSecondary,
-  Body,
-  Value,
-} from '../../ui';
+import { Root, Header, Badge, Body, Value } from '../../ui';
 
 const commonDTO = fhirResource => {
   const title =
@@ -101,7 +94,7 @@ const resourceDTO = (fhirVersion, fhirResource) => {
 };
 
 const DiagnosticReport = props => {
-  const { fhirResource, fhirVersion } = props;
+  const { fhirResource, fhirVersion, fhirIcons } = props;
   let fhirResourceData = {};
   try {
     fhirResourceData = resourceDTO(fhirVersion, fhirResource);
@@ -121,41 +114,58 @@ const DiagnosticReport = props => {
     performer,
     issued,
   } = fhirResourceData;
+
+  const tableData = [
+    {
+      label: 'Issued',
+      testId: 'issued',
+      data: <Date fhirData={issued} />,
+      status: issued,
+    },
+    {
+      label: 'Category',
+      testId: 'categoryCoding',
+      data:
+        categoryCoding &&
+        categoryCoding.map((coding, i) => (
+          <Coding key={`item-${i}`} fhirData={coding} />
+        )),
+      status: hasCategoryCoding,
+    },
+    {
+      label: 'Performer',
+      testId: 'performer',
+      data: <Reference fhirData={performer} />,
+      status: hasPerformer,
+    },
+    {
+      label: 'Conclusion',
+      testId: 'conclusion',
+      data: conclusion,
+      status: conclusion,
+    },
+  ];
+
   return (
     <Root name="DiagnosticReport">
-      <Header>
-        <Title data-testid="title">{title}</Title>
-        {status && <Badge data-testid="status">{status}</Badge>}
-        {effectiveDateTime && (
-          <BadgeSecondary data-testid="effectiveDateTime">
-            <Date fhirData={effectiveDateTime} />
-          </BadgeSecondary>
-        )}
-      </Header>
-      <Body>
-        {issued && (
-          <Value label="Issued" data-testid="issued">
-            <Date fhirData={issued} />
-          </Value>
-        )}
-        {hasCategoryCoding && (
-          <Value label="Category" data-testid="categoryCoding">
-            {categoryCoding.map((coding, i) => (
-              <Coding key={`item-${i}`} fhirData={coding} />
-            ))}
-          </Value>
-        )}
-        {hasPerformer && (
-          <Value label="Performer" data-testid="performer">
-            <Reference fhirData={performer} />
-          </Value>
-        )}
-        {conclusion && (
-          <Value label="Conclusion" data-testid="conclusion">
-            {conclusion}
-          </Value>
-        )}
-      </Body>
+      <Accordion
+        headerContent={
+          <Header
+            icon={fhirIcons}
+            resourceName="DiagnosticReport"
+            badges={status && <Badge data-testid="status">{status}</Badge>}
+            title={title}
+            additionalContent={
+              effectiveDateTime && (
+                <Value label="On" data-testid="effectiveDateTime">
+                  <Date fhirData={effectiveDateTime} isBlack />
+                </Value>
+              )
+            }
+          />
+        }
+        bodyContent={<Body tableData={tableData} />}
+      />
     </Root>
   );
 };

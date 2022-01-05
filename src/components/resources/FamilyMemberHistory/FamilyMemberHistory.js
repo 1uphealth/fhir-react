@@ -7,12 +7,7 @@ import Reference from '../../datatypes/Reference';
 import Annotation from '../../datatypes/Annotation';
 
 import _get from 'lodash/get';
-import {
-  Root,
-  Header,
-  Badge,
-  Body
-} from '../../ui';
+import { Root, Header, Badge, Body } from '../../ui';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 import fhirVersions from '../fhirResourceVersions';
 import Date from '../../datatypes/Date';
@@ -106,9 +101,11 @@ const FamilyMemberHistory = props => {
     {
       label: 'Relationship',
       testId: 'hasRelationship',
-      data: hasRelationship && relationship.map((item, i) => (
-        <Coding key={`relationship-item-${i}`} fhirData={item} />
-      )),
+      data:
+        hasRelationship &&
+        relationship.map((item, i) => (
+          <Coding key={`relationship-item-${i}`} fhirData={item} />
+        )),
       status: hasRelationship,
     },
     {
@@ -117,7 +114,7 @@ const FamilyMemberHistory = props => {
       data: hasNotes && <Annotation fhirData={notes} />,
       status: hasNotes,
     },
-  ]
+  ];
 
   return (
     <Root name="FamilyMemberHistory">
@@ -126,10 +123,12 @@ const FamilyMemberHistory = props => {
           <Header
             resourceName="FamilyMemberHistory"
             additionalContent={
-              date &&
+              date && (
                 <>
-                  <span className='me-2'>On</span><Date fhirData={date} />
+                  <span className="me-2">On</span>
+                  <Date fhirData={date} />
                 </>
+              )
             }
             badges={status && <Badge data-testid="status">{status}</Badge>}
             icon={headerIcon}

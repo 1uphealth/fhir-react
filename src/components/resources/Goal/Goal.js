@@ -9,7 +9,7 @@ import _has from 'lodash/has';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 import fhirVersions from '../fhirResourceVersions';
 
-import { Root, Header, Badge, Body } from '../../ui';
+import { Root, Header, Badge, Body, Value } from '../../ui';
 
 const commonDTO = fhirResource => {
   const title = _get(fhirResource, 'note[0].text', 'Goal');
@@ -150,12 +150,6 @@ const Goal = props => {
       status: description,
     },
     {
-      label: 'Description',
-      testId: 'description',
-      data: description,
-      status: description,
-    },
-    {
       label: 'Category',
       testId: 'category',
       data:
@@ -223,7 +217,13 @@ const Goal = props => {
         headerContent={
           <Header
             resourceName="Goal"
-            additionalContent={`Started ${startDate}`}
+            additionalContent={
+              startDate && (
+                <Value label="Started" data-testid="headerStartDate">
+                  <Date fhirData={startDate} isBlack />
+                </Value>
+              )
+            }
             badges={hasStatus && <Badge data-testid="status">{status}</Badge>}
             icon={headerIcon}
             title={title}

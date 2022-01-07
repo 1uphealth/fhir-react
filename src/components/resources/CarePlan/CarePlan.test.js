@@ -21,7 +21,7 @@ describe('should render component correctly', () => {
     expect(getByTestId('status').textContent).toContain('active');
     expect(getByTestId('category').textContent).toContain('Longitudinal');
     expect(getByTestId('addresses').textContent).toContain('Dog bite');
-    expect(getByTestId('activity').textContent).toContain('ADULT DIET');
+    expect(getByTestId('activity').textContent).toContain('Adult diet');
     expect(getByTestId('subject').textContent).toEqual('Patient/d47f763e7c7f');
   });
 
@@ -84,7 +84,7 @@ describe('should render component correctly', () => {
     expect(container).not.toBeNull();
 
     expect(getByTestId('addresses').textContent).toContain('pregnancy');
-    expect(getByTestId('activity').textContent).toContain('First Antenatal');
+    expect(getByTestId('activity').textContent).toContain('First antenatal');
     expect(getByTestId('intent').textContent).toEqual('plan');
     expect(getByTestId('goals').textContent).toEqual('#goal');
     expect(getByTestId('subject').textContent).toContain('Eve Everywoman');

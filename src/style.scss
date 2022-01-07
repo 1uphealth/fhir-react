@@ -86,6 +86,7 @@ $enable-negative-margins: true;
   width: auto;
   @include media-breakpoint-up(sm) {
     width: 130px;
+    min-width: 130px;
   }
 }
 

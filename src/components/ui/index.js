@@ -227,7 +227,7 @@ export const MissingValue = () => (
 
 export const ValueSectionItem = props => {
   return (
-    <div className="d-flex flex-column flex-sm-row">
+    <div className="d-flex flex-column flex-sm-row my-2">
       <div className="dataTable__value-label ps-0">
         <Label>{props.label}</Label>
       </div>

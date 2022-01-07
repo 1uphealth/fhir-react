@@ -512,7 +512,7 @@ const ExplanationOfBenefit = props => {
                       );
                       const infoStatus = _get(informationItem, infoKey);
                       const StatusComponent =
-                        infoKey == 'timingDate' ? Date : Quantity;
+                        infoKey.toString() === 'timingDate' ? Date : Quantity;
 
                       return (
                         <TableRow key={`serviceItem-${i}`}>

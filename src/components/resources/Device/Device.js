@@ -11,13 +11,12 @@ import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 import {
   Root,
   Header,
-  Title,
   Badge,
-  BadgeSecondary,
   Body,
-  Value,
   MissingValue,
+  ValueSectionItem,
 } from '../../ui';
+import Accordion from '../../containers/Accordion';
 
 const commonDTO = fhirResource => {
   const model = _get(fhirResource, 'model', 'Device');
@@ -103,8 +102,7 @@ const resourceDTO = (fhirVersion, fhirResource) => {
   }
 };
 
-const Device = props => {
-  const { fhirResource, fhirVersion } = props;
+const Device = ({ fhirResource, fhirVersion, fhirIcons }) => {
   let fhirResourceData = {};
   try {
     fhirResourceData = resourceDTO(fhirVersion, fhirResource);
@@ -130,35 +128,57 @@ const Device = props => {
   const safetyArr = hasSafety && !Array.isArray(safety) ? [safety] : safety;
   return (
     <Root name="Device">
-      <Header>
-        {model && <Title>{model}</Title>}
-        {status && <Badge data-testid="status">{status}</Badge>}
-        {hasExpiry && (
-          <BadgeSecondary data-testid="expiry">
-            expires on <Date fhirData={getExpiry} />
-          </BadgeSecondary>
-        )}
-      </Header>
-      <Body>
-        {hasTypeCoding && (
-          <Value data-testid="typeCoding" label="Type">
-            {getTypeCoding.map((coding, i) => (
-              <Coding key={`item-${i}`} fhirData={coding} />
-            ))}
-          </Value>
-        )}
-        <Value label="Unique device identifier" data-testid="uniqueId">
-          {getUdi ? getUdi : <MissingValue />}
-        </Value>
-        {udiCarrierAIDC && <Value label="AIDC barcode">{udiCarrierAIDC}</Value>}
-        {udiCarrierHRF && <Value label="HRF barcode">{udiCarrierHRF}</Value>}
-        {hasSafety &&
-          safetyArr.map((item, i) => (
-            <Value label="HRF barcode" key={`safety-${i}`}>
-              <CodeableConcept fhirData={item} />
-            </Value>
-          ))}
-      </Body>
+      <Accordion
+        headerContent={
+          <Header
+            icon={fhirIcons}
+            resourceName="Device"
+            badges={status && <Badge data-testid="status">{status}</Badge>}
+            title={model}
+            additionalContent={
+              hasExpiry && (
+                <div data-testid="expiry">
+                  <span className="text-secondary">expires on</span>{' '}
+                  <Date fhirData={getExpiry} isBlack />
+                </div>
+              )
+            }
+          />
+        }
+        bodyContent={
+          <Body>
+            {hasTypeCoding && (
+              <ValueSectionItem data-testid="typeCoding" label="Type">
+                {getTypeCoding.map((coding, i) => (
+                  <Coding key={`item-${i}`} fhirData={coding} />
+                ))}
+              </ValueSectionItem>
+            )}
+            <ValueSectionItem
+              label="Unique device identifier"
+              data-testid="uniqueId"
+            >
+              {getUdi ? getUdi : <MissingValue />}
+            </ValueSectionItem>
+            {udiCarrierAIDC && (
+              <ValueSectionItem label="AIDC barcode">
+                {udiCarrierAIDC}
+              </ValueSectionItem>
+            )}
+            {udiCarrierHRF && (
+              <ValueSectionItem label="HRF barcode">
+                {udiCarrierHRF}
+              </ValueSectionItem>
+            )}
+            {hasSafety &&
+              safetyArr.map((item, i) => (
+                <ValueSectionItem label="HRF barcode" key={`safety-${i}`}>
+                  <CodeableConcept fhirData={item} />
+                </ValueSectionItem>
+              ))}
+          </Body>
+        }
+      />
     </Root>
   );
 };

@@ -9,6 +9,7 @@ import exampleDiagnosticReportSTU3 from '../../../fixtures/stu3/resources/diagno
 import exampleDiagnosticReportR4 from '../../../fixtures/r4/resources/diagnosticReport/example1.json';
 import example2DiagnosticReportR4 from '../../../fixtures/r4/resources/diagnosticReport/example2.json';
 import example3DiagnosticReportR4 from '../../../fixtures/r4/resources/diagnosticReport/example3.json';
+import fhirIcons from '../../../fixtures/example-icons';
 
 export default { title: 'DiagnosticReport' };
 
@@ -18,6 +19,7 @@ export const DefaultVisualizationDSTU2 = () => {
     <DiagnosticReport
       fhirVersion={fhirVersions.DSTU2}
       fhirResource={fhirResource}
+      fhirIcons={fhirIcons}
     />
   );
 };
@@ -28,6 +30,7 @@ export const ExampleDiagnosticReportSTU3 = () => {
     <DiagnosticReport
       fhirVersion={fhirVersions.STU3}
       fhirResource={fhirResource}
+      fhirIcons={fhirIcons}
     />
   );
 };
@@ -38,6 +41,7 @@ export const ExampleDiagnosticReportR4 = () => {
     <DiagnosticReport
       fhirVersion={fhirVersions.R4}
       fhirResource={fhirResource}
+      fhirIcons={fhirIcons}
     />
   );
 };
@@ -48,6 +52,7 @@ export const Example2DiagnosticReportR4 = () => {
     <DiagnosticReport
       fhirVersion={fhirVersions.R4}
       fhirResource={fhirResource}
+      fhirIcons={fhirIcons}
     />
   );
 };
@@ -58,11 +63,12 @@ export const Example3DiagnosticReportR4 = () => {
     <DiagnosticReport
       fhirVersion={fhirVersions.R4}
       fhirResource={fhirResource}
+      fhirIcons={fhirIcons}
     />
   );
 };
 
 export const ExampleWithoutFhirVersionProperty = () => {
   const fhirResource = object('Resource', exampleDiagnosticReportSTU3);
-  return <DiagnosticReport fhirResource={fhirResource} />;
+  return <DiagnosticReport fhirResource={fhirResource} fhirIcons={fhirIcons} />;
 };

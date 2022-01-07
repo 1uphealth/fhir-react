@@ -5,17 +5,16 @@ import prettyBytes from 'pretty-bytes';
 
 import fhirVersions from '../fhirResourceVersions';
 import Coding from '../../datatypes/Coding';
-import DateType from '../../datatypes/Date';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
+import Accordion from '../../containers/Accordion';
+import Date from '../../datatypes/Date';
 
 import {
   Root,
   Body,
   Header,
-  Title,
   Badge,
-  BadgeSecondary,
-  Value,
+  ValueSectionItem,
   ValueSection,
   Table,
   TableRow,
@@ -202,7 +201,7 @@ const Content = props => {
     <ContentItem key={i} item={item} />
   ));
   return (
-    <ValueSection label="Content">
+    <ValueSection label="Content" marginTop>
       <Table>
         <thead>
           <TableRow>
@@ -211,14 +210,14 @@ const Content = props => {
             <TableHeader>Resource</TableHeader>
           </TableRow>
         </thead>
-        <tbody>{allContent}</tbody>
+        <tbody className="border-top-0">{allContent}</tbody>
       </Table>
     </ValueSection>
   );
 };
 
 const DocumentReference = props => {
-  const { fhirVersion, fhirResource } = props;
+  const { fhirVersion, fhirResource, fhirIcons } = props;
   let fhirResourceData = {};
   try {
     fhirResourceData = resourceDTO(fhirVersion, fhirResource);
@@ -241,67 +240,104 @@ const DocumentReference = props => {
   const hasContent = content.length > 0;
   const hasPeriod = context.periodStart || context.periodEnd;
 
+  const tableData = [
+    {
+      label: 'Document type',
+      testId: 'type',
+      data: <Coding fhirData={typeCoding} />,
+      status: typeCoding,
+    },
+    {
+      label: 'Document categorization',
+      testId: 'class',
+      data: <Coding fhirData={classCoding} />,
+      status: classCoding,
+    },
+    {
+      label: 'Security Label',
+      testId: 'securityLabel',
+      data: <Coding fhirData={securityLabelCoding} />,
+      status: securityLabelCoding,
+    },
+    {
+      label: 'Created At',
+      testId: 'createdAt',
+      data: <Date fhirData={createdAt} isBlack />,
+      status: createdAt,
+    },
+  ];
+
+  const contextTable = [
+    {
+      label: 'Event',
+      testId: 'context.event',
+      data: <Coding fhirData={context.eventCoding} />,
+      status: context.eventCoding,
+    },
+    {
+      label: 'Facility',
+      testId: 'context.facilityType',
+      data: <Coding fhirData={context.facilityTypeCoding} />,
+      status: context.facilityTypeCoding,
+    },
+    {
+      label: 'Practice Setting',
+      testId: 'context.practiceSetting',
+      data: <Coding fhirData={context.practiceSettingCoding} />,
+      status: context.practiceSettingCoding,
+    },
+    {
+      label: 'Period',
+      testId: 'context.period',
+      data: (
+        <>
+          {context.periodStart && (
+            <Date fhirData={context.periodStart} isBlack />
+          )}
+          {' - '}
+          {context.periodEnd && <Date fhirData={context.periodEnd} isBlack />}
+        </>
+      ),
+      status: hasPeriod,
+    },
+  ];
+
+  const getValueSectionItem = (item, index) =>
+    item.status && (
+      <ValueSectionItem
+        key={`context-item-${index}`}
+        label={item.label}
+        data-testid={item.testId}
+      >
+        {item.data}
+      </ValueSectionItem>
+    );
+
   return (
     <Root name="DocumentReference">
-      <Header>
-        <Title data-testid="title">{description}</Title>
-        {status && <Badge data-testid="status">{status}</Badge>}
-        {docStatus && (
-          <BadgeSecondary data-testid="docStatus">{docStatus}</BadgeSecondary>
-        )}
-      </Header>
-      <Body>
-        {typeCoding && (
-          <Value label="Document type" data-testid="type">
-            <Coding fhirData={typeCoding} />
-          </Value>
-        )}
-        {classCoding && (
-          <Value label="Document categorization" data-testid="class">
-            <Coding fhirData={classCoding} />
-          </Value>
-        )}
-        {securityLabelCoding && (
-          <Value label="Security Label" data-testid="securityLabel">
-            <Coding fhirData={securityLabelCoding} />
-          </Value>
-        )}
-        {createdAt && (
-          <Value label="Created At" data-testid="createdAt">
-            <DateType fhirData={createdAt} />
-          </Value>
-        )}
-        <ValueSection label="Context">
-          {context.eventCoding && (
-            <Value label="Event" data-testid="context.event">
-              <Coding fhirData={context.eventCoding} />
-            </Value>
-          )}
-          {context.facilityTypeCoding && (
-            <Value label="Facility" data-testid="context.facilityType">
-              <Coding fhirData={context.facilityTypeCoding} />
-            </Value>
-          )}
-          {context.practiceSettingCoding && (
-            <Value
-              label="Practice Setting"
-              data-testid="context.practiceSetting"
-            >
-              <Coding fhirData={context.practiceSettingCoding} />
-            </Value>
-          )}
-          {hasPeriod && (
-            <Value label="Period" data-testid="context.period">
-              {context.periodStart && (
-                <DateType fhirData={context.periodStart} />
+      <Accordion
+        headerContent={
+          <Header
+            icon={fhirIcons}
+            resourceName="DocumentReference"
+            title={description}
+            badges={status && <Badge data-testid="status">{status}</Badge>}
+            additionalBadge={
+              docStatus && <Badge data-testid="docStatus">{docStatus}</Badge>
+            }
+          />
+        }
+        bodyContent={
+          <Body tableData={tableData}>
+            <ValueSection label="Context" marginTop>
+              {contextTable.map((item, index) =>
+                getValueSectionItem(item, index),
               )}
-              {' - '}
-              {context.periodEnd && <DateType fhirData={context.periodEnd} />}
-            </Value>
-          )}
-        </ValueSection>
-        {hasContent && <Content content={content} />}
-      </Body>
+            </ValueSection>
+            {hasContent && <Content content={content} />}
+          </Body>
+        }
+      />
     </Root>
   );
 };

@@ -1,5 +1,5 @@
 import React from 'react';
-import { getAllByTestId, render } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import MedicationStatement from './MedicationStatement';
 import fhirVersions from '../fhirResourceVersions';
 import example1MedicationStatement from '../../../fixtures/dstu2/resources/medicationStatement/example1.json';

@@ -3,20 +3,13 @@ import PropTypes from 'prop-types';
 import Reference from '../../datatypes/Reference';
 import Coding from '../../datatypes/Coding';
 import Date from '../../datatypes/Date';
+import Accordion from '../../containers/Accordion/Accordion';
 import _get from 'lodash/get';
 import _has from 'lodash/has';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 import fhirVersions from '../fhirResourceVersions';
 
-import {
-  Root,
-  Header,
-  Title,
-  Badge,
-  BadgeSecondary,
-  Body,
-  Value,
-} from '../../ui';
+import { Root, Header, Badge, Body, Value } from '../../ui';
 
 const commonDTO = fhirResource => {
   const title = _get(fhirResource, 'note[0].text', 'Goal');
@@ -107,7 +100,9 @@ const resourceDTO = (fhirVersion, fhirResource) => {
 };
 
 const Goal = props => {
-  const { fhirResource, fhirVersion } = props;
+  const { fhirResource, fhirVersion, fhirIcons } = props;
+  const headerIcon = fhirIcons && fhirIcons['Goal'];
+
   let fhirResourceData = {};
   try {
     fhirResourceData = resourceDTO(fhirVersion, fhirResource);
@@ -135,83 +130,107 @@ const Goal = props => {
     statusDate,
   } = fhirResourceData;
 
+  const tableData = [
+    {
+      label: 'Subject',
+      testId: 'subject',
+      data: subject && <Reference fhirData={subject} />,
+      status: subject,
+    },
+    {
+      label: 'Subject',
+      testId: 'statusDate',
+      data: statusDate && <Date fhirData={statusDate} />,
+      status: statusDate,
+    },
+    {
+      label: 'Description',
+      testId: 'description',
+      data: description,
+      status: description,
+    },
+    {
+      label: 'Category',
+      testId: 'category',
+      data:
+        hasCategory &&
+        category.map((item, i) => {
+          const coding = _get(item, 'coding', []);
+          if (!Array.isArray(coding)) {
+            return null;
+          }
+          return coding.map((codingItem, j) => (
+            <Coding key={`coding-item-${j}`} fhirData={codingItem} />
+          ));
+        }),
+      status: hasCategory,
+    },
+    {
+      label: 'Universal Device Identifier',
+      testId: 'udi',
+      data: udi,
+      status: hasUdi,
+    },
+    {
+      label: 'Addresses',
+      testId: 'addresses',
+      data:
+        hasAddresses &&
+        addresses.map((address, i) => (
+          <Reference key={`address-item-${i}`} fhirData={address} />
+        )),
+      status: hasAddresses,
+    },
+    {
+      label: 'Priority',
+      testId: 'priority',
+      data: priority && <Coding fhirData={priority} />,
+      status: priority,
+    },
+    {
+      label: 'Author',
+      testId: 'author',
+      data: author && <Reference fhirData={author} />,
+      status: author,
+    },
+    {
+      label: 'Outcome',
+      testId: 'outcomeReference',
+      data:
+        outcomeReference &&
+        outcomeReference.map((item, i) => (
+          <Reference key={`outcome-reference-item-${i}`} fhirData={item} />
+        )),
+      status: outcomeReference,
+    },
+    {
+      label: 'Achievement Status',
+      testId: 'achievementStatus',
+      data: achievementStatus && <Coding fhirData={achievementStatus} />,
+      status: achievementStatus,
+    },
+  ];
+
   return (
     <Root name="Goal">
-      <Header>
-        <Title data-testid="title">{title}</Title>
-        {hasStatus && <Badge data-testid="status">{status}</Badge>}
-        {startDate && (
-          <BadgeSecondary data-testid="statusSecondary">
-            starting on {startDate}
-          </BadgeSecondary>
-        )}
-      </Header>
-      <Body>
-        {subject && (
-          <Value label="Subject" data-testid="subject">
-            <Reference fhirData={subject} />
-          </Value>
-        )}
-        {statusDate && (
-          <Value label="Status Date" data-testid="statusDate">
-            <Date fhirData={statusDate} />
-          </Value>
-        )}
-        {description && (
-          <Value label="Description" data-testid="description">
-            {description}
-          </Value>
-        )}
-        {hasCategory && (
-          <Value label="Category" data-testid="category">
-            {category.map((item, i) => {
-              const coding = _get(item, 'coding', []);
-              if (!Array.isArray(coding)) {
-                return null;
-              }
-              return coding.map((codingItem, j) => (
-                <div key={`item-${j}`}>
-                  <Coding fhirData={codingItem} />
-                </div>
-              ));
-            })}
-          </Value>
-        )}
-        {hasUdi && <Value label="Universal Device Identifier"> {udi}</Value>}
-        {hasAddresses && (
-          <Value label="Addresses" data-testid="addresses">
-            {addresses.map((address, i) => {
-              return (
-                <div key={`item-${i}`}>
-                  <Reference fhirData={address} />
-                </div>
-              );
-            })}
-          </Value>
-        )}
-        {priority && (
-          <Value label="Priority" data-testid="priority">
-            <Coding fhirData={priority} />
-          </Value>
-        )}
-        {author && (
-          <Value label="Author" data-testid="author">
-            <Reference fhirData={author} />
-          </Value>
-        )}
-        {outcomeReference && (
-          <Value label="Outcome" data-testid="outcomeReference">
-            {outcomeReference.map((item, i) => (
-              <Reference key={`item-${i}`} fhirData={item} />
-            ))}
-          </Value>
-        )}
-        {achievementStatus && (
-          <Value label="Achievement Status" data-testid="achievementStatus">
-            <Coding fhirData={achievementStatus} />
-          </Value>
-        )}
-      </Body>
+      <Accordion
+        headerContent={
+          <Header
+            resourceName="Goal"
+            additionalContent={
+              startDate && (
+                <Value label="Started" data-testid="headerStartDate">
+                  <Date fhirData={startDate} isBlack />
+                </Value>
+              )
+            }
+            badges={hasStatus && <Badge data-testid="status">{status}</Badge>}
+            icon={headerIcon}
+            title={title}
+          />
+        }
+        bodyContent={<Body tableData={tableData} />}
+      />
     </Root>
   );
 };

@@ -6,7 +6,8 @@ import Accordion from '../../containers/Accordion/Accordion';
 import { Body, Header } from '../../ui';
 
 const Binary = props => {
-  const { fhirResource } = props;
+  const { fhirResource, fhirIcons } = props;
+  const headerIcon = fhirIcons && fhirIcons['Binary'];
 
   const loadBinaryFile = () => {
     switch (fhirResource.contentType) {
@@ -33,6 +34,7 @@ const Binary = props => {
           <Header
             resourceName="Binary"
             title={`Binary file: ${fhirResource.contentType}`}
+            icon={headerIcon}
           />
         }
         bodyContent={<Body>{loadBinaryFile()}</Body>}

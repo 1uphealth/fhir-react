@@ -8,6 +8,7 @@ import dstu2ExampleJpeg from '../../../fixtures/dstu2/resources/binary/example-j
 import stu3ExamplePdf from '../../../fixtures/stu3/resources/binary/example-pdf.json';
 import stu3ExampleJpeg from '../../../fixtures/stu3/resources/binary/example-jpeg.json';
 import stu3ExampleJson from '../../../fixtures/stu3/resources/binary/example-json.json';
+import fhirIcons from '../../../fixtures/example-icons';
 
 export default {
   title: 'Binary',
@@ -15,25 +16,25 @@ export default {
 
 export const PdfDSTU2 = () => {
   const fhirResource = object('Resource', dstu2ExamplePdf);
-  return <Binary fhirResource={fhirResource} />;
+  return <Binary fhirResource={fhirResource} fhirIcons={fhirIcons} />;
 };
 
 export const JpegDSTU2 = () => {
   const fhirResource = object('Resource', dstu2ExampleJpeg);
-  return <Binary fhirResource={fhirResource} />;
+  return <Binary fhirResource={fhirResource} fhirIcons={fhirIcons} />;
 };
 
 export const PdfSTU3 = () => {
   const fhirResource = object('Resource', stu3ExamplePdf);
-  return <Binary fhirResource={fhirResource} />;
+  return <Binary fhirResource={fhirResource} fhirIcons={fhirIcons} />;
 };
 
 export const JpegSTU3 = () => {
   const fhirResource = object('Resource', stu3ExampleJpeg);
-  return <Binary fhirResource={fhirResource} />;
+  return <Binary fhirResource={fhirResource} fhirIcons={fhirIcons} />;
 };
 
 export const JsonSTU3 = () => {
   const fhirResource = object('Resource', stu3ExampleJson);
-  return <Binary fhirResource={fhirResource} />;
+  return <Binary fhirResource={fhirResource} fhirIcons={fhirIcons} />;
 };

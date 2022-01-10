@@ -1,7 +1,6 @@
 export const formatDate = (date, locale) => {
   const rawDate = new Date(date);
-  const usDate = rawDate.toLocaleDateString(locale, whichOptions(date));
-  return usDate;
+  return rawDate.toLocaleDateString(locale, whichOptions(date));
 };
 
 const whichOptions = date => {
@@ -9,13 +8,16 @@ const whichOptions = date => {
   const YEAR_MONTH_FORMAT = 'YYYY-MM';
 
   if (date.length === YEAR_FORMAT.length) {
-    return { year: 'numeric' };
+    return { year: 'numeric', timeZone: 'UTC' };
   }
   if (date.length <= YEAR_MONTH_FORMAT.length) {
     return {
       year: 'numeric',
       month: 'long',
+      timeZone: 'UTC',
     };
   }
-  return;
+  return {
+    timeZone: 'UTC',
+  };
 };

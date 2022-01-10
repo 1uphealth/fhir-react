@@ -72,7 +72,6 @@ const resourceDTO = (fhirVersion, fhirResource) => {
 
 const FamilyMemberHistory = props => {
   const { fhirResource, fhirVersion, fhirIcons } = props;
-  const headerIcon = fhirIcons && fhirIcons['FamilyMemberHistory'];
   let fhirResourceData = {};
   try {
     fhirResourceData = resourceDTO(fhirVersion, fhirResource);
@@ -131,7 +130,7 @@ const FamilyMemberHistory = props => {
               )
             }
             badges={status && <Badge data-testid="status">{status}</Badge>}
-            icon={headerIcon}
+            icon={fhirIcons}
             title={title}
           />
         }

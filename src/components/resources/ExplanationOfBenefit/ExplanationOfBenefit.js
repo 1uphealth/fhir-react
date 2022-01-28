@@ -14,6 +14,7 @@ import {
 import CareTeam from './CareTeam';
 import CodeableConcept from '../../datatypes/CodeableConcept';
 import Coding from '../../datatypes/Coding';
+import Quantity from '../../datatypes/Quantity';
 import Date from '../../datatypes/Date';
 import Diagnosis from './Diagnosis';
 import Identifier from '../../datatypes/Identifier/Identifier';
@@ -80,9 +81,10 @@ const stu3DTO = fhirResource => {
     services.map(serviceItem => {
       const coding = _get(serviceItem, 'service.coding.0');
       const servicedDate = _get(serviceItem, 'servicedDate');
+      const servicedPeriod = _get(serviceItem, 'servicedPeriod');
       const quantity = _get(serviceItem, 'quantity.value');
       const itemCost = _get(serviceItem, 'net');
-      return { coding, servicedDate, quantity, itemCost };
+      return { coding, servicedDate, servicedPeriod, quantity, itemCost };
     });
 
   return {
@@ -126,9 +128,10 @@ const r4DTO = fhirResource => {
     services.map(serviceItem => {
       const coding = _get(serviceItem, 'productOrService.coding.0');
       const servicedDate = _get(serviceItem, 'servicedDate');
+      const servicedPeriod = _get(serviceItem, 'servicedPeriod');
       const quantity = _get(serviceItem, 'quantity.value');
       const itemCost = _get(serviceItem, 'net');
-      return { coding, servicedDate, quantity, itemCost };
+      return { coding, servicedDate, servicedPeriod, quantity, itemCost };
     });
 
   return {
@@ -458,11 +461,12 @@ const ExplanationOfBenefit = ({
                             <Coding fhirData={serviceItem.coding} />
                           </TableCell>
                           <TableCell data-testid="explanation.servicedDate">
-                            {serviceItem.servicedDate ? (
+                            {(serviceItem.servicedDate && (
                               <Date fhirData={serviceItem.servicedDate} />
-                            ) : (
-                              <MissingValue />
-                            )}
+                            )) ||
+                              (serviceItem.servicedPeriod && (
+                                <Period fhirData={serviceItem.servicedPeriod} />
+                              )) || <MissingValue />}
                           </TableCell>
                           <TableCell data-testid="explanation.quantity">
                             {Number.isFinite(Number(serviceItem.quantity)) ? (
@@ -506,7 +510,14 @@ const ExplanationOfBenefit = ({
                         informationItem,
                         'category.coding.0',
                       );
-                      const infoStatus = _get(informationItem, 'code.coding.0');
+                      const infoKey = Object.keys(informationItem).filter(
+                        key => {
+                          return key !== 'sequence' && key !== 'category';
+                        },
+                      );
+                      const infoStatus = _get(informationItem, infoKey);
+                      const StatusComponent =
+                        infoKey.toString() === 'timingDate' ? Date : Quantity;
 
                       return (
                         <TableRow key={`serviceItem-${i}`}>
@@ -519,7 +530,7 @@ const ExplanationOfBenefit = ({
                           </TableCell>
                           <TableCell>
                             {infoStatus ? (
-                              <Coding fhirData={infoStatus} />
+                              <StatusComponent fhirData={infoStatus} />
                             ) : (
                               <MissingValue />
                             )}

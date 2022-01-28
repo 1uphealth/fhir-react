@@ -12,6 +12,9 @@ import example2R4 from '../../../fixtures/r4/resources/explanationOfBenefit/eobF
 import exampleC4BB from '../../../fixtures/r4/resources/explanationOfBenefit/c4bbExample.json';
 import exampleC4BBExtendedDiagnosis from '../../../fixtures/r4/resources/explanationOfBenefit/c4bbExtendedDiagnosis.json';
 
+import fhirIcons from '../../../fixtures/example-icons';
+import ExplanationOfBenefitIcon from '../../../assets/containers/ExplanationOfBenefit/explanation-of-benefit.svg';
+
 export default {
   title: 'ExplanationOfBenefit',
 };
@@ -22,6 +25,7 @@ export const DefaultVisualizationDSTU2 = () => {
     <ExplanationOfBenefit
       fhirVersion={fhirVersions.DSTU2}
       fhirResource={fhirResource}
+      fhirIcons={require('../../../assets/containers/ExplanationOfBenefit/explanation-of-benefit.svg')}
     />
   );
 };
@@ -32,6 +36,7 @@ export const ExampleSTU3 = () => {
     <ExplanationOfBenefit
       fhirVersion={fhirVersions.STU3}
       fhirResource={fhirResource}
+      fhirIcons={ExplanationOfBenefitIcon}
     />
   );
 };
@@ -41,6 +46,7 @@ export const Example2OfSTU3 = () => {
     <ExplanationOfBenefit
       fhirVersion={fhirVersions.STU3}
       fhirResource={fhirResource}
+      fhirIcons={fhirIcons}
     />
   );
 };
@@ -50,6 +56,7 @@ export const PersonPrimaryCoverageR4 = () => {
     <ExplanationOfBenefit
       fhirVersion={fhirVersions.R4}
       fhirResource={fhirResource}
+      fhirIcons={false}
     />
   );
 };
@@ -59,6 +66,7 @@ export const EOBForClaimWithErrorsR4 = () => {
     <ExplanationOfBenefit
       fhirVersion={fhirVersions.R4}
       fhirResource={fhirResource}
+      fhirIcons={'random text'}
     />
   );
 };

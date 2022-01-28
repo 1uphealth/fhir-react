@@ -11,6 +11,7 @@ import r4Example1 from '../../../fixtures/r4/resources/immunization/example1.jso
 import r4Example2 from '../../../fixtures/r4/resources/immunization/example2.json';
 import r4Example3 from '../../../fixtures/r4/resources/immunization/example3.json';
 import fhirIcons from '../../../fixtures/example-icons';
+import ImmunizationIcon from '../../../assets/containers/Immunization/immunization.svg';
 
 export default {
   title: 'Immunization',
@@ -22,7 +23,7 @@ export const DefaultVisualizationDSTU2 = () => {
     <Immunization
       fhirResource={fhirResource}
       fhirVersion={fhirVersions.DSTU2}
-      fhirIcons={fhirIcons}
+      fhirIcons={require('../../../assets/containers/Immunization/immunization.svg')}
     />
   );
 };
@@ -33,7 +34,7 @@ export const Example2OfDSTU2 = () => {
     <Immunization
       fhirResource={fhirResource}
       fhirVersion={fhirVersions.DSTU2}
-      fhirIcons={fhirIcons}
+      fhirIcons={ImmunizationIcon}
     />
   );
 };
@@ -55,7 +56,7 @@ export const Example1R4 = () => {
     <Immunization
       fhirResource={fhirResource}
       fhirVersion={fhirVersions.R4}
-      fhirIcons={fhirIcons}
+      fhirIcons={false}
     />
   );
 };
@@ -65,17 +66,13 @@ export const Example2R4 = () => {
     <Immunization
       fhirResource={fhirResource}
       fhirVersion={fhirVersions.R4}
-      fhirIcons={fhirIcons}
+      fhirIcons={'random text'}
     />
   );
 };
 export const Example3R4 = () => {
   const fhirResource = object('Resource', r4Example3);
   return (
-    <Immunization
-      fhirResource={fhirResource}
-      fhirVersion={fhirVersions.R4}
-      fhirIcons={fhirIcons}
-    />
+    <Immunization fhirResource={fhirResource} fhirVersion={fhirVersions.R4} />
   );
 };

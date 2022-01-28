@@ -2,6 +2,7 @@ import { Root, Title } from '../../ui';
 import HeaderIcon from '../../datatypes/HeaderIcon';
 import React from 'react';
 import PropTypes from 'prop-types';
+import { isUrl } from '../../../utils/isUrl';
 
 const ResourceCategory = props => {
   const { title, itemsCount, fhirIcons } = props;
@@ -12,7 +13,10 @@ const ResourceCategory = props => {
   const getItemsCountLabel = () =>
     `${parsedItemsCount} ${parsedItemsCount === 1 ? 'item' : 'items'}`;
 
-  const headerIcon = fhirIcons && fhirIcons['ResourceCategory'];
+  const headerIcon = isUrl(fhirIcons)
+    ? fhirIcons
+    : fhirIcons && fhirIcons['ResourceCategory'];
+
   const parsedItemsCount = parseNumber(itemsCount);
 
   return (

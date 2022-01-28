@@ -12,32 +12,39 @@ import example2PatientSTU3 from '../../../fixtures/stu3/resources/patient/exampl
 import example1PatientR4 from '../../../fixtures/r4/resources/patient/example1.json';
 import example2PatientR4 from '../../../fixtures/r4/resources/patient/example2.json';
 import example3PatientR4 from '../../../fixtures/r4/resources/patient/example3.json';
+import PatientIcon from '../../../assets/containers/Patient/patient.svg';
+import fhirIcons from '../../../fixtures/example-icons';
 
 export default { title: 'Patient' };
 
 export const DefaultVisualizationDSTU2 = () => {
   const fhirResource = object('Resource', examplePatient);
-  return <Patient fhirResource={fhirResource} />;
+  return (
+    <Patient
+      fhirResource={fhirResource}
+      fhirIcons={require('../../../assets/containers/Patient/patient.svg')}
+    />
+  );
 };
 
 export const Example2OfDSTU2 = () => {
   const fhirResource = object('Resource', example2PatientDSTU2);
-  return <Patient fhirResource={fhirResource} />;
+  return <Patient fhirResource={fhirResource} fhirIcons={PatientIcon} />;
 };
 
 export const ExampleSTU3 = () => {
   const fhirResource = object('Resource', examplePatientSTU3);
-  return <Patient fhirResource={fhirResource} />;
+  return <Patient fhirResource={fhirResource} fhirIcons={fhirIcons} />;
 };
 
 export const Example2STU3 = () => {
   const fhirResource = object('Resource', example2PatientSTU3);
-  return <Patient fhirResource={fhirResource} />;
+  return <Patient fhirResource={fhirResource} fhirIcons={false} />;
 };
 
 export const Example1R4 = () => {
   const fhirResource = object('Resource', example1PatientR4);
-  return <Patient fhirResource={fhirResource} />;
+  return <Patient fhirResource={fhirResource} fhirIcons={'random text'} />;
 };
 
 export const Example2R4 = () => {

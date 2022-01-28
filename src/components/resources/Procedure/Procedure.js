@@ -37,7 +37,6 @@ const Procedure = props => {
   const note = _get(fhirResource, 'note', []);
   const outcome = _get(fhirResource, 'outcome');
 
-  const headerIcon = fhirIcons && fhirIcons[_get(fhirResource, 'resourceType')];
   const tableData = [
     {
       label: 'Identification',
@@ -121,7 +120,7 @@ const Procedure = props => {
               </>
             }
             badges={status && <Badge data-testid="status">{status}</Badge>}
-            icon={headerIcon}
+            icon={fhirIcons}
             title={display}
           />
         }

@@ -125,7 +125,6 @@ const Immunization = props => {
     note,
   } = resourceDTO(fhirVersion, fhirResource);
 
-  const headerIcon = fhirIcons && fhirIcons[_get(fhirResource, 'resourceType')];
   const tableData = [
     {
       label: 'Manufacturer Text',
@@ -237,7 +236,7 @@ const Immunization = props => {
               )
             }
             badges={status && <Badge data-testid="status">{status}</Badge>}
-            icon={headerIcon}
+            icon={fhirIcons}
             title={title}
           />
         }

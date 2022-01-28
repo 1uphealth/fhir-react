@@ -11,8 +11,80 @@ import example3AppointmentSTU3 from '../../../fixtures/stu3/resources/appointmen
 import example1AppointmentR4 from '../../../fixtures/r4/resources/appointment/example1.json';
 import example2AppointmentR4 from '../../../fixtures/r4/resources/appointment/example2.json';
 import example3AppointmentR4 from '../../../fixtures/r4/resources/appointment/example3.json';
+import fhirIcons from '../../../fixtures/example-icons';
 
 describe('should render component correctly', () => {
+  it('component without a fhirIcons props should render a default icon', () => {
+    const defaultProps = {
+      fhirVersion: fhirVersions.DSTU2,
+      fhirResource: exampleAppointmentDSTU2,
+    };
+
+    const { getByAltText } = render(<Appointment {...defaultProps} />);
+    const headerIcon = getByAltText('appointment');
+
+    expect(headerIcon.getAttribute('src')).toContain('IMAGE_MOCK');
+  });
+
+  it('component with a false as a fhirIcons props should render a placeholder', () => {
+    const defaultProps = {
+      fhirVersion: fhirVersions.DSTU2,
+      fhirResource: exampleAppointmentDSTU2,
+      fhirIcons: false,
+    };
+
+    const { getByTestId } = render(<Appointment {...defaultProps} />);
+    const headerIcon = getByTestId('placeholder');
+
+    expect(headerIcon).toBeTruthy();
+  });
+
+  it('component with the img as a fhirIcons props should render an img', () => {
+    const defaultProps = {
+      fhirVersion: fhirVersions.DSTU2,
+      fhirResource: exampleAppointmentDSTU2,
+      fhirIcons: (
+        <img
+          src={require('../assets/containers/Appointment/appointment.svg')}
+          alt="appointment"
+        />
+      ),
+    };
+
+    const { getByAltText } = render(<Appointment {...defaultProps} />);
+    const headerIcon = getByAltText('appointment');
+
+    expect(headerIcon.getAttribute('src')).toContain('IMAGE_MOCK');
+  });
+
+  it('component with the resources object as a fhirIcons props should render an img', () => {
+    const defaultProps = {
+      fhirVersion: fhirVersions.DSTU2,
+      fhirResource: exampleAppointmentDSTU2,
+      fhirIcons: fhirIcons,
+    };
+
+    const { getByAltText } = render(<Appointment {...defaultProps} />);
+    const headerIcon = getByAltText('appointment');
+
+    expect(headerIcon.getAttribute('src')).toContain('IMAGE_MOCK');
+  });
+
+  it('component with the url as a fhirIcons props should render an img', () => {
+    const avatarSrc =
+      'https://www.gravatar.com/avatar/?s=50&r=any&default=identicon&forcedefault=1';
+    const defaultProps = {
+      fhirVersion: fhirVersions.DSTU2,
+      fhirResource: exampleAppointmentDSTU2,
+      fhirIcons: avatarSrc,
+    };
+
+    const { getByAltText } = render(<Appointment {...defaultProps} />);
+    const headerIcon = getByAltText('header icon');
+
+    expect(headerIcon.getAttribute('src')).toContain(avatarSrc);
+  });
+
   it('should render with DSTU2 source data', () => {
     const defaultProps = {
       fhirResource: exampleAppointmentDSTU2,

@@ -228,8 +228,12 @@ const resourceDTO = (fhirVersion, fhirResource, withCarinBBProfile) => {
   }
 };
 
-const ExplanationOfBenefit = props => {
-  const { fhirResource, fhirVersion, withCarinBBProfile = false } = props;
+const ExplanationOfBenefit = ({
+  fhirResource,
+  fhirVersion,
+  withCarinBBProfile = false,
+  fhirIcons,
+}) => {
   let fhirResourceData = {};
   try {
     fhirResourceData = resourceDTO(
@@ -414,6 +418,7 @@ const ExplanationOfBenefit = props => {
                 </Value>
               )
             }
+            icon={fhirIcons}
           />
         }
         bodyContent={

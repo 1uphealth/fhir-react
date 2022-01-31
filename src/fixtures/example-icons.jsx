@@ -1,6 +1,13 @@
 import React from 'react';
 
 export default {
+  Binary: (
+    <img
+      className="header-icon__image"
+      src={require('../assets/containers/Binary/binary.svg')}
+      alt="binary"
+    />
+  ),
   Condition: (
     <img
       className="header-icon__image"

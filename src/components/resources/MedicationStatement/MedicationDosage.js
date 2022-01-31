@@ -17,31 +17,29 @@ const MedicationDosage = props => {
 
   return (
     <ValueSection label="Dosage" key={key}>
-      <div className="row">
-        <ValueSectionItem label="Instructions" data-testid="dosageInstruction">
-          {instructions}
+      <ValueSectionItem label="Instructions" data-testid="dosageInstruction">
+        {instructions}
+      </ValueSectionItem>
+      {additionalInstructionText && (
+        <ValueSectionItem
+          label="Additional instruction"
+          data-testid="additionalInstruction"
+        >
+          {additionalInstructionText}
         </ValueSectionItem>
-        {additionalInstructionText && (
-          <ValueSectionItem
-            label="Additional instruction"
-            data-testid="additionalInstruction"
-          >
-            {additionalInstructionText}
-          </ValueSectionItem>
-        )}
-        {hasRoute && (
-          <ValueSectionItem label="Route" data-testid="route">
-            {route}
-          </ValueSectionItem>
-        )}
-        {hasNote && (
-          <ValueSectionItem label="Notes" data-testid="hasNote">
-            {note.map((item, i) => (
-              <div key={`note-${i}`}>{item.text}</div>
-            ))}
-          </ValueSectionItem>
-        )}
-      </div>
+      )}
+      {hasRoute && (
+        <ValueSectionItem label="Route" data-testid="route">
+          {route}
+        </ValueSectionItem>
+      )}
+      {hasNote && (
+        <ValueSectionItem label="Notes" data-testid="hasNote">
+          {note.map((item, i) => (
+            <div key={`note-${i}`}>{item.text}</div>
+          ))}
+        </ValueSectionItem>
+      )}
     </ValueSection>
   );
 };

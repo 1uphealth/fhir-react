@@ -119,7 +119,7 @@ const DiagnosticReport = props => {
     {
       label: 'Issued',
       testId: 'issued',
-      data: <Date fhirData={issued} />,
+      data: <Date fhirData={issued} isBlack />,
       status: issued,
     },
     {

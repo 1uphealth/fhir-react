@@ -100,9 +100,7 @@ describe('should render Goal component properly', () => {
 
     expect(getByTestId('status').textContent).toEqual('completed');
 
-    expect(getByTestId('statusSecondary').textContent).toEqual(
-      'starting on 2015-04-05',
-    );
+    expect(getByTestId('headerStartDate').textContent).toEqual('4/5/2015');
 
     expect(getByTestId('subject').textContent).toContain(
       'Peter James Chalmers',

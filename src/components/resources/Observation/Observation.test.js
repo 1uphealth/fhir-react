@@ -42,7 +42,7 @@ describe('should render component correctly', () => {
       fhirResource: exampleObservationIssued,
       fhirIcons: (
         <img
-          src={require('../assets/containers/ExplanationOfBenefit/explanation-of-benefit.svg.svg')}
+          src={require('../assets/containers/ExplanationOfBenefit/explanation-of-benefit.svg')}
           alt="observation"
         />
       ),

@@ -272,13 +272,18 @@ describe('should render ExplanationOfBenefit component properly', () => {
       'Condition/88bd5ac6-175b-5906-a4ee-6eedd667b0cc',
     );
     expect(getByTestId('diagnosisType').textContent).toContain('principal');
-    expect(getByTestId('supportingInfo.category').textContent).toContain(
+    expect(getByTestId('supportingInfo.0.category').textContent).toContain(
       'clmrecvddate',
     );
-    expect(getByTestId('supportingInfo.timingDate').textContent).toEqual(
+    expect(getByTestId('supportingInfo.0.timingDate').textContent).toEqual(
       '1/5/2017',
     );
-
+    expect(getByTestId('supportingInfo.1.category').textContent).toContain(
+      'dayssupply',
+    );
+    expect(getByTestId('supportingInfo.1.valueQuantity').textContent).toContain(
+      '30',
+    );
     // checking if text content of each header cell is equal to mocked data
     const headerCells = getAllByRole('columnheader')
       .slice(0, 4)

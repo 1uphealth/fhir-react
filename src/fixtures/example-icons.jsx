@@ -26,7 +26,7 @@ export default {
     <img
       className="header-icon__image"
       src={require('../assets/containers/Practitioner/practitioner.svg')}
-      alt="doctor avatar"
+      alt="practitioner"
     />
   ),
   AllergyIntolerance: (
@@ -195,6 +195,13 @@ export default {
       className="header-icon__image"
       src={require('../assets/containers/ResourceCategory/resource-placeholder.svg')}
       alt="header icon"
+    />
+  ),
+  Patient: (
+    <img
+      className="header-icon__image"
+      src={require('../assets/containers/Patient/patient.svg')}
+      alt="patient"
     />
   ),
 };

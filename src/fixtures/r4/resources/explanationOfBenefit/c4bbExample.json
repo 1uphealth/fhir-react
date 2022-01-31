@@ -148,13 +148,29 @@
       "category": {
         "coding": [
           {
+            "code": "clmrecvddate",
             "system": "http://hl7.org/fhir/us/carin-bb/CodeSystem/C4BBSupportingInfoType",
-            "code": "clmrecvddate"
+            "display": "Claim Received Date"
           }
         ]
       },
       "timingDate": "2017-01-05"
-    }
+    },
+    {
+      "sequence": 2,
+      "category": {
+          "coding": [
+              {
+                  "code": "dayssupply",
+                  "system": "http://hl7.org/fhir/us/carin-bb/CodeSystem/C4BBSupportingInfoType",
+                  "display": "Days Supply"
+              }
+          ]
+      },
+      "valueQuantity": {
+          "value": 30
+      }
+  }
   ],
   "diagnosis": [
     {

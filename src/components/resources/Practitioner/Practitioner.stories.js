@@ -11,6 +11,8 @@ import stu3Example1 from '../../../fixtures/stu3/resources/practitioner/example-
 import r4Example1 from '../../../fixtures/r4/resources/practitioner/example1.json';
 import r4Example2 from '../../../fixtures/r4/resources/practitioner/example2.json';
 import r4Example3 from '../../../fixtures/r4/resources/practitioner/example3.json';
+import PractitionerIcon from '../../../assets/containers/Practitioner/practitioner.svg';
+import fhirIcons from '../../../fixtures/example-icons';
 
 export default { title: 'Practitioner' };
 
@@ -20,6 +22,7 @@ export const DefaultVisualizationDSTU2 = () => {
     <Practitioner
       fhirVersion={fhirVersions.DSTU2}
       fhirResource={fhirResource}
+      fhirIcons={require('../../../assets/containers/Practitioner/practitioner.svg')}
     />
   );
 };
@@ -30,6 +33,7 @@ export const Example2OfDSTU2 = () => {
     <Practitioner
       fhirVersion={fhirVersions.DSTU2}
       fhirResource={fhirResource}
+      fhirIcons={PractitionerIcon}
     />
   );
 };
@@ -37,21 +41,33 @@ export const Example2OfDSTU2 = () => {
 export const ExampleOfSTU3 = () => {
   const fhirResource = object('Resource', stu3Example1);
   return (
-    <Practitioner fhirVersion={fhirVersions.STU3} fhirResource={fhirResource} />
+    <Practitioner
+      fhirVersion={fhirVersions.STU3}
+      fhirResource={fhirResource}
+      fhirIcons={fhirIcons}
+    />
   );
 };
 
 export const Example1OfR4 = () => {
   const fhirResource = object('Resource', r4Example1);
   return (
-    <Practitioner fhirVersion={fhirVersions.R4} fhirResource={fhirResource} />
+    <Practitioner
+      fhirVersion={fhirVersions.R4}
+      fhirResource={fhirResource}
+      fhirIcons={false}
+    />
   );
 };
 
 export const Example2OfR4 = () => {
   const fhirResource = object('Resource', r4Example2);
   return (
-    <Practitioner fhirVersion={fhirVersions.R4} fhirResource={fhirResource} />
+    <Practitioner
+      fhirVersion={fhirVersions.R4}
+      fhirResource={fhirResource}
+      fhirIcons={'random text'}
+    />
   );
 };
 

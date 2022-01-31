@@ -15,7 +15,6 @@ import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 import _get from 'lodash/get';
 import _has from 'lodash/has';
 import fhirVersions from '../fhirResourceVersions';
-import md5 from 'md5';
 
 const commonDTO = fhirResource => {
   const id = _get(fhirResource, 'id', '');
@@ -83,8 +82,7 @@ const resourceDTO = (fhirVersion, fhirResource) => {
   }
 };
 
-const Practitioner = props => {
-  const { fhirResource, fhirVersion } = props;
+const Practitioner = ({ fhirResource, fhirVersion, fhirIcons }) => {
   let fhirResourceData = {};
   try {
     fhirResourceData = resourceDTO(fhirVersion, fhirResource);
@@ -93,7 +91,6 @@ const Practitioner = props => {
     return <UnhandledResourceDataStructure resourceName="Practitioner" />;
   }
   const {
-    id,
     identifier,
     name,
     gender,
@@ -155,17 +152,10 @@ const Practitioner = props => {
       <Accordion
         headerContent={
           <Header
+            resourceName="Practitioner"
             additionalContent={<p className="mb-0">{`(${use})`}</p>}
             badges={status && <Badge data-testid="status">{status}</Badge>}
-            icon={
-              <img
-                className="header-icon__practitioner-avatar rounded-1"
-                src={`http://www.gravatar.com/avatar/${md5(
-                  id,
-                )}?s=30&r=any&default=identicon&forcedefault=1`}
-                alt=""
-              />
-            }
+            icon={fhirIcons}
             title={<HumanName fhirData={name} isTitle />}
           />
         }

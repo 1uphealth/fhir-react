@@ -1,6 +1,8 @@
 import React from 'react';
 import _get from 'lodash/get';
 
+import './Reference.css';
+
 const Reference = props => {
   const { fhirData } = props;
   const display = _get(fhirData, 'display');

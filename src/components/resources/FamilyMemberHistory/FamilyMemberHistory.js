@@ -1,20 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Accordion from '../../containers/Accordion/Accordion';
 import Coding from '../../datatypes/Coding';
 import Reference from '../../datatypes/Reference';
 import Annotation from '../../datatypes/Annotation';
 
 import _get from 'lodash/get';
-import {
-  Root,
-  Header,
-  Title,
-  BadgeSecondary,
-  Badge,
-  Body,
-  Value,
-} from '../../ui';
+import { Root, Header, Badge, Body } from '../../ui';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 import fhirVersions from '../fhirResourceVersions';
 import Date from '../../datatypes/Date';
@@ -78,7 +71,7 @@ const resourceDTO = (fhirVersion, fhirResource) => {
 };
 
 const FamilyMemberHistory = props => {
-  const { fhirResource, fhirVersion } = props;
+  const { fhirResource, fhirVersion, fhirIcons } = props;
   let fhirResourceData = {};
   try {
     fhirResourceData = resourceDTO(fhirVersion, fhirResource);
@@ -97,36 +90,52 @@ const FamilyMemberHistory = props => {
     notes,
   } = fhirResourceData;
 
+  const tableData = [
+    {
+      label: 'Patient',
+      testId: 'patient',
+      data: patient && <Reference fhirData={patient} />,
+      status: patient,
+    },
+    {
+      label: 'Relationship',
+      testId: 'hasRelationship',
+      data:
+        hasRelationship &&
+        relationship.map((item, i) => (
+          <Coding key={`relationship-item-${i}`} fhirData={item} />
+        )),
+      status: hasRelationship,
+    },
+    {
+      label: 'Note',
+      testId: 'noteText',
+      data: hasNotes && <Annotation fhirData={notes} />,
+      status: hasNotes,
+    },
+  ];
+
   return (
     <Root name="FamilyMemberHistory">
-      <Header>
-        <Title>{title}</Title>
-        {status && <Badge data-testid="status">{status}</Badge>}
-        {date && (
-          <BadgeSecondary>
-            on <Date fhirData={date} />
-          </BadgeSecondary>
-        )}
-      </Header>
-      <Body>
-        {patient && (
-          <Value label="Patient" data-testid="patient">
-            <Reference fhirData={patient} />
-          </Value>
-        )}
-        {hasRelationship && (
-          <Value label="Relationship" data-testid="hasRelationship">
-            {relationship.map((item, i) => (
-              <Coding key={`item-${i}`} fhirData={item} />
-            ))}
-          </Value>
-        )}
-        {hasNotes && (
-          <Value label="Note" data-testid="noteText">
-            <Annotation fhirData={notes} />
-          </Value>
-        )}
-      </Body>
+      <Accordion
+        headerContent={
+          <Header
+            resourceName="FamilyMemberHistory"
+            additionalContent={
+              date && (
+                <>
+                  <span className="me-2">On</span>
+                  <Date fhirData={date} />
+                </>
+              )
+            }
+            badges={status && <Badge data-testid="status">{status}</Badge>}
+            icon={fhirIcons}
+            title={title}
+          />
+        }
+        bodyContent={<Body tableData={tableData} />}
+      />
     </Root>
   );
 };

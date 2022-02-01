@@ -3,42 +3,13 @@ import PropTypes from 'prop-types';
 
 import _get from 'lodash/get';
 import _has from 'lodash/has';
-import Date from '../../datatypes/Date';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 import fhirVersions from '../fhirResourceVersions';
-import Annotation from '../../datatypes/Annotation';
-import Reference from '../../datatypes/Reference';
-import {
-  Root,
-  Header,
-  Title,
-  Badge,
-  BadgeSecondary,
-  Body,
-  Value,
-  ValueSection,
-} from '../../ui';
-
-const MedicationDetails = props => {
-  const { medication, expiration, ingredient } = props;
-  return (
-    <div>
-      <h5>{medication} </h5>
-      <Value label="Expiration date">{expiration}</Value>
-      {ingredient && (
-        <Value label="Ingredient">
-          <ul>
-            {ingredient.map((item, i) => (
-              <li key={`item-${i}`}>
-                {_get(item, 'itemCodeableConcept.coding.0.display', '')}
-              </li>
-            ))}
-          </ul>
-        </Value>
-      )}
-    </div>
-  );
-};
+import Accordion from '../../containers/Accordion';
+import DatePeriod from '../../datatypes/DatePeriod/DatePeriod';
+import MedicationDetails from './MedicationDetails';
+import { Root, Header, Badge, Body } from '../../ui';
+import MedicationDosage from './MedicationDosage';
 
 const DEFAULT_TITLE = 'Medication Statement';
 
@@ -137,7 +108,7 @@ const resourceDTO = (fhirVersion, fhirResource) => {
 };
 
 const MedicationStatement = props => {
-  const { fhirResource, fhirVersion } = props;
+  const { fhirResource, fhirVersion, fhirIcons } = props;
   let fhirResourceData = {};
   try {
     fhirResourceData = resourceDTO(fhirVersion, fhirResource);
@@ -165,94 +136,70 @@ const MedicationStatement = props => {
 
   return (
     <Root name="MedicationStatement">
-      <Header>
-        <Title>{title}</Title>
-        {status && <Badge data-testid="hasStatus">{status}</Badge>}
-        {hasEffectivePeriod && (
-          <BadgeSecondary data-testid="hasEffectivePeriod">
-            from <Date fhirData={statusDesc.from} /> {'to '}
-            <Date fhirData={statusDesc.to} />
-            <span>{reported}</span>
-          </BadgeSecondary>
-        )}
-      </Header>
-      <Body>
-        {hasMedications && (
-          <Value label="Medications">
-            {contained.map((medication, i) => {
-              const hasMedicationDetails = _has(
-                medication,
-                'code.coding[0].display',
-              );
-              if (hasMedicationDetails) {
-                return (
-                  <MedicationDetails
-                    key={`item-${i}`}
-                    medication={_get(medication, 'code.coding[0].display')}
-                    expiration={_get(
-                      medication,
-                      'package.batch[0].expirationDate',
-                    )}
-                    ingredient={_get(medication, 'ingredient', [])}
+      <Accordion
+        headerContent={
+          <Header
+            icon={fhirIcons}
+            resourceName="MedicationStatement"
+            badges={status && <Badge data-testid="hasStatus">{status}</Badge>}
+            title={title}
+            additionalContent={
+              hasEffectivePeriod && (
+                <>
+                  <DatePeriod
+                    periodBeginLabel="Start date"
+                    periodBeginDate={statusDesc.from}
+                    periodBeginTestId="startDate"
+                    periodEndLabel="End date"
+                    periodEndDate={statusDesc.to}
+                    periodEndTestId="endDate"
                   />
+                  <span>{reported}</span>
+                </>
+              )
+            }
+          />
+        }
+        bodyContent={
+          <Body>
+            {hasMedications &&
+              contained.map((medication, i) => {
+                const hasMedicationDetails = _has(
+                  medication,
+                  'code.coding[0].display',
                 );
-              }
-              return null;
-            })}
-          </Value>
-        )}
-        {medicationReference && (
-          <Value label="Medication Reference" data-testid="medicationReference">
-            <Reference fhirData={medicationReference} />
-          </Value>
-        )}
-        {hasReasonCode && (
-          <Value label="Reason" data-testid="hasReasonCode">
-            <ul>
-              {reasonCode.map((item, i) => {
-                const display = _get(item, 'coding.0.display');
-                if (display) {
-                  return <li key={`item-${i}`}>{display}</li>;
+                if (hasMedicationDetails) {
+                  return (
+                    <MedicationDetails
+                      key={`item-${i}`}
+                      medication={_get(medication, 'code.coding[0].display')}
+                      expiration={_get(
+                        medication,
+                        'package.batch[0].expirationDate',
+                      )}
+                      ingredient={_get(medication, 'ingredient', [])}
+                      medicationReference={medicationReference}
+                      hasReasonCode={hasReasonCode}
+                      reasonCode={reasonCode}
+                    />
+                  );
                 }
                 return null;
               })}
-            </ul>
-          </Value>
-        )}
-        {hasDosage && (
-          <ValueSection label="Dosage" data-testid="dosage">
-            {fhirResource.dosage.map((dosage, i) => {
-              const text = _get(dosage, 'text');
-              const additionalInstructionText = _get(
-                dosage,
-                'additionalInstruction[0].text',
-              );
-              const route =
-                _get(dosage, 'route.coding[0].display') ||
-                `${_get(dosage, 'route.text', '')} ${_get(dosage, 'text', '')}`;
-              const hasRoute = route.trim() !== '';
-              return (
-                <div key={`dosage-${i}`}>
-                  <Value label="Instructions" data-testid="dosageInstruction">
-                    {text}
-                  </Value>
-                  {additionalInstructionText && (
-                    <Value label="Additional Instruction">
-                      {additionalInstructionText}
-                    </Value>
-                  )}
-                  {hasRoute && <Value label="Route">{route}</Value>}
-                </div>
-              );
-            })}
-          </ValueSection>
-        )}
-        {hasNote && (
-          <Value label="Notes" data-testid="hasNote">
-            <Annotation fhirData={note} />
-          </Value>
-        )}
-      </Body>
+            {hasDosage &&
+              fhirResource.dosage.map((dosage, i) => {
+                return (
+                  <MedicationDosage
+                    key={`dosage-${i}`}
+                    dosage={dosage}
+                    hasNote={hasNote}
+                    note={note}
+                  />
+                );
+              })}
+          </Body>
+        }
+      />
     </Root>
   );
 };

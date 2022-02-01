@@ -19,7 +19,7 @@ describe('should render MedicationStatement component correctly', () => {
     expect(getByTestId('title').textContent).toContain(
       'amphetamine-dextroamphetamine',
     );
-    expect(getByTestId('hasEffectivePeriod').textContent).toContain('from');
+    expect(getByTestId('startDate').textContent).toContain('4/19/2016');
     expect(queryByTestId('medicationReference')).toBeNull();
 
     expect(getByTestId('dosageInstruction').textContent).toContain(
@@ -32,19 +32,35 @@ describe('should render MedicationStatement component correctly', () => {
       fhirResource: stu3Example,
       fhirVersion: fhirVersions.STU3,
     };
-    const { getByTestId, queryAllByTestId } = render(
+    const { getByTestId, queryAllByTestId, queryByTestId } = render(
       <MedicationStatement {...defaultProps} />,
     );
 
     expect(getByTestId('title').textContent).toEqual('Medication Statement');
-    expect(queryAllByTestId('hasEffectivePeriod')).toHaveLength(0);
+    expect(queryAllByTestId('startDate')).toHaveLength(0);
+    expect(queryAllByTestId('endDate')).toHaveLength(0);
 
     expect(getByTestId('dosageInstruction').textContent).toContain(
       '1-2 tablets once daily',
     );
 
-    expect(getByTestId('hasNote').textContent).toContain('occasional');
+    const ingredients = queryAllByTestId('ingredient-item').map(
+      x => x.textContent,
+    );
+    expect(ingredients).toHaveLength(2);
+    expect(ingredients).toEqual([
+      'Acetaminophen 500 MG',
+      'Diphenhydramine Hydrochloride 25 mg',
+    ]);
 
+    expect(getByTestId('dosageInstruction').textContent).toContain(
+      '1-2 tablets once daily at bedtime as needed for restless legs',
+    );
+
+    expect(queryByTestId('medicationReference').textContent).toContain(
+      '#med0309',
+    );
+    expect(getByTestId('hasNote').textContent).toContain('occasional');
     expect(getByTestId('hasReasonCode').textContent).toContain('Legs');
   });
 
@@ -58,14 +74,23 @@ describe('should render MedicationStatement component correctly', () => {
     );
 
     expect(getByTestId('title').textContent).toEqual('Medication Statement');
-    expect(queryAllByTestId('hasEffectivePeriod')).toHaveLength(0);
+    expect(queryAllByTestId('startDate')).toHaveLength(0);
+    expect(queryAllByTestId('endDate')).toHaveLength(0);
 
     expect(getByTestId('dosageInstruction').textContent).toContain(
       '1-2 tablets once daily',
     );
 
-    expect(getByTestId('hasNote').textContent).toContain('occasional');
+    const ingredients = queryAllByTestId('ingredient-item').map(
+      x => x.textContent,
+    );
+    expect(ingredients).toHaveLength(2);
+    expect(ingredients).toEqual([
+      'Acetaminophen 500 MG',
+      'Diphenhydramine Hydrochloride 25 mg',
+    ]);
 
+    expect(getByTestId('hasNote').textContent).toContain('occasional');
     expect(getByTestId('hasReasonCode').textContent).toContain('Legs');
     expect(getByTestId('medicationReference').textContent).toContain(
       '#med0309',

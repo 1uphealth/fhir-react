@@ -10,18 +10,17 @@ import { isNotEmptyArray } from '../../../utils';
 import fhirVersions from '../fhirResourceVersions';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 import CarePlanActivity from './CarePlanActivity';
-import './CarePlan.css';
 
 import {
   Root,
   Header,
-  Title,
   Badge,
   BadgeSecondary,
   Body,
-  Value,
   MissingValue,
+  ValueSectionItem,
 } from '../../ui';
+import Accordion from '../../containers/Accordion';
 
 const commonDTO = fhirResource => {
   const status = _get(fhirResource, 'status', '');
@@ -163,8 +162,7 @@ const resourceDTO = (fhirVersion, fhirResource) => {
   }
 };
 
-const CarePlan = props => {
-  const { fhirResource, fhirVersion } = props;
+const CarePlan = ({ fhirResource, fhirVersion, fhirIcons }) => {
   let fhirResourceData = {};
   try {
     fhirResourceData = resourceDTO(fhirVersion, fhirResource);
@@ -197,99 +195,116 @@ const CarePlan = props => {
   const authorArr = Array.isArray(author) ? author : [author];
   return (
     <Root name="CarePlan">
-      <Header>
-        <Title>Care Plan</Title>
-        {status && <Badge data-testid="status">{status}</Badge>}
-        {expiry && <BadgeSecondary>expires on ${expiry}</BadgeSecondary>}
-      </Header>
-      <Body>
-        {hasCategory && (
-          <Value label="Category" data-testid="category">
-            {category.map((category, i) =>
-              (category.coding || []).map((coding, j) => (
-                <Coding key={`item-${i}${j}`} fhirData={coding} />
-              )),
+      <Accordion
+        headerContent={
+          <Header
+            icon={fhirIcons}
+            resourceName="CarePlan"
+            badges={status && <Badge data-testid="status">{status}</Badge>}
+            title={'Care Plan'}
+            additionalContent={
+              expiry && <BadgeSecondary>expires on ${expiry}</BadgeSecondary>
+            }
+          />
+        }
+        bodyContent={
+          <Body>
+            {hasCategory && (
+              <ValueSectionItem label="Category" data-testid="category">
+                {category.map((category, i) =>
+                  (category.coding || []).map((coding, j) => (
+                    <Coding key={`item-${i}${j}`} fhirData={coding} />
+                  )),
+                )}
+              </ValueSectionItem>
             )}
-          </Value>
-        )}
-        {intent && (
-          <Value label="Intent" data-testid="intent">
-            {intent}
-          </Value>
-        )}
-        {hasGoals && (
-          <Value label="Goals" data-testid="goals">
-            {goals.map((goal, i) => (
-              <div key={`goal-${i}`}>
-                <Reference fhirData={goal} />
-              </div>
-            ))}
-          </Value>
-        )}
-        {description && (
-          <Value label="Description" data-testid="description">
-            {description}
-          </Value>
-        )}
-        {subject && (
-          <Value label="Subject" data-testid="subject">
-            <Reference fhirData={subject} />
-          </Value>
-        )}
-        {hasValue(author) && (
-          <Value label="Author" data-testid="author">
-            {authorArr.map((item, i) => (
-              <Reference key={`author-${i}`} fhirData={item} />
-            ))}
-          </Value>
-        )}
-        {periodStart && (
-          <Value label="Plan Period Start" data-testid="periodStart">
-            {periodStart ? (
-              <DateType fhirData={periodStart} />
-            ) : (
-              <MissingValue />
+            {intent && (
+              <ValueSectionItem label="Intent" data-testid="intent">
+                {intent}
+              </ValueSectionItem>
             )}
-          </Value>
-        )}
-        {periodEnd && (
-          <Value label="Plan Period End" data-testid="periodEnd">
-            {periodEnd ? <DateType fhirData={periodEnd} /> : <MissingValue />}
-          </Value>
-        )}
-        {hasAddresses && (
-          <Value label="Addresses" data-testid="addresses">
-            {addresses.map((address, i) => (
-              <div key={`item-${i}`}>
-                <Reference fhirData={address} />
-              </div>
-            ))}
-          </Value>
-        )}
-        {isNotEmptyArray(basedOn) && (
-          <Value label="Based on" data-testid="basedOn">
-            {basedOn.map((item, i) => (
-              <Reference key={`based-on-${i}`} fhirData={item} />
-            ))}
-          </Value>
-        )}
-        {isNotEmptyArray(partOf) && (
-          <Value label="Part of" data-testid="partOf">
-            {partOf.map((item, i) => (
-              <Reference key={`part-of-${i}`} fhirData={item} />
-            ))}
-          </Value>
-        )}
-        {hasActivity && (
-          <Value label="Activity" data-testid="activity">
-            {activity.map((activity, i) => (
-              <div key={`item-${i}`}>
-                <CarePlanActivity fhirData={activity} />
-              </div>
-            ))}
-          </Value>
-        )}
-      </Body>
+            {hasGoals && (
+              <ValueSectionItem label="Goals" data-testid="goals">
+                {goals.map((goal, i) => (
+                  <div key={`goal-${i}`}>
+                    <Reference fhirData={goal} />
+                  </div>
+                ))}
+              </ValueSectionItem>
+            )}
+            {description && (
+              <ValueSectionItem label="Description" data-testid="description">
+                {description}
+              </ValueSectionItem>
+            )}
+            {subject && (
+              <ValueSectionItem label="Subject" data-testid="subject">
+                <Reference fhirData={subject} />
+              </ValueSectionItem>
+            )}
+            {hasValue(author) && (
+              <ValueSectionItem label="Author" data-testid="author">
+                {authorArr.map((item, i) => (
+                  <Reference key={`author-${i}`} fhirData={item} />
+                ))}
+              </ValueSectionItem>
+            )}
+            {periodStart && (
+              <ValueSectionItem
+                label="Plan Period Start"
+                data-testid="periodStart"
+              >
+                {periodStart ? (
+                  <DateType fhirData={periodStart} isBlack />
+                ) : (
+                  <MissingValue />
+                )}
+              </ValueSectionItem>
+            )}
+            {periodEnd && (
+              <ValueSectionItem label="Plan Period End" data-testid="periodEnd">
+                {periodEnd ? (
+                  <DateType fhirData={periodEnd} isBlack />
+                ) : (
+                  <MissingValue />
+                )}
+              </ValueSectionItem>
+            )}
+            {hasAddresses && (
+              <ValueSectionItem label="Addresses" data-testid="addresses">
+                {addresses.map((address, i) => (
+                  <div key={`item-${i}`}>
+                    <Reference fhirData={address} />
+                  </div>
+                ))}
+              </ValueSectionItem>
+            )}
+            {isNotEmptyArray(basedOn) && (
+              <ValueSectionItem label="Based on" data-testid="basedOn">
+                {basedOn.map((item, i) => (
+                  <Reference key={`based-on-${i}`} fhirData={item} />
+                ))}
+              </ValueSectionItem>
+            )}
+            {isNotEmptyArray(partOf) && (
+              <ValueSectionItem label="Part of" data-testid="partOf">
+                {partOf.map((item, i) => (
+                  <Reference key={`part-of-${i}`} fhirData={item} />
+                ))}
+              </ValueSectionItem>
+            )}
+            {hasActivity && (
+              <ValueSectionItem label="Activity" data-testid="activity">
+                {activity.map((activity, i) => (
+                  <div key={`item-${i}`}>
+                    <CarePlanActivity fhirData={activity} />
+                  </div>
+                ))}
+              </ValueSectionItem>
+            )}
+          </Body>
+        }
+      />
     </Root>
   );
 };

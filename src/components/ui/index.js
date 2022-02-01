@@ -225,6 +225,17 @@ export const MissingValue = () => (
   <span className="fhir-ui__MissingValue">-</span>
 );
 
+export const ValueSectionItem = props => {
+  return (
+    <div className="d-flex flex-column flex-sm-row my-2">
+      <div className="dataTable__value-label ps-0">
+        <Label>{props.label}</Label>
+      </div>
+      <Data data-testid={props['data-testid']}>{props.children}</Data>
+    </div>
+  );
+};
+
 export const NotEnoughData = props => (
   <div data-testid={props['data-testid']} className="fhir-ui__NotEnoughData">
     No additional data

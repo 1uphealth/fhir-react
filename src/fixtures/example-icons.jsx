@@ -141,11 +141,11 @@ export default {
       alt="location marker"
     />
   ),
-  Medication: (
+  MedicationOrder: (
     <img
       className="header-icon__image"
-      src={require('../assets/containers/Medication/medication.svg')}
-      alt="some pills"
+      src={require('../assets/containers/MedicationOrder/medication-order.svg')}
+      alt="medication order"
     />
   ),
   MedicationAdministration: (

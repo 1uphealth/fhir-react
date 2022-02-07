@@ -12,6 +12,7 @@ import example2AllergyIntoleranceR4 from '../../../fixtures/r4/resources/allergy
 import example3AllergyIntoleranceR4 from '../../../fixtures/r4/resources/allergyIntolerance/example3.json';
 import fhirIcons from '../../../fixtures/example-icons';
 import fhirVersions from '../fhirResourceVersions';
+import AllergyIntoleranceIcon from '../../../assets/containers/AllergyIntolerance/allergy-intolerance.svg';
 
 export default { title: 'AllergyIntolerance' };
 
@@ -21,7 +22,7 @@ export const DefaultVisualizationDSTU2 = () => {
     <AllergyIntolerance
       fhirVersion={fhirVersions.DSTU2}
       fhirResource={fhirResource}
-      fhirIcons={fhirIcons}
+      fhirIcons={require('../../../assets/containers/AllergyIntolerance/allergy-intolerance.svg')}
     />
   );
 };
@@ -32,7 +33,7 @@ export const Example2ofDSTU2 = () => {
     <AllergyIntolerance
       fhirVersion={fhirVersions.DSTU2}
       fhirResource={fhirResource}
-      fhirIcons={fhirIcons}
+      fhirIcons={AllergyIntoleranceIcon}
     />
   );
 };
@@ -54,7 +55,7 @@ export const Example2DiagnosticReportSTU3 = () => {
     <AllergyIntolerance
       fhirVersion={fhirVersions.STU3}
       fhirResource={fhirResource}
-      fhirIcons={fhirIcons}
+      fhirIcons={false}
     />
   );
 };
@@ -65,7 +66,7 @@ export const Example1R4 = () => {
     <AllergyIntolerance
       fhirVersion={fhirVersions.R4}
       fhirResource={fhirResource}
-      fhirIcons={fhirIcons}
+      fhirIcons={'random text'}
     />
   );
 };

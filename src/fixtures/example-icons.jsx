@@ -40,7 +40,7 @@ export default {
     <img
       className="header-icon__image"
       src={require('../assets/containers/AllergyIntolerance/allergy-intolerance.svg')}
-      alt="sneezing emoji"
+      alt="allergy intolerance"
     />
   ),
   Appointment: (

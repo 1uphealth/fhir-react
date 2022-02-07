@@ -117,7 +117,7 @@ export default {
     <img
       className="header-icon__image"
       src={require('../assets/containers/FamilyMemberHistory/family-member-history.svg')}
-      alt="parent and child"
+      alt="family member history"
     />
   ),
   Goal: (

@@ -96,7 +96,7 @@ export default {
     <img
       className="header-icon__image"
       src={require('../assets/containers/DocumentReference/document-reference.svg')}
-      alt="hand holding a note"
+      alt="document reference"
     />
   ),
   Encounter: (

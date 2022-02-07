@@ -82,7 +82,7 @@ export default {
     <img
       className="header-icon__image"
       src={require('../assets/containers/Device/device.svg')}
-      alt="computer rack"
+      alt="device"
     />
   ),
   DiagnosticReport: (

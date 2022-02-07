@@ -10,6 +10,8 @@ import stu3Example2 from '../../../fixtures/stu3/resources/device/example2.json'
 import r4Example1 from '../../../fixtures/r4/resources/device/example1.json';
 import r4Example2 from '../../../fixtures/r4/resources/device/example2.json';
 import fhirVersions from '../fhirResourceVersions';
+import DeviceIcon from '../../../assets/containers/Device/device.svg';
+import fhirIcons from '../../../fixtures/example-icons';
 
 export default {
   title: 'Device',
@@ -18,29 +20,55 @@ export default {
 export const DefaultVisualizationDSTU2 = () => {
   const fhirResource = object('Resource', dstu2Example1);
   return (
-    <Device fhirResource={fhirResource} fhirVersion={fhirVersions.DSTU2} />
+    <Device
+      fhirResource={fhirResource}
+      fhirVersion={fhirVersions.DSTU2}
+      fhirIcons={require('../../../assets/containers/Device/device.svg')}
+    />
   );
 };
 
 export const ExampleOfDSTU2 = () => {
   const fhirResource = object('Resource', dstu2Example2);
   return (
-    <Device fhirResource={fhirResource} fhirVersion={fhirVersions.DSTU2} />
+    <Device
+      fhirResource={fhirResource}
+      fhirVersion={fhirVersions.DSTU2}
+      fhirIcons={DeviceIcon}
+    />
   );
 };
 
 export const Example1OfSTU3 = () => {
   const fhirResource = object('Resource', stu3Example1);
-  return <Device fhirResource={fhirResource} fhirVersion={fhirVersions.STU3} />;
+  return (
+    <Device
+      fhirResource={fhirResource}
+      fhirVersion={fhirVersions.STU3}
+      fhirIcons={fhirIcons}
+    />
+  );
 };
 export const Example2OfSTU3 = () => {
   const fhirResource = object('Resource', stu3Example2);
-  return <Device fhirResource={fhirResource} fhirVersion={fhirVersions.STU3} />;
+  return (
+    <Device
+      fhirResource={fhirResource}
+      fhirVersion={fhirVersions.STU3}
+      fhirIcons={false}
+    />
+  );
 };
 
 export const Example1OfR4 = () => {
   const fhirResource = object('Resource', r4Example1);
-  return <Device fhirResource={fhirResource} fhirVersion={fhirVersions.R4} />;
+  return (
+    <Device
+      fhirResource={fhirResource}
+      fhirVersion={fhirVersions.R4}
+      fhirIcons={'random text'}
+    />
+  );
 };
 
 export const Example2OfR4 = () => {

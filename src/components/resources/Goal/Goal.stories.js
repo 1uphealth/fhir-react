@@ -9,6 +9,7 @@ import stu3Example1 from '../../../fixtures/stu3/resources/goal/example1.json';
 import r4Example1 from '../../../fixtures/r4/resources/goal/example1.json';
 import r4Example2 from '../../../fixtures/r4/resources/goal/example2.json';
 import fhirVersions from '../fhirResourceVersions';
+import GoalIcon from '../../../assets/containers/Goal/goal.svg';
 
 export default {
   title: 'Goal',
@@ -20,7 +21,7 @@ export const DefaultVisualizationDSTU2 = () => {
     <Goal
       fhirVersion={fhirVersions.DSTU2}
       fhirResource={fhirResource}
-      fhirIcons={fhirIcons}
+      fhirIcons={require('../../../assets/containers/Goal/goal.svg')}
     />
   );
 };
@@ -31,7 +32,7 @@ export const Example2OfDSTU2 = () => {
     <Goal
       fhirVersion={fhirVersions.DSTU2}
       fhirResource={fhirResource}
-      fhirIcons={fhirIcons}
+      fhirIcons={GoalIcon}
     />
   );
 };
@@ -53,7 +54,7 @@ export const Example1OfR4 = () => {
     <Goal
       fhirVersion={fhirVersions.R4}
       fhirResource={fhirResource}
-      fhirIcons={fhirIcons}
+      fhirIcons={false}
     />
   );
 };
@@ -64,7 +65,7 @@ export const Example2OfR4 = () => {
     <Goal
       fhirVersion={fhirVersions.R4}
       fhirResource={fhirResource}
-      fhirIcons={fhirIcons}
+      fhirIcons={'random text'}
     />
   );
 };

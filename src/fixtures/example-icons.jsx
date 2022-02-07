@@ -124,7 +124,7 @@ export default {
     <img
       className="header-icon__image"
       src={require('../assets/containers/Goal/goal.svg')}
-      alt="arrow hits bullseye"
+      alt="goal"
     />
   ),
   List: (

@@ -101,7 +101,6 @@ const resourceDTO = (fhirVersion, fhirResource) => {
 
 const Goal = props => {
   const { fhirResource, fhirVersion, fhirIcons } = props;
-  const headerIcon = fhirIcons && fhirIcons['Goal'];
 
   let fhirResourceData = {};
   try {
@@ -225,7 +224,7 @@ const Goal = props => {
               )
             }
             badges={hasStatus && <Badge data-testid="status">{status}</Badge>}
-            icon={headerIcon}
+            icon={fhirIcons}
             title={title}
           />
         }

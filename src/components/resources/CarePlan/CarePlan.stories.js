@@ -10,38 +10,64 @@ import weightLossCarePlanR4 from '../../../fixtures/r4/resources/carePlan/weight
 import pregnancyCarePlanR4 from '../../../fixtures/r4/resources/carePlan/pregnancyPlan.json';
 import heartOperationCarePlanR4 from '../../../fixtures/r4/resources/carePlan/heartOperationPlan.json';
 import fhirVersions from '../fhirResourceVersions';
+import CarePlanIcon from '../../../assets/containers/CarePlan/care-plan.svg';
+import fhirIcons from '../../../fixtures/example-icons';
 
 export default { title: 'CarePlan' };
 
 export const DefaultVisualizationDSTU2 = () => {
   const fhirResource = object('Resource', exampleCarePlanDSTU2);
   return (
-    <CarePlan fhirVersion={fhirVersions.DSTU2} fhirResource={fhirResource} />
+    <CarePlan
+      fhirVersion={fhirVersions.DSTU2}
+      fhirResource={fhirResource}
+      fhirIcons={require('../../../assets/containers/CarePlan/care-plan.svg')}
+    />
   );
 };
 
 export const ExampleCarePlanSTU3 = () => {
   const fhirResource = object('Resource', exampleCarePlanSTU3);
   return (
-    <CarePlan fhirVersion={fhirVersions.STU3} fhirResource={fhirResource} />
+    <CarePlan
+      fhirVersion={fhirVersions.STU3}
+      fhirResource={fhirResource}
+      fhirIcons={CarePlanIcon}
+    />
   );
 };
 
 export const Example2CarePlanSTU3 = () => {
   const fhirResource = object('Resource', example2CarePlanSTU3);
   return (
-    <CarePlan fhirVersion={fhirVersions.STU3} fhirResource={fhirResource} />
+    <CarePlan
+      fhirVersion={fhirVersions.STU3}
+      fhirResource={fhirResource}
+      fhirIcons={fhirIcons}
+    />
   );
 };
 
 export const WeightLossCarePlanR4 = () => {
   const fhirResource = object('Resource', weightLossCarePlanR4);
-  return <CarePlan fhirVersion={fhirVersions.R4} fhirResource={fhirResource} />;
+  return (
+    <CarePlan
+      fhirVersion={fhirVersions.R4}
+      fhirResource={fhirResource}
+      fhirIcons={false}
+    />
+  );
 };
 
 export const PregnancyCarePlanR4 = () => {
   const fhirResource = object('Resource', pregnancyCarePlanR4);
-  return <CarePlan fhirVersion={fhirVersions.R4} fhirResource={fhirResource} />;
+  return (
+    <CarePlan
+      fhirVersion={fhirVersions.R4}
+      fhirResource={fhirResource}
+      fhirIcons={'random text'}
+    />
+  );
 };
 
 export const HeartOperatioCarePlanR4 = () => {

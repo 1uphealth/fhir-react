@@ -54,7 +54,7 @@ export default {
     <img
       className="header-icon__image"
       src={require('../assets/containers/CarePlan/care-plan.svg')}
-      alt="note with a heart"
+      alt="care plan"
     />
   ),
   CareTeam: (

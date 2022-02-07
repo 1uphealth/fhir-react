@@ -89,7 +89,7 @@ export default {
     <img
       className="header-icon__image"
       src={require('../assets/containers/DiagnosticReport/diagnostic-report.svg')}
-      alt="note with shapes"
+      alt="diagnostic report"
     />
   ),
   DocumentReference: (

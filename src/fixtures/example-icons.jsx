@@ -173,7 +173,7 @@ export default {
     <img
       className="header-icon__image"
       src={require('../assets/containers/MedicationStatement/medication-statement.svg')}
-      alt="note with symmetrical cross"
+      alt="medication statement"
     />
   ),
   Observation: (

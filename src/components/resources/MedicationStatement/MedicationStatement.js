@@ -172,6 +172,7 @@ const MedicationStatement = props => {
                   return (
                     <MedicationDetails
                       key={`item-${i}`}
+                      itemNumber={`item-${i}`}
                       medication={_get(medication, 'code.coding[0].display')}
                       expiration={_get(
                         medication,

@@ -148,6 +148,13 @@ export default {
       alt="medication order"
     />
   ),
+  MedicationRequest: (
+    <img
+      className="header-icon__image"
+      src={require('../assets/containers/MedicationRequest/medication-request.svg')}
+      alt="medication request"
+    />
+  ),
   MedicationAdministration: (
     <img
       className="header-icon__image"

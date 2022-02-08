@@ -207,8 +207,8 @@ export default {
   ResourceCategory: (
     <img
       className="header-icon__image"
-      src={require('../assets/containers/ResourceCategory/resource-placeholder.svg')}
-      alt="header icon"
+      src={require('../assets/containers/ResourceCategory/resource-category.svg')}
+      alt="resource category"
     />
   ),
   Patient: (

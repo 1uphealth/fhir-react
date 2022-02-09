@@ -40,7 +40,7 @@ export default {
     <img
       className="header-icon__image"
       src={require('../assets/containers/AllergyIntolerance/allergy-intolerance.svg')}
-      alt="sneezing emoji"
+      alt="allergy intolerance"
     />
   ),
   Appointment: (
@@ -54,7 +54,7 @@ export default {
     <img
       className="header-icon__image"
       src={require('../assets/containers/CarePlan/care-plan.svg')}
-      alt="note with a heart"
+      alt="care plan"
     />
   ),
   CareTeam: (
@@ -82,21 +82,21 @@ export default {
     <img
       className="header-icon__image"
       src={require('../assets/containers/Device/device.svg')}
-      alt="computer rack"
+      alt="device"
     />
   ),
   DiagnosticReport: (
     <img
       className="header-icon__image"
       src={require('../assets/containers/DiagnosticReport/diagnostic-report.svg')}
-      alt="note with shapes"
+      alt="diagnostic report"
     />
   ),
   DocumentReference: (
     <img
       className="header-icon__image"
       src={require('../assets/containers/DocumentReference/document-reference.svg')}
-      alt="hand holding a note"
+      alt="document reference"
     />
   ),
   Encounter: (
@@ -117,14 +117,14 @@ export default {
     <img
       className="header-icon__image"
       src={require('../assets/containers/FamilyMemberHistory/family-member-history.svg')}
-      alt="parent and child"
+      alt="family member history"
     />
   ),
   Goal: (
     <img
       className="header-icon__image"
       src={require('../assets/containers/Goal/goal.svg')}
-      alt="arrow hits bullseye"
+      alt="goal"
     />
   ),
   List: (
@@ -141,11 +141,18 @@ export default {
       alt="location marker"
     />
   ),
-  Medication: (
+  MedicationOrder: (
     <img
       className="header-icon__image"
-      src={require('../assets/containers/Medication/medication.svg')}
-      alt="some pills"
+      src={require('../assets/containers/MedicationOrder/medication-order.svg')}
+      alt="medication order"
+    />
+  ),
+  MedicationRequest: (
+    <img
+      className="header-icon__image"
+      src={require('../assets/containers/MedicationRequest/medication-request.svg')}
+      alt="medication request"
     />
   ),
   MedicationAdministration: (
@@ -166,7 +173,7 @@ export default {
     <img
       className="header-icon__image"
       src={require('../assets/containers/MedicationStatement/medication-statement.svg')}
-      alt="note with symmetrical cross"
+      alt="medication statement"
     />
   ),
   Observation: (
@@ -200,8 +207,8 @@ export default {
   ResourceCategory: (
     <img
       className="header-icon__image"
-      src={require('../assets/containers/ResourceCategory/resource-placeholder.svg')}
-      alt="header icon"
+      src={require('../assets/containers/ResourceCategory/resource-category.svg')}
+      alt="resource category"
     />
   ),
   Patient: (

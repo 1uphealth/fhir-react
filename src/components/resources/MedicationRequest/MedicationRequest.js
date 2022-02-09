@@ -9,9 +9,7 @@ import Date from '../../datatypes/Date';
 
 import { Root, Header, Body } from '../../ui';
 
-const MedicationRequest = props => {
-  const { fhirResource, fhirIcons } = props;
-  const headerIcon = fhirIcons && fhirIcons['Medication'];
+const MedicationRequest = ({ fhirResource, fhirIcons }) => {
   const medicationReference = _get(fhirResource, 'medicationReference');
   const medicationCodeableConcept = _get(
     fhirResource,
@@ -77,7 +75,7 @@ const MedicationRequest = props => {
       <Accordion
         headerContent={
           <Header
-            icon={headerIcon}
+            icon={fhirIcons}
             resourceName="MedicationRequest"
             title={
               medicationReference ? (

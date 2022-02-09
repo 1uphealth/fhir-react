@@ -142,7 +142,7 @@ const MedicationKnowledge = props => {
     <Root name="MedicationKnowledge">
       <Header>
         <Title>
-          {id ? `Medication knowledge ID: ${id}` : 'Medication knowledge'}{' '}
+          {id ? `Medication knowledge ID: ${id}` : 'MedicationOrder knowledge'}{' '}
           {status && <Badge data-testid="status">{status}</Badge>}
         </Title>
       </Header>

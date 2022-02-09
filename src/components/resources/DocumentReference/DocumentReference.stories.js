@@ -8,6 +8,7 @@ import exampleDocumentReference from '../../../fixtures/dstu2/resources/document
 import exampleDocumentReferenceSTU3 from '../../../fixtures/stu3/resources/documentReference/example1.json';
 import example1DocumentReferenceR4 from '../../../fixtures/r4/resources/documentReference/example1.json';
 import fhirIcons from '../../../fixtures/example-icons';
+import DocumentReferenceIcon from '../../../assets/containers/DocumentReference/document-reference.svg';
 
 export default { title: 'Document Reference' };
 
@@ -17,7 +18,7 @@ export const DefaultVisualizationDSTU2 = () => {
     <DocumentReference
       fhirResource={fhirResource}
       fhirVersion={fhirVersions.DSTU2}
-      fhirIcons={fhirIcons}
+      fhirIcons={require('../../../assets/containers/DocumentReference/document-reference.svg')}
     />
   );
 };
@@ -28,7 +29,7 @@ export const ExampleSTU3 = () => {
     <DocumentReference
       fhirResource={fhirResource}
       fhirVersion={fhirVersions.STU3}
-      fhirIcons={fhirIcons}
+      fhirIcons={DocumentReferenceIcon}
     />
   );
 };

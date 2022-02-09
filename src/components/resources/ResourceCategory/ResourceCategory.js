@@ -1,21 +1,13 @@
-import { Root, Title } from '../../ui';
-import HeaderIcon from '../../datatypes/HeaderIcon';
+import { Header, Root } from '../../ui';
 import React from 'react';
 import PropTypes from 'prop-types';
-import { isUrl } from '../../../utils/isUrl';
 
-const ResourceCategory = props => {
-  const { title, itemsCount, fhirIcons } = props;
-
+const ResourceCategory = ({ title, itemsCount, fhirIcons }) => {
   const parseNumber = value =>
     /^[1-9]+\d*$/.test(value) ? Number.parseInt(value) : null;
 
   const getItemsCountLabel = () =>
     `${parsedItemsCount} ${parsedItemsCount === 1 ? 'item' : 'items'}`;
-
-  const headerIcon = isUrl(fhirIcons)
-    ? fhirIcons
-    : fhirIcons && fhirIcons['ResourceCategory'];
 
   const parsedItemsCount = parseNumber(itemsCount);
 
@@ -26,8 +18,11 @@ const ResourceCategory = props => {
         className="btn d-flex align-items-center justify-content-between w-100 py-4 px-4 bg-white"
       >
         <div className="d-flex gap-2">
-          <HeaderIcon headerIcon={headerIcon} />
-          <Title data-testid="title">{title}</Title>
+          <Header
+            resourceName={'ResourceCategory'}
+            title={title}
+            icon={fhirIcons}
+          />
         </div>
         <div className="d-flex gap-2 align-items-center">
           {parsedItemsCount > 0 && (

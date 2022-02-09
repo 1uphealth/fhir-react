@@ -3,7 +3,7 @@ import React from 'react';
 import _get from 'lodash/get';
 
 const MedicationDosage = props => {
-  const { dosage, hasNote, note, key } = props;
+  const { dosage, hasNote, note, itemNumber } = props;
 
   const instructions = _get(dosage, 'text');
   const additionalInstructionText = _get(
@@ -16,7 +16,7 @@ const MedicationDosage = props => {
   const hasRoute = route.trim() !== '';
 
   return (
-    <ValueSection label="Dosage" key={key}>
+    <ValueSection label="Dosage" key={itemNumber}>
       <ValueSectionItem label="Instructions" data-testid="dosageInstruction">
         {instructions}
       </ValueSectionItem>

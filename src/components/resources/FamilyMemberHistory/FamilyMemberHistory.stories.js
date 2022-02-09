@@ -9,6 +9,7 @@ import example1DSTU2 from '../../../fixtures/dstu2/resources/familyMemberHistory
 import example1STU3 from '../../../fixtures/stu3/resources/familyMemberHistory/example1.json';
 import example2STU3 from '../../../fixtures/stu3/resources/familyMemberHistory/example2.json';
 import fhirIcons from '../../../fixtures/example-icons';
+import FamilyMemberHistoryIcon from '../../../assets/containers/FamilyMemberHistory/family-member-history.svg';
 
 export default {
   title: 'FamilyMemberHistory',
@@ -20,7 +21,7 @@ export const DefaultVisualizationDSTU2 = () => {
     <FamilyMemberHistory
       fhirVersion={fhirVersions.DSTU2}
       fhirResource={fhirResource}
-      fhirIcons={fhirIcons}
+      fhirIcons={require('../../../assets/containers/FamilyMemberHistory/family-member-history.svg')}
     />
   );
 };
@@ -31,7 +32,7 @@ export const Example1OfSTU3 = () => {
     <FamilyMemberHistory
       fhirVersion={fhirVersions.STU3}
       fhirResource={fhirResource}
-      fhirIcons={fhirIcons}
+      fhirIcons={FamilyMemberHistoryIcon}
     />
   );
 };

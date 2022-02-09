@@ -123,9 +123,7 @@ const resourceDTO = (fhirVersion, fhirResource) => {
   }
 };
 
-const AllergyIntolerance = props => {
-  const { fhirResource, fhirVersion, fhirIcons } = props;
-  const headerIcon = fhirIcons && fhirIcons['AllergyIntolerance'];
+const AllergyIntolerance = ({ fhirResource, fhirVersion, fhirIcons }) => {
   let fhirResourceData = {};
   try {
     fhirResourceData = resourceDTO(fhirVersion, fhirResource);
@@ -219,10 +217,10 @@ const AllergyIntolerance = props => {
       <Accordion
         headerContent={
           <Header
-            resourceName="AllergyIntollerance"
+            resourceName="AllergyIntolerance"
             badges={status && <Badge data-testid="status">{status}</Badge>}
             title={title}
-            icon={headerIcon}
+            icon={fhirIcons}
             rightAdditionalContent={
               recordedDate && (
                 <BadgeSecondary data-testid="recordedDate">

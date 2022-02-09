@@ -8,8 +8,75 @@ import stu3Example2 from '../../../fixtures/stu3/resources/medicationRequest/exa
 import r4Example1 from '../../../fixtures/r4/resources/medicationRequest/example1.json';
 import r4Example2 from '../../../fixtures/r4/resources/medicationRequest/example2.json';
 import r4Example3 from '../../../fixtures/r4/resources/medicationRequest/example3.json';
+import fhirIcons from '../../../fixtures/example-icons';
 
 describe('should render MedicationRequest component properly', () => {
+  it('component without a fhirIcons props should render a default icon', () => {
+    const defaultProps = {
+      fhirResource: stu3Example1,
+    };
+
+    const { getByAltText } = render(<MedicationRequest {...defaultProps} />);
+    const headerIcon = getByAltText('medication request');
+
+    expect(headerIcon.getAttribute('src')).toContain('IMAGE_MOCK');
+  });
+
+  it('component with a false as a fhirIcons props should render a placeholder', () => {
+    const defaultProps = {
+      fhirResource: stu3Example1,
+      fhirIcons: false,
+    };
+
+    const { getByTestId } = render(<MedicationRequest {...defaultProps} />);
+    const headerIcon = getByTestId('placeholder');
+
+    expect(headerIcon).toBeTruthy();
+  });
+
+  it('component with the img as a fhirIcons props should render an img', () => {
+    const defaultProps = {
+      fhirResource: stu3Example1,
+      fhirIcons: (
+        <img
+          src={require('../assets/containers/MedicationOrder/medication-request.svg')}
+          alt="medication request"
+        />
+      ),
+    };
+
+    const { getByAltText } = render(<MedicationRequest {...defaultProps} />);
+    const headerIcon = getByAltText('medication request');
+
+    expect(headerIcon.getAttribute('src')).toContain('IMAGE_MOCK');
+  });
+
+  it('component with the resources object as a fhirIcons props should render an img', () => {
+    const defaultProps = {
+      fhirResource: stu3Example1,
+      fhirIcons: fhirIcons,
+    };
+
+    const { getByAltText } = render(<MedicationRequest {...defaultProps} />);
+    const headerIcon = getByAltText('medication request');
+
+    expect(headerIcon.getAttribute('src')).toContain('IMAGE_MOCK');
+  });
+
+  it('component with the url as a fhirIcons props should render an img', () => {
+    const avatarSrc =
+      'https://www.gravatar.com/avatar/?s=50&r=any&default=identicon&forcedefault=1';
+    const defaultProps = {
+      fhirResource: stu3Example1,
+      fhirIcons: avatarSrc,
+    };
+
+    const { getByAltText } = render(<MedicationRequest {...defaultProps} />);
+    const headerIcon = getByAltText('header icon');
+
+    expect(headerIcon.getAttribute('src')).toContain(avatarSrc);
+  });
+
   it('should render with STU3 source data', () => {
     const defaultProps = {
       fhirResource: stu3Example1,

@@ -7,8 +7,79 @@ import exampleAllergyIntoleranceSTU3 from '../../../fixtures/stu3/resources/alle
 import exampleAllergyIntoleranceR4 from '../../../fixtures/r4/resources/allergyIntolerance/example1.json';
 import example2AllergyIntoleranceR4 from '../../../fixtures/r4/resources/allergyIntolerance/example3.json';
 import fhirVersions from '../fhirResourceVersions';
+import fhirIcons from '../../../fixtures/example-icons';
 
 describe('should render component correctly', () => {
+  it('component without a fhirIcons props should render a default icon', () => {
+    const defaultProps = {
+      fhirResource: exampleAllergyIntoleranceDSTU2,
+      fhirVersion: fhirVersions.DSTU2,
+    };
+
+    const { getByAltText } = render(<AllergyIntolerance {...defaultProps} />);
+    const headerIcon = getByAltText('allergy intolerance');
+
+    expect(headerIcon.getAttribute('src')).toContain('IMAGE_MOCK');
+  });
+
+  it('component with a false as a fhirIcons props should render a placeholder', () => {
+    const defaultProps = {
+      fhirResource: exampleAllergyIntoleranceDSTU2,
+      fhirVersion: fhirVersions.DSTU2,
+      fhirIcons: false,
+    };
+
+    const { getByTestId } = render(<AllergyIntolerance {...defaultProps} />);
+    const headerIcon = getByTestId('placeholder');
+
+    expect(headerIcon).toBeTruthy();
+  });
+
+  it('component with the img as a fhirIcons props should render an img', () => {
+    const defaultProps = {
+      fhirResource: exampleAllergyIntoleranceDSTU2,
+      fhirVersion: fhirVersions.DSTU2,
+      fhirIcons: (
+        <img
+          src={require('../assets/containers/AllergyIntolerance/allergy-intolerance.svg')}
+          alt="allergy intolerance"
+        />
+      ),
+    };
+
+    const { getByAltText } = render(<AllergyIntolerance {...defaultProps} />);
+    const headerIcon = getByAltText('allergy intolerance');
+
+    expect(headerIcon.getAttribute('src')).toContain('IMAGE_MOCK');
+  });
+
+  it('component with the resources object as a fhirIcons props should render an img', () => {
+    const defaultProps = {
+      fhirResource: exampleAllergyIntoleranceDSTU2,
+      fhirVersion: fhirVersions.DSTU2,
+      fhirIcons: fhirIcons,
+    };
+
+    const { getByAltText } = render(<AllergyIntolerance {...defaultProps} />);
+    const headerIcon = getByAltText('allergy intolerance');
+
+    expect(headerIcon.getAttribute('src')).toContain('IMAGE_MOCK');
+  });
+
+  it('component with the url as a fhirIcons props should render an img', () => {
+    const avatarSrc =
+      'https://www.gravatar.com/avatar/?s=50&r=any&default=identicon&forcedefault=1';
+    const defaultProps = {
+      fhirResource: exampleAllergyIntoleranceDSTU2,
+      fhirVersion: fhirVersions.DSTU2,
+      fhirIcons: avatarSrc,
+    };
+
+    const { getByAltText } = render(<AllergyIntolerance {...defaultProps} />);
+    const headerIcon = getByAltText('header icon');
+
+    expect(headerIcon.getAttribute('src')).toContain(avatarSrc);
+  });
   it('should render with DSTU2 source data', () => {
     const defaultProps = {
       fhirResource: exampleAllergyIntoleranceDSTU2,

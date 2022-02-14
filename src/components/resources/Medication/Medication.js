@@ -5,7 +5,6 @@ import _get from 'lodash/get';
 import {
   Root,
   Header,
-  Title,
   Badge,
   Body,
   ValueSection,
@@ -18,7 +17,6 @@ import fhirVersions from '../fhirResourceVersions';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 import Attachment from '../../datatypes/Attachment';
 import Accordion from '../../containers/Accordion';
-import Date from '../../datatypes/Date';
 
 const commonDTO = fhirResource => {
   let title = _get(fhirResource, 'code.coding.0');

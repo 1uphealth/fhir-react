@@ -8,7 +8,18 @@ import Telecom from '../../datatypes/Telecom';
 import Identifier from '../../datatypes/Identifier';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 import fhirVersions from '../fhirResourceVersions';
-import { Root, Header, Title, Body, Value, NotEnoughData } from '../../ui';
+import {
+  Root,
+  Header,
+  Title,
+  Body,
+  Value,
+  NotEnoughData,
+  MissingValue,
+} from '../../ui';
+import Accordion from '../../containers/Accordion';
+import Date from '../../datatypes/Date';
+import { PatientContact } from '../Patient/Patient';
 
 const commonDTO = fhirResource => {
   const identifier = _get(fhirResource, 'identifier', '');
@@ -74,42 +85,64 @@ const Organization = props => {
   const hasTelecom = Array.isArray(telecom) && telecom.length > 0;
   const hasTypes = Array.isArray(typeCodings) && typeCodings.length > 0;
   const notEnoughData = !hasAddresses && !hasTelecom && !hasTypes;
+
+  const tableData = [
+    {
+      label: 'Identifiers',
+      testId: 'identifier',
+      data: identifier && <Identifier fhirData={identifier} />,
+      status: identifier,
+    },
+    {
+      label: 'Addresses',
+      testId: 'address',
+      data:
+        hasAddresses &&
+        addresses.map((item, i) => (
+          <Address key={`item-${i}`} fhirData={item} />
+        )),
+      status: hasAddresses,
+    },
+    {
+      label: 'Contacts',
+      testId: 'contact',
+      data:
+        hasTelecom &&
+        telecom.map((item, i) => <Telecom key={`item-${i}`} fhirData={item} />),
+      status: hasTelecom,
+    },
+    {
+      label: 'Type',
+      testId: 'type',
+      data:
+        hasTypes &&
+        typeCodings.map((typeCoding, idx) => (
+          <Coding key={idx} fhirData={typeCoding} />
+        )),
+      status: hasTypes,
+    },
+    {
+      label: '',
+      testId: '',
+      data: notEnoughData && <NotEnoughData data-testid="NotEnoughData" />,
+      status: notEnoughData,
+    },
+  ];
+
   return (
     <Root name="Organization">
-      {name && (
-        <Header>
-          <Title>{name}</Title>
-        </Header>
-      )}
-      <Body>
-        {identifier && (
-          <Value label="Identifiers" data-testid="identifier">
-            <Identifier fhirData={identifier} />
-          </Value>
-        )}
-        {hasAddresses && (
-          <Value label="Addresses" data-testid="address">
-            {addresses.map((item, i) => (
-              <Address key={`item-${i}`} fhirData={item} />
-            ))}
-          </Value>
-        )}
-        {hasTelecom && (
-          <Value label="Contacts" data-testid="contact">
-            {telecom.map((item, i) => (
-              <Telecom key={`item-${i}`} fhirData={item} />
-            ))}
-          </Value>
-        )}
-        {hasTypes && (
-          <Value label="Type" data-testid="type">
-            {typeCodings.map((typeCoding, idx) => (
-              <Coding key={idx} fhirData={typeCoding} />
-            ))}
-          </Value>
-        )}
-        {notEnoughData && <NotEnoughData data-testid="NotEnoughData" />}
-      </Body>
+      <Accordion
+        headerContent={
+          name && (
+            <Header
+              resourceName="Organization"
+              title={name}
+              titleTestID="organizationName"
+            />
+          )
+        }
+        bodyContent={<Body tableData={tableData} />}
+      />
     </Root>
   );
 };

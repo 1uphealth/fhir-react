@@ -10,7 +10,7 @@ import stu3Example2 from '../../../fixtures/stu3/resources/medication/example2.j
 import r4Example1 from '../../../fixtures/r4/resources/medication/example1.json';
 import r4Example2 from '../../../fixtures/r4/resources/medication/example2.json';
 
-describe('should render MedicationOrder component properly', () => {
+describe('should render Medication component properly', () => {
   it('should render with DSTU2 source data', () => {
     const defaultProps = {
       fhirResource: dstu2Example1,

@@ -8,18 +8,8 @@ import Telecom from '../../datatypes/Telecom';
 import Identifier from '../../datatypes/Identifier';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 import fhirVersions from '../fhirResourceVersions';
-import {
-  Root,
-  Header,
-  Title,
-  Body,
-  Value,
-  NotEnoughData,
-  MissingValue,
-} from '../../ui';
+import { Root, Header, Body, NotEnoughData } from '../../ui';
 import Accordion from '../../containers/Accordion';
-import Date from '../../datatypes/Date';
-import { PatientContact } from '../Patient/Patient';
 
 const commonDTO = fhirResource => {
   const identifier = _get(fhirResource, 'identifier', '');
@@ -133,13 +123,7 @@ const Organization = props => {
     <Root name="Organization">
       <Accordion
         headerContent={
-          name && (
-            <Header
-              resourceName="Organization"
-              title={name}
-              titleTestID="organizationName"
-            />
-          )
+          name && <Header resourceName="Organization" title={name} />
         }
         bodyContent={<Body tableData={tableData} />}
       />

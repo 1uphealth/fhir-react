@@ -17,6 +17,8 @@ import Reference from '../../datatypes/Reference';
 import fhirVersions from '../fhirResourceVersions';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 import Attachment from '../../datatypes/Attachment';
+import Accordion from '../../containers/Accordion';
+import Date from '../../datatypes/Date';
 
 const commonDTO = fhirResource => {
   let title = _get(fhirResource, 'code.coding.0');
@@ -189,52 +191,64 @@ const Medication = props => {
 
   return (
     <Root name="Medication">
-      <Header>
-        <Title>
-          <Coding fhirData={title} />
-        </Title>
-        {isBrand && <Badge>Brand</Badge>}
-        {status && <Badge>{status}</Badge>}
-      </Header>
-      <Body>
-        {manufacturer && (
-          <Value label="Manufacturer" data-testid="manufacturer">
-            <Reference fhirData={manufacturer} />
-          </Value>
-        )}
-        {hasProduct && (
-          <ValueSection label="Product">
-            {productForm && (
-              <Value label="Form" data-testid="product-form">
-                {productForm.map((item, i) => (
-                  <Coding key={`item-${i}`} fhirData={item} />
-                ))}
+      <Accordion
+        headerContent={
+          <Header
+            resourceName="Medication"
+            badges={
+              <>
+                {isBrand && <Badge data-testid="brand-badge">Brand</Badge>}
+                {status && <Badge data-testid="status">{status}</Badge>}
+              </>
+            }
+            title={<Coding fhirData={title} />}
+          />
+        }
+        bodyContent={
+          <Body>
+            {manufacturer && (
+              <Value label="Manufacturer" data-testid="manufacturer">
+                <Reference fhirData={manufacturer} />
               </Value>
             )}
-            {hasProductIngredient && (
-              <Value label="Ingredient" data-testid="product-ingredient">
-                {productIngredient.map((item, i) => (
-                  <Ingredient key={`item-${i}`} {...item} />
-                ))}
-              </Value>
+            {hasProduct && (
+              <ValueSection label="Product">
+                {productForm && (
+                  <Value label="Form" data-testid="product-form">
+                    {productForm.map((item, i) => (
+                      <Coding key={`item-${i}`} fhirData={item} />
+                    ))}
+                  </Value>
+                )}
+                {hasProductIngredient && (
+                  <Value label="Ingredient" data-testid="product-ingredient">
+                    {productIngredient.map((item, i) => (
+                      <Ingredient key={`item-${i}`} {...item} />
+                    ))}
+                  </Value>
+                )}
+                {hasPackageCoding && (
+                  <Value
+                    label="Package container"
+                    data-testid="package-container"
+                  >
+                    {packageCoding.map((item, i) => (
+                      <Coding key={`item-${i}`} fhirData={item} />
+                    ))}
+                  </Value>
+                )}
+                {hasImages && (
+                  <Value label="Images" data-testid="product-images">
+                    {images.map((item, i) => (
+                      <Attachment key={`item-${i}`} fhirData={item} />
+                    ))}
+                  </Value>
+                )}
+              </ValueSection>
             )}
-            {hasPackageCoding && (
-              <Value label="Package container" data-testid="package-container">
-                {packageCoding.map((item, i) => (
-                  <Coding key={`item-${i}`} fhirData={item} />
-                ))}
-              </Value>
-            )}
-            {hasImages && (
-              <Value label="Images" data-testid="product-images">
-                {images.map((item, i) => (
-                  <Attachment key={`item-${i}`} fhirData={item} />
-                ))}
-              </Value>
-            )}
-          </ValueSection>
-        )}
-      </Body>
+          </Body>
+        }
+      />
     </Root>
   );
 };

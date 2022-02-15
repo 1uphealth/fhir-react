@@ -3,10 +3,12 @@ import PropTypes from 'prop-types';
 import _get from 'lodash/get';
 
 const Attachment = props => {
-  const { fhirData } = props;
+  const { fhirData, isImage = false } = props;
   const title = _get(fhirData, 'title', 'Link');
   const URL = _get(fhirData, 'url');
-  return (
+  return isImage ? (
+    <img src={URL} rel="noopener noreferrer" target="_blank" alt={title} />
+  ) : (
     <a href={URL} rel="noopener noreferrer" target="_blank">
       {title}
     </a>

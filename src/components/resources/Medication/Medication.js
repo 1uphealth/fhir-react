@@ -17,6 +17,7 @@ import fhirVersions from '../fhirResourceVersions';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 import Attachment from '../../datatypes/Attachment';
 import Accordion from '../../containers/Accordion';
+import { getBadgeColor } from '../../../utils/getBadgeColor';
 
 const commonDTO = fhirResource => {
   let title = _get(fhirResource, 'code.coding.0');
@@ -158,7 +159,7 @@ const Ingredient = props => {
         <Coding fhirData={itemDisplay} />
       </label>
       <Reference fhirData={reference} />
-      {hasAmount && <BadgeSecondary>{amount}</BadgeSecondary>}
+      {hasAmount && <span>, {amount}</span>}
     </div>
   );
 };
@@ -232,7 +233,7 @@ const Medication = ({ fhirResource, fhirVersion, fhirIcons }) => {
       data:
         hasImages &&
         images.map((item, i) => (
-          <Attachment key={`item-${i}`} fhirData={item} />
+          <Attachment key={`item-${i}`} fhirData={item} isImage />
         )),
       status: hasImages,
     },

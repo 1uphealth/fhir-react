@@ -130,7 +130,6 @@ describe('should render Medication component properly', () => {
       'Vancomycin Hydrochloride',
     );
     expect(getByTestId('package-container').textContent).toContain('Vial');
-    console.log({ test: getByTestId('product-images') });
 
     expect(getByAltText('Vancomycin Image').src).toContain(
       'https://www.drugs.com/images/pills/fio/AKN07410.JPG',

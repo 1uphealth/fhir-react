@@ -8,7 +8,6 @@ import {
   Badge,
   Body,
   ValueSection,
-  BadgeSecondary,
   ValueSectionItem,
 } from '../../ui';
 import Coding from '../../datatypes/Coding';
@@ -17,7 +16,6 @@ import fhirVersions from '../fhirResourceVersions';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 import Attachment from '../../datatypes/Attachment';
 import Accordion from '../../containers/Accordion';
-import { getBadgeColor } from '../../../utils/getBadgeColor';
 
 const commonDTO = fhirResource => {
   let title = _get(fhirResource, 'code.coding.0');

@@ -163,8 +163,7 @@ const Ingredient = props => {
   );
 };
 
-const Medication = props => {
-  const { fhirResource, fhirVersion } = props;
+const Medication = ({ fhirResource, fhirVersion, fhirIcons }) => {
   let fhirResourceData = {};
   try {
     fhirResourceData = resourceDTO(fhirVersion, fhirResource);
@@ -252,6 +251,7 @@ const Medication = props => {
               </>
             }
             title={<Coding fhirData={title} />}
+            icon={fhirIcons}
           />
         }
         bodyContent={

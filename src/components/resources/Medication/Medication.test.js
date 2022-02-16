@@ -9,14 +9,13 @@ import stu3Example1 from '../../../fixtures/stu3/resources/medication/example1.j
 import stu3Example2 from '../../../fixtures/stu3/resources/medication/example2.json';
 import r4Example1 from '../../../fixtures/r4/resources/medication/example1.json';
 import r4Example2 from '../../../fixtures/r4/resources/medication/example2.json';
-import example1 from '../../../fixtures/dstu2/resources/encounter/example.json';
 import fhirIcons from '../../../fixtures/example-icons';
 
 describe('should render Medication component properly', () => {
   it('component without a fhirIcons props should render a default icon', () => {
     const defaultProps = {
       fhirVersion: fhirVersions.DSTU2,
-      fhirResource: example1,
+      fhirResource: dstu2Example1,
     };
 
     const { getByAltText } = render(<Medication {...defaultProps} />);
@@ -28,7 +27,7 @@ describe('should render Medication component properly', () => {
   it('component with a false as a fhirIcons props should render a placeholder', () => {
     const defaultProps = {
       fhirVersion: fhirVersions.DSTU2,
-      fhirResource: example1,
+      fhirResource: dstu2Example1,
       fhirIcons: false,
     };
 
@@ -41,7 +40,7 @@ describe('should render Medication component properly', () => {
   it('component with the img as a fhirIcons props should render an img', () => {
     const defaultProps = {
       fhirVersion: fhirVersions.DSTU2,
-      fhirResource: example1,
+      fhirResource: dstu2Example1,
       fhirIcons: (
         <img
           src={require('../assets/containers/Medication/medication.svg')}
@@ -59,7 +58,7 @@ describe('should render Medication component properly', () => {
   it('component with the resources object as a fhirIcons props should render an img', () => {
     const defaultProps = {
       fhirVersion: fhirVersions.DSTU2,
-      fhirResource: example1,
+      fhirResource: dstu2Example1,
       fhirIcons: fhirIcons,
     };
 
@@ -74,7 +73,7 @@ describe('should render Medication component properly', () => {
       'https://www.gravatar.com/avatar/?s=50&r=any&default=identicon&forcedefault=1';
     const defaultProps = {
       fhirVersion: fhirVersions.DSTU2,
-      fhirResource: example1,
+      fhirResource: dstu2Example1,
       fhirIcons: avatarSrc,
     };
 

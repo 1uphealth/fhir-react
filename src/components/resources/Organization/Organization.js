@@ -55,8 +55,7 @@ const resourceDTO = (fhirVersion, fhirResource) => {
   }
 };
 
-const Organization = props => {
-  const { fhirResource, fhirVersion } = props;
+const Organization = ({ fhirResource, fhirVersion, fhirIcons }) => {
   let fhirResourceData = {};
   try {
     fhirResourceData = resourceDTO(fhirVersion, fhirResource);
@@ -123,7 +122,9 @@ const Organization = props => {
     <Root name="Organization">
       <Accordion
         headerContent={
-          name && <Header resourceName="Organization" title={name} />
+          name && (
+            <Header resourceName="Organization" title={name} icon={fhirIcons} />
+          )
         }
         bodyContent={<Body tableData={tableData} />}
       />

@@ -85,7 +85,7 @@ describe('should render Organization component properly', () => {
     const { getByAltText } = render(<Organization {...defaultProps} />);
     const headerIcon = getByAltText('header icon');
 
-    // expect(headerIcon.getAttribute('src')).toContain(avatarSrc);
+    expect(headerIcon.getAttribute('src')).toContain(avatarSrc);
   });
 
   it('should render with DSTU2 source data', () => {

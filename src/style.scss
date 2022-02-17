@@ -94,6 +94,10 @@ $enable-negative-margins: true;
   padding-left: 24px !important;
 }
 
+.fhir-ui__Body__row-gap {
+  gap: 16px;
+}
+
 .fhir-ui__ValueUnitQty {
   font-size: 28px;
 }

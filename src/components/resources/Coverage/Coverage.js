@@ -6,21 +6,9 @@ import Reference from '../../datatypes/Reference';
 import Coding from '../../datatypes/Coding';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 import fhirVersions from '../fhirResourceVersions';
-import {
-  Root,
-  Header,
-  Title,
-  Body,
-  Value,
-  Badge,
-  MissingValue,
-} from '../../ui';
+import { Root, Header, Body, Value } from '../../ui';
 import Identifier from '../../datatypes/Identifier';
 import Accordion from '../../containers/Accordion';
-import Date from '../../datatypes/Date';
-import Address from '../../datatypes/Address';
-import Telecom from '../../datatypes/Telecom';
-import { PatientContact } from '../Patient/Patient';
 
 const commonDTO = fhirResource => {
   const identifier = _get(fhirResource, 'identifier.0');

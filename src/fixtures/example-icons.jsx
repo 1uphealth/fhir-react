@@ -141,6 +141,13 @@ export default {
       alt="location marker"
     />
   ),
+  Medication: (
+    <img
+      className="header-icon__image"
+      src={require('../assets/containers/Medication/medication.svg')}
+      alt="medication"
+    />
+  ),
   MedicationOrder: (
     <img
       className="header-icon__image"

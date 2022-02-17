@@ -5,18 +5,17 @@ import _get from 'lodash/get';
 import {
   Root,
   Header,
-  Title,
   Badge,
   Body,
   ValueSection,
-  Value,
-  BadgeSecondary,
+  ValueSectionItem,
 } from '../../ui';
 import Coding from '../../datatypes/Coding';
 import Reference from '../../datatypes/Reference';
 import fhirVersions from '../fhirResourceVersions';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 import Attachment from '../../datatypes/Attachment';
+import Accordion from '../../containers/Accordion';
 
 const commonDTO = fhirResource => {
   let title = _get(fhirResource, 'code.coding.0');
@@ -158,13 +157,12 @@ const Ingredient = props => {
         <Coding fhirData={itemDisplay} />
       </label>
       <Reference fhirData={reference} />
-      {hasAmount && <BadgeSecondary>{amount}</BadgeSecondary>}
+      {hasAmount && <span>, {amount}</span>}
     </div>
   );
 };
 
-const Medication = props => {
-  const { fhirResource, fhirVersion } = props;
+const Medication = ({ fhirResource, fhirVersion, fhirIcons }) => {
   let fhirResourceData = {};
   try {
     fhirResourceData = resourceDTO(fhirVersion, fhirResource);
@@ -187,54 +185,95 @@ const Medication = props => {
     status,
   } = fhirResourceData;
 
+  const tableData = [
+    {
+      label: 'Manufacturer',
+      testId: 'manufacturer',
+      data: manufacturer && <Reference fhirData={manufacturer} />,
+      status: manufacturer,
+    },
+  ];
+
+  const productData = [
+    {
+      label: 'Form',
+      testId: 'product-form',
+      data:
+        productForm &&
+        productForm.map((item, i) => (
+          <Coding key={`item-${i}`} fhirData={item} />
+        )),
+      status: productForm,
+    },
+    {
+      label: 'Ingredient',
+      testId: 'product-ingredient',
+      data:
+        hasProductIngredient &&
+        productIngredient.map((item, i) => (
+          <Ingredient key={`item-${i}`} {...item} />
+        )),
+      status: hasProductIngredient,
+    },
+    {
+      label: 'Package container',
+      testId: 'package-container',
+      data:
+        hasPackageCoding &&
+        packageCoding.map((item, i) => (
+          <Coding key={`item-${i}`} fhirData={item} />
+        )),
+      status: hasPackageCoding,
+    },
+    {
+      label: 'Images',
+      testId: 'product-images',
+      data:
+        hasImages &&
+        images.map((item, i) => (
+          <Attachment key={`item-${i}`} fhirData={item} isImage />
+        )),
+      status: hasImages,
+    },
+  ];
+
   return (
     <Root name="Medication">
-      <Header>
-        <Title>
-          <Coding fhirData={title} />
-        </Title>
-        {isBrand && <Badge>Brand</Badge>}
-        {status && <Badge>{status}</Badge>}
-      </Header>
-      <Body>
-        {manufacturer && (
-          <Value label="Manufacturer" data-testid="manufacturer">
-            <Reference fhirData={manufacturer} />
-          </Value>
-        )}
-        {hasProduct && (
-          <ValueSection label="Product">
-            {productForm && (
-              <Value label="Form" data-testid="product-form">
-                {productForm.map((item, i) => (
-                  <Coding key={`item-${i}`} fhirData={item} />
-                ))}
-              </Value>
+      <Accordion
+        headerContent={
+          <Header
+            resourceName="Medication"
+            badges={
+              <>
+                {isBrand && <Badge data-testid="brand-badge">Brand</Badge>}
+                {status && <Badge data-testid="status">{status}</Badge>}
+              </>
+            }
+            title={<Coding fhirData={title} />}
+            icon={fhirIcons}
+          />
+        }
+        bodyContent={
+          <Body tableData={tableData}>
+            {hasProduct && (
+              <ValueSection label="Product" marginTop={manufacturer}>
+                {productData.map(
+                  (item, index) =>
+                    item.status && (
+                      <ValueSectionItem
+                        key={`product-item-${index}`}
+                        label={item.label}
+                        data-testid={item.testId}
+                      >
+                        {item.data}
+                      </ValueSectionItem>
+                    ),
+                )}
+              </ValueSection>
             )}
-            {hasProductIngredient && (
-              <Value label="Ingredient" data-testid="product-ingredient">
-                {productIngredient.map((item, i) => (
-                  <Ingredient key={`item-${i}`} {...item} />
-                ))}
-              </Value>
-            )}
-            {hasPackageCoding && (
-              <Value label="Package container" data-testid="package-container">
-                {packageCoding.map((item, i) => (
-                  <Coding key={`item-${i}`} fhirData={item} />
-                ))}
-              </Value>
-            )}
-            {hasImages && (
-              <Value label="Images" data-testid="product-images">
-                {images.map((item, i) => (
-                  <Attachment key={`item-${i}`} fhirData={item} />
-                ))}
-              </Value>
-            )}
-          </ValueSection>
-        )}
-      </Body>
+          </Body>
+        }
+      />
     </Root>
   );
 };

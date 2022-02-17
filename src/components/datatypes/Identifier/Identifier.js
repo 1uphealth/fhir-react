@@ -25,11 +25,7 @@ const Identifier = props => {
 
     return value ? (
       <div
-        className={
-          noCursive
-            ? 'fhir-datatype__Identifier-no-cursive'
-            : 'fhir-datatype__Identifier'
-        }
+        className={`${noCursive && 'fst-normal'} fhir-datatype__Identifier`}
         title={system}
         key={value}
       >

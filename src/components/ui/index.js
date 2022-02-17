@@ -128,12 +128,12 @@ export const ValueUnit = props => (
 export const Body = ({ tableData = [], reverseContent, children }) => (
   <div className="fhir-ui__Body">
     {reverseContent ? children : null}
-    <div className="row fhir-ui__Body__row-gap">
+    <div className="row">
       {tableData.map(
         (value, index) =>
           value.status && (
             <div
-              className="d-flex flex-column flex-sm-row"
+              className="d-flex flex-column flex-sm-row my-2"
               key={`table-data-item-${index}`}
             >
               <div className="dataTable__value-label ps-0">

@@ -235,7 +235,7 @@ const Coverage = ({ fhirResource, fhirVersion, fhirIcons }) => {
             additionalContent={
               identifier && (
                 <Value label="Identifier" data-testid="headerStartDate">
-                  <Identifier fhirData={identifier} valueOnly />
+                  <Identifier fhirData={identifier} valueOnly noCursive />
                 </Value>
               )
             }

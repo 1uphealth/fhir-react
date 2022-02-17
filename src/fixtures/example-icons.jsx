@@ -218,4 +218,11 @@ export default {
       alt="patient"
     />
   ),
+  Coverage: (
+    <img
+      className="header-icon__image"
+      src={require('../assets/containers/Coverage/coverage.svg')}
+      alt="coverage"
+    />
+  ),
 };

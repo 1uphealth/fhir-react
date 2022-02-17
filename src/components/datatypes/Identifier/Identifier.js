@@ -6,7 +6,7 @@ import './Identifier.css';
 import CodeableConcept from '../CodeableConcept';
 
 const Identifier = props => {
-  const { fhirData } = props;
+  const { fhirData, noCursive = false } = props;
   const identifierArray = Array.isArray(fhirData) ? fhirData : [fhirData];
 
   return identifierArray.map(identifier => {
@@ -24,7 +24,15 @@ const Identifier = props => {
     );
 
     return value ? (
-      <div className="fhir-datatype__Identifier" title={system} key={value}>
+      <div
+        className={
+          noCursive
+            ? 'fhir-datatype__Identifier-no-cursive'
+            : 'fhir-datatype__Identifier'
+        }
+        title={system}
+        key={value}
+      >
         <div style={{ display: 'flex' }}>
           {displayIdentifierName}
           <span>{value}</span>

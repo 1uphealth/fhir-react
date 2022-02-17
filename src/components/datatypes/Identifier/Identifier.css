@@ -2,3 +2,7 @@
   font-style: italic;
   cursor: help;
 }
+
+.fhir-datatype__Identifier-no-cursive {
+  cursor: help;
+}

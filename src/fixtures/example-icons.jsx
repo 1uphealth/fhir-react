@@ -190,6 +190,13 @@ export default {
       alt="observation"
     />
   ),
+  Organization: (
+    <img
+      className="header-icon__image"
+      src={require('../assets/containers/Organization/organization.svg')}
+      alt="organization"
+    />
+  ),
   Questionnaire: (
     <img
       className="header-icon__image"

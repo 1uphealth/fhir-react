@@ -199,10 +199,12 @@ export const TableHeader = props => {
   );
 };
 
-export const TableRow = props => <tr>{props.children}</tr>;
+export const TableRow = props => (
+  <tr style={{ height: 56 }}>{props.children}</tr>
+);
 
 export const TableCell = props => (
-  <td className="align-text-top border-0" data-testid={props['data-testid']}>
+  <td className="align-middle border-0" data-testid={props['data-testid']}>
     {props.children}
   </td>
 );

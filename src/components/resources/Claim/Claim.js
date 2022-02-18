@@ -25,7 +25,9 @@ import {
   TableCell,
   TableHeader,
   TableRow,
+  ValueSectionItem,
 } from '../../ui';
+import Accordion from '../../containers/Accordion';
 
 const commonDTO = fhirResource => {
   const id = _get(fhirResource, 'id');
@@ -302,7 +304,7 @@ const CareTeam = props => {
   const { careTeam } = props;
 
   return (
-    <ValueSection label="Care Team" data-testid="careTeam">
+    <ValueSection label="Care Team" data-testid="careTeam" marginTop>
       <Table>
         <thead>
           <TableRow>
@@ -311,7 +313,7 @@ const CareTeam = props => {
             <TableHeader>Qualification</TableHeader>
           </TableRow>
         </thead>
-        <tbody>
+        <tbody className="border-top-0">
           {careTeam.map((member, idx) => (
             <TableRow key={idx}>
               <TableCell data-testid="careTeam.provider">
@@ -343,7 +345,7 @@ const Diagnosis = props => {
   const { diagnosis } = props;
 
   return (
-    <ValueSection label="Diagnosis" data-testid="diagnosis">
+    <ValueSection label="Diagnosis" data-testid="diagnosis" marginTop>
       <Table>
         <thead>
           <TableRow>
@@ -352,7 +354,7 @@ const Diagnosis = props => {
             <TableHeader>Package code</TableHeader>
           </TableRow>
         </thead>
-        <tbody>
+        <tbody className="border-top-0">
           {diagnosis.map((diagnosis, idx) => (
             <TableRow key={idx}>
               <TableCell data-testid="diagnosis.diagnosis">
@@ -390,7 +392,7 @@ const Insurance = props => {
   const { insurance } = props;
 
   return (
-    <ValueSection label="Insurance" data-testid="insurance">
+    <ValueSection label="Insurance" data-testid="insurance" marginTop>
       <Table>
         <thead>
           <TableRow>
@@ -399,7 +401,7 @@ const Insurance = props => {
             <TableHeader>Claim Response</TableHeader>
           </TableRow>
         </thead>
-        <tbody>
+        <tbody className="border-top-0">
           {insurance.map((insurance, idx) => (
             <TableRow key={idx}>
               <TableCell data-testid="insurance.coverage">
@@ -429,75 +431,148 @@ const Insurance = props => {
 };
 
 const Item = props => {
-  const { item, parentSequences, level } = props;
-
-  const fill = Array(level)
-    .fill(null)
-    .map((_, idx) => (
-      <div key={idx} className="fhir-resource__Claim__item-level-fill"></div>
-    ));
+  const { id, item, parentSequences } = props;
 
   const itemSequences = [...parentSequences, item.sequence];
-  const id = itemSequences.join('.');
+  const show_id = itemSequences.join('.');
 
-  return (
-    <>
-      <TableRow>
-        <TableCell data-testid="items.level">
-          <div className="fhir-resource__Claim__item-level">{fill}</div>
-        </TableCell>
-        <TableCell data-testid="items.sequence">{id}</TableCell>
-        <TableCell data-testid="items.service">
-          <Coding fhirData={item.service} />
-        </TableCell>
-        <TableCell data-testid="items.unitPrice">
-          {item.unitPrice ? (
-            <Money fhirData={item.unitPrice} />
-          ) : (
-            <MissingValue />
-          )}
-          {item.factor != null ? (
-            <span>&nbsp;&times;&nbsp;{item.factor}</span>
-          ) : null}
-        </TableCell>
-        <TableCell data-testid="items.quantity">
-          {item.quantity != null ? item.quantity : <MissingValue />}
-        </TableCell>
-        <TableCell data-testid="items.net">
-          {item.net ? <Money fhirData={item.net} /> : <MissingValue />}
-        </TableCell>
-      </TableRow>
-      {item.subItems.map((subItem, idx) => (
-        <Item
-          key={idx}
-          item={subItem}
-          level={level + 1}
-          parentSequences={itemSequences}
-        />
-      ))}
-    </>
+  const rowData = (
+    <TableRow id={id}>
+      <TableCell data-testid="items.sequence">{show_id}</TableCell>
+      <TableCell data-testid="items.service">
+        <Coding fhirData={item.service} />
+      </TableCell>
+      <TableCell data-testid="items.unitPrice">
+        {item.unitPrice ? (
+          <Money fhirData={item.unitPrice} />
+        ) : (
+          <MissingValue />
+        )}
+        {item.factor != null ? (
+          <span>&nbsp;&times;&nbsp;{item.factor}</span>
+        ) : null}
+      </TableCell>
+      <TableCell data-testid="items.quantity">
+        {item.quantity != null ? item.quantity : <MissingValue />}
+      </TableCell>
+      <TableCell data-testid="items.net">
+        {item.net ? <Money fhirData={item.net} /> : <MissingValue />}
+      </TableCell>
+    </TableRow>
   );
+  console.log({ test: item.subItems });
+  return item.subItems != undefined && item.subItems.length ? (
+    <>
+      <Accordion
+        headerContent={rowData}
+        bodyContent={
+          <>
+            {item.subItems.map((subItem, idx) => (
+              <Item key={idx} item={subItem} parentSequences={itemSequences} />
+            ))}
+          </>
+        }
+      />
+    </>
+  ) : (
+    <>{rowData}</>
+  );
+
+  // return (
+  //   <>
+  //     <TableRow id={id}>
+  //       <TableCell data-testid="items.sequence">{show_id}</TableCell>
+  //       <TableCell data-testid="items.service">
+  //         <Coding fhirData={item.service} />
+  //       </TableCell>
+  //       <TableCell data-testid="items.unitPrice">
+  //         {item.unitPrice ? (
+  //           <Money fhirData={item.unitPrice} />
+  //         ) : (
+  //           <MissingValue />
+  //         )}
+  //         {item.factor != null ? (
+  //           <span>&nbsp;&times;&nbsp;{item.factor}</span>
+  //         ) : null}
+  //       </TableCell>
+  //       <TableCell data-testid="items.quantity">
+  //         {item.quantity != null ? item.quantity : <MissingValue />}
+  //       </TableCell>
+  //       <TableCell data-testid="items.net">
+  //         {item.net ? <Money fhirData={item.net} /> : <MissingValue />}
+  //       </TableCell>
+  //       <TableCell data-testid="items">
+  //         <button
+  //           type="button"
+  //           data-toggle="collapse"
+  //           data-target={`#item-${id ? id : show_id}`}
+  //         >
+  //           Arrow to open collapsed
+  //         </button>
+  //       </TableCell>
+  //     </TableRow>
+  //
+  //     {/*<button*/}
+  //     {/*  type="button"*/}
+  //     {/*  data-target="#demo"*/}
+  //     {/*  className="btn btn-primary"*/}
+  //     {/*  data-toggle="collapse"*/}
+  //     {/*>*/}
+  //     {/*  Simple collapsible*/}
+  //     {/*</button>*/}
+  //     {/*<div id="demo" className="collapse">*/}
+  //     {/*  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod*/}
+  //     {/*  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim*/}
+  //     {/*  veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea*/}
+  //     {/*  commodo consequat.*/}
+  //     {/*</div>*/}
+  //
+  //     <button
+  //       className="collapsed"
+  //       type="button"
+  //       data-bs-target={`item-${id ? id : show_id}`}
+  //       data-bs-toggle="collapse"
+  //     >
+  //       test button
+  //     </button>
+  //     <div className="collapse" id={`item-${id ? id : show_id}`}>
+  //       <p>test</p>
+  //       {/*{item.subItems.map((subItem, idx) => (*/}
+  //       {/*  <p>test</p>*/}
+  //       {/*  // <Item*/}
+  //       {/*  //   class="collapse"*/}
+  //       {/*  //   id={id}*/}
+  //       {/*  //   key={idx}*/}
+  //       {/*  //   item={subItem}*/}
+  //       {/*  //   parentSequences={itemSequences}*/}
+  //       {/*  // />*/}
+  //       {/*))}*/}
+  //     </div>
+  //   </>
+  // );
 };
 
 const Items = props => {
   const { items } = props;
 
+  console.log({ items });
+
   return (
-    <ValueSection label="Items" data-testid="items">
+    <ValueSection label="Items" data-testid="items" marginTop>
       <Table>
         <thead>
           <TableRow>
-            <TableHeader />
             <TableHeader>ID</TableHeader>
-            <TableHeader expand>Service</TableHeader>
+            <TableHeader>Service</TableHeader>
             <TableHeader>Unit price</TableHeader>
             <TableHeader>Quantity</TableHeader>
             <TableHeader>Total</TableHeader>
+            <TableHeader></TableHeader>
           </TableRow>
         </thead>
-        <tbody>
+        <tbody className="border-top-0">
           {items.map((item, idx) => (
-            <Item key={idx} item={item} level={0} parentSequences={[]} />
+            <Item key={idx} item={item} parentSequences={[]} />
           ))}
         </tbody>
       </Table>
@@ -505,8 +580,7 @@ const Items = props => {
   );
 };
 
-const Claim = props => {
-  const { fhirResource, fhirVersion } = props;
+const Claim = ({ fhirResource, fhirVersion, fhirIcons }) => {
   let fhirResourceData = {};
   try {
     fhirResourceData = resourceDTO(fhirVersion, fhirResource);
@@ -537,103 +611,160 @@ const Claim = props => {
   const hasDiagnosis = diagnosis.length > 0;
   const hasInsurance = insurance.length > 0;
 
+  const tableData1 = [
+    {
+      label: 'Type',
+      testId: 'type',
+      data: <Coding fhirData={typeCoding} />,
+      status: true,
+    },
+    {
+      label: 'Created at',
+      testId: 'created',
+      data: created && <DateType fhirData={created} />,
+      status: created,
+    },
+    {
+      label: 'Accident',
+      testId: 'accident',
+      data: accident && (
+        <>
+          {accident.date && (
+            <Value label="Date" data-testid="accident.date">
+              <DateType fhirData={accident.date} />
+            </Value>
+          )}
+          {accident.coding && (
+            <Value label="Type" data-testid="accident.type">
+              <Coding fhirData={accident.coding} />
+            </Value>
+          )}
+        </>
+      ),
+      status: accident,
+    },
+    {
+      label: 'Employment impacted',
+      testId: 'employmentImpacted',
+      data: employmentImpacted && (
+        <>
+          {employmentImpacted.start ? (
+            <DateType fhirData={employmentImpacted.start} />
+          ) : (
+            <MissingValue />
+          )}
+          {' - '}
+          {employmentImpacted.end ? (
+            <DateType fhirData={employmentImpacted.end} />
+          ) : (
+            <MissingValue />
+          )}
+        </>
+      ),
+      status: employmentImpacted,
+    },
+    {
+      label: 'Hospitalization',
+      testId: 'hospitalization',
+      data: hospitalization && (
+        <>
+          {hospitalization.start ? (
+            <DateType fhirData={hospitalization.start} />
+          ) : (
+            <MissingValue />
+          )}
+          {' - '}
+          {hospitalization.end ? (
+            <DateType fhirData={hospitalization.end} />
+          ) : (
+            <MissingValue />
+          )}
+        </>
+      ),
+      status: hospitalization,
+    },
+  ];
+
+  const tableData2 = [
+    {
+      label: 'Insurer',
+      testId: 'insurer',
+      data: insurer && <Reference fhirData={insurer} />,
+      status: insurer,
+    },
+    {
+      label: 'Organization',
+      testId: 'organization',
+      data: organization && <Reference fhirData={organization} />,
+      status: organization,
+    },
+    {
+      label: 'Payee',
+      testId: 'payee.type',
+      data: payee.coding && <Coding fhirData={payee.coding} />,
+      status: payee.coding,
+    },
+    {
+      label: 'Payee party',
+      testId: 'payee.party',
+      data: payee.party && <Reference fhirData={payee.party} />,
+      status: payee.party,
+    },
+    {
+      label: 'Priority',
+      testId: 'priority',
+      data: priorityCoding && <Coding fhirData={priorityCoding} />,
+      status: priorityCoding,
+    },
+  ];
+
   return (
     <Root name="Claim">
-      <Header>
-        <Title data-testid="title">Claim #{id}</Title>
-        {use && <Badge data-testid="use">{use}</Badge>}
-        {status && (
-          <BadgeSecondary data-testid="status">{status}</BadgeSecondary>
-        )}
-      </Header>
-      <Body>
-        <Value label="Type" data-testid="type">
-          <Coding fhirData={typeCoding} />
-        </Value>
-        {created && (
-          <Value label="Created at" data-testid="created">
-            <DateType fhirData={created} />
-          </Value>
-        )}
-        {accident && (
-          <ValueSection label="Accident" data-testid="accident">
-            {accident.date && (
-              <Value label="Date" data-testid="accident.date">
-                <DateType fhirData={accident.date} />
-              </Value>
+      <Accordion
+        headerContent={
+          <Header
+            resourceName="Claim"
+            title={`Claim #${id}`}
+            badges={
+              <>
+                {use && <Badge data-testid="use">{use}</Badge>}
+                {status && (
+                  <BadgeSecondary data-testid="status">{status}</BadgeSecondary>
+                )}
+              </>
+            }
+            icon={fhirIcons}
+          />
+        }
+        bodyContent={
+          <Body tableData={tableData1}>
+            {/* TODO: add spacing between tableData and this below */}
+            {hasCareTeam && <CareTeam careTeam={careTeam} />}
+            {hasDiagnosis && <Diagnosis diagnosis={diagnosis} />}
+            {tableData2.map(
+              /* TODO: spacing here is off too */
+              (item, index) =>
+                item.status && (
+                  <ValueSectionItem
+                    key={`claim-item-${index}`}
+                    label={item.label}
+                    data-testid={item.testId}
+                  >
+                    {item.data}
+                  </ValueSectionItem>
+                ),
             )}
-            {accident.coding && (
-              <Value label="Type" data-testid="accident.type">
-                <Coding fhirData={accident.coding} />
-              </Value>
+            {hasInsurance && <Insurance insurance={insurance} />}
+            {total && (
+              <ValueSectionItem label="Total amount" data-testid="total">
+                <Money fhirData={total} />
+              </ValueSectionItem>
             )}
-          </ValueSection>
-        )}
-        {employmentImpacted && (
-          <Value label="Employment impacted" data-testid="employmentImpacted">
-            {employmentImpacted.start ? (
-              <DateType fhirData={employmentImpacted.start} />
-            ) : (
-              <MissingValue />
-            )}
-            {' - '}
-            {employmentImpacted.end ? (
-              <DateType fhirData={employmentImpacted.end} />
-            ) : (
-              <MissingValue />
-            )}
-          </Value>
-        )}
-        {hospitalization && (
-          <Value label="Hospitalization" data-testid="hospitalization">
-            {hospitalization.start ? (
-              <DateType fhirData={hospitalization.start} />
-            ) : (
-              <MissingValue />
-            )}
-            {' - '}
-            {hospitalization.end ? (
-              <DateType fhirData={hospitalization.end} />
-            ) : (
-              <MissingValue />
-            )}
-          </Value>
-        )}
-        {hasCareTeam && <CareTeam careTeam={careTeam} />}
-        {hasDiagnosis && <Diagnosis diagnosis={diagnosis} />}
-        {insurer && (
-          <Value label="Insurer" data-testid="insurer">
-            <Reference fhirData={insurer} />
-          </Value>
-        )}
-        {organization && (
-          <Value label="Organization" data-testid="organization">
-            <Reference fhirData={organization} />
-          </Value>
-        )}
-        {payee.coding && (
-          <Value label="Payee" data-testid="payee.type">
-            <Coding fhirData={payee.coding} />
-          </Value>
-        )}
-        {payee.party && (
-          <Value label="Payee party" data-testid="payee.party">
-            <Reference fhirData={payee.party} />
-          </Value>
-        )}
-        {priorityCoding && (
-          <Value label="Priority" data-testid="priority">
-            <Coding fhirData={priorityCoding} />
-          </Value>
-        )}
-        {hasInsurance && <Insurance insurance={insurance} />}
-        {total && (
-          <Value label="Total amount" data-testid="total">
-            <Money fhirData={total} />
-          </Value>
-        )}
-        {items && <Items items={items} />}
-      </Body>
+            {items && <Items items={items} />}
+          </Body>
+        }
+      />
+      <Body></Body>
     </Root>
   );
 };

@@ -517,8 +517,6 @@ const Item = props => {
 const Items = props => {
   const { items } = props;
 
-  console.log({ items });
-
   return (
     <ValueSection label="Items" data-testid="items" marginTop>
       <Table>

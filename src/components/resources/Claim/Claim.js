@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import _get from 'lodash/get';
 
@@ -26,6 +26,7 @@ import {
   TableHeader,
   TableRow,
   ValueSectionItem,
+  Chevron,
 } from '../../ui';
 import Accordion from '../../containers/Accordion';
 
@@ -316,17 +317,20 @@ const CareTeam = props => {
         <tbody className="border-top-0">
           {careTeam.map((member, idx) => (
             <TableRow key={idx}>
-              <TableCell data-testid="careTeam.provider">
+              <TableCell data-testid="careTeam.provider" className="col-md-4">
                 <Reference fhirData={member.provider} />
               </TableCell>
-              <TableCell data-testid="careTeam.role">
+              <TableCell data-testid="careTeam.role" className="col-md-4">
                 {member.role ? (
                   <Coding fhirData={member.role} />
                 ) : (
                   <MissingValue />
                 )}
               </TableCell>
-              <TableCell data-testid="careTeam.qualification">
+              <TableCell
+                data-testid="careTeam.qualification"
+                className="col-md-4"
+              >
                 {careTeam.qualification ? (
                   <Coding fhirData={member.qualification} />
                 ) : (
@@ -357,7 +361,7 @@ const Diagnosis = props => {
         <tbody className="border-top-0">
           {diagnosis.map((diagnosis, idx) => (
             <TableRow key={idx}>
-              <TableCell data-testid="diagnosis.diagnosis">
+              <TableCell data-testid="diagnosis.diagnosis" className="col-md-4">
                 {diagnosis.coding ? (
                   <Coding fhirData={diagnosis.coding} />
                 ) : diagnosis.refrence ? (
@@ -366,14 +370,17 @@ const Diagnosis = props => {
                   <MissingValue />
                 )}
               </TableCell>
-              <TableCell data-testid="diagnosis.type">
+              <TableCell data-testid="diagnosis.type" className="col-md-4">
                 {diagnosis.typeCoding ? (
                   <Coding fhirData={diagnosis.typeCoding} />
                 ) : (
                   <MissingValue />
                 )}
               </TableCell>
-              <TableCell data-testid="diagnosis.packageCode">
+              <TableCell
+                data-testid="diagnosis.packageCode"
+                className="col-md-4"
+              >
                 {diagnosis.packageCodeCoding ? (
                   <Coding fhirData={diagnosis.packageCodeCoding} />
                 ) : (
@@ -404,18 +411,24 @@ const Insurance = props => {
         <tbody className="border-top-0">
           {insurance.map((insurance, idx) => (
             <TableRow key={idx}>
-              <TableCell data-testid="insurance.coverage">
+              <TableCell data-testid="insurance.coverage" className="col-md-4">
                 <Reference fhirData={insurance.coverage} />
                 {insurance.focal && ' (focal)'}
               </TableCell>
-              <TableCell data-testid="insurance.businessArrangement">
+              <TableCell
+                data-testid="insurance.businessArrangement"
+                className="col-md-4"
+              >
                 {insurance.businessArrangement ? (
                   insurance.businessArrangement
                 ) : (
                   <MissingValue />
                 )}
               </TableCell>
-              <TableCell data-testid="insurance.claimResponse">
+              <TableCell
+                data-testid="insurance.claimResponse"
+                className="col-md-4"
+              >
                 {insurance.claimResponse ? (
                   <Reference fhirData={insurance.claimResponse} />
                 ) : (
@@ -437,14 +450,22 @@ const Item = props => {
   const id = itemSequences.join('.');
   const collapse_id = itemSequences.join('_');
 
+  const [rotate, setRotate] = useState(false);
+  const handleTableExpand = () => setRotate(!rotate);
+
   return (
     <>
-      <TableRow className={`${className} ${collapsedClassName}`}>
-        <TableCell data-testid="items.sequence">{id}</TableCell>
-        <TableCell data-testid="items.service">
+      <TableRow
+        className={`${className} ${collapsedClassName}`}
+        style={{ height: '56px' }}
+      >
+        <TableCell data-testid="items.sequence" className="col-md-2">
+          {id}
+        </TableCell>
+        <TableCell data-testid="items.service" className="col-md-2">
           <Coding fhirData={item.service} />
         </TableCell>
-        <TableCell data-testid="items.unitPrice">
+        <TableCell data-testid="items.unitPrice" className="col-md-2">
           {item.unitPrice ? (
             <Money fhirData={item.unitPrice} />
           ) : (
@@ -454,26 +475,30 @@ const Item = props => {
             <span>&nbsp;&times;&nbsp;{item.factor}</span>
           ) : null}
         </TableCell>
-        <TableCell data-testid="items.quantity">
+        <TableCell data-testid="items.quantity" className="col-md-2">
           {item.quantity != null ? item.quantity : <MissingValue />}
         </TableCell>
-        <TableCell data-testid="items.net">
+        <TableCell data-testid="items.net" className="col-md-2">
           {item.net ? <Money fhirData={item.net} /> : <MissingValue />}
         </TableCell>
         {item.subItems != undefined && item.subItems.length ? (
-          <TableCell>
+          <TableCell className="col-md-2">
             <button
+              className="fhir-container__Accordion__header-button w-100 p-0 border-0 rounded-1 collapsed text-dark bg-transparent shadow-none point"
               type="button"
               data-bs-target={`.item-${collapse_id}`}
               data-bs-toggle={'collapse'}
               aria-controls={id}
               aria-expanded="false"
+              onClick={handleTableExpand}
             >
-              test
+              <div className={` ${rotate ? ' header-rotate' : ''}`}>
+                <Chevron strokeColor={rotate ? '#2a6fd7' : '#6f83a9'} />
+              </div>
             </button>
           </TableCell>
         ) : (
-          <TableCell></TableCell>
+          <TableCell style={{ width: '64px' }} className="col-md-2" />
         )}
       </TableRow>
       {item.subItems.map((subItem, idx) => (
@@ -664,10 +689,9 @@ const Claim = ({ fhirResource, fhirVersion, fhirIcons }) => {
             title={`Claim #${id}`}
             badges={
               <>
+                {/* TODO: fix spacing between badges */}
                 {use && <Badge data-testid="use">{use}</Badge>}
-                {status && (
-                  <BadgeSecondary data-testid="status">{status}</BadgeSecondary>
-                )}
+                {status && <Badge data-testid="status">{status}</Badge>}
               </>
             }
             icon={fhirIcons}
@@ -675,7 +699,6 @@ const Claim = ({ fhirResource, fhirVersion, fhirIcons }) => {
         }
         bodyContent={
           <Body tableData={tableData1}>
-            {/* TODO: add spacing between tableData and this below */}
             {hasCareTeam && <CareTeam careTeam={careTeam} />}
             {hasDiagnosis && <Diagnosis diagnosis={diagnosis} />}
             {tableData2.map(

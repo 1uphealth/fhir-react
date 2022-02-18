@@ -200,13 +200,16 @@ export const TableHeader = props => {
 };
 
 export const TableRow = props => (
-  <tr style={{ height: 56 }} className={props.className}>
-    {props.children}
-  </tr>
+  // TODO: table row style is reset when expanding collapsed
+  <tr className={props.className}>{props.children}</tr>
 );
 
 export const TableCell = props => (
-  <td className="align-middle border-0" data-testid={props['data-testid']}>
+  <td
+    className={`align-middle border-0 ${props.className || ''}`}
+    data-testid={props['data-testid']}
+    style={props.style}
+  >
     {props.children}
   </td>
 );

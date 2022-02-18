@@ -463,16 +463,46 @@ const Item = props => {
   console.log({ test: item.subItems });
   return item.subItems != undefined && item.subItems.length ? (
     <>
-      <Accordion
-        headerContent={rowData}
-        bodyContent={
+      {rowData}
+      <button
+        className={`fhir-container__Accordion__header-button w-100 p-0 border-0 rounded-1 collapsed text-dark bg-white shadow-none point`}
+        type="button"
+        data-bs-target={`#item-${id}`}
+        data-bs-toggle={'collapse'}
+        aria-controls={id}
+        aria-expanded="false"
+      >
+        test
+      </button>
+
+      <div
+        className="fhir-container__Accordion__data accordion-collapse collapse"
+        id={`item-${id}`}
+      >
+        <div className="fhir-container__Accordion__data-text accordion-body ps-4 pt-3 pe-4 border-top">
           <>
             {item.subItems.map((subItem, idx) => (
-              <Item key={idx} item={subItem} parentSequences={itemSequences} />
+              <Item
+                id={show_id}
+                key={idx}
+                item={subItem}
+                parentSequences={itemSequences}
+              />
             ))}
           </>
-        }
-      />
+        </div>
+      </div>
+
+      {/*<Accordion*/}
+      {/*  headerContent={rowData}*/}
+      {/*  bodyContent={*/}
+      {/*    <>*/}
+      {/*      {item.subItems.map((subItem, idx) => (*/}
+      {/*        <Item key={idx} item={subItem} parentSequences={itemSequences} />*/}
+      {/*      ))}*/}
+      {/*    </>*/}
+      {/*  }*/}
+      {/*/>*/}
     </>
   ) : (
     <>{rowData}</>

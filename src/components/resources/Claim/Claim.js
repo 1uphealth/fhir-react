@@ -689,7 +689,6 @@ const Claim = ({ fhirResource, fhirVersion, fhirIcons }) => {
             title={`Claim #${id}`}
             badges={
               <>
-                {/* TODO: fix spacing between badges */}
                 {use && <Badge data-testid="use">{use}</Badge>}
                 {status && <Badge data-testid="status">{status}</Badge>}
               </>
@@ -701,24 +700,28 @@ const Claim = ({ fhirResource, fhirVersion, fhirIcons }) => {
           <Body tableData={tableData1}>
             {hasCareTeam && <CareTeam careTeam={careTeam} />}
             {hasDiagnosis && <Diagnosis diagnosis={diagnosis} />}
-            {tableData2.map(
-              /* TODO: spacing here is off too */
-              (item, index) =>
-                item.status && (
-                  <ValueSectionItem
-                    key={`claim-item-${index}`}
-                    label={item.label}
-                    data-testid={item.testId}
-                  >
-                    {item.data}
-                  </ValueSectionItem>
-                ),
-            )}
+            <ValueSection>
+              {tableData2.map(
+                /* TODO: spacing here is off too */
+                (item, index) =>
+                  item.status && (
+                    <ValueSectionItem
+                      key={`claim-item-${index}`}
+                      label={item.label}
+                      data-testid={item.testId}
+                    >
+                      {item.data}
+                    </ValueSectionItem>
+                  ),
+              )}
+            </ValueSection>
             {hasInsurance && <Insurance insurance={insurance} />}
             {total && (
-              <ValueSectionItem label="Total amount" data-testid="total">
-                <Money fhirData={total} />
-              </ValueSectionItem>
+              <ValueSection>
+                <ValueSectionItem label="Total amount" data-testid="total">
+                  <Money fhirData={total} />
+                </ValueSectionItem>
+              </ValueSection>
             )}
             {items && <Items items={items} />}
           </Body>

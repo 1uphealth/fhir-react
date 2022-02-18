@@ -87,7 +87,7 @@ export const Title = props => (
 export const Badge = props => {
   return (
     <small
-      className={`fhir-ui__Badge text-capitalize d-flex align-items-center px-2 py-1 rounded-1 fw-bold ${getBadgeColor(
+      className={`fhir-ui__Badge text-capitalize d-flex align-items-center mx-1 px-2 py-1 rounded-1 fw-bold ${getBadgeColor(
         props,
       )}`}
       data-testid={props['data-testid']}
@@ -200,7 +200,6 @@ export const TableHeader = props => {
 };
 
 export const TableRow = props => (
-  // TODO: table row style is reset when expanding collapsed
   <tr className={props.className}>{props.children}</tr>
 );
 

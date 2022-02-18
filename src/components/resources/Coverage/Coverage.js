@@ -6,8 +6,9 @@ import Reference from '../../datatypes/Reference';
 import Coding from '../../datatypes/Coding';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 import fhirVersions from '../fhirResourceVersions';
-import { Root, Header, Title, Body, Value } from '../../ui';
+import { Root, Header, Body, Value } from '../../ui';
 import Identifier from '../../datatypes/Identifier';
+import Accordion from '../../containers/Accordion';
 
 const commonDTO = fhirResource => {
   const identifier = _get(fhirResource, 'identifier.0');
@@ -113,8 +114,7 @@ const resourceDTO = (fhirVersion, fhirResource) => {
   }
 };
 
-const Coverage = props => {
-  const { fhirResource, fhirVersion } = props;
+const Coverage = ({ fhirResource, fhirVersion, fhirIcons }) => {
   let fhirResourceData = {};
   try {
     fhirResourceData = resourceDTO(fhirVersion, fhirResource);
@@ -138,74 +138,101 @@ const Coverage = props => {
   } = fhirResourceData;
   const issuerReferenceType = _get(issuer, 'reference');
   const issuerIdentifierType = _get(issuer, 'identifier');
+
+  const tableData = [
+    {
+      label: 'Issuer',
+      testId: 'issuer',
+      data: issuerReferenceType && <Reference fhirData={issuer} />,
+      status: issuerReferenceType,
+    },
+    {
+      label: 'Issuer',
+      testId: 'issuer',
+      data: issuerIdentifierType && <Identifier fhirData={issuer.identifier} />,
+      status: issuerIdentifierType,
+    },
+    {
+      label: 'PlanId',
+      testId: 'planId',
+      data: planId,
+      status: planId,
+    },
+    {
+      label: 'Coverage',
+      testId: '',
+      data: period && (
+        <>
+          {coverageFrom && (
+            <span data-testid="coverageFrom">from: {coverageFrom}</span>
+          )}{' '}
+          {coverageTo && <span data-testid="coverageTo">to: {coverageTo}</span>}
+        </>
+      ),
+      status: period,
+    },
+    {
+      label: 'Type of coverage',
+      testId: 'type',
+      data: type && <Coding fhirData={type} />,
+      status: type,
+    },
+    {
+      label: 'Details',
+      testId: 'details',
+      data: hasDetails && (
+        <>
+          <span>{details.planDescription}</span>
+          {details.classDescription && (
+            <>
+              {' | '}
+              <span>{details.classDescription}</span>
+            </>
+          )}
+        </>
+      ),
+      status: hasDetails,
+    },
+    {
+      label: 'Extension',
+      testId: 'extensions',
+      data:
+        hasExtension &&
+        extension.map((item, i) => {
+          const coding = Array.isArray(item.coding) ? item.coding : [];
+
+          return (
+            <span key={`item-${i}`}>
+              {item.name && <span>{item.name}</span>}
+              {coding.map((code, j) => (
+                <Coding key={`item-${j}`} fhirData={code} />
+              ))}
+            </span>
+          );
+        }),
+      status: hasExtension,
+    },
+  ];
+
   return (
     <Root name="coverage">
-      <Header>
-        {identifier && (
-          <Title>
-            Coverage <Identifier fhirData={identifier} />
-          </Title>
-        )}
-      </Header>
-      <Body>
-        {issuerReferenceType && (
-          <Value label="Issuer" data-testid="issuer">
-            <Reference fhirData={issuer} />
-          </Value>
-        )}
-        {issuerIdentifierType && (
-          <Value label="Issuer" data-testid="issuer">
-            <Identifier fhirData={issuer.identifier} />
-          </Value>
-        )}
-        {planId && (
-          <Value label="PlanId" data-testid="planId">
-            {planId}
-          </Value>
-        )}
-        {period && (
-          <Value label="Coverage">
-            {coverageFrom && (
-              <span data-testid="coverageFrom">from: {coverageFrom}</span>
-            )}{' '}
-            {coverageTo && (
-              <span data-testid="coverageTo">to: {coverageTo}</span>
-            )}
-          </Value>
-        )}
-        {type && (
-          <Value label="Type of coverage" data-testid="type">
-            <Coding fhirData={type} />
-          </Value>
-        )}
-        {hasDetails && (
-          <Value label="Details" data-testid="details">
-            <span>{details.planDescription}</span>
-            {details.classDescription && (
-              <>
-                {' | '}
-                <span>{details.classDescription}</span>
-              </>
-            )}
-          </Value>
-        )}
-        {hasExtension && (
-          <Value label="Extension" data-testid="extensions">
-            {extension.map((item, i) => {
-              const coding = Array.isArray(item.coding) ? item.coding : [];
-
-              return (
-                <span key={`item-${i}`}>
-                  {item.name && <span>{item.name}</span>}
-                  {coding.map((code, j) => (
-                    <Coding key={`item-${j}`} fhirData={code} />
-                  ))}
-                </span>
-              );
-            })}
-          </Value>
-        )}
-      </Body>
+      <Accordion
+        headerContent={
+          <Header
+            resourceName="Coverage"
+            additionalContent={
+              identifier && (
+                <Value label="Identifier">
+                  <Identifier fhirData={identifier} valueOnly noCursive />
+                </Value>
+              )
+            }
+            title="Coverage"
+            icon={fhirIcons}
+          />
+        }
+        bodyContent={<Body tableData={tableData} />}
+      />
     </Root>
   );
 };

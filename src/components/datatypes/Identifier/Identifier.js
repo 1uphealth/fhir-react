@@ -6,7 +6,7 @@ import './Identifier.css';
 import CodeableConcept from '../CodeableConcept';
 
 const Identifier = props => {
-  const { fhirData, noCursive = false } = props;
+  const { fhirData, valueOnly = false, noCursive = false } = props;
   const identifierArray = Array.isArray(fhirData) ? fhirData : [fhirData];
 
   return identifierArray.map(identifier => {
@@ -30,7 +30,7 @@ const Identifier = props => {
         key={value}
       >
         <div style={{ display: 'flex' }}>
-          {displayIdentifierName}
+          {!valueOnly && displayIdentifierName}
           <span>{value}</span>
         </div>
       </div>

@@ -200,7 +200,9 @@ export const TableHeader = props => {
 };
 
 export const TableRow = props => (
-  <tr style={{ height: 56 }}>{props.children}</tr>
+  <tr style={{ height: 56 }} className={props.className}>
+    {props.children}
+  </tr>
 );
 
 export const TableCell = props => (

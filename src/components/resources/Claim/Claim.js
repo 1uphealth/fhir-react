@@ -431,155 +431,62 @@ const Insurance = props => {
 };
 
 const Item = props => {
-  const { id, item, parentSequences } = props;
+  const { item, parentSequences, collapsedClassName, className } = props;
 
   const itemSequences = [...parentSequences, item.sequence];
-  const show_id = itemSequences.join('.');
+  const id = itemSequences.join('.');
+  const collapse_id = itemSequences.join('_');
 
-  const rowData = (
-    <TableRow id={id}>
-      <TableCell data-testid="items.sequence">{show_id}</TableCell>
-      <TableCell data-testid="items.service">
-        <Coding fhirData={item.service} />
-      </TableCell>
-      <TableCell data-testid="items.unitPrice">
-        {item.unitPrice ? (
-          <Money fhirData={item.unitPrice} />
-        ) : (
-          <MissingValue />
-        )}
-        {item.factor != null ? (
-          <span>&nbsp;&times;&nbsp;{item.factor}</span>
-        ) : null}
-      </TableCell>
-      <TableCell data-testid="items.quantity">
-        {item.quantity != null ? item.quantity : <MissingValue />}
-      </TableCell>
-      <TableCell data-testid="items.net">
-        {item.net ? <Money fhirData={item.net} /> : <MissingValue />}
-      </TableCell>
-    </TableRow>
-  );
-  console.log({ test: item.subItems });
-  return item.subItems != undefined && item.subItems.length ? (
+  return (
     <>
-      {rowData}
-      <button
-        className={`fhir-container__Accordion__header-button w-100 p-0 border-0 rounded-1 collapsed text-dark bg-white shadow-none point`}
-        type="button"
-        data-bs-target={`#item-${id}`}
-        data-bs-toggle={'collapse'}
-        aria-controls={id}
-        aria-expanded="false"
-      >
-        test
-      </button>
-
-      <div
-        className="fhir-container__Accordion__data accordion-collapse collapse"
-        id={`item-${id}`}
-      >
-        <div className="fhir-container__Accordion__data-text accordion-body ps-4 pt-3 pe-4 border-top">
-          <>
-            {item.subItems.map((subItem, idx) => (
-              <Item
-                id={show_id}
-                key={idx}
-                item={subItem}
-                parentSequences={itemSequences}
-              />
-            ))}
-          </>
-        </div>
-      </div>
-
-      {/*<Accordion*/}
-      {/*  headerContent={rowData}*/}
-      {/*  bodyContent={*/}
-      {/*    <>*/}
-      {/*      {item.subItems.map((subItem, idx) => (*/}
-      {/*        <Item key={idx} item={subItem} parentSequences={itemSequences} />*/}
-      {/*      ))}*/}
-      {/*    </>*/}
-      {/*  }*/}
-      {/*/>*/}
+      <TableRow className={`${className} ${collapsedClassName}`}>
+        <TableCell data-testid="items.sequence">{id}</TableCell>
+        <TableCell data-testid="items.service">
+          <Coding fhirData={item.service} />
+        </TableCell>
+        <TableCell data-testid="items.unitPrice">
+          {item.unitPrice ? (
+            <Money fhirData={item.unitPrice} />
+          ) : (
+            <MissingValue />
+          )}
+          {item.factor != null ? (
+            <span>&nbsp;&times;&nbsp;{item.factor}</span>
+          ) : null}
+        </TableCell>
+        <TableCell data-testid="items.quantity">
+          {item.quantity != null ? item.quantity : <MissingValue />}
+        </TableCell>
+        <TableCell data-testid="items.net">
+          {item.net ? <Money fhirData={item.net} /> : <MissingValue />}
+        </TableCell>
+        {item.subItems != undefined && item.subItems.length ? (
+          <TableCell>
+            <button
+              type="button"
+              data-bs-target={`.item-${collapse_id}`}
+              data-bs-toggle={'collapse'}
+              aria-controls={id}
+              aria-expanded="false"
+            >
+              test
+            </button>
+          </TableCell>
+        ) : (
+          <TableCell></TableCell>
+        )}
+      </TableRow>
+      {item.subItems.map((subItem, idx) => (
+        <Item
+          key={idx}
+          className="collapse"
+          collapsedClassName={`item-${collapse_id}`}
+          item={subItem}
+          parentSequences={itemSequences}
+        />
+      ))}
     </>
-  ) : (
-    <>{rowData}</>
   );
-
-  // return (
-  //   <>
-  //     <TableRow id={id}>
-  //       <TableCell data-testid="items.sequence">{show_id}</TableCell>
-  //       <TableCell data-testid="items.service">
-  //         <Coding fhirData={item.service} />
-  //       </TableCell>
-  //       <TableCell data-testid="items.unitPrice">
-  //         {item.unitPrice ? (
-  //           <Money fhirData={item.unitPrice} />
-  //         ) : (
-  //           <MissingValue />
-  //         )}
-  //         {item.factor != null ? (
-  //           <span>&nbsp;&times;&nbsp;{item.factor}</span>
-  //         ) : null}
-  //       </TableCell>
-  //       <TableCell data-testid="items.quantity">
-  //         {item.quantity != null ? item.quantity : <MissingValue />}
-  //       </TableCell>
-  //       <TableCell data-testid="items.net">
-  //         {item.net ? <Money fhirData={item.net} /> : <MissingValue />}
-  //       </TableCell>
-  //       <TableCell data-testid="items">
-  //         <button
-  //           type="button"
-  //           data-toggle="collapse"
-  //           data-target={`#item-${id ? id : show_id}`}
-  //         >
-  //           Arrow to open collapsed
-  //         </button>
-  //       </TableCell>
-  //     </TableRow>
-  //
-  //     {/*<button*/}
-  //     {/*  type="button"*/}
-  //     {/*  data-target="#demo"*/}
-  //     {/*  className="btn btn-primary"*/}
-  //     {/*  data-toggle="collapse"*/}
-  //     {/*>*/}
-  //     {/*  Simple collapsible*/}
-  //     {/*</button>*/}
-  //     {/*<div id="demo" className="collapse">*/}
-  //     {/*  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod*/}
-  //     {/*  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim*/}
-  //     {/*  veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea*/}
-  //     {/*  commodo consequat.*/}
-  //     {/*</div>*/}
-  //
-  //     <button
-  //       className="collapsed"
-  //       type="button"
-  //       data-bs-target={`item-${id ? id : show_id}`}
-  //       data-bs-toggle="collapse"
-  //     >
-  //       test button
-  //     </button>
-  //     <div className="collapse" id={`item-${id ? id : show_id}`}>
-  //       <p>test</p>
-  //       {/*{item.subItems.map((subItem, idx) => (*/}
-  //       {/*  <p>test</p>*/}
-  //       {/*  // <Item*/}
-  //       {/*  //   class="collapse"*/}
-  //       {/*  //   id={id}*/}
-  //       {/*  //   key={idx}*/}
-  //       {/*  //   item={subItem}*/}
-  //       {/*  //   parentSequences={itemSequences}*/}
-  //       {/*  // />*/}
-  //       {/*))}*/}
-  //     </div>
-  //   </>
-  // );
 };
 
 const Items = props => {

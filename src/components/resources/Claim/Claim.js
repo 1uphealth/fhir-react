@@ -14,9 +14,7 @@ import './Claim.css';
 import {
   Root,
   Header,
-  Title,
   Badge,
-  BadgeSecondary,
   Body,
   MissingValue,
   Value,
@@ -481,7 +479,7 @@ const Item = props => {
         <TableCell data-testid="items.net" className="col-md-2">
           {item.net ? <Money fhirData={item.net} /> : <MissingValue />}
         </TableCell>
-        {item.subItems != undefined && item.subItems.length ? (
+        {item.subItems !== undefined && item.subItems.length ? (
           <TableCell className="col-md-2">
             <button
               className="fhir-container__Accordion__header-button w-100 p-0 border-0 rounded-1 collapsed text-dark bg-transparent shadow-none point"

@@ -442,20 +442,27 @@ const Insurance = props => {
 };
 
 const Item = props => {
-  const { item, parentSequences, collapsedClassName, className } = props;
+  const {
+    item,
+    parentSequences,
+    collapsedClassName,
+    className,
+    parentId,
+  } = props;
 
   const itemSequences = [...parentSequences, item.sequence];
   const id = itemSequences.join('.');
-  const collapse_id = itemSequences.join('_');
+  const collapse_id = parentSequences.length
+    ? parentId
+    : itemSequences.join('_');
 
   const [rotate, setRotate] = useState(false);
   const handleTableExpand = () => setRotate(!rotate);
-
   return (
     <>
       <TableRow
-        className={`${className} ${collapsedClassName}`}
-        style={{ height: '56px' }}
+        className={`${className} ${collapsedClassName} ${!parentSequences.length &&
+          'fw-bold table-secondary'}`}
       >
         <TableCell data-testid="items.sequence" className="col-md-2">
           {id}
@@ -479,7 +486,7 @@ const Item = props => {
         <TableCell data-testid="items.net" className="col-md-2">
           {item.net ? <Money fhirData={item.net} /> : <MissingValue />}
         </TableCell>
-        {item.subItems !== undefined && item.subItems.length ? (
+        {!parentSequences.length ? (
           <TableCell className="col-md-2">
             <button
               className="fhir-container__Accordion__header-button w-100 p-0 border-0 rounded-1 collapsed text-dark bg-transparent shadow-none point"
@@ -506,6 +513,7 @@ const Item = props => {
           collapsedClassName={`item-${collapse_id}`}
           item={subItem}
           parentSequences={itemSequences}
+          parentId={collapse_id}
         />
       ))}
     </>

@@ -452,9 +452,7 @@ const Item = props => {
 
   const itemSequences = [...parentSequences, item.sequence];
   const id = itemSequences.join('.');
-  const collapse_id = parentSequences.length
-    ? parentId
-    : itemSequences.join('_');
+  const collapse_id = parentSequences.length ? parentId : item.sequence;
 
   const [rotate, setRotate] = useState(false);
   const handleTableExpand = () => setRotate(!rotate);
@@ -463,7 +461,7 @@ const Item = props => {
     <>
       <TableRow
         className={`${className} ${collapsedClassName} ${!parentSequences.length &&
-          'fw-bold table-secondary'}`}
+          'fw-bold table-expandable-row'}`}
       >
         <TableCell data-testid="items.sequence" className="col-md-2">
           {id}

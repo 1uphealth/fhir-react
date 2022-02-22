@@ -128,8 +128,6 @@ describe('should render List component properly', () => {
       withDaVinciPDex: true,
     };
 
-    console.log({ example2R4 });
-
     const { container, getByTestId, queryByTestId } = render(
       <List {...defaultProps} />,
     );

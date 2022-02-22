@@ -8,8 +8,6 @@ import { getExtension } from './utils';
 import {
   Root,
   Header,
-  Title,
-  Value,
   Body,
   ValueSection,
   Badge,
@@ -22,7 +20,6 @@ import Identifier from '../../datatypes/Identifier/Identifier';
 import CodeableConcept from '../../datatypes/CodeableConcept';
 import DrugTierDefinitionExtension from './DrugTierDefinitionExtension';
 import Accordion from '../../containers/Accordion';
-import CodableConcept from '../../datatypes/CodeableConcept';
 
 const commonDTO = fhirResource => {
   const id = _get(fhirResource, 'id');

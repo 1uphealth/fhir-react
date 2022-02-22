@@ -13,6 +13,7 @@ import {
   Body,
   ValueSection,
   Badge,
+  ValueSectionItem,
 } from '../../ui';
 import Date from '../../datatypes/Date';
 import Reference from '../../datatypes/Reference';
@@ -20,6 +21,8 @@ import Entries from './Entries';
 import Identifier from '../../datatypes/Identifier/Identifier';
 import CodeableConcept from '../../datatypes/CodeableConcept';
 import DrugTierDefinitionExtension from './DrugTierDefinitionExtension';
+import Accordion from '../../containers/Accordion';
+import CodableConcept from '../../datatypes/CodeableConcept';
 
 const commonDTO = fhirResource => {
   const id = _get(fhirResource, 'id');
@@ -125,8 +128,12 @@ const resourceDTO = (fhirVersion, fhirResource, withDaVinciPDex) => {
   }
 };
 
-const List = props => {
-  const { fhirResource, fhirVersion, withDaVinciPDex = false } = props;
+const List = ({
+  fhirResource,
+  fhirVersion,
+  withDaVinciPDex = false,
+  fhirIcons,
+}) => {
   let fhirResourceData = {};
   try {
     fhirResourceData = resourceDTO(fhirVersion, fhirResource, withDaVinciPDex);
@@ -156,95 +163,136 @@ const List = props => {
     usdfPlanIDType,
   } = fhirResourceData;
 
+  const tableData = [
+    {
+      label: 'Identifier',
+      testId: 'identifier',
+      data:
+        identifier &&
+        identifier.map((id, index) => (
+          <div key={`identifier-${index}`}>
+            <Identifier fhirData={id} />
+          </div>
+        )),
+      status: identifier,
+    },
+    {
+      label: 'Mode',
+      testId: 'mode',
+      data: mode,
+      status: mode,
+    },
+    {
+      label: 'code',
+      testId: 'code',
+      data: code && <CodeableConcept fhirData={code} />,
+      status: code,
+    },
+    {
+      label: 'Subject',
+      testId: 'subject',
+      data: subject && <Reference fhirData={subject} />,
+      status: subject,
+    },
+    {
+      label: 'Date',
+      testId: 'date',
+      data: date && <Date fhirData={date} />,
+      status: date,
+    },
+    {
+      label: 'Source',
+      testId: 'source',
+      data: source && <Reference fhirData={source} />,
+      status: source,
+    },
+  ];
+
+  const extensionData = [
+    {
+      label: 'Network',
+      testId: 'usdfNetwork',
+      data: usdfNetwork,
+      status: usdfNetwork,
+    },
+    {
+      label: 'Summary URL',
+      testId: 'usdfSummaryURL',
+      data: usdfSummaryURL,
+      status: usdfSummaryURL,
+    },
+    {
+      label: 'Formulary URL',
+      testId: 'usdfFormularyURL',
+      data: usdfFormularyURL,
+      status: usdfFormularyURL,
+    },
+    {
+      label: 'Email Plan Contact',
+      testId: 'usdfEmailPlanContact',
+      data: usdfEmailPlanContact,
+      status: usdfEmailPlanContact,
+    },
+    {
+      label: 'Marketing URL',
+      testId: 'usdfMarketingURL',
+      data: usdfMarketingURL,
+      status: usdfMarketingURL,
+    },
+    {
+      label: 'Plan ID Type',
+      testId: 'usdfPlanIDType',
+      data: usdfPlanIDType,
+      status: usdfPlanIDType,
+    },
+  ];
+
   return (
     <Root name="List">
-      <Header>
-        <Title>
-          {title || 'List'} {id && id}{' '}
-          {status && <Badge data-testid="status">{status}</Badge>}
-        </Title>
-      </Header>
-      <Body>
-        {identifier && (
-          <Value label="Identifier" data-testid="identifier">
-            {identifier.map((id, index) => (
-              <div key={`identifier-${index}`}>
-                <Identifier fhirData={id} />
-              </div>
-            ))}
-          </Value>
-        )}
-        {mode && (
-          <Value label="Mode" data-testid="mode">
-            {mode}
-          </Value>
-        )}
-        {code && (
-          <Value label="code" data-testid="code">
-            <CodeableConcept fhirData={code} />
-          </Value>
-        )}
-        {subject && (
-          <Value label="Subject" data-testid="subject">
-            <Reference fhirData={subject} />
-          </Value>
-        )}
-        {date && (
-          <Value label="Date" data-testid="date">
-            <Date fhirData={date} />
-          </Value>
-        )}
-        {source && (
-          <Value label="Source" data-testid="source">
-            <Reference fhirData={source} />
-          </Value>
-        )}
-        {entry && <Entries fhirData={entry} />}
+      <Accordion
+        headerContent={
+          <Header
+            resourceName="List"
+            title={`${title || 'List'} ${id && id} `}
+            badges={status && <Badge data-testid="status">{status}</Badge>}
+            icon={fhirIcons}
+          />
+        }
+        bodyContent={
+          <Body tableData={tableData}>
+            {entry && <Entries fhirData={entry} />}
 
-        {hasExtensions && (
-          <ValueSection label="USDF extensions" data-testid="usdfExtensions">
-            {usdfDrugTierDefinition && (
-              <DrugTierDefinitionExtension
-                drugTierDefinitionExtension={usdfDrugTierDefinition}
-                data-testid="usdfDrugTierDefinition"
-              />
-            )}
-            {usdfNetwork && (
-              <Value label="Network" data-testid="usdfNetwork">
-                {usdfNetwork}
-              </Value>
-            )}
-            {usdfSummaryURL && (
-              <Value label="Summary URL" data-testid="usdfSummaryURL">
-                {usdfSummaryURL}
-              </Value>
-            )}
-            {usdfFormularyURL && (
-              <Value label="Formulary URL" data-testid="usdfFormularyURL">
-                {usdfFormularyURL}
-              </Value>
-            )}
-            {usdfEmailPlanContact && (
-              <Value
-                label="Email Plan Contact"
-                data-testid="usdfEmailPlanContact"
+            {hasExtensions && (
+              <ValueSection
+                label="USDF extensions"
+                data-testid="usdfExtensions"
+                marginTop
               >
-                {usdfEmailPlanContact}
-              </Value>
+                {usdfDrugTierDefinition && (
+                  <DrugTierDefinitionExtension
+                    drugTierDefinitionExtension={usdfDrugTierDefinition}
+                    data-testid="usdfDrugTierDefinition"
+                  />
+                )}
+                <ValueSection marginTop>
+                  {extensionData.map(
+                    (item, index) =>
+                      item.status && (
+                        <ValueSectionItem
+                          key={`extension-item-${index}`}
+                          label={item.label}
+                          data-testid={item.testId}
+                        >
+                          {item.data}
+                        </ValueSectionItem>
+                      ),
+                  )}
+                </ValueSection>
+              </ValueSection>
             )}
-            {usdfMarketingURL && (
-              <Value label="Marketing URL" data-testid="usdfMarketingURL">
-                {usdfMarketingURL}
-              </Value>
-            )}
-            {usdfPlanIDType && (
-              <Value label="Plan ID Type" data-testid="usdfPlanIDType">
-                {usdfPlanIDType}
-              </Value>
-            )}
-          </ValueSection>
-        )}
-      </Body>
+          </Body>
+        }
+      />
     </Root>
   );
 };

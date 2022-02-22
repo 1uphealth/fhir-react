@@ -7,6 +7,8 @@ import Reference from '../../datatypes/Reference';
 import Date from '../../datatypes/Date';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 import CodeableConcept, { hasValue } from '../../datatypes/CodeableConcept';
+import Accordion from '../../containers/Accordion';
+import CodableConcept from '../../datatypes/CodeableConcept';
 
 const commonDTO = fhirResource => {
   const subject = _get(fhirResource, 'subject');
@@ -63,8 +65,7 @@ const resourceDTO = (fhirVersion, fhirResource) => {
   }
 };
 
-const AdverseEvent = props => {
-  const { fhirResource, fhirVersion } = props;
+const AdverseEvent = ({ fhirResource, fhirVersion, fhirIcons }) => {
   let fhirResourceData = {};
   try {
     fhirResourceData = resourceDTO(fhirVersion, fhirResource);
@@ -86,47 +87,57 @@ const AdverseEvent = props => {
     hasEvent,
   } = fhirResourceData;
 
+  const tableData = [
+    {
+      label: 'Date',
+      testId: 'date',
+      data: date && <Date fhirData={date} />,
+      status: date,
+    },
+    {
+      label: 'Type',
+      testId: 'type',
+      data: hasEventType && <CodeableConcept fhirData={eventType} />,
+      status: hasEventType,
+    },
+    {
+      label: 'Event',
+      testId: 'event',
+      data: hasEvent && <CodeableConcept fhirData={event} />,
+      status: hasEvent,
+    },
+    {
+      label: 'Description',
+      testId: 'description',
+      data: description,
+      status: description,
+    },
+    {
+      label: 'Seriousness',
+      testId: 'hasSeriousness',
+      data: hasSeriousness && <CodeableConcept fhirData={seriousness} />,
+      status: hasSeriousness,
+    },
+    {
+      label: 'Actuality',
+      testId: 'actuality',
+      data: actuality,
+      status: actuality,
+    },
+  ];
+
   return (
     <Root name="AdverseEvent">
-      <Header>
-        {subject && (
-          <Title>
-            <Reference fhirData={subject} />
-          </Title>
-        )}
-      </Header>
-      <Body>
-        {date && (
-          <Value label="Date" data-testid="date">
-            <Date fhirData={date} />
-          </Value>
-        )}
-        {hasEventType && (
-          <Value label="Type" data-testid="type">
-            <CodeableConcept fhirData={eventType} />
-          </Value>
-        )}
-        {hasEvent && (
-          <Value label="Event" data-testid="event">
-            <CodeableConcept fhirData={event} />
-          </Value>
-        )}
-        {description && (
-          <Value label="Description" data-testid="description">
-            {description}
-          </Value>
-        )}
-        {hasSeriousness && (
-          <Value label="Seriousness" data-testid="hasSeriousness">
-            <CodeableConcept fhirData={seriousness} />
-          </Value>
-        )}
-        {actuality && (
-          <Value label="Actuality" data-testid="actuality">
-            {actuality}
-          </Value>
-        )}
-      </Body>
+      <Accordion
+        headerContent={
+          <Header
+            resourceName={'AdverseEvent'}
+            title={subject && <Reference fhirData={subject} />}
+            icon={fhirIcons}
+          />
+        }
+        bodyContent={<Body tableData={tableData} />}
+      />
     </Root>
   );
 };

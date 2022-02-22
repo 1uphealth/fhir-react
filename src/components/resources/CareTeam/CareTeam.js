@@ -4,8 +4,6 @@ import {
   Header,
   MissingValue,
   Root,
-  Title,
-  Value,
   ValueSection,
 } from '../../ui';
 

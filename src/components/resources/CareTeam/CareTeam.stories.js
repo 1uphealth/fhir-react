@@ -7,6 +7,9 @@ import example_STU3 from '../../../fixtures/stu3/resources/careTeam/example1.jso
 import example2_STU3 from '../../../fixtures/stu3/resources/careTeam/example2.json';
 import example_R4 from '../../../fixtures/r4/resources/careTeam/example1.json';
 
+import fhirIcons from '../../../fixtures/example-icons';
+import CareTeamIcon from '../../../assets/containers/CareTeam/care-team.svg';
+
 export default {
   title: 'CareTeam',
 };
@@ -14,18 +17,32 @@ export default {
 export const ExampleSTU3 = () => {
   const fhirResource = object('Resource', example_STU3);
   return (
-    <CareTeam fhirResource={fhirResource} fhirVersion={fhirVersions.STU3} />
+    <CareTeam
+      fhirResource={fhirResource}
+      fhirVersion={fhirVersions.STU3}
+      fhirIcons={CareTeamIcon}
+    />
   );
 };
 
 export const Example2OfSTU3 = () => {
   const fhirResource = object('Resource', example2_STU3);
   return (
-    <CareTeam fhirResource={fhirResource} fhirVersion={fhirVersions.STU3} />
+    <CareTeam
+      fhirResource={fhirResource}
+      fhirVersion={fhirVersions.STU3}
+      fhirIcons={fhirIcons}
+    />
   );
 };
 
 export const ExampleR4 = () => {
   const fhirResource = object('Resource', example_R4);
-  return <CareTeam fhirResource={fhirResource} fhirVersion={fhirVersions.R4} />;
+  return (
+    <CareTeam
+      fhirResource={fhirResource}
+      fhirVersion={fhirVersions.R4}
+      fhirIcons={false}
+    />
+  );
 };

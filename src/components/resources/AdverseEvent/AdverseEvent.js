@@ -2,13 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _get from 'lodash/get';
 import fhirVersions from '../fhirResourceVersions';
-import { Root, Header, Title, Body, Value } from '../../ui';
+import { Root, Header, Body } from '../../ui';
 import Reference from '../../datatypes/Reference';
 import Date from '../../datatypes/Date';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 import CodeableConcept, { hasValue } from '../../datatypes/CodeableConcept';
 import Accordion from '../../containers/Accordion';
-import CodableConcept from '../../datatypes/CodeableConcept';
 
 const commonDTO = fhirResource => {
   const subject = _get(fhirResource, 'subject');

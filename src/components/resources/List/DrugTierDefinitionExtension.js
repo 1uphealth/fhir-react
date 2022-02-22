@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _get from 'lodash/get';
 import { getExtension } from './utils';
-import { ValueSection, Value, ValueSectionItem } from '../../ui';
+import { ValueSection, ValueSectionItem } from '../../ui';
 import CodeableConcept from '../../datatypes/CodeableConcept';
 import Money from '../../datatypes/Money';
 

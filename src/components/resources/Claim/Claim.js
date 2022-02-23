@@ -19,12 +19,7 @@ import {
   MissingValue,
   Value,
   ValueSection,
-  Table,
-  TableCell,
-  TableHeader,
-  TableRow,
   ValueSectionItem,
-  Chevron,
 } from '../../ui';
 import Accordion from '../../containers/Accordion';
 import CareTeam from './CareTeam';

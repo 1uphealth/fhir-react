@@ -457,11 +457,14 @@ const Item = props => {
   const [rotate, setRotate] = useState(false);
   const handleTableExpand = () => setRotate(!rotate);
 
+  const isExpandable = parentSequences.length == 0 && item.subItems.length != 0;
+
   return (
     <>
       <TableRow
-        className={`${className} ${collapsedClassName} ${!parentSequences.length &&
-          'fw-bold table-expandable-row'}`}
+        className={`${className} ${collapsedClassName} ${
+          isExpandable ? 'fw-bold table-expandable-row border-top' : ''
+        }`}
       >
         <TableCell data-testid="items.sequence" className="col-md-2">
           {id}
@@ -485,7 +488,7 @@ const Item = props => {
         <TableCell data-testid="items.net" className="col-md-2">
           {item.net ? <Money fhirData={item.net} /> : <MissingValue />}
         </TableCell>
-        {!parentSequences.length ? (
+        {isExpandable ? (
           <TableCell className="col-md-2">
             <button
               className="fhir-container__Accordion__header-button w-100 p-0 border-0 rounded-1 collapsed text-dark bg-transparent shadow-none point"

@@ -452,7 +452,7 @@ const Item = props => {
 
   const itemSequences = [...parentSequences, item.sequence];
   const id = itemSequences.join('.');
-  const collapse_id = parentSequences.length ? parentId : item.sequence;
+  const collapseId = parentSequences.length ? parentId : item.sequence;
 
   const [rotate, setRotate] = useState(false);
   const handleTableExpand = () => setRotate(!rotate);
@@ -493,7 +493,7 @@ const Item = props => {
             <button
               className="fhir-container__Accordion__header-button w-100 p-0 border-0 rounded-1 collapsed text-dark bg-transparent shadow-none point"
               type="button"
-              data-bs-target={`.item-${collapse_id}`}
+              data-bs-target={`.item-${collapseId}`}
               data-bs-toggle={'collapse'}
               aria-controls={id}
               aria-expanded="false"
@@ -512,10 +512,10 @@ const Item = props => {
         <Item
           key={idx}
           className="collapse"
-          collapsedClassName={`item-${collapse_id}`}
+          collapsedClassName={`item-${collapseId}`}
           item={subItem}
           parentSequences={itemSequences}
-          parentId={collapse_id}
+          parentId={collapseId}
         />
       ))}
     </>
@@ -708,7 +708,6 @@ const Claim = ({ fhirResource, fhirVersion, fhirIcons }) => {
             {hasDiagnosis && <Diagnosis diagnosis={diagnosis} />}
             <ValueSection>
               {tableData2.map(
-                /* TODO: spacing here is off too */
                 (item, index) =>
                   item.status && (
                     <ValueSectionItem

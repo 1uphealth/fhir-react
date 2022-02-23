@@ -9,9 +9,7 @@ import fhirVersions from '../fhirResourceVersions';
 import {
   Root,
   Header,
-  Title,
   Body,
-  Value,
   ValueSection,
   Table,
   TableHeader,
@@ -20,6 +18,7 @@ import {
   MissingValue,
 } from '../../ui';
 import CodeableConcept from '../../datatypes/CodeableConcept/CodeableConcept';
+import Accordion from '../../containers/Accordion';
 
 const DosageInstruction = props => {
   const empty = <MissingValue />;
@@ -182,8 +181,7 @@ const resourceDTO = (fhirVersion, fhirResource) => {
   }
 };
 
-const MedicationDispense = props => {
-  const { fhirResource, fhirVersion } = props;
+const MedicationDispense = ({ fhirResource, fhirVersion, fhirIcons }) => {
   let fhirResourceData = {};
   try {
     fhirResourceData = resourceDTO(fhirVersion, fhirResource);
@@ -201,49 +199,67 @@ const MedicationDispense = props => {
     whenPrepared,
   } = fhirResourceData;
 
+  const tableData = [
+    {
+      label: 'Medication',
+      testId: 'medicationCoding',
+      data: medicationCoding && <Coding fhirData={medicationCoding} />,
+      status: medicationCoding,
+    },
+    {
+      label: 'Prepared',
+      testId: 'whenPrepared',
+      data: whenPrepared && <Date fhirData={whenPrepared} />,
+      status: whenPrepared,
+    },
+    {
+      label: 'Type',
+      testId: 'typeCoding',
+      data: typeCoding && <Coding fhirData={typeCoding} />,
+      status: typeCoding,
+    },
+  ];
+
   return (
     <Root name="MedicationDispense">
-      {medicationTitle && (
-        <Header>
-          <Title>{medicationTitle}</Title>
-        </Header>
-      )}
-      <Body>
-        {medicationCoding && (
-          <Value label="Medication" data-testid="medicationCoding">
-            <Coding fhirData={medicationCoding} />
-          </Value>
-        )}
-        {whenPrepared && (
-          <Value label="Prepared" data-testid="whenPrepared">
-            <Date fhirData={whenPrepared} />
-          </Value>
-        )}
-        {typeCoding && (
-          <Value label="Type" data-testid="typeCoding">
-            <Coding fhirData={typeCoding} />
-          </Value>
-        )}
-        {hasDosageInstruction && (
-          <ValueSection label="Dosage instruction">
-            <Table>
-              <thead>
-                <TableRow>
-                  <TableHeader>Timing</TableHeader>
-                  <TableHeader>Route</TableHeader>
-                  <TableHeader>Dose quantity</TableHeader>
-                  <TableHeader>Additional instructions</TableHeader>
-                </TableRow>
-              </thead>
-              <tbody data-testid="hasDosageInstruction">
-                {dosageInstructionData.map((item, i) => (
-                  <DosageInstruction key={`item-${i}`} item={item} />
-                ))}
-              </tbody>
-            </Table>
-          </ValueSection>
-        )}
-      </Body>
+      <Accordion
+        headerContent={
+          <Header
+            resourceName="MedicationDispense"
+            title={medicationTitle}
+            icon={fhirIcons}
+          />
+        }
+        bodyContent={
+          <Body tableData={tableData}>
+            {hasDosageInstruction && (
+              <ValueSection
+                label="Dosage instruction"
+                marginTop={medicationCoding || whenPrepared || typeCoding}
+              >
+                <Table>
+                  <thead>
+                    <TableRow>
+                      <TableHeader>Timing</TableHeader>
+                      <TableHeader>Route</TableHeader>
+                      <TableHeader>Dose quantity</TableHeader>
+                      <TableHeader>Additional instructions</TableHeader>
+                    </TableRow>
+                  </thead>
+                  <tbody
+                    data-testid="hasDosageInstruction"
+                    className="border-top-0"
+                  >
+                    {dosageInstructionData.map((item, i) => (
+                      <DosageInstruction key={`item-${i}`} item={item} />
+                    ))}
+                  </tbody>
+                </Table>
+              </ValueSection>
+            )}
+          </Body>
+        }
+      />
     </Root>
   );
 };

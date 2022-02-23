@@ -10,6 +10,9 @@ import stu3Example1 from '../../../fixtures/stu3/resources/medicationDispense/ex
 import stu3Example2 from '../../../fixtures/stu3/resources/medicationDispense/example2.json';
 import R4Example1 from '../../../fixtures/r4/resources/medicationDispense/example1.json';
 import R4Example2 from '../../../fixtures/r4/resources/medicationDispense/example2.json';
+import fhirIcons from '../../../fixtures/example-icons';
+import MedicationDispenseIcon from '../../../assets/containers/MedicationDispense/medication-dispense.svg';
+import EncounterIcon from '../../../assets/containers/Encounter/encounter.svg';
 
 export default {
   title: 'MedicationDispense',
@@ -21,6 +24,7 @@ export const DefaultVisualizationDSTU2 = () => {
     <MedicationDispense
       fhirResource={fhirResource}
       fhirVersion={fhirVersions.DSTU2}
+      fhirIcons={require('../../../assets/containers/MedicationDispense/medication-dispense.svg')}
     />
   );
 };
@@ -31,6 +35,7 @@ export const Example2OfDSTU2 = () => {
     <MedicationDispense
       fhirResource={fhirResource}
       fhirVersion={fhirVersions.DSTU2}
+      fhirIcons={EncounterIcon}
     />
   );
 };
@@ -41,6 +46,7 @@ export const Example1OfSTU3 = () => {
     <MedicationDispense
       fhirResource={fhirResource}
       fhirVersion={fhirVersions.STU3}
+      fhirIcons={fhirIcons}
     />
   );
 };
@@ -51,6 +57,7 @@ export const Example2OfSTU3 = () => {
     <MedicationDispense
       fhirResource={fhirResource}
       fhirVersion={fhirVersions.STU3}
+      fhirIcons={false}
     />
   );
 };
@@ -61,6 +68,7 @@ export const Example1OfR4 = () => {
     <MedicationDispense
       fhirResource={fhirResource}
       fhirVersion={fhirVersions.R4}
+      fhirIcons={'random text'}
     />
   );
 };

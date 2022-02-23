@@ -10,9 +10,7 @@ import Coding from '../../datatypes/Coding';
 import Reference from '../../datatypes/Reference';
 import React from 'react';
 
-const Diagnosis = props => {
-  const { diagnosis } = props;
-
+const Diagnosis = ({ diagnosis }) => {
   return (
     <ValueSection label="Diagnosis" data-testid="diagnosis" marginTop>
       <Table>

@@ -9,9 +9,7 @@ import {
 import Reference from '../../datatypes/Reference';
 import React from 'react';
 
-const Insurance = props => {
-  const { insurance } = props;
-
+const Insurance = ({ insurance }) => {
   return (
     <ValueSection label="Insurance" data-testid="insurance" marginTop>
       <Table>

@@ -436,8 +436,6 @@ const Claim = ({ fhirResource, fhirVersion, fhirIcons }) => {
     },
   ];
 
-  console.log({ claim: items });
-
   return (
     <Root name="Claim">
       <Accordion

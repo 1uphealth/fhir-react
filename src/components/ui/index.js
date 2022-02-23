@@ -199,9 +199,10 @@ export const TableHeader = props => {
   );
 };
 
-export const TableRow = props => (
-  <tr className={props.className}>{props.children}</tr>
-);
+export const TableRow = props => {
+  const { children, ...rest } = props;
+  return <tr {...rest}>{props.children}</tr>;
+};
 
 export const TableCell = props => (
   <td

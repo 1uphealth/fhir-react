@@ -457,7 +457,8 @@ const Item = props => {
   const [rotate, setRotate] = useState(false);
   const handleTableExpand = () => setRotate(!rotate);
 
-  const isExpandable = parentSequences.length == 0 && item.subItems.length != 0;
+  const isExpandable =
+    parentSequences.length === 0 && item.subItems.length !== 0;
 
   return (
     <>

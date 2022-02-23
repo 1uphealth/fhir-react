@@ -3,7 +3,6 @@ import React from 'react';
 import Item from './Item';
 
 const Items = ({ items }) => {
-  console.log({ items });
   return (
     <ValueSection label="Items" data-testid="items" marginTop>
       <Table>

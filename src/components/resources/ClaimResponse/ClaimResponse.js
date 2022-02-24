@@ -355,7 +355,7 @@ const ClaimResponse = ({ fhirVersion, fhirResource, fhirIcons }) => {
       ) : (
         <MissingValue />
       ),
-      status: payment.typeCoding,
+      status: true,
     },
     {
       label: 'Amount',

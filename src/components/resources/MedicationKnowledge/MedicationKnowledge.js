@@ -8,8 +8,6 @@ import { getExtension, isBoolean } from './utils';
 import {
   Root,
   Header,
-  Title,
-  Value,
   Body,
   Badge,
   ValueSection,
@@ -18,7 +16,6 @@ import {
 import Reference from '../../datatypes/Reference';
 import CodeableConcept from '../../datatypes/CodeableConcept';
 import Accordion from '../../containers/Accordion';
-import CodableConcept from '../../datatypes/CodeableConcept';
 
 const commonDTO = fhirResource => {
   const id = _get(fhirResource, 'id');

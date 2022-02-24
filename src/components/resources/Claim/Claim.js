@@ -482,7 +482,6 @@ const Claim = ({ fhirResource, fhirVersion, fhirIcons }) => {
           </Body>
         }
       />
-      <Body></Body>
     </Root>
   );
 };

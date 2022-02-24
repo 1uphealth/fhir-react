@@ -21,11 +21,11 @@ import {
   Header,
   MissingValue,
   Root,
-  Title,
-  Value,
   ValueSection,
   BadgeSecondary,
+  ValueSectionItem,
 } from '../../ui';
+import Accordion from '../../containers/Accordion';
 
 const commonDTO = fhirResource => {
   const id = _get(fhirResource, 'id');
@@ -285,8 +285,7 @@ const hasPaymentInfo = payment => {
   return Object.values(payment).filter(item => item).length > 0;
 };
 
-const ClaimResponse = props => {
-  const { fhirVersion, fhirResource } = props;
+const ClaimResponse = ({ fhirVersion, fhirResource, fhirIcons }) => {
   let fhirResourceData = {};
   try {
     fhirResourceData = resourceDTO(fhirVersion, fhirResource);
@@ -314,88 +313,142 @@ const ClaimResponse = props => {
   const hasAddedItems = addedItems.length > 0;
   const hasPayment = hasPaymentInfo(payment);
 
+  const tableData = [
+    {
+      label: 'Created At',
+      testId: 'created',
+      data: created && <DateType fhirData={created} />,
+      status: created,
+    },
+    {
+      label: 'Request claim',
+      testId: 'request',
+      data: requestReference && <Reference fhirData={requestReference} />,
+      status: requestReference,
+    },
+    {
+      label: 'Disposition',
+      testId: 'disposition',
+      data: disposition,
+      status: disposition,
+    },
+    {
+      label: 'Total cost',
+      testId: 'totalCost',
+      data: totalCost && <Money fhirData={totalCost} />,
+      status: totalCost,
+    },
+    {
+      label: 'Total benefit',
+      testId: 'totalBenefit',
+      data: totalBenefit && <Money fhirData={totalBenefit} />,
+      status: totalBenefit,
+    },
+  ];
+
+  const paymentData = [
+    {
+      label: 'Type',
+      testId: 'payment.type',
+      data: payment.typeCoding ? (
+        <Coding fhirData={payment.typeCoding} />
+      ) : (
+        <MissingValue />
+      ),
+      status: payment.typeCoding,
+    },
+    {
+      label: 'Amount',
+      testId: 'payment.amount',
+      data: payment.amount ? (
+        <Money fhirData={payment.amount} />
+      ) : (
+        <MissingValue />
+      ),
+      status: payment.amount,
+    },
+    {
+      label: 'Date',
+      testId: 'payment.date',
+      data: payment.date ? (
+        <DateType fhirData={payment.date} />
+      ) : (
+        <MissingValue />
+      ),
+      status: payment.date,
+    },
+    {
+      label: 'Reference',
+      testId: 'payment.ref',
+      data: payment.ref ? (
+        <Identifier fhirData={payment.ref} />
+      ) : (
+        <MissingValue />
+      ),
+      status: payment.ref,
+    },
+  ];
+
   return (
     <Root name="ClaimResponse">
-      <Header>
-        <Title>Claim response #{id}</Title>
-        {outcome && <Badge data-testid="outcome">{outcome}</Badge>}
-        {status && (
-          <BadgeSecondary data-testid="status">{status}</BadgeSecondary>
-        )}
-      </Header>
-      <Body>
-        {created && (
-          <Value label="Created At" data-testid="created">
-            <DateType fhirData={created} />
-          </Value>
-        )}
-        {requestReference && (
-          <Value label="Request claim" data-testid="request">
-            <Reference fhirData={requestReference} />
-          </Value>
-        )}
-        {disposition && (
-          <Value label="Disposition" data-testid="disposition">
-            {disposition}
-          </Value>
-        )}
-        {totalCost && (
-          <Value label="Total cost" data-testid="totalCost">
-            <Money fhirData={totalCost} />
-          </Value>
-        )}
-        {totalBenefit && (
-          <Value label="Total benefit" data-testid="totalBenefit">
-            <Money fhirData={totalBenefit} />
-          </Value>
-        )}
-        {isNotEmptyArray(totalCostsArr) && (
-          <ValueSection label="Total" data-testid="totalSection">
-            {totalCostsArr.map(
-              ({ category, amount }, i) =>
-                category && (
-                  <Value label={category} key={`total-value-${i}`}>
-                    <Money fhirData={amount} />
-                  </Value>
-                ),
+      <Accordion
+        headerContent={
+          <Header
+            resourceName="ClaimResponse"
+            title={`Claim response #${id}`}
+            badges={
+              <>
+                {outcome && <Badge data-testid="outcome">{outcome}</Badge>}
+                {status && (
+                  <BadgeSecondary data-testid="status">{status}</BadgeSecondary>
+                )}
+              </>
+            }
+            icon={fhirIcons}
+          />
+        }
+        bodyContent={
+          <Body tableData={tableData}>
+            {isNotEmptyArray(totalCostsArr) && (
+              <ValueSection label="Total" data-testid="totalSection" marginTop>
+                {totalCostsArr.map(
+                  ({ category, amount }, i) =>
+                    category && (
+                      <ValueSectionItem
+                        label={category}
+                        key={`total-value-${i}`}
+                      >
+                        <Money fhirData={amount} />
+                      </ValueSectionItem>
+                    ),
+                )}
+              </ValueSection>
             )}
-          </ValueSection>
-        )}
-        {hasPayment && (
-          <ValueSection label="Payment" data-testid="paymentSection">
-            <Value label="Type" data-testid="payment.type">
-              {payment.typeCoding ? (
-                <Coding fhirData={payment.typeCoding} />
-              ) : (
-                <MissingValue />
-              )}
-            </Value>
-            <Value label="Amount" data-testid="payment.amount">
-              {payment.amount ? (
-                <Money fhirData={payment.amount} />
-              ) : (
-                <MissingValue />
-              )}
-            </Value>
-            <Value label="Date" data-testid="payment.date">
-              {payment.date ? (
-                <DateType fhirData={payment.date} />
-              ) : (
-                <MissingValue />
-              )}
-            </Value>
-            <Value label="Reference" data-testid="payment.ref">
-              {payment.ref ? (
-                <Identifier fhirData={payment.ref} />
-              ) : (
-                <MissingValue />
-              )}
-            </Value>
-          </ValueSection>
-        )}
-        {hasAddedItems && <AddedItems addedItems={addedItems} />}
-        {hasItems && <Items items={items} />}
-      </Body>
+            {hasPayment && (
+              <ValueSection
+                label="Payment"
+                data-testid="paymentSection"
+                marginTop
+              >
+                {paymentData.map(
+                  (item, index) =>
+                    item.status && (
+                      <ValueSectionItem
+                        key={`payment-item-${index}`}
+                        label={item.label}
+                        data-testid={item.testId}
+                      >
+                        {item.data}
+                      </ValueSectionItem>
+                    ),
+                )}
+              </ValueSection>
+            )}
+            {hasAddedItems && <AddedItems addedItems={addedItems} />}
+            {hasItems && <Items items={items} />}
+          </Body>
+        }
+      />
     </Root>
   );
 };

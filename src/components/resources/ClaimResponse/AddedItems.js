@@ -7,7 +7,7 @@ const AddedItems = props => {
   const { addedItems } = props;
 
   return (
-    <ValueSection label="Added Items" data-testid="addedItems">
+    <ValueSection label="Added Items" data-testid="addedItems" marginTop>
       <Table>
         <thead>
           <TableRow>
@@ -17,7 +17,7 @@ const AddedItems = props => {
             <TableHeader expand>Adjudication</TableHeader>
           </TableRow>
         </thead>
-        <tbody>
+        <tbody className="border-top-0">
           {addedItems.map((item, idx) => (
             <AddedItem
               key={idx}

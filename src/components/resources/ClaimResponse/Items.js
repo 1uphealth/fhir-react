@@ -7,7 +7,7 @@ const Items = props => {
   const { items } = props;
 
   return (
-    <ValueSection label="Items" data-testid="items">
+    <ValueSection label="Items" data-testid="items" marginTop>
       <Table>
         <thead>
           <TableRow>
@@ -15,7 +15,7 @@ const Items = props => {
             <TableHeader expand>Adjudication</TableHeader>
           </TableRow>
         </thead>
-        <tbody>
+        <tbody className="border-top-0">
           {items.map((item, idx) => (
             <Item key={idx} item={item} level={0} parentSequences={[]} />
           ))}

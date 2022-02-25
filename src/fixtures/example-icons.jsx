@@ -36,6 +36,13 @@ export default {
       alt="practitioner"
     />
   ),
+  PractitionerRole: (
+    <img
+      className="header-icon__image"
+      src={require('../assets/containers/PractitionerRole/practitioner-role.svg')}
+      alt="practitioner role"
+    />
+  ),
   AllergyIntolerance: (
     <img
       className="header-icon__image"

@@ -5,8 +5,9 @@ import _get from 'lodash/get';
 import Reference from '../../datatypes/Reference';
 import fhirVersions from '../fhirResourceVersions';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
-import { Root, Header, Title, Body, Value, Badge } from '../../ui';
+import { Root, Header, Body, Badge } from '../../ui';
 import CodeableConcept from '../../datatypes/CodeableConcept/CodeableConcept';
+import Accordion from '../../containers/Accordion';
 
 const commonDTO = fhirResource => {
   const status = _get(fhirResource, 'active') === true ? 'active' : '';
@@ -42,8 +43,7 @@ const resourceDTO = (fhirVersion, fhirResource) => {
   }
 };
 
-const PractitionerRole = props => {
-  const { fhirResource, fhirVersion } = props;
+const PractitionerRole = ({ fhirResource, fhirVersion, fhirIcons }) => {
   let fhirResourceData = {};
   try {
     fhirResourceData = resourceDTO(fhirVersion, fhirResource);
@@ -58,34 +58,49 @@ const PractitionerRole = props => {
     organization,
     practitioner,
   } = fhirResourceData;
+
+  const tableData = [
+    {
+      label: 'Practitioner',
+      testId: 'practitioner',
+      data: practitioner && <Reference fhirData={practitioner} />,
+      status: practitioner,
+    },
+    {
+      label: 'Organization',
+      testId: 'organization',
+      data: organization && <Reference fhirData={organization} />,
+      status: organization,
+    },
+    {
+      label: 'Specialties',
+      testId: 'specialties',
+      data: specialties.length > 0 && (
+        <CodeableConcept fhirData={specialties} />
+      ),
+      status: specialties.length > 0,
+    },
+    {
+      label: 'Roles',
+      testId: 'roles',
+      data: codes.length > 0 && <CodeableConcept fhirData={codes} />,
+      status: codes.length > 0,
+    },
+  ];
+
   return (
     <Root name="PractitionerRole">
-      <Header>
-        <Title>Practitioner roles and specialties</Title>
-        {status && <Badge data-testid="status">{status}</Badge>}
-      </Header>
-      <Body>
-        {practitioner && (
-          <Value label="Practitioner" data-testid="practitioner">
-            <Reference fhirData={practitioner} />
-          </Value>
-        )}
-        {organization && (
-          <Value label="Organization" data-testid="organization">
-            <Reference fhirData={organization} />
-          </Value>
-        )}
-        {specialties.length > 0 && (
-          <Value label="Specialties" data-testid="specialties">
-            <CodeableConcept fhirData={specialties} />
-          </Value>
-        )}
-        {codes.length > 0 && (
-          <Value label="Roles" data-testid="roles">
-            <CodeableConcept fhirData={codes} />
-          </Value>
-        )}
-      </Body>
+      <Accordion
+        headerContent={
+          <Header
+            resourceName="PractitionerRole"
+            title="Practitioner roles and specialties"
+            badges={status && <Badge data-testid="status">{status}</Badge>}
+            icon={fhirIcons}
+          />
+        }
+        bodyContent={<Body tableData={tableData} />}
+      />
     </Root>
   );
 };

@@ -4,7 +4,7 @@ import _get from 'lodash/get';
 
 import fhirVersions from '../fhirResourceVersions';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
-import { Root, Header, Title, Badge, Body, BadgeSecondary } from '../../ui';
+import { Root, Header, Badge, Body, BadgeSecondary } from '../../ui';
 import * as FhirResourceTypes from '../../supportedFhirResourceList';
 
 import './Bundle.css';
@@ -52,10 +52,12 @@ export default function Bundle({ fhirResource, fhirVersion, fhirIcons }) {
 
   return (
     <Root name="Bundle">
-      <Header>
-        {type && <Title data-testid="title">{type}</Title>}
-        {total && <Badge data-testid="total">{total}</Badge>}
-      </Header>
+      <Header
+        resourceName="Bundle"
+        title={type}
+        badges={total && <Badge data-testid="total">{total}</Badge>}
+        icon={fhirIcons}
+      />
       <Body>
         {resources.length > 0 &&
           resources.map((resource, index) => {

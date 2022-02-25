@@ -8,6 +8,13 @@ export default {
       alt="binary"
     />
   ),
+  Bundle: (
+    <img
+      className="header-icon__image"
+      src={require('../assets/containers/Bundle/bundle.svg')}
+      alt="bundle"
+    />
+  ),
   Condition: (
     <img
       className="header-icon__image"

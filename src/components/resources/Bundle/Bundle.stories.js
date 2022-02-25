@@ -18,6 +18,7 @@ import r4Example4 from '../../../fixtures/r4/resources/bundle/example4.json';
 import fhirVersions from '../fhirResourceVersions';
 
 import fhirIcons from '../../../fixtures/example-icons';
+import BundleIcon from '../../../assets/containers/Bundle/bundle.svg';
 
 export default {
   title: 'Bundle',
@@ -29,7 +30,7 @@ export const Example1OfDSTU2 = () => {
     <Bundle
       fhirResource={fhirResource}
       fhirVersion={fhirVersions.DSTU2}
-      fhirIcons={fhirIcons}
+      fhirIcons={require('../../../assets/containers/Bundle/bundle.svg')}
     />
   );
 };
@@ -40,7 +41,7 @@ export const Example2OfDSTU2 = () => {
     <Bundle
       fhirResource={fhirResource}
       fhirVersion={fhirVersions.DSTU2}
-      fhirIcons={fhirIcons}
+      fhirIcons={BundleIcon}
     />
   );
 };
@@ -62,7 +63,7 @@ export const Example4OfDSTU2 = () => {
     <Bundle
       fhirResource={fhirResource}
       fhirVersion={fhirVersions.DSTU2}
-      fhirIcons={fhirIcons}
+      fhirIcons={false}
     />
   );
 };
@@ -73,7 +74,7 @@ export const Example1OfSTU3 = () => {
     <Bundle
       fhirResource={fhirResource}
       fhirVersion={fhirVersions.STU3}
-      fhirIcons={fhirIcons}
+      fhirIcons={'random text'}
     />
   );
 };

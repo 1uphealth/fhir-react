@@ -13,7 +13,11 @@ const Reference = props => {
       data-testid={props['data-testid']}
     >
       {display && <span className="mr-2 pe-1">{display}</span>}
-      <span>{reference}</span>
+      {reference.startsWith('http://') || reference.startsWith('https://') ? (
+        <a href={reference}>{reference}</a>
+      ) : (
+        <span>{reference}</span>
+      )}
     </div>
   );
 };

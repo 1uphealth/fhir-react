@@ -87,7 +87,7 @@ export const Title = props => (
 export const Badge = props => {
   return (
     <small
-      className={`fhir-ui__Badge text-capitalize d-flex align-items-center px-2 py-1 rounded-1 fw-bold ${getBadgeColor(
+      className={`fhir-ui__Badge text-capitalize d-flex align-items-center mx-1 px-2 py-1 rounded-1 fw-bold ${getBadgeColor(
         props,
       )}`}
       data-testid={props['data-testid']}
@@ -128,7 +128,7 @@ export const ValueUnit = props => (
 export const Body = ({ tableData = [], reverseContent, children }) => (
   <div className="fhir-ui__Body">
     {reverseContent ? children : null}
-    <div className="row">
+    <div className="row gap-3">
       {tableData.map(
         (value, index) =>
           value.status && (
@@ -199,10 +199,17 @@ export const TableHeader = props => {
   );
 };
 
-export const TableRow = props => <tr>{props.children}</tr>;
+export const TableRow = props => {
+  const { children, ...rest } = props;
+  return <tr {...rest}>{props.children}</tr>;
+};
 
 export const TableCell = props => (
-  <td className="align-text-top border-0" data-testid={props['data-testid']}>
+  <td
+    className={`align-middle border-0 ${props.className || ''}`}
+    data-testid={props['data-testid']}
+    style={props.style}
+  >
     {props.children}
   </td>
 );

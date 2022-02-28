@@ -141,6 +141,13 @@ export default {
       alt="location marker"
     />
   ),
+  Medication: (
+    <img
+      className="header-icon__image"
+      src={require('../assets/containers/Medication/medication.svg')}
+      alt="medication"
+    />
+  ),
   MedicationOrder: (
     <img
       className="header-icon__image"
@@ -183,6 +190,13 @@ export default {
       alt="observation"
     />
   ),
+  Organization: (
+    <img
+      className="header-icon__image"
+      src={require('../assets/containers/Organization/organization.svg')}
+      alt="organization"
+    />
+  ),
   Questionnaire: (
     <img
       className="header-icon__image"
@@ -216,6 +230,13 @@ export default {
       className="header-icon__image"
       src={require('../assets/containers/Patient/patient.svg')}
       alt="patient"
+    />
+  ),
+  Coverage: (
+    <img
+      className="header-icon__image"
+      src={require('../assets/containers/Coverage/coverage.svg')}
+      alt="coverage"
     />
   ),
 };

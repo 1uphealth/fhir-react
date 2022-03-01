@@ -56,7 +56,7 @@ const Location = ({ fhirResource, fhirIcons }) => {
     {
       label: 'Telecom',
       testId: 'telecom',
-      data: telecom && <Telecom fhirData={telecom} />,
+      data: telecom && <Telecom fhirData={telecom} noSystemData />,
       status: telecom,
     },
     {

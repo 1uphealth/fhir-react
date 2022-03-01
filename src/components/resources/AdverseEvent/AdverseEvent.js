@@ -15,7 +15,6 @@ import Date from '../../datatypes/Date';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 import CodeableConcept, { hasValue } from '../../datatypes/CodeableConcept';
 import Accordion from '../../containers/Accordion';
-import Identifier from '../../datatypes/Identifier';
 
 const commonDTO = fhirResource => {
   const subject = _get(fhirResource, 'subject');

@@ -24,13 +24,15 @@ const Location = ({ fhirResource, fhirIcons }) => {
     {
       label: 'Type',
       testId: 'type',
-      data: type && <CodeableConcept fhirData={type} />,
+      data: type && <CodeableConcept fhirData={type} isCursive />,
       status: type,
     },
     {
       label: 'Physical type',
       testId: 'physicalType',
-      data: physicalType && <CodeableConcept fhirData={physicalType} />,
+      data: physicalType && (
+        <CodeableConcept fhirData={physicalType} isCursive />
+      ),
       status: physicalType,
     },
     {

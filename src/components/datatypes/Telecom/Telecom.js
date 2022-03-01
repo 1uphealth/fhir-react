@@ -12,11 +12,6 @@ const Telecom = props => {
           const system = _get(item, 'system', '');
           return (
             <div className="fhir-datatype__Telecom__item" key={`phone-${i}`}>
-              {system && (
-                <span className="fhir-datatype__Telecom__item-label">
-                  {system}
-                </span>
-              )}
               {_get(item, 'value', '')}
             </div>
           );

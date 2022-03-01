@@ -9,8 +9,80 @@ import stu3Example1 from '../../../fixtures/stu3/resources/claim/example-1.json'
 import stu3Example2 from '../../../fixtures/stu3/resources/claim/example-2.json';
 import stu3Example3 from '../../../fixtures/stu3/resources/claim/example-3.json';
 import r4Example1 from '../../../fixtures/r4/resources/claim/example1.json';
+import fhirIcons from '../../../fixtures/example-icons';
 
 describe('should render the Claim component properly', () => {
+  it('component without a fhirIcons props should render a default icon', () => {
+    const defaultProps = {
+      fhirVersion: fhirVersions.DSTU2,
+      fhirResource: dstu2Example1,
+    };
+
+    const { getByAltText } = render(<Claim {...defaultProps} />);
+    const headerIcon = getByAltText('claim');
+
+    expect(headerIcon.getAttribute('src')).toContain('IMAGE_MOCK');
+  });
+
+  it('component with a false as a fhirIcons props should render a placeholder', () => {
+    const defaultProps = {
+      fhirVersion: fhirVersions.DSTU2,
+      fhirResource: dstu2Example1,
+      fhirIcons: false,
+    };
+
+    const { getByTestId } = render(<Claim {...defaultProps} />);
+    const headerIcon = getByTestId('placeholder');
+
+    expect(headerIcon).toBeTruthy();
+  });
+
+  it('component with the img as a fhirIcons props should render an img', () => {
+    const defaultProps = {
+      fhirVersion: fhirVersions.DSTU2,
+      fhirResource: dstu2Example1,
+      fhirIcons: (
+        <img
+          src={require('../assets/containers/Claim/claim.svg')}
+          alt="claim"
+        />
+      ),
+    };
+
+    const { getByAltText } = render(<Claim {...defaultProps} />);
+    const headerIcon = getByAltText('claim');
+
+    expect(headerIcon.getAttribute('src')).toContain('IMAGE_MOCK');
+  });
+
+  it('component with the resources object as a fhirIcons props should render an img', () => {
+    const defaultProps = {
+      fhirVersion: fhirVersions.DSTU2,
+      fhirResource: dstu2Example1,
+      fhirIcons: fhirIcons,
+    };
+
+    const { getByAltText } = render(<Claim {...defaultProps} />);
+    const headerIcon = getByAltText('clipboard with a symmetrical cross');
+
+    expect(headerIcon.getAttribute('src')).toContain('IMAGE_MOCK');
+  });
+
+  it('component with the url as a fhirIcons props should render an img', () => {
+    const avatarSrc =
+      'https://www.gravatar.com/avatar/?s=50&r=any&default=identicon&forcedefault=1';
+    const defaultProps = {
+      fhirVersion: fhirVersions.DSTU2,
+      fhirResource: dstu2Example1,
+      fhirIcons: avatarSrc,
+    };
+
+    const { getByAltText } = render(<Claim {...defaultProps} />);
+    const headerIcon = getByAltText('header icon');
+
+    expect(headerIcon.getAttribute('src')).toContain(avatarSrc);
+  });
+
   it('with DSTU2 source data', () => {
     const defaultProps = {
       fhirResource: dstu2Example1,

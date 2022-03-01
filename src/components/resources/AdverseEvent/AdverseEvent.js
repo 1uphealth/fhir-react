@@ -2,12 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _get from 'lodash/get';
 import fhirVersions from '../fhirResourceVersions';
-import { Root, Header, Body } from '../../ui';
+import {
+  Root,
+  Header,
+  Body,
+  ValueSection,
+  ValueSectionItem,
+  Value,
+} from '../../ui';
 import Reference from '../../datatypes/Reference';
 import Date from '../../datatypes/Date';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 import CodeableConcept, { hasValue } from '../../datatypes/CodeableConcept';
 import Accordion from '../../containers/Accordion';
+import Identifier from '../../datatypes/Identifier';
 
 const commonDTO = fhirResource => {
   const subject = _get(fhirResource, 'subject');
@@ -88,14 +96,8 @@ const AdverseEvent = ({ fhirResource, fhirVersion, fhirIcons }) => {
 
   const tableData = [
     {
-      label: 'Date',
-      testId: 'date',
-      data: date && <Date fhirData={date} />,
-      status: date,
-    },
-    {
-      label: 'Type',
-      testId: 'type',
+      label: 'Event',
+      testId: 'event',
       data: hasEventType && <CodeableConcept fhirData={eventType} />,
       status: hasEventType,
     },
@@ -104,12 +106,6 @@ const AdverseEvent = ({ fhirResource, fhirVersion, fhirIcons }) => {
       testId: 'event',
       data: hasEvent && <CodeableConcept fhirData={event} />,
       status: hasEvent,
-    },
-    {
-      label: 'Description',
-      testId: 'description',
-      data: description,
-      status: description,
     },
     {
       label: 'Seriousness',
@@ -133,9 +129,40 @@ const AdverseEvent = ({ fhirResource, fhirVersion, fhirIcons }) => {
             resourceName={'AdverseEvent'}
             title={subject && <Reference fhirData={subject} />}
             icon={fhirIcons}
+            additionalContent={
+              date && (
+                <Value label="Date" data-testid="date">
+                  <Date fhirData={date} isBlack />
+                </Value>
+              )
+            }
           />
         }
-        bodyContent={<Body tableData={tableData} />}
+        bodyContent={
+          <Body>
+            {description && (
+              <ValueSection
+                label="Comment"
+                data-testid="description"
+                marginBottom
+              >
+                <span className="text-secondary">{description}</span>
+              </ValueSection>
+            )}
+            {tableData.map(
+              (item, index) =>
+                item.status && (
+                  <ValueSectionItem
+                    key={`adverse-event-item-${index}`}
+                    label={item.label}
+                    data-testid={item.testId}
+                  >
+                    {item.data}
+                  </ValueSectionItem>
+                ),
+            )}
+          </Body>
+        }
       />
     </Root>
   );

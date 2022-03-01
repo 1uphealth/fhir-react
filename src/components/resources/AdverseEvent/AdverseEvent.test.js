@@ -90,7 +90,7 @@ describe('should render component correctly', () => {
 
     expect(getByTestId('date').textContent).toEqual('1/29/2017');
 
-    expect(getByTestId('type').textContent).toContain('304386008');
+    expect(getByTestId('event').textContent).toContain('304386008');
 
     expect(getByTestId('description').textContent).toContain(
       'This was a mild rash',

@@ -9,7 +9,6 @@ const Telecom = props => {
     return (
       <div className="fhir-datatype__Telecom">
         {fhirData.map((item, i) => {
-          const system = _get(item, 'system', '');
           return (
             <div className="fhir-datatype__Telecom__item" key={`phone-${i}`}>
               {_get(item, 'value', '')}

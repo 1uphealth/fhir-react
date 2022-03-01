@@ -5,7 +5,7 @@ import _get from 'lodash/get';
 import './Coding.css';
 
 const Coding = props => {
-  const { fhirData } = props;
+  const { fhirData, isCursive = false } = props;
   const display = _get(fhirData, 'display', '');
   const code = _get(fhirData, 'code', '');
   const system = _get(fhirData, 'system', '');
@@ -14,7 +14,12 @@ const Coding = props => {
     <div className="fhir-datatype__Coding">
       <span className="fhir-datatype__Coding__title">{display}</span>&nbsp;
       {hasAdditionalInfo && (
-        <span className="fhir-datatype__Coding__code" title={system}>
+        <span
+          className={`${
+            isCursive ? 'fst-italic' : ''
+          } fhir-datatype__Coding__code`}
+          title={system}
+        >
           ({code || '?'})
         </span>
       )}

@@ -110,7 +110,9 @@ const AdverseEvent = ({ fhirResource, fhirVersion, fhirIcons }) => {
     {
       label: 'Seriousness',
       testId: 'hasSeriousness',
-      data: hasSeriousness && <CodeableConcept fhirData={seriousness} />,
+      data: hasSeriousness && (
+        <CodeableConcept fhirData={seriousness} isCursive />
+      ),
       status: hasSeriousness,
     },
     {

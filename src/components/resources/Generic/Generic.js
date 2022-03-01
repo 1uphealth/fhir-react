@@ -1,7 +1,7 @@
 import React from 'react';
 import _get from 'lodash/get';
 
-import { Root, Header, Body, Data } from '../../ui';
+import { Root, Header } from '../../ui';
 import Accordion from '../../containers/Accordion';
 
 const Generic = ({ fhirResource, fhirIcons }) => {

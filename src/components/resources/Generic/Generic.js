@@ -1,7 +1,7 @@
 import React from 'react';
 import _get from 'lodash/get';
 
-import { Root, Header, Body } from '../../ui';
+import { Root, Header, Body, Data } from '../../ui';
 import Accordion from '../../containers/Accordion';
 
 const Generic = ({ fhirResource, fhirIcons }) => {
@@ -12,22 +12,24 @@ const Generic = ({ fhirResource, fhirIcons }) => {
     _get(fhirResource, 'code.coding[0].display') ||
     _get(fhirResource, 'code.text');
 
-  const tableData = [
-    {
-      label: 'Code',
-      testId: '',
-      data: code,
-      status: code,
-    },
-  ];
-
   return (
     <Root>
       <Accordion
         headerContent={
-          <Header resourceName={'Generic'} title={title} icon={fhirIcons} />
+          <Header
+            resourceName={'Generic'}
+            title={title}
+            icon={fhirIcons}
+            additionalContent={
+              code && (
+                <span className="text-secondary" data-testid="code">
+                  {code}
+                </span>
+              )
+            }
+          />
         }
-        bodyContent={code && <Body tableData={tableData} />}
+        bodyContent={<></>}
       />
     </Root>
   );

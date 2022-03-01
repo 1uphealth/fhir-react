@@ -19,8 +19,7 @@ export const hasValue = data => {
   return false;
 };
 
-const CodeableConcept = props => {
-  const { fhirData } = props;
+const CodeableConcept = ({ fhirData, isCursive = false }) => {
   if (!_isObject(fhirData)) return null;
 
   const data = Array.isArray(fhirData) ? fhirData : [fhirData];
@@ -40,7 +39,11 @@ const CodeableConcept = props => {
               </span>
             )}
             {coding.map((codingData, j) => (
-              <Coding key={`codingData-${j}`} fhirData={codingData} />
+              <Coding
+                key={`codingData-${j}`}
+                fhirData={codingData}
+                isCursive={isCursive}
+              />
             ))}
           </div>
         );

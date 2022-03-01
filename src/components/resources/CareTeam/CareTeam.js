@@ -101,7 +101,7 @@ const CareTeam = ({ fhirResource, fhirVersion, fhirIcons }) => {
     {
       label: 'Category',
       testId: 'category',
-      data: category && <CodableConcept fhirData={category} />,
+      data: category && <CodableConcept fhirData={category} isCursive />,
       status: category,
     },
     {

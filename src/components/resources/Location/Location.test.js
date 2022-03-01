@@ -139,7 +139,7 @@ describe('should render Location component properly', () => {
 
     expect(getByTestId('address').textContent).toContain('Galapagosweg 91');
 
-    expect(getByTestId('telecom').textContent).toContain('fax2329');
+    expect(getByTestId('telecom').textContent).toContain('2329');
 
     expect(queryByTestId('type')).toBeNull();
 
@@ -174,7 +174,7 @@ describe('should render Location component properly', () => {
 
     expect(getByTestId('address').textContent).toContain('Galapagosweg 91');
 
-    expect(getByTestId('telecom').textContent).toContain('fax2329');
+    expect(getByTestId('telecom').textContent).toContain('2329');
 
     expect(queryByTestId('type')).toBeNull();
 

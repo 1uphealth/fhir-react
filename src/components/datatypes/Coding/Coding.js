@@ -4,8 +4,7 @@ import _get from 'lodash/get';
 
 import './Coding.css';
 
-const Coding = props => {
-  const { fhirData, isCursive = false } = props;
+const Coding = ({ fhirData, isCursive = false }) => {
   const display = _get(fhirData, 'display', '');
   const code = _get(fhirData, 'code', '');
   const system = _get(fhirData, 'system', '');

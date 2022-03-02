@@ -20,7 +20,7 @@ const CareTeamParticipants = props => {
             <TableHeader>End</TableHeader>
           </TableRow>
         </thead>
-        <tbody>{allParticipants}</tbody>
+        <tbody className="border-top-0">{allParticipants}</tbody>
       </Table>
     </ValueSection>
   );

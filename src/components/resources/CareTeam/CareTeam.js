@@ -128,7 +128,7 @@ const CareTeam = ({ fhirResource, fhirVersion, fhirIcons }) => {
       label: 'Care Period Start',
       testId: 'periodStart',
       data: periodStart ? (
-        <DateType fhirData={periodStart} />
+        <DateType fhirData={periodStart} isBlack />
       ) : (
         <MissingValue />
       ),
@@ -137,7 +137,11 @@ const CareTeam = ({ fhirResource, fhirVersion, fhirIcons }) => {
     {
       label: 'Care Period End',
       testId: 'periodEnd',
-      data: periodEnd ? <DateType fhirData={periodEnd} /> : <MissingValue />,
+      data: periodEnd ? (
+        <DateType fhirData={periodEnd} isBlack />
+      ) : (
+        <MissingValue />
+      ),
       status: periodEnd,
     },
   ];

@@ -19,26 +19,7 @@ import {
 } from '../../ui';
 import CodeableConcept from '../../datatypes/CodeableConcept/CodeableConcept';
 import Accordion from '../../containers/Accordion';
-
-const DosageInstruction = props => {
-  const empty = <MissingValue />;
-  const {
-    timing = empty,
-    route = empty,
-    doseQuantity = empty,
-    additionalInstructions = empty,
-  } = props.item;
-  return (
-    <TableRow>
-      <TableCell data-testid="dosageTiming">{timing}</TableCell>
-      <TableCell data-testid="dosageRoute">{route}</TableCell>
-      <TableCell data-testid="dosageQuantity">{doseQuantity}</TableCell>
-      <TableCell data-testid="dosageAdditionalInstructions">
-        <CodeableConcept fhirData={additionalInstructions} />
-      </TableCell>
-    </TableRow>
-  );
-};
+import DosageInstruction from './DosageInstruction';
 
 const commonDTO = fhirResource => {
   const typeCoding = _get(fhirResource, 'type.coding.0');
@@ -209,7 +190,7 @@ const MedicationDispense = ({ fhirResource, fhirVersion, fhirIcons }) => {
     {
       label: 'Prepared',
       testId: 'whenPrepared',
-      data: whenPrepared && <Date fhirData={whenPrepared} />,
+      data: whenPrepared && <Date fhirData={whenPrepared} isBlack />,
       status: whenPrepared,
     },
     {

@@ -146,7 +146,7 @@ const MedicationKnowledge = ({
     {
       label: 'Code',
       testId: 'code',
-      data: code && <CodeableConcept fhirData={code} />,
+      data: code && <CodeableConcept fhirData={code} isCursive />,
       status: code,
     },
     {

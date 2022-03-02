@@ -13,9 +13,7 @@ import {
   ValueSection,
   Table,
   TableHeader,
-  TableCell,
   TableRow,
-  MissingValue,
 } from '../../ui';
 import Accordion from '../../containers/Accordion';
 import DosageInstruction from './DosageInstruction';

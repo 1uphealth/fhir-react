@@ -17,7 +17,6 @@ import {
   TableRow,
   MissingValue,
 } from '../../ui';
-import CodeableConcept from '../../datatypes/CodeableConcept/CodeableConcept';
 import Accordion from '../../containers/Accordion';
 import DosageInstruction from './DosageInstruction';
 

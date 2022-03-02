@@ -76,14 +76,14 @@ const PractitionerRole = ({ fhirResource, fhirVersion, fhirIcons }) => {
       label: 'Specialties',
       testId: 'specialties',
       data: specialties.length > 0 && (
-        <CodeableConcept fhirData={specialties} />
+        <CodeableConcept fhirData={specialties} isCursive />
       ),
       status: specialties.length > 0,
     },
     {
       label: 'Roles',
       testId: 'roles',
-      data: codes.length > 0 && <CodeableConcept fhirData={codes} />,
+      data: codes.length > 0 && <CodeableConcept fhirData={codes} isCursive />,
       status: codes.length > 0,
     },
   ];

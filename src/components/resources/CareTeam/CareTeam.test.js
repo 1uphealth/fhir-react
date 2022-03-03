@@ -8,7 +8,80 @@ import stu3Example1 from '../../../fixtures/stu3/resources/careTeam/example1.jso
 import stu3Example2 from '../../../fixtures/stu3/resources/careTeam/example2.json';
 import r4Example1 from '../../../fixtures/r4/resources/careTeam/example1.json';
 
+import fhirIcons from '../../../fixtures/example-icons';
+
 describe('should render the CareTeam component properly', () => {
+  it('component without a fhirIcons props should render a default icon', () => {
+    const defaultProps = {
+      fhirVersion: fhirVersions.STU3,
+      fhirResource: stu3Example1,
+    };
+
+    const { getByAltText } = render(<CareTeam {...defaultProps} />);
+    const headerIcon = getByAltText('care team');
+
+    expect(headerIcon.getAttribute('src')).toContain('IMAGE_MOCK');
+  });
+
+  it('component with a false as a fhirIcons props should render a placeholder', () => {
+    const defaultProps = {
+      fhirVersion: fhirVersions.STU3,
+      fhirResource: stu3Example1,
+      fhirIcons: false,
+    };
+
+    const { getByTestId } = render(<CareTeam {...defaultProps} />);
+    const headerIcon = getByTestId('placeholder');
+
+    expect(headerIcon).toBeTruthy();
+  });
+
+  it('component with the img as a fhirIcons props should render an img', () => {
+    const defaultProps = {
+      fhirVersion: fhirVersions.STU3,
+      fhirResource: stu3Example1,
+      fhirIcons: (
+        <img
+          src={require('../assets/containers/CareTeam/care-team.svg')}
+          alt="group of people"
+        />
+      ),
+    };
+
+    const { getByAltText } = render(<CareTeam {...defaultProps} />);
+    const headerIcon = getByAltText('group of people');
+
+    expect(headerIcon.getAttribute('src')).toContain('IMAGE_MOCK');
+  });
+
+  it('component with the resources object as a fhirIcons props should render an img', () => {
+    const defaultProps = {
+      fhirVersion: fhirVersions.STU3,
+      fhirResource: stu3Example1,
+      fhirIcons: fhirIcons,
+    };
+
+    const { getByAltText } = render(<CareTeam {...defaultProps} />);
+    const headerIcon = getByAltText('group of people');
+
+    expect(headerIcon.getAttribute('src')).toContain('IMAGE_MOCK');
+  });
+
+  it('component with the url as a fhirIcons props should render an img', () => {
+    const avatarSrc =
+      'https://www.gravatar.com/avatar/?s=50&r=any&default=identicon&forcedefault=1';
+    const defaultProps = {
+      fhirVersion: fhirVersions.STU3,
+      fhirResource: stu3Example1,
+      fhirIcons: avatarSrc,
+    };
+
+    const { getByAltText } = render(<CareTeam {...defaultProps} />);
+    const headerIcon = getByAltText('header icon');
+
+    expect(headerIcon.getAttribute('src')).toContain(avatarSrc);
+  });
+
   it('should render with STU3 source data', () => {
     const defaultProps = {
       fhirResource: stu3Example1,

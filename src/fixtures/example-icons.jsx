@@ -1,18 +1,18 @@
 import React from 'react';
 
 export default {
-  AdverseEvent: (
-    <img
-      className="header-icon__image"
-      src={require('../assets/containers/AdverseEvent/adverse-event.svg')}
-      alt="adverse event"
-    />
-  ),
   Binary: (
     <img
       className="header-icon__image"
       src={require('../assets/containers/Binary/binary.svg')}
       alt="binary"
+    />
+  ),
+  Bundle: (
+    <img
+      className="header-icon__image"
+      src={require('../assets/containers/Bundle/bundle.svg')}
+      alt="bundle"
     />
   ),
   Condition: (
@@ -244,6 +244,13 @@ export default {
       className="header-icon__image"
       src={require('../assets/containers/Coverage/coverage.svg')}
       alt="coverage"
+    />
+  ),
+  RelatedPerson: (
+    <img
+      className="header-icon__image"
+      src={require('../assets/containers/RelatedPerson/related-person.svg')}
+      alt="related person"
     />
   ),
 };

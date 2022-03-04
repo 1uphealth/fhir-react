@@ -3,8 +3,7 @@ import _get from 'lodash/get';
 
 import './Telecom.css';
 
-const Telecom = props => {
-  const { fhirData } = props;
+const Telecom = ({ fhirData }) => {
   if (Array.isArray(fhirData)) {
     return (
       <div className="fhir-datatype__Telecom">

@@ -5,7 +5,7 @@ import _get from 'lodash/get';
 import Telecom from '../../datatypes/Telecom';
 import Address from '../../datatypes/Address';
 import Accordion from '../../containers/Accordion';
-import { Root, Header, MissingValue, Badge, Body } from '../../ui';
+import { Root, Header, MissingValue, Body } from '../../ui';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 import Reference from '../../datatypes/Reference';
 import fhirVersions from '../fhirResourceVersions';

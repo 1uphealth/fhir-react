@@ -1,6 +1,13 @@
 import React from 'react';
 
 export default {
+  AdverseEvent: (
+    <img
+      className="header-icon__image"
+      src={require('../assets/containers/AdverseEvent/adverse-event.svg')}
+      alt="adverse event"
+    />
+  ),
   Binary: (
     <img
       className="header-icon__image"

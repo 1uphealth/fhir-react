@@ -14,16 +14,18 @@ const Accordion = props => {
   );
 
   const isAccordionOpenable = () => {
-    const tableDataCondition =
-      bodyContent.props.tableData &&
-      bodyContent.props.tableData.filter(x => 'data' in x && x.data).length > 0;
-    const childrenCondition =
-      bodyContent.props.children &&
-      (bodyContent.props.children.length > 0 || bodyContent.props.children);
-    if (tableDataCondition || childrenCondition) {
-      return true;
+    if (bodyContent) {
+      const tableDataCondition =
+        bodyContent.props.tableData &&
+        bodyContent.props.tableData.filter(x => 'data' in x && x.data).length >
+          0;
+      const childrenCondition =
+        bodyContent.props.children &&
+        (bodyContent.props.children.length > 0 || bodyContent.props.children);
+      if (tableDataCondition || childrenCondition) {
+        return true;
+      }
     }
-
     return false;
   };
 

@@ -246,4 +246,11 @@ export default {
       alt="coverage"
     />
   ),
+  Generic: (
+    <img
+      className="header-icon__image"
+      src={require('../assets/containers/Generic/generic.svg')}
+      alt="generic"
+    />
+  ),
 };

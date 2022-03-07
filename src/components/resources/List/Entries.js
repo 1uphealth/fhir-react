@@ -50,7 +50,7 @@ const Entry = props => {
           <Reference fhirData={entry} />
         </TableCell>
         <TableCell data-testid="items.date">
-          {date ? <Date fhirData={date} /> : <MissingValue />}
+          {date ? <Date fhirData={date} isBlack /> : <MissingValue />}
         </TableCell>
         <TableCell data-testid="items.isDeleted">
           {deleted === true ? 'yes' : 'no'}

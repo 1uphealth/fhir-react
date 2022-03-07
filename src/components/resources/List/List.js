@@ -194,7 +194,7 @@ const List = ({
     {
       label: 'Date',
       testId: 'date',
-      data: date && <Date fhirData={date} />,
+      data: date && <Date fhirData={date} isBlack />,
       status: date,
     },
     {

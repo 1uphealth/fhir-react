@@ -79,7 +79,7 @@ const Organization = ({ fhirResource, fhirVersion, fhirIcons }) => {
     {
       label: 'Identifiers',
       testId: 'identifier',
-      data: identifier && <Identifier fhirData={identifier} noCursive />,
+      data: identifier && <Identifier fhirData={identifier} />,
       status: identifier,
     },
     {

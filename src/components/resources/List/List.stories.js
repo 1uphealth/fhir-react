@@ -14,32 +14,65 @@ import example1R4 from '../../../fixtures/r4/resources/list/example1.json';
 import example2R4 from '../../../fixtures/r4/resources/list/example2.json';
 import example3R4 from '../../../fixtures/r4/resources/list/example3.json';
 
+import fhirIcons from '../../../fixtures/example-icons';
+import ListIcon from '../../../assets/containers/List/list.svg';
+
 export default {
   title: 'List',
 };
 
 export const DefaultVisualizationDSTU2 = () => {
   const fhirResource = object('Resource', example1Dstu2);
-  return <List fhirVersion={fhirVersions.DSTU2} fhirResource={fhirResource} />;
+  return (
+    <List
+      fhirVersion={fhirVersions.DSTU2}
+      fhirResource={fhirResource}
+      fhirIcons={require('../../../assets/containers/List/list.svg')}
+    />
+  );
 };
 
 export const Example2DSTU2 = () => {
   const fhirResource = object('Resource', example2Dstu2);
-  return <List fhirVersion={fhirVersions.DSTU2} fhirResource={fhirResource} />;
+  return (
+    <List
+      fhirVersion={fhirVersions.DSTU2}
+      fhirResource={fhirResource}
+      fhirIcons={ListIcon}
+    />
+  );
 };
 export const Example3DSTU2 = () => {
   const fhirResource = object('Resource', example3Dstu2);
-  return <List fhirVersion={fhirVersions.DSTU2} fhirResource={fhirResource} />;
+  return (
+    <List
+      fhirVersion={fhirVersions.DSTU2}
+      fhirResource={fhirResource}
+      fhirIcons={fhirIcons}
+    />
+  );
 };
 
 export const DefaultVisualizationSTU3 = () => {
   const fhirResource = object('Resource', example1Stu3);
-  return <List fhirVersion={fhirVersions.STU3} fhirResource={fhirResource} />;
+  return (
+    <List
+      fhirVersion={fhirVersions.STU3}
+      fhirResource={fhirResource}
+      fhirIcons={false}
+    />
+  );
 };
 
 export const Example2STU3 = () => {
   const fhirResource = object('Resource', example2Stu3);
-  return <List fhirVersion={fhirVersions.STU3} fhirResource={fhirResource} />;
+  return (
+    <List
+      fhirVersion={fhirVersions.STU3}
+      fhirResource={fhirResource}
+      fhirIcons={'random text'}
+    />
+  );
 };
 export const Example3STU3 = () => {
   const fhirResource = object('Resource', example3Stu3);

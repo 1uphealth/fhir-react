@@ -29,7 +29,6 @@ const Generic = ({ fhirResource, fhirIcons }) => {
             }
           />
         }
-        bodyContent={<></>}
       />
     </Root>
   );

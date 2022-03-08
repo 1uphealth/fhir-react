@@ -162,6 +162,13 @@ export default {
       alt="medication order"
     />
   ),
+  MedicationDispense: (
+    <img
+      className="header-icon__image"
+      src={require('../assets/containers/MedicationDispense/medication-dispense.svg')}
+      alt="medication dispense"
+    />
+  ),
   MedicationRequest: (
     <img
       className="header-icon__image"

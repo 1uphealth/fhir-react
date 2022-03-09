@@ -9,9 +9,11 @@ import { Root, Header, MissingValue, Body } from '../../ui';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 import Reference from '../../datatypes/Reference';
 import fhirVersions from '../fhirResourceVersions';
+import HumanName from '../../datatypes/HumanName';
 
 const dstu2DTO = fhirResource => {
   const patient = _get(fhirResource, 'patient');
+  const name = _get(fhirResource, 'name');
   const birthDate = _get(fhirResource, 'birthDate');
   const gender = _get(fhirResource, 'gender');
   const address = _get(fhirResource, 'address[0]');
@@ -21,6 +23,7 @@ const dstu2DTO = fhirResource => {
 
   return {
     patient,
+    name,
     birthDate,
     gender,
     address,
@@ -52,6 +55,7 @@ const RelatedPerson = ({ fhirResource, fhirVersion, fhirIcons }) => {
 
   const {
     patient,
+    name,
     birthDate,
     gender,
     address,
@@ -103,7 +107,7 @@ const RelatedPerson = ({ fhirResource, fhirVersion, fhirIcons }) => {
               )
             }
             icon={fhirIcons}
-            title="Related Person"
+            title={<HumanName fhirData={name} isTitle />}
           />
         }
         bodyContent={<Body tableData={tableData} />}

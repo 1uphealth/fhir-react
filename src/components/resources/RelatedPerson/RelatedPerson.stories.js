@@ -11,7 +11,7 @@ import fhirIcons from '../../../fixtures/example-icons';
 
 export default { title: 'RelatedPerson' };
 
-export const DefaultVisualizationDSTU2 = () => {
+export const Example1 = () => {
   const fhirResource = object('Resource', example1RelatedPerson);
   return (
     <RelatedPerson
@@ -22,7 +22,7 @@ export const DefaultVisualizationDSTU2 = () => {
   );
 };
 
-export const Example2OfDSTU2 = () => {
+export const Example2 = () => {
   const fhirResource = object('Resource', example2RelatedPersonDSTU2);
   return (
     <RelatedPerson

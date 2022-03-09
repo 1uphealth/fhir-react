@@ -3,7 +3,7 @@ import _get from 'lodash/get';
 
 import './Telecom.css';
 
-const Telecom = ({ fhirData }) => {
+const Telecom = ({ fhirData, noSystemData = false }) => {
   if (Array.isArray(fhirData)) {
     return (
       <div className="fhir-datatype__Telecom">
@@ -11,7 +11,7 @@ const Telecom = ({ fhirData }) => {
           const system = _get(item, 'system', '');
           return (
             <div className="fhir-datatype__Telecom__item" key={`phone-${i}`}>
-              {system && (
+              {!noSystemData && system && (
                 <span className="fhir-datatype__Telecom__item-label">
                   {system}
                 </span>

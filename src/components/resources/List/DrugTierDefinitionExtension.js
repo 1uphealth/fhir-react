@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _get from 'lodash/get';
 import { getExtension } from './utils';
-import { ValueSection, Value } from '../../ui';
+import { ValueSection, ValueSectionItem } from '../../ui';
 import CodeableConcept from '../../datatypes/CodeableConcept';
 import Money from '../../datatypes/Money';
 
@@ -82,48 +82,92 @@ const DrugTierDefinitionExtension = props => {
     coinsuranceOption,
   } = dto(drugTierDefinitionExtension);
 
+  const drugData = [
+    {
+      label: 'Drug Tier ID',
+      testId: 'drugTierID',
+      data: drugTierID && <CodeableConcept fhirData={drugTierID} />,
+      status: drugTierID,
+    },
+    {
+      label: 'Mail order',
+      testId: 'mailOrder',
+      data: mailOrder ? 'yes' : 'no',
+      status: mailOrder,
+    },
+  ];
+
+  const costData = [
+    {
+      label: 'Pharmacy Type',
+      testId: 'pharmacyType',
+      data: pharmacyType && <CodeableConcept fhirData={pharmacyType} />,
+      status: pharmacyType,
+    },
+    {
+      label: 'Copay Amount',
+      testId: 'copayAmount',
+      data: copayAmount && <Money fhirData={copayAmount} />,
+      status: copayAmount,
+    },
+    {
+      label: 'Copay Option',
+      testId: 'copayOption',
+      data: copayOption && <CodeableConcept fhirData={copayOption} />,
+      status: copayOption,
+    },
+    {
+      label: 'Coinsurance Rate',
+      testId: 'coinsuranceRate',
+      data: coinsuranceRate,
+      status: coinsuranceRate === 0 || coinsuranceRate,
+    },
+    {
+      label: 'Coinsurance Option',
+      testId: 'coinsuranceOption',
+      data: coinsuranceOption && (
+        <CodeableConcept fhirData={coinsuranceOption} />
+      ),
+      status: coinsuranceOption,
+    },
+  ];
+
   return (
     hasExtensions && (
       <ValueSection
         label="Drug Tier Definition"
         data-testid="drugTierDefinition"
+        marginTop
       >
-        {drugTierID && (
-          <Value label="Drug Tier ID" data-testid="drugTierID">
-            <CodeableConcept fhirData={drugTierID} />
-          </Value>
-        )}
-        {mailOrder && (
-          <Value label="Mail order" data-testid="mailOrder">
-            {mailOrder ? 'yes' : 'no'}
-          </Value>
+        {drugData.map(
+          (item, index) =>
+            item.status && (
+              <ValueSectionItem
+                key={`drug-item-${index}`}
+                label={item.label}
+                data-testid={item.testId}
+              >
+                {item.data}
+              </ValueSectionItem>
+            ),
         )}
         {hasConstSharing && (
-          <ValueSection label="Cost sharing" data-testid="costSharing">
-            {pharmacyType && (
-              <Value label="Pharmacy Type" data-testid="pharmacyType">
-                <CodeableConcept fhirData={pharmacyType} />
-              </Value>
-            )}
-            {copayAmount && (
-              <Value label="Copay Amount" data-testid="copayAmount">
-                <Money fhirData={copayAmount} />
-              </Value>
-            )}
-            {copayOption && (
-              <Value label="Copay Option" data-testid="copayOption">
-                <CodeableConcept fhirData={copayOption} />
-              </Value>
-            )}
-            {(coinsuranceRate === 0 || coinsuranceRate) && (
-              <Value label="Coinsurance Rate" data-testid="coinsuranceRate">
-                {coinsuranceRate}
-              </Value>
-            )}
-            {coinsuranceOption && (
-              <Value label="Coinsurance Option" data-testid="coinsuranceOption">
-                <CodeableConcept fhirData={coinsuranceOption} />
-              </Value>
+          <ValueSection
+            label="Cost sharing"
+            data-testid="costSharing"
+            marginTop
+          >
+            {costData.map(
+              (item, index) =>
+                item.status && (
+                  <ValueSectionItem
+                    key={`cost-item-${index}`}
+                    label={item.label}
+                    data-testid={item.testId}
+                  >
+                    {item.data}
+                  </ValueSectionItem>
+                ),
             )}
           </ValueSection>
         )}

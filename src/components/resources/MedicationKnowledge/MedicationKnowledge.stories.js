@@ -8,6 +8,8 @@ import example1R4 from '../../../fixtures/r4/resources/medicationKnowledge/examp
 import example2R4 from '../../../fixtures/r4/resources/medicationKnowledge/example2.json';
 import example3R4 from '../../../fixtures/r4/resources/medicationKnowledge/example3.json';
 import example4R4 from '../../../fixtures/r4/resources/medicationKnowledge/example4.json';
+import fhirIcons from '../../../fixtures/example-icons';
+import MedicationKnowledgeIcon from '../../../assets/containers/MedicationKnowledge/medication-knowledge.svg';
 
 export default {
   title: 'MedicationKnowledge',
@@ -19,6 +21,7 @@ export const DefaultVisualizationR4 = () => {
     <MedicationKnowledge
       fhirVersion={fhirVersions.R4}
       fhirResource={fhirResource}
+      fhirIcons={require('../../../assets/containers/MedicationKnowledge/medication-knowledge.svg')}
     />
   );
 };
@@ -28,6 +31,7 @@ export const ExampleR4WithoutDaVinciPDex = () => {
     <MedicationKnowledge
       fhirVersion={fhirVersions.R4}
       fhirResource={fhirResource}
+      fhirIcons={MedicationKnowledgeIcon}
     />
   );
 };
@@ -38,6 +42,7 @@ export const ExampleR4WithDaVinciPDex = () => {
       fhirVersion={fhirVersions.R4}
       fhirResource={fhirResource}
       withDaVinciPDex
+      fhirIcons={fhirIcons}
     />
   );
 };
@@ -58,6 +63,7 @@ export const Example3R4WithDaVinciPDex = () => {
       fhirVersion={fhirVersions.R4}
       fhirResource={fhirResource}
       withDaVinciPDex
+      fhirIcons={false}
     />
   );
 };

@@ -1,10 +1,10 @@
 import React from 'react';
 import _get from 'lodash/get';
 
-import { Root, Header, Title, Body } from '../../ui';
+import { Root, Header } from '../../ui';
+import Accordion from '../../containers/Accordion';
 
-const Generic = props => {
-  const { fhirResource } = props;
+const Generic = ({ fhirResource, fhirIcons }) => {
   const title = fhirResource
     ? `${fhirResource.resourceType}/${fhirResource.id}`
     : `Unknown Resource`;
@@ -14,10 +14,22 @@ const Generic = props => {
 
   return (
     <Root>
-      <Header>
-        <Title>{title}</Title>
-      </Header>
-      {code && <Body>{code && <p>{code}</p>}</Body>}
+      <Accordion
+        headerContent={
+          <Header
+            resourceName={'Generic'}
+            title={title}
+            icon={fhirIcons}
+            additionalContent={
+              code && (
+                <span className="text-secondary" data-testid="code">
+                  {code}
+                </span>
+              )
+            }
+          />
+        }
+      />
     </Root>
   );
 };

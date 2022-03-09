@@ -2,6 +2,7 @@ import React from 'react';
 import { object } from '@storybook/addon-knobs';
 
 import Generic from './Generic';
+import fhirIcons from '../../../fixtures/example-icons';
 
 export default { title: 'Generic' };
 
@@ -14,5 +15,5 @@ export const DefaultVisualization = () => {
     },
   };
   const fhirResource = object('Resource', exampleResource);
-  return <Generic fhirResource={fhirResource} />;
+  return <Generic fhirResource={fhirResource} fhirIcons={fhirIcons} />;
 };

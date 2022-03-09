@@ -317,7 +317,7 @@ const ClaimResponse = ({ fhirVersion, fhirResource, fhirIcons }) => {
     {
       label: 'Created At',
       testId: 'created',
-      data: created && <DateType fhirData={created} />,
+      data: created && <DateType fhirData={created} isBlack />,
       status: created,
     },
     {
@@ -371,7 +371,7 @@ const ClaimResponse = ({ fhirVersion, fhirResource, fhirIcons }) => {
       label: 'Date',
       testId: 'payment.date',
       data: payment.date ? (
-        <DateType fhirData={payment.date} />
+        <DateType fhirData={payment.date} isBlack />
       ) : (
         <MissingValue />
       ),

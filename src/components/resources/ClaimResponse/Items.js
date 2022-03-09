@@ -12,12 +12,13 @@ const Items = props => {
         <thead>
           <TableRow>
             <TableHeader>ID</TableHeader>
-            <TableHeader expand>Adjudication</TableHeader>
+            <TableHeader>Adjudication</TableHeader>
+            <TableHeader></TableHeader>
           </TableRow>
         </thead>
         <tbody className="border-top-0">
           {items.map((item, idx) => (
-            <Item key={idx} item={item} level={0} parentSequences={[]} />
+            <Item key={idx} item={item} parentSequences={[]} />
           ))}
         </tbody>
       </Table>

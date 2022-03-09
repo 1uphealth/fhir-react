@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-import { Chevron, TableCell, TableRow } from '../../ui';
+import { TableCell, TableRow } from '../../ui';
 import Coding from '../../datatypes/Coding';
 import Money from '../../datatypes/Money';
 

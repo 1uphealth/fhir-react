@@ -5,36 +5,13 @@ import Coding from '../../datatypes/Coding';
 import Money from '../../datatypes/Money';
 import Item from './Item';
 
-const AddedItem = ({
-  addedItem,
-  parentSequences,
-  parentId,
-  isCollapse = false,
-}) => {
+const AddedItem = ({ addedItem, parentSequences }) => {
   const itemSequences = [...parentSequences, addedItem.sequenceLinkId];
   const id = itemSequences.join('.');
-  const collapseId = parentSequences.length
-    ? parentId
-    : addedItem.sequenceLinkId;
-
-  const [rotate, setRotate] = useState(false);
-  const handleTableExpand = () => setRotate(!rotate);
-
-  const isExpandable =
-    parentSequences.length === 0 && addedItem.subItems.length !== 0;
 
   return (
     <>
-      <TableRow
-        className={`${isCollapse ? `collapse item-${parentId}` : ''} ${
-          isExpandable ? 'fw-bold table-expandable-row border-top' : ''
-        }`}
-        data-bs-target={`.item-${collapseId}`}
-        data-bs-toggle={'collapse'}
-        aria-controls={id}
-        aria-expanded="false"
-        onClick={handleTableExpand}
-      >
+      <TableRow>
         <TableCell
           data-testid="addedItems.sequence"
           className="col-md-2"
@@ -44,21 +21,21 @@ const AddedItem = ({
         </TableCell>
         <TableCell
           data-testid="addedItems.service"
-          className="col-md-2"
+          className="col-md-3"
           notAlignMiddle
         >
           {addedItem.service && <Coding fhirData={addedItem.service} />}
         </TableCell>
         <TableCell
           data-testid="addedItems.fee"
-          className="col-md-2"
+          className="col-md-3"
           notAlignMiddle
         >
           {addedItem.fee && <Money fhirData={addedItem.fee} />}
         </TableCell>
         <TableCell
           data-testid="addedItems.adjudication"
-          className="col-md-2"
+          className="col-md-3"
           notAlignMiddle
         >
           {addedItem.adjudication.map((adjudication, idx) => (
@@ -75,29 +52,9 @@ const AddedItem = ({
             </div>
           ))}
         </TableCell>
-        {isExpandable ? (
-          <TableCell className="col-md-2" notAlignMiddle>
-            <button
-              className="fhir-container__Accordion__header-button w-100 p-0 border-0 rounded-1 collapsed text-dark bg-transparent shadow-none "
-              type="button"
-            >
-              <div className={` ${rotate ? ' header-rotate' : ''}`}>
-                <Chevron strokeColor={rotate ? '#2a6fd7' : '#6f83a9'} />
-              </div>
-            </button>
-          </TableCell>
-        ) : (
-          <TableCell style={{ width: '64px' }} className="col-md-2" />
-        )}
       </TableRow>
       {addedItem.subItems.map((subItem, idx) => (
-        <Item
-          key={idx}
-          addedItem={subItem}
-          parentSequences={itemSequences}
-          parentId={collapseId}
-          isCollapse
-        />
+        <Item key={idx} addedItem={subItem} parentSequences={itemSequences} />
       ))}
     </>
   );

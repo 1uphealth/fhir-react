@@ -15,7 +15,6 @@ const AddedItems = props => {
             <TableHeader>Service</TableHeader>
             <TableHeader>Fee</TableHeader>
             <TableHeader>Adjudication</TableHeader>
-            <TableHeader></TableHeader>
           </TableRow>
         </thead>
         <tbody className="border-top-0">

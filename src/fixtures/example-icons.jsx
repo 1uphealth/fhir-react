@@ -265,6 +265,8 @@ export default {
       className="header-icon__image"
       src={require('../assets/containers/RelatedPerson/related-person.svg')}
       alt="related person"
+    />
+  ),
   Generic: (
     <img
       className="header-icon__image"

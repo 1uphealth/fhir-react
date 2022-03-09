@@ -9,7 +9,7 @@ import * as FhirResourceTypes from '../../supportedFhirResourceList';
 
 import './Bundle.css';
 
-export default function Bundle({ fhirResource, fhirVersion, fhirIcons }) {
+export default function Bundle({ fhirResource, fhirVersion }) {
   const commonDTO = fhirResource => {
     const type = _get(fhirResource, 'type', null);
     const total = _get(fhirResource, 'total');
@@ -51,12 +51,12 @@ export default function Bundle({ fhirResource, fhirVersion, fhirIcons }) {
     .filter(Boolean);
 
   return (
-    <Root name="Bundle">
+    <Root name="Bundle" className="bg-white border-1 rounded p-2">
       <Header
         resourceName="Bundle"
         title={type}
         badges={total && <Badge data-testid="total">{total}</Badge>}
-        icon={fhirIcons}
+        capitalize
       />
       <Body>
         {resources.length > 0 &&
@@ -73,14 +73,15 @@ export default function Bundle({ fhirResource, fhirVersion, fhirIcons }) {
                 key={`${resource.id}-${index}`}
               >
                 {resourceType && (
-                  <BadgeSecondary data-testid="resourceType">
-                    {resourceType}
-                  </BadgeSecondary>
+                  <div className="fhir-resource__Bundle__badge">
+                    <BadgeSecondary data-testid="resourceType">
+                      {resourceType}
+                    </BadgeSecondary>
+                  </div>
                 )}
                 <FhirComponent
                   fhirResource={resource}
                   fhirVersion={fhirVersion}
-                  fhirIcons={fhirIcons}
                 />
               </div>
             );

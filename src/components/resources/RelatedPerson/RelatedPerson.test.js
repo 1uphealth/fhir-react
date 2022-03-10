@@ -4,6 +4,8 @@ import RelatedPerson from './RelatedPerson';
 import fhirVersions from '../fhirResourceVersions';
 
 import example1 from '../../../fixtures/dstu2/resources/relatedPerson/example1.json';
+import example2 from '../../../fixtures/stu3/resources/relatedPerson/example1.json';
+import example3 from '../../../fixtures/r4/resources/relatedPerson/example1.json';
 import fhirIcons from '../../../fixtures/example-icons';
 
 describe('should render component correctly', () => {
@@ -85,18 +87,34 @@ describe('should render component correctly', () => {
     };
     const { getByTestId } = render(<RelatedPerson {...defaultProps} />);
 
-    expect(getByTestId('gender').textContent).toEqual('male');
-    expect(getByTestId('birthDate').textContent).toEqual('1990-09-15');
     expect(getByTestId('address').textContent).toEqual(
-      'Abc Defg23KANSAS CITY, MO 64116 US',
+      '43, Place du Marché Sainte CatherineParis,  75004 FRA',
     );
-    expect(getByTestId('telephone').textContent).toEqual(
-      '8033333333' +
-        '8168888888' +
-        '8168888882' +
-        '5012889406' +
-        '18011111111' +
-        '8168888881',
-    );
+    expect(getByTestId('telephone').textContent).toEqual('+33 (237) 998327');
+  });
+
+  it('should render with STU3 source data', () => {
+    const defaultProps = {
+      fhirResource: example2,
+      fhirVersion: fhirVersions.STU3,
+    };
+    const { getByTestId } = render(<RelatedPerson {...defaultProps} />);
+
+    expect(getByTestId('gender').textContent).toEqual('female');
+    expect(getByTestId('birthDate').textContent).toEqual('1963');
+    expect(getByTestId('telephone').textContent).toEqual('+31201234567');
+  });
+
+  it('should render with R4 source data', () => {
+    const defaultProps = {
+      fhirResource: example3,
+      fhirVersion: fhirVersions.R4,
+    };
+    const { getByTestId } = render(<RelatedPerson {...defaultProps} />);
+
+    expect(getByTestId('gender').textContent).toEqual('female');
+    expect(getByTestId('birthDate').textContent).toEqual('1973-05-31');
+    expect(getByTestId('address').textContent).toEqual('2222 Home Street   ');
+    expect(getByTestId('telephone').textContent).toEqual('555-555-2003');
   });
 });

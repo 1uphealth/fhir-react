@@ -74,7 +74,7 @@ export default function Bundle({ fhirResource, fhirVersion }) {
                 key={`${resource.id}-${index}`}
               >
                 {resourceType && (
-                  <div className="fhir-resource__Bundle__badge">
+                  <div className="mx-20">
                     <BadgeSecondary data-testid="resourceType">
                       {resourceType}
                     </BadgeSecondary>

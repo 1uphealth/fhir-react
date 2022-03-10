@@ -2,11 +2,6 @@
   margin-top: 10px;
 }
 
-.fhir-resource__Bundle__badge {
-  margin-left: 20px;
-  margin-right: 20px;
-}
-
 .fhir-resource__Bundle__rootPadding:first-of-type {
   padding: 8px;
   background: white;

@@ -38,7 +38,7 @@ describe('should render component correctly', () => {
       fhirResource: examplePatient,
       fhirIcons: (
         <img
-          src={require('../assets/containers/ExplanationOfBenefit/explanation-of-benefit.svg.svg')}
+          src={require('../assets/containers/Patient/patient.svg')}
           alt="patient"
         />
       ),

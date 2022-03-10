@@ -216,7 +216,9 @@ export const TableRow = props => {
 
 export const TableCell = props => (
   <td
-    className={`align-middle border-0 ${props.className || ''}`}
+    className={`${
+      props.isAlignTop ? '' : 'align-middle'
+    } border-0 ${props.className || ''}`}
     data-testid={props['data-testid']}
     style={props.style}
   >

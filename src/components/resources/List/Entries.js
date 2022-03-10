@@ -16,7 +16,7 @@ import Reference from '../../datatypes/Reference';
 const Entries = ({ fhirData: items = [] }) => {
   if (items.length === 0) return null;
   return (
-    <ValueSection label="Entries" data-testid="entries">
+    <ValueSection label="Entries" data-testid="entries" marginTop>
       <Table>
         <thead>
           <TableRow>
@@ -26,7 +26,7 @@ const Entries = ({ fhirData: items = [] }) => {
             <TableHeader>Status</TableHeader>
           </TableRow>
         </thead>
-        <tbody>
+        <tbody className="border-top-0">
           {items.map((item, idx) => (
             <Entry key={idx} item={item} />
           ))}
@@ -50,7 +50,7 @@ const Entry = props => {
           <Reference fhirData={entry} />
         </TableCell>
         <TableCell data-testid="items.date">
-          {date ? <Date fhirData={date} /> : <MissingValue />}
+          {date ? <Date fhirData={date} isBlack /> : <MissingValue />}
         </TableCell>
         <TableCell data-testid="items.isDeleted">
           {deleted === true ? 'yes' : 'no'}

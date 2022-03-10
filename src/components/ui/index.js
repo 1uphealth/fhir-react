@@ -16,6 +16,7 @@ export const Header = ({
   rightAdditionalContent,
   children,
   capitalize = false,
+  noIcon = false,
 }) => {
   const rightItemsClass = 'align-items-center flex-fill d-flex';
 
@@ -32,7 +33,7 @@ export const Header = ({
             } d-flex w-100 flex-column flex-sm-row`}
           >
             <div className="d-flex">
-              {icon && (
+              {!noIcon && (
                 <div
                   className={`fhir-ui__${resourceName}-Header__icon d-flex align-items-center flex-shrink-1 m-half me-2`}
                 >

@@ -1,165 +1,79 @@
 {
+  "resourceType": "RelatedPerson",
+  "id": "benedicte",
+  "text": {
+    "status": "generated",
+    "div": "<div>\n      <table>\n        <tbody>\n          <tr>\n            <td>Name</td>\n            <td>Bénédicte du Marché</td>\n          </tr>\n          <tr>\n            <td>Address</td>\n            <td>43, Place du Marché Sainte Catherine, 75004 Paris, France</td>\n          </tr>\n          <tr>\n            <td>Contacts</td>\n            <td>Phone: +33 (237) 998327</td>\n          </tr>\n        </tbody>\n      </table>\n    </div>"
+  },
   "identifier": [
     {
-      "period": {
-        "start": "2020-08-10T16:33:50.000Z"
-      },
-      "system": "urn:oid:2.16.840.1.113883.3.13.6",
       "use": "usual",
       "type": {
-        "coding": [
-          {
-            "system": "http://hl7.org/fhir/v2/0203",
-            "code": "AN",
-            "userSelected": false,
-            "display": "Account number"
-          }
-        ],
-        "text": "Federated Person Principal"
+        "text": "INSEE"
       },
-      "value": "URN:CERNER:IDENTITY-FEDERATION:REALM:EC2458F2-1E24-41C8-B71B-0E701AF7583D-CH:PRINCIPAL:E82X67QD7AT9DY7F"
-    },
-    {
-      "period": {
-        "start": "2020-06-30T19:45:58.000Z"
-      },
-      "system": "urn:oid:2.16.840.1.113883.3.13.6",
-      "use": "usual",
-      "type": {
-        "coding": [
-          {
-            "system": "http://hl7.org/fhir/v2/0203",
-            "code": "AN",
-            "userSelected": false,
-            "display": "Account number"
-          }
-        ],
-        "text": "Federated Person Principal"
-      },
-      "value": "URN:CERNER:IDENTITY-FEDERATION:REALM:E8A84236-C258-4952-98B7-A6FF8A9C587A-CH:PRINCIPAL:E82X67QD7AT9DY7F"
-    },
-    {
-      "system": "https://fhir-myrecord.cerner.com/dstu2/ec2458f2-1e24-41c8-b71b-0e701af7583d",
-      "use": "usual",
-      "value": "490016950"
+      "system": "urn:oid:1.2.250.1.61",
+      "value": "272117510400399"
     }
   ],
-  "period": {
-    "start": "2019-12-26T15:37:18.000Z"
-  },
-  "address": [
-    {
-      "country": "US",
-      "period": {
-        "start": "2019-12-26T15:07:09.000Z"
-      },
-      "city": "KANSAS CITY",
-      "use": "home",
-      "line": [
-        "Abc",
-        "Defg23"
-      ],
-      "district": "Jackson",
-      "postalCode": "64116",
-      "text": "Abc\nDefg23\nKANSAS CITY, MO 64116\nUS",
-      "state": "MO"
-    }
-  ],
-  "gender": "male",
-  "birthDate": "1990-09-15",
-  "meta": {
-    "lastUpdated": "2021-09-29T11:35:52.587Z",
-    "versionId": "9000000000002"
-  },
   "patient": {
-    "reference": "Patient/e467f71f186f"
+    "reference": "Patient/example"
+  },
+  "relationship": {
+    "coding": [
+      {
+        "system": "http://hl7.org/fhir/patient-contact-relationship",
+        "code": "partner"
+      },
+      {
+        "system": "http://hl7.org/fhir/v3/RoleCode",
+        "code": "WIFE"
+      }
+    ]
   },
   "name": {
-    "given": [
-      "WILMA"
-    ],
-    "period": {
-      "start": "2019-12-26T15:09:19.000Z"
-    },
-    "use": "official",
-    "text": "SMART, WILMA",
     "family": [
-      "SMART"
+      "du",
+      "Marché"
+    ],
+    "_family": [
+      {
+        "extension": [
+          {
+            "fhir_comments": [
+              "  the \"du\" part is a family name prefix (VV in iso 21090)  "
+            ],
+            "url": "http://hl7.org/fhir/StructureDefinitioniso-21090#qualifier",
+            "valueCode": "VV"
+          }
+        ]
+      },
+      null
+    ],
+    "given": [
+      "Bénédicte"
     ]
   },
   "telecom": [
     {
       "system": "phone",
-      "use": "work",
-      "value": "8033333333"
-    },
-    {
-      "period": {
-        "start": "2019-12-26T15:09:17.000Z"
-      },
-      "system": "phone",
-      "use": "home",
-      "value": "8168888888"
-    },
-    {
-      "system": "phone",
-      "use": "home",
-      "value": "8168888882"
-    },
-    {
-      "system": "phone",
-      "use": "mobile",
-      "value": "5012889406"
-    },
-    {
-      "system": "phone",
-      "use": "mobile",
-      "value": "18011111111"
-    },
-    {
-      "system": "phone",
-      "use": "mobile",
-      "value": "8168888881"
-    },
-    {
-      "period": {
-        "start": "2020-06-30T19:42:29.000Z"
-      },
-      "system": "email",
-      "use": "home",
-      "value": "fhhgghjjh@rdf.bun"
-    },
-    {
-      "system": "email",
-      "use": "home",
-      "value": "fhhgghjjh@rdf.bun"
-    },
-    {
-      "system": "email",
-      "use": "home",
-      "value": "fhhgghjjh@rdf.bun"
-    },
-    {
-      "system": "email",
-      "use": "home",
-      "value": "fhhgghjjh@rdf.buns"
+      "value": "+33 (237) 998327"
     }
   ],
-  "id": "e467f71f186f13993f60c4d6ae10a0a36ae432c65916852e",
-  "text": {
-    "div": "<div><p><b>RelatedPerson</b></p><p><b>Name</b>: SMART, WILMA</p><p><b>DOB</b>: Sep 15, 1990</p><p><b>Sex</b>: Male</p></div>",
-    "status": "generated"
-  },
-  "relationship": {
-    "coding": [
-      {
-        "system": "http://hl7.org/fhir/v3/RoleCode",
-        "code": "ONESELF",
-        "userSelected": false,
-        "display": "self"
-      }
-    ],
-    "text": "Self"
-  },
-  "resourceType": "RelatedPerson"
+  "gender": "female",
+  "address": [
+    {
+      "line": [
+        "43, Place du Marché Sainte Catherine"
+      ],
+      "city": "Paris",
+      "postalCode": "75004",
+      "country": "FRA"
+    }
+  ],
+  "photo": [
+    {
+      "contentType": "image/jpeg",
+      "url": "Binary/f016"
+    }
+  ]
 }

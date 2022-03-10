@@ -11,9 +11,8 @@ import Reference from '../../datatypes/Reference';
 import fhirVersions from '../fhirResourceVersions';
 import HumanName from '../../datatypes/HumanName';
 
-const dstu2DTO = fhirResource => {
+const commonDTO = fhirResource => {
   const patient = _get(fhirResource, 'patient');
-  const name = _get(fhirResource, 'name');
   const birthDate = _get(fhirResource, 'birthDate');
   const gender = _get(fhirResource, 'gender');
   const address = _get(fhirResource, 'address[0]');
@@ -23,7 +22,6 @@ const dstu2DTO = fhirResource => {
 
   return {
     patient,
-    name,
     birthDate,
     gender,
     address,
@@ -31,11 +29,36 @@ const dstu2DTO = fhirResource => {
   };
 };
 
+const dstu2DTO = fhirResource => {
+  const name = _get(fhirResource, 'name');
+
+  return {
+    name,
+  };
+};
+
+const stu3r4DTO = fhirResource => {
+  const name = _get(fhirResource, 'name')[0];
+
+  return {
+    name,
+  };
+};
+
 const resourceDTO = (fhirVersion, fhirResource) => {
   switch (fhirVersion) {
     case fhirVersions.DSTU2: {
       return {
+        ...commonDTO(fhirResource),
         ...dstu2DTO(fhirResource),
+      };
+    }
+
+    case fhirVersions.STU3:
+    case fhirVersions.R4: {
+      return {
+        ...commonDTO(fhirResource),
+        ...stu3r4DTO(fhirResource),
       };
     }
 

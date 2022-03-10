@@ -15,28 +15,24 @@ const AddedItem = ({ addedItem, parentSequences }) => {
         <TableCell
           data-testid="addedItems.sequence"
           className="col-md-2"
-          notAlignMiddle
+          isAlignTop
         >
           {id}
         </TableCell>
         <TableCell
           data-testid="addedItems.service"
           className="col-md-3"
-          notAlignMiddle
+          isAlignTop
         >
           {addedItem.service && <Coding fhirData={addedItem.service} />}
         </TableCell>
-        <TableCell
-          data-testid="addedItems.fee"
-          className="col-md-3"
-          notAlignMiddle
-        >
+        <TableCell data-testid="addedItems.fee" className="col-md-3" isAlignTop>
           {addedItem.fee && <Money fhirData={addedItem.fee} />}
         </TableCell>
         <TableCell
           data-testid="addedItems.adjudication"
           className="col-md-3"
-          notAlignMiddle
+          isAlignTop
         >
           {addedItem.adjudication.map((adjudication, idx) => (
             <div

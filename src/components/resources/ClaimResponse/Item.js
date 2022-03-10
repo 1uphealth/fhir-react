@@ -13,7 +13,7 @@ const Item = ({ item, parentSequences }) => {
         <TableCell
           data-testid="items.sequence"
           className="col-md-2 align-self-start"
-          notAlignMiddle
+          isAlignTop
         >
           {id}
         </TableCell>

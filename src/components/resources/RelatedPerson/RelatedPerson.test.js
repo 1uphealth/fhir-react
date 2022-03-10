@@ -87,6 +87,7 @@ describe('should render component correctly', () => {
     };
     const { getByTestId } = render(<RelatedPerson {...defaultProps} />);
 
+    expect(getByTestId('gender').textContent).toEqual('female');
     expect(getByTestId('address').textContent).toEqual(
       '43, Place du Marché Sainte CatherineParis,  75004 FRA',
     );

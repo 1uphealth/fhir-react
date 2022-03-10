@@ -85,6 +85,8 @@ const RelatedPerson = ({ fhirResource, fhirVersion, fhirIcons }) => {
     relatedPersonTelecom,
   } = fhirResourceData;
 
+  console.log({ gender });
+
   const tableData = [
     {
       label: 'Patient',
@@ -119,13 +121,17 @@ const RelatedPerson = ({ fhirResource, fhirVersion, fhirIcons }) => {
           <Header
             resourceName="RelatedPerson"
             additionalContent={
-              birthDate && (
+              (birthDate || gender) && (
                 <span className="text-gray-600">
-                  <span data-testid="gender" className="text-capitalize">
-                    {gender || 'unknown'}
-                  </span>
-                  {', '}
-                  <span data-testid="birthDate">{birthDate}</span>
+                  {gender && (
+                    <span data-testid="gender" className="text-capitalize">
+                      {gender || 'unknown'}
+                    </span>
+                  )}
+                  {gender && birthDate && ', '}
+                  {birthDate && (
+                    <span data-testid="birthDate">{birthDate}</span>
+                  )}
                 </span>
               )
             }

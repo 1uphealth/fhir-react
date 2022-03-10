@@ -6,3 +6,10 @@
   margin-left: 20px;
   margin-right: 20px;
 }
+
+.fhir-resource__Bundle__rootPadding:first-of-type {
+  padding: 8px;
+  background: white;
+  border-radius: 0.2rem;
+  border: 1px solid #dee2e6;
+}

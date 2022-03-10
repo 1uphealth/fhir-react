@@ -51,11 +51,11 @@ export default function Bundle({ fhirResource, fhirVersion }) {
     .filter(Boolean);
 
   return (
-    <Root name="Bundle" className="bg-white border-1 rounded p-2">
+    <Root name="Bundle" className="fhir-resource__Bundle__rootPadding">
       <Header
         resourceName="Bundle"
         title={type}
-        badges={total && <Badge data-testid="total">{total}</Badge>}
+        badges={total !== null && <Badge data-testid="total">{total}</Badge>}
         capitalize
       />
       <Body>

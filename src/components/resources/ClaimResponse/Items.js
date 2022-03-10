@@ -13,6 +13,7 @@ const Items = props => {
           <TableRow>
             <TableHeader>ID</TableHeader>
             <TableHeader>Adjudication</TableHeader>
+            <TableHeader></TableHeader>
           </TableRow>
         </thead>
         <tbody className="border-top-0">

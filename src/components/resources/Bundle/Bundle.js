@@ -55,7 +55,7 @@ export default function Bundle({ fhirResource, fhirVersion }) {
       <Header
         resourceName="Bundle"
         title={type}
-        badges={total !== null && <Badge data-testid="total">{total}</Badge>}
+        badges={!isNaN(total) && <Badge data-testid="total">{total}</Badge>}
         capitalize
       />
       <Body>

@@ -85,8 +85,6 @@ const RelatedPerson = ({ fhirResource, fhirVersion, fhirIcons }) => {
     relatedPersonTelecom,
   } = fhirResourceData;
 
-  console.log({ gender });
-
   const tableData = [
     {
       label: 'Patient',

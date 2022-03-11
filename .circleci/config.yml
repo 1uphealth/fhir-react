@@ -4,7 +4,7 @@ jobs:
     parallelism: 1
     shell: /bin/bash --login
     docker:
-      - image: circleci/node:12.3.1-browsers
+      - image: circleci/node:14.18.2-browsers
     steps:
       - checkout
       - run:

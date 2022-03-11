@@ -15,7 +15,11 @@ import {
   TableHeader,
   TableCell,
   MissingValue,
+  Header,
+  ValueSection,
 } from '../../ui';
+import Accordion from '../../containers/Accordion';
+import CodeableConcept from '../../datatypes/CodeableConcept';
 
 const commonDTO = fhirResource => {
   const typeCoding = _get(fhirResource, 'type.coding.0');
@@ -68,8 +72,7 @@ const resourceDTO = (fhirVersion, fhirResource) => {
   }
 };
 
-const ReferralRequest = props => {
-  const { fhirResource, fhirVersion } = props;
+const ReferralRequest = ({ fhirResource, fhirVersion, fhirIcons }) => {
   let fhirResourceData = {};
   try {
     fhirResourceData = resourceDTO(fhirVersion, fhirResource);
@@ -87,45 +90,92 @@ const ReferralRequest = props => {
     description,
   } = fhirResourceData;
 
+  const tableData = [
+    {
+      label: 'Type',
+      testId: 'typeCoding',
+      data: typeCoding && <Coding fhirData={typeCoding} isCursive />,
+      status: typeCoding,
+    },
+  ];
+
+  const tableData2 = [
+    {
+      testId: 'dateSent',
+      data: <Date fhirData={dateSent} />,
+      status: dateSent,
+    },
+    {
+      testId: 'subject',
+      data: <span>{subject}</span>,
+      status: subject,
+    },
+    {
+      testId: 'requester',
+      data: <span>{requester}</span>,
+      status: requester,
+    },
+    {
+      testId: 'status',
+      data: <span>{status}</span>,
+      status: status,
+    },
+  ];
+
   return (
     <Root name="ReferralRequest">
-      <Body>
-        {typeCoding && (
-          <Value label="Type" data-testid="typeCoding">
-            <Coding fhirData={typeCoding} />
-          </Value>
-        )}
-        <div className="overflow-auto">
-          <Table>
-            <thead>
-              <TableRow>
-                <TableHeader>Request sent</TableHeader>
-                <TableHeader>Patient</TableHeader>
-                <TableHeader>Requester</TableHeader>
-                <TableHeader>status</TableHeader>
-              </TableRow>
-            </thead>
-            <tbody>
-              <TableRow>
-                <TableCell data-testid="dateSent">
-                  {dateSent ? <Date fhirData={dateSent} /> : <MissingValue />}
-                </TableCell>
-                <TableCell data-testid="subject">
-                  {subject ? <span>{subject}</span> : <MissingValue />}
-                </TableCell>
-                <TableCell data-testid="requester">
-                  {requester ? <span>{requester}</span> : <MissingValue />}
-                </TableCell>
-                <TableCell data-testid="status">
-                  {status ? <span>{status}</span> : <MissingValue />}
-                </TableCell>
-              </TableRow>
-            </tbody>
-          </Table>
-        </div>
-        {reason && <div data-testid="reason">{reason}</div>}
-        {description && <small data-testid="description">{description}</small>}
-      </Body>
+      <Accordion
+        headerContent={
+          <Header
+            resourceName="ReferralRequest"
+            title="Referral Request"
+            icon={fhirIcons}
+          />
+        }
+        bodyContent={
+          <Body tableData={tableData}>
+            <ValueSection className="overflow-auto">
+              <Table>
+                <thead>
+                  <TableRow>
+                    <TableHeader>Request sent</TableHeader>
+                    <TableHeader>Patient</TableHeader>
+                    <TableHeader>Requester</TableHeader>
+                    <TableHeader>status</TableHeader>
+                  </TableRow>
+                </thead>
+                <tbody className="border-top-0">
+                  <TableRow>
+                    {tableData2.map((element, index) => (
+                      <TableCell key={index} data-testid={element.testId}>
+                        {element.status ? element.data : <MissingValue />}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                </tbody>
+              </Table>
+            </ValueSection>
+            {reason && (
+              <ValueSection label="Reason" data-testid="reason" marginTop>
+                <small className="text-secondary" data-testid="reason">
+                  {reason}
+                </small>
+              </ValueSection>
+            )}
+            {description && (
+              <ValueSection
+                label="Description"
+                data-testid="description"
+                marginTop
+              >
+                <small className="text-secondary" data-testid="description">
+                  {description}
+                </small>
+              </ValueSection>
+            )}
+          </Body>
+        }
+      />
     </Root>
   );
 };

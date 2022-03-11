@@ -274,4 +274,11 @@ export default {
       alt="generic"
     />
   ),
+  ReferralRequest: (
+    <img
+      className="header-icon__image"
+      src={require('../assets/containers/ReferralRequest/referral-request.svg')}
+      alt="referral request"
+    />
+  ),
 };

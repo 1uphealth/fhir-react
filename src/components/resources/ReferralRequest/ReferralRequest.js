@@ -157,9 +157,7 @@ const ReferralRequest = ({ fhirResource, fhirVersion, fhirIcons }) => {
             </ValueSection>
             {reason && (
               <ValueSection label="Reason" data-testid="reason" marginTop>
-                <small className="text-secondary" data-testid="reason">
-                  {reason}
-                </small>
+                <small className="text-secondary">{reason}</small>
               </ValueSection>
             )}
             {description && (
@@ -168,9 +166,7 @@ const ReferralRequest = ({ fhirResource, fhirVersion, fhirIcons }) => {
                 data-testid="description"
                 marginTop
               >
-                <small className="text-secondary" data-testid="description">
-                  {description}
-                </small>
+                <small className="text-secondary">{description}</small>
               </ValueSection>
             )}
           </Body>

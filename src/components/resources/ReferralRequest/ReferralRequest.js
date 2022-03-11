@@ -9,7 +9,6 @@ import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 import {
   Root,
   Body,
-  Value,
   Table,
   TableRow,
   TableHeader,
@@ -19,7 +18,6 @@ import {
   ValueSection,
 } from '../../ui';
 import Accordion from '../../containers/Accordion';
-import CodeableConcept from '../../datatypes/CodeableConcept';
 
 const commonDTO = fhirResource => {
   const typeCoding = _get(fhirResource, 'type.coding.0');

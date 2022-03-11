@@ -3,6 +3,15 @@
   "plugins": ["prettier"],
   "rules": {
     "semi": "error",
-    "prettier/prettier": "error"
+    "prettier/prettier": "error",
+    "import/no-anonymous-default-export": ["error", {
+      "allowArray": true,
+      "allowArrowFunction": true,
+      "allowAnonymousClass": true,
+      "allowAnonymousFunction": true,
+      "allowCallExpression": true,
+      "allowLiteral": true,
+      "allowObject": true
+    }]
   }
 }

@@ -57,7 +57,7 @@ export default function Bundle({ fhirResource, fhirVersion }) {
         title={type}
         badges={!isNaN(total) && <Badge data-testid="total">{total}</Badge>}
         capitalize
-        noIcon
+        isNoIcon
       />
       <Body>
         {resources.length > 0 &&

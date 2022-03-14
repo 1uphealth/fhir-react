@@ -88,15 +88,6 @@ const ReferralRequest = ({ fhirResource, fhirVersion, fhirIcons }) => {
     description,
   } = fhirResourceData;
 
-  const tableData = [
-    {
-      label: 'Type',
-      testId: 'typeCoding',
-      data: typeCoding && <Coding fhirData={typeCoding} isCursive />,
-      status: typeCoding,
-    },
-  ];
-
   const tableData2 = [
     {
       testId: 'dateSent',
@@ -126,44 +117,33 @@ const ReferralRequest = ({ fhirResource, fhirVersion, fhirIcons }) => {
         headerContent={
           <Header
             resourceName="ReferralRequest"
-            title="Referral Request"
+            title={typeCoding && <Coding fhirData={typeCoding} />}
             icon={fhirIcons}
           />
         }
         bodyContent={
-          <Body tableData={tableData}>
-            <ValueSection className="overflow-auto">
-              <Table>
-                <thead>
-                  <TableRow>
-                    <TableHeader>Request sent</TableHeader>
-                    <TableHeader>Patient</TableHeader>
-                    <TableHeader>Requester</TableHeader>
-                    <TableHeader>status</TableHeader>
-                  </TableRow>
-                </thead>
-                <tbody className="border-top-0">
-                  <TableRow>
-                    {tableData2.map((element, index) => (
-                      <TableCell key={index} data-testid={element.testId}>
-                        {element.status ? element.data : <MissingValue />}
-                      </TableCell>
-                    ))}
-                  </TableRow>
-                </tbody>
-              </Table>
-            </ValueSection>
-            {reason && (
-              <ValueSection label="Reason" data-testid="reason" marginTop>
-                <small className="text-secondary">{reason}</small>
-              </ValueSection>
-            )}
+          <Body>
+            <Table>
+              <thead>
+                <TableRow>
+                  <TableHeader>Request sent</TableHeader>
+                  <TableHeader>Patient</TableHeader>
+                  <TableHeader>Requester</TableHeader>
+                  <TableHeader>status</TableHeader>
+                </TableRow>
+              </thead>
+              <tbody className="border-top-0">
+                <TableRow>
+                  {tableData2.map((element, index) => (
+                    <TableCell key={index} data-testid={element.testId}>
+                      {element.status ? element.data : <MissingValue />}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              </tbody>
+            </Table>
             {description && (
-              <ValueSection
-                label="Description"
-                data-testid="description"
-                marginTop
-              >
+              <ValueSection label={reason} data-testid="reason" marginTop>
                 <small className="text-secondary">{description}</small>
               </ValueSection>
             )}

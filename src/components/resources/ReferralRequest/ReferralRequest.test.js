@@ -91,15 +91,10 @@ describe('should render ReferralRequest component properly', () => {
     );
     expect(container).not.toBeNull();
 
-    expect(getByTestId('typeCoding').textContent).toContain(
-      'Referral for service',
-    );
+    expect(getByTestId('title').textContent).toContain('Referral for service');
     expect(getByTestId('dateSent').textContent).toContain('2/14/2014');
     expect(getByTestId('reason').textContent).toContain(
       'For consideration of Grommets',
-    );
-    expect(getByTestId('description').textContent).toContain(
-      'In the past 2 years Beverly',
     );
     expect(getByTestId('subject').textContent).toContain('Beverly Weaver');
     expect(getByTestId('requester').textContent).toEqual('Serena Shrink');
@@ -116,15 +111,12 @@ describe('should render ReferralRequest component properly', () => {
     );
     expect(container).not.toBeNull();
 
-    expect(getByTestId('typeCoding').textContent).toContain(
+    expect(getByTestId('title').textContent).toContain(
       'Patient referral to specialist',
     );
     expect(getByTestId('dateSent').textContent).toContain('2/14/2014');
     expect(getByTestId('reason').textContent).toContain(
       'For consideration of Grommets',
-    );
-    expect(getByTestId('description').textContent).toContain(
-      'In the past 2 years Beverly',
     );
     expect(getByTestId('subject').textContent).toContain('Beverly Weaver');
     expect(getByTestId('requester').textContent).toEqual('Serena Shrink');

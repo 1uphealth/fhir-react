@@ -23,6 +23,7 @@ import {
   Title,
   Value,
 } from '../../ui';
+import Accordion from '../../containers/Accordion';
 
 const commonDTO = fhirResource => {
   const title = _get(fhirResource, 'title', 'Research Study');
@@ -102,8 +103,7 @@ const resourceDTO = (fhirVersion, fhirResource) => {
   }
 };
 
-const ResearchStudy = props => {
-  const { fhirResource, fhirVersion } = props;
+const ResearchStudy = ({ fhirResource, fhirVersion, fhirIcons }) => {
   let fhirResourceData = {};
   try {
     fhirResourceData = resourceDTO(fhirVersion, fhirResource);
@@ -140,126 +140,166 @@ const ResearchStudy = props => {
   const hasComments = comments.length > 0;
   const hasArms = arms.length > 0;
 
+  const tableData = [
+    {
+      label: 'Part of another study',
+      testId: 'partOf',
+      data: partOfReference && <Reference fhirData={partOfReference} />,
+      status: partOfReference,
+    },
+    {
+      label: 'Category',
+      testId: 'category',
+      data: categoryCoding && <Coding fhirData={categoryCoding} />,
+      status: categoryCoding,
+    },
+    {
+      label: 'Keywords',
+      testId: 'keywords',
+      data: hasKeywords && <CodeableConcept fhirData={keywordConcepts} />,
+      status: hasKeywords,
+    },
+    {
+      label: 'Description',
+      testId: 'description',
+      data: description && <Markdown fhirData={description} />, // TODO: list here has to big spacing?
+      status: description,
+    },
+    {
+      label: 'Focus',
+      testId: 'focus',
+      data: focusCoding && <Coding fhirData={focusCoding} />,
+      status: focusCoding,
+    },
+    {
+      label: 'Enrollment',
+      testId: 'enrollment',
+      data:
+        hasEnrollment &&
+        enrollmentReferences.map((enrollmentReference, idx) => (
+          <div key={idx} data-testid="enrollmentReference">
+            <Reference fhirData={enrollmentReference} />
+          </div>
+        )),
+      status: hasEnrollment,
+    },
+    {
+      label: 'Protocol',
+      testId: 'protocol',
+      data: protocolReference && <Reference fhirData={protocolReference} />,
+      status: protocolReference,
+    },
+    {
+      label: 'Study paths',
+      testId: 'arms',
+      data: hasArms && (
+        <ul>
+          {arms.map((arm, idx) => (
+            <li key={idx}>
+              <div data-testid="arms.name">{arm.name}</div>
+              <Coding fhirData={arm.coding} />
+              <div data-testid="arms.description">{arm.description}</div>
+            </li>
+          ))}
+        </ul>
+      ),
+      status: hasArms,
+    },
+    {
+      label: 'Comments',
+      testId: 'comments',
+      data: hasComments && <Annotation fhirData={comments} />,
+      status: hasComments,
+    },
+    {
+      label: 'Contacts',
+      testId: 'contacts',
+      data:
+        hasContacts &&
+        contacts.map((contact, idx) => (
+          <div key={idx}>
+            <div data-testid="contactsName">{contact.name}</div>
+            <div data-testid="contactsTelecom">
+              <Telecom fhirData={contact.telecoms} />
+            </div>
+          </div>
+        )),
+      status: hasContacts,
+    },
+    {
+      label: 'Principal investigator',
+      testId: 'principalInvestigator',
+      data: principalInvestigatorReference && (
+        <Reference fhirData={principalInvestigatorReference} />
+      ),
+      status: principalInvestigatorReference,
+    },
+    {
+      label: 'Sponsor',
+      testId: 'sponsor',
+      data: sponsorReference && <Reference fhirData={sponsorReference} />,
+      status: sponsorReference,
+    },
+    {
+      label: 'Sites',
+      testId: 'sites',
+      data:
+        hasSites &&
+        siteReferences.map((siteReference, idx) => (
+          <div key={idx} data-testid="siteReference">
+            <Reference fhirData={siteReference} />
+          </div>
+        )),
+      status: hasSites,
+    },
+    {
+      label: 'Location',
+      testId: 'location',
+      data: location && <CodeableConcept fhirData={location} />,
+      status: location,
+    },
+    {
+      label: 'Primary Purpose Type',
+      testId: 'primaryPurposeType',
+      data: primaryPurposeType && (
+        <CodeableConcept fhirData={primaryPurposeType} />
+      ),
+      status: primaryPurposeType,
+    },
+  ];
+
   return (
     <Root name="ResearchStudy">
-      <Header>
-        {title && <Title data-testid="title">{title}</Title>}
-        {status && <Badge data-testid="status">{status}</Badge>}
-        {hasPeriod && (
-          <BadgeSecondary data-testid="period">
-            {period.start ? (
-              <DateType fhirData={period.start} />
-            ) : (
-              <MissingValue />
-            )}
-            {' - '}
-            {period.end ? <DateType fhirData={period.end} /> : <MissingValue />}
-          </BadgeSecondary>
-        )}
-      </Header>
-      <Body>
-        {partOfReference && (
-          <Value label="Part of another study" data-testid="partOf">
-            <Reference fhirData={partOfReference} />
-          </Value>
-        )}
-        {categoryCoding && (
-          <Value label="Category" data-testid="category">
-            <Coding fhirData={categoryCoding} />
-          </Value>
-        )}
-        {hasKeywords && (
-          <Value label="Keywords" data-testid="keywords">
-            <CodeableConcept fhirData={keywordConcepts} />
-          </Value>
-        )}
-        {description && (
-          <Value label="Description" data-testid="description">
-            <Markdown fhirData={description} />
-          </Value>
-        )}
-        {focusCoding && (
-          <Value label="Focus" data-testid="focus">
-            <Coding fhirData={focusCoding} />
-          </Value>
-        )}
-        {hasEnrollment && (
-          <Value label="Enrollment" data-testid="enrollment">
-            {enrollmentReferences.map((enrollmentReference, idx) => (
-              <div key={idx} data-testid="enrollmentReference">
-                <Reference fhirData={enrollmentReference} />
-              </div>
-            ))}
-          </Value>
-        )}
-        {protocolReference && (
-          <Value label="Protocol" data-testid="protocol">
-            <Reference fhirData={protocolReference} />
-          </Value>
-        )}
-        {hasArms && (
-          <Value label="Study paths" data-testid="arms">
-            <ul>
-              {arms.map((arm, idx) => (
-                <li key={idx}>
-                  <div data-testid="arms.name">{arm.name}</div>
-                  <Coding fhirData={arm.coding} />
-                  <div data-testid="arms.description">{arm.description}</div>
-                </li>
-              ))}
-            </ul>
-          </Value>
-        )}
-        {hasComments && (
-          <Value label="Comments" data-testid="comments">
-            <Annotation fhirData={comments} />
-          </Value>
-        )}
-        {hasContacts && (
-          <Value label="Contacts" data-testid="contacts">
-            {contacts.map((contact, idx) => (
-              <div key={idx}>
-                <div data-testid="contactsName">{contact.name}</div>
-                <div data-testid="contactsTelecom">
-                  <Telecom fhirData={contact.telecoms} />
-                </div>
-              </div>
-            ))}
-          </Value>
-        )}
-        {principalInvestigatorReference && (
-          <Value
-            label="Principal investigator"
-            data-testid="principalInvestigator"
-          >
-            <Reference fhirData={principalInvestigatorReference} />
-          </Value>
-        )}
-        {sponsorReference && (
-          <Value label="Sponsor" data-testid="sponsor">
-            <Reference fhirData={sponsorReference} />
-          </Value>
-        )}
-        {hasSites && (
-          <Value label="Sites" data-testid="sites">
-            {siteReferences.map((siteReference, idx) => (
-              <div key={idx} data-testid="siteReference">
-                <Reference fhirData={siteReference} />
-              </div>
-            ))}
-          </Value>
-        )}
-        {location && (
-          <Value label="Location" data-testid="location">
-            <CodeableConcept fhirData={location} />
-          </Value>
-        )}
-        {primaryPurposeType && (
-          <Value label="Primary Purpose Type" data-testid="primaryPurposeType">
-            <CodeableConcept fhirData={primaryPurposeType} />
-          </Value>
-        )}
-      </Body>
+      <Accordion
+        headerContent={
+          <Header
+            resourceName="ResearchStudy"
+            title={title}
+            badges={
+              <>
+                {status && <Badge data-testid="status">{status}</Badge>}
+                {hasPeriod && (
+                  <BadgeSecondary data-testid="period">
+                    {period.start ? (
+                      <DateType fhirData={period.start} />
+                    ) : (
+                      <MissingValue />
+                    )}
+                    {' - '}
+                    {period.end ? (
+                      <DateType fhirData={period.end} />
+                    ) : (
+                      <MissingValue />
+                    )}
+                  </BadgeSecondary>
+                )}
+              </>
+            }
+            icon={fhirIcons}
+          />
+        }
+        bodyContent={<Body tableData={tableData} />}
+      />
     </Root>
   );
 };

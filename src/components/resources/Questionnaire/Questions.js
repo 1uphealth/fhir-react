@@ -25,7 +25,6 @@ const Questions = ({ questions, prepareItems }) => {
         const hasDetails = type || options;
         return (
           <li key={`item-${i}`} data-testid={`linkId-${item.linkId}`}>
-            {hasLinkId && <Badge>{item.linkId}</Badge>}
             {text}
             {hasDetails && (
               <div className="fhir-resource__Questionnaire-questions-list-item-details">

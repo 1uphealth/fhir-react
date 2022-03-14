@@ -20,8 +20,6 @@ import {
   Header,
   MissingValue,
   Root,
-  Title,
-  Value,
 } from '../../ui';
 import Accordion from '../../containers/Accordion';
 

@@ -88,10 +88,10 @@ const ReferralRequest = ({ fhirResource, fhirVersion, fhirIcons }) => {
     description,
   } = fhirResourceData;
 
-  const tableData2 = [
+  const tableData = [
     {
       testId: 'dateSent',
-      data: <Date fhirData={dateSent} />,
+      data: <Date fhirData={dateSent} isBlack />,
       status: dateSent,
     },
     {
@@ -129,12 +129,12 @@ const ReferralRequest = ({ fhirResource, fhirVersion, fhirIcons }) => {
                   <TableHeader>Request sent</TableHeader>
                   <TableHeader>Patient</TableHeader>
                   <TableHeader>Requester</TableHeader>
-                  <TableHeader>status</TableHeader>
+                  <TableHeader>Status</TableHeader>
                 </TableRow>
               </thead>
               <tbody className="border-top-0">
                 <TableRow>
-                  {tableData2.map((element, index) => (
+                  {tableData.map((element, index) => (
                     <TableCell key={index} data-testid={element.testId}>
                       {element.status ? element.data : <MissingValue />}
                     </TableCell>

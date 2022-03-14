@@ -273,25 +273,23 @@ const ResearchStudy = ({ fhirResource, fhirVersion, fhirIcons }) => {
           <Header
             resourceName="ResearchStudy"
             title={title}
-            badges={
-              <>
-                {status && <Badge data-testid="status">{status}</Badge>}
-                {hasPeriod && (
-                  <BadgeSecondary data-testid="period">
-                    {period.start ? (
-                      <DateType fhirData={period.start} />
-                    ) : (
-                      <MissingValue />
-                    )}
-                    {' - '}
-                    {period.end ? (
-                      <DateType fhirData={period.end} />
-                    ) : (
-                      <MissingValue />
-                    )}
-                  </BadgeSecondary>
-                )}
-              </>
+            badges={status && <Badge data-testid="status">{status}</Badge>}
+            additionalContent={
+              hasPeriod && (
+                <>
+                  {period.start ? (
+                    <DateType fhirData={period.start} isBlack />
+                  ) : (
+                    <MissingValue />
+                  )}
+                  {' - '}
+                  {period.end ? (
+                    <DateType fhirData={period.end} isBlack />
+                  ) : (
+                    <MissingValue />
+                  )}
+                </>
+              )
             }
             icon={fhirIcons}
           />

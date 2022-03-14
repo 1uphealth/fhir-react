@@ -13,7 +13,7 @@ import _get from 'lodash/get';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 import fhirVersions from '../fhirResourceVersions';
 
-import { Badge, Body, Header, MissingValue, Root } from '../../ui';
+import { Badge, Body, Header, MissingValue, Root, Value } from '../../ui';
 import Accordion from '../../containers/Accordion';
 
 const commonDTO = fhirResource => {
@@ -269,7 +269,7 @@ const ResearchStudy = ({ fhirResource, fhirVersion, fhirIcons }) => {
             badges={status && <Badge data-testid="status">{status}</Badge>}
             additionalContent={
               hasPeriod && (
-                <>
+                <Value data-testid="period">
                   {period.start ? (
                     <DateType fhirData={period.start} isBlack />
                   ) : (
@@ -281,7 +281,7 @@ const ResearchStudy = ({ fhirResource, fhirVersion, fhirIcons }) => {
                   ) : (
                     <MissingValue />
                   )}
-                </>
+                </Value>
               )
             }
             icon={fhirIcons}

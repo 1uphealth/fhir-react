@@ -160,7 +160,7 @@ const ResearchStudy = ({ fhirResource, fhirVersion, fhirIcons }) => {
     {
       label: 'Description',
       testId: 'description',
-      data: description && <Markdown fhirData={description} />, // TODO: list here has to big spacing?
+      data: description && <Markdown fhirData={description} />,
       status: description,
     },
     {

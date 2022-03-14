@@ -13,14 +13,7 @@ import _get from 'lodash/get';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 import fhirVersions from '../fhirResourceVersions';
 
-import {
-  Badge,
-  BadgeSecondary,
-  Body,
-  Header,
-  MissingValue,
-  Root,
-} from '../../ui';
+import { Badge, Body, Header, MissingValue, Root } from '../../ui';
 import Accordion from '../../containers/Accordion';
 
 const commonDTO = fhirResource => {

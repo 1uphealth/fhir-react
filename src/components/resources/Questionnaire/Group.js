@@ -5,7 +5,7 @@ import React from 'react';
 import Questions from './Questions';
 import { getQuestionText } from './getQuestionText';
 
-const Group = ({ data, prepareItems }) => {
+const Group = ({ data, prepareItems, isChild = false }) => {
   if (!Array.isArray(data) || data.length === 0) {
     return null;
   }
@@ -20,11 +20,14 @@ const Group = ({ data, prepareItems }) => {
     return (
       <ul key={`item-${i}`} className="fhir-resource__Questionnaire-list">
         <li
-          className="fhir-resource__Questionnaire-list-title"
+          className={
+            isChild
+              ? 'fhir-resource__Questionnaire-list-title-question'
+              : 'fhir-resource__Questionnaire-list-title'
+          }
           data-testid={`linkId-${item.linkId}`}
         >
           {text ? text : <MissingValue />}
-          {/* TODO: make bold */}
         </li>
         {!isGroup && (
           <li>
@@ -33,7 +36,7 @@ const Group = ({ data, prepareItems }) => {
         )}
         {isGroup && (
           <li>
-            <Group data={nestedItems} prepareItems={prepareItems} />
+            <Group data={nestedItems} prepareItems={prepareItems} isChild />
           </li>
         )}
       </ul>

@@ -9,6 +9,17 @@
   font-weight: bold;
 }
 
+.fhir-resource__Questionnaire-list-title-question {
+  background: #f8f9fa;
+  display: flex;
+  align-items: center;
+  height: 36px;
+  margin-bottom: 56px;
+  padding-left: 16px;
+  border-radius: 4px;
+  color: #adb5bd;
+}
+
 .fhir-resource__Questionnaire-questions-list {
   list-style: none;
   padding-left: 0;

@@ -11,9 +11,7 @@
 
 .fhir-resource__Questionnaire-list-title-question {
   background: #f8f9fa;
-  display: flex;
   align-items: center;
-  height: 36px;
   margin-bottom: 56px;
   padding-left: 16px;
   border-radius: 4px;
@@ -23,18 +21,21 @@
 .fhir-resource__Questionnaire-questions-list {
   list-style: none;
   padding-left: 0;
+  display: block;
+  color: #adb5bd;
 }
 
 .fhir-resource__Questionnaire-questions-list li {
-  background: #f8f9fa;
-  display: flex;
-  align-items: center;
-  height: 36px;
+  display: block;
   margin-bottom: 56px;
-  padding-left: 16px;
-  border-radius: 4px;
-  color: #adb5bd;
+}
 
+.fhir-resource__Questionnaire-questions-list-element {
+  background: #f8f9fa;
+  border-radius: 4px;
+  width: 100%;
+  padding-left: 16px;
+  margin-bottom: 56px;
 }
 
 .fhir-resource__Questionnaire-questions-list li:last-child {

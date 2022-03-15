@@ -2,20 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _get from 'lodash/get';
 
-import {
-  Root,
-  Header,
-  Title,
-  Badge,
-  BadgeSecondary,
-  Body,
-  Value,
-} from '../../ui';
+import { Root, Header, Badge, Body, Value } from '../../ui';
 import Date from '../../datatypes/Date';
 import Coding from '../../datatypes/Coding';
 
 import './Questionnaire.css';
-import Reference from '../../datatypes/Reference/Reference';
 import fhirVersions from '../fhirResourceVersions';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 import Items from './Items';
@@ -105,7 +96,7 @@ const Questionnaire = ({ fhirResource, fhirVersion, fhirIcons }) => {
             badges={status && <Badge data-testid="status">{status}</Badge>}
             additionalContent={
               dateTime && (
-                <Value label="On" data-testid="date">
+                <Value label="On" data-testid="dateTime">
                   <Date fhirData={dateTime} isBlack />
                 </Value>
               )

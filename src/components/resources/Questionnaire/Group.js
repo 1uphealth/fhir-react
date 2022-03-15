@@ -1,5 +1,5 @@
 import _get from 'lodash/get';
-import { Badge, MissingValue } from '../../ui';
+import { MissingValue } from '../../ui';
 import PropTypes from 'prop-types';
 import React from 'react';
 import Questions from './Questions';
@@ -11,8 +11,6 @@ const Group = ({ data, prepareItems, isChild = false }) => {
   }
 
   return data.map(prepareItems).map((item, i) => {
-    const linkId = _get(item, 'linkId', '');
-
     const text = getQuestionText(item);
     let nestedItems = _get(item, 'item', []);
     nestedItems = nestedItems.map(prepareItems);

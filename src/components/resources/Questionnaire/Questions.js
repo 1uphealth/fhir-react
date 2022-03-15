@@ -1,6 +1,3 @@
-import _get from 'lodash/get';
-import { Badge } from '../../ui';
-import Reference from '../../datatypes/Reference';
 import PropTypes from 'prop-types';
 import React from 'react';
 import Group from './Group';
@@ -14,36 +11,18 @@ const Questions = ({ questions, prepareItems }) => {
   return (
     <ul className="fhir-resource__Questionnaire-questions-list">
       {questions.map((item, i) => {
-        const hasLinkId = item.linkId;
-        let type = _get(item, 'type');
-        if (type === 'group') {
-          type = '';
-        }
-        const options = _get(item, 'options');
-
         const text = getQuestionText(item);
-        const hasDetails = type || options;
         return (
-          <li key={`item-${i}`} data-testid={`linkId-${item.linkId}`}>
-            {text}
-            {hasDetails && (
-              <div className="fhir-resource__Questionnaire-questions-list-item-details">
-                {type && (
-                  <div className="fhir-resource__Questionnaire-questions-list-item-details-el">
-                    Type: {type}
-                  </div>
-                )}
-                {options && (
-                  <div className="fhir-resource__Questionnaire-questions-list-item-details-el">
-                    Options: <Reference fhirData={options} />
-                  </div>
-                )}
+          text && (
+            <li key={`item-${i}`} data-testid={`linkId-${item.linkId}`}>
+              <div className="fhir-resource__Questionnaire-questions-list-element">
+                {text}
               </div>
-            )}
-            {item.item && (
-              <Group data={item.item} prepareItems={prepareItems} />
-            )}
-          </li>
+              {item.item && item.item.length > 0 && (
+                <Group data={item.item} prepareItems={prepareItems} isChild />
+              )}
+            </li>
+          )
         );
       })}
     </ul>

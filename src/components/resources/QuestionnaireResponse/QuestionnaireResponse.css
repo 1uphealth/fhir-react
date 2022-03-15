@@ -1,21 +1,41 @@
 .fhir-resource__QuestionnaireResponse-list {
   list-style: none;
-  border: 1px solid #f0f0f0;
   padding: 2px;
   margin: 2px 2px 2px 20px;
 }
 
 .fhir-resource__QuestionnaireResponse-list-title {
-  background-color: #f6f6f6;
   padding: 2px 2px 4px 2px;
+  font-weight: bold;
+}
+
+.fhir-resource__QuestionnaireResponse-list-title-question {
+  background: #f8f9fa;
+  align-items: center;
+  margin-bottom: 56px;
+  padding-left: 16px;
+  border-radius: 4px;
+  color: #adb5bd;
 }
 
 .fhir-resource__QuestionnaireResponse-questions-list {
   list-style: none;
+  padding-left: 0;
+  display: block;
+  color: #adb5bd;
 }
 
 .fhir-resource__QuestionnaireResponse-questions-list li {
-  border-bottom: 1px solid #f5f5f5;
+  display: block;
+  margin-bottom: 56px;
+}
+
+.fhir-resource__QuestionnaireResponse-questions-list-element {
+  background: #f8f9fa;
+  border-radius: 4px;
+  width: 100%;
+  padding-left: 16px;
+  margin-bottom: 56px;
 }
 
 .fhir-resource__QuestionnaireResponse-questions-list li:last-child {
@@ -24,10 +44,10 @@
 
 .fhir-resource__QuestionnaireResponse-questions-list-item-details {
   margin-left: 20px;
+  font-size: 80%;
 }
 
 .fhir-resource__QuestionnaireResponse-questions-list-item-details-el {
   display: inline-block;
   margin-right: 15px;
-  color: blue;
 }

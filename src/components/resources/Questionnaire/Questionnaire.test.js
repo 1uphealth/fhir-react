@@ -13,7 +13,151 @@ import stu3Example2 from '../../../fixtures/stu3/resources/questionnaire/example
 import r4Example1 from '../../../fixtures/r4/resources/questionnaire/example1.json';
 import r4Example2 from '../../../fixtures/r4/resources/questionnaire/example2.json';
 
+import fhirIcons from '../../../fixtures/example-icons';
+
 describe('Questionnaire should render component correctly', () => {
+  it('component without a fhirIcons props should render a default icon', () => {
+    const defaultProps = {
+      fhirVersion: fhirVersions.DSTU2,
+      fhirResource: dstu2Example1,
+    };
+
+    const { getByAltText } = render(<Questionnaire {...defaultProps} />);
+    const headerIcon = getByAltText('questionnaire');
+
+    expect(headerIcon.getAttribute('src')).toContain('IMAGE_MOCK');
+  });
+
+  it('component with a false as a fhirIcons props should render a placeholder', () => {
+    const defaultProps = {
+      fhirVersion: fhirVersions.DSTU2,
+      fhirResource: dstu2Example1,
+      fhirIcons: false,
+    };
+
+    const { getByTestId } = render(<Questionnaire {...defaultProps} />);
+    const headerIcon = getByTestId('placeholder');
+
+    expect(headerIcon).toBeTruthy();
+  });
+
+  it('component with the img as a fhirIcons props should render an img', () => {
+    const defaultProps = {
+      fhirVersion: fhirVersions.DSTU2,
+      fhirResource: dstu2Example1,
+      fhirIcons: (
+        <img
+          src={require('../assets/containers/Questionnaire/questionnaire.svg')}
+          alt="clipboard and pen"
+        />
+      ),
+    };
+
+    const { getByAltText } = render(<Questionnaire {...defaultProps} />);
+    const headerIcon = getByAltText('clipboard and pen');
+
+    expect(headerIcon.getAttribute('src')).toContain('IMAGE_MOCK');
+  });
+
+  it('component with the resources object as a fhirIcons props should render an img', () => {
+    const defaultProps = {
+      fhirVersion: fhirVersions.DSTU2,
+      fhirResource: dstu2Example1,
+      fhirIcons: fhirIcons,
+    };
+
+    const { getByAltText } = render(<Questionnaire {...defaultProps} />);
+    const headerIcon = getByAltText('clipboard and pen');
+
+    expect(headerIcon.getAttribute('src')).toContain('IMAGE_MOCK');
+  });
+
+  it('component with the url as a fhirIcons props should render an img', () => {
+    const avatarSrc =
+      'https://www.gravatar.com/avatar/?s=50&r=any&default=identicon&forcedefault=1';
+    const defaultProps = {
+      fhirVersion: fhirVersions.DSTU2,
+      fhirResource: dstu2Example1,
+      fhirIcons: avatarSrc,
+    };
+
+    const { getByAltText } = render(<Questionnaire {...defaultProps} />);
+    const headerIcon = getByAltText('header icon');
+
+    expect(headerIcon.getAttribute('src')).toContain(avatarSrc);
+  });
+
+  it('component without a fhirIcons props should render a default icon', () => {
+    const defaultProps = {
+      fhirVersion: fhirVersions.DSTU2,
+      fhirResource: dstu2Example1,
+    };
+
+    const { getByAltText } = render(<Questionnaire {...defaultProps} />);
+    const headerIcon = getByAltText('questionnaire');
+
+    expect(headerIcon.getAttribute('src')).toContain('IMAGE_MOCK');
+  });
+
+  it('component with a false as a fhirIcons props should render a placeholder', () => {
+    const defaultProps = {
+      fhirVersion: fhirVersions.DSTU2,
+      fhirResource: dstu2Example1,
+      fhirIcons: false,
+    };
+
+    const { getByTestId } = render(<Questionnaire {...defaultProps} />);
+    const headerIcon = getByTestId('placeholder');
+
+    expect(headerIcon).toBeTruthy();
+  });
+
+  it('component with the img as a fhirIcons props should render an img', () => {
+    const defaultProps = {
+      fhirVersion: fhirVersions.DSTU2,
+      fhirResource: dstu2Example1,
+      fhirIcons: (
+        <img
+          src={require('../assets/containers/Questionnaire/questionnaire.svg')}
+          alt="clipboard and pen"
+        />
+      ),
+    };
+
+    const { getByAltText } = render(<Questionnaire {...defaultProps} />);
+    const headerIcon = getByAltText('clipboard and pen');
+
+    expect(headerIcon.getAttribute('src')).toContain('IMAGE_MOCK');
+  });
+
+  it('component with the resources object as a fhirIcons props should render an img', () => {
+    const defaultProps = {
+      fhirVersion: fhirVersions.DSTU2,
+      fhirResource: dstu2Example1,
+      fhirIcons: fhirIcons,
+    };
+
+    const { getByAltText } = render(<Questionnaire {...defaultProps} />);
+    const headerIcon = getByAltText('clipboard and pen');
+
+    expect(headerIcon.getAttribute('src')).toContain('IMAGE_MOCK');
+  });
+
+  it('component with the url as a fhirIcons props should render an img', () => {
+    const avatarSrc =
+      'https://www.gravatar.com/avatar/?s=50&r=any&default=identicon&forcedefault=1';
+    const defaultProps = {
+      fhirVersion: fhirVersions.DSTU2,
+      fhirResource: dstu2Example1,
+      fhirIcons: avatarSrc,
+    };
+
+    const { getByAltText } = render(<Questionnaire {...defaultProps} />);
+    const headerIcon = getByAltText('header icon');
+
+    expect(headerIcon.getAttribute('src')).toContain(avatarSrc);
+  });
+
   it('should render component correctly with DSTU2 source data', () => {
     const defaultProps = {
       fhirResource: dstu2Example1,
@@ -34,16 +178,16 @@ describe('Questionnaire should render component correctly', () => {
 
     // contain id and test of questions of subgroup
     expect(String(getByTestId('linkId-2.1').textContent).trim()).toEqual(
-      '2.1What is your gender?',
+      'What is your gender?',
     );
     expect(String(getByTestId('linkId-2.2').textContent).trim()).toEqual(
-      '2.2What is your date of birth?',
+      'What is your date of birth?',
     );
     expect(String(getByTestId('linkId-2.3').textContent).trim()).toEqual(
-      '2.3What is your country of birth?',
+      'What is your country of birth?',
     );
     expect(String(getByTestId('linkId-2.4').textContent).trim()).toEqual(
-      '2.4What is your marital status?',
+      'What is your marital status?',
     );
   });
 
@@ -90,21 +234,21 @@ describe('Questionnaire should render component correctly', () => {
 
     // contain subgroup description
     expect(String(getByTestId('linkId-2').textContent).trim()).toContain(
-      '2General questions',
+      'General questions',
     );
 
     // contain id and test of questions of subgroup
     expect(String(getByTestId('linkId-2.1').textContent).trim()).toContain(
-      '2.1What is your gender?',
+      'What is your gender?',
     );
     expect(String(getByTestId('linkId-2.2').textContent).trim()).toEqual(
-      '2.2What is your date of birth?',
+      'What is your date of birth?',
     );
     expect(String(getByTestId('linkId-2.3').textContent).trim()).toEqual(
-      '2.3What is your country of birth?',
+      'What is your country of birth?',
     );
     expect(String(getByTestId('linkId-2.4').textContent).trim()).toEqual(
-      '2.4What is your marital status?',
+      'What is your marital status?',
     );
   });
 
@@ -151,21 +295,21 @@ describe('Questionnaire should render component correctly', () => {
 
     // contain subgroup description
     expect(String(getByTestId('linkId-2').textContent).trim()).toContain(
-      '2General questions',
+      'General questions',
     );
 
     // contain id and test of questions of subgroup
     expect(String(getByTestId('linkId-2.1').textContent).trim()).toContain(
-      '2.1What is your gender?',
+      'What is your gender?',
     );
     expect(String(getByTestId('linkId-2.2').textContent).trim()).toEqual(
-      '2.2What is your date of birth?',
+      'What is your date of birth?',
     );
     expect(String(getByTestId('linkId-2.3').textContent).trim()).toEqual(
-      '2.3What is your country of birth?',
+      'What is your country of birth?',
     );
     expect(String(getByTestId('linkId-2.4').textContent).trim()).toEqual(
-      '2.4What is your marital status?',
+      'What is your marital status?',
     );
   });
 

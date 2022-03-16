@@ -1,14 +1,17 @@
 import _get from 'lodash/get';
 import PropTypes from 'prop-types';
 import React from 'react';
+import Group from './Group';
 import Answers from './Answers';
-import Group from '../Questionnaire/Group';
 import { getQuestionText } from './getQuestionText';
 
 const Questions = ({ questions, prepareItems }) => {
   if (!Array.isArray(questions) || questions.length === 0) {
     return null;
   }
+
+  console.log({ questions });
+
   return (
     <ul className="fhir-resource__QuestionnaireResponse-questions-list">
       {questions.map(prepareItems).map((item, i) => {

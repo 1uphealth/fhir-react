@@ -14,9 +14,6 @@ import stu3Example2 from '../../../fixtures/stu3/resources/questionnaireResponse
 import r4Example1 from '../../../fixtures/r4/resources/questionnaireResponse/example1.json';
 import r4Example2 from '../../../fixtures/r4/resources/questionnaireResponse/example2.json';
 
-import fhirIcons from '../../../fixtures/example-icons';
-import QuestionnaireResponseIcon from '../../../assets/containers/QuestionnaireResponse/questionnaire-response.svg';
-
 export default { title: 'QuestionnaireResponse' };
 
 export const DefaultVisualizationDSTU2 = () => {
@@ -25,7 +22,6 @@ export const DefaultVisualizationDSTU2 = () => {
     <QuestionnaireResponse
       fhirVersion={fhirVersions.DSTU2}
       fhirResource={fhirResource}
-      fhirIcons={require('../../../assets/containers/QuestionnaireResponse/questionnaire-response.svg')}
     />
   );
 };
@@ -36,7 +32,6 @@ export const Example2OfDSTU2 = () => {
     <QuestionnaireResponse
       fhirVersion={fhirVersions.DSTU2}
       fhirResource={fhirResource}
-      fhirIcons={QuestionnaireResponseIcon}
     />
   );
 };
@@ -47,7 +42,6 @@ export const Example3OfDSTU2 = () => {
     <QuestionnaireResponse
       fhirVersion={fhirVersions.DSTU2}
       fhirResource={fhirResource}
-      fhirIcons={fhirIcons}
     />
   );
 };
@@ -58,7 +52,6 @@ export const Example1OfSTU3 = () => {
     <QuestionnaireResponse
       fhirVersion={fhirVersions.STU3}
       fhirResource={fhirResource}
-      fhirIcons={false}
     />
   );
 };
@@ -69,7 +62,6 @@ export const Example2OfSTU3 = () => {
     <QuestionnaireResponse
       fhirVersion={fhirVersions.STU3}
       fhirResource={fhirResource}
-      fhirIcons="random text"
     />
   );
 };

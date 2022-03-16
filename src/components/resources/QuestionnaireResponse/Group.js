@@ -2,8 +2,8 @@ import _get from 'lodash/get';
 import { MissingValue } from '../../ui';
 import PropTypes from 'prop-types';
 import React from 'react';
-import Questions from './Questions';
 import Answers from './Answers';
+import Questions from './Questions';
 
 const Group = ({ data, prepareItems, isChild = false }) => {
   if (!Array.isArray(data) || data.length === 0) {

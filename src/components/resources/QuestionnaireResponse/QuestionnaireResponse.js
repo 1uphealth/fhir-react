@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _get from 'lodash/get';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
-import { Root, Header, Badge, Body, Value, MissingValue } from '../../ui';
+import { Root, Header, Badge, Body, Value } from '../../ui';
 import Date from '../../datatypes/Date';
 import fhirVersions from '../fhirResourceVersions';
 import Coding from '../../datatypes/Coding';

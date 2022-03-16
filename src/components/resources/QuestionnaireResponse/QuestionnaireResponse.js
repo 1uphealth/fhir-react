@@ -10,6 +10,7 @@ import Reference from '../../datatypes/Reference/Reference';
 import './QuestionnaireResponse.css';
 import Accordion from '../../containers/Accordion';
 import Items from './Items';
+import CodeableConcept from '../../datatypes/CodeableConcept';
 
 const DEFAULT_TITLE = 'Questionnaire Response';
 
@@ -91,6 +92,21 @@ const QuestionnaireResponse = ({ fhirResource, fhirVersion, fhirIcons }) => {
     rootItems,
   } = fhirResourceData;
 
+  const tableData = [
+    {
+      label: 'Subject',
+      testId: 'subject',
+      data: subject && <Reference fhirData={subject} />,
+      status: subject,
+    },
+    {
+      label: 'Author',
+      testId: 'author',
+      data: author && <Reference fhirData={author} />,
+      status: author,
+    },
+  ];
+
   return (
     <Root name="QuestionnaireResponse">
       <Accordion
@@ -110,17 +126,7 @@ const QuestionnaireResponse = ({ fhirResource, fhirVersion, fhirIcons }) => {
           />
         }
         bodyContent={
-          <Body>
-            {subject && (
-              <Value label="Subject" data-testid="subject">
-                <Reference fhirData={subject} />
-              </Value>
-            )}
-            {author && (
-              <Value label="Author" data-testid="author">
-                <Reference fhirData={author} />
-              </Value>
-            )}
+          <Body tableData={tableData}>
             {rootItems && (
               <div className="overflow-auto">
                 <Items fhirVersion={fhirVersion} data={rootItems} />

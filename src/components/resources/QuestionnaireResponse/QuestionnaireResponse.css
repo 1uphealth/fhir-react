@@ -1,7 +1,7 @@
 .fhir-resource__QuestionnaireResponse-list {
   list-style: none;
   padding: 2px;
-  margin: 2px 2px 2px 20px;
+  margin: 2px;
 }
 
 .fhir-resource__QuestionnaireResponse-list-title {
@@ -42,12 +42,13 @@
   border-bottom: none;
 }
 
+/* TODO: fix styles of answers - these two below */
 .fhir-resource__QuestionnaireResponse-questions-list-item-details {
-  margin-left: 20px;
-  font-size: 80%;
+  margin: -30px 0 -30px 20px;
 }
 
 .fhir-resource__QuestionnaireResponse-questions-list-item-details-el {
   display: inline-block;
+  color: black;
   margin-right: 15px;
 }

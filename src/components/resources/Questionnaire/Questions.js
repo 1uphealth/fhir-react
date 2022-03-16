@@ -15,7 +15,7 @@ const Questions = ({ questions, prepareItems }) => {
         return (
           text && (
             <li
-              key={`uestionnaire-questions-item-${i}`}
+              key={`questionnaire-questions-item-${i}`}
               data-testid={`linkId-${item.linkId}`}
             >
               <div className="fhir-resource__Questionnaire-questions-list-element">

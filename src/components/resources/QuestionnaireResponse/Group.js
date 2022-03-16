@@ -18,7 +18,7 @@ const Group = ({ data, prepareItems, isChild = false }) => {
 
     return (
       <ul
-        key={`item-${i}`}
+        key={`questionnaire-response-item-${i}`}
         className="fhir-resource__QuestionnaireResponse-list"
       >
         <li

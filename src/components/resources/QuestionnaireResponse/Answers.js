@@ -31,7 +31,7 @@ const Answers = props => {
           if (typeof answerTypes[answerKey] === 'function') {
             toRender.push(
               <div
-                key={`item-${i}`}
+                key={`questionnaire-response-answer-item-${i}`}
                 className="fhir-resource__QuestionnaireResponse-questions-list-item-details-el"
                 data-testid={`${props['data-testid']}-${i}`}
               >
@@ -42,7 +42,7 @@ const Answers = props => {
           if (_get(answer, 'item')) {
             toRender.push(
               <Group
-                key={`item-answer-${i}`}
+                key={`questionnaire-response-answer-group-item-${i}`}
                 data={answer.item}
                 prepareItems={prepareItems}
                 isChild

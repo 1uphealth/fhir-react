@@ -17,7 +17,10 @@ const Questions = ({ questions, prepareItems }) => {
         const hasGroup = item.isGroup;
         const answers = _get(item, 'answer', []);
         return (
-          <li key={`item-${i}`} data-testid={`linkId-${item.linkId}`}>
+          <li
+            key={`questionnaire-response-questions-item-${i}`}
+            data-testid={`linkId-${item.linkId}`}
+          >
             <div className="fhir-resource__QuestionnaireResponse-questions-list-element">
               {text}
             </div>

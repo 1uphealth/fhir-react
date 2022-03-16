@@ -87,7 +87,6 @@ describe('Questionnaire should render component correctly', () => {
     expect(headerIcon.getAttribute('src')).toContain(avatarSrc);
   });
 
-
   it('component without a fhirIcons props should render a default icon', () => {
     const defaultProps = {
       fhirVersion: fhirVersions.DSTU2,

@@ -42,7 +42,6 @@
   border-bottom: none;
 }
 
-/* TODO: fix styles of answers - these two below */
 .fhir-resource__QuestionnaireResponse-questions-list-item-details {
   margin: -30px 0 -30px 20px;
 }

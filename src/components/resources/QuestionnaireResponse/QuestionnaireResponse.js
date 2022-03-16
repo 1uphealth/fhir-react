@@ -10,7 +10,6 @@ import Reference from '../../datatypes/Reference/Reference';
 import './QuestionnaireResponse.css';
 import Accordion from '../../containers/Accordion';
 import Items from './Items';
-import CodeableConcept from '../../datatypes/CodeableConcept';
 
 const DEFAULT_TITLE = 'Questionnaire Response';
 

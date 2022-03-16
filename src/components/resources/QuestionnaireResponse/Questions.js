@@ -19,7 +19,6 @@ const Questions = ({ questions, prepareItems }) => {
           <li key={`item-${i}`} data-testid={`linkId-${item.linkId}`}>
             <div className="fhir-resource__QuestionnaireResponse-questions-list-element">
               {text}
-              {/* TODO: figure out what to do with it for r4 example 1 */}
             </div>
             {answers && <Answers data={item.answer} />}
             {hasGroup && (

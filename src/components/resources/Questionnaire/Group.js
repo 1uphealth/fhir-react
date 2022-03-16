@@ -16,7 +16,10 @@ const Group = ({ data, prepareItems, isChild = false }) => {
     nestedItems = nestedItems.map(prepareItems);
     const isGroup = _get(item, 'isGroup');
     return (
-      <ul key={`item-${i}`} className="fhir-resource__Questionnaire-list">
+      <ul
+        key={`questionnaire-item-${i}`}
+        className="fhir-resource__Questionnaire-list"
+      >
         <li
           className={
             isChild
@@ -29,7 +32,7 @@ const Group = ({ data, prepareItems, isChild = false }) => {
         </li>
         {!isGroup && (
           <li>
-            {<Questions questions={nestedItems} prepareItems={prepareItems} />}
+            <Questions questions={nestedItems} prepareItems={prepareItems} />
           </li>
         )}
         {isGroup && (

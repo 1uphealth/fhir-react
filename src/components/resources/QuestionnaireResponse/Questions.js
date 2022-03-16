@@ -10,8 +10,6 @@ const Questions = ({ questions, prepareItems }) => {
     return null;
   }
 
-  console.log({ questions });
-
   return (
     <ul className="fhir-resource__QuestionnaireResponse-questions-list">
       {questions.map(prepareItems).map((item, i) => {

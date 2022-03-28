@@ -139,8 +139,20 @@ export default {
 };
 ```
 
-TODO: add here the onClick info
+There is a possibility to overwrite default's Accordion function, by passing a function to onClick variable in a component.
 
+```jsx
+const MyComponent = () => {
+  const fhirResource = JSON.parse(fhirResourceAsJsonString);
+  return (
+    <FhirResource
+      fhirResource={fhirResource}
+      fhirVersion={fhirVersions.R4}
+      onClick={() => {/* function */}}
+    />
+  );
+};
+```
 
 ### `FhirResource` component props
 

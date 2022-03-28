@@ -9,8 +9,80 @@ import stu3Example1 from '../../../fixtures/stu3/resources/medication/example1.j
 import stu3Example2 from '../../../fixtures/stu3/resources/medication/example2.json';
 import r4Example1 from '../../../fixtures/r4/resources/medication/example1.json';
 import r4Example2 from '../../../fixtures/r4/resources/medication/example2.json';
+import fhirIcons from '../../../fixtures/example-icons';
 
-describe('should render MedicationOrder component properly', () => {
+describe('should render Medication component properly', () => {
+  it('component without a fhirIcons props should render a default icon', () => {
+    const defaultProps = {
+      fhirVersion: fhirVersions.DSTU2,
+      fhirResource: dstu2Example1,
+    };
+
+    const { getByAltText } = render(<Medication {...defaultProps} />);
+    const headerIcon = getByAltText('medication');
+
+    expect(headerIcon.getAttribute('src')).toContain('IMAGE_MOCK');
+  });
+
+  it('component with a false as a fhirIcons props should render a placeholder', () => {
+    const defaultProps = {
+      fhirVersion: fhirVersions.DSTU2,
+      fhirResource: dstu2Example1,
+      fhirIcons: false,
+    };
+
+    const { getByTestId } = render(<Medication {...defaultProps} />);
+    const headerIcon = getByTestId('placeholder');
+
+    expect(headerIcon).toBeTruthy();
+  });
+
+  it('component with the img as a fhirIcons props should render an img', () => {
+    const defaultProps = {
+      fhirVersion: fhirVersions.DSTU2,
+      fhirResource: dstu2Example1,
+      fhirIcons: (
+        <img
+          src={require('../assets/containers/Medication/medication.svg')}
+          alt="medication"
+        />
+      ),
+    };
+
+    const { getByAltText } = render(<Medication {...defaultProps} />);
+    const headerIcon = getByAltText('medication');
+
+    expect(headerIcon.getAttribute('src')).toContain('IMAGE_MOCK');
+  });
+
+  it('component with the resources object as a fhirIcons props should render an img', () => {
+    const defaultProps = {
+      fhirVersion: fhirVersions.DSTU2,
+      fhirResource: dstu2Example1,
+      fhirIcons: fhirIcons,
+    };
+
+    const { getByAltText } = render(<Medication {...defaultProps} />);
+    const headerIcon = getByAltText('medication');
+
+    expect(headerIcon.getAttribute('src')).toContain('IMAGE_MOCK');
+  });
+
+  it('component with the url as a fhirIcons props should render an img', () => {
+    const avatarSrc =
+      'https://www.gravatar.com/avatar/?s=50&r=any&default=identicon&forcedefault=1';
+    const defaultProps = {
+      fhirVersion: fhirVersions.DSTU2,
+      fhirResource: dstu2Example1,
+      fhirIcons: avatarSrc,
+    };
+
+    const { getByAltText } = render(<Medication {...defaultProps} />);
+    const headerIcon = getByAltText('header icon');
+
+    expect(headerIcon.getAttribute('src')).toContain(avatarSrc);
+  });
+
   it('should render with DSTU2 source data', () => {
     const defaultProps = {
       fhirResource: dstu2Example1,
@@ -41,7 +113,9 @@ describe('should render MedicationOrder component properly', () => {
       fhirVersion: fhirVersions.STU3,
     };
 
-    const { container, getByTestId } = render(<Medication {...defaultProps} />);
+    const { container, getByTestId, getByAltText } = render(
+      <Medication {...defaultProps} />,
+    );
     expect(container).not.toBeNull();
 
     expect(getByTestId('title').textContent).toContain(
@@ -56,8 +130,8 @@ describe('should render MedicationOrder component properly', () => {
     );
     expect(getByTestId('package-container').textContent).toContain('Vial');
 
-    expect(getByTestId('product-images').textContent).toContain(
-      'Vancomycin Image',
+    expect(getByAltText('Vancomycin Image').src).toContain(
+      'https://www.drugs.com/images/pills/fio/AKN07410.JPG',
     );
   });
 

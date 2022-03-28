@@ -14,6 +14,9 @@ import r4Example1 from '../../../fixtures/r4/resources/organization/example1.jso
 import r4Example2 from '../../../fixtures/r4/resources/organization/example2.json';
 import r4Example3 from '../../../fixtures/r4/resources/organization/example3.json';
 
+import fhirIcons from '../../../fixtures/example-icons';
+import OrganizationIcon from '../../../assets/containers/Organization/organization.svg';
+
 export default {
   title: 'Organization',
 };
@@ -24,6 +27,7 @@ export const DefaultVisualizationDSTU2 = () => {
     <Organization
       fhirResource={fhirResource}
       fhirVersion={fhirVersions.DSTU2}
+      fhirIcons={OrganizationIcon}
     />
   );
 };
@@ -34,6 +38,7 @@ export const Example2OfDSTU2 = () => {
     <Organization
       fhirResource={fhirResource}
       fhirVersion={fhirVersions.DSTU2}
+      fhirIcons={fhirIcons}
     />
   );
 };
@@ -41,14 +46,22 @@ export const Example2OfDSTU2 = () => {
 export const Example1OfSTU3 = () => {
   const fhirResource = object('Resource', stu3Example1);
   return (
-    <Organization fhirResource={fhirResource} fhirVersion={fhirVersions.STU3} />
+    <Organization
+      fhirResource={fhirResource}
+      fhirVersion={fhirVersions.STU3}
+      fhirIcons={false}
+    />
   );
 };
 
 export const Example2OfSTU3 = () => {
   const fhirResource = object('Resource', stu3Example2);
   return (
-    <Organization fhirResource={fhirResource} fhirVersion={fhirVersions.STU3} />
+    <Organization
+      fhirResource={fhirResource}
+      fhirVersion={fhirVersions.STU3}
+      fhirIcons={'random text'}
+    />
   );
 };
 

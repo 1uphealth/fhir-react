@@ -2,11 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _get from 'lodash/get';
 import fhirVersions from '../fhirResourceVersions';
-import { Root, Header, Title, Body, Value } from '../../ui';
+import {
+  Root,
+  Header,
+  Body,
+  ValueSection,
+  ValueSectionItem,
+  Value,
+} from '../../ui';
 import Reference from '../../datatypes/Reference';
 import Date from '../../datatypes/Date';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 import CodeableConcept, { hasValue } from '../../datatypes/CodeableConcept';
+import Accordion from '../../containers/Accordion';
 
 const commonDTO = fhirResource => {
   const subject = _get(fhirResource, 'subject');
@@ -63,8 +71,7 @@ const resourceDTO = (fhirVersion, fhirResource) => {
   }
 };
 
-const AdverseEvent = props => {
-  const { fhirResource, fhirVersion } = props;
+const AdverseEvent = ({ fhirResource, fhirVersion, fhirIcons, onClick }) => {
   let fhirResourceData = {};
   try {
     fhirResourceData = resourceDTO(fhirVersion, fhirResource);
@@ -86,47 +93,79 @@ const AdverseEvent = props => {
     hasEvent,
   } = fhirResourceData;
 
+  const tableData = [
+    {
+      label: 'Event',
+      testId: 'event',
+      data: hasEventType && <CodeableConcept fhirData={eventType} />,
+      status: hasEventType,
+    },
+    {
+      label: 'Event',
+      testId: 'event',
+      data: hasEvent && <CodeableConcept fhirData={event} />,
+      status: hasEvent,
+    },
+    {
+      label: 'Seriousness',
+      testId: 'hasSeriousness',
+      data: hasSeriousness && (
+        <CodeableConcept fhirData={seriousness} isCursive />
+      ),
+      status: hasSeriousness,
+    },
+    {
+      label: 'Actuality',
+      testId: 'actuality',
+      data: actuality,
+      status: actuality,
+    },
+  ];
+
   return (
     <Root name="AdverseEvent">
-      <Header>
-        {subject && (
-          <Title>
-            <Reference fhirData={subject} />
-          </Title>
-        )}
-      </Header>
-      <Body>
-        {date && (
-          <Value label="Date" data-testid="date">
-            <Date fhirData={date} />
-          </Value>
-        )}
-        {hasEventType && (
-          <Value label="Type" data-testid="type">
-            <CodeableConcept fhirData={eventType} />
-          </Value>
-        )}
-        {hasEvent && (
-          <Value label="Event" data-testid="event">
-            <CodeableConcept fhirData={event} />
-          </Value>
-        )}
-        {description && (
-          <Value label="Description" data-testid="description">
-            {description}
-          </Value>
-        )}
-        {hasSeriousness && (
-          <Value label="Seriousness" data-testid="hasSeriousness">
-            <CodeableConcept fhirData={seriousness} />
-          </Value>
-        )}
-        {actuality && (
-          <Value label="Actuality" data-testid="actuality">
-            {actuality}
-          </Value>
-        )}
-      </Body>
+      <Accordion
+        headerContent={
+          <Header
+            resourceName={'AdverseEvent'}
+            title={subject && <Reference fhirData={subject} />}
+            icon={fhirIcons}
+            additionalContent={
+              date && (
+                <Value label="Date" data-testid="date">
+                  <Date fhirData={date} isBlack />
+                </Value>
+              )
+            }
+          />
+        }
+        bodyContent={
+          <Body>
+            {description && (
+              <ValueSection
+                label="Comment"
+                data-testid="description"
+                marginBottom
+              >
+                <span className="text-secondary">{description}</span>
+              </ValueSection>
+            )}
+            {tableData.map(
+              (item, index) =>
+                item.status && (
+                  <ValueSectionItem
+                    key={`adverse-event-item-${index}`}
+                    label={item.label}
+                    data-testid={item.testId}
+                  >
+                    {item.data}
+                  </ValueSectionItem>
+                ),
+            )}
+          </Body>
+        }
+        onClick={onClick}
+      />
     </Root>
   );
 };

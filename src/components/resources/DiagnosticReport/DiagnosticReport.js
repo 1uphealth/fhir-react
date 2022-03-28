@@ -93,8 +93,13 @@ const resourceDTO = (fhirVersion, fhirResource) => {
   }
 };
 
-const DiagnosticReport = props => {
-  const { fhirResource, fhirVersion, fhirIcons } = props;
+const DiagnosticReport = ({
+  fhirResource,
+  fhirVersion,
+  fhirIcons,
+  onClick,
+}) => {
+  onClick = { onClick };
   let fhirResourceData = {};
   try {
     fhirResourceData = resourceDTO(fhirVersion, fhirResource);
@@ -165,6 +170,7 @@ const DiagnosticReport = props => {
           />
         }
         bodyContent={<Body tableData={tableData} />}
+        onClick={onClick}
       />
     </Root>
   );

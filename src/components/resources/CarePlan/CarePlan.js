@@ -162,7 +162,7 @@ const resourceDTO = (fhirVersion, fhirResource) => {
   }
 };
 
-const CarePlan = ({ fhirResource, fhirVersion, fhirIcons }) => {
+const CarePlan = ({ fhirResource, fhirVersion, fhirIcons, onClick }) => {
   let fhirResourceData = {};
   try {
     fhirResourceData = resourceDTO(fhirVersion, fhirResource);
@@ -304,6 +304,7 @@ const CarePlan = ({ fhirResource, fhirVersion, fhirIcons }) => {
             )}
           </Body>
         }
+        onClick={onClick}
       />
     </Root>
   );

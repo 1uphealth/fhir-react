@@ -103,8 +103,7 @@ const resourceDTO = (fhirVersion, fhirResource) => {
   }
 };
 
-const Immunization = props => {
-  const { fhirVersion, fhirResource, fhirIcons } = props;
+const Immunization = ({ fhirVersion, fhirResource, fhirIcons, onClick }) => {
   const {
     title,
     status,
@@ -241,6 +240,7 @@ const Immunization = props => {
           />
         }
         bodyContent={<Body tableData={tableData} />}
+        onClick={onClick}
       />
     </Root>
   );

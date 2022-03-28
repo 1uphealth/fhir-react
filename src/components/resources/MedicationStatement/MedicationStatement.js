@@ -107,8 +107,12 @@ const resourceDTO = (fhirVersion, fhirResource) => {
   }
 };
 
-const MedicationStatement = props => {
-  const { fhirResource, fhirVersion, fhirIcons } = props;
+const MedicationStatement = ({
+  fhirResource,
+  fhirVersion,
+  fhirIcons,
+  onClick,
+}) => {
   let fhirResourceData = {};
   try {
     fhirResourceData = resourceDTO(fhirVersion, fhirResource);
@@ -200,6 +204,7 @@ const MedicationStatement = props => {
               })}
           </Body>
         }
+        onClick={onClick}
       />
     </Root>
   );

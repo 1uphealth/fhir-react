@@ -15,6 +15,8 @@ export const Header = ({
   additionalContent,
   rightAdditionalContent,
   children,
+  capitalize = false,
+  isNoIcon = false,
 }) => {
   const rightItemsClass = 'align-items-center flex-fill d-flex';
 
@@ -31,15 +33,20 @@ export const Header = ({
             } d-flex w-100 flex-column flex-sm-row`}
           >
             <div className="d-flex">
-              <div
-                className={`fhir-ui__${resourceName}-Header__icon d-flex align-items-center flex-shrink-1 m-half me-2`}
-              >
-                <HeaderIcon headerIcon={icon} resourceName={resourceName} />
-              </div>
+              {!isNoIcon && (
+                <div
+                  className={`fhir-ui__${resourceName}-Header__icon d-flex align-items-center flex-shrink-1 m-half me-2`}
+                >
+                  <HeaderIcon headerIcon={icon} resourceName={resourceName} />
+                </div>
+              )}
               <div
                 className={`fhir-ui__${resourceName}-Header__title flex-fill text-start`}
               >
-                <Title data-testid={titleTestID || 'title'}>
+                <Title
+                  data-testid={titleTestID || 'title'}
+                  capitalize={capitalize}
+                >
                   {title || ''}
                 </Title>
               </div>
@@ -77,7 +84,9 @@ export const Header = ({
 
 export const Title = props => (
   <h4
-    className="fhir-ui__Title fw-bold fs-4 lh-base mb-0 w-90 title-width-sm"
+    className={`fhir-ui__Title fw-bold fs-4 lh-base mb-0 w-90 title-width-sm ${
+      props.capitalize ? 'text-capitalize' : ''
+    }`}
     data-testid={props['data-testid'] || 'title'}
   >
     {props.children}
@@ -87,7 +96,7 @@ export const Title = props => (
 export const Badge = props => {
   return (
     <small
-      className={`fhir-ui__Badge text-capitalize d-flex align-items-center px-2 py-1 rounded-1 fw-bold ${getBadgeColor(
+      className={`fhir-ui__Badge text-capitalize d-flex align-items-center mx-1 px-2 py-1 rounded-1 fw-bold ${getBadgeColor(
         props,
       )}`}
       data-testid={props['data-testid']}
@@ -128,7 +137,7 @@ export const ValueUnit = props => (
 export const Body = ({ tableData = [], reverseContent, children }) => (
   <div className="fhir-ui__Body">
     {reverseContent ? children : null}
-    <div className="row">
+    <div className="row gap-3">
       {tableData.map(
         (value, index) =>
           value.status && (
@@ -175,7 +184,9 @@ export const Data = props => (
 );
 
 export const Root = props => (
-  <div className={`fhir-resource__${props.name}`}>{props.children}</div>
+  <div className={`fhir-resource__${props.name} ${props.className}`}>
+    {props.children}
+  </div>
 );
 
 export const Table = props => (
@@ -199,10 +210,19 @@ export const TableHeader = props => {
   );
 };
 
-export const TableRow = props => <tr>{props.children}</tr>;
+export const TableRow = props => {
+  const { children, ...rest } = props;
+  return <tr {...rest}>{props.children}</tr>;
+};
 
 export const TableCell = props => (
-  <td className="align-text-top border-0" data-testid={props['data-testid']}>
+  <td
+    className={`${
+      props.isAlignTop ? '' : 'align-middle'
+    } border-0 ${props.className || ''}`}
+    data-testid={props['data-testid']}
+    style={props.style}
+  >
     {props.children}
   </td>
 );

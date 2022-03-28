@@ -7,8 +7,80 @@ import MedicationKnowledge from './MedicationKnowledge';
 
 import example1R4 from '../../../fixtures/r4/resources/medicationKnowledge/example1.json';
 import example2R4 from '../../../fixtures/r4/resources/medicationKnowledge/example2.json';
+import fhirIcons from '../../../fixtures/example-icons';
 
 describe('should render MedicationKnowledge component properly', () => {
+  it('component without a fhirIcons props should render a default icon', () => {
+    const defaultProps = {
+      fhirVersion: fhirVersions.R4,
+      fhirResource: example1R4,
+    };
+
+    const { getByAltText } = render(<MedicationKnowledge {...defaultProps} />);
+    const headerIcon = getByAltText('medication knowledge');
+
+    expect(headerIcon.getAttribute('src')).toContain('IMAGE_MOCK');
+  });
+
+  it('component with a false as a fhirIcons props should render a placeholder', () => {
+    const defaultProps = {
+      fhirVersion: fhirVersions.R4,
+      fhirResource: example1R4,
+      fhirIcons: false,
+    };
+
+    const { getByTestId } = render(<MedicationKnowledge {...defaultProps} />);
+    const headerIcon = getByTestId('placeholder');
+
+    expect(headerIcon).toBeTruthy();
+  });
+
+  it('component with the img as a fhirIcons props should render an img', () => {
+    const defaultProps = {
+      fhirVersion: fhirVersions.R4,
+      fhirResource: example1R4,
+      fhirIcons: (
+        <img
+          src={require('../assets/containers/MedicationKnowledge/medication-knowledge.svg')}
+          alt="pill database"
+        />
+      ),
+    };
+
+    const { getByAltText } = render(<MedicationKnowledge {...defaultProps} />);
+    const headerIcon = getByAltText('pill database');
+
+    expect(headerIcon.getAttribute('src')).toContain('IMAGE_MOCK');
+  });
+
+  it('component with the resources object as a fhirIcons props should render an img', () => {
+    const defaultProps = {
+      fhirVersion: fhirVersions.R4,
+      fhirResource: example1R4,
+      fhirIcons: fhirIcons,
+    };
+
+    const { getByAltText } = render(<MedicationKnowledge {...defaultProps} />);
+    const headerIcon = getByAltText('pill database');
+
+    expect(headerIcon.getAttribute('src')).toContain('IMAGE_MOCK');
+  });
+
+  it('component with the url as a fhirIcons props should render an img', () => {
+    const avatarSrc =
+      'https://www.gravatar.com/avatar/?s=50&r=any&default=identicon&forcedefault=1';
+    const defaultProps = {
+      fhirVersion: fhirVersions.R4,
+      fhirResource: example1R4,
+      fhirIcons: avatarSrc,
+    };
+
+    const { getByAltText } = render(<MedicationKnowledge {...defaultProps} />);
+    const headerIcon = getByAltText('header icon');
+
+    expect(headerIcon.getAttribute('src')).toContain(avatarSrc);
+  });
+
   it('should render with R4 source data', () => {
     const defaultProps = {
       fhirResource: example1R4,

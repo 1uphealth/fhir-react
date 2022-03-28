@@ -233,6 +233,7 @@ const ExplanationOfBenefit = ({
   fhirVersion,
   withCarinBBProfile = false,
   fhirIcons,
+  onClick,
 }) => {
   let fhirResourceData = {};
   try {
@@ -546,6 +547,7 @@ const ExplanationOfBenefit = ({
             {hasCareTeam && <CareTeam fhirData={careTeam} />}
           </Body>
         }
+        onClick={onClick}
       />
     </Root>
   );

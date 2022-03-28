@@ -4,12 +4,12 @@ import _get from 'lodash/get';
 
 import fhirVersions from '../fhirResourceVersions';
 import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
-import { Root, Header, Title, Badge, Body, BadgeSecondary } from '../../ui';
+import { Root, Header, Badge, Body, BadgeSecondary } from '../../ui';
 import * as FhirResourceTypes from '../../supportedFhirResourceList';
 
 import './Bundle.css';
 
-export default function Bundle({ fhirResource, fhirVersion, fhirIcons }) {
+export default function Bundle({ fhirResource, fhirVersion }) {
   const commonDTO = fhirResource => {
     const type = _get(fhirResource, 'type', null);
     const total = _get(fhirResource, 'total');
@@ -51,11 +51,14 @@ export default function Bundle({ fhirResource, fhirVersion, fhirIcons }) {
     .filter(Boolean);
 
   return (
-    <Root name="Bundle">
-      <Header>
-        {type && <Title data-testid="title">{type}</Title>}
-        {total && <Badge data-testid="total">{total}</Badge>}
-      </Header>
+    <Root name="Bundle" className="fhir-resource__Bundle__rootPadding">
+      <Header
+        resourceName="Bundle"
+        title={type}
+        badges={!isNaN(total) && <Badge data-testid="total">{total}</Badge>}
+        capitalize
+        isNoIcon
+      />
       <Body>
         {resources.length > 0 &&
           resources.map((resource, index) => {
@@ -71,14 +74,15 @@ export default function Bundle({ fhirResource, fhirVersion, fhirIcons }) {
                 key={`${resource.id}-${index}`}
               >
                 {resourceType && (
-                  <BadgeSecondary data-testid="resourceType">
-                    {resourceType}
-                  </BadgeSecondary>
+                  <div className="mx-20">
+                    <BadgeSecondary data-testid="resourceType">
+                      {resourceType}
+                    </BadgeSecondary>
+                  </div>
                 )}
                 <FhirComponent
                   fhirResource={resource}
                   fhirVersion={fhirVersion}
-                  fhirIcons={fhirIcons}
                 />
               </div>
             );

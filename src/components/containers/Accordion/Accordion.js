@@ -6,7 +6,7 @@ const CHEVRON_DOWN_COLOR = '#6f83a9';
 const CHEVRON_UP_COLOR = '#2a6fd7';
 
 const Accordion = props => {
-  const { headerContent, bodyContent, isUnopenable = false } = props;
+  const { headerContent, bodyContent, onClick } = props;
   const [rotate, setRotate] = useState(false);
   const handleAccordionClick = () => setRotate(!rotate);
   const accordionId = uniqueId(
@@ -14,18 +14,18 @@ const Accordion = props => {
   );
 
   const isAccordionOpenable = () => {
-    if (isUnopenable) return false;
-
-    const tableDataCondition =
-      bodyContent.props.tableData &&
-      bodyContent.props.tableData.filter(x => 'data' in x && x.data).length > 0;
-    const childrenCondition =
-      bodyContent.props.children &&
-      (bodyContent.props.children.length > 0 || bodyContent.props.children);
-    if (tableDataCondition || childrenCondition) {
-      return true;
+    if (bodyContent) {
+      const tableDataCondition =
+        bodyContent.props.tableData &&
+        bodyContent.props.tableData.filter(x => 'data' in x && x.data).length >
+          0;
+      const childrenCondition =
+        bodyContent.props.children &&
+        (bodyContent.props.children.length > 0 || bodyContent.props.children);
+      if (tableDataCondition || childrenCondition) {
+        return true;
+      }
     }
-
     return false;
   };
 
@@ -57,16 +57,20 @@ const Accordion = props => {
               }`}
               type="button"
               data-bs-target={`#${accordionId}`}
-              data-bs-toggle={isAccordionOpenable() ? 'collapse' : null}
+              data-bs-toggle={
+                isAccordionOpenable() && onClick === undefined
+                  ? 'collapse'
+                  : null
+              }
               aria-controls={accordionId}
               aria-expanded="false"
-              onClick={handleAccordionClick}
+              onClick={onClick || handleAccordionClick}
             >
               <div className="fhir-container__Accordion__header-text d-flex w-100 justify-content-start position-relative">
                 {React.cloneElement(headerContent, {
                   isAccordionOpenable: isAccordionOpenable(),
                 })}
-                {!isUnopenable && getChevron()}
+                {onClick === undefined && getChevron()}
               </div>
             </button>
           </div>

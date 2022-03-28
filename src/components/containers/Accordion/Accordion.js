@@ -6,7 +6,7 @@ const CHEVRON_DOWN_COLOR = '#6f83a9';
 const CHEVRON_UP_COLOR = '#2a6fd7';
 
 const Accordion = props => {
-  const { headerContent, bodyContent } = props;
+  const { headerContent, bodyContent, isUnopenable = false } = props;
   const [rotate, setRotate] = useState(false);
   const handleAccordionClick = () => setRotate(!rotate);
   const accordionId = uniqueId(
@@ -14,6 +14,8 @@ const Accordion = props => {
   );
 
   const isAccordionOpenable = () => {
+    if (isUnopenable) return false;
+
     const tableDataCondition =
       bodyContent.props.tableData &&
       bodyContent.props.tableData.filter(x => 'data' in x && x.data).length > 0;
@@ -64,7 +66,7 @@ const Accordion = props => {
                 {React.cloneElement(headerContent, {
                   isAccordionOpenable: isAccordionOpenable(),
                 })}
-                {getChevron()}
+                {!isUnopenable && getChevron()}
               </div>
             </button>
           </div>

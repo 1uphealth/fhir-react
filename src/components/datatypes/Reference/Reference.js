@@ -7,6 +7,7 @@ const Reference = props => {
   const { fhirData } = props;
   const display = _get(fhirData, 'display');
   const reference = _get(fhirData, 'reference', '');
+
   return (
     <div
       className="fhir-datatype__Reference d-inline-block"

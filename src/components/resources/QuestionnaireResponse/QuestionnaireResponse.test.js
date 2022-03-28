@@ -24,7 +24,7 @@ describe('QuestionnaireResponse should render component correctly', () => {
     );
     expect(getByTestId('status').textContent).toEqual('completed');
     expect(getByTestId('dateTime').textContent).toEqual('6/18/2013');
-    expect(getByTestId('subject').textContent).toEqual('RoelPatient/f201');
+    expect(getByTestId('subject').textContent).toEqual('Roel');
     expect(getByTestId('author').textContent).toEqual('Practitioner/f201');
 
     expect(getByTestId('linkId-1.1').textContent).toEqual(
@@ -91,7 +91,7 @@ describe('QuestionnaireResponse should render component correctly', () => {
     );
     expect(getByTestId('status').textContent).toEqual('completed');
     expect(getByTestId('dateTime').textContent).toEqual('6/18/2013');
-    expect(getByTestId('subject').textContent).toEqual('RoelPatient/f201');
+    expect(getByTestId('subject').textContent).toEqual('Roel');
     expect(getByTestId('author').textContent).toEqual('Practitioner/f201');
 
     expect(getByTestId('linkId-1.1').textContent).toEqual(

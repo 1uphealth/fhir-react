@@ -80,9 +80,7 @@ describe('should render MedicationOrder component properly', () => {
 
     const { getByTestId } = render(<MedicationOrder {...defaultProps} />);
 
-    expect(getByTestId('title').textContent).toContain(
-      'Medication/MedicationExample2',
-    );
+    expect(getByTestId('title').textContent).toContain('prescribed medication');
     expect(getByTestId('reasonCode').textContent).toContain('Otitis Media');
     expect(getByTestId('hasDosageInstruction').textContent).toContain(
       'Take 5ml three times daily',

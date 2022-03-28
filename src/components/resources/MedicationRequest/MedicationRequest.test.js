@@ -87,7 +87,7 @@ describe('should render MedicationRequest component properly', () => {
     );
     expect(container).not.toBeNull();
 
-    expect(getByTestId('title').textContent).toContain('Medication/med0316');
+    expect(getByTestId('title').textContent).toContain('prescribed medication');
     expect(getByTestId('reasonCode').textContent).toContain(
       'Essential hypertension',
     );
@@ -118,7 +118,7 @@ describe('should render MedicationRequest component properly', () => {
     );
     expect(container).not.toBeNull();
 
-    expect(getByTestId('title').textContent).toContain('Medication/med0316');
+    expect(getByTestId('title').textContent).toContain('prescribed medication');
     expect(getByTestId('reasonCode').textContent).toContain(
       'Essential hypertension',
     );
@@ -160,7 +160,7 @@ describe('should render MedicationRequest component properly', () => {
     );
     expect(container).not.toBeNull();
 
-    expect(getByTestId('title').textContent).toContain('#med0304');
+    expect(getByTestId('title').textContent).toContain('Myleran 2mg tablet');
     expect(getByTestId('reasonCode').textContent).toContain(
       'Chronic myeloid Leukemia',
     );

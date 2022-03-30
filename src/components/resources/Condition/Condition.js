@@ -86,9 +86,8 @@ const resourceDTO = (fhirVersion, fhirResource) => {
       throw Error('Unrecognized the fhir version property type.');
   }
 };
-function Condition(props) {
-  const { fhirResource, fhirVersion, fhirIcons } = props;
 
+const Condition = ({ fhirResource, fhirVersion, fhirIcons, onClick }) => {
   const {
     codeText,
     severityText,
@@ -157,10 +156,11 @@ function Condition(props) {
           />
         }
         bodyContent={<Body tableData={tableData} />}
+        onClick={onClick}
       />
     </Root>
   );
-}
+};
 
 Condition.propTypes = {
   fhirResource: PropTypes.shape({}).isRequired,

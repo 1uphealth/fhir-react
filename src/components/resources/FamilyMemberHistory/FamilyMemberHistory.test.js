@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 import FamilyMemberHistory from './FamilyMemberHistory';
 import fhirVersions from '../fhirResourceVersions';
 
@@ -109,5 +109,40 @@ describe('should render FamilyMemberHistory component correctly', () => {
     expect(getByTestId('patient').textContent).toContain('Peter Patient');
     expect(getByTestId('hasRelationship').textContent).toContain('father');
     expect(getByTestId('noteText').textContent).toContain('Was fishing at');
+  });
+
+  it('should fire custom onClick function', () => {
+    const defaultProps = {
+      fhirResource: example1STU3,
+      fhirVersion: fhirVersions.STU3,
+    };
+
+    const onClick = jest.fn();
+    const { getByRole } = render(
+      <FamilyMemberHistory {...defaultProps} onClick={onClick} />,
+    );
+    const accordion = getByRole('button');
+    fireEvent.click(accordion);
+
+    const attribute = accordion.getAttribute('data-bs-toggle');
+    expect(attribute).not.toEqual('collapse');
+    expect(onClick).toHaveBeenCalled();
+  });
+
+  it('should not fire custom onClick function', () => {
+    const defaultProps = {
+      fhirResource: example1STU3,
+      fhirVersion: fhirVersions.STU3,
+    };
+
+    const onClick = 'test';
+    const { getByRole } = render(
+      <FamilyMemberHistory {...defaultProps} onClick={onClick} />,
+    );
+    const accordion = getByRole('button');
+    fireEvent.click(accordion);
+
+    const attribute = accordion.getAttribute('data-bs-toggle');
+    expect(attribute).toEqual('collapse');
   });
 });

@@ -130,6 +130,7 @@ const List = ({
   fhirVersion,
   withDaVinciPDex = false,
   fhirIcons,
+  onClick,
 }) => {
   let fhirResourceData = {};
   try {
@@ -289,6 +290,7 @@ const List = ({
             )}
           </Body>
         }
+        onClick={onClick}
       />
     </Root>
   );

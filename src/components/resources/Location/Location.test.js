@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 
 import Location from './Location';
 
@@ -218,5 +218,34 @@ describe('should render Location component properly', () => {
     expect(getByTestId('managingOrganization').textContent).toEqual(
       'Organization/f001',
     );
+  });
+
+  it('should fire custom onClick function', () => {
+    const defaultProps = { fhirResource: r4Example1 };
+
+    const onClick = jest.fn();
+    const { getByRole } = render(
+      <Location {...defaultProps} onClick={onClick} />,
+    );
+    const accordion = getByRole('button');
+    fireEvent.click(accordion);
+
+    const attribute = accordion.getAttribute('data-bs-toggle');
+    expect(attribute).not.toEqual('collapse');
+    expect(onClick).toHaveBeenCalled();
+  });
+
+  it('should not fire custom onClick function', () => {
+    const defaultProps = { fhirResource: r4Example1 };
+
+    const onClick = 'test';
+    const { getByRole } = render(
+      <Location {...defaultProps} onClick={onClick} />,
+    );
+    const accordion = getByRole('button');
+    fireEvent.click(accordion);
+
+    const attribute = accordion.getAttribute('data-bs-toggle');
+    expect(attribute).toEqual('collapse');
   });
 });

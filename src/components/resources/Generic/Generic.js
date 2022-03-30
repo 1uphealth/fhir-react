@@ -4,7 +4,7 @@ import _get from 'lodash/get';
 import { Root, Header } from '../../ui';
 import Accordion from '../../containers/Accordion';
 
-const Generic = ({ fhirResource, fhirIcons }) => {
+const Generic = ({ fhirResource, fhirIcons, onClick }) => {
   const title = fhirResource
     ? `${fhirResource.resourceType}/${fhirResource.id}`
     : `Unknown Resource`;
@@ -29,6 +29,7 @@ const Generic = ({ fhirResource, fhirIcons }) => {
             }
           />
         }
+        onClick={onClick}
       />
     </Root>
   );

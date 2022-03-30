@@ -70,8 +70,12 @@ const resourceDTO = (fhirVersion, fhirResource) => {
   }
 };
 
-const FamilyMemberHistory = props => {
-  const { fhirResource, fhirVersion, fhirIcons } = props;
+const FamilyMemberHistory = ({
+  fhirResource,
+  fhirVersion,
+  fhirIcons,
+  onClick,
+}) => {
   let fhirResourceData = {};
   try {
     fhirResourceData = resourceDTO(fhirVersion, fhirResource);
@@ -135,6 +139,7 @@ const FamilyMemberHistory = props => {
           />
         }
         bodyContent={<Body tableData={tableData} />}
+        onClick={onClick}
       />
     </Root>
   );

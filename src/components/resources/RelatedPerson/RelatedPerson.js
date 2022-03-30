@@ -67,7 +67,7 @@ const resourceDTO = (fhirVersion, fhirResource) => {
   }
 };
 
-const RelatedPerson = ({ fhirResource, fhirVersion, fhirIcons }) => {
+const RelatedPerson = ({ fhirResource, fhirVersion, fhirIcons, onClick }) => {
   let fhirResourceData = {};
   try {
     fhirResourceData = resourceDTO(fhirVersion, fhirResource);
@@ -138,6 +138,7 @@ const RelatedPerson = ({ fhirResource, fhirVersion, fhirIcons }) => {
           />
         }
         bodyContent={<Body tableData={tableData} />}
+        onClick={onClick}
       />
     </Root>
   );

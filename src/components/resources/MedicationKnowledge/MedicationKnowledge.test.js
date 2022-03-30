@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 
 import { fhirVersions } from '../../../index';
 
@@ -137,5 +137,42 @@ describe('should render MedicationKnowledge component properly', () => {
     expect(getByTestId('usdfDrugTierID').textContent).toContain(
       '(preferred-generic)',
     );
+  });
+
+  it('should fire custom onClick function', () => {
+    const defaultProps = {
+      fhirResource: example2R4,
+      fhirVersion: fhirVersions.R4,
+      withDaVinciPDex: true,
+    };
+
+    const onClick = jest.fn();
+    const { getByRole } = render(
+      <MedicationKnowledge {...defaultProps} onClick={onClick} />,
+    );
+    const accordion = getByRole('button');
+    fireEvent.click(accordion);
+
+    const attribute = accordion.getAttribute('data-bs-toggle');
+    expect(attribute).not.toEqual('collapse');
+    expect(onClick).toHaveBeenCalled();
+  });
+
+  it('should not fire custom onClick function', () => {
+    const defaultProps = {
+      fhirResource: example2R4,
+      fhirVersion: fhirVersions.R4,
+      withDaVinciPDex: true,
+    };
+
+    const onClick = 'test';
+    const { getByRole } = render(
+      <MedicationKnowledge {...defaultProps} onClick={onClick} />,
+    );
+    const accordion = getByRole('button');
+    fireEvent.click(accordion);
+
+    const attribute = accordion.getAttribute('data-bs-toggle');
+    expect(attribute).toEqual('collapse');
   });
 });

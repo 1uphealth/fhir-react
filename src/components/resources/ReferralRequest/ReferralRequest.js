@@ -70,7 +70,7 @@ const resourceDTO = (fhirVersion, fhirResource) => {
   }
 };
 
-const ReferralRequest = ({ fhirResource, fhirVersion, fhirIcons }) => {
+const ReferralRequest = ({ fhirResource, fhirVersion, fhirIcons, onClick }) => {
   let fhirResourceData = {};
   try {
     fhirResourceData = resourceDTO(fhirVersion, fhirResource);
@@ -149,6 +149,7 @@ const ReferralRequest = ({ fhirResource, fhirVersion, fhirIcons }) => {
             )}
           </Body>
         }
+        onClick={onClick}
       />
     </Root>
   );

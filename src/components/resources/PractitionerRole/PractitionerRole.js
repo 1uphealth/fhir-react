@@ -43,7 +43,12 @@ const resourceDTO = (fhirVersion, fhirResource) => {
   }
 };
 
-const PractitionerRole = ({ fhirResource, fhirVersion, fhirIcons }) => {
+const PractitionerRole = ({
+  fhirResource,
+  fhirVersion,
+  fhirIcons,
+  onClick,
+}) => {
   let fhirResourceData = {};
   try {
     fhirResourceData = resourceDTO(fhirVersion, fhirResource);
@@ -100,6 +105,7 @@ const PractitionerRole = ({ fhirResource, fhirVersion, fhirIcons }) => {
           />
         }
         bodyContent={<Body tableData={tableData} />}
+        onClick={onClick}
       />
     </Root>
   );

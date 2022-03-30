@@ -83,7 +83,7 @@ const resourceDTO = (fhirVersion, fhirResource) => {
   }
 };
 
-const CareTeam = ({ fhirResource, fhirVersion, fhirIcons }) => {
+const CareTeam = ({ fhirResource, fhirVersion, fhirIcons, onClick }) => {
   const {
     name,
     status,
@@ -166,6 +166,7 @@ const CareTeam = ({ fhirResource, fhirVersion, fhirIcons }) => {
             </ValueSection>
           </Body>
         }
+        onClick={onClick}
       />
     </Root>
   );

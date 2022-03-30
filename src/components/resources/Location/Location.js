@@ -9,7 +9,7 @@ import CodeableConcept from '../../datatypes/CodeableConcept';
 import Reference from '../../datatypes/Reference';
 import Accordion from '../../containers/Accordion';
 
-const Location = ({ fhirResource, fhirIcons }) => {
+const Location = ({ fhirResource, fhirIcons, onClick }) => {
   const name = _get(fhirResource, 'name');
   const status = _get(fhirResource, 'status');
   const description = _get(fhirResource, 'description');
@@ -81,6 +81,7 @@ const Location = ({ fhirResource, fhirIcons }) => {
           />
         }
         bodyContent={<Body tableData={tableData} />}
+        onClick={onClick}
       />
     </Root>
   );

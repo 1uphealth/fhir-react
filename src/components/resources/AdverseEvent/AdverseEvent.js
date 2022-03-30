@@ -71,7 +71,7 @@ const resourceDTO = (fhirVersion, fhirResource) => {
   }
 };
 
-const AdverseEvent = ({ fhirResource, fhirVersion, fhirIcons }) => {
+const AdverseEvent = ({ fhirResource, fhirVersion, fhirIcons, onClick }) => {
   let fhirResourceData = {};
   try {
     fhirResourceData = resourceDTO(fhirVersion, fhirResource);
@@ -164,6 +164,7 @@ const AdverseEvent = ({ fhirResource, fhirVersion, fhirIcons }) => {
             )}
           </Body>
         }
+        onClick={onClick}
       />
     </Root>
   );

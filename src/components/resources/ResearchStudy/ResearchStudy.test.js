@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 
 import ResearchStudy from './ResearchStudy';
 import fhirVersions from '../fhirResourceVersions';
@@ -153,5 +153,40 @@ describe('should render ResearchStudy component properly', () => {
 
     const status = getByTestId('status').textContent;
     expect(status).toEqual('completed');
+  });
+
+  it('should fire custom onClick function', () => {
+    const defaultProps = {
+      fhirResource: stu3Example1,
+      fhirVersion: fhirVersions.STU3,
+    };
+
+    const onClick = jest.fn();
+    const { getByRole } = render(
+      <ResearchStudy {...defaultProps} onClick={onClick} />,
+    );
+    const accordion = getByRole('button');
+    fireEvent.click(accordion);
+
+    const attribute = accordion.getAttribute('data-bs-toggle');
+    expect(attribute).not.toEqual('collapse');
+    expect(onClick).toHaveBeenCalled();
+  });
+
+  it('should not fire custom onClick function', () => {
+    const defaultProps = {
+      fhirResource: stu3Example1,
+      fhirVersion: fhirVersions.STU3,
+    };
+
+    const onClick = 'test';
+    const { getByRole } = render(
+      <ResearchStudy {...defaultProps} onClick={onClick} />,
+    );
+    const accordion = getByRole('button');
+    fireEvent.click(accordion);
+
+    const attribute = accordion.getAttribute('data-bs-toggle');
+    expect(attribute).toEqual('collapse');
   });
 });

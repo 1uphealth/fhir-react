@@ -102,7 +102,7 @@ const resourceDTO = (fhirVersion, fhirResource) => {
   }
 };
 
-const Device = ({ fhirResource, fhirVersion, fhirIcons }) => {
+const Device = ({ fhirResource, fhirVersion, fhirIcons, onClick }) => {
   let fhirResourceData = {};
   try {
     fhirResourceData = resourceDTO(fhirVersion, fhirResource);
@@ -178,6 +178,7 @@ const Device = ({ fhirResource, fhirVersion, fhirIcons }) => {
               ))}
           </Body>
         }
+        onClick={onClick}
       />
     </Root>
   );

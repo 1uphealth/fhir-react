@@ -159,7 +159,12 @@ const resourceDTO = (fhirVersion, fhirResource) => {
   }
 };
 
-const MedicationDispense = ({ fhirResource, fhirVersion, fhirIcons }) => {
+const MedicationDispense = ({
+  fhirResource,
+  fhirVersion,
+  fhirIcons,
+  onClick,
+}) => {
   let fhirResourceData = {};
   try {
     fhirResourceData = resourceDTO(fhirVersion, fhirResource);
@@ -237,6 +242,7 @@ const MedicationDispense = ({ fhirResource, fhirVersion, fhirIcons }) => {
             )}
           </Body>
         }
+        onClick={onClick}
       />
     </Root>
   );

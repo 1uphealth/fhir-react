@@ -71,7 +71,12 @@ const resourceDTO = (fhirVersion, fhirResource) => {
   }
 };
 
-const QuestionnaireResponse = ({ fhirResource, fhirVersion, fhirIcons }) => {
+const QuestionnaireResponse = ({
+  fhirResource,
+  fhirVersion,
+  fhirIcons,
+  onClick,
+}) => {
   let fhirResourceData = {};
 
   try {
@@ -133,6 +138,7 @@ const QuestionnaireResponse = ({ fhirResource, fhirVersion, fhirIcons }) => {
             )}
           </Body>
         }
+        onClick={onClick}
       />
     </Root>
   );

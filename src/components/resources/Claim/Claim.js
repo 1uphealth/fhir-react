@@ -298,7 +298,7 @@ const resourceDTO = (fhirVersion, fhirResource) => {
   }
 };
 
-const Claim = ({ fhirResource, fhirVersion, fhirIcons }) => {
+const Claim = ({ fhirResource, fhirVersion, fhirIcons, onClick }) => {
   let fhirResourceData = {};
   try {
     fhirResourceData = resourceDTO(fhirVersion, fhirResource);
@@ -481,6 +481,7 @@ const Claim = ({ fhirResource, fhirVersion, fhirIcons }) => {
             {items && <Items items={items} />}
           </Body>
         }
+        onClick={onClick}
       />
     </Root>
   );

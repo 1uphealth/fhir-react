@@ -154,6 +154,24 @@ const MyComponent = () => {
 };
 ```
 
+or
+
+```jsx
+const MyComponent = () => {
+  const fhirResource = JSON.parse(fhirResourceAsJsonString);
+  
+  const functionHandler = /*function*/
+  
+  return (
+    <FhirResource
+      fhirResource={fhirResource}
+      fhirVersion={fhirVersions.R4}
+      onClick={functionHandler}
+    />
+  );
+};
+```
+
 ### `FhirResource` component props
 
 | Prop                 | Type                                                       | Default | Description                                                                                                                                                                                               |

@@ -4,7 +4,7 @@ import dstu2Example from '../../../fixtures/dstu2/resources/immunization/example
 import fhirVersions from '../fhirResourceVersions';
 import r4Example1 from '../../../fixtures/r4/resources/immunization/example1.json';
 import r4Example2 from '../../../fixtures/r4/resources/immunization/example2.json';
-import { render } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 import stu3Example from '../../../fixtures/stu3/resources/immunization/example1.json';
 import fhirIcons from '../../../fixtures/example-icons';
 
@@ -221,5 +221,22 @@ describe('should render Immunization component properly', () => {
     expect(queryByTestId('route')).toBeNull();
 
     expect(queryByTestId('site')).toBeNull();
+  });
+
+  it('should fire custom onClick function', () => {
+    const defaultProps = {
+      fhirResource: r4Example1,
+      fhirVersion: fhirVersions.R4,
+    };
+
+    const onClick = jest.fn();
+    const { getByRole } = render(
+      <Immunization {...defaultProps} onClick={onClick} />,
+    );
+    const accordion = getByRole('button');
+
+    fireEvent.click(accordion);
+
+    expect(onClick).toHaveBeenCalled();
   });
 });

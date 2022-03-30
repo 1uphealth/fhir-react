@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 
 import QuestionnaireResponse from './QuestionnaireResponse';
 import fhirVersions from '../fhirResourceVersions';
@@ -111,5 +111,22 @@ describe('QuestionnaireResponse should render component correctly', () => {
     expect(getByTestId('linkId-3.2').textContent).toEqual(
       'Do you drink alchohol?',
     );
+  });
+
+  it('should fire custom onClick function', () => {
+    const defaultProps = {
+      fhirResource: r4Example1,
+      fhirVersion: fhirVersions.R4,
+    };
+
+    const onClick = jest.fn();
+    const { getByRole } = render(
+      <QuestionnaireResponse {...defaultProps} onClick={onClick} />,
+    );
+    const accordion = getByRole('button');
+
+    fireEvent.click(accordion);
+
+    expect(onClick).toHaveBeenCalled();
   });
 });

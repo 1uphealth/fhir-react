@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 
 import ClaimResponse from './ClaimResponse';
 import fhirVersions from '../fhirResourceVersions';
@@ -337,5 +337,22 @@ describe('should render the ClaimResponse component properly', () => {
       'Radiograph, bytewing (2141)',
       ' (expense)',
     ]);
+  });
+
+  it('should fire custom onClick function', () => {
+    const defaultProps = {
+      fhirResource: r4Example3,
+      fhirVersion: fhirVersions.R4,
+    };
+
+    const onClick = jest.fn();
+    const { getAllByRole } = render(
+      <ClaimResponse {...defaultProps} onClick={onClick} />,
+    );
+    const accordion = getAllByRole('button')[0];
+
+    fireEvent.click(accordion);
+
+    expect(onClick).toHaveBeenCalled();
   });
 });

@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 
 import Claim from './Claim';
 import fhirVersions from '../fhirResourceVersions';
@@ -359,5 +359,20 @@ describe('should render the Claim component properly', () => {
     expect(unitPrices).toEqual(['135.57 USD']);
     expect(quantities).toEqual(['-']);
     expect(netPrices).toEqual(['135.57 USD']);
+  });
+
+  it('should fire custom onClick function', () => {
+    const defaultProps = {
+      fhirResource: r4Example1,
+      fhirVersion: fhirVersions.R4,
+    };
+
+    const onClick = jest.fn();
+    const { getByRole } = render(<Claim {...defaultProps} onClick={onClick} />);
+    const accordion = getByRole('button');
+
+    fireEvent.click(accordion);
+
+    expect(onClick).toHaveBeenCalled();
   });
 });

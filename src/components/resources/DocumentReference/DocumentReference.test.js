@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 
 import { nbspRegex } from '../../../testUtils';
 import fhirVersions from '../fhirResourceVersions';
@@ -267,5 +267,25 @@ describe('should render the DocumentReference component properly', () => {
 
     const urls = getAllByTestId('content.url').map(node => node.textContent);
     expect(urls).toEqual(['Binary/07a6483f-732b-461e-86b6-edb665c45510']);
+  });
+
+  it('should fire custom onClick function', () => {
+    const resource = JSON.parse(JSON.stringify(r4Example1));
+    resource.content[0].attachment.url =
+      'http://example.org/xds/mhd/Binary/07a6483f-732b-461e-86b6-edb665c45510';
+
+    const onClick = jest.fn();
+    const { getByRole } = render(
+      <DocumentReference
+        fhirResource={resource}
+        fhirVersion={fhirVersions.R4}
+        onClick={onClick}
+      />,
+    );
+    const accordion = getByRole('button');
+
+    fireEvent.click(accordion);
+
+    expect(onClick).toHaveBeenCalled();
   });
 });

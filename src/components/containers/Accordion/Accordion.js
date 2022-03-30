@@ -58,19 +58,21 @@ const Accordion = props => {
               type="button"
               data-bs-target={`#${accordionId}`}
               data-bs-toggle={
-                isAccordionOpenable() && onClick === undefined
+                isAccordionOpenable() && typeof onClick !== 'function'
                   ? 'collapse'
                   : null
               }
               aria-controls={accordionId}
               aria-expanded="false"
-              onClick={onClick || handleAccordionClick}
+              onClick={
+                typeof onClick === 'function' ? onClick : handleAccordionClick
+              }
             >
               <div className="fhir-container__Accordion__header-text d-flex w-100 justify-content-start position-relative">
                 {React.cloneElement(headerContent, {
                   isAccordionOpenable: isAccordionOpenable(),
                 })}
-                {onClick === undefined && getChevron()}
+                {typeof onClick !== 'function' && getChevron()}
               </div>
             </button>
           </div>

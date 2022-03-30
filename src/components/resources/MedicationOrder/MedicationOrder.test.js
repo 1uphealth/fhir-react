@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 
 import MedicationOrder from './MedicationOrder';
 
@@ -87,5 +87,21 @@ describe('should render MedicationOrder component properly', () => {
     expect(getByTestId('hasDosageInstruction').textContent).toContain(
       'Take 5ml three times daily',
     );
+  });
+
+  it('should fire custom onClick function', () => {
+    const defaultProps = {
+      fhirResource: example,
+    };
+
+    const onClick = jest.fn();
+    const { getByRole } = render(
+      <MedicationOrder {...defaultProps} onClick={onClick} />,
+    );
+    const accordion = getByRole('button');
+
+    fireEvent.click(accordion);
+
+    expect(onClick).toHaveBeenCalled();
   });
 });

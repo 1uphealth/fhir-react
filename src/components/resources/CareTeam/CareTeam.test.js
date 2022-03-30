@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 
 import CareTeam from './CareTeam';
 import fhirVersions from '../fhirResourceVersions';
@@ -189,5 +189,22 @@ describe('should render the CareTeam component properly', () => {
       n => n.textContent,
     );
     expect(periodEnds).toEqual(['-', '1/1/2013']);
+  });
+
+  it('should fire custom onClick function', () => {
+    const defaultProps = {
+      fhirResource: r4Example1,
+      fhirVersion: fhirVersions.R4,
+    };
+
+    const onClick = jest.fn();
+    const { getByRole } = render(
+      <CareTeam {...defaultProps} onClick={onClick} />,
+    );
+    const accordion = getByRole('button');
+
+    fireEvent.click(accordion);
+
+    expect(onClick).toHaveBeenCalled();
   });
 });

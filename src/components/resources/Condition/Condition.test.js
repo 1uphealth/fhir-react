@@ -8,7 +8,7 @@ import exampleConditionSTU3 from '../../../fixtures/stu3/resources/condition/exa
 import exampleConditionSeverity from '../../../fixtures/dstu2/resources/condition/example-severity.json';
 import exampleConditionSeveritySTU3 from '../../../fixtures/stu3/resources/condition/example-severity.json';
 import fhirVersions from '../fhirResourceVersions';
-import { render } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 import fhirIcons from '../../../fixtures/example-icons';
 
 describe('should render component correctly', () => {
@@ -190,5 +190,22 @@ describe('should render component correctly', () => {
     expect(getByTestId('onsetDate').textContent).toEqual('4/2/2013');
     expect(getByTestId('asserter').textContent).toEqual('Practitioner/f201');
     expect(getByTestId('dateRecorded').textContent).toEqual('4/4/2013');
+  });
+
+  it('should fire custom onClick function', () => {
+    const defaultProps = {
+      fhirResource: example3ConditionSeverityR4,
+      fhirVersion: fhirVersions.R4,
+    };
+
+    const onClick = jest.fn();
+    const { getByRole } = render(
+      <Condition {...defaultProps} onClick={onClick} />,
+    );
+    const accordion = getByRole('button');
+
+    fireEvent.click(accordion);
+
+    expect(onClick).toHaveBeenCalled();
   });
 });

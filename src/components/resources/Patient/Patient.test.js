@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 import Patient from './Patient';
 
 import examplePatient from '../../../fixtures/dstu2/resources/patient/example.json';
@@ -155,5 +155,19 @@ describe('should render component correctly', () => {
     };
     const { getByTestId } = render(<Patient {...defaultProps} />);
     expect(getByTestId('deceasedInfo').textContent).toEqual('2/14/2015');
+  });
+
+  it('should fire custom onClick function', () => {
+    const defaultProps = { fhirResource: example3PatientR4 };
+
+    const onClick = jest.fn();
+    const { getByRole } = render(
+      <Patient {...defaultProps} onClick={onClick} />,
+    );
+    const accordion = getByRole('button');
+
+    fireEvent.click(accordion);
+
+    expect(onClick).toHaveBeenCalled();
   });
 });

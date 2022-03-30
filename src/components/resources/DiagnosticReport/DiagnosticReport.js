@@ -99,7 +99,6 @@ const DiagnosticReport = ({
   fhirIcons,
   onClick,
 }) => {
-  onClick = { onClick };
   let fhirResourceData = {};
   try {
     fhirResourceData = resourceDTO(fhirVersion, fhirResource);

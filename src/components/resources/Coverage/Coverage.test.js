@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 import Coverage from './Coverage';
 import fhirVersions from '../fhirResourceVersions';
 
@@ -150,5 +150,22 @@ describe('should render component correctly', () => {
     expect(getByTestId('coverageTo').textContent).toContain('2012-05-23');
     expect(getByTestId('type').textContent).toContain('extended healthcare');
     expect(queryAllByTestId('details').length).toEqual(0);
+  });
+
+  it('should fire custom onClick function', () => {
+    const defaultProps = {
+      fhirResource: exampleCoverageR4,
+      fhirVersion: fhirVersions.R4,
+    };
+
+    const onClick = jest.fn();
+    const { getByRole } = render(
+      <Coverage {...defaultProps} onClick={onClick} />,
+    );
+    const accordion = getByRole('button');
+
+    fireEvent.click(accordion);
+
+    expect(onClick).toHaveBeenCalled();
   });
 });

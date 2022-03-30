@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 import RelatedPerson from './RelatedPerson';
 import fhirVersions from '../fhirResourceVersions';
 
@@ -117,5 +117,22 @@ describe('should render component correctly', () => {
     expect(getByTestId('birthDate').textContent).toEqual('1973-05-31');
     expect(getByTestId('address').textContent).toEqual('2222 Home Street   ');
     expect(getByTestId('telephone').textContent).toEqual('555-555-2003');
+  });
+
+  it('should fire custom onClick function', () => {
+    const defaultProps = {
+      fhirResource: example3,
+      fhirVersion: fhirVersions.R4,
+    };
+
+    const onClick = jest.fn();
+    const { getByRole } = render(
+      <RelatedPerson {...defaultProps} onClick={onClick} />,
+    );
+    const accordion = getByRole('button');
+
+    fireEvent.click(accordion);
+
+    expect(onClick).toHaveBeenCalled();
   });
 });

@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 import DiagnosticReport from './DiagnosticReport';
 import fhirVersions from '../fhirResourceVersions';
 
@@ -151,5 +151,22 @@ describe('should render component correctly', () => {
     expect(getByTestId('categoryCoding').textContent).toContain('(MB)');
 
     expect(getByTestId('performer').textContent).toContain('Todd Ashby');
+  });
+
+  it('should fire custom onClick function', () => {
+    const defaultProps = {
+      fhirResource: example2DiagnosticReportR4,
+      fhirVersion: fhirVersions.R4,
+    };
+
+    const onClick = jest.fn();
+    const { getByRole } = render(
+      <DiagnosticReport {...defaultProps} onClick={onClick} />,
+    );
+    const accordion = getByRole('button');
+
+    fireEvent.click(accordion);
+
+    expect(onClick).toHaveBeenCalled();
   });
 });

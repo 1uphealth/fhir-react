@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 
 import Medication from './Medication';
 import fhirVersions from '../fhirResourceVersions';
@@ -187,5 +187,22 @@ describe('should render Medication component properly', () => {
     expect(queryByTestId('package-container')).toBeNull();
     expect(queryByTestId('product-images')).toBeNull();
     expect(getByTestId('product-ingredient').textContent).toContain('#sub04');
+  });
+
+  it('should fire custom onClick function', () => {
+    const defaultProps = {
+      fhirResource: r4Example2,
+      fhirVersion: fhirVersions.R4,
+    };
+
+    const onClick = jest.fn();
+    const { getByRole } = render(
+      <Medication {...defaultProps} onClick={onClick} />,
+    );
+    const accordion = getByRole('button');
+
+    fireEvent.click(accordion);
+
+    expect(onClick).toHaveBeenCalled();
   });
 });

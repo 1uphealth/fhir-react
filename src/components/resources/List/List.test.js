@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 
 import { fhirVersions } from '../../../index';
 
@@ -162,5 +162,21 @@ describe('should render List component properly', () => {
       'https://content.carefirst.com/sbc/D,$0/ D,$0/ D,$0/ D,$0/ D,$0B+',
     );
     expect(getByTestId('usdfPlanIDType').textContent).toContain('HIOS-PLAN-ID');
+  });
+
+  it('should fire custom onClick function', () => {
+    const defaultProps = {
+      fhirResource: example2R4,
+      fhirVersion: fhirVersions.R4,
+      withDaVinciPDex: true,
+    };
+
+    const onClick = jest.fn();
+    const { getByRole } = render(<List {...defaultProps} onClick={onClick} />);
+    const accordion = getByRole('button');
+
+    fireEvent.click(accordion);
+
+    expect(onClick).toHaveBeenCalled();
   });
 });

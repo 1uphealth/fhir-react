@@ -8,7 +8,7 @@ import exampleC4BB from '../../../fixtures/r4/resources/explanationOfBenefit/c4b
 import exampleC4BBExtendedDiagnosis from '../../../fixtures/r4/resources/explanationOfBenefit/c4bbExtendedDiagnosis.json';
 import fhirVersions from '../fhirResourceVersions';
 import { nbspRegex } from '../../../testUtils';
-import { render } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 import fhirIcons from '../../../fixtures/example-icons';
 
 describe('should render ExplanationOfBenefit component properly', () => {
@@ -330,5 +330,23 @@ describe('should render ExplanationOfBenefit component properly', () => {
 
     expect(getByTestId('diagnosisOnAdmission').textContent).toContain('?');
     expect(queryByTestId('diagnosisPackageCode')).toBeNull();
+  });
+
+  it('should fire custom onClick function', () => {
+    const defaultProps = {
+      fhirResource: exampleC4BBExtendedDiagnosis,
+      fhirVersion: fhirVersions.R4,
+      withCarinBBProfile: true,
+    };
+
+    const onClick = jest.fn();
+    const { getByRole } = render(
+      <ExplanationOfBenefit {...defaultProps} onClick={onClick} />,
+    );
+    const accordion = getByRole('button');
+
+    fireEvent.click(accordion);
+
+    expect(onClick).toHaveBeenCalled();
   });
 });

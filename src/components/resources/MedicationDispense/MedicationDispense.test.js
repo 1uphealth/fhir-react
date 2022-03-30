@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, within } from '@testing-library/react';
+import { fireEvent, render, within } from '@testing-library/react';
 import MedicationDispense from './MedicationDispense';
 import fhirVersions from '../fhirResourceVersions';
 
@@ -155,5 +155,22 @@ describe('should render Device component properly', () => {
             .join(''),
         ),
     ).toEqual(['Ordered(ordered)', 'Ordered(ordered)', 'Ordered(ordered)']);
+  });
+
+  it('should fire custom onClick function', () => {
+    const defaultProps = {
+      fhirResource: R4Example2,
+      fhirVersion: fhirVersions.R4,
+    };
+
+    const onClick = jest.fn();
+    const { getByRole } = render(
+      <MedicationDispense {...defaultProps} onClick={onClick} />,
+    );
+    const accordion = getByRole('button');
+
+    fireEvent.click(accordion);
+
+    expect(onClick).toHaveBeenCalled();
   });
 });

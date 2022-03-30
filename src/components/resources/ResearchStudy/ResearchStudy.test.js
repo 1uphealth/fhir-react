@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 
 import ResearchStudy from './ResearchStudy';
 import fhirVersions from '../fhirResourceVersions';
@@ -153,5 +153,22 @@ describe('should render ResearchStudy component properly', () => {
 
     const status = getByTestId('status').textContent;
     expect(status).toEqual('completed');
+  });
+
+  it('should fire custom onClick function', () => {
+    const defaultProps = {
+      fhirResource: r4Example1,
+      fhirVersion: fhirVersions.R4,
+    };
+
+    const onClick = jest.fn();
+    const { getByRole } = render(
+      <ResearchStudy {...defaultProps} onClick={onClick} />,
+    );
+    const accordion = getByRole('button');
+
+    fireEvent.click(accordion);
+
+    expect(onClick).toHaveBeenCalled();
   });
 });

@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 import Practitioner from './Practitioner';
 import fhirVersions from '../fhirResourceVersions';
 
@@ -169,5 +169,22 @@ describe('Practitioner should render component correctly', () => {
       'Unrecognized the fhir version property type.',
     );
     jest.restoreAllMocks();
+  });
+
+  it('should fire custom onClick function', () => {
+    const defaultProps = {
+      fhirVersion: fhirVersions.R4,
+      fhirResource: stu3Example1,
+    };
+
+    const onClick = jest.fn();
+    const { getByRole } = render(
+      <Practitioner {...defaultProps} onClick={onClick} />,
+    );
+    const accordion = getByRole('button');
+
+    fireEvent.click(accordion);
+
+    expect(onClick).toHaveBeenCalled();
   });
 });

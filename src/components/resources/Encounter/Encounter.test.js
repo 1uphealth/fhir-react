@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 import Encounter from './Encounter';
 import fhirVersions from '../fhirResourceVersions';
 import example1 from '../../../fixtures/dstu2/resources/encounter/example.json';
@@ -197,5 +197,22 @@ describe('should render component correctly', () => {
       'Unrecognized the fhir version property type.',
     );
     jest.restoreAllMocks();
+  });
+
+  it('should fire custom onClick function', () => {
+    const defaultProps = {
+      fhirResource: example2_STU3,
+      fhirVersion: fhirVersions.R4,
+    };
+
+    const onClick = jest.fn();
+    const { getByRole } = render(
+      <Encounter {...defaultProps} onClick={onClick} />,
+    );
+    const accordion = getByRole('button');
+
+    fireEvent.click(accordion);
+
+    expect(onClick).toHaveBeenCalled();
   });
 });

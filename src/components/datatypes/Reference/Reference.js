@@ -7,17 +7,19 @@ const Reference = props => {
   const { fhirData } = props;
   const display = _get(fhirData, 'display');
   const reference = _get(fhirData, 'reference', '');
+
   return (
     <div
       className="fhir-datatype__Reference d-inline-block"
       data-testid={props['data-testid']}
     >
       {display && <span className="mr-2 pe-1">{display}</span>}
-      {reference.startsWith('http://') || reference.startsWith('https://') ? (
-        <a href={reference}>{reference}</a>
-      ) : (
-        <span>{reference}</span>
-      )}
+      {!display &&
+        (reference.startsWith('http://') || reference.startsWith('https://') ? (
+          <a href={reference}>{reference}</a>
+        ) : (
+          <span>{reference}</span>
+        ))}
     </div>
   );
 };

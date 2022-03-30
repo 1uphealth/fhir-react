@@ -108,9 +108,7 @@ describe('should render component correctly', () => {
     expect(getByTestId('clinicalStatus').textContent).toEqual('active');
     expect(getByTestId('severity').textContent).toEqual('Medium severity');
     expect(getByTestId('onsetDate').textContent).toEqual('8/24/2015');
-    expect(getByTestId('asserter').textContent).toEqual(
-      'MOORE, NICKPractitioner/f8fedcd9e6e565a21f457909',
-    );
+    expect(getByTestId('asserter').textContent).toEqual('MOORE, NICK');
   });
 
   it('STU3 - without severity field', () => {

@@ -111,8 +111,9 @@ describe('should render component correctly', () => {
     expect(getByTestId('activity').textContent).toContain('3141-9');
     expect(getByTestId('intent').textContent).toEqual('plan');
     expect(getByTestId('description').textContent).toContain('Manage obesity');
-    expect(getByTestId('subject').textContent).toContain('Peter James');
-    expect(getByTestId('subject').textContent).toContain('Patient/example');
+    expect(getByTestId('subject').textContent).toContain(
+      'Peter James Chalmers',
+    );
     expect(getByTestId('author').textContent).toContain('Dr Adam Careful');
     expect(getByTestId('periodEnd').textContent).toEqual('6/1/2017');
     expect(getByTestId('basedOn').textContent).toEqual(
@@ -136,8 +137,9 @@ describe('should render component correctly', () => {
     expect(getByTestId('intent').textContent).toEqual('plan');
     expect(getByTestId('goals').textContent).toEqual('Goal/example');
     expect(getByTestId('description').textContent).toContain('Manage obesity');
-    expect(getByTestId('subject').textContent).toContain('Peter James');
-    expect(getByTestId('subject').textContent).toContain('Patient/example');
+    expect(getByTestId('subject').textContent).toContain(
+      'Peter James Chalmers',
+    );
     expect(getByTestId('author').textContent).toContain('Dr Adam Careful');
     expect(getByTestId('periodEnd').textContent).toEqual('6/1/2017');
     expect(getByTestId('basedOn').textContent).toEqual(
@@ -160,7 +162,6 @@ describe('should render component correctly', () => {
     expect(getByTestId('intent').textContent).toEqual('plan');
     expect(getByTestId('goals').textContent).toEqual('#goal');
     expect(getByTestId('subject').textContent).toContain('Eve Everywoman');
-    expect(getByTestId('subject').textContent).toContain('Patient/1');
     expect(getByTestId('periodStart').textContent).toEqual('1/1/2013');
     expect(getByTestId('periodEnd').textContent).toEqual('10/1/2013');
   });

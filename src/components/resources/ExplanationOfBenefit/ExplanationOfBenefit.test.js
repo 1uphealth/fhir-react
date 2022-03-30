@@ -344,9 +344,28 @@ describe('should render ExplanationOfBenefit component properly', () => {
       <ExplanationOfBenefit {...defaultProps} onClick={onClick} />,
     );
     const accordion = getByRole('button');
-
     fireEvent.click(accordion);
 
+    const attribute = accordion.getAttribute('data-bs-toggle');
+    expect(attribute).not.toEqual('collapse');
     expect(onClick).toHaveBeenCalled();
+  });
+
+  it('should not fire custom onClick function', () => {
+    const defaultProps = {
+      fhirResource: exampleC4BBExtendedDiagnosis,
+      fhirVersion: fhirVersions.R4,
+      withCarinBBProfile: true,
+    };
+
+    const onClick = 'test';
+    const { getByRole } = render(
+      <ExplanationOfBenefit {...defaultProps} onClick={onClick} />,
+    );
+    const accordion = getByRole('button');
+    fireEvent.click(accordion);
+
+    const attribute = accordion.getAttribute('data-bs-toggle');
+    expect(attribute).toEqual('collapse');
   });
 });

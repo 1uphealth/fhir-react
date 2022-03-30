@@ -180,9 +180,24 @@ describe('should render MedicationRequest component properly', () => {
       <MedicationRequest {...defaultProps} onClick={onClick} />,
     );
     const accordion = getByRole('button');
-
     fireEvent.click(accordion);
 
+    const attribute = accordion.getAttribute('data-bs-toggle');
+    expect(attribute).not.toEqual('collapse');
     expect(onClick).toHaveBeenCalled();
+  });
+
+  it('should not fire custom onClick function', () => {
+    const defaultProps = { fhirResource: r4Example3 };
+
+    const onClick = 'test';
+    const { getByRole } = render(
+      <MedicationRequest {...defaultProps} onClick={onClick} />,
+    );
+    const accordion = getByRole('button');
+    fireEvent.click(accordion);
+
+    const attribute = accordion.getAttribute('data-bs-toggle');
+    expect(attribute).toEqual('collapse');
   });
 });

@@ -182,9 +182,27 @@ describe('Practitioner should render component correctly', () => {
       <Practitioner {...defaultProps} onClick={onClick} />,
     );
     const accordion = getByRole('button');
-
     fireEvent.click(accordion);
 
+    const attribute = accordion.getAttribute('data-bs-toggle');
+    expect(attribute).not.toEqual('collapse');
     expect(onClick).toHaveBeenCalled();
+  });
+
+  it('should not fire custom onClick function', () => {
+    const defaultProps = {
+      fhirVersion: fhirVersions.R4,
+      fhirResource: stu3Example1,
+    };
+
+    const onClick = 'test';
+    const { getByRole } = render(
+      <Practitioner {...defaultProps} onClick={onClick} />,
+    );
+    const accordion = getByRole('button');
+    fireEvent.click(accordion);
+
+    const attribute = accordion.getAttribute('data-bs-toggle');
+    expect(attribute).toEqual('collapse');
   });
 });

@@ -29,9 +29,10 @@ describe('should render the Generic component properly', () => {
       <Generic fhirResource={exampleResource} onClick={onClick} />,
     );
     const accordion = getByRole('button');
-
     fireEvent.click(accordion);
 
+    const attribute = accordion.getAttribute('data-bs-toggle');
+    expect(attribute).not.toEqual('collapse');
     expect(onClick).toHaveBeenCalled();
   });
 });

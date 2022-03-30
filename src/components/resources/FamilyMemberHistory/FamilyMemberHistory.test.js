@@ -122,9 +122,27 @@ describe('should render FamilyMemberHistory component correctly', () => {
       <FamilyMemberHistory {...defaultProps} onClick={onClick} />,
     );
     const accordion = getByRole('button');
-
     fireEvent.click(accordion);
 
+    const attribute = accordion.getAttribute('data-bs-toggle');
+    expect(attribute).not.toEqual('collapse');
     expect(onClick).toHaveBeenCalled();
+  });
+
+  it('should not fire custom onClick function', () => {
+    const defaultProps = {
+      fhirResource: example1STU3,
+      fhirVersion: fhirVersions.STU3,
+    };
+
+    const onClick = 'test';
+    const { getByRole } = render(
+      <FamilyMemberHistory {...defaultProps} onClick={onClick} />,
+    );
+    const accordion = getByRole('button');
+    fireEvent.click(accordion);
+
+    const attribute = accordion.getAttribute('data-bs-toggle');
+    expect(attribute).toEqual('collapse');
   });
 });

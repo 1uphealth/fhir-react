@@ -283,9 +283,30 @@ describe('should render the DocumentReference component properly', () => {
       />,
     );
     const accordion = getByRole('button');
-
     fireEvent.click(accordion);
 
+    const attribute = accordion.getAttribute('data-bs-toggle');
+    expect(attribute).not.toEqual('collapse');
     expect(onClick).toHaveBeenCalled();
+  });
+
+  it('should not fire custom onClick function', () => {
+    const resource = JSON.parse(JSON.stringify(r4Example1));
+    resource.content[0].attachment.url =
+      'http://example.org/xds/mhd/Binary/07a6483f-732b-461e-86b6-edb665c45510';
+
+    const onClick = 'test';
+    const { getByRole } = render(
+      <DocumentReference
+        fhirResource={resource}
+        fhirVersion={fhirVersions.R4}
+        onClick={onClick}
+      />,
+    );
+    const accordion = getByRole('button');
+    fireEvent.click(accordion);
+
+    const attribute = accordion.getAttribute('data-bs-toggle');
+    expect(attribute).toEqual('collapse');
   });
 });

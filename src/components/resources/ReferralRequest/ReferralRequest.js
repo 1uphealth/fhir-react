@@ -9,13 +9,15 @@ import UnhandledResourceDataStructure from '../UnhandledResourceDataStructure';
 import {
   Root,
   Body,
-  Value,
   Table,
   TableRow,
   TableHeader,
   TableCell,
   MissingValue,
+  Header,
+  ValueSection,
 } from '../../ui';
+import Accordion from '../../containers/Accordion';
 
 const commonDTO = fhirResource => {
   const typeCoding = _get(fhirResource, 'type.coding.0');
@@ -68,8 +70,7 @@ const resourceDTO = (fhirVersion, fhirResource) => {
   }
 };
 
-const ReferralRequest = props => {
-  const { fhirResource, fhirVersion } = props;
+const ReferralRequest = ({ fhirResource, fhirVersion, fhirIcons, onClick }) => {
   let fhirResourceData = {};
   try {
     fhirResourceData = resourceDTO(fhirVersion, fhirResource);
@@ -87,45 +88,69 @@ const ReferralRequest = props => {
     description,
   } = fhirResourceData;
 
+  const tableData = [
+    {
+      testId: 'dateSent',
+      data: <Date fhirData={dateSent} isBlack />,
+      status: dateSent,
+    },
+    {
+      testId: 'subject',
+      data: <span>{subject}</span>,
+      status: subject,
+    },
+    {
+      testId: 'requester',
+      data: <span>{requester}</span>,
+      status: requester,
+    },
+    {
+      testId: 'status',
+      data: <span>{status}</span>,
+      status: status,
+    },
+  ];
+
   return (
     <Root name="ReferralRequest">
-      <Body>
-        {typeCoding && (
-          <Value label="Type" data-testid="typeCoding">
-            <Coding fhirData={typeCoding} />
-          </Value>
-        )}
-        <div className="overflow-auto">
-          <Table>
-            <thead>
-              <TableRow>
-                <TableHeader>Request sent</TableHeader>
-                <TableHeader>Patient</TableHeader>
-                <TableHeader>Requester</TableHeader>
-                <TableHeader>status</TableHeader>
-              </TableRow>
-            </thead>
-            <tbody>
-              <TableRow>
-                <TableCell data-testid="dateSent">
-                  {dateSent ? <Date fhirData={dateSent} /> : <MissingValue />}
-                </TableCell>
-                <TableCell data-testid="subject">
-                  {subject ? <span>{subject}</span> : <MissingValue />}
-                </TableCell>
-                <TableCell data-testid="requester">
-                  {requester ? <span>{requester}</span> : <MissingValue />}
-                </TableCell>
-                <TableCell data-testid="status">
-                  {status ? <span>{status}</span> : <MissingValue />}
-                </TableCell>
-              </TableRow>
-            </tbody>
-          </Table>
-        </div>
-        {reason && <div data-testid="reason">{reason}</div>}
-        {description && <small data-testid="description">{description}</small>}
-      </Body>
+      <Accordion
+        headerContent={
+          <Header
+            resourceName="ReferralRequest"
+            title={typeCoding && <Coding fhirData={typeCoding} />}
+            icon={fhirIcons}
+          />
+        }
+        bodyContent={
+          <Body>
+            <Table>
+              <thead>
+                <TableRow>
+                  <TableHeader>Request sent</TableHeader>
+                  <TableHeader>Patient</TableHeader>
+                  <TableHeader>Requester</TableHeader>
+                  <TableHeader>Status</TableHeader>
+                </TableRow>
+              </thead>
+              <tbody className="border-top-0">
+                <TableRow>
+                  {tableData.map((element, index) => (
+                    <TableCell key={index} data-testid={element.testId}>
+                      {element.status ? element.data : <MissingValue />}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              </tbody>
+            </Table>
+            {description && (
+              <ValueSection label={reason} data-testid="reason" marginTop>
+                <small className="text-secondary">{description}</small>
+              </ValueSection>
+            )}
+          </Body>
+        }
+        onClick={onClick}
+      />
     </Root>
   );
 };

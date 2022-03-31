@@ -15,6 +15,8 @@ export const Header = ({
   additionalContent,
   rightAdditionalContent,
   children,
+  capitalize = false,
+  isNoIcon = false,
 }) => {
   const rightItemsClass = 'align-items-center flex-fill d-flex';
 
@@ -31,15 +33,20 @@ export const Header = ({
             } d-flex w-100 flex-column flex-sm-row`}
           >
             <div className="d-flex">
-              <div
-                className={`fhir-ui__${resourceName}-Header__icon d-flex align-items-center flex-shrink-1 m-half me-2`}
-              >
-                <HeaderIcon headerIcon={icon} resourceName={resourceName} />
-              </div>
+              {!isNoIcon && (
+                <div
+                  className={`fhir-ui__${resourceName}-Header__icon d-flex align-items-center flex-shrink-1 m-half me-2`}
+                >
+                  <HeaderIcon headerIcon={icon} resourceName={resourceName} />
+                </div>
+              )}
               <div
                 className={`fhir-ui__${resourceName}-Header__title flex-fill text-start`}
               >
-                <Title data-testid={titleTestID || 'title'}>
+                <Title
+                  data-testid={titleTestID || 'title'}
+                  capitalize={capitalize}
+                >
                   {title || ''}
                 </Title>
               </div>
@@ -77,7 +84,9 @@ export const Header = ({
 
 export const Title = props => (
   <h4
-    className="fhir-ui__Title fw-bold fs-4 lh-base mb-0 w-90 title-width-sm"
+    className={`fhir-ui__Title fw-bold fs-4 lh-base mb-0 w-90 title-width-sm ${
+      props.capitalize ? 'text-capitalize' : ''
+    }`}
     data-testid={props['data-testid'] || 'title'}
   >
     {props.children}
@@ -175,7 +184,9 @@ export const Data = props => (
 );
 
 export const Root = props => (
-  <div className={`fhir-resource__${props.name}`}>{props.children}</div>
+  <div className={`fhir-resource__${props.name} ${props.className}`}>
+    {props.children}
+  </div>
 );
 
 export const Table = props => (
@@ -206,7 +217,9 @@ export const TableRow = props => {
 
 export const TableCell = props => (
   <td
-    className={`align-middle border-0 ${props.className || ''}`}
+    className={`${
+      props.isAlignTop ? '' : 'align-middle'
+    } border-0 ${props.className || ''}`}
     data-testid={props['data-testid']}
     style={props.style}
   >

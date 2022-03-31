@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 import Appointment from './Appointment';
 import fhirVersions from '../fhirResourceVersions';
 
@@ -230,5 +230,40 @@ describe('should render component correctly', () => {
     const { getByTestId } = render(<Appointment {...defaultProps} />);
 
     expect(getByTestId('reason').textContent).toContain('Clinical Review');
+  });
+
+  it('should fire custom onClick function', () => {
+    const defaultProps = {
+      fhirResource: example3AppointmentR4,
+      fhirVersion: fhirVersions.R4,
+    };
+
+    const onClick = jest.fn();
+    const { getByRole } = render(
+      <Appointment {...defaultProps} onClick={onClick} />,
+    );
+    const accordion = getByRole('button');
+    fireEvent.click(accordion);
+
+    const attribute = accordion.getAttribute('data-bs-toggle');
+    expect(attribute).not.toEqual('collapse');
+    expect(onClick).toHaveBeenCalled();
+  });
+
+  it('should not fire custom onClick function', () => {
+    const defaultProps = {
+      fhirResource: example3AppointmentR4,
+      fhirVersion: fhirVersions.R4,
+    };
+
+    const onClick = 'test';
+    const { getByRole } = render(
+      <Appointment {...defaultProps} onClick={onClick} />,
+    );
+    const accordion = getByRole('button');
+    fireEvent.click(accordion);
+
+    const attribute = accordion.getAttribute('data-bs-toggle');
+    expect(attribute).toEqual('collapse');
   });
 });

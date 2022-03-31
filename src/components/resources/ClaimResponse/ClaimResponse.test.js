@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 
 import ClaimResponse from './ClaimResponse';
 import fhirVersions from '../fhirResourceVersions';
@@ -10,8 +10,84 @@ import stu3Example2 from '../../../fixtures/stu3/resources/claimResponse/example
 import r4Example1 from '../../../fixtures/r4/resources/claimResponse/example1.json';
 import r4Example2 from '../../../fixtures/r4/resources/claimResponse/example2.json';
 import r4Example3 from '../../../fixtures/r4/resources/claimResponse/example3.json';
+import fhirIcons from '../../../fixtures/example-icons';
 
 describe('should render the ClaimResponse component properly', () => {
+  it('component without a fhirIcons props should render a default icon', () => {
+    const defaultProps = {
+      fhirVersion: fhirVersions.DSTU2,
+      fhirResource: dstu2Example1,
+    };
+
+    const { getByAltText } = render(<ClaimResponse {...defaultProps} />);
+    const headerIcon = getByAltText('claim response');
+
+    expect(headerIcon.getAttribute('src')).toContain('IMAGE_MOCK');
+  });
+
+  it('component with a false as a fhirIcons props should render a placeholder', () => {
+    const defaultProps = {
+      fhirVersion: fhirVersions.DSTU2,
+      fhirResource: dstu2Example1,
+      fhirIcons: false,
+    };
+
+    const { getByTestId } = render(<ClaimResponse {...defaultProps} />);
+    const headerIcon = getByTestId('placeholder');
+
+    expect(headerIcon).toBeTruthy();
+  });
+
+  it('component with the img as a fhirIcons props should render an img', () => {
+    const defaultProps = {
+      fhirVersion: fhirVersions.DSTU2,
+      fhirResource: dstu2Example1,
+      fhirIcons: (
+        <img
+          src={require('../assets/containers/ClaimResponse/claim-response.svg')}
+          alt="clipboard with a symmetrical cross and a return arrow"
+        />
+      ),
+    };
+
+    const { getByAltText } = render(<ClaimResponse {...defaultProps} />);
+    const headerIcon = getByAltText(
+      'clipboard with a symmetrical cross and a return arrow',
+    );
+
+    expect(headerIcon.getAttribute('src')).toContain('IMAGE_MOCK');
+  });
+
+  it('component with the resources object as a fhirIcons props should render an img', () => {
+    const defaultProps = {
+      fhirVersion: fhirVersions.DSTU2,
+      fhirResource: dstu2Example1,
+      fhirIcons: fhirIcons,
+    };
+
+    const { getByAltText } = render(<ClaimResponse {...defaultProps} />);
+    const headerIcon = getByAltText(
+      'clipboard with a symmetrical cross and a return arrow',
+    );
+
+    expect(headerIcon.getAttribute('src')).toContain('IMAGE_MOCK');
+  });
+
+  it('component with the url as a fhirIcons props should render an img', () => {
+    const avatarSrc =
+      'https://www.gravatar.com/avatar/?s=50&r=any&default=identicon&forcedefault=1';
+    const defaultProps = {
+      fhirVersion: fhirVersions.DSTU2,
+      fhirResource: dstu2Example1,
+      fhirIcons: avatarSrc,
+    };
+
+    const { getByAltText } = render(<ClaimResponse {...defaultProps} />);
+    const headerIcon = getByAltText('header icon');
+
+    expect(headerIcon.getAttribute('src')).toContain(avatarSrc);
+  });
+
   it('with DSTU2 source data', () => {
     const defaultProps = {
       fhirResource: dstu2Example1,
@@ -261,5 +337,40 @@ describe('should render the ClaimResponse component properly', () => {
       'Radiograph, bytewing (2141)',
       ' (expense)',
     ]);
+  });
+
+  it('should fire custom onClick function', () => {
+    const defaultProps = {
+      fhirResource: r4Example3,
+      fhirVersion: fhirVersions.R4,
+    };
+
+    const onClick = jest.fn();
+    const { getAllByRole } = render(
+      <ClaimResponse {...defaultProps} onClick={onClick} />,
+    );
+    const accordion = getAllByRole('button')[0];
+    fireEvent.click(accordion);
+
+    const attribute = accordion.getAttribute('data-bs-toggle');
+    expect(attribute).not.toEqual('collapse');
+    expect(onClick).toHaveBeenCalled();
+  });
+
+  it('should not fire custom onClick function', () => {
+    const defaultProps = {
+      fhirResource: r4Example3,
+      fhirVersion: fhirVersions.R4,
+    };
+
+    const onClick = 'test';
+    const { getAllByRole } = render(
+      <ClaimResponse {...defaultProps} onClick={onClick} />,
+    );
+    const accordion = getAllByRole('button')[0];
+    fireEvent.click(accordion);
+
+    const attribute = accordion.getAttribute('data-bs-toggle');
+    expect(attribute).toEqual('collapse');
   });
 });

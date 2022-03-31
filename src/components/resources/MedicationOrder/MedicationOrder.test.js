@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 
 import MedicationOrder from './MedicationOrder';
 
@@ -80,12 +80,43 @@ describe('should render MedicationOrder component properly', () => {
 
     const { getByTestId } = render(<MedicationOrder {...defaultProps} />);
 
-    expect(getByTestId('title').textContent).toContain(
-      'Medication/MedicationExample2',
-    );
+    expect(getByTestId('title').textContent).toContain('prescribed medication');
     expect(getByTestId('reasonCode').textContent).toContain('Otitis Media');
     expect(getByTestId('hasDosageInstruction').textContent).toContain(
       'Take 5ml three times daily',
     );
+  });
+
+  it('should fire custom onClick function', () => {
+    const defaultProps = {
+      fhirResource: example,
+    };
+
+    const onClick = jest.fn();
+    const { getByRole } = render(
+      <MedicationOrder {...defaultProps} onClick={onClick} />,
+    );
+    const accordion = getByRole('button');
+    fireEvent.click(accordion);
+
+    const attribute = accordion.getAttribute('data-bs-toggle');
+    expect(attribute).not.toEqual('collapse');
+    expect(onClick).toHaveBeenCalled();
+  });
+
+  it('should not fire custom onClick function', () => {
+    const defaultProps = {
+      fhirResource: example,
+    };
+
+    const onClick = 'test';
+    const { getByRole } = render(
+      <MedicationOrder {...defaultProps} onClick={onClick} />,
+    );
+    const accordion = getByRole('button');
+    fireEvent.click(accordion);
+
+    const attribute = accordion.getAttribute('data-bs-toggle');
+    expect(attribute).toEqual('collapse');
   });
 });

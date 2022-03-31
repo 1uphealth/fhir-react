@@ -40,6 +40,7 @@ $spacers: map-merge(
   (
     half: $space,
     6: 3.5rem,
+    20: 20px,
     40: 40px,
   )
 );
@@ -61,7 +62,7 @@ $body-color: #152536;
 
 $table-striped-bg: $gray-100;
 
-$secondary: #68717A;
+$secondary: #68717a;
 
 $light: #dedddd;
 
@@ -84,6 +85,7 @@ $enable-negative-margins: true;
 
 .dataTable__value-label {
   width: auto;
+
   @include media-breakpoint-up(sm) {
     width: 130px;
     min-width: 130px;

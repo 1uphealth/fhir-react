@@ -12,6 +12,8 @@ import r4Example1 from '../../../fixtures/r4/resources/practitionerRole/example1
 import r4Example2 from '../../../fixtures/r4/resources/practitionerRole/example2.json';
 import r4Example3 from '../../../fixtures/r4/resources/practitionerRole/example3.json';
 import r4Example4 from '../../../fixtures/r4/resources/practitionerRole/example4.json';
+import fhirIcons from '../../../fixtures/example-icons';
+import PractitionerRoleIcon from '../../../assets/containers/PractitionerRole/practitioner-role.svg';
 
 export default { title: 'PractitionerRole' };
 
@@ -21,6 +23,7 @@ export const ExampleOfSTU3 = () => {
     <PractitionerRole
       fhirVersion={fhirVersions.STU3}
       fhirResource={fhirResource}
+      fhirIcons={require('../../../assets/containers/PractitionerRole/practitioner-role.svg')}
     />
   );
 };
@@ -31,6 +34,7 @@ export const Example2OfSTU3 = () => {
     <PractitionerRole
       fhirVersion={fhirVersions.STU3}
       fhirResource={fhirResource}
+      fhirIcons={PractitionerRoleIcon}
     />
   );
 };
@@ -41,6 +45,7 @@ export const Example3OfSTU3 = () => {
     <PractitionerRole
       fhirVersion={fhirVersions.STU3}
       fhirResource={fhirResource}
+      fhirIcons={fhirIcons}
     />
   );
 };
@@ -61,6 +66,7 @@ export const Example2OfR4 = () => {
     <PractitionerRole
       fhirVersion={fhirVersions.R4}
       fhirResource={fhirResource}
+      fhirIcons={false}
     />
   );
 };
@@ -71,6 +77,7 @@ export const Example3OfR4 = () => {
     <PractitionerRole
       fhirVersion={fhirVersions.R4}
       fhirResource={fhirResource}
+      fhirIcons={'random text'}
     />
   );
 };

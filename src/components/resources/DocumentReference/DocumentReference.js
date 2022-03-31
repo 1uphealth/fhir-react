@@ -216,8 +216,12 @@ const Content = props => {
   );
 };
 
-const DocumentReference = props => {
-  const { fhirVersion, fhirResource, fhirIcons } = props;
+const DocumentReference = ({
+  fhirVersion,
+  fhirResource,
+  fhirIcons,
+  onClick,
+}) => {
   let fhirResourceData = {};
   try {
     fhirResourceData = resourceDTO(fhirVersion, fhirResource);
@@ -337,6 +341,7 @@ const DocumentReference = props => {
             {hasContent && <Content content={content} />}
           </Body>
         }
+        onClick={onClick}
       />
     </Root>
   );

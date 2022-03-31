@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 import Patient from './Patient';
 
 import examplePatient from '../../../fixtures/dstu2/resources/patient/example.json';
@@ -38,7 +38,7 @@ describe('should render component correctly', () => {
       fhirResource: examplePatient,
       fhirIcons: (
         <img
-          src={require('../assets/containers/ExplanationOfBenefit/explanation-of-benefit.svg.svg')}
+          src={require('../assets/containers/Patient/patient.svg')}
           alt="patient"
         />
       ),
@@ -155,5 +155,34 @@ describe('should render component correctly', () => {
     };
     const { getByTestId } = render(<Patient {...defaultProps} />);
     expect(getByTestId('deceasedInfo').textContent).toEqual('2/14/2015');
+  });
+
+  it('should fire custom onClick function', () => {
+    const defaultProps = { fhirResource: example3PatientR4 };
+
+    const onClick = jest.fn();
+    const { getByRole } = render(
+      <Patient {...defaultProps} onClick={onClick} />,
+    );
+    const accordion = getByRole('button');
+    fireEvent.click(accordion);
+
+    const attribute = accordion.getAttribute('data-bs-toggle');
+    expect(attribute).not.toEqual('collapse');
+    expect(onClick).toHaveBeenCalled();
+  });
+
+  it('should not fire custom onClick function', () => {
+    const defaultProps = { fhirResource: example3PatientR4 };
+
+    const onClick = 'test';
+    const { getByRole } = render(
+      <Patient {...defaultProps} onClick={onClick} />,
+    );
+    const accordion = getByRole('button');
+    fireEvent.click(accordion);
+
+    const attribute = accordion.getAttribute('data-bs-toggle');
+    expect(attribute).toEqual('collapse');
   });
 });

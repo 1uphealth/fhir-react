@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 
 import QuestionnaireResponse from './QuestionnaireResponse';
 import fhirVersions from '../fhirResourceVersions';
@@ -24,7 +24,7 @@ describe('QuestionnaireResponse should render component correctly', () => {
     );
     expect(getByTestId('status').textContent).toEqual('completed');
     expect(getByTestId('dateTime').textContent).toEqual('6/18/2013');
-    expect(getByTestId('subject').textContent).toEqual('RoelPatient/f201');
+    expect(getByTestId('subject').textContent).toEqual('Roel');
     expect(getByTestId('author').textContent).toEqual('Practitioner/f201');
 
     expect(getByTestId('linkId-1.1').textContent).toEqual(
@@ -91,7 +91,7 @@ describe('QuestionnaireResponse should render component correctly', () => {
     );
     expect(getByTestId('status').textContent).toEqual('completed');
     expect(getByTestId('dateTime').textContent).toEqual('6/18/2013');
-    expect(getByTestId('subject').textContent).toEqual('RoelPatient/f201');
+    expect(getByTestId('subject').textContent).toEqual('Roel');
     expect(getByTestId('author').textContent).toEqual('Practitioner/f201');
 
     expect(getByTestId('linkId-1.1').textContent).toEqual(
@@ -111,5 +111,40 @@ describe('QuestionnaireResponse should render component correctly', () => {
     expect(getByTestId('linkId-3.2').textContent).toEqual(
       'Do you drink alchohol?',
     );
+  });
+
+  it('should fire custom onClick function', () => {
+    const defaultProps = {
+      fhirResource: r4Example1,
+      fhirVersion: fhirVersions.R4,
+    };
+
+    const onClick = jest.fn();
+    const { getByRole } = render(
+      <QuestionnaireResponse {...defaultProps} onClick={onClick} />,
+    );
+    const accordion = getByRole('button');
+    fireEvent.click(accordion);
+
+    const attribute = accordion.getAttribute('data-bs-toggle');
+    expect(attribute).not.toEqual('collapse');
+    expect(onClick).toHaveBeenCalled();
+  });
+
+  it('should not fire custom onClick function', () => {
+    const defaultProps = {
+      fhirResource: r4Example1,
+      fhirVersion: fhirVersions.R4,
+    };
+
+    const onClick = 'test';
+    const { getByRole } = render(
+      <QuestionnaireResponse {...defaultProps} onClick={onClick} />,
+    );
+    const accordion = getByRole('button');
+    fireEvent.click(accordion);
+
+    const attribute = accordion.getAttribute('data-bs-toggle');
+    expect(attribute).toEqual('collapse');
   });
 });

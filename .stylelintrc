@@ -1,5 +1,9 @@
 {
   "extends": [
-    "stylelint-config-standard",
-  ]
+    "stylelint-config-standard"
+  ],
+  "rules": {
+    "selector-class-pattern": null,
+    "shorthand-property-no-redundant-values": null
+  }
 }

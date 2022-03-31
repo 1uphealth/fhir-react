@@ -160,7 +160,7 @@ const resourceDTO = (fhirVersion, fhirResource) => {
   }
 };
 
-const Encounter = ({ fhirResource, fhirVersion, fhirIcons }) => {
+const Encounter = ({ fhirResource, fhirVersion, fhirIcons, onClick }) => {
   let fhirResourceData = {};
   try {
     fhirResourceData = resourceDTO(fhirVersion, fhirResource);
@@ -229,6 +229,7 @@ const Encounter = ({ fhirResource, fhirVersion, fhirIcons }) => {
             )}
           </Body>
         }
+        onClick={onClick}
       />
     </Root>
   );

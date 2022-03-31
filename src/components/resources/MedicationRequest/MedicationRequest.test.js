@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 
 import MedicationRequest from './MedicationRequest';
 
@@ -87,7 +87,7 @@ describe('should render MedicationRequest component properly', () => {
     );
     expect(container).not.toBeNull();
 
-    expect(getByTestId('title').textContent).toContain('Medication/med0316');
+    expect(getByTestId('title').textContent).toContain('prescribed medication');
     expect(getByTestId('reasonCode').textContent).toContain(
       'Essential hypertension',
     );
@@ -118,7 +118,7 @@ describe('should render MedicationRequest component properly', () => {
     );
     expect(container).not.toBeNull();
 
-    expect(getByTestId('title').textContent).toContain('Medication/med0316');
+    expect(getByTestId('title').textContent).toContain('prescribed medication');
     expect(getByTestId('reasonCode').textContent).toContain(
       'Essential hypertension',
     );
@@ -160,7 +160,7 @@ describe('should render MedicationRequest component properly', () => {
     );
     expect(container).not.toBeNull();
 
-    expect(getByTestId('title').textContent).toContain('#med0304');
+    expect(getByTestId('title').textContent).toContain('Myleran 2mg tablet');
     expect(getByTestId('reasonCode').textContent).toContain(
       'Chronic myeloid Leukemia',
     );
@@ -170,5 +170,34 @@ describe('should render MedicationRequest component properly', () => {
     expect(getByTestId('requester').textContent).toContain('Patrick Pump');
     expect(getByTestId('created').textContent).toEqual('1/15/2015');
     expect(getByTestId('intent').textContent).toEqual('order');
+  });
+
+  it('should fire custom onClick function', () => {
+    const defaultProps = { fhirResource: r4Example3 };
+
+    const onClick = jest.fn();
+    const { getByRole } = render(
+      <MedicationRequest {...defaultProps} onClick={onClick} />,
+    );
+    const accordion = getByRole('button');
+    fireEvent.click(accordion);
+
+    const attribute = accordion.getAttribute('data-bs-toggle');
+    expect(attribute).not.toEqual('collapse');
+    expect(onClick).toHaveBeenCalled();
+  });
+
+  it('should not fire custom onClick function', () => {
+    const defaultProps = { fhirResource: r4Example3 };
+
+    const onClick = 'test';
+    const { getByRole } = render(
+      <MedicationRequest {...defaultProps} onClick={onClick} />,
+    );
+    const accordion = getByRole('button');
+    fireEvent.click(accordion);
+
+    const attribute = accordion.getAttribute('data-bs-toggle');
+    expect(attribute).toEqual('collapse');
   });
 });

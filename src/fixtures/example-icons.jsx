@@ -1,6 +1,13 @@
 import React from 'react';
 
 export default {
+  AdverseEvent: (
+    <img
+      className="header-icon__image"
+      src={require('../assets/containers/AdverseEvent/adverse-event.svg')}
+      alt="adverse event"
+    />
+  ),
   Binary: (
     <img
       className="header-icon__image"
@@ -34,6 +41,13 @@ export default {
       className="header-icon__image"
       src={require('../assets/containers/Practitioner/practitioner.svg')}
       alt="practitioner"
+    />
+  ),
+  PractitionerRole: (
+    <img
+      className="header-icon__image"
+      src={require('../assets/containers/PractitionerRole/practitioner-role.svg')}
+      alt="practitioner role"
     />
   ),
   AllergyIntolerance: (
@@ -155,6 +169,13 @@ export default {
       alt="medication order"
     />
   ),
+  MedicationDispense: (
+    <img
+      className="header-icon__image"
+      src={require('../assets/containers/MedicationDispense/medication-dispense.svg')}
+      alt="medication dispense"
+    />
+  ),
   MedicationRequest: (
     <img
       className="header-icon__image"
@@ -237,6 +258,27 @@ export default {
       className="header-icon__image"
       src={require('../assets/containers/Coverage/coverage.svg')}
       alt="coverage"
+    />
+  ),
+  RelatedPerson: (
+    <img
+      className="header-icon__image"
+      src={require('../assets/containers/RelatedPerson/related-person.svg')}
+      alt="related person"
+    />
+  ),
+  Generic: (
+    <img
+      className="header-icon__image"
+      src={require('../assets/containers/Generic/generic.svg')}
+      alt="generic"
+    />
+  ),
+  ReferralRequest: (
+    <img
+      className="header-icon__image"
+      src={require('../assets/containers/ReferralRequest/referral-request.svg')}
+      alt="referral request"
     />
   ),
 };

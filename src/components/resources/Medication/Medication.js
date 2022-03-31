@@ -162,7 +162,7 @@ const Ingredient = props => {
   );
 };
 
-const Medication = ({ fhirResource, fhirVersion, fhirIcons }) => {
+const Medication = ({ fhirResource, fhirVersion, fhirIcons, onClick }) => {
   let fhirResourceData = {};
   try {
     fhirResourceData = resourceDTO(fhirVersion, fhirResource);
@@ -273,6 +273,7 @@ const Medication = ({ fhirResource, fhirVersion, fhirIcons }) => {
             )}
           </Body>
         }
+        onClick={onClick}
       />
     </Root>
   );

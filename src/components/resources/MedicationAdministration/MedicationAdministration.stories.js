@@ -9,6 +9,8 @@ import r4Example1 from '../../../fixtures/r4/resources/medicationAdministration/
 import r4Example2 from '../../../fixtures/r4/resources/medicationAdministration/example2.json';
 import r4Example3 from '../../../fixtures/r4/resources/medicationAdministration/example3.json';
 import fhirVersions from '../fhirResourceVersions';
+import fhirIcons from '../../../fixtures/example-icons';
+import MedicationAdministrationIcon from '../../../assets/containers/MedicationAdministration/medication-administration.svg';
 
 export default {
   title: 'MedicationAdministration',
@@ -20,6 +22,7 @@ export const DefaultVisualizationDSTU2 = () => {
     <MedicationAdministration
       fhirVersion={fhirVersions.DSTU2}
       fhirResource={fhirResource}
+      fhirIcons={require('../../../assets/containers/MedicationAdministration/medication-administration.svg')}
     />
   );
 };
@@ -30,6 +33,7 @@ export const ExampleOfSTU3 = () => {
     <MedicationAdministration
       fhirVersion={fhirVersions.STU3}
       fhirResource={fhirResource}
+      fhirIcons={MedicationAdministrationIcon}
     />
   );
 };
@@ -40,6 +44,7 @@ export const Example1OfR4 = () => {
     <MedicationAdministration
       fhirVersion={fhirVersions.R4}
       fhirResource={fhirResource}
+      fhirIcons={fhirIcons}
     />
   );
 };
@@ -50,6 +55,7 @@ export const Example2OfR4 = () => {
     <MedicationAdministration
       fhirVersion={fhirVersions.R4}
       fhirResource={fhirResource}
+      fhirIcons={false}
     />
   );
 };
@@ -60,6 +66,7 @@ export const Example3OfR4 = () => {
     <MedicationAdministration
       fhirVersion={fhirVersions.R4}
       fhirResource={fhirResource}
+      fhirIcons={'random text'}
     />
   );
 };

@@ -8,14 +8,14 @@ import { getExtension, isBoolean } from './utils';
 import {
   Root,
   Header,
-  Title,
-  Value,
   Body,
   Badge,
   ValueSection,
+  ValueSectionItem,
 } from '../../ui';
 import Reference from '../../datatypes/Reference';
 import CodeableConcept from '../../datatypes/CodeableConcept';
+import Accordion from '../../containers/Accordion';
 
 const commonDTO = fhirResource => {
   const id = _get(fhirResource, 'id');
@@ -103,8 +103,13 @@ const resourceDTO = (fhirVersion, fhirResource, withDaVinciPDex) => {
   }
 };
 
-const MedicationKnowledge = props => {
-  const { fhirResource, fhirVersion, withDaVinciPDex = false } = props;
+const MedicationKnowledge = ({
+  fhirResource,
+  fhirVersion,
+  withDaVinciPDex = false,
+  fhirIcons,
+  onClick,
+}) => {
   let fhirResourceData = {};
   try {
     fhirResourceData = resourceDTO(fhirVersion, fhirResource, withDaVinciPDex);
@@ -138,72 +143,116 @@ const MedicationKnowledge = props => {
       : amountDisplay;
   }
 
+  const tableData = [
+    {
+      label: 'Code',
+      testId: 'code',
+      data: code && <CodeableConcept fhirData={code} isCursive />,
+      status: code,
+    },
+    {
+      label: 'Manufacturer',
+      testId: 'manufacturer',
+      data: manufacturer && <Reference fhirData={manufacturer} />,
+      status: manufacturer,
+    },
+    {
+      label: 'Amount',
+      testId: 'amount',
+      data: amountDisplay,
+      status: amountDisplay,
+    },
+    {
+      label: 'Synonym',
+      testId: 'synonym',
+      data: synonym,
+      status: synonym,
+    },
+  ];
+
+  const usdfExtensionsData = [
+    {
+      label: 'Prior Authorization',
+      testId: 'usdfPriorAuthorization',
+      data:
+        isBoolean(usdfPriorAuthorization) && usdfPriorAuthorization === true
+          ? 'yes'
+          : 'no',
+      status: isBoolean(usdfPriorAuthorization),
+    },
+    {
+      label: 'Step Therapy Limit',
+      testId: 'usdfStepTherapyLimit',
+      data:
+        isBoolean(usdfStepTherapyLimit) && usdfStepTherapyLimit === true
+          ? 'yes'
+          : 'no',
+      status: isBoolean(usdfStepTherapyLimit),
+    },
+    {
+      label: 'Quantity Limit',
+      testId: 'usdfQuantityLimit',
+      data:
+        isBoolean(usdfQuantityLimit) && usdfQuantityLimit === true
+          ? 'yes'
+          : 'no',
+      status: isBoolean(usdfQuantityLimit),
+    },
+    {
+      label: 'Plan ID',
+      testId: 'usdfPlanID',
+      data: usdfPlanID,
+      status: usdfPlanID,
+    },
+    {
+      label: 'Drug Tier ID',
+      testId: 'usdfDrugTierID',
+      data: usdfDrugTierID && <CodeableConcept fhirData={usdfDrugTierID} />,
+      status: usdfDrugTierID,
+    },
+  ];
+
   return (
     <Root name="MedicationKnowledge">
-      <Header>
-        <Title>
-          {id ? `Medication knowledge ID: ${id}` : 'MedicationOrder knowledge'}{' '}
-          {status && <Badge data-testid="status">{status}</Badge>}
-        </Title>
-      </Header>
-      <Body>
-        {code && (
-          <Value label="Code" data-testid="code">
-            <CodeableConcept fhirData={code} />
-          </Value>
-        )}
-        {manufacturer && (
-          <Value label="Manufacturer" data-testid="manufacturer">
-            <Reference fhirData={manufacturer} />
-          </Value>
-        )}
-        {amountDisplay && (
-          <Value label="Amount" data-testid="amount">
-            {amountDisplay}
-          </Value>
-        )}
-        {synonym && (
-          <Value label="Synonym" data-testid="synonym">
-            {synonym}
-          </Value>
-        )}
-
-        {hasExtensions && (
-          <ValueSection label="USDF extensions" data-testid="usdfExtensions">
-            {isBoolean(usdfPriorAuthorization) && (
-              <Value
-                label="Prior Authorization"
-                data-testid="usdfPriorAuthorization"
+      <Accordion
+        headerContent={
+          <Header
+            resourceName="MedicationKnowledge"
+            title={
+              id
+                ? `Medication knowledge ID: ${id} `
+                : 'MedicationOrder knowledge '
+            }
+            badges={status && <Badge data-testid="status">{status}</Badge>}
+            icon={fhirIcons}
+          />
+        }
+        bodyContent={
+          <Body tableData={tableData}>
+            {hasExtensions && (
+              <ValueSection
+                label="USDF extensions"
+                data-testid="usdfExtensions"
+                marginTop
               >
-                {usdfPriorAuthorization === true ? 'yes' : 'no'}
-              </Value>
+                {usdfExtensionsData.map(
+                  (item, index) =>
+                    item.status && (
+                      <ValueSectionItem
+                        key={`usdf-extension-item-${index}`}
+                        label={item.label}
+                        data-testid={item.testId}
+                      >
+                        {item.data}
+                      </ValueSectionItem>
+                    ),
+                )}
+              </ValueSection>
             )}
-            {isBoolean(usdfStepTherapyLimit) && (
-              <Value
-                label="Step Therapy Limit"
-                data-testid="usdfStepTherapyLimit"
-              >
-                {usdfStepTherapyLimit === true ? 'yes' : 'no'}
-              </Value>
-            )}
-            {isBoolean(usdfQuantityLimit) && (
-              <Value label="Quantity Limit" data-testid="usdfQuantityLimit">
-                {usdfQuantityLimit === true ? 'yes' : 'no'}
-              </Value>
-            )}
-            {usdfPlanID && (
-              <Value label="Plan ID" data-testid="usdfPlanID">
-                {usdfPlanID}
-              </Value>
-            )}
-            {usdfDrugTierID && (
-              <Value label="Drug Tier ID" data-testid="usdfDrugTierID">
-                <CodeableConcept fhirData={usdfDrugTierID} />
-              </Value>
-            )}
-          </ValueSection>
-        )}
-      </Body>
+          </Body>
+        }
+        onClick={onClick}
+      />
     </Root>
   );
 };

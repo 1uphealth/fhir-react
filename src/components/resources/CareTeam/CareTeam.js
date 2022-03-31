@@ -4,8 +4,7 @@ import {
   Header,
   MissingValue,
   Root,
-  Title,
-  Value,
+  ValueSection,
 } from '../../ui';
 
 import CareTeamParticipants from './CareTeamParticipants';
@@ -16,6 +15,7 @@ import React from 'react';
 import Reference from '../../datatypes/Reference';
 import _get from 'lodash/get';
 import fhirVersions from '../fhirResourceVersions';
+import Accordion from '../../containers/Accordion';
 
 const commonDTO = fhirResource => {
   // Default value for title - "Care team"
@@ -83,8 +83,7 @@ const resourceDTO = (fhirVersion, fhirResource) => {
   }
 };
 
-const CareTeam = props => {
-  const { fhirResource, fhirVersion } = props;
+const CareTeam = ({ fhirResource, fhirVersion, fhirIcons, onClick }) => {
   const {
     name,
     status,
@@ -98,54 +97,77 @@ const CareTeam = props => {
   } = resourceDTO(fhirVersion, fhirResource);
   const hasParticipants = participants.length > 0;
 
+  const tableData = [
+    {
+      label: 'Category',
+      testId: 'category',
+      data: category && <CodableConcept fhirData={category} isCursive />,
+      status: category,
+    },
+    {
+      label: 'Subject',
+      testId: 'subject',
+      data: subject && <Reference fhirData={subject} />,
+      status: subject,
+    },
+    {
+      label: 'Encounter',
+      testId: 'encounter',
+      data: encounter && <Reference fhirData={encounter} />,
+      status: encounter,
+    },
+    {
+      label: 'Managing organization',
+      testId: 'managingOrganization',
+      data: managingOrganization && (
+        <Reference fhirData={managingOrganization} />
+      ),
+      status: managingOrganization,
+    },
+    {
+      label: 'Care Period Start',
+      testId: 'periodStart',
+      data: periodStart ? (
+        <DateType fhirData={periodStart} isBlack />
+      ) : (
+        <MissingValue />
+      ),
+      status: periodStart,
+    },
+    {
+      label: 'Care Period End',
+      testId: 'periodEnd',
+      data: periodEnd ? (
+        <DateType fhirData={periodEnd} isBlack />
+      ) : (
+        <MissingValue />
+      ),
+      status: periodEnd,
+    },
+  ];
+
   return (
     <Root name="CareTeam">
-      <Header>
-        {name && <Title>{name}</Title>}
-        {status && <Badge data-testid="status">{status}</Badge>}
-      </Header>
-      <Body>
-        {category && (
-          <Value label="Category" data-testid="category">
-            <CodableConcept fhirData={category} />
-          </Value>
-        )}
-        {subject && (
-          <Value label="Subject" data-testid="subject">
-            <Reference fhirData={subject} />
-          </Value>
-        )}
-        {encounter && (
-          <Value label="Encounter" data-testid="encounter">
-            <Reference fhirData={encounter} />
-          </Value>
-        )}
-        {managingOrganization && (
-          <Value
-            label="Managing organization"
-            data-testid="managingOrganization"
-          >
-            <Reference fhirData={managingOrganization} />
-          </Value>
-        )}
-        {periodStart && (
-          <Value label="Care Period Start" data-testid="periodStart">
-            {periodStart ? (
-              <DateType fhirData={periodStart} />
-            ) : (
-              <MissingValue />
-            )}
-          </Value>
-        )}
-        {periodEnd && (
-          <Value label="Care Period End" data-testid="periodEnd">
-            {periodEnd ? <DateType fhirData={periodEnd} /> : <MissingValue />}
-          </Value>
-        )}
-        {hasParticipants && (
-          <CareTeamParticipants participants={participants} />
-        )}
-      </Body>
+      <Accordion
+        headerContent={
+          <Header
+            resourceName={'CareTeam'}
+            icon={fhirIcons}
+            title={name}
+            badges={status && <Badge data-testid="status">{status}</Badge>}
+          />
+        }
+        bodyContent={
+          <Body tableData={tableData}>
+            <ValueSection>
+              {hasParticipants && (
+                <CareTeamParticipants participants={participants} />
+              )}
+            </ValueSection>
+          </Body>
+        }
+        onClick={onClick}
+      />
     </Root>
   );
 };

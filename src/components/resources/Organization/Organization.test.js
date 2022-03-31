@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 
 import Organization from './Organization';
 import fhirVersions from '../fhirResourceVersions';
@@ -200,5 +200,40 @@ describe('should render Organization component properly', () => {
     expect(getByTestId('NotEnoughData').textContent).toContain(
       'No additional data',
     );
+  });
+
+  it('should fire custom onClick function', () => {
+    const defaultProps = {
+      fhirResource: r4Example3,
+      fhirVersion: fhirVersions.R4,
+    };
+
+    const onClick = jest.fn();
+    const { getByRole } = render(
+      <Organization {...defaultProps} onClick={onClick} />,
+    );
+    const accordion = getByRole('button');
+    fireEvent.click(accordion);
+
+    const attribute = accordion.getAttribute('data-bs-toggle');
+    expect(attribute).not.toEqual('collapse');
+    expect(onClick).toHaveBeenCalled();
+  });
+
+  it('should not fire custom onClick function', () => {
+    const defaultProps = {
+      fhirResource: r4Example3,
+      fhirVersion: fhirVersions.R4,
+    };
+
+    const onClick = 'test';
+    const { getByRole } = render(
+      <Organization {...defaultProps} onClick={onClick} />,
+    );
+    const accordion = getByRole('button');
+    fireEvent.click(accordion);
+
+    const attribute = accordion.getAttribute('data-bs-toggle');
+    expect(attribute).toEqual('collapse');
   });
 });

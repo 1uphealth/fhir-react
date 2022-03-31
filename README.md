@@ -1,5 +1,5 @@
 [![CircleCI](https://circleci.com/gh/1uphealth/fhir-react/tree/master.svg?style=svg)](https://circleci.com/gh/1uphealth/fhir-react/tree/master)
-[![Storybook](https://github.com/storybookjs/brand/raw/master/badge/badge-storybook.svg?sanitize=true)](https://fhir-react-lib-test-storybook.s3.amazonaws.com/branch/release-0-3-7/index.html)
+[![Storybook](https://github.com/storybookjs/brand/raw/master/badge/badge-storybook.svg?sanitize=true)](https://fhir-react-lib-test-storybook.s3.amazonaws.com/branch/release-0-3-8/index.html)
 
 # fhir-react
 
@@ -136,6 +136,24 @@ export default {
       alt="header icon"
     />
   ),
+};
+```
+
+There is a possibility to overwrite default's Accordion function, by passing a function to onClick variable in a component.
+
+```jsx
+const MyComponent = () => {
+  const fhirResource = JSON.parse(fhirResourceAsJsonString);
+  
+  const functionHandler = /*function*/
+  
+  return (
+    <FhirResource
+      fhirResource={fhirResource}
+      fhirVersion={fhirVersions.R4}
+      onClick={functionHandler}
+    />
+  );
 };
 ```
 

@@ -2,7 +2,7 @@
 // NOTE: jest-dom adds handy assertions to Jest and is recommended, but not required
 
 import React from 'react';
-import { render } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 import Observation from './Observation';
 
 import exampleObservationIssued from '../../../fixtures/dstu2/resources/observation/example-issued.json';
@@ -147,5 +147,34 @@ describe('should render component correctly', () => {
     expect(getByTestId('valueQuantity').textContent).toEqual('6.443');
     expect(getByTestId('valueQuantityUnit')).not.toBeNull();
     expect(getByTestId('valueQuantityUnit').textContent).toEqual('mmol/l');
+  });
+
+  it('should fire custom onClick function', () => {
+    const defaultProps = { fhirResource: example1ObservationExcessR4 };
+
+    const onClick = jest.fn();
+    const { getByRole } = render(
+      <Observation {...defaultProps} onClick={onClick} />,
+    );
+    const accordion = getByRole('button');
+    fireEvent.click(accordion);
+
+    const attribute = accordion.getAttribute('data-bs-toggle');
+    expect(attribute).not.toEqual('collapse');
+    expect(onClick).toHaveBeenCalled();
+  });
+
+  it('should not fire custom onClick function', () => {
+    const defaultProps = { fhirResource: example1ObservationExcessR4 };
+
+    const onClick = 'test';
+    const { getByRole } = render(
+      <Observation {...defaultProps} onClick={onClick} />,
+    );
+    const accordion = getByRole('button');
+    fireEvent.click(accordion);
+
+    const attribute = accordion.getAttribute('data-bs-toggle');
+    expect(attribute).toEqual('collapse');
   });
 });

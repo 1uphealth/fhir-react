@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 import MedicationStatement from './MedicationStatement';
 import fhirVersions from '../fhirResourceVersions';
 import example1MedicationStatement from '../../../fixtures/dstu2/resources/medicationStatement/example1.json';
@@ -167,5 +167,40 @@ describe('should render MedicationStatement component correctly', () => {
     expect(getByTestId('medicationReference').textContent).toContain(
       '#med0309',
     );
+  });
+
+  it('should fire custom onClick function', () => {
+    const defaultProps = {
+      fhirResource: r4Example1,
+      fhirVersion: fhirVersions.R4,
+    };
+
+    const onClick = jest.fn();
+    const { getByRole } = render(
+      <MedicationStatement {...defaultProps} onClick={onClick} />,
+    );
+    const accordion = getByRole('button');
+    fireEvent.click(accordion);
+
+    const attribute = accordion.getAttribute('data-bs-toggle');
+    expect(attribute).not.toEqual('collapse');
+    expect(onClick).toHaveBeenCalled();
+  });
+
+  it('should not fire custom onClick function', () => {
+    const defaultProps = {
+      fhirResource: r4Example1,
+      fhirVersion: fhirVersions.R4,
+    };
+
+    const onClick = 'test';
+    const { getByRole } = render(
+      <MedicationStatement {...defaultProps} onClick={onClick} />,
+    );
+    const accordion = getByRole('button');
+    fireEvent.click(accordion);
+
+    const attribute = accordion.getAttribute('data-bs-toggle');
+    expect(attribute).toEqual('collapse');
   });
 });

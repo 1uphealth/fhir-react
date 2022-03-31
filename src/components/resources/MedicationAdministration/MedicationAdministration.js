@@ -9,16 +9,16 @@ import fhirVersions from '../fhirResourceVersions';
 import {
   Root,
   Header,
-  Title,
   Badge,
   Body,
-  Value,
   MissingValue,
   TableHeader,
   Table,
   TableCell,
   TableRow,
+  ValueSection,
 } from '../../ui';
+import Accordion from '../../containers/Accordion';
 
 const commonDTO = fhirResource => {
   const medicationReference = _get(fhirResource, 'medicationReference');
@@ -110,8 +110,12 @@ const resourceDTO = (fhirVersion, fhirResource) => {
   }
 };
 
-const MedicationAdministration = props => {
-  const { fhirResource, fhirVersion } = props;
+const MedicationAdministration = ({
+  fhirResource,
+  fhirVersion,
+  fhirIcons,
+  onClick,
+}) => {
   let fhirResourceData = {};
   try {
     fhirResourceData = resourceDTO(fhirVersion, fhirResource);
@@ -130,66 +134,86 @@ const MedicationAdministration = props => {
     status,
   } = fhirResourceData;
 
+  const tableData = [
+    {
+      label: 'Patient',
+      testId: 'patient',
+      data: subject && <Reference fhirData={subject} />,
+      status: subject,
+    },
+    {
+      label: 'Practitioner',
+      testId: 'practitioner',
+      data: practitioner && <Reference fhirData={practitioner} />,
+      status: practitioner,
+    },
+  ];
+
+  const tableContentData = [
+    {
+      testId: 'periodTimeStart',
+      data: periodTimeStart ? (
+        <Date fhirData={periodTimeStart} />
+      ) : (
+        <MissingValue />
+      ),
+    },
+    {
+      testId: 'periodTimeEnd',
+      data: periodTimeEnd ? (
+        <Date fhirData={periodTimeEnd} />
+      ) : (
+        <MissingValue />
+      ),
+    },
+    {
+      testId: 'dosageRoute',
+      data: dosageRoute ? <Coding fhirData={dosageRoute} /> : <MissingValue />,
+    },
+    {
+      testId: 'dosageQuantity',
+      data: dosageQuantity ? dosageQuantity : <MissingValue />,
+    },
+  ];
+
   return (
     <Root name="MedicationAdministration">
-      <Header>
-        <Title>
-          <Reference fhirData={medicationReference} />
-        </Title>
-        {status && <Badge data-testid="status">{status}</Badge>}
-      </Header>
-      <Body>
-        {subject && (
-          <Value label="Patient" data-testid="patient">
-            <Reference fhirData={subject} />
-          </Value>
-        )}
-        {practitioner && (
-          <Value label="Practitioner" data-testid="practitioner">
-            <Reference fhirData={practitioner} />
-          </Value>
-        )}
-        <div className="overflow-auto">
-          <Table>
-            <thead>
-              <TableRow>
-                <TableHeader>Period start</TableHeader>
-                <TableHeader>Period end</TableHeader>
-                <TableHeader>Dosage route</TableHeader>
-                <TableHeader>Dosage quantity</TableHeader>
-              </TableRow>
-            </thead>
-            <tbody>
-              <TableRow>
-                <TableCell data-testid="periodTimeStart">
-                  {periodTimeStart ? (
-                    <Date fhirData={periodTimeStart} />
-                  ) : (
-                    <MissingValue />
-                  )}
-                </TableCell>
-                <TableCell data-testid="periodTimeEnd">
-                  {periodTimeEnd ? (
-                    <Date fhirData={periodTimeEnd} />
-                  ) : (
-                    <MissingValue />
-                  )}
-                </TableCell>
-                <TableCell data-testid="dosageRoute">
-                  {dosageRoute ? (
-                    <Coding fhirData={dosageRoute} />
-                  ) : (
-                    <MissingValue />
-                  )}
-                </TableCell>
-                <TableCell data-testid="dosageQuantity">
-                  {dosageQuantity ? dosageQuantity : <MissingValue />}
-                </TableCell>
-              </TableRow>
-            </tbody>
-          </Table>
-        </div>
-      </Body>
+      <Accordion
+        headerContent={
+          <Header
+            resourceName="MedicationAdministration"
+            title={<Reference fhirData={medicationReference} />}
+            badges={status && <Badge data-testid="status">{status}</Badge>}
+            icon={fhirIcons}
+          />
+        }
+        bodyContent={
+          <Body tableData={tableData}>
+            <ValueSection className="overflow-auto">
+              <Table>
+                <thead>
+                  <TableRow>
+                    <TableHeader>Period start</TableHeader>
+                    <TableHeader>Period end</TableHeader>
+                    <TableHeader>Dosage route</TableHeader>
+                    <TableHeader>Dosage quantity</TableHeader>
+                  </TableRow>
+                </thead>
+                <tbody className="border-top-0">
+                  <TableRow>
+                    {tableContentData.map((element, index) => (
+                      <TableCell key={index} data-testid={element.testId}>
+                        {element.data}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                </tbody>
+              </Table>
+            </ValueSection>
+          </Body>
+        }
+        onClick={onClick}
+      />
     </Root>
   );
 };

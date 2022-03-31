@@ -3,7 +3,7 @@ import React from 'react';
 import dstu2Example1 from '../../../fixtures/dstu2/resources/procedure/example1.json';
 import r4Example2 from '../../../fixtures/r4/resources/procedure/example2.json';
 import r4Example3 from '../../../fixtures/r4/resources/procedure/example3.json';
-import { render } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 import stu3Example1 from '../../../fixtures/stu3/resources/procedure/example1.json';
 import fhirIcons from '../../../fixtures/example-icons';
 import fhirVersions from '../fhirResourceVersions';
@@ -167,5 +167,34 @@ describe('Procedure should render component correctly', () => {
     expect(getByTestId('hasNote').textContent).toContain(
       'Eerste neo-adjuvante',
     );
+  });
+
+  it('should fire custom onClick function', () => {
+    const defaultProps = { fhirResource: r4Example3 };
+
+    const onClick = jest.fn();
+    const { getByRole } = render(
+      <Procedure {...defaultProps} onClick={onClick} />,
+    );
+    const accordion = getByRole('button');
+    fireEvent.click(accordion);
+
+    const attribute = accordion.getAttribute('data-bs-toggle');
+    expect(attribute).not.toEqual('collapse');
+    expect(onClick).toHaveBeenCalled();
+  });
+
+  it('should not fire custom onClick function', () => {
+    const defaultProps = { fhirResource: r4Example3 };
+
+    const onClick = 'test';
+    const { getByRole } = render(
+      <Procedure {...defaultProps} onClick={onClick} />,
+    );
+    const accordion = getByRole('button');
+    fireEvent.click(accordion);
+
+    const attribute = accordion.getAttribute('data-bs-toggle');
+    expect(attribute).toEqual('collapse');
   });
 });

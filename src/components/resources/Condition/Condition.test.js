@@ -8,7 +8,7 @@ import exampleConditionSTU3 from '../../../fixtures/stu3/resources/condition/exa
 import exampleConditionSeverity from '../../../fixtures/dstu2/resources/condition/example-severity.json';
 import exampleConditionSeveritySTU3 from '../../../fixtures/stu3/resources/condition/example-severity.json';
 import fhirVersions from '../fhirResourceVersions';
-import { render } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 import fhirIcons from '../../../fixtures/example-icons';
 
 describe('should render component correctly', () => {
@@ -108,9 +108,7 @@ describe('should render component correctly', () => {
     expect(getByTestId('clinicalStatus').textContent).toEqual('active');
     expect(getByTestId('severity').textContent).toEqual('Medium severity');
     expect(getByTestId('onsetDate').textContent).toEqual('8/24/2015');
-    expect(getByTestId('asserter').textContent).toEqual(
-      'MOORE, NICKPractitioner/f8fedcd9e6e565a21f457909',
-    );
+    expect(getByTestId('asserter').textContent).toEqual('MOORE, NICK');
   });
 
   it('STU3 - without severity field', () => {
@@ -190,5 +188,40 @@ describe('should render component correctly', () => {
     expect(getByTestId('onsetDate').textContent).toEqual('4/2/2013');
     expect(getByTestId('asserter').textContent).toEqual('Practitioner/f201');
     expect(getByTestId('dateRecorded').textContent).toEqual('4/4/2013');
+  });
+
+  it('should fire custom onClick function', () => {
+    const defaultProps = {
+      fhirResource: example3ConditionSeverityR4,
+      fhirVersion: fhirVersions.R4,
+    };
+
+    const onClick = jest.fn();
+    const { getByRole } = render(
+      <Condition {...defaultProps} onClick={onClick} />,
+    );
+    const accordion = getByRole('button');
+    fireEvent.click(accordion);
+
+    const attribute = accordion.getAttribute('data-bs-toggle');
+    expect(attribute).not.toEqual('collapse');
+    expect(onClick).toHaveBeenCalled();
+  });
+
+  it('should not fire custom onClick function', () => {
+    const defaultProps = {
+      fhirResource: example3ConditionSeverityR4,
+      fhirVersion: fhirVersions.R4,
+    };
+
+    const onClick = 'test';
+    const { getByRole } = render(
+      <Condition {...defaultProps} onClick={onClick} />,
+    );
+    const accordion = getByRole('button');
+    fireEvent.click(accordion);
+
+    const attribute = accordion.getAttribute('data-bs-toggle');
+    expect(attribute).toEqual('collapse');
   });
 });

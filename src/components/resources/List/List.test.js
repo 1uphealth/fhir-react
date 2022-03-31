@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 
 import { fhirVersions } from '../../../index';
 
@@ -7,8 +7,79 @@ import List from './List';
 
 import example1Dstu2 from '../../../fixtures/dstu2/resources/list/example1.json';
 import example2R4 from '../../../fixtures/r4/resources/list/example2.json';
+import fhirIcons from '../../../fixtures/example-icons';
 
 describe('should render List component properly', () => {
+  it('component without a fhirIcons props should render a default icon', () => {
+    const defaultProps = {
+      fhirVersion: fhirVersions.DSTU2,
+      fhirResource: example1Dstu2,
+    };
+
+    const { getByAltText } = render(<List {...defaultProps} />);
+    const headerIcon = getByAltText('list');
+
+    expect(headerIcon.getAttribute('src')).toContain('IMAGE_MOCK');
+  });
+
+  it('component with a false as a fhirIcons props should render a placeholder', () => {
+    const defaultProps = {
+      fhirVersion: fhirVersions.DSTU2,
+      fhirResource: example1Dstu2,
+      fhirIcons: false,
+    };
+
+    const { getByTestId } = render(<List {...defaultProps} />);
+    const headerIcon = getByTestId('placeholder');
+
+    expect(headerIcon).toBeTruthy();
+  });
+
+  it('component with the img as a fhirIcons props should render an img', () => {
+    const defaultProps = {
+      fhirVersion: fhirVersions.DSTU2,
+      fhirResource: example1Dstu2,
+      fhirIcons: (
+        <img
+          src={require('../assets/containers/List/list.svg')}
+          alt="checklist"
+        />
+      ),
+    };
+
+    const { getByAltText } = render(<List {...defaultProps} />);
+    const headerIcon = getByAltText('checklist');
+
+    expect(headerIcon.getAttribute('src')).toContain('IMAGE_MOCK');
+  });
+
+  it('component with the resources object as a fhirIcons props should render an img', () => {
+    const defaultProps = {
+      fhirVersion: fhirVersions.DSTU2,
+      fhirResource: example1Dstu2,
+      fhirIcons: fhirIcons,
+    };
+
+    const { getByAltText } = render(<List {...defaultProps} />);
+    const headerIcon = getByAltText('checklist');
+
+    expect(headerIcon.getAttribute('src')).toContain('IMAGE_MOCK');
+  });
+
+  it('component with the url as a fhirIcons props should render an img', () => {
+    const avatarSrc =
+      'https://www.gravatar.com/avatar/?s=50&r=any&default=identicon&forcedefault=1';
+    const defaultProps = {
+      fhirVersion: fhirVersions.DSTU2,
+      fhirResource: example1Dstu2,
+      fhirIcons: avatarSrc,
+    };
+
+    const { getByAltText } = render(<List {...defaultProps} />);
+    const headerIcon = getByAltText('header icon');
+
+    expect(headerIcon.getAttribute('src')).toContain(avatarSrc);
+  });
   it('should render with DSTU2 source data', () => {
     const defaultProps = {
       fhirResource: example1Dstu2,
@@ -91,5 +162,38 @@ describe('should render List component properly', () => {
       'https://content.carefirst.com/sbc/D,$0/ D,$0/ D,$0/ D,$0/ D,$0B+',
     );
     expect(getByTestId('usdfPlanIDType').textContent).toContain('HIOS-PLAN-ID');
+  });
+
+  it('should fire custom onClick function', () => {
+    const defaultProps = {
+      fhirResource: example2R4,
+      fhirVersion: fhirVersions.R4,
+      withDaVinciPDex: true,
+    };
+
+    const onClick = jest.fn();
+    const { getByRole } = render(<List {...defaultProps} onClick={onClick} />);
+    const accordion = getByRole('button');
+    fireEvent.click(accordion);
+
+    const attribute = accordion.getAttribute('data-bs-toggle');
+    expect(attribute).not.toEqual('collapse');
+    expect(onClick).toHaveBeenCalled();
+  });
+
+  it('should not fire custom onClick function', () => {
+    const defaultProps = {
+      fhirResource: example2R4,
+      fhirVersion: fhirVersions.R4,
+      withDaVinciPDex: true,
+    };
+
+    const onClick = 'test';
+    const { getByRole } = render(<List {...defaultProps} onClick={onClick} />);
+    const accordion = getByRole('button');
+    fireEvent.click(accordion);
+
+    const attribute = accordion.getAttribute('data-bs-toggle');
+    expect(attribute).toEqual('collapse');
   });
 });

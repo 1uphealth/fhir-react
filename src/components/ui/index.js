@@ -30,7 +30,7 @@ export const Header = ({
           <div
             className={`fhir-ui__${resourceName}-Header__title-data ${
               isAccordionOpenable ? 'header__title-row' : ''
-            } d-flex w-100 flex-column flex-sm-row`}
+            } d-flex w-100 flex-sm-row`}
           >
             <div className="d-flex">
               {!isNoIcon && (

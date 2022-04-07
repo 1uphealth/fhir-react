@@ -32,7 +32,7 @@ export const Header = ({
               isAccordionOpenable ? 'header__title-row' : ''
             } d-flex w-100 flex-column flex-sm-row`}
           >
-            <div className="d-flex">
+            <div className="d-flex align-items-center">
               {!isNoIcon && (
                 <div
                   className={`fhir-ui__${resourceName}-Header__icon d-flex align-items-center flex-shrink-1 m-half me-2`}
@@ -88,7 +88,7 @@ export const Header = ({
 
 export const Title = props => (
   <h4
-    className={`fhir-ui__Title fw-bold lh-base mb-0 text-break ${
+    className={`fhir-ui__Title fw-bold lh-base mb-0 text-break d-flex ${
       props.capitalize ? 'text-capitalize' : ''
     }`}
     data-testid={props['data-testid'] || 'title'}

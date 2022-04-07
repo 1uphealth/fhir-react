@@ -30,7 +30,7 @@ export const Header = ({
           <div
             className={`fhir-ui__${resourceName}-Header__title-data ${
               isAccordionOpenable ? 'header__title-row' : ''
-            } d-flex w-100 flex-sm-row`}
+            } d-flex w-100 flex-column flex-sm-row`}
           >
             <div className="d-flex">
               {!isNoIcon && (
@@ -52,30 +52,34 @@ export const Header = ({
               </div>
             </div>
 
+            {(prefixBadge || badges || additionalBadge) && (
+              <div
+                className={`fhir-ui__${resourceName}-Header__badges ps-sm-2 mt-3 mt-sm-0 badges-max-width-sm flex-wrap flex-sm-nowrap justify-content-between justify-content-sm-end ${rightItemsClass}`}
+              >
+                {prefixBadge && <div className="me-3">{prefixBadge}</div>}
+                <div className="d-flex align-items-center">
+                  {badges}
+                  {additionalBadge && (
+                    <div className="ms-3">{additionalBadge}</div>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+          {(additionalContent || rightAdditionalContent) && (
             <div
-              className={`fhir-ui__${resourceName}-Header__badges ps-sm-2 mt-3 mt-sm-0 badges-max-width-sm flex-wrap flex-sm-nowrap justify-content-between justify-content-sm-end ${rightItemsClass}`}
+              className={`fhir-ui__${resourceName}-Header__additional-content w-100 justify-content-start d-flex ${
+                additionalContent ? ' pt-2' : ''
+              }`}
             >
-              {prefixBadge && <div className="me-3">{prefixBadge}</div>}
-              <div className="d-flex align-items-center">
-                {badges}
-                {additionalBadge && (
-                  <div className="ms-3">{additionalBadge}</div>
-                )}
+              {additionalContent}
+              <div
+                className={`fhir-ui__${resourceName}-Header__rightAdditionalContent justify-content-md-end mx-0 ${rightItemsClass}`}
+              >
+                {rightAdditionalContent}
               </div>
             </div>
-          </div>
-          <div
-            className={`fhir-ui__${resourceName}-Header__additional-content w-100 justify-content-start d-flex ${
-              additionalContent ? ' pt-2' : ''
-            }`}
-          >
-            {additionalContent}
-            <div
-              className={`fhir-ui__${resourceName}-Header__rightAdditionalContent justify-content-md-end mx-0 ${rightItemsClass}`}
-            >
-              {rightAdditionalContent}
-            </div>
-          </div>
+          )}
         </div>
       )}
     </>

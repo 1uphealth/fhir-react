@@ -84,7 +84,7 @@ export const Header = ({
 
 export const Title = props => (
   <h4
-    className={`fhir-ui__Title fw-bold fs-4 lh-base mb-0 w-90 title-width-sm text-break ${
+    className={`fhir-ui__Title fw-bold lh-base mb-0 text-break ${
       props.capitalize ? 'text-capitalize' : ''
     }`}
     data-testid={props['data-testid'] || 'title'}

@@ -107,8 +107,15 @@ $enable-negative-margins: true;
 .fhir-ui__Badge {
   width: fit-content;
   margin: 0 4px;
-  @media only screen and (max-width: 768px) {
+  @include media-breakpoint-down(sm) {
     margin: 4px 0;
+  }
+}
+
+.fhir-ui__Title {
+  font-size: 1.125rem;
+  @include media-breakpoint-down(sm) {
+    font-size: 1rem !important;
   }
 }
 

@@ -15,7 +15,7 @@ const ResourceCategory = ({ title, itemsCount, fhirIcons }) => {
     <Root name="ResourceCategory">
       <button
         type="button"
-        className="btn d-flex align-items-center justify-content-between w-100 py-4 px-4 bg-white"
+        className="btn d-flex align-items-center justify-content-between w-100 px-md-4 py-md-4 bg-white"
       >
         <div className="d-flex gap-2">
           <Header

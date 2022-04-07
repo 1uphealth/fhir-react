@@ -106,6 +106,10 @@ $enable-negative-margins: true;
 
 .fhir-ui__Badge {
   width: fit-content;
+  margin: 0 4px;
+  @media only screen and (max-width: 768px) {
+    margin: 4px 0;
+  }
 }
 
 .header__title-row {

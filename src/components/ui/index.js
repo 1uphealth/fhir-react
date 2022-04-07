@@ -53,10 +53,10 @@ export const Header = ({
             </div>
 
             <div
-              className={`fhir-ui__${resourceName}-Header__badges ps-1 ps-sm-2 mt-3 mt-sm-0 badges-max-width-sm flex-wrap flex-sm-nowrap justify-content-between justify-content-sm-end ${rightItemsClass}`}
+              className={`fhir-ui__${resourceName}-Header__badges ps-sm-2 mt-3 mt-sm-0 badges-max-width-sm flex-wrap flex-sm-nowrap justify-content-between justify-content-sm-end ${rightItemsClass}`}
             >
               {prefixBadge && <div className="me-3">{prefixBadge}</div>}
-              <div className="d-flex">
+              <div className="d-flex align-items-center">
                 {badges}
                 {additionalBadge && (
                   <div className="ms-3">{additionalBadge}</div>
@@ -65,13 +65,13 @@ export const Header = ({
             </div>
           </div>
           <div
-            className={`fhir-ui__${resourceName}-Header__additional-content w-100 justify-content-start d-flex  ${
+            className={`fhir-ui__${resourceName}-Header__additional-content w-100 justify-content-start d-flex ${
               additionalContent ? ' pt-2' : ''
             }`}
           >
             {additionalContent}
             <div
-              className={`fhir-ui__${resourceName}-Header__rightAdditionalContent justify-content-end ${rightItemsClass}`}
+              className={`fhir-ui__${resourceName}-Header__rightAdditionalContent justify-content-md-end mx-1 mx-sm-0 ${rightItemsClass}`}
             >
               {rightAdditionalContent}
             </div>
@@ -84,7 +84,7 @@ export const Header = ({
 
 export const Title = props => (
   <h4
-    className={`fhir-ui__Title fw-bold fs-4 lh-base mb-0 w-90 title-width-sm ${
+    className={`fhir-ui__Title fw-bold fs-4 lh-base mb-0 w-90 title-width-sm text-break ${
       props.capitalize ? 'text-capitalize' : ''
     }`}
     data-testid={props['data-testid'] || 'title'}
@@ -96,7 +96,7 @@ export const Title = props => (
 export const Badge = props => {
   return (
     <small
-      className={`fhir-ui__Badge text-capitalize d-flex align-items-center mx-1 px-2 py-1 rounded-1 fw-bold ${getBadgeColor(
+      className={`fhir-ui__Badge text-capitalize d-flex align-items-center px-2 py-1 rounded-1 fw-bold ${getBadgeColor(
         props,
       )}`}
       data-testid={props['data-testid']}
@@ -108,7 +108,7 @@ export const Badge = props => {
 
 export const BadgeSecondary = props => (
   <small
-    className={`fhir-ui__BadgeSecondary px-2 py-1 rounded-1 fw-bold ${getBadgeColor(
+    className={`fhir-ui__BadgeSecondary px-2 py-1 rounded-1 fw-bold d-flex align-items-center ${getBadgeColor(
       props,
     )}`}
     data-testid={props['data-testid']}

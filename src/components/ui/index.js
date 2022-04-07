@@ -71,7 +71,7 @@ export const Header = ({
           >
             {additionalContent}
             <div
-              className={`fhir-ui__${resourceName}-Header__rightAdditionalContent justify-content-md-end mx-1 mx-sm-0 ${rightItemsClass}`}
+              className={`fhir-ui__${resourceName}-Header__rightAdditionalContent justify-content-md-end mx-0 ${rightItemsClass}`}
             >
               {rightAdditionalContent}
             </div>

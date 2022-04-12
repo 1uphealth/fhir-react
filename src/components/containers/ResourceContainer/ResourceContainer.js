@@ -17,16 +17,17 @@ class ResourceContainer extends React.Component {
     return (
       <div className="fhir-container__ResourceContainer__card">
         <div className="fhir-container__ResourceContainer__card-body">
-          <div className="fhir-container__ResourceContainer__json-button-wrapper">
-            <button
-              type="button"
-              className="fhir-container__ResourceContainer__json-button"
-              onClick={() => this.setState({ jsonOpen: !this.state.jsonOpen })}
-            >
-              RAW
-            </button>
-          </div>
-          {this.props.children}
+          {React.Children.map(this.props.children, child => {
+            return React.cloneElement(
+              child,
+              {
+                rawOnClick: () => {
+                  this.setState({ jsonOpen: !this.state.jsonOpen });
+                },
+              },
+              null,
+            );
+          })}
           <div
             className={
               this.state.jsonOpen

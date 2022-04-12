@@ -3,11 +3,10 @@ import { object } from '@storybook/addon-knobs';
 
 import ResourceContainer from './ResourceContainer';
 import Encounter from '../../../components/resources/Encounter';
+import Generic from '../../resources/Generic';
 
 import example1 from '../../../fixtures/dstu2/resources/encounter/example.json';
 import fhirVersions from '../../../components/resources/fhirResourceVersions';
-import Generic from '../../resources/Generic';
-import fhirIcons from '../../../fixtures/example-icons';
 
 export default {
   title: 'ResourceContainer',

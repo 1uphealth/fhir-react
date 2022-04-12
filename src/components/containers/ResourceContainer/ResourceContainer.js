@@ -1,46 +1,36 @@
-import React from 'react';
+import React, { Children, cloneElement, useState } from 'react';
 import CodeBlock from '../CodeBlock';
 import './ResourceContainer.css';
 
-class ResourceContainer extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      jsonOpen:
-        typeof this.props.jsonOpen === 'undefined'
-          ? false
-          : this.props.jsonOpen,
-    };
-  }
+const ResourceContainer = ({ fhirResource, children, jsonOpen }) => {
+  const [openJson, setOpenJson] = useState(jsonOpen ?? false);
 
-  render() {
-    return (
-      <div className="fhir-container__ResourceContainer__card">
-        <div className="fhir-container__ResourceContainer__card-body">
-          {React.Children.map(this.props.children, child => {
-            return React.cloneElement(
-              child,
-              {
-                rawOnClick: () => {
-                  this.setState({ jsonOpen: !this.state.jsonOpen });
-                },
+  return (
+    <div className="fhir-container__ResourceContainer__card">
+      <div className="fhir-container__ResourceContainer__card-body">
+        {Children.map(children, child => {
+          return cloneElement(
+            child,
+            {
+              rawOnClick: () => {
+                setOpenJson(!openJson);
               },
-              null,
-            );
-          })}
-          <div
-            className={
-              this.state.jsonOpen
-                ? 'fhir-container__ResourceContainer__json--visible'
-                : 'fhir-container__ResourceContainer__json--hidden'
-            }
-          >
-            <CodeBlock code={this.props.fhirResource} />
-          </div>
+            },
+            null,
+          );
+        })}
+        <div
+          className={
+            openJson
+              ? 'fhir-container__ResourceContainer__json--visible'
+              : 'fhir-container__ResourceContainer__json--hidden'
+          }
+        >
+          <CodeBlock code={fhirResource} />
         </div>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default ResourceContainer;

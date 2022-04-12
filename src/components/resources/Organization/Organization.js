@@ -55,7 +55,13 @@ const resourceDTO = (fhirVersion, fhirResource) => {
   }
 };
 
-const Organization = ({ fhirResource, fhirVersion, fhirIcons, onClick }) => {
+const Organization = ({
+  fhirResource,
+  fhirVersion,
+  fhirIcons,
+  onClick,
+  rawOnClick,
+}) => {
   let fhirResourceData = {};
   try {
     fhirResourceData = resourceDTO(fhirVersion, fhirResource);
@@ -128,6 +134,7 @@ const Organization = ({ fhirResource, fhirVersion, fhirIcons, onClick }) => {
         }
         bodyContent={<Body tableData={tableData} />}
         onClick={onClick}
+        rawOnClick={rawOnClick}
       />
     </Root>
   );

@@ -109,6 +109,7 @@ const MedicationKnowledge = ({
   withDaVinciPDex = false,
   fhirIcons,
   onClick,
+  rawOnClick,
 }) => {
   let fhirResourceData = {};
   try {
@@ -252,6 +253,7 @@ const MedicationKnowledge = ({
           </Body>
         }
         onClick={onClick}
+        rawOnClick={rawOnClick}
       />
     </Root>
   );

@@ -6,7 +6,7 @@ const CHEVRON_DOWN_COLOR = '#6f83a9';
 const CHEVRON_UP_COLOR = '#2a6fd7';
 
 const Accordion = props => {
-  const { headerContent, bodyContent, onClick } = props;
+  const { headerContent, bodyContent, onClick, rawOnClick } = props;
   const [rotate, setRotate] = useState(false);
   const handleAccordionClick = () => setRotate(!rotate);
   const accordionId = uniqueId(
@@ -43,8 +43,28 @@ const Accordion = props => {
       </div>
     );
 
+  const isRawInAccordion =
+    isAccordionOpenable() && typeof onClick !== 'function';
+
+  const rawButton = (
+    <div
+      className={`fhir-container__ResourceContainer__json-button-wrapper${
+        isRawInAccordion ? '-accordion' : ''
+      }`}
+    >
+      <button
+        type="button"
+        className="fhir-container__ResourceContainer__json-button"
+        onClick={rawOnClick}
+      >
+        RAW
+      </button>
+    </div>
+  );
+
   return (
     <div className="fhir-container__Accordion accordion">
+      {typeof rawOnClick === 'function' && !isRawInAccordion && rawButton}
       <div className="fhir-container__Accordion__body accordion-body">
         <div className="fhir-container__Accordion__body-data accordion-item border-1 shadow-sm">
           <div
@@ -82,6 +102,9 @@ const Accordion = props => {
           >
             <div className="fhir-container__Accordion__data-text accordion-body ps-4 pt-3 pe-4 border-top">
               {bodyContent}
+              {typeof rawOnClick === 'function' &&
+                isRawInAccordion &&
+                rawButton}
             </div>
           </div>
         </div>

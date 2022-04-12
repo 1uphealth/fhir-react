@@ -18,7 +18,7 @@ import {
 } from '../../ui';
 import Reference from '../../datatypes/Reference';
 
-const Observation = ({ fhirResource, fhirIcons, onClick }) => {
+const Observation = ({ fhirResource, fhirIcons, onClick, rawOnClick }) => {
   const effectiveDate = _get(fhirResource, 'effectiveDateTime');
   const codeCodingDisplay = _get(fhirResource, 'code.coding.0.display');
   const codeText = _get(fhirResource, 'code.text', '');
@@ -115,6 +115,7 @@ const Observation = ({ fhirResource, fhirIcons, onClick }) => {
           </Body>
         }
         onClick={onClick}
+        rawOnClick={rawOnClick}
       />
     </Root>
   );

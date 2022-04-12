@@ -221,6 +221,7 @@ const DocumentReference = ({
   fhirResource,
   fhirIcons,
   onClick,
+  rawOnClick,
 }) => {
   let fhirResourceData = {};
   try {
@@ -342,6 +343,7 @@ const DocumentReference = ({
           </Body>
         }
         onClick={onClick}
+        rawOnClick={rawOnClick}
       />
     </Root>
   );

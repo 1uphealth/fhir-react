@@ -75,6 +75,7 @@ const FamilyMemberHistory = ({
   fhirVersion,
   fhirIcons,
   onClick,
+  rawOnClick,
 }) => {
   let fhirResourceData = {};
   try {
@@ -140,6 +141,7 @@ const FamilyMemberHistory = ({
         }
         bodyContent={<Body tableData={tableData} />}
         onClick={onClick}
+        rawOnClick={rawOnClick}
       />
     </Root>
   );

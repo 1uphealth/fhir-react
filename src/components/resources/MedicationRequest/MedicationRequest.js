@@ -9,7 +9,12 @@ import Date from '../../datatypes/Date';
 
 import { Root, Header, Body } from '../../ui';
 
-const MedicationRequest = ({ fhirResource, fhirIcons, onClick }) => {
+const MedicationRequest = ({
+  fhirResource,
+  fhirIcons,
+  onClick,
+  rawOnClick,
+}) => {
   const medicationReference = _get(fhirResource, 'medicationReference');
   const medicationCodeableConcept = _get(
     fhirResource,
@@ -88,6 +93,7 @@ const MedicationRequest = ({ fhirResource, fhirIcons, onClick }) => {
         }
         bodyContent={<Body tableData={tableData} />}
         onClick={onClick}
+        rawOnClick={rawOnClick}
       />
     </Root>
   );

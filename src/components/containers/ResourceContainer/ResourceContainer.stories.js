@@ -6,12 +6,14 @@ import Encounter from '../../../components/resources/Encounter';
 
 import example1 from '../../../fixtures/dstu2/resources/encounter/example.json';
 import fhirVersions from '../../../components/resources/fhirResourceVersions';
+import Generic from '../../resources/Generic';
+import fhirIcons from '../../../fixtures/example-icons';
 
 export default {
   title: 'ResourceContainer',
 };
 
-export const DefaultVisualization = () => {
+export const DefaultVisualizationWithRawButtonHiddenInsideAccordion = () => {
   const fhirResource = object('Resource', example1);
   const props = {
     fhirVersion: fhirVersions.DSTU2,
@@ -20,6 +22,27 @@ export const DefaultVisualization = () => {
   return (
     <ResourceContainer {...props}>
       <Encounter {...props} />
+    </ResourceContainer>
+  );
+};
+
+export const DefaultVisualizationWithRawButtonVisibleOutsideAccordion = () => {
+  const exampleResource = {
+    resourceType: 'UnknownResource',
+    id: '12345',
+    code: {
+      text: 'Resource code text',
+    },
+  };
+
+  const fhirResource = object('Resource', exampleResource);
+  const props = {
+    fhirResource: fhirResource,
+  };
+
+  return (
+    <ResourceContainer {...props}>
+      <Generic {...props} />
     </ResourceContainer>
   );
 };

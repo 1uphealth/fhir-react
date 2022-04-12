@@ -285,7 +285,13 @@ const hasPaymentInfo = payment => {
   return Object.values(payment).filter(item => item).length > 0;
 };
 
-const ClaimResponse = ({ fhirVersion, fhirResource, fhirIcons, onClick }) => {
+const ClaimResponse = ({
+  fhirVersion,
+  fhirResource,
+  fhirIcons,
+  onClick,
+  rawOnClick,
+}) => {
   let fhirResourceData = {};
   try {
     fhirResourceData = resourceDTO(fhirVersion, fhirResource);
@@ -449,6 +455,7 @@ const ClaimResponse = ({ fhirVersion, fhirResource, fhirIcons, onClick }) => {
           </Body>
         }
         onClick={onClick}
+        rawOnClick={rawOnClick}
       />
     </Root>
   );

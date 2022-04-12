@@ -144,7 +144,13 @@ const resourceDTO = (fhirVersion, fhirResource) => {
   }
 };
 
-const Appointment = ({ fhirResource, fhirVersion, fhirIcons, onClick }) => {
+const Appointment = ({
+  fhirResource,
+  fhirVersion,
+  fhirIcons,
+  onClick,
+  rawOnClick,
+}) => {
   const {
     description,
     status,
@@ -254,6 +260,7 @@ const Appointment = ({ fhirResource, fhirVersion, fhirIcons, onClick }) => {
           </Body>
         }
         onClick={onClick}
+        rawOnClick={rawOnClick}
       />
     </Root>
   );

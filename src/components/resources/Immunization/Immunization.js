@@ -103,7 +103,13 @@ const resourceDTO = (fhirVersion, fhirResource) => {
   }
 };
 
-const Immunization = ({ fhirVersion, fhirResource, fhirIcons, onClick }) => {
+const Immunization = ({
+  fhirVersion,
+  fhirResource,
+  fhirIcons,
+  onClick,
+  rawOnClick,
+}) => {
   const {
     title,
     status,
@@ -241,6 +247,7 @@ const Immunization = ({ fhirVersion, fhirResource, fhirIcons, onClick }) => {
         }
         bodyContent={<Body tableData={tableData} />}
         onClick={onClick}
+        rawOnClick={rawOnClick}
       />
     </Root>
   );

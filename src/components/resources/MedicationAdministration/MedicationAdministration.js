@@ -115,6 +115,7 @@ const MedicationAdministration = ({
   fhirVersion,
   fhirIcons,
   onClick,
+  rawOnClick,
 }) => {
   let fhirResourceData = {};
   try {
@@ -213,6 +214,7 @@ const MedicationAdministration = ({
           </Body>
         }
         onClick={onClick}
+        rawOnClick={rawOnClick}
       />
     </Root>
   );

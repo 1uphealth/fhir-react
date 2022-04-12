@@ -47,6 +47,7 @@ function Patient(props) {
     patientSimple,
     fhirIcons,
     onClick,
+    rawOnClick,
   } = props;
 
   const id = getId(fhirResource);
@@ -148,6 +149,7 @@ function Patient(props) {
         }
         bodyContent={<Body tableData={tableData} />}
         onClick={onClick}
+        rawOnClick={rawOnClick}
       />
     </Root>
   );

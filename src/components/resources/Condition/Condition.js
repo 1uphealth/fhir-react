@@ -87,7 +87,13 @@ const resourceDTO = (fhirVersion, fhirResource) => {
   }
 };
 
-const Condition = ({ fhirResource, fhirVersion, fhirIcons, onClick }) => {
+const Condition = ({
+  fhirResource,
+  fhirVersion,
+  fhirIcons,
+  onClick,
+  rawOnClick,
+}) => {
   const {
     codeText,
     severityText,
@@ -157,6 +163,7 @@ const Condition = ({ fhirResource, fhirVersion, fhirIcons, onClick }) => {
         }
         bodyContent={<Body tableData={tableData} />}
         onClick={onClick}
+        rawOnClick={rawOnClick}
       />
     </Root>
   );

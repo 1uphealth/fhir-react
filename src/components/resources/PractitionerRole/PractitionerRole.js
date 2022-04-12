@@ -48,6 +48,7 @@ const PractitionerRole = ({
   fhirVersion,
   fhirIcons,
   onClick,
+  rawOnClick,
 }) => {
   let fhirResourceData = {};
   try {
@@ -106,6 +107,7 @@ const PractitionerRole = ({
         }
         bodyContent={<Body tableData={tableData} />}
         onClick={onClick}
+        rawOnClick={rawOnClick}
       />
     </Root>
   );

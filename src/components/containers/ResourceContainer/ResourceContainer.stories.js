@@ -1,5 +1,5 @@
 import React from 'react';
-import { object } from '@storybook/addon-knobs';
+import { object, withKnobs } from '@storybook/addon-knobs';
 
 import ResourceContainer from './ResourceContainer';
 import Encounter from '../../../components/resources/Encounter';
@@ -10,13 +10,16 @@ import fhirVersions from '../../../components/resources/fhirResourceVersions';
 
 export default {
   title: 'ResourceContainer',
+  component: ResourceContainer,
+  decorators: [withKnobs],
+  argTypes: { data: { control: 'object' } },
 };
 
 export const DefaultVisualizationWithRawButtonHiddenInsideAccordion = () => {
   const fhirResource = object('Resource', example1);
   const props = {
     fhirVersion: fhirVersions.DSTU2,
-    fhirResource: fhirResource,
+    fhirResource: example1,
   };
 
   return (
@@ -26,7 +29,9 @@ export const DefaultVisualizationWithRawButtonHiddenInsideAccordion = () => {
   );
 };
 
-export const DefaultVisualizationWithRawButtonVisibleOutsideAccordion = () => {
+export const DefaultVisualizationWithRawButtonVisibleOutsideAccordion = ({
+  data,
+}) => {
   const exampleResource = {
     resourceType: 'UnknownResource',
     id: '12345',
@@ -35,9 +40,8 @@ export const DefaultVisualizationWithRawButtonVisibleOutsideAccordion = () => {
     },
   };
 
-  const fhirResource = object('Resource', exampleResource);
   const props = {
-    fhirResource: fhirResource,
+    fhirResource: { exampleResource },
   };
 
   return (

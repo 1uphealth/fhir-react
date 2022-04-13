@@ -8,7 +8,7 @@ import Coding from '../../datatypes/Coding';
 
 import { Root, Header, Body } from '../../ui';
 
-const MedicationOrder = ({ fhirResource, fhirIcons, onClick }) => {
+const MedicationOrder = ({ fhirResource, fhirIcons, onClick, rawOnClick }) => {
   const medicationReference = _get(fhirResource, 'medicationReference');
   const medicationCodeableConcept = _get(
     fhirResource,
@@ -65,6 +65,7 @@ const MedicationOrder = ({ fhirResource, fhirIcons, onClick }) => {
         }
         bodyContent={<Body tableData={tableData} />}
         onClick={onClick}
+        rawOnClick={rawOnClick}
       />
     </Root>
   );

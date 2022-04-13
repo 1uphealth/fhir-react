@@ -44,7 +44,7 @@ const observationValuePoint = (actualValue, unit, small) => {
     >
       {!small && (
         <span
-          className={`position-absolute top-0 translate-middle ps-2 ${
+          className={`position-absolute top-0 translate-middle ps-sm-2 ps-0 pe-4 pe-sm-0 ${
             small ? 'pb-4 fs-1' : 'pb-5 fs-4'
           } w-max-content`}
           data-testid="valuePoint"

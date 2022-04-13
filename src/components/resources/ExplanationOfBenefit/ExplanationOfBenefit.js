@@ -234,6 +234,7 @@ const ExplanationOfBenefit = ({
   withCarinBBProfile = false,
   fhirIcons,
   onClick,
+  rawOnClick,
 }) => {
   let fhirResourceData = {};
   try {
@@ -548,6 +549,7 @@ const ExplanationOfBenefit = ({
           </Body>
         }
         onClick={onClick}
+        rawOnClick={rawOnClick}
       />
     </Root>
   );

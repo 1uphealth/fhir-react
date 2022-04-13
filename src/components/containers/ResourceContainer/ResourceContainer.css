@@ -20,6 +20,10 @@
   top: 0.5rem;
 }
 
+.fhir-container__ResourceContainer__json-button-wrapper-accordion {
+  margin-top: 10px;
+}
+
 .fhir-container__ResourceContainer__json--visible {
   display: block;
   padding-top: 10px;

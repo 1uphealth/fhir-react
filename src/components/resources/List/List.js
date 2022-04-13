@@ -131,6 +131,7 @@ const List = ({
   withDaVinciPDex = false,
   fhirIcons,
   onClick,
+  rawOnClick,
 }) => {
   let fhirResourceData = {};
   try {
@@ -291,6 +292,7 @@ const List = ({
           </Body>
         }
         onClick={onClick}
+        rawOnClick={rawOnClick}
       />
     </Root>
   );

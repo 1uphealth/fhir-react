@@ -18,6 +18,7 @@ export const DefaultVisualizationWithRawButtonHiddenInsideAccordion = () => {
     fhirVersion: fhirVersions.DSTU2,
     fhirResource: fhirResource,
   };
+
   return (
     <ResourceContainer {...props}>
       <Encounter {...props} />

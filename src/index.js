@@ -11,3 +11,8 @@ if (typeof document !== 'undefined') {
 
 export { FhirResource, fhirVersions };
 export * from './components/supportedFhirResourceList';
+
+module.exports = {
+  stories: ['../**/*.stories.js'],
+  addons: ['@storybook/addon-knobs/register'],
+};

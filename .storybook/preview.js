@@ -4,8 +4,6 @@ import '../src/style.scss';
 
 import { addDecorator, addParameters } from '@storybook/react';
 
-import { withKnobs } from '@storybook/addon-knobs/react';
-
 if (typeof document !== 'undefined') {
   require('bootstrap/dist/js/bootstrap.min.js');
 }
@@ -16,9 +14,3 @@ if (typeof document !== 'undefined') {
 //     showRoots: true,
 //   },
 // });
-
-addDecorator(
-  withKnobs({
-    escapeHTML: false,
-  }),
-);

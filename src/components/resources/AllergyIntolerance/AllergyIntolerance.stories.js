@@ -1,5 +1,4 @@
 import React from 'react';
-import { object } from '@storybook/addon-knobs';
 
 import AllergyIntolerance from './AllergyIntolerance';
 
@@ -14,88 +13,76 @@ import fhirIcons from '../../../fixtures/example-icons';
 import fhirVersions from '../fhirResourceVersions';
 import AllergyIntoleranceIcon from '../../../assets/containers/AllergyIntolerance/allergy-intolerance.svg';
 
-export default { title: 'AllergyIntolerance' };
-
-export const DefaultVisualizationDSTU2 = () => {
-  const fhirResource = object('Resource', exampleAllergyIntoleranceDSTU2);
-  return (
-    <AllergyIntolerance
-      fhirVersion={fhirVersions.DSTU2}
-      fhirResource={fhirResource}
-      fhirIcons={require('../../../assets/containers/AllergyIntolerance/allergy-intolerance.svg')}
-    />
-  );
+export default {
+  title: 'AllergyIntolerance',
+  component: AllergyIntolerance,
+  argTypes: {
+    fhirVersion: {
+      table: {
+        disable: true,
+      },
+    },
+    fhirIcons: {
+      table: {
+        disable: true,
+      },
+    },
+  },
 };
 
-export const Example2ofDSTU2 = () => {
-  const fhirResource = object('Resource', example2AllergyIntoleranceDSTU2);
-  return (
-    <AllergyIntolerance
-      fhirVersion={fhirVersions.DSTU2}
-      fhirResource={fhirResource}
-      fhirIcons={AllergyIntoleranceIcon}
-    />
-  );
+const Template = args => <AllergyIntolerance {...args} />;
+
+export const DefaultVisualizationDSTU2 = Template.bind({});
+DefaultVisualizationDSTU2.args = {
+  fhirVersion: fhirVersions.DSTU2,
+  fhirResource: exampleAllergyIntoleranceDSTU2,
+  fhirIcons: require('../../../assets/containers/AllergyIntolerance/allergy-intolerance.svg'),
 };
 
-export const ExampleDiagnosticReportSTU3 = () => {
-  const fhirResource = object('Resource', exampleAllergyIntoleranceSTU3);
-  return (
-    <AllergyIntolerance
-      fhirVersion={fhirVersions.STU3}
-      fhirResource={fhirResource}
-      fhirIcons={fhirIcons}
-    />
-  );
+export const Example2ofDSTU2 = Template.bind({});
+Example2ofDSTU2.args = {
+  fhirVersion: fhirVersions.DSTU2,
+  fhirResource: example2AllergyIntoleranceDSTU2,
+  fhirIcons: AllergyIntoleranceIcon,
 };
 
-export const Example2DiagnosticReportSTU3 = () => {
-  const fhirResource = object('Resource', example2AllergyIntoleranceSTU3);
-  return (
-    <AllergyIntolerance
-      fhirVersion={fhirVersions.STU3}
-      fhirResource={fhirResource}
-      fhirIcons={false}
-    />
-  );
+export const ExampleDiagnosticReportSTU3 = Template.bind({});
+ExampleDiagnosticReportSTU3.args = {
+  fhirVersion: fhirVersions.STU3,
+  fhirResource: exampleAllergyIntoleranceSTU3,
+  fhirIcons: fhirIcons,
 };
 
-export const Example1R4 = () => {
-  const fhirResource = object('Resource', example1AllergyIntoleranceR4);
-  return (
-    <AllergyIntolerance
-      fhirVersion={fhirVersions.R4}
-      fhirResource={fhirResource}
-      fhirIcons={'random text'}
-    />
-  );
+export const Example2DiagnosticReportSTU3 = Template.bind({});
+Example2DiagnosticReportSTU3.args = {
+  fhirVersion: fhirVersions.STU3,
+  fhirResource: example2AllergyIntoleranceSTU3,
+  fhirIcons: false,
 };
 
-export const Example2R4 = () => {
-  const fhirResource = object('Resource', example2AllergyIntoleranceR4);
-  return (
-    <AllergyIntolerance
-      fhirVersion={fhirVersions.R4}
-      fhirResource={fhirResource}
-      fhirIcons={fhirIcons}
-    />
-  );
+export const Example1R4 = Template.bind({});
+Example1R4.args = {
+  fhirVersion: fhirVersions.R4,
+  fhirResource: example1AllergyIntoleranceR4,
+  fhirIcons: 'random text',
 };
 
-export const Example3R4 = () => {
-  const fhirResource = object('Resource', example3AllergyIntoleranceR4);
-  return (
-    <AllergyIntolerance
-      fhirVersion={fhirVersions.R4}
-      fhirResource={fhirResource}
-      fhirIcons={fhirIcons}
-    />
-  );
+export const Example2R4 = Template.bind({});
+Example2R4.args = {
+  fhirVersion: fhirVersions.R4,
+  fhirResource: example2AllergyIntoleranceR4,
+  fhirIcons: fhirIcons,
 };
 
-export const ExampleWithoutFhirVersionProperty = () => {
-  const fhirResource = object('Resource', example2AllergyIntoleranceSTU3);
-  return (
-    <AllergyIntolerance fhirResource={fhirResource} fhirIcons={fhirIcons} />
-  );
+export const Example3R4 = Template.bind({});
+Example3R4.args = {
+  fhirVersion: fhirVersions.R4,
+  fhirResource: example3AllergyIntoleranceR4,
+  fhirIcons: fhirIcons,
+};
+
+export const ExampleWithoutFhirVersionProperty = Template.bind({});
+ExampleWithoutFhirVersionProperty.args = {
+  fhirResource: example2AllergyIntoleranceSTU3,
+  fhirIcons: fhirIcons,
 };

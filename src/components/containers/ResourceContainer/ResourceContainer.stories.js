@@ -19,7 +19,7 @@ export const DefaultVisualizationWithRawButtonHiddenInsideAccordion = () => {
   const fhirResource = object('Resource', example1);
   const props = {
     fhirVersion: fhirVersions.DSTU2,
-    fhirResource: example1,
+    fhirResource: fhirResource,
   };
 
   return (
@@ -40,8 +40,9 @@ export const DefaultVisualizationWithRawButtonVisibleOutsideAccordion = ({
     },
   };
 
+  data = exampleResource;
   const props = {
-    fhirResource: { exampleResource },
+    fhirResource: { data },
   };
 
   return (

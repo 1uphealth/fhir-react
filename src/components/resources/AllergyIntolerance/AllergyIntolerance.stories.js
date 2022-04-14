@@ -1,4 +1,5 @@
 import React from 'react';
+import { defaultArgTypes } from '../../defaultArgTypes';
 
 import AllergyIntolerance from './AllergyIntolerance';
 
@@ -17,16 +18,7 @@ export default {
   title: 'AllergyIntolerance',
   component: AllergyIntolerance,
   argTypes: {
-    fhirVersion: {
-      table: {
-        disable: true,
-      },
-    },
-    fhirIcons: {
-      table: {
-        disable: true,
-      },
-    },
+    ...defaultArgTypes,
   },
 };
 

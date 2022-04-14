@@ -1,5 +1,5 @@
 import React from 'react';
-import { object } from '@storybook/addon-knobs';
+import { defaultArgTypes } from '../../defaultArgTypes';
 
 import AdverseEvent from './AdverseEvent';
 import fhirVersions from '../fhirResourceVersions';
@@ -11,26 +11,25 @@ import fhirIcons from '../../../fixtures/example-icons';
 
 export default {
   title: 'AdverseEvent',
+  component: AdverseEvent,
+  argTypes: {
+    ...defaultArgTypes,
+  },
 };
 
-export const DefaultVisualizationSTU3 = () => {
-  const fhirResource = object('Resource', stu3Example1);
-  return (
-    <AdverseEvent
-      fhirResource={fhirResource}
-      fhirVersion={fhirVersions.STU3}
-      fhirIcons={fhirIcons}
-    />
-  );
+const Template = args => <AdverseEvent {...args} />;
+
+export const DefaultVisualizationSTU3 = Template.bind({});
+DefaultVisualizationSTU3.args = {
+  fhirVersion: fhirVersions.STU3,
+  fhirResource: stu3Example1,
+  fhirIcons: fhirIcons,
 };
 
-export const Example1ofR4 = () => {
-  const fhirResource = object('Resource', r4Example1);
-  return (
-    <AdverseEvent
-      fhirResource={fhirResource}
-      fhirVersion={fhirVersions.R4}
-      fhirIcons={false}
-    />
-  );
+export const Example1ofR4 = Template.bind({});
+
+Example1ofR4.args = {
+  fhirVersion: fhirVersions.R4,
+  fhirResource: r4Example1,
+  fhirIcons: false,
 };

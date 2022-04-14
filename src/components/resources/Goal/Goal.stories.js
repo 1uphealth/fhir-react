@@ -1,5 +1,5 @@
 import React from 'react';
-import { object } from '@storybook/addon-knobs';
+import { defaultArgTypes } from '../../defaultArgTypes';
 
 import Goal from './Goal';
 import fhirIcons from '../../../fixtures/example-icons';

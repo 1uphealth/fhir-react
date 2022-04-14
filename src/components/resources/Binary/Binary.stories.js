@@ -1,5 +1,5 @@
 import React from 'react';
-import { object } from '@storybook/addon-knobs';
+import { defaultArgTypes } from '../../defaultArgTypes';
 
 import Binary from './Binary';
 
@@ -13,34 +13,40 @@ import BinaryIcon from '../../../assets/containers/Binary/binary.svg';
 
 export default {
   title: 'Binary',
+  component: Binary,
+  argTypes: {
+    ...defaultArgTypes,
+  },
 };
 
-export const PdfDSTU2 = () => {
-  const fhirResource = object('Resource', dstu2ExamplePdf);
-  return (
-    <Binary
-      fhirResource={fhirResource}
-      fhirIcons={require('../../../assets/containers/Binary/binary.svg')}
-    />
-  );
+const Template = args => <Binary {...args} />;
+
+export const PdfDSTU2 = Template.bind({});
+PdfDSTU2.args = {
+  fhirResource: dstu2ExamplePdf,
+  fhirIcons: require('../../../assets/containers/Binary/binary.svg'),
 };
 
-export const JpegDSTU2 = () => {
-  const fhirResource = object('Resource', dstu2ExampleJpeg);
-  return <Binary fhirResource={fhirResource} fhirIcons={BinaryIcon} />;
+export const JpegDSTU2 = Template.bind({});
+JpegDSTU2.args = {
+  fhirResource: dstu2ExampleJpeg,
+  fhirIcons: BinaryIcon,
 };
 
-export const PdfSTU3 = () => {
-  const fhirResource = object('Resource', stu3ExamplePdf);
-  return <Binary fhirResource={fhirResource} fhirIcons={false} />;
+export const PdfSTU3 = Template.bind({});
+PdfSTU3.args = {
+  fhirResource: stu3ExamplePdf,
+  fhirIcons: false,
 };
 
-export const JpegSTU3 = () => {
-  const fhirResource = object('Resource', stu3ExampleJpeg);
-  return <Binary fhirResource={fhirResource} fhirIcons={'random text'} />;
+export const JpegSTU3 = Template.bind({});
+JpegSTU3.args = {
+  fhirResource: stu3ExampleJpeg,
+  fhirIcons: 'random text',
 };
 
-export const JsonSTU3 = () => {
-  const fhirResource = object('Resource', stu3ExampleJson);
-  return <Binary fhirResource={fhirResource} fhirIcons={fhirIcons} />;
+export const JsonSTU3 = Template.bind({});
+JsonSTU3.args = {
+  fhirResource: stu3ExampleJson,
+  fhirIcons: fhirIcons,
 };

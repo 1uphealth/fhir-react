@@ -1,5 +1,5 @@
 import React from 'react';
-import { object } from '@storybook/addon-knobs';
+import { defaultArgTypes } from '../../defaultArgTypes';
 
 import Bundle from './Bundle';
 
@@ -19,77 +19,87 @@ import fhirVersions from '../fhirResourceVersions';
 
 export default {
   title: 'Bundle',
+  component: Bundle,
+  argTypes: {
+    ...defaultArgTypes,
+  },
 };
 
-export const Example1OfDSTU2 = () => {
-  const fhirResource = object('Resource', dstu2Example1);
-  return (
-    <Bundle fhirResource={fhirResource} fhirVersion={fhirVersions.DSTU2} />
-  );
+const Template = args => <Bundle {...args} />;
+
+export const Example1OfDSTU2 = Template.bind({});
+Example1OfDSTU2.args = {
+  fhirVersion: fhirVersions.DSTU2,
+  fhirResource: dstu2Example1,
 };
 
-export const Example2OfDSTU2 = () => {
-  const fhirResource = object('Resource', dstu2Example2);
-  return (
-    <Bundle fhirResource={fhirResource} fhirVersion={fhirVersions.DSTU2} />
-  );
+export const Example2OfDSTU2 = Template.bind({});
+Example2OfDSTU2.args = {
+  fhirVersion: fhirVersions.DSTU2,
+  fhirResource: dstu2Example2,
 };
 
-export const Example3OfDSTU2 = () => {
-  const fhirResource = object('Resource', dstu2Example3);
-  return (
-    <Bundle fhirResource={fhirResource} fhirVersion={fhirVersions.DSTU2} />
-  );
+export const Example3OfDSTU2 = Template.bind({});
+Example3OfDSTU2.args = {
+  fhirVersion: fhirVersions.DSTU2,
+  fhirResource: dstu2Example3,
 };
 
-export const Example4OfDSTU2 = () => {
-  const fhirResource = object('Resource', dstu2Example4);
-  return (
-    <Bundle fhirResource={fhirResource} fhirVersion={fhirVersions.DSTU2} />
-  );
+export const Example4OfDSTU2 = Template.bind({});
+Example4OfDSTU2.args = {
+  fhirVersion: fhirVersions.DSTU2,
+  fhirResource: dstu2Example4,
 };
 
-export const Example1OfSTU3 = () => {
-  const fhirResource = object('Resource', stu3Example1);
-  return <Bundle fhirResource={fhirResource} fhirVersion={fhirVersions.STU3} />;
+export const Example1OfSTU3 = Template.bind({});
+Example1OfSTU3.args = {
+  fhirVersion: fhirVersions.STU3,
+  fhirResource: stu3Example1,
 };
 
-export const Example2OfSTU3 = () => {
-  const fhirResource = object('Resource', stu3Example2);
-  return <Bundle fhirResource={fhirResource} fhirVersion={fhirVersions.STU3} />;
+export const Example2OfSTU3 = Template.bind({});
+Example2OfSTU3.args = {
+  fhirVersion: fhirVersions.STU3,
+  fhirResource: stu3Example2,
 };
 
-export const Example3OfSTU3 = () => {
-  const fhirResource = object('Resource', stu3Example3);
-  return <Bundle fhirResource={fhirResource} fhirVersion={fhirVersions.STU3} />;
+export const Example3OfSTU3 = Template.bind({});
+Example3OfSTU3.args = {
+  fhirVersion: fhirVersions.STU3,
+  fhirResource: stu3Example3,
 };
 
-export const Example4OfSTU3 = () => {
-  const fhirResource = object('Resource', stu3Example4);
-  return <Bundle fhirResource={fhirResource} fhirVersion={fhirVersions.STU3} />;
+export const Example4OfSTU3 = Template.bind({});
+Example4OfSTU3.args = {
+  fhirVersion: fhirVersions.STU3,
+  fhirResource: stu3Example4,
 };
 
-export const Example1OfR4 = () => {
-  const fhirResource = object('Resource', r4Example1);
-  return <Bundle fhirResource={fhirResource} fhirVersion={fhirVersions.R4} />;
+export const Example1OfR4 = Template.bind({});
+Example1OfR4.args = {
+  fhirVersion: fhirVersions.R4,
+  fhirResource: r4Example1,
 };
 
-export const Example2OfR4 = () => {
-  const fhirResource = object('Resource', r4Example2);
-  return <Bundle fhirResource={fhirResource} fhirVersion={fhirVersions.R4} />;
+export const Example2OfR4 = Template.bind({});
+Example2OfR4.args = {
+  fhirVersion: fhirVersions.R4,
+  fhirResource: r4Example2,
 };
 
-export const Example3OfR4 = () => {
-  const fhirResource = object('Resource', r4Example3);
-  return <Bundle fhirResource={fhirResource} fhirVersion={fhirVersions.R4} />;
+export const Example3OfR4 = Template.bind({});
+Example3OfR4.args = {
+  fhirVersion: fhirVersions.R4,
+  fhirResource: r4Example3,
 };
 
-export const Example4OfR4 = () => {
-  const fhirResource = object('Resource', r4Example4);
-  return <Bundle fhirResource={fhirResource} fhirVersion={fhirVersions.R4} />;
+export const Example4OfR4 = Template.bind({});
+Example4OfR4.args = {
+  fhirVersion: fhirVersions.R4,
+  fhirResource: r4Example4,
 };
 
-// export const ExampleWithoutFHIRVersionProperty = () => {
-//   const fhirResource = object('Resource', stu3Example2);
-//   return <Bundle fhirResource={fhirResource} />;
-// };
+export const ExampleWithoutFHIRVersionProperty = Template.bind({});
+ExampleWithoutFHIRVersionProperty.args = {
+  fhirResource: stu3Example2,
+};

@@ -1,5 +1,5 @@
 import React from 'react';
-import { object } from '@storybook/addon-knobs';
+import { defaultArgTypes } from '../../defaultArgTypes';
 
 import ResearchStudy from './ResearchStudy';
 import fhirVersions from '../fhirResourceVersions';

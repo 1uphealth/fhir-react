@@ -1,5 +1,5 @@
 import React from 'react';
-import { object } from '@storybook/addon-knobs';
+import { defaultArgTypes } from '../../defaultArgTypes';
 
 import Coverage from './Coverage';
 import fhirVersions from '../fhirResourceVersions';
@@ -12,64 +12,52 @@ import example2CoverageR4 from '../../../fixtures/r4/resources/coverage/example2
 import fhirIcons from '../../../fixtures/example-icons';
 import CoverageIcon from '../../../assets/containers/Coverage/coverage.svg';
 
-export default { title: 'Coverage' };
-
-export const DefaultVisualizationDSTU2 = () => {
-  const fhirResource = object('Resource', exampleCoverageDstu2);
-  return (
-    <Coverage
-      fhirVersion={fhirVersions.DSTU2}
-      fhirResource={fhirResource}
-      fhirIcons={require('../../../assets/containers/Coverage/coverage.svg')}
-    />
-  );
+export default {
+  title: 'Coverage',
+  component: Coverage,
+  argTypes: {
+    ...defaultArgTypes,
+  },
 };
 
-export const ExampleOfSTU3 = () => {
-  const fhirResource = object('Resource', exampleCoverageStu3);
-  return (
-    <Coverage
-      fhirVersion={fhirVersions.STU3}
-      fhirResource={fhirResource}
-      fhirIcons={CoverageIcon}
-    />
-  );
+const Template = args => <Coverage {...args} />;
+
+export const DefaultVisualizationDSTU2 = Template.bind({});
+DefaultVisualizationDSTU2.args = {
+  fhirVersion: fhirVersions.DSTU2,
+  fhirResource: exampleCoverageDstu2,
+  fhirIcons: require('../../../assets/containers/Coverage/coverage.svg'),
 };
 
-export const Example2OfSTU3 = () => {
-  const fhirResource = object('Resource', example2CoverageStu3);
-  return (
-    <Coverage
-      fhirVersion={fhirVersions.STU3}
-      fhirResource={fhirResource}
-      fhirIcons={fhirIcons}
-    />
-  );
+export const ExampleOfSTU3 = Template.bind({});
+ExampleOfSTU3.args = {
+  fhirVersion: fhirVersions.STU3,
+  fhirResource: exampleCoverageStu3,
+  fhirIcons: CoverageIcon,
 };
 
-export const ExampleOfR4 = () => {
-  const fhirResource = object('Resource', exampleCoverageR4);
-  return (
-    <Coverage
-      fhirResource={fhirResource}
-      fhirVersion={fhirVersions.R4}
-      fhirIcons={false}
-    />
-  );
+export const Example2OfSTU3 = Template.bind({});
+Example2OfSTU3.args = {
+  fhirVersion: fhirVersions.STU3,
+  fhirResource: example2CoverageStu3,
+  fhirIcons: fhirIcons,
 };
 
-export const Example2OfR4 = () => {
-  const fhirResource = object('Resource', example2CoverageR4);
-  return (
-    <Coverage
-      fhirResource={fhirResource}
-      fhirVersion={fhirVersions.R4}
-      fhirIcons={'random text'}
-    />
-  );
+export const ExampleOfR4 = Template.bind({});
+ExampleOfR4.args = {
+  fhirVersion: fhirVersions.R4,
+  fhirResource: exampleCoverageR4,
+  fhirIcons: false,
 };
 
-export const ExampleWithoutFhirVersionProperty = () => {
-  const fhirResource = object('Resource', exampleCoverageStu3);
-  return <Coverage fhirResource={fhirResource} />;
+export const Example2OfR4 = Template.bind({});
+Example2OfR4.args = {
+  fhirVersion: fhirVersions.R4,
+  fhirResource: example2CoverageR4,
+  fhirIcons: 'random text',
+};
+
+export const ExampleWithoutFhirVersionProperty = Template.bind({});
+ExampleWithoutFhirVersionProperty.args = {
+  fhirResource: exampleCoverageStu3,
 };

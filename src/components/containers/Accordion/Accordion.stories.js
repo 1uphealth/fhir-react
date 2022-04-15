@@ -13,8 +13,6 @@ import example1 from '../../../fixtures/dstu2/resources/procedure/example1.json'
 import stu3Example1 from '../../../fixtures/stu3/resources/procedure/example1.json';
 import fhirIcons from '../../../fixtures/example-icons';
 
-// TODO: fix
-
 export default {
   title: 'Accordion',
   component: Accordion,
@@ -33,7 +31,7 @@ export default {
 };
 
 const Template = args => <Accordion {...args} />;
-// TODO: fix header and body, so they look right (with <Header> and tableData)
+
 const DefaultVisualizationFhirResource = stu3Example1;
 export const DefaultVisualization = Template.bind({});
 DefaultVisualization.args = {

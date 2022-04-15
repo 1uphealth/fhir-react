@@ -6,9 +6,4 @@ module.exports = {
     '@storybook/addon-controls',
   ],
   framework: '@storybook/react',
-  babel: async options => ({
-    ...options,
-  }),
 };
-
-// TODO: fix

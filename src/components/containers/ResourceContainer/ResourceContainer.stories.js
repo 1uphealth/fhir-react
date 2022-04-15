@@ -15,15 +15,13 @@ export default {
     ...defaultArgTypes,
     children: {
       table: {
-        disabled: true,
+        disable: true,
       },
     },
   },
 };
 
-const Template = args => (
-  <ResourceContainer {...args}>{args.children}</ResourceContainer>
-);
+const Template = args => <ResourceContainer {...args} />;
 
 const propsRawInsideAccordion = {
   fhirVersion: fhirVersions.DSTU2,

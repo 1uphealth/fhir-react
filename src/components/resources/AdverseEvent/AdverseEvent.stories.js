@@ -27,7 +27,6 @@ DefaultVisualizationSTU3.args = {
 };
 
 export const Example1ofR4 = Template.bind({});
-
 Example1ofR4.args = {
   fhirVersion: fhirVersions.R4,
   fhirResource: r4Example1,

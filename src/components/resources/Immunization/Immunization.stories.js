@@ -23,8 +23,8 @@ export default {
 
 const Template = args => <Immunization {...args} />;
 
-export const ExampleOfDSTU2 = Template.bind({});
-ExampleOfDSTU2.args = {
+export const DefaultVisualizationDSTU2 = Template.bind({});
+DefaultVisualizationDSTU2.args = {
   fhirVersion: fhirVersions.DSTU2,
   fhirResource: example1,
   fhirIcons: require('../../../assets/containers/Immunization/immunization.svg'),
@@ -53,7 +53,7 @@ Example1R4.args = {
 
 export const Example2R4 = Template.bind({});
 Example2R4.args = {
-  fhirVersion: fhirVersions.DSTU2,
+  fhirVersion: fhirVersions.R4,
   fhirResource: r4Example2,
   fhirIcons: 'random text',
 };

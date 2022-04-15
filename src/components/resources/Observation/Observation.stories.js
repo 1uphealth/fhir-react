@@ -64,6 +64,7 @@ export const Example2OfR4 = Template.bind({});
 Example2OfR4.args = {
   fhirResource: example2ObservationExcessR4,
 };
+
 export const Example3OfR4 = Template.bind({});
 Example3OfR4.args = {
   fhirResource: example3ObservationExcessR4,

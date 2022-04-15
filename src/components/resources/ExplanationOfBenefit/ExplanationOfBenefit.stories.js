@@ -69,12 +69,14 @@ export const ExampleWithoutFHIRVersionProperty = Template.bind({});
 ExampleWithoutFHIRVersionProperty.args = {
   fhirResource: example1Stu3,
 };
+
 export const EOBCarinBlueButtonExample = Template.bind({});
 EOBCarinBlueButtonExample.args = {
   fhirVersion: fhirVersions.R4,
   fhirResource: exampleC4BB,
   withCarinBBProfile: true,
 };
+
 export const EOBCarinBlueButtonExtendedDiagnosis = Template.bind({});
 EOBCarinBlueButtonExtendedDiagnosis.args = {
   fhirVersion: fhirVersions.R4,

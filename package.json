@@ -84,8 +84,6 @@
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-react": "^7.16.7",
     "@storybook/addon-controls": "^6.4.22",
-    "@storybook/addon-essentials": "^6.4.22",
-    "@storybook/addon-knobs": "^5.2.8",
     "@storybook/preset-scss": "^1.0.3",
     "@storybook/react": "^6.4.22",
     "@storybook/storybook-deployer": "^2.8.11",

@@ -63,18 +63,15 @@ export const Example2R4 = Template.bind({});
 Example2R4.args = {
   fhirVersion: fhirVersions.R4,
   fhirResource: example2AllergyIntoleranceR4,
-  fhirIcons: fhirIcons,
 };
 
 export const Example3R4 = Template.bind({});
 Example3R4.args = {
   fhirVersion: fhirVersions.R4,
   fhirResource: example3AllergyIntoleranceR4,
-  fhirIcons: fhirIcons,
 };
 
 export const ExampleWithoutFhirVersionProperty = Template.bind({});
 ExampleWithoutFhirVersionProperty.args = {
   fhirResource: example2AllergyIntoleranceSTU3,
-  fhirIcons: fhirIcons,
 };

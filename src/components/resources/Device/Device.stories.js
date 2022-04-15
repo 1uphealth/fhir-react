@@ -66,5 +66,5 @@ Example2OfR4.args = {
 
 export const ExampleWithoutFHIRVersionProperty = Template.bind({});
 ExampleWithoutFHIRVersionProperty.args = {
-  fhirResource: dstu2Example1,
+  fhirResource: stu3Example2,
 };

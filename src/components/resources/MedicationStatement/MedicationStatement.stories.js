@@ -14,59 +14,45 @@ import MedicationStatementIcon from '../../../assets/containers/MedicationStatem
 
 export default {
   title: 'MedicationStatement',
+  component: MedicationStatement,
+  argTypes: {
+    ...defaultArgTypes,
+  },
 };
 
-export const DefaultVisualizationDSTU2 = () => {
-  const fhirResource = object('Resource', dstu2Example1);
-  return (
-    <MedicationStatement
-      fhirVersion={fhirVersions.DSTU2}
-      fhirResource={fhirResource}
-      fhirIcons={require('../../../assets/containers/MedicationStatement/medication-statement.svg')}
-    />
-  );
+const Template = args => <MedicationStatement {...args} />;
+
+export const DefaultVisualizationDSTU2 = Template.bind({});
+DefaultVisualizationDSTU2.args = {
+  fhirVersion: fhirVersions.DSTU2,
+  fhirResource: dstu2Example1,
+  fhirIcons: require('../../../assets/containers/MedicationStatement/medication-statement.svg'),
 };
 
-export const ExampleOfSTU3 = () => {
-  const fhirResource = object('Resource', stu3Example1);
-  return (
-    <MedicationStatement
-      fhirVersion={fhirVersions.STU3}
-      fhirResource={fhirResource}
-      fhirIcons={MedicationStatementIcon}
-    />
-  );
+export const ExampleOfSTU3 = Template.bind({});
+ExampleOfSTU3.args = {
+  fhirVersion: fhirVersions.STU3,
+  fhirResource: stu3Example1,
+  fhirIcons: MedicationStatementIcon,
 };
 
-export const Example2OfSTU3 = () => {
-  const fhirResource = object('Resource', stu3Example2);
-  return (
-    <MedicationStatement
-      fhirVersion={fhirVersions.STU3}
-      fhirResource={fhirResource}
-      fhirIcons={fhirIcons}
-    />
-  );
+export const Example2OfSTU3 = Template.bind({});
+Example2OfSTU3.args = {
+  fhirVersion: fhirVersions.STU3,
+  fhirResource: stu3Example2,
+  fhirIcons: fhirIcons,
 };
 
-export const Example1OfR4 = () => {
-  const fhirResource = object('Resource', r4Example1);
-  return (
-    <MedicationStatement
-      fhirVersion={fhirVersions.R4}
-      fhirResource={fhirResource}
-      fhirIcons={false}
-    />
-  );
+export const Example1OfR4 = Template.bind({});
+Example1OfR4.args = {
+  fhirVersion: fhirVersions.R4,
+  fhirResource: r4Example1,
+  fhirIcons: false,
 };
 
-export const Example2OfR4 = () => {
-  const fhirResource = object('Resource', r4Example2);
-  return (
-    <MedicationStatement
-      fhirVersion={fhirVersions.R4}
-      fhirResource={fhirResource}
-      fhirIcons={'random text'}
-    />
-  );
+export const Example2OfR4 = Template.bind({});
+Example2OfR4.args = {
+  fhirVersion: fhirVersions.R4,
+  fhirResource: r4Example2,
+  fhirIcons: 'random text',
 };

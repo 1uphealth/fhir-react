@@ -10,22 +10,24 @@ import fhirIcons from '../../../fixtures/example-icons';
 
 export default {
   title: 'ResearchStudy',
+  component: ResearchStudy,
+  argTypes: {
+    ...defaultArgTypes,
+  },
 };
 
-export const ExampleOfSTU3 = () => {
-  const fhirResource = object('Resource', stu3Example1);
-  return (
-    <ResearchStudy
-      fhirVersion={fhirVersions.STU3}
-      fhirResource={fhirResource}
-      fhirIcons={fhirIcons}
-    />
-  );
+const Template = args => <ResearchStudy {...args} />;
+
+export const ExampleOfSTU3 = Template.bind({});
+ExampleOfSTU3.args = {
+  fhirVersion: fhirVersions.STU3,
+  fhirResource: stu3Example1,
+  fhirIcons: fhirIcons,
 };
 
-export const ExampleOfR4 = () => {
-  const fhirResource = object('Resource', r4Example1);
-  return (
-    <ResearchStudy fhirVersion={fhirVersions.R4} fhirResource={fhirResource} />
-  );
+export const ExampleOfR4 = Template.bind({});
+ExampleOfR4.args = {
+  fhirVersion: fhirVersions.R4,
+  fhirResource: r4Example1,
+  fhirIcons: false,
 };

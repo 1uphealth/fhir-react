@@ -15,79 +15,59 @@ import r4Example4 from '../../../fixtures/r4/resources/practitionerRole/example4
 import fhirIcons from '../../../fixtures/example-icons';
 import PractitionerRoleIcon from '../../../assets/containers/PractitionerRole/practitioner-role.svg';
 
-export default { title: 'PractitionerRole' };
-
-export const ExampleOfSTU3 = () => {
-  const fhirResource = object('Resource', stu3Example1);
-  return (
-    <PractitionerRole
-      fhirVersion={fhirVersions.STU3}
-      fhirResource={fhirResource}
-      fhirIcons={require('../../../assets/containers/PractitionerRole/practitioner-role.svg')}
-    />
-  );
+export default {
+  title: 'PractitionerRole',
+  component: PractitionerRole,
+  argTypes: {
+    ...defaultArgTypes,
+  },
 };
 
-export const Example2OfSTU3 = () => {
-  const fhirResource = object('Resource', stu3Example2);
-  return (
-    <PractitionerRole
-      fhirVersion={fhirVersions.STU3}
-      fhirResource={fhirResource}
-      fhirIcons={PractitionerRoleIcon}
-    />
-  );
+const Template = args => <PractitionerRole {...args} />;
+
+export const ExampleOfSTU3 = Template.bind({});
+ExampleOfSTU3.args = {
+  fhirVersion: fhirVersions.STU3,
+  fhirResource: stu3Example1,
+  fhirIcons: require('../../../assets/containers/PractitionerRole/practitioner-role.svg'),
 };
 
-export const Example3OfSTU3 = () => {
-  const fhirResource = object('Resource', stu3Example3);
-  return (
-    <PractitionerRole
-      fhirVersion={fhirVersions.STU3}
-      fhirResource={fhirResource}
-      fhirIcons={fhirIcons}
-    />
-  );
+export const Example2OfSTU3 = Template.bind({});
+Example2OfSTU3.args = {
+  fhirVersion: fhirVersions.STU3,
+  fhirResource: stu3Example2,
+  fhirIcons: PractitionerRoleIcon,
 };
 
-export const Example1OfR4 = () => {
-  const fhirResource = object('Resource', r4Example1);
-  return (
-    <PractitionerRole
-      fhirVersion={fhirVersions.R4}
-      fhirResource={fhirResource}
-    />
-  );
+export const Example3OfSTU3 = Template.bind({});
+Example3OfSTU3.args = {
+  fhirVersion: fhirVersions.STU3,
+  fhirResource: stu3Example3,
+  fhirIcons: fhirIcons,
 };
 
-export const Example2OfR4 = () => {
-  const fhirResource = object('Resource', r4Example2);
-  return (
-    <PractitionerRole
-      fhirVersion={fhirVersions.R4}
-      fhirResource={fhirResource}
-      fhirIcons={false}
-    />
-  );
+export const Example1OfR4 = Template.bind({});
+Example1OfR4.args = {
+  fhirVersion: fhirVersions.R4,
+  fhirResource: r4Example1,
+  fhirIcons: false,
 };
 
-export const Example3OfR4 = () => {
-  const fhirResource = object('Resource', r4Example3);
-  return (
-    <PractitionerRole
-      fhirVersion={fhirVersions.R4}
-      fhirResource={fhirResource}
-      fhirIcons={'random text'}
-    />
-  );
+export const Example2OfR4 = Template.bind({});
+Example2OfR4.args = {
+  fhirVersion: fhirVersions.R4,
+  fhirResource: r4Example2,
+  fhirIcons: 'random text',
 };
 
-export const Example4OfR4 = () => {
-  const fhirResource = object('Resource', r4Example4);
-  return (
-    <PractitionerRole
-      fhirVersion={fhirVersions.R4}
-      fhirResource={fhirResource}
-    />
-  );
+export const Example3OfR4 = Template.bind({});
+Example3OfR4.args = {
+  fhirVersion: fhirVersions.R4,
+  fhirResource: r4Example3,
+};
+
+export const Example4OfR4 = Template.bind({});
+Example4OfR4.args = {
+  fhirVersion: fhirVersions.R4,
+  fhirResource: r4Example4,
 };

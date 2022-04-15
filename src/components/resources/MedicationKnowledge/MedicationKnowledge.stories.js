@@ -13,72 +13,63 @@ import MedicationKnowledgeIcon from '../../../assets/containers/MedicationKnowle
 
 export default {
   title: 'MedicationKnowledge',
+  component: MedicationKnowledge,
+  argTypes: {
+    ...defaultArgTypes,
+    withDaVinciPDex: {
+      table: {
+        disable: true,
+      },
+    },
+  },
 };
 
-export const DefaultVisualizationR4 = () => {
-  const fhirResource = object('Resource', example1R4);
-  return (
-    <MedicationKnowledge
-      fhirVersion={fhirVersions.R4}
-      fhirResource={fhirResource}
-      fhirIcons={require('../../../assets/containers/MedicationKnowledge/medication-knowledge.svg')}
-    />
-  );
-};
-export const ExampleR4WithoutDaVinciPDex = () => {
-  const fhirResource = object('Resource', example2R4);
-  return (
-    <MedicationKnowledge
-      fhirVersion={fhirVersions.R4}
-      fhirResource={fhirResource}
-      fhirIcons={MedicationKnowledgeIcon}
-    />
-  );
-};
-export const ExampleR4WithDaVinciPDex = () => {
-  const fhirResource = object('Resource', example2R4);
-  return (
-    <MedicationKnowledge
-      fhirVersion={fhirVersions.R4}
-      fhirResource={fhirResource}
-      withDaVinciPDex
-      fhirIcons={fhirIcons}
-    />
-  );
-};
-export const Example2R4 = () => {
-  const fhirResource = object('Resource', example3R4);
-  return (
-    <MedicationKnowledge
-      fhirVersion={fhirVersions.R4}
-      fhirResource={fhirResource}
-    />
-  );
+const Template = args => <MedicationKnowledge {...args} />;
+
+export const DefaultVisualizationR4 = Template.bind({});
+DefaultVisualizationR4.args = {
+  fhirVersion: fhirVersions.R4,
+  fhirResource: example1R4,
+  fhirIcons: require('../../../assets/containers/MedicationKnowledge/medication-knowledge.svg'),
 };
 
-export const Example3R4WithDaVinciPDex = () => {
-  const fhirResource = object('Resource', example4R4);
-  return (
-    <MedicationKnowledge
-      fhirVersion={fhirVersions.R4}
-      fhirResource={fhirResource}
-      withDaVinciPDex
-      fhirIcons={false}
-    />
-  );
+export const ExampleR4WithoutDaVinciPDex = Template.bind({});
+ExampleR4WithoutDaVinciPDex.args = {
+  fhirVersion: fhirVersions.R4,
+  fhirResource: example2R4,
+  fhirIcons: MedicationKnowledgeIcon,
 };
 
-export const ExampleWithoutFHIRVersionProperty = () => {
-  const fhirResource = object('Resource', example3R4);
-  return <MedicationKnowledge fhirResource={fhirResource} />;
+export const ExampleR4WithDaVinciPDex = Template.bind({});
+ExampleR4WithDaVinciPDex.args = {
+  fhirVersion: fhirVersions.R4,
+  fhirResource: example2R4,
+  fhirIcons: fhirIcons,
+  withDaVinciPDex: true,
 };
 
-export const ExampleWithUnsupportedFHIRVersionProperty = () => {
-  const fhirResource = object('Resource', example4R4);
-  return (
-    <MedicationKnowledge
-      fhirVersion={fhirVersions.DSTU2}
-      fhirResource={fhirResource}
-    />
-  );
+export const Example2R4 = Template.bind({});
+Example2R4.args = {
+  fhirVersion: fhirVersions.R4,
+  fhirResource: example3R4,
+  fhirIcons: false,
+};
+
+export const Example3R4WithDaVinciPDex = Template.bind({});
+Example3R4WithDaVinciPDex.args = {
+  fhirVersion: fhirVersions.R4,
+  fhirResource: example4R4,
+  fhirIcons: 'random text',
+  withDaVinciPDex: true,
+};
+
+export const ExampleWithoutFHIRVersionProperty = Template.bind({});
+ExampleWithoutFHIRVersionProperty.args = {
+  fhirResource: example3R4,
+};
+
+export const ExampleWithUnsupportedFHIRVersionProperty = Template.bind({});
+ExampleWithUnsupportedFHIRVersionProperty.args = {
+  fhirVersion: fhirVersions.DSTU2,
+  fhirResource: example4R4,
 };

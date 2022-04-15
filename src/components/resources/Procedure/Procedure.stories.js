@@ -14,39 +14,47 @@ import r4Example3 from '../../../fixtures/r4/resources/procedure/example3.json';
 import fhirIcons from '../../../fixtures/example-icons';
 import ProcedureIcon from '../../../assets/containers/Procedure/procedure.svg';
 
-export default { title: 'Procedure' };
-
-export const DefaultVisualizationDSTU2 = () => {
-  const fhirResource = object('Resource', example1);
-  return (
-    <Procedure
-      fhirResource={fhirResource}
-      fhirIcons={require('../../../assets/containers/Procedure/procedure.svg')}
-    />
-  );
+export default {
+  title: 'Procedure',
+  component: Procedure,
+  argTypes: {
+    ...defaultArgTypes,
+  },
 };
 
-export const ExampleOfSTU3 = () => {
-  const fhirResource = object('Resource', stu3Example1);
-  return <Procedure fhirResource={fhirResource} fhirIcons={ProcedureIcon} />;
+const Template = args => <Procedure {...args} />;
+
+export const DefaultVisualizationDSTU2 = Template.bind({});
+DefaultVisualizationDSTU2.args = {
+  fhirResource: example1,
+  fhirIcons: require('../../../assets/containers/Procedure/procedure.svg'),
 };
 
-export const Example2OfSTU3 = () => {
-  const fhirResource = object('Resource', stu3Example2);
-  return <Procedure fhirResource={fhirResource} fhirIcons={fhirIcons} />;
+export const ExampleOfSTU3 = Template.bind({});
+ExampleOfSTU3.args = {
+  fhirResource: stu3Example1,
+  fhirIcons: ProcedureIcon,
 };
 
-export const Example1OfR4 = () => {
-  const fhirResource = object('Resource', r4Example1);
-  return <Procedure fhirResource={fhirResource} fhirIcons={false} />;
+export const Example2OfSTU3 = Template.bind({});
+Example2OfSTU3.args = {
+  fhirResource: stu3Example2,
+  fhirIcons: fhirIcons,
 };
 
-export const Example2OfR4 = () => {
-  const fhirResource = object('Resource', r4Example2);
-  return <Procedure fhirResource={fhirResource} fhirIcons={'random text'} />;
+export const Example1OfR4 = Template.bind({});
+Example1OfR4.args = {
+  fhirResource: r4Example1,
+  fhirIcons: false,
 };
 
-export const Example3OfR4 = () => {
-  const fhirResource = object('Resource', r4Example3);
-  return <Procedure fhirResource={fhirResource} />;
+export const Example2OfR4 = Template.bind({});
+Example2OfR4.args = {
+  fhirResource: r4Example2,
+  fhirIcons: 'random text',
+};
+
+export const Example3OfR4 = Template.bind({});
+Example3OfR4.args = {
+  fhirResource: r4Example3,
 };

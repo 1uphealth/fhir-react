@@ -7,9 +7,16 @@ import dstu2Example from '../../../fixtures/dstu2/resources/medicationOrder/exam
 
 export default {
   title: 'MedicationOrder',
+  component: MedicationOrder,
+  argTypes: {
+    ...defaultArgTypes,
+  },
 };
 
-export const DefaultVisualizationDSTU2 = () => {
-  const fhirResource = object('Resource', dstu2Example);
-  return <MedicationOrder fhirResource={fhirResource} />;
+const Template = args => <MedicationOrder {...args} />;
+
+export const DefaultVisualizationDSTU2 = Template.bind({});
+DefaultVisualizationDSTU2.args = {
+  fhirResource: dstu2Example,
+  fhirIcons: require('../../../assets/containers/MedicationOrder/medication-order.svg'),
 };

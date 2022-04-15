@@ -18,80 +18,65 @@ import r4Example3 from '../../../fixtures/r4/resources/questionnaire/example3.js
 import fhirIcons from '../../../fixtures/example-icons';
 import QuestionnaireIcon from '../../../assets/containers/Questionnaire/questionnaire.svg';
 
-export default { title: 'Questionnaire' };
-
-export const DefaultVisualizationDSTU2 = () => {
-  const fhirResource = object('Resource', dstu2Example1);
-  return (
-    <Questionnaire
-      fhirResource={fhirResource}
-      fhirVersion={fhirVersions.DSTU2}
-      fhirIcons={require('../../../assets/containers/Questionnaire/questionnaire.svg')}
-    />
-  );
+export default {
+  title: 'Questionnaire',
+  component: Questionnaire,
+  argTypes: {
+    ...defaultArgTypes,
+  },
 };
 
-export const Example2OfDSTU2 = () => {
-  const fhirResource = object('Resource', dstu2Example2);
-  return (
-    <Questionnaire
-      fhirResource={fhirResource}
-      fhirVersion={fhirVersions.DSTU2}
-      fhirIcons={QuestionnaireIcon}
-    />
-  );
+const Template = args => <Questionnaire {...args} />;
+
+export const DefaultVisualizationDSTU2 = Template.bind({});
+DefaultVisualizationDSTU2.args = {
+  fhirVersion: fhirVersions.DSTU2,
+  fhirResource: dstu2Example1,
+  fhirIcons: require('../../../assets/containers/Questionnaire/questionnaire.svg'),
 };
 
-export const Example3OfDSTU2 = () => {
-  const fhirResource = object('Resource', dstu2Example3);
-  return (
-    <Questionnaire
-      fhirResource={fhirResource}
-      fhirVersion={fhirVersions.DSTU2}
-      fhirIcons={fhirIcons}
-    />
-  );
+export const Example2OfDSTU2 = Template.bind({});
+Example2OfDSTU2.args = {
+  fhirVersion: fhirVersions.DSTU2,
+  fhirResource: dstu2Example2,
+  fhirIcons: QuestionnaireIcon,
 };
 
-export const Example1OfSTU3 = () => {
-  const fhirResource = object('Resource', stu3Example1);
-  return (
-    <Questionnaire
-      fhirResource={fhirResource}
-      fhirVersion={fhirVersions.STU3}
-      fhirIcons={false}
-    />
-  );
+export const Example3OfDSTU2 = Template.bind({});
+Example3OfDSTU2.args = {
+  fhirVersion: fhirVersions.DSTU2,
+  fhirResource: dstu2Example3,
+  fhirIcons: fhirIcons,
 };
 
-export const Example2OfSTU3 = () => {
-  const fhirResource = object('Resource', stu3Example2);
-  return (
-    <Questionnaire
-      fhirResource={fhirResource}
-      fhirVersion={fhirVersions.STU3}
-      fhirIcons={'random text'}
-    />
-  );
+export const Example1OfSTU3 = Template.bind({});
+Example1OfSTU3.args = {
+  fhirVersion: fhirVersions.STU3,
+  fhirResource: stu3Example1,
+  fhirIcons: false,
 };
 
-export const Example1OfR4 = () => {
-  const fhirResource = object('Resource', r4Example1);
-  return (
-    <Questionnaire fhirResource={fhirResource} fhirVersion={fhirVersions.R4} />
-  );
+export const Example2OfSTU3 = Template.bind({});
+Example2OfSTU3.args = {
+  fhirVersion: fhirVersions.STU3,
+  fhirResource: stu3Example2,
+  fhirIcons: 'random text',
 };
 
-export const Example2OfR4 = () => {
-  const fhirResource = object('Resource', r4Example2);
-  return (
-    <Questionnaire fhirResource={fhirResource} fhirVersion={fhirVersions.R4} />
-  );
+export const Example1OfR4 = Template.bind({});
+Example1OfR4.args = {
+  fhirVersion: fhirVersions.R4,
+  fhirResource: r4Example1,
 };
 
-export const Example3OfR4 = () => {
-  const fhirResource = object('Resource', r4Example3);
-  return (
-    <Questionnaire fhirResource={fhirResource} fhirVersion={fhirVersions.R4} />
-  );
+export const Example2OfR4 = Template.bind({});
+Example2OfR4.args = {
+  fhirVersion: fhirVersions.R4,
+  fhirResource: r4Example2,
+};
+
+export const Example3OfR4 = Template.bind({});
+Example3OfR4.args = {
+  fhirVersion: fhirVersions.R4,
+  fhirResource: r4Example3,
 };

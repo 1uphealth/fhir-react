@@ -13,17 +13,28 @@ export default {
   component: ResourceContainer,
   argTypes: {
     ...defaultArgTypes,
+    children: {
+      table: {
+        disabled: true,
+      },
+    },
   },
 };
 
-const Template = args => <ResourceContainer {...args} />;
+const Template = args => (
+  <ResourceContainer {...args}>{args.children}</ResourceContainer>
+);
 
+const propsRawInsideAccordion = {
+  fhirVersion: fhirVersions.DSTU2,
+  fhirResource: example1,
+};
 export const DefaultVisualizationWithRawButtonHiddenInsideAccordion = Template.bind(
   {},
 );
 DefaultVisualizationWithRawButtonHiddenInsideAccordion.args = {
-  fhirVersion: fhirVersions.DSTU2,
-  fhirResource: example1,
+  ...propsRawInsideAccordion,
+  children: <Encounter {...propsRawInsideAccordion} />,
 };
 
 const exampleResource = {
@@ -33,15 +44,20 @@ const exampleResource = {
     text: 'Resource code text',
   },
 };
-
+const propsRawOutsideAccordion = { fhirResource: exampleResource };
 export const DefaultVisualizationWithRawButtonVisibleOutsideAccordion = Template.bind(
   {},
 );
 DefaultVisualizationWithRawButtonVisibleOutsideAccordion.args = {
-  fhirResource: exampleResource,
+  ...propsRawOutsideAccordion,
+  children: <Generic {...propsRawOutsideAccordion} />,
 };
 
+const propsWithoutVersion = {
+  fhirResource: example1,
+};
 export const VisualizationWithoutFhirVersion = Template.bind({});
 VisualizationWithoutFhirVersion.args = {
-  fhirResource: example1,
+  ...propsWithoutVersion,
+  children: <Encounter {...propsWithoutVersion} />,
 };

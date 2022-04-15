@@ -1,5 +1,5 @@
 import React from 'react';
-import { object } from '@storybook/addon-knobs';
+import { defaultArgTypes } from '../../defaultArgTypes';
 
 import Immunization from './Immunization';
 
@@ -15,64 +15,51 @@ import ImmunizationIcon from '../../../assets/containers/Immunization/immunizati
 
 export default {
   title: 'Immunization',
+  component: Immunization,
+  argTypes: {
+    ...defaultArgTypes,
+  },
 };
 
-export const DefaultVisualizationDSTU2 = () => {
-  const fhirResource = object('Resource', example1);
-  return (
-    <Immunization
-      fhirResource={fhirResource}
-      fhirVersion={fhirVersions.DSTU2}
-      fhirIcons={require('../../../assets/containers/Immunization/immunization.svg')}
-    />
-  );
+const Template = args => <Immunization {...args} />;
+
+export const DefaultVisualizationDSTU2 = Template.bind({});
+DefaultVisualizationDSTU2.args = {
+  fhirVersion: fhirVersions.DSTU2,
+  fhirResource: example1,
+  fhirIcons: require('../../../assets/containers/Immunization/immunization.svg'),
 };
 
-export const Example2OfDSTU2 = () => {
-  const fhirResource = object('Resource', example2);
-  return (
-    <Immunization
-      fhirResource={fhirResource}
-      fhirVersion={fhirVersions.DSTU2}
-      fhirIcons={ImmunizationIcon}
-    />
-  );
+export const Example2OfDSTU2 = Template.bind({});
+Example2OfDSTU2.args = {
+  fhirVersion: fhirVersions.DSTU2,
+  fhirResource: example2,
+  fhirIcons: ImmunizationIcon,
 };
 
-export const ExampleSTU3 = () => {
-  const fhirResource = object('Resource', stu3Example);
-  return (
-    <Immunization
-      fhirResource={fhirResource}
-      fhirVersion={fhirVersions.STU3}
-      fhirIcons={fhirIcons}
-    />
-  );
+export const ExampleSTU3 = Template.bind({});
+ExampleSTU3.args = {
+  fhirVersion: fhirVersions.STU3,
+  fhirResource: stu3Example,
+  fhirIcons: fhirIcons,
 };
 
-export const Example1R4 = () => {
-  const fhirResource = object('Resource', r4Example1);
-  return (
-    <Immunization
-      fhirResource={fhirResource}
-      fhirVersion={fhirVersions.R4}
-      fhirIcons={false}
-    />
-  );
+export const Example1R4 = Template.bind({});
+Example1R4.args = {
+  fhirVersion: fhirVersions.R4,
+  fhirResource: r4Example1,
+  fhirIcons: false,
 };
-export const Example2R4 = () => {
-  const fhirResource = object('Resource', r4Example2);
-  return (
-    <Immunization
-      fhirResource={fhirResource}
-      fhirVersion={fhirVersions.R4}
-      fhirIcons={'random text'}
-    />
-  );
+
+export const Example2R4 = Template.bind({});
+Example2R4.args = {
+  fhirVersion: fhirVersions.R4,
+  fhirResource: r4Example2,
+  fhirIcons: 'random text',
 };
-export const Example3R4 = () => {
-  const fhirResource = object('Resource', r4Example3);
-  return (
-    <Immunization fhirResource={fhirResource} fhirVersion={fhirVersions.R4} />
-  );
+
+export const Example3R4 = Template.bind({});
+Example3R4.args = {
+  fhirVersion: fhirVersions.R4,
+  fhirResource: r4Example3,
 };

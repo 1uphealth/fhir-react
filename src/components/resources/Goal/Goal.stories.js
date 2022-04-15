@@ -1,5 +1,5 @@
 import React from 'react';
-import { object } from '@storybook/addon-knobs';
+import { defaultArgTypes } from '../../defaultArgTypes';
 
 import Goal from './Goal';
 import fhirIcons from '../../../fixtures/example-icons';
@@ -13,64 +13,50 @@ import GoalIcon from '../../../assets/containers/Goal/goal.svg';
 
 export default {
   title: 'Goal',
+  component: Goal,
+  argTypes: {
+    ...defaultArgTypes,
+  },
 };
 
-export const DefaultVisualizationDSTU2 = () => {
-  const fhirResource = object('Resource', dstu2Example1);
-  return (
-    <Goal
-      fhirVersion={fhirVersions.DSTU2}
-      fhirResource={fhirResource}
-      fhirIcons={require('../../../assets/containers/Goal/goal.svg')}
-    />
-  );
+const Template = args => <Goal {...args} />;
+
+export const DefaultVisualizationDSTU2 = Template.bind({});
+DefaultVisualizationDSTU2.args = {
+  fhirVersion: fhirVersions.DSTU2,
+  fhirResource: dstu2Example1,
+  fhirIcons: require('../../../assets/containers/Goal/goal.svg'),
 };
 
-export const Example2OfDSTU2 = () => {
-  const fhirResource = object('Resource', dstu2Example2);
-  return (
-    <Goal
-      fhirVersion={fhirVersions.DSTU2}
-      fhirResource={fhirResource}
-      fhirIcons={GoalIcon}
-    />
-  );
+export const Example2OfDSTU2 = Template.bind({});
+Example2OfDSTU2.args = {
+  fhirVersion: fhirVersions.DSTU2,
+  fhirResource: dstu2Example2,
+  fhirIcons: GoalIcon,
 };
 
-export const ExampleOfSTU3 = () => {
-  const fhirResource = object('Resource', stu3Example1);
-  return (
-    <Goal
-      fhirVersion={fhirVersions.STU3}
-      fhirResource={fhirResource}
-      fhirIcons={fhirIcons}
-    />
-  );
+export const ExampleOfSTU3 = Template.bind({});
+ExampleOfSTU3.args = {
+  fhirVersion: fhirVersions.STU3,
+  fhirResource: stu3Example1,
+  fhirIcons: fhirIcons,
 };
 
-export const Example1OfR4 = () => {
-  const fhirResource = object('Resource', r4Example1);
-  return (
-    <Goal
-      fhirVersion={fhirVersions.R4}
-      fhirResource={fhirResource}
-      fhirIcons={false}
-    />
-  );
+export const Example1OfR4 = Template.bind({});
+Example1OfR4.args = {
+  fhirVersion: fhirVersions.R4,
+  fhirResource: r4Example1,
+  fhirIcons: false,
 };
 
-export const Example2OfR4 = () => {
-  const fhirResource = object('Resource', r4Example2);
-  return (
-    <Goal
-      fhirVersion={fhirVersions.R4}
-      fhirResource={fhirResource}
-      fhirIcons={'random text'}
-    />
-  );
+export const Example2OfR4 = Template.bind({});
+Example2OfR4.args = {
+  fhirVersion: fhirVersions.R4,
+  fhirResource: r4Example2,
+  fhirIcons: 'random text',
 };
 
-export const ExampleWithoutFhirVersionProperty = () => {
-  const fhirResource = object('Resource', stu3Example1);
-  return <Goal fhirResource={fhirResource} fhirIcons={fhirIcons} />;
+export const ExampleWithoutFhirVersionProperty = Template.bind({});
+ExampleWithoutFhirVersionProperty.args = {
+  fhirResource: stu3Example1,
 };

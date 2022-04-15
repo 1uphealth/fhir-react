@@ -1,5 +1,5 @@
 import React from 'react';
-import { object } from '@storybook/addon-knobs';
+import { defaultArgTypes } from '../../defaultArgTypes';
 
 import MedicationRequest from './MedicationRequest';
 
@@ -13,43 +13,40 @@ import MedicationRequestIcon from '../../../assets/containers/MedicationRequest/
 
 export default {
   title: 'MedicationRequest',
+  component: MedicationRequest,
+  argTypes: {
+    ...defaultArgTypes,
+  },
 };
 
-export const DefaultVisualizationSTU3 = () => {
-  const fhirResource = object('Resource', stu3Example1);
-  return (
-    <MedicationRequest
-      fhirResource={fhirResource}
-      fhirIcons={require('../../../assets/containers/MedicationRequest/medication-request.svg')}
-    />
-  );
+const Template = args => <MedicationRequest {...args} />;
+
+export const DefaultVisualizationSTU3 = Template.bind({});
+DefaultVisualizationSTU3.args = {
+  fhirResource: stu3Example1,
+  fhirIcons: require('../../../assets/containers/MedicationRequest/medication-request.svg'),
 };
 
-export const Example2OfSTU3 = () => {
-  const fhirResource = object('Resource', stu3Example2);
-  return (
-    <MedicationRequest
-      fhirResource={fhirResource}
-      fhirIcons={MedicationRequestIcon}
-    />
-  );
+export const Example2OfSTU3 = Template.bind({});
+Example2OfSTU3.args = {
+  fhirResource: stu3Example2,
+  fhirIcons: MedicationRequestIcon,
 };
 
-export const Example1OfR4 = () => {
-  const fhirResource = object('Resource', R4Example1);
-  return (
-    <MedicationRequest fhirResource={fhirResource} fhirIcons={fhirIcons} />
-  );
+export const Example1OfR4 = Template.bind({});
+Example1OfR4.args = {
+  fhirResource: R4Example1,
+  fhirIcons: fhirIcons,
 };
 
-export const Example2OfR4 = () => {
-  const fhirResource = object('Resource', R4Example2);
-  return <MedicationRequest fhirResource={fhirResource} fhirIcons={false} />;
+export const Example2OfR4 = Template.bind({});
+Example2OfR4.args = {
+  fhirResource: R4Example2,
+  fhirIcons: false,
 };
 
-export const Example3OfR4 = () => {
-  const fhirResource = object('Resource', R4Example3);
-  return (
-    <MedicationRequest fhirResource={fhirResource} fhirIcons={'random text'} />
-  );
+export const Example3OfR4 = Template.bind({});
+Example3OfR4.args = {
+  fhirResource: R4Example3,
+  fhirIcons: 'random text',
 };

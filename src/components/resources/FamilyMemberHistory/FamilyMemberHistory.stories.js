@@ -1,5 +1,5 @@
 import React from 'react';
-import { object } from '@storybook/addon-knobs';
+import { defaultArgTypes } from '../../defaultArgTypes';
 
 import FamilyMemberHistory from './FamilyMemberHistory';
 import fhirVersions from '../fhirResourceVersions';
@@ -13,37 +13,31 @@ import FamilyMemberHistoryIcon from '../../../assets/containers/FamilyMemberHist
 
 export default {
   title: 'FamilyMemberHistory',
+  component: FamilyMemberHistory,
+  argTypes: {
+    ...defaultArgTypes,
+  },
 };
 
-export const DefaultVisualizationDSTU2 = () => {
-  const fhirResource = object('Resource', example1DSTU2);
-  return (
-    <FamilyMemberHistory
-      fhirVersion={fhirVersions.DSTU2}
-      fhirResource={fhirResource}
-      fhirIcons={require('../../../assets/containers/FamilyMemberHistory/family-member-history.svg')}
-    />
-  );
+const Template = args => <FamilyMemberHistory {...args} />;
+
+export const DefaultVisualizationDSTU2 = Template.bind({});
+DefaultVisualizationDSTU2.args = {
+  fhirVersion: fhirVersions.DSTU2,
+  fhirResource: example1DSTU2,
+  fhirIcons: require('../../../assets/containers/FamilyMemberHistory/family-member-history.svg'),
 };
 
-export const Example1OfSTU3 = () => {
-  const fhirResource = object('Resource', example1STU3);
-  return (
-    <FamilyMemberHistory
-      fhirVersion={fhirVersions.STU3}
-      fhirResource={fhirResource}
-      fhirIcons={FamilyMemberHistoryIcon}
-    />
-  );
+export const Example1OfSTU3 = Template.bind({});
+Example1OfSTU3.args = {
+  fhirVersion: fhirVersions.STU3,
+  fhirResource: example1STU3,
+  fhirIcons: FamilyMemberHistoryIcon,
 };
 
-export const Example2OfSTU3 = () => {
-  const fhirResource = object('Resource', example2STU3);
-  return (
-    <FamilyMemberHistory
-      fhirVersion={fhirVersions.STU3}
-      fhirResource={fhirResource}
-      fhirIcons={fhirIcons}
-    />
-  );
+export const Example2OfSTU3 = Template.bind({});
+Example2OfSTU3.args = {
+  fhirVersion: fhirVersions.STU3,
+  fhirResource: example2STU3,
+  fhirIcons: fhirIcons,
 };

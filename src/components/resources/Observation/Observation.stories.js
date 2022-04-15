@@ -1,5 +1,5 @@
 import React from 'react';
-import { object } from '@storybook/addon-knobs';
+import { defaultArgTypes } from '../../defaultArgTypes';
 
 import Observation from './Observation';
 
@@ -15,51 +15,57 @@ import example3ObservationExcessR4 from '../../../fixtures/r4/resources/observat
 import ObservationIcon from '../../../assets/containers/Observation/observation.svg';
 import fhirIcons from '../../../fixtures/example-icons';
 
-export default { title: 'Observation' };
-
-export const DefaultVisualizationDSTU2 = () => {
-  const fhirResource = object('Resource', exampleObservationIssued);
-  return (
-    <Observation
-      fhirResource={fhirResource}
-      fhirIcons={require('../../../assets/containers/Observation/observation.svg')}
-    />
-  );
+export default {
+  title: 'Observation',
+  component: Observation,
+  argTypes: {
+    ...defaultArgTypes,
+  },
 };
 
-export const ExampleWithoutIssuedDSTU2 = () => {
-  const fhirResource = object('Resource', exampleObservation);
-  return (
-    <Observation fhirResource={fhirResource} fhirIcons={ObservationIcon} />
-  );
+const Template = args => <Observation {...args} />;
+
+export const DefaultVisualizationDSTU2 = Template.bind({});
+DefaultVisualizationDSTU2.args = {
+  fhirResource: exampleObservationIssued,
+  fhirIcons: require('../../../assets/containers/Observation/observation.svg'),
 };
 
-export const ExampleWithIssuedSTU3 = () => {
-  const fhirResource = object('Resource', exampleObservationExcessSTU3);
-  return <Observation fhirResource={fhirResource} fhirIcons={fhirIcons} />;
+export const ExampleWithoutIssuedDSTU2 = Template.bind({});
+ExampleWithoutIssuedDSTU2.args = {
+  fhirResource: exampleObservation,
+  fhirIcons: ObservationIcon,
 };
 
-export const ExampleWithoutIssuedSTU3 = () => {
-  const fhirResource = object('Resource', exampleObservationSTU3);
-  return <Observation fhirResource={fhirResource} fhirIcons={false} />;
+export const ExampleWithIssuedSTU3 = Template.bind({});
+ExampleWithIssuedSTU3.args = {
+  fhirResource: exampleObservationExcessSTU3,
+  fhirIcons: fhirIcons,
 };
 
-export const Example3OfSTU3 = () => {
-  const fhirResource = object('Resource', example3ObservationExcessSTU3);
-  return <Observation fhirResource={fhirResource} fhirIcons={'random text'} />;
+export const ExampleWithoutIssuedSTU3 = Template.bind({});
+ExampleWithoutIssuedSTU3.args = {
+  fhirResource: exampleObservationSTU3,
+  fhirIcons: false,
 };
 
-export const Example1OfR4 = () => {
-  const fhirResource = object('Resource', example1ObservationExcessR4);
-  return <Observation fhirResource={fhirResource} />;
+export const Example3OfSTU3 = Template.bind({});
+Example3OfSTU3.args = {
+  fhirResource: example3ObservationExcessSTU3,
+  fhirIcons: 'random text',
 };
 
-export const Example2OfR4 = () => {
-  const fhirResource = object('Resource', example2ObservationExcessR4);
-  return <Observation fhirResource={fhirResource} />;
+export const Example1OfR4 = Template.bind({});
+Example1OfR4.args = {
+  fhirResource: example1ObservationExcessR4,
 };
 
-export const Example3OfR4 = () => {
-  const fhirResource = object('Resource', example3ObservationExcessR4);
-  return <Observation fhirResource={fhirResource} />;
+export const Example2OfR4 = Template.bind({});
+Example2OfR4.args = {
+  fhirResource: example2ObservationExcessR4,
+};
+
+export const Example3OfR4 = Template.bind({});
+Example3OfR4.args = {
+  fhirResource: example3ObservationExcessR4,
 };

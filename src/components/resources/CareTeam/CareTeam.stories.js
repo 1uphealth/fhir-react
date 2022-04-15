@@ -1,5 +1,5 @@
 import React from 'react';
-import { object } from '@storybook/addon-knobs';
+import { defaultArgTypes } from '../../defaultArgTypes';
 
 import CareTeam from './CareTeam';
 import fhirVersions from '../fhirResourceVersions';
@@ -12,37 +12,31 @@ import CareTeamIcon from '../../../assets/containers/CareTeam/care-team.svg';
 
 export default {
   title: 'CareTeam',
+  component: CareTeam,
+  argTypes: {
+    ...defaultArgTypes,
+  },
 };
 
-export const ExampleSTU3 = () => {
-  const fhirResource = object('Resource', example_STU3);
-  return (
-    <CareTeam
-      fhirResource={fhirResource}
-      fhirVersion={fhirVersions.STU3}
-      fhirIcons={CareTeamIcon}
-    />
-  );
+const Template = args => <CareTeam {...args} />;
+
+export const ExampleSTU3 = Template.bind({});
+ExampleSTU3.args = {
+  fhirVersion: fhirVersions.STU3,
+  fhirResource: example_STU3,
+  fhirIcons: CareTeamIcon,
 };
 
-export const Example2OfSTU3 = () => {
-  const fhirResource = object('Resource', example2_STU3);
-  return (
-    <CareTeam
-      fhirResource={fhirResource}
-      fhirVersion={fhirVersions.STU3}
-      fhirIcons={fhirIcons}
-    />
-  );
+export const Example2OfSTU3 = Template.bind({});
+Example2OfSTU3.args = {
+  fhirVersion: fhirVersions.STU3,
+  fhirResource: example2_STU3,
+  fhirIcons: fhirIcons,
 };
 
-export const ExampleR4 = () => {
-  const fhirResource = object('Resource', example_R4);
-  return (
-    <CareTeam
-      fhirResource={fhirResource}
-      fhirVersion={fhirVersions.R4}
-      fhirIcons={false}
-    />
-  );
+export const ExampleR4 = Template.bind({});
+ExampleR4.args = {
+  fhirVersion: fhirVersions.R4,
+  fhirResource: example_R4,
+  fhirIcons: false,
 };

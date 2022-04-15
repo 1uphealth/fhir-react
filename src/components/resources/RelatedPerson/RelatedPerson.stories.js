@@ -1,5 +1,5 @@
 import React from 'react';
-import { object } from '@storybook/addon-knobs';
+import { defaultArgTypes } from '../../defaultArgTypes';
 
 import RelatedPerson from './RelatedPerson';
 import fhirVersions from '../fhirResourceVersions';
@@ -10,37 +10,33 @@ import exampleR4 from '../../../fixtures/r4/resources/relatedPerson/example1.jso
 
 import fhirIcons from '../../../fixtures/example-icons';
 
-export default { title: 'RelatedPerson' };
-
-export const ExampleDSTU2 = () => {
-  const fhirResource = object('Resource', exampleDSTU2);
-  return (
-    <RelatedPerson
-      fhirResource={fhirResource}
-      fhirVersion={fhirVersions.DSTU2}
-      fhirIcons={fhirIcons}
-    />
-  );
+export default {
+  title: 'RelatedPerson',
+  component: RelatedPerson,
+  argTypes: {
+    ...defaultArgTypes,
+  },
 };
 
-export const ExampleSTU3 = () => {
-  const fhirResource = object('Resource', exampleSTU3);
-  return (
-    <RelatedPerson
-      fhirResource={fhirResource}
-      fhirVersion={fhirVersions.STU3}
-      fhirIcons={false}
-    />
-  );
+const Template = args => <RelatedPerson {...args} />;
+
+export const ExampleDSTU2 = Template.bind({});
+ExampleDSTU2.args = {
+  fhirVersion: fhirVersions.DSTU2,
+  fhirResource: exampleDSTU2,
+  fhirIcons: fhirIcons,
 };
 
-export const ExampleR4 = () => {
-  const fhirResource = object('Resource', exampleR4);
-  return (
-    <RelatedPerson
-      fhirResource={fhirResource}
-      fhirVersion={fhirVersions.R4}
-      fhirIcons={'random text'}
-    />
-  );
+export const ExampleSTU3 = Template.bind({});
+ExampleSTU3.args = {
+  fhirVersion: fhirVersions.STU3,
+  fhirResource: exampleSTU3,
+  fhirIcons: false,
+};
+
+export const ExampleR4 = Template.bind({});
+ExampleR4.args = {
+  fhirVersion: fhirVersions.R4,
+  fhirResource: exampleR4,
+  fhirIcons: 'random text',
 };

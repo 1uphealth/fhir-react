@@ -1,5 +1,5 @@
 import React from 'react';
-import { object } from '@storybook/addon-knobs';
+import { defaultArgTypes } from '../../defaultArgTypes';
 import fhirVersions from '../fhirResourceVersions';
 
 import Condition from './Condition';
@@ -18,80 +18,65 @@ import example3ConditionR4 from '../../../fixtures/r4/resources/condition/exampl
 import fhirIcons from '../../../fixtures/example-icons';
 import ConditionIcon from '../../../assets/containers/Condition/condition.svg';
 
-export default { title: 'Condition' };
-
-export const DefaultVisualizationDSTU2 = () => {
-  const fhirResource = object('Resource', exampleConditionSeverity);
-  return (
-    <Condition
-      fhirResource={fhirResource}
-      fhirVersion={fhirVersions.DSTU2}
-      fhirIcons={require('../../../assets/containers/Condition/condition.svg')}
-    />
-  );
+export default {
+  title: 'Condition',
+  component: Condition,
+  argTypes: {
+    ...defaultArgTypes,
+  },
 };
 
-export const ExampleWithoutSeverityDSTU2 = () => {
-  const fhirResource = object('Resource', exampleCondition);
-  return (
-    <Condition
-      fhirResource={fhirResource}
-      fhirVersion={fhirVersions.DSTU2}
-      fhirIcons={ConditionIcon}
-    />
-  );
+const Template = args => <Condition {...args} />;
+
+export const DefaultVisualizationDSTU2 = Template.bind({});
+DefaultVisualizationDSTU2.args = {
+  fhirVersion: fhirVersions.DSTU2,
+  fhirResource: exampleConditionSeverity,
+  fhirIcons: require('../../../assets/containers/Condition/condition.svg'),
 };
 
-export const Example3OfDSTU2 = () => {
-  const fhirResource = object('Resource', example3Condition);
-  return (
-    <Condition
-      fhirResource={fhirResource}
-      fhirVersion={fhirVersions.DSTU2}
-      fhirIcons={fhirIcons}
-    />
-  );
+export const ExampleWithoutSeverityDSTU2 = Template.bind({});
+ExampleWithoutSeverityDSTU2.args = {
+  fhirVersion: fhirVersions.DSTU2,
+  fhirResource: exampleCondition,
+  fhirIcons: ConditionIcon,
 };
 
-export const ExampleWithoutSeveritySTU3 = () => {
-  const fhirResource = object('Resource', exampleConditionSTU3);
-  return (
-    <Condition
-      fhirResource={fhirResource}
-      fhirVersion={fhirVersions.STU3}
-      fhirIcons={false}
-    />
-  );
+export const Example3OfDSTU2 = Template.bind({});
+Example3OfDSTU2.args = {
+  fhirVersion: fhirVersions.DSTU2,
+  fhirResource: example3Condition,
+  fhirIcons: fhirIcons,
 };
 
-export const ExampleWithSeveritySTU3 = () => {
-  const fhirResource = object('Resource', exampleConditionSeveritySTU3);
-  return (
-    <Condition
-      fhirResource={fhirResource}
-      fhirVersion={fhirVersions.STU3}
-      fhirIcons={'random text'}
-    />
-  );
+export const ExampleWithoutSeveritySTU3 = Template.bind({});
+ExampleWithoutSeveritySTU3.args = {
+  fhirVersion: fhirVersions.STU3,
+  fhirResource: exampleConditionSTU3,
+  fhirIcons: false,
 };
 
-export const Example1ofR4 = () => {
-  const fhirResource = object('Resource', example1ConditionR4);
-  return (
-    <Condition fhirResource={fhirResource} fhirVersion={fhirVersions.R4} />
-  );
+export const ExampleWithSeveritySTU3 = Template.bind({});
+ExampleWithSeveritySTU3.args = {
+  fhirVersion: fhirVersions.STU3,
+  fhirResource: exampleConditionSeveritySTU3,
+  fhirIcons: 'random text',
 };
 
-export const Example2ofR4 = () => {
-  const fhirResource = object('Resource', example2ConditionR4);
-  return (
-    <Condition fhirResource={fhirResource} fhirVersion={fhirVersions.R4} />
-  );
+export const Example1ofR4 = Template.bind({});
+Example1ofR4.args = {
+  fhirVersion: fhirVersions.R4,
+  fhirResource: example1ConditionR4,
 };
 
-export const Example3ofR4 = () => {
-  const fhirResource = object('Resource', example3ConditionR4);
-  return (
-    <Condition fhirResource={fhirResource} fhirVersion={fhirVersions.R4} />
-  );
+export const Example2ofR4 = Template.bind({});
+Example2ofR4.args = {
+  fhirVersion: fhirVersions.R4,
+  fhirResource: example2ConditionR4,
+};
+
+export const Example3ofR4 = Template.bind({});
+Example3ofR4.args = {
+  fhirVersion: fhirVersions.R4,
+  fhirResource: example3ConditionR4,
 };

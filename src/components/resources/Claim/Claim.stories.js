@@ -1,5 +1,5 @@
 import React from 'react';
-import { object } from '@storybook/addon-knobs';
+import { defaultArgTypes } from '../../defaultArgTypes';
 
 import Claim from './Claim';
 import fhirVersions from '../fhirResourceVersions';
@@ -16,64 +16,51 @@ import fhirIcons from '../../../fixtures/example-icons';
 
 export default {
   title: 'Claim',
+  component: Claim,
+  argTypes: {
+    ...defaultArgTypes,
+  },
 };
 
-export const ExampleOfDSTU2 = () => {
-  const fhirResource = object('Resource', dstu2Example1);
-  return (
-    <Claim
-      fhirVersion={fhirVersions.DSTU2}
-      fhirResource={fhirResource}
-      fhirIcons={require('../../../assets/containers/Claim/claim.svg')}
-    />
-  );
+const Template = args => <Claim {...args} />;
+
+export const ExampleOfDSTU2 = Template.bind({});
+ExampleOfDSTU2.args = {
+  fhirVersion: fhirVersions.DSTU2,
+  fhirResource: dstu2Example1,
+  fhirIcons: require('../../../assets/containers/Claim/claim.svg'),
 };
 
-export const ExampleOfSTU3 = () => {
-  const fhirResource = object('Resource', stu3Example1);
-  return (
-    <Claim
-      fhirVersion={fhirVersions.STU3}
-      fhirResource={fhirResource}
-      fhirIcons={ClaimIcon}
-    />
-  );
+export const ExampleOfSTU3 = Template.bind({});
+ExampleOfSTU3.args = {
+  fhirVersion: fhirVersions.STU3,
+  fhirResource: stu3Example1,
+  fhirIcons: ClaimIcon,
 };
 
-export const Example2OfSTU3 = () => {
-  const fhirResource = object('Resource', stu3Example2);
-  return (
-    <Claim
-      fhirVersion={fhirVersions.STU3}
-      fhirResource={fhirResource}
-      fhirIcons={fhirIcons}
-    />
-  );
+export const Example2OfSTU3 = Template.bind({});
+Example2OfSTU3.args = {
+  fhirVersion: fhirVersions.STU3,
+  fhirResource: stu3Example2,
+  fhirIcons: fhirIcons,
 };
 
-export const Example3OfSTU3 = () => {
-  const fhirResource = object('Resource', stu3Example3);
-  return (
-    <Claim
-      fhirVersion={fhirVersions.STU3}
-      fhirResource={fhirResource}
-      fhirIcons={false}
-    />
-  );
+export const Example3OfSTU3 = Template.bind({});
+Example3OfSTU3.args = {
+  fhirVersion: fhirVersions.STU3,
+  fhirResource: stu3Example3,
+  fhirIcons: false,
 };
 
-export const Example1OfR4 = () => {
-  const fhirResource = object('Resource', r4Example1);
-  return (
-    <Claim
-      fhirVersion={fhirVersions.R4}
-      fhirResource={fhirResource}
-      fhirIcons={'random text'}
-    />
-  );
+export const Example1OfR4 = Template.bind({});
+Example1OfR4.args = {
+  fhirVersion: fhirVersions.R4,
+  fhirResource: r4Example1,
+  fhirIcons: 'random text',
 };
 
-export const Example2OfR4 = () => {
-  const fhirResource = object('Resource', r4Example2);
-  return <Claim fhirVersion={fhirVersions.R4} fhirResource={fhirResource} />;
+export const Example2OfR4 = Template.bind({});
+Example2OfR4.args = {
+  fhirVersion: fhirVersions.R4,
+  fhirResource: r4Example2,
 };

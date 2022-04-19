@@ -1,5 +1,5 @@
 import React from 'react';
-import { object } from '@storybook/addon-knobs';
+import { defaultArgTypes } from '../../defaultArgTypes';
 
 import ReferralRequest from './ReferralRequest';
 
@@ -9,29 +9,29 @@ import fhirVersions from '../fhirResourceVersions';
 
 export default {
   title: 'ReferralRequest',
+  component: ReferralRequest,
+  argTypes: {
+    ...defaultArgTypes,
+  },
 };
 
-export const DefaultVisualizationDSTU2 = () => {
-  const fhirResource = object('Resource', dstu2Example1);
-  return (
-    <ReferralRequest
-      fhirVersion={fhirVersions.DSTU2}
-      fhirResource={fhirResource}
-    />
-  );
+const Template = args => <ReferralRequest {...args} />;
+
+export const DefaultVisualizationDSTU2 = Template.bind({});
+DefaultVisualizationDSTU2.args = {
+  fhirVersion: fhirVersions.DSTU2,
+  fhirResource: dstu2Example1,
+  fhirIcons: require('../../../assets/containers/ReferralRequest/referral-request.svg'),
 };
 
-export const ExampleOfSTU3 = () => {
-  const fhirResource = object('Resource', stu3Example1);
-  return (
-    <ReferralRequest
-      fhirVersion={fhirVersions.STU3}
-      fhirResource={fhirResource}
-    />
-  );
+export const ExampleOfSTU3 = Template.bind({});
+ExampleOfSTU3.args = {
+  fhirVersion: fhirVersions.STU3,
+  fhirResource: stu3Example1,
+  fhirIcons: false,
 };
 
-export const ExampleWithoutFhirVersionProperty = () => {
-  const fhirResource = object('Resource', stu3Example1);
-  return <ReferralRequest fhirResource={fhirResource} />;
+export const ExampleWithoutFhirVersionProperty = Template.bind({});
+ExampleWithoutFhirVersionProperty.args = {
+  fhirResource: stu3Example1,
 };

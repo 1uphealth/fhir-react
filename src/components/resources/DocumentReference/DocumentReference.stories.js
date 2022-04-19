@@ -1,5 +1,5 @@
 import React from 'react';
-import { object } from '@storybook/addon-knobs';
+import { defaultArgTypes } from '../../defaultArgTypes';
 
 import fhirVersions from '../fhirResourceVersions';
 import DocumentReference from './DocumentReference';
@@ -10,37 +10,33 @@ import example1DocumentReferenceR4 from '../../../fixtures/r4/resources/document
 import fhirIcons from '../../../fixtures/example-icons';
 import DocumentReferenceIcon from '../../../assets/containers/DocumentReference/document-reference.svg';
 
-export default { title: 'Document Reference' };
-
-export const DefaultVisualizationDSTU2 = () => {
-  const fhirResource = object('Resource', exampleDocumentReference);
-  return (
-    <DocumentReference
-      fhirResource={fhirResource}
-      fhirVersion={fhirVersions.DSTU2}
-      fhirIcons={require('../../../assets/containers/DocumentReference/document-reference.svg')}
-    />
-  );
+export default {
+  title: 'DocumentReference',
+  component: DocumentReference,
+  argTypes: {
+    ...defaultArgTypes,
+  },
 };
 
-export const ExampleSTU3 = () => {
-  const fhirResource = object('Resource', exampleDocumentReferenceSTU3);
-  return (
-    <DocumentReference
-      fhirResource={fhirResource}
-      fhirVersion={fhirVersions.STU3}
-      fhirIcons={DocumentReferenceIcon}
-    />
-  );
+const Template = args => <DocumentReference {...args} />;
+
+export const DefaultVisualizationDSTU2 = Template.bind({});
+DefaultVisualizationDSTU2.args = {
+  fhirVersion: fhirVersions.DSTU2,
+  fhirResource: exampleDocumentReference,
+  fhirIcons: require('../../../assets/containers/DocumentReference/document-reference.svg'),
 };
 
-export const ExampleR4 = () => {
-  const fhirResource = object('Resource', example1DocumentReferenceR4);
-  return (
-    <DocumentReference
-      fhirResource={fhirResource}
-      fhirVersion={fhirVersions.R4}
-      fhirIcons={fhirIcons}
-    />
-  );
+export const ExampleSTU3 = Template.bind({});
+ExampleSTU3.args = {
+  fhirVersion: fhirVersions.STU3,
+  fhirResource: exampleDocumentReferenceSTU3,
+  fhirIcons: DocumentReferenceIcon,
+};
+
+export const ExampleR4 = Template.bind({});
+ExampleR4.args = {
+  fhirVersion: fhirVersions.R4,
+  fhirResource: example1DocumentReferenceR4,
+  fhirIcons: fhirIcons,
 };

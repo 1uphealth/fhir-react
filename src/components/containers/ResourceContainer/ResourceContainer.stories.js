@@ -1,5 +1,5 @@
 import React from 'react';
-import { object } from '@storybook/addon-knobs';
+import { defaultArgTypes } from '../../defaultArgTypes';
 
 import ResourceContainer from './ResourceContainer';
 import Encounter from '../../../components/resources/Encounter';
@@ -10,50 +10,52 @@ import fhirVersions from '../../../components/resources/fhirResourceVersions';
 
 export default {
   title: 'ResourceContainer',
-};
-
-export const DefaultVisualizationWithRawButtonHiddenInsideAccordion = () => {
-  const fhirResource = object('Resource', example1);
-  const props = {
-    fhirVersion: fhirVersions.DSTU2,
-    fhirResource: fhirResource,
-  };
-  return (
-    <ResourceContainer {...props}>
-      <Encounter {...props} />
-    </ResourceContainer>
-  );
-};
-
-export const DefaultVisualizationWithRawButtonVisibleOutsideAccordion = () => {
-  const exampleResource = {
-    resourceType: 'UnknownResource',
-    id: '12345',
-    code: {
-      text: 'Resource code text',
+  component: ResourceContainer,
+  argTypes: {
+    ...defaultArgTypes,
+    children: {
+      table: {
+        disable: true,
+      },
     },
-  };
-
-  const fhirResource = object('Resource', exampleResource);
-  const props = {
-    fhirResource: fhirResource,
-  };
-
-  return (
-    <ResourceContainer {...props}>
-      <Generic {...props} />
-    </ResourceContainer>
-  );
+  },
 };
 
-export const VisualizationWithoutFhirVersion = () => {
-  const fhirResource = object('Resource', example1);
-  const props = {
-    fhirResource: fhirResource,
-  };
-  return (
-    <ResourceContainer {...props}>
-      <Encounter {...props} />
-    </ResourceContainer>
-  );
+const Template = args => <ResourceContainer {...args} />;
+
+const propsRawInsideAccordion = {
+  fhirVersion: fhirVersions.DSTU2,
+  fhirResource: example1,
+};
+export const DefaultVisualizationWithRawButtonHiddenInsideAccordion = Template.bind(
+  {},
+);
+DefaultVisualizationWithRawButtonHiddenInsideAccordion.args = {
+  ...propsRawInsideAccordion,
+  children: <Encounter {...propsRawInsideAccordion} />,
+};
+
+const exampleResource = {
+  resourceType: 'UnknownResource',
+  id: '12345',
+  code: {
+    text: 'Resource code text',
+  },
+};
+const propsRawOutsideAccordion = { fhirResource: exampleResource };
+export const DefaultVisualizationWithRawButtonVisibleOutsideAccordion = Template.bind(
+  {},
+);
+DefaultVisualizationWithRawButtonVisibleOutsideAccordion.args = {
+  ...propsRawOutsideAccordion,
+  children: <Generic {...propsRawOutsideAccordion} />,
+};
+
+const propsWithoutVersion = {
+  fhirResource: example1,
+};
+export const VisualizationWithoutFhirVersion = Template.bind({});
+VisualizationWithoutFhirVersion.args = {
+  ...propsWithoutVersion,
+  children: <Encounter {...propsWithoutVersion} />,
 };

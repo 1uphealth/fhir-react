@@ -1,5 +1,5 @@
 import React from 'react';
-import { object } from '@storybook/addon-knobs';
+import { defaultArgTypes } from '../../defaultArgTypes';
 
 import List from './List';
 import fhirVersions from '../fhirResourceVersions';
@@ -19,90 +19,86 @@ import ListIcon from '../../../assets/containers/List/list.svg';
 
 export default {
   title: 'List',
+  component: List,
+  argTypes: {
+    ...defaultArgTypes,
+    withDaVinciPDex: {
+      table: {
+        disable: true,
+      },
+    },
+  },
 };
 
-export const DefaultVisualizationDSTU2 = () => {
-  const fhirResource = object('Resource', example1Dstu2);
-  return (
-    <List
-      fhirVersion={fhirVersions.DSTU2}
-      fhirResource={fhirResource}
-      fhirIcons={require('../../../assets/containers/List/list.svg')}
-    />
-  );
+const Template = args => <List {...args} />;
+
+export const DefaultVisualizationDSTU2 = Template.bind({});
+DefaultVisualizationDSTU2.args = {
+  fhirVersion: fhirVersions.DSTU2,
+  fhirResource: example1Dstu2,
+  fhirIcons: require('../../../assets/containers/List/list.svg'),
 };
 
-export const Example2DSTU2 = () => {
-  const fhirResource = object('Resource', example2Dstu2);
-  return (
-    <List
-      fhirVersion={fhirVersions.DSTU2}
-      fhirResource={fhirResource}
-      fhirIcons={ListIcon}
-    />
-  );
-};
-export const Example3DSTU2 = () => {
-  const fhirResource = object('Resource', example3Dstu2);
-  return (
-    <List
-      fhirVersion={fhirVersions.DSTU2}
-      fhirResource={fhirResource}
-      fhirIcons={fhirIcons}
-    />
-  );
+export const Example2DSTU2 = Template.bind({});
+Example2DSTU2.args = {
+  fhirVersion: fhirVersions.DSTU2,
+  fhirResource: example2Dstu2,
+  fhirIcons: ListIcon,
 };
 
-export const DefaultVisualizationSTU3 = () => {
-  const fhirResource = object('Resource', example1Stu3);
-  return (
-    <List
-      fhirVersion={fhirVersions.STU3}
-      fhirResource={fhirResource}
-      fhirIcons={false}
-    />
-  );
+export const Example3DSTU2 = Template.bind({});
+Example3DSTU2.args = {
+  fhirVersion: fhirVersions.DSTU2,
+  fhirResource: example3Dstu2,
+  fhirIcons: fhirIcons,
 };
 
-export const Example2STU3 = () => {
-  const fhirResource = object('Resource', example2Stu3);
-  return (
-    <List
-      fhirVersion={fhirVersions.STU3}
-      fhirResource={fhirResource}
-      fhirIcons={'random text'}
-    />
-  );
-};
-export const Example3STU3 = () => {
-  const fhirResource = object('Resource', example3Stu3);
-  return <List fhirVersion={fhirVersions.STU3} fhirResource={fhirResource} />;
+export const DefaultVisualizationSTU3 = Template.bind({});
+DefaultVisualizationSTU3.args = {
+  fhirVersion: fhirVersions.STU3,
+  fhirResource: example1Stu3,
+  fhirIcons: false,
 };
 
-export const DefaultVisualizationR4 = () => {
-  const fhirResource = object('Resource', example1R4);
-  return <List fhirVersion={fhirVersions.R4} fhirResource={fhirResource} />;
-};
-export const ExampleR4WithoutDaVinciPDex = () => {
-  const fhirResource = object('Resource', example2R4);
-  return <List fhirVersion={fhirVersions.R4} fhirResource={fhirResource} />;
-};
-export const ExampleR4WithDaVinciPDex = () => {
-  const fhirResource = object('Resource', example2R4);
-  return (
-    <List
-      fhirVersion={fhirVersions.R4}
-      fhirResource={fhirResource}
-      withDaVinciPDex
-    />
-  );
-};
-export const Example2R4 = () => {
-  const fhirResource = object('Resource', example3R4);
-  return <List fhirVersion={fhirVersions.R4} fhirResource={fhirResource} />;
+export const Example2STU3 = Template.bind({});
+Example2STU3.args = {
+  fhirVersion: fhirVersions.STU3,
+  fhirResource: example2Stu3,
+  fhirIcons: 'random text',
 };
 
-export const ExampleWithoutFHIRVersionProperty = () => {
-  const fhirResource = object('Resource', example3R4);
-  return <List fhirResource={fhirResource} />;
+export const Example3STU3 = Template.bind({});
+Example3STU3.args = {
+  fhirVersion: fhirVersions.STU3,
+  fhirResource: example3Stu3,
+};
+
+export const DefaultVisualizationR4 = Template.bind({});
+DefaultVisualizationR4.args = {
+  fhirVersion: fhirVersions.R4,
+  fhirResource: example1R4,
+};
+
+export const ExampleR4WithoutDaVinciPDex = Template.bind({});
+ExampleR4WithoutDaVinciPDex.args = {
+  fhirVersion: fhirVersions.R4,
+  fhirResource: example2R4,
+};
+
+export const ExampleR4WithDaVinciPDex = Template.bind({});
+ExampleR4WithDaVinciPDex.args = {
+  fhirVersion: fhirVersions.R4,
+  fhirResource: example2R4,
+  withDaVinciPDex: true,
+};
+
+export const Example2R4 = Template.bind({});
+Example2R4.args = {
+  fhirVersion: fhirVersions.R4,
+  fhirResource: example3R4,
+};
+
+export const ExampleWithoutFHIRVersionProperty = Template.bind({});
+ExampleWithoutFHIRVersionProperty.args = {
+  fhirResource: example3R4,
 };

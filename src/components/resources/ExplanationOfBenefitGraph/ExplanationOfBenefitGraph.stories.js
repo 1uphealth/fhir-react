@@ -2,8 +2,6 @@ import React from 'react';
 
 import ExplanationOfBenefitGraph from './ExplanationOfBenefitGraph';
 
-export default { title: 'ExplanationOfBenefitGraph' };
-
 const CHART_DATA = [
   {
     id: 'a',
@@ -31,48 +29,86 @@ const CHART_DATA = [
   },
 ];
 
-export const DefaultExplanationOfBenefitGraph = () => {
-  return (
-    <ExplanationOfBenefitGraph
-      data={CHART_DATA}
-      margin={{ top: 10, bottom: 10 }}
-    />
-  );
+export default {
+  title: 'ExplanationOfBenefitGraph',
+  component: ExplanationOfBenefitGraph,
+  argTypes: {
+    data: {
+      table: {
+        disable: true,
+      },
+    },
+    margin: {
+      table: {
+        disable: true,
+      },
+    },
+    totalLabel: {
+      table: {
+        disable: true,
+      },
+    },
+    height: {
+      table: {
+        disable: true,
+      },
+    },
+    enableLinkLabels: {
+      table: {
+        disable: true,
+      },
+    },
+    enableValueLabels: {
+      table: {
+        disable: true,
+      },
+    },
+    pieChartProperties: {
+      table: {
+        disable: true,
+      },
+    },
+  },
 };
 
-export const ExplanationOfBenefitGraphWithCustomCenteredMetric = () => {
-  return <ExplanationOfBenefitGraph data={CHART_DATA} totalLabel="Custom" />;
+const Template = args => <ExplanationOfBenefitGraph {...args} />;
+
+export const DefaultExplanationOfBenefitGraph = Template.bind({});
+DefaultExplanationOfBenefitGraph.args = {
+  data: CHART_DATA,
+  margin: { top: 10, bottom: 10 },
 };
 
-export const ExplanationOfBenefitGraphWithHeightAndMargin = () => {
-  return (
-    <ExplanationOfBenefitGraph
-      data={CHART_DATA}
-      margin={{ top: 40, bottom: 40 }}
-      height={250}
-    />
-  );
+export const ExplanationOfBenefitGraphWithCustomCenteredMetric = Template.bind(
+  {},
+);
+ExplanationOfBenefitGraphWithCustomCenteredMetric.args = {
+  data: CHART_DATA,
+  totalLabel: 'Custom',
 };
 
-export const ExplanationOfBenefitGraphWithLabels = () => {
-  return (
-    <ExplanationOfBenefitGraph
-      data={CHART_DATA}
-      margin={{ top: 20, bottom: 20 }}
-      enableLinkLabels
-      enableValueLabels
-    />
-  );
+export const ExplanationOfBenefitGraphWithHeightAndMargin = Template.bind({});
+ExplanationOfBenefitGraphWithHeightAndMargin.args = {
+  data: CHART_DATA,
+  margin: { top: 40, bottom: 40 },
+  height: 250,
 };
 
-export const ExplanationOfBenefitGraphWithPieChartProperties = () => {
-  return (
-    <ExplanationOfBenefitGraph
-      data={CHART_DATA}
-      margin={{ top: 20, bottom: 20 }}
-      enableLinkLabels
-      enableValueLabels
-      pieChartProperties={{ startAngle: 90, cornerRadius: 15, borderWidth: 4 }}
-    />
-  );
+export const ExplanationOfBenefitGraphWithLabels = Template.bind({});
+ExplanationOfBenefitGraphWithLabels.args = {
+  data: CHART_DATA,
+  margin: { top: 20, bottom: 20 },
+  enableLinkLabels: true,
+  enableValueLabels: true,
+};
+
+export const ExplanationOfBenefitGraphWithPieChartProperties = Template.bind(
+  {},
+);
+ExplanationOfBenefitGraphWithPieChartProperties.args = {
+  data: CHART_DATA,
+  margin: { top: 20, bottom: 20 },
+  enableLinkLabels: true,
+  enableValueLabels: true,
+  pieChartProperties: { startAngle: 90, cornerRadius: 15, borderWidth: 4 },
 };

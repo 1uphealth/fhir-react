@@ -1,5 +1,5 @@
 import React from 'react';
-import { object } from '@storybook/addon-knobs';
+import { defaultArgTypes } from '../../defaultArgTypes';
 
 import fhirVersions from '../fhirResourceVersions';
 import ClaimResponse from './ClaimResponse';
@@ -13,63 +13,53 @@ import example3ClaimResponseR4 from '../../../fixtures/r4/resources/claimRespons
 import fhirIcons from '../../../fixtures/example-icons';
 import ClaimResponseIcon from '../../../assets/containers/ClaimResponse/claim-response.svg';
 
-export default { title: 'Claim Response' };
-
-export const ExampleDSTU2 = () => {
-  const fhirResource = object('Resource', exampleClaimResponseDSTU2);
-  return (
-    <ClaimResponse
-      fhirResource={fhirResource}
-      fhirVersion={fhirVersions.DSTU2}
-      fhirIcons={require('../../../assets/containers/ClaimResponse/claim-response.svg')}
-    />
-  );
+export default {
+  title: 'ClaimResponse',
+  component: ClaimResponse,
+  argTypes: {
+    ...defaultArgTypes,
+  },
 };
 
-export const Example1OfSTU3 = () => {
-  const fhirResource = object('Resource', exampleClaimResponseSTU3);
-  return (
-    <ClaimResponse
-      fhirResource={fhirResource}
-      fhirVersion={fhirVersions.STU3}
-      fhirIcons={ClaimResponseIcon}
-    />
-  );
-};
-export const Example2OfSTU3 = () => {
-  const fhirResource = object('Resource', example2ClaimResponseSTU3);
-  return (
-    <ClaimResponse
-      fhirResource={fhirResource}
-      fhirVersion={fhirVersions.STU3}
-      fhirIcons={fhirIcons}
-    />
-  );
+const Template = args => <ClaimResponse {...args} />;
+
+export const ExampleDSTU2 = Template.bind({});
+ExampleDSTU2.args = {
+  fhirVersion: fhirVersions.DSTU2,
+  fhirResource: exampleClaimResponseDSTU2,
+  fhirIcons: require('../../../assets/containers/ClaimResponse/claim-response.svg'),
 };
 
-export const Example1OfR4 = () => {
-  const fhirResource = object('Resource', example1ClaimResponseR4);
-  return (
-    <ClaimResponse
-      fhirResource={fhirResource}
-      fhirVersion={fhirVersions.R4}
-      fhirIcons={false}
-    />
-  );
+export const Example1OfSTU3 = Template.bind({});
+Example1OfSTU3.args = {
+  fhirVersion: fhirVersions.STU3,
+  fhirResource: exampleClaimResponseSTU3,
+  fhirIcons: ClaimResponseIcon,
 };
-export const Example2OfR4 = () => {
-  const fhirResource = object('Resource', example2ClaimResponseR4);
-  return (
-    <ClaimResponse
-      fhirResource={fhirResource}
-      fhirVersion={fhirVersions.R4}
-      fhirIcons={'random text'}
-    />
-  );
+
+export const Example2OfSTU3 = Template.bind({});
+Example2OfSTU3.args = {
+  fhirVersion: fhirVersions.STU3,
+  fhirResource: example2ClaimResponseSTU3,
+  fhirIcons: fhirIcons,
 };
-export const Example3OfR4 = () => {
-  const fhirResource = object('Resource', example3ClaimResponseR4);
-  return (
-    <ClaimResponse fhirResource={fhirResource} fhirVersion={fhirVersions.R4} />
-  );
+
+export const Example1OfR4 = Template.bind({});
+Example1OfR4.args = {
+  fhirVersion: fhirVersions.R4,
+  fhirResource: example1ClaimResponseR4,
+  fhirIcons: false,
+};
+
+export const Example2OfR4 = Template.bind({});
+Example2OfR4.args = {
+  fhirVersion: fhirVersions.R4,
+  fhirResource: example2ClaimResponseR4,
+  fhirIcons: 'random text',
+};
+
+export const Example3OfR4 = Template.bind({});
+Example3OfR4.args = {
+  fhirVersion: fhirVersions.R4,
+  fhirResource: example3ClaimResponseR4,
 };

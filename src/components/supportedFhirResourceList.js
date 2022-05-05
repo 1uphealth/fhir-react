@@ -36,6 +36,7 @@ import MedicationAdministration from './resources/MedicationAdministration';
 import Questionnaire from './resources/Questionnaire';
 import QuestionnaireResponse from './resources/QuestionnaireResponse';
 import ReferralRequest from './resources/ReferralRequest';
+import RelatedPerson from './resources/RelatedPerson';
 import ResearchStudy from './resources/ResearchStudy';
 import ResourceCategory from './resources/ResourceCategory';
 
@@ -78,6 +79,7 @@ export {
   Questionnaire,
   QuestionnaireResponse,
   ReferralRequest,
+  RelatedPerson,
   ResearchStudy,
   ResourceCategory,
 };

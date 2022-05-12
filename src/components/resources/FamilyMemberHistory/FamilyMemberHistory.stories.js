@@ -12,7 +12,7 @@ import fhirIcons from '../../../fixtures/example-icons';
 import FamilyMemberHistoryIcon from '../../../assets/containers/FamilyMemberHistory/family-member-history.svg';
 
 export default {
-  title: 'FamilyMemberHistory',
+  title: 'Coverage/FamilyMemberHistory',
   component: FamilyMemberHistory,
   argTypes: {
     ...defaultArgTypes,

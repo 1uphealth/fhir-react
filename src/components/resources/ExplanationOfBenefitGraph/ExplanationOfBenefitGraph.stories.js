@@ -30,7 +30,7 @@ const CHART_DATA = [
 ];
 
 export default {
-  title: 'ExplanationOfBenefitGraph',
+  title: 'ExplanationOfBenefit/ExplanationOfBenefitGraph',
   component: ExplanationOfBenefitGraph,
   argTypes: {
     data: {

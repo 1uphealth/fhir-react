@@ -14,7 +14,7 @@ import fhirIcons from '../../../fixtures/example-icons';
 import ClaimResponseIcon from '../../../assets/containers/ClaimResponse/claim-response.svg';
 
 export default {
-  title: 'ClaimResponse',
+  title: 'ExplanationOfBenefit/ClaimResponse',
   component: ClaimResponse,
   argTypes: {
     ...defaultArgTypes,

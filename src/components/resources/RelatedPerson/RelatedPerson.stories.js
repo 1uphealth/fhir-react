@@ -11,7 +11,7 @@ import exampleR4 from '../../../fixtures/r4/resources/relatedPerson/example1.jso
 import fhirIcons from '../../../fixtures/example-icons';
 
 export default {
-  title: 'RelatedPerson',
+  title: 'Coverage/RelatedPerson',
   component: RelatedPerson,
   argTypes: {
     ...defaultArgTypes,

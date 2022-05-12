@@ -16,7 +16,7 @@ import fhirIcons from '../../../fixtures/example-icons';
 import PractitionerRoleIcon from '../../../assets/containers/PractitionerRole/practitioner-role.svg';
 
 export default {
-  title: 'PractitionerRole',
+  title: 'Practitioner/PractitionerRole',
   component: PractitionerRole,
   argTypes: {
     ...defaultArgTypes,

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Chevron } from '../../ui';
-import { getHashCode, circObjToString } from '../../../utils/getHashCode';
+import { getHashCode, circObjToString } from '../../../utils/hashCodeUtils';
 
 const CHEVRON_DOWN_COLOR = '#6f83a9';
 const CHEVRON_UP_COLOR = '#2a6fd7';
@@ -9,20 +9,11 @@ const Accordion = props => {
   const { headerContent, bodyContent, onClick, rawOnClick } = props;
   const [rotate, setRotate] = useState(false);
   const handleAccordionClick = () => setRotate(!rotate);
-  // const bodyAsString = Object.keys(bodyContent).reduce(function(r, k) {
-  //   return r.concat(k, bodyContent[k]);
-  // }, []);
-  // const bodyAsString = flatten(bodyContent);
-  //const hashCode = getHashCode(bodyAsString);
 
-  //const flatten = obj => Object.values(obj).flat();
   const bodyAsString = circObjToString(bodyContent);
   const hashCode = getHashCode(bodyAsString);
-  console.log({ s: bodyContent, j: bodyAsString, h: hashCode });
   const accordionId = `accordion-type-${headerContent.props.resourceName ||
     'default'}-${hashCode ?? ''}`;
-
-  //console.log({ s: bodyContent, j: JSON.stringify(bodyContent), h: hashCode });
 
   const isAccordionOpenable = () => {
     if (bodyContent) {

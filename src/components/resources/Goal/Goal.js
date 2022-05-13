@@ -105,6 +105,7 @@ const Goal = ({
   fhirIcons,
   onClick,
   rawOnClick,
+  customId,
 }) => {
   let fhirResourceData = {};
   try {
@@ -235,6 +236,7 @@ const Goal = ({
         bodyContent={<Body tableData={tableData} />}
         onClick={onClick}
         rawOnClick={rawOnClick}
+        customId={customId}
       />
     </Root>
   );

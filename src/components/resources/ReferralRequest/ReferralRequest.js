@@ -76,6 +76,7 @@ const ReferralRequest = ({
   fhirIcons,
   onClick,
   rawOnClick,
+  customId,
 }) => {
   let fhirResourceData = {};
   try {
@@ -157,6 +158,7 @@ const ReferralRequest = ({
         }
         onClick={onClick}
         rawOnClick={rawOnClick}
+        customId={customId}
       />
     </Root>
   );

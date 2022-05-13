@@ -157,6 +157,22 @@ const MyComponent = () => {
 };
 ```
 
+User can provide a number that can be assigned at the end of Accordion id. Not providing any number will cause a lodash uniqueId function to be used instead (default functionality up to this point).
+
+```jsx
+const MyComponent = () => {
+  const fhirResource = JSON.parse(fhirResourceAsJsonString);
+  
+  return (
+    <FhirResource
+      fhirResource={fhirResource}
+      fhirVersion={fhirVersions.R4}
+      customId={id}
+    />
+  );
+};
+```
+
 ### `FhirResource` component props
 
 | Prop                 | Type                                                       | Default | Description                                                                                                                                                                                               |

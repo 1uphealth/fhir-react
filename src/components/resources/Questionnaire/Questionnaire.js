@@ -81,6 +81,7 @@ const Questionnaire = ({
   fhirIcons,
   onClick,
   rawOnClick,
+  customId,
 }) => {
   let fhirResourceData = {};
 
@@ -121,6 +122,7 @@ const Questionnaire = ({
         }
         onClick={onClick}
         rawOnClick={rawOnClick}
+        customId={customId}
       />
     </Root>
   );

@@ -165,6 +165,7 @@ const MedicationDispense = ({
   fhirIcons,
   onClick,
   rawOnClick,
+  customId,
 }) => {
   let fhirResourceData = {};
   try {
@@ -245,6 +246,7 @@ const MedicationDispense = ({
         }
         onClick={onClick}
         rawOnClick={rawOnClick}
+        customId={customId}
       />
     </Root>
   );

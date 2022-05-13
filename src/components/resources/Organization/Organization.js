@@ -61,6 +61,7 @@ const Organization = ({
   fhirIcons,
   onClick,
   rawOnClick,
+  customId,
 }) => {
   let fhirResourceData = {};
   try {
@@ -135,6 +136,7 @@ const Organization = ({
         bodyContent={<Body tableData={tableData} />}
         onClick={onClick}
         rawOnClick={rawOnClick}
+        customId={customId}
       />
     </Root>
   );

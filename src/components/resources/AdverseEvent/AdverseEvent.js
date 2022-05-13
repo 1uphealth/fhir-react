@@ -77,6 +77,7 @@ const AdverseEvent = ({
   fhirIcons,
   onClick,
   rawOnClick,
+  customId,
 }) => {
   let fhirResourceData = {};
   try {
@@ -172,6 +173,7 @@ const AdverseEvent = ({
         }
         onClick={onClick}
         rawOnClick={rawOnClick}
+        customId={customId}
       />
     </Root>
   );

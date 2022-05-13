@@ -75,6 +75,7 @@ const dstu2DTO = fhirResource => {
     hasActivity,
   };
 };
+
 const stu3DTO = fhirResource => {
   let activity = _get(fhirResource, 'activity');
   const hasActivity = Array.isArray(activity);
@@ -168,6 +169,7 @@ const CarePlan = ({
   fhirIcons,
   onClick,
   rawOnClick,
+  customId,
 }) => {
   let fhirResourceData = {};
   try {
@@ -312,6 +314,7 @@ const CarePlan = ({
         }
         onClick={onClick}
         rawOnClick={rawOnClick}
+        customId={customId}
       />
     </Root>
   );

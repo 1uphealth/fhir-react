@@ -235,6 +235,7 @@ const ExplanationOfBenefit = ({
   fhirIcons,
   onClick,
   rawOnClick,
+  customId,
 }) => {
   let fhirResourceData = {};
   try {
@@ -550,6 +551,7 @@ const ExplanationOfBenefit = ({
         }
         onClick={onClick}
         rawOnClick={rawOnClick}
+        customId={customId}
       />
     </Root>
   );

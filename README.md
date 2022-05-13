@@ -157,6 +157,8 @@ const MyComponent = () => {
 };
 ```
 
+// TODO: add info about customId
+
 ### `FhirResource` component props
 
 | Prop                 | Type                                                       | Default | Description                                                                                                                                                                                               |

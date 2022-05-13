@@ -1,19 +1,21 @@
 import React, { useState } from 'react';
 import { Chevron } from '../../ui';
-import { getHashCode, circObjToString } from '../../../utils/hashCodeUtils';
+import uniqueId from 'lodash/uniqueId';
 
 const CHEVRON_DOWN_COLOR = '#6f83a9';
 const CHEVRON_UP_COLOR = '#2a6fd7';
 
 const Accordion = props => {
-  const { headerContent, bodyContent, onClick, rawOnClick } = props;
+  const { headerContent, bodyContent, onClick, rawOnClick, customId } = props;
   const [rotate, setRotate] = useState(false);
   const handleAccordionClick = () => setRotate(!rotate);
 
-  const bodyAsString = circObjToString(bodyContent);
-  const hashCode = getHashCode(bodyAsString);
-  const accordionId = `accordion-type-${headerContent.props.resourceName ||
-    'default'}-${hashCode ?? ''}`;
+  const accordionIdText = `accordion-type-${headerContent.props.resourceName ||
+    'default'}-`;
+  const accordionId =
+    typeof customId === 'number'
+      ? `${accordionIdText}${customId}`
+      : uniqueId(accordionIdText);
 
   const isAccordionOpenable = () => {
     if (bodyContent) {

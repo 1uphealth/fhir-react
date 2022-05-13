@@ -60,6 +60,7 @@ const stu3DTO = fhirResource => {
     hasExtension,
   };
 };
+
 const r4DTO = fhirResource => {
   const issuer = _get(fhirResource, 'payor.0');
   const planId = _get(fhirResource, 'class.plan');
@@ -120,6 +121,7 @@ const Coverage = ({
   fhirIcons,
   onClick,
   rawOnClick,
+  customId,
 }) => {
   let fhirResourceData = {};
   try {
@@ -240,6 +242,7 @@ const Coverage = ({
         bodyContent={<Body tableData={tableData} />}
         onClick={onClick}
         rawOnClick={rawOnClick}
+        customId={customId}
       />
     </Root>
   );

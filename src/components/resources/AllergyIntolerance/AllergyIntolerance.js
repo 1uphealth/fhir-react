@@ -51,6 +51,7 @@ const dstu2DTO = fhirResource => {
     asserter,
   };
 };
+
 const stu3DTO = fhirResource => {
   const title = _get(fhirResource, 'code.coding.0.display');
   const status = _get(fhirResource, 'verificationStatus');
@@ -73,6 +74,7 @@ const stu3DTO = fhirResource => {
     hasNote,
   };
 };
+
 const r4DTO = fhirResource => {
   const title = _get(fhirResource, 'code.coding.0.display');
   const status = _get(fhirResource, 'verificationStatus.coding[0].display');
@@ -129,6 +131,7 @@ const AllergyIntolerance = ({
   fhirIcons,
   onClick,
   rawOnClick,
+  customId,
 }) => {
   let fhirResourceData = {};
   try {
@@ -239,6 +242,7 @@ const AllergyIntolerance = ({
         bodyContent={<Body tableData={tableData} />}
         onClick={onClick}
         rawOnClick={rawOnClick}
+        customId={customId}
       />
     </Root>
   );

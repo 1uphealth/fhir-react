@@ -14,7 +14,13 @@ import _has from 'lodash/has';
 import { isNotEmptyArray } from '../../../utils';
 import { Value } from '../../ui';
 
-const Procedure = ({ fhirResource, fhirIcons, onClick, rawOnClick }) => {
+const Procedure = ({
+  fhirResource,
+  fhirIcons,
+  onClick,
+  rawOnClick,
+  customId,
+}) => {
   const display =
     _get(fhirResource, 'code.coding[0].display') ||
     _get(fhirResource, 'code.text');
@@ -126,6 +132,7 @@ const Procedure = ({ fhirResource, fhirIcons, onClick, rawOnClick }) => {
         bodyContent={<Body tableData={tableData} />}
         onClick={onClick}
         rawOnClick={rawOnClick}
+        customId={customId}
       />
     </Root>
   );

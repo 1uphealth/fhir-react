@@ -89,6 +89,7 @@ const CareTeam = ({
   fhirIcons,
   onClick,
   rawOnClick,
+  customId,
 }) => {
   const {
     name,
@@ -174,6 +175,7 @@ const CareTeam = ({
         }
         onClick={onClick}
         rawOnClick={rawOnClick}
+        customId={customId}
       />
     </Root>
   );

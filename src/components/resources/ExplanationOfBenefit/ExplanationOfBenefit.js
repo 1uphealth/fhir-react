@@ -512,14 +512,25 @@ const ExplanationOfBenefit = ({
                         informationItem,
                         'category.coding.0',
                       );
-                      const infoKey = Object.keys(informationItem).filter(
-                        key => {
-                          return key !== 'sequence' && key !== 'category';
-                        },
-                      );
-                      const infoStatus = _get(informationItem, infoKey);
-                      const StatusComponent =
-                        infoKey.toString() === 'timingDate' ? Date : Quantity;
+                      let infoKey = Object.keys(informationItem).filter(key => {
+                        return key !== 'sequence' && key !== 'category';
+                      });
+                      let infoStatus = _get(informationItem, infoKey);
+                      let StatusComponent;
+                      switch (infoKey.toString()) {
+                        case 'timingDate':
+                          StatusComponent = Date;
+                          break;
+                        case 'timingPeriod':
+                          StatusComponent = Period;
+                          break;
+                        case 'valueQuantity':
+                          StatusComponent = Quantity;
+                          break;
+                        default:
+                          StatusComponent = Coding;
+                          infoStatus = _get(infoStatus, 'coding', '')[0];
+                      }
 
                       return (
                         <TableRow key={`serviceItem-${i}`}>

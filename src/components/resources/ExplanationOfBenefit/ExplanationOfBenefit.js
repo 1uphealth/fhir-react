@@ -512,9 +512,11 @@ const ExplanationOfBenefit = ({
                         informationItem,
                         'category.coding.0',
                       );
-                      let infoKey = Object.keys(informationItem).filter(key => {
-                        return key !== 'sequence' && key !== 'category';
-                      });
+                      const infoKey = Object.keys(informationItem).filter(
+                        key => {
+                          return key !== 'sequence' && key !== 'category';
+                        },
+                      );
                       let infoStatus = _get(informationItem, infoKey);
                       let StatusComponent;
                       switch (infoKey.toString()) {

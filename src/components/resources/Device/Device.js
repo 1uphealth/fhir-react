@@ -42,6 +42,7 @@ const dstu2DTO = fhirResource => {
     getExpiry,
   };
 };
+
 const stu3DTO = fhirResource => {
   const getUdi = _get(fhirResource, 'udi.name');
   const hasExpiry = _has(fhirResource, 'expirationDate');
@@ -108,6 +109,7 @@ const Device = ({
   fhirIcons,
   onClick,
   rawOnClick,
+  customId,
 }) => {
   let fhirResourceData = {};
   try {
@@ -186,6 +188,7 @@ const Device = ({
         }
         onClick={onClick}
         rawOnClick={rawOnClick}
+        customId={customId}
       />
     </Root>
   );

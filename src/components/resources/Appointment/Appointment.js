@@ -150,6 +150,7 @@ const Appointment = ({
   fhirIcons,
   onClick,
   rawOnClick,
+  customId,
 }) => {
   const {
     description,
@@ -261,6 +262,7 @@ const Appointment = ({
         }
         onClick={onClick}
         rawOnClick={rawOnClick}
+        customId={customId}
       />
     </Root>
   );

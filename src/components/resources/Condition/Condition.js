@@ -93,6 +93,7 @@ const Condition = ({
   fhirIcons,
   onClick,
   rawOnClick,
+  customId,
 }) => {
   const {
     codeText,
@@ -164,6 +165,7 @@ const Condition = ({
         bodyContent={<Body tableData={tableData} />}
         onClick={onClick}
         rawOnClick={rawOnClick}
+        customId={customId}
       />
     </Root>
   );

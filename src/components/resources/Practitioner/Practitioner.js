@@ -38,12 +38,14 @@ const commonDTO = fhirResource => {
     birthDate,
   };
 };
+
 const dstu2DTO = fhirResource => {
   const name = _get(fhirResource, 'name');
   return {
     name,
   };
 };
+
 const stu3DTO = fhirResource => {
   const name = _get(fhirResource, 'name.0');
   const address = _get(fhirResource, 'address.0');
@@ -88,6 +90,7 @@ const Practitioner = ({
   fhirIcons,
   onClick,
   rawOnClick,
+  customId,
 }) => {
   let fhirResourceData = {};
   try {
@@ -168,6 +171,7 @@ const Practitioner = ({
         bodyContent={<Body tableData={tableData} />}
         onClick={onClick}
         rawOnClick={rawOnClick}
+        customId={customId}
       />
     </Root>
   );

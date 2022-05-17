@@ -109,6 +109,7 @@ const Immunization = ({
   fhirIcons,
   onClick,
   rawOnClick,
+  customId,
 }) => {
   const {
     title,
@@ -248,6 +249,7 @@ const Immunization = ({
         bodyContent={<Body tableData={tableData} />}
         onClick={onClick}
         rawOnClick={rawOnClick}
+        customId={customId}
       />
     </Root>
   );

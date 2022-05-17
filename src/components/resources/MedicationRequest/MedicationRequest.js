@@ -14,6 +14,7 @@ const MedicationRequest = ({
   fhirIcons,
   onClick,
   rawOnClick,
+  customId,
 }) => {
   const medicationReference = _get(fhirResource, 'medicationReference');
   const medicationCodeableConcept = _get(
@@ -94,6 +95,7 @@ const MedicationRequest = ({
         bodyContent={<Body tableData={tableData} />}
         onClick={onClick}
         rawOnClick={rawOnClick}
+        customId={customId}
       />
     </Root>
   );

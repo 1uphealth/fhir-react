@@ -18,7 +18,13 @@ import {
 } from '../../ui';
 import Reference from '../../datatypes/Reference';
 
-const Observation = ({ fhirResource, fhirIcons, onClick, rawOnClick }) => {
+const Observation = ({
+  fhirResource,
+  fhirIcons,
+  onClick,
+  rawOnClick,
+  customId,
+}) => {
   const effectiveDate = _get(fhirResource, 'effectiveDateTime');
   const codeCodingDisplay = _get(fhirResource, 'code.coding.0.display');
   const codeText = _get(fhirResource, 'code.text', '');
@@ -116,6 +122,7 @@ const Observation = ({ fhirResource, fhirIcons, onClick, rawOnClick }) => {
         }
         onClick={onClick}
         rawOnClick={rawOnClick}
+        customId={customId}
       />
     </Root>
   );

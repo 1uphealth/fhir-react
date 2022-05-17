@@ -6,12 +6,16 @@ const CHEVRON_DOWN_COLOR = '#6f83a9';
 const CHEVRON_UP_COLOR = '#2a6fd7';
 
 const Accordion = props => {
-  const { headerContent, bodyContent, onClick, rawOnClick } = props;
+  const { headerContent, bodyContent, onClick, rawOnClick, customId } = props;
   const [rotate, setRotate] = useState(false);
   const handleAccordionClick = () => setRotate(!rotate);
-  const accordionId = uniqueId(
-    `accordion-type-${headerContent.props.resourceName || 'default'}-`,
-  );
+
+  const accordionIdText = `accordion-type-${headerContent.props.resourceName ||
+    'default'}-`;
+  const accordionId =
+    typeof customId === 'number'
+      ? `${accordionIdText}${customId}`
+      : uniqueId(accordionIdText);
 
   const isAccordionOpenable = () => {
     if (bodyContent) {

@@ -28,12 +28,11 @@ const commonDTO = fhirResource => {
 
   return {
     medicationReference,
-
     dosageRoute,
-
     status,
   };
 };
+
 const dstu2DTO = fhirResource => {
   const periodTimeStart = _get(fhirResource, 'effectiveTimePeriod.start');
   const periodTimeEnd = _get(fhirResource, 'effectiveTimePeriod.end');
@@ -50,6 +49,7 @@ const dstu2DTO = fhirResource => {
     dosageQuantity,
   };
 };
+
 const stu3DTO = fhirResource => {
   const periodTimeStart = _get(fhirResource, 'effectivePeriod.start');
   const periodTimeEnd = _get(fhirResource, 'effectivePeriod.end');
@@ -116,6 +116,7 @@ const MedicationAdministration = ({
   fhirIcons,
   onClick,
   rawOnClick,
+  customId,
 }) => {
   let fhirResourceData = {};
   try {
@@ -215,6 +216,7 @@ const MedicationAdministration = ({
         }
         onClick={onClick}
         rawOnClick={rawOnClick}
+        customId={customId}
       />
     </Root>
   );

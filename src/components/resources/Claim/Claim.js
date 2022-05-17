@@ -105,6 +105,7 @@ const dstu2DTO = fhirResource => {
     items,
   };
 };
+
 const stu3DTO = fhirResource => {
   const status = _get(fhirResource, 'status');
   const typeCoding = _get(fhirResource, 'type.coding[0]');
@@ -304,6 +305,7 @@ const Claim = ({
   fhirIcons,
   onClick,
   rawOnClick,
+  customId,
 }) => {
   let fhirResourceData = {};
   try {
@@ -489,6 +491,7 @@ const Claim = ({
         }
         onClick={onClick}
         rawOnClick={rawOnClick}
+        customId={customId}
       />
     </Root>
   );

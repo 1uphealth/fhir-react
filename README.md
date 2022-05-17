@@ -1,5 +1,5 @@
 [![CircleCI](https://circleci.com/gh/1uphealth/fhir-react/tree/master.svg?style=svg)](https://circleci.com/gh/1uphealth/fhir-react/tree/master)
-[![Storybook](https://github.com/storybookjs/brand/raw/master/badge/badge-storybook.svg?sanitize=true)](https://fhir-react-lib-test-storybook.s3.amazonaws.com/branch/release-0-3-11/index.html)
+[![Storybook](https://github.com/storybookjs/brand/raw/master/badge/badge-storybook.svg?sanitize=true)](https://fhir-react-lib-test-storybook.s3.amazonaws.com/branch/release-0-3-12/index.html)
 
 # fhir-react
 
@@ -152,6 +152,22 @@ const MyComponent = () => {
       fhirResource={fhirResource}
       fhirVersion={fhirVersions.R4}
       onClick={functionHandler}
+    />
+  );
+};
+```
+
+User can provide a number that can be assigned at the end of Accordion id. Not providing any number will cause a lodash uniqueId function to be used instead (default functionality up to this point).
+
+```jsx
+const MyComponent = () => {
+  const fhirResource = JSON.parse(fhirResourceAsJsonString);
+  
+  return (
+    <FhirResource
+      fhirResource={fhirResource}
+      fhirVersion={fhirVersions.R4}
+      customId={id}
     />
   );
 };

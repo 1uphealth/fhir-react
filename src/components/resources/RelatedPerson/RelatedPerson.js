@@ -108,16 +108,18 @@ const RelatedPerson = ({
     {
       label: 'Telephone',
       testId: 'telephone',
-      data: !relatedPersonTelecom ? (
-        <MissingValue />
-      ) : (
-        relatedPersonTelecom.map((telecom, index) => (
-          <Telecom key={index} fhirData={telecom} />
-        ))
-      ),
+      data:
+        relatedPersonTelecom.length === 0 ? (
+          <MissingValue />
+        ) : (
+          relatedPersonTelecom.map((telecom, index) => (
+            <Telecom key={index} fhirData={telecom} />
+          ))
+        ),
       status: relatedPersonTelecom,
     },
   ];
+  console.log({ name });
 
   return (
     <Root name="RelatedPerson">
@@ -141,7 +143,9 @@ const RelatedPerson = ({
               )
             }
             icon={fhirIcons}
-            title={<HumanName fhirData={name} isTitle />}
+            title={
+              <HumanName fhirData={name} isTitle alternative="Related Person" />
+            }
           />
         }
         bodyContent={<Body tableData={tableData} />}

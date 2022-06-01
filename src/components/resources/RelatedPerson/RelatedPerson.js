@@ -119,7 +119,6 @@ const RelatedPerson = ({
       status: relatedPersonTelecom,
     },
   ];
-  console.log({ name });
 
   return (
     <Root name="RelatedPerson">

@@ -178,7 +178,7 @@ describe('should render ExplanationOfBenefit component properly', () => {
     const explanationService = getAllByTestId('explanation.service').map(
       n => n.textContent,
     );
-    const expectedArray = [' ', ' '];
+    const expectedArray = ['(1205)', '(group)'];
     explanationService.forEach((x, i) => expect(x).toContain(expectedArray[i]));
 
     const explanationServicedDate = getAllByTestId(
@@ -299,7 +299,11 @@ describe('should render ExplanationOfBenefit component properly', () => {
     const explanationService = getAllByTestId('explanation.service').map(
       n => n.textContent,
     );
-    const expectedArray = [' ', ' ', ' '];
+    const expectedArray = [
+      'Encounter for symptom (185345009)',
+      'Acute bronchitis (disorder) (10509002)',
+      'Measurement of respiratory function (procedure) (23426006)',
+    ];
     const replaceWhitespaces = text => text.replace(/\s+/g, ' ');
     explanationService.forEach((x, i) => {
       expect(replaceWhitespaces(x)).toEqual(

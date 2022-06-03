@@ -7,6 +7,7 @@ const Date = ({ fhirData, isBlack, testId, className = '' }) => {
   }
   const locale = 'en-US';
   const dateValue = formatDate(String(fhirData).slice(0, 10), locale);
+
   return (
     <span
       data-testid={testId || 'providedDate'}

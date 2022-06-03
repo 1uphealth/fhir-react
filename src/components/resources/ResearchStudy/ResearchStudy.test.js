@@ -120,7 +120,7 @@ describe('should render ResearchStudy component properly', () => {
 
     expect(title).toEqual('Example study');
     expect(status).toEqual('completed');
-    expect(period).toEqual('2/1/2015 - 2/21/2015');
+    expect(period).toEqual('02/01/2015 - 02/21/2015');
     expect(category).toEqual('Gene expression (GENE)');
     expect(focus).toEqual('Prostate cancer (PRC)');
     expect(protocol).toEqual('PlanDefinition/pdf1');

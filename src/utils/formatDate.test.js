@@ -13,10 +13,10 @@ describe('Date format function', () => {
   });
   it('should return US date format', () => {
     const date = '2021-03-14';
-    expect(formatDate(date, locale)).toEqual('3/14/2021');
+    expect(formatDate(date, locale)).toEqual('03/14/2021');
   });
   it('should return US date format given full timestamp', () => {
     const date = '2021-03-14T13:28:17-05:00';
-    expect(formatDate(date, locale)).toEqual('3/14/2021');
+    expect(formatDate(date, locale)).toEqual('03/14/2021');
   });
 });

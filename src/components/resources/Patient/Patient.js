@@ -132,10 +132,7 @@ function Patient(props) {
                     {patientGender || 'unknown'}
                   </span>
                   {', '}
-                  <Date
-                    data-testid="patientBirthDate"
-                    fhirData={patientBirthDate}
-                  />
+                  <Date testId="patientBirthDate" fhirData={patientBirthDate} />
                 </span>
               )
             }

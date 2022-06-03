@@ -88,7 +88,7 @@ describe('should render component correctly', () => {
 
     expect(getByTestId('title').textContent).toContain('Patient');
 
-    expect(getByTestId('date').textContent).toEqual('1/29/2017');
+    expect(getByTestId('date').textContent).toEqual('01/29/2017');
 
     expect(getByTestId('event').textContent).toContain('304386008');
 
@@ -108,7 +108,7 @@ describe('should render component correctly', () => {
 
     expect(getByTestId('title').textContent).toContain('Patient');
 
-    expect(getByTestId('date').textContent).toEqual('1/29/2017');
+    expect(getByTestId('date').textContent).toEqual('01/29/2017');
 
     expect(getByTestId('hasSeriousness').textContent).toContain('Non-serious');
 

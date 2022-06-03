@@ -95,7 +95,7 @@ describe('should render the Claim component properly', () => {
     expect(getByTestId('title').textContent).toEqual('Claim #100150');
     expect(getByTestId('use').textContent).toEqual('complete');
     expect(getByTestId('type').textContent).toContain('oral');
-    expect(getByTestId('created').textContent).toEqual('8/16/2014');
+    expect(getByTestId('created').textContent).toEqual('08/16/2014');
     expect(getByTestId('priority').textContent).toContain('normal');
     expect(getByTestId('insurer').textContent).toEqual('Organization/2');
     expect(getByTestId('payee.type').textContent).toContain('provider');
@@ -117,7 +117,7 @@ describe('should render the Claim component properly', () => {
     expect(getByTestId('title').textContent).toEqual('Claim #100150');
     expect(getByTestId('use').textContent).toEqual('complete');
     expect(getByTestId('type').textContent).toContain('oral');
-    expect(getByTestId('created').textContent).toEqual('8/16/2014');
+    expect(getByTestId('created').textContent).toEqual('08/16/2014');
     expect(getByTestId('priority').textContent).toContain('normal');
     expect(getByTestId('insurer').textContent).toEqual('Organization/2');
     expect(getByTestId('payee.type').textContent).toContain('provider');
@@ -184,7 +184,7 @@ describe('should render the Claim component properly', () => {
     };
     const { getByTestId } = render(<Claim {...defaultProps} />);
 
-    expect(getByTestId('accident.date').textContent).toEqual('7/9/2014');
+    expect(getByTestId('accident.date').textContent).toEqual('07/09/2014');
     expect(getByTestId('accident.type').textContent).toContain(
       'Sporting Accident',
     );
@@ -223,7 +223,7 @@ describe('should render the Claim component properly', () => {
     const { getByTestId } = render(<Claim {...defaultProps} />);
 
     expect(getByTestId('employmentImpacted').textContent).toEqual(
-      '8/16/2014 - 8/16/2014',
+      '08/16/2014 - 08/16/2014',
     );
   });
 
@@ -235,7 +235,7 @@ describe('should render the Claim component properly', () => {
     const { getByTestId } = render(<Claim {...defaultProps} />);
 
     expect(getByTestId('hospitalization').textContent).toEqual(
-      '8/15/2014 - 8/16/2014',
+      '08/15/2014 - 08/16/2014',
     );
   });
 
@@ -323,7 +323,7 @@ describe('should render the Claim component properly', () => {
     expect(getByTestId('title').textContent).toEqual('Claim #100150');
     expect(getByTestId('use').textContent).toEqual('claim');
     expect(getByTestId('type').textContent).toContain('oral');
-    expect(getByTestId('created').textContent).toEqual('8/16/2014');
+    expect(getByTestId('created').textContent).toEqual('08/16/2014');
     expect(getByTestId('priority').textContent).toContain('normal');
     expect(getByTestId('insurer').textContent).toEqual('Organization/2');
     expect(getByTestId('payee.type').textContent).toContain('provider');

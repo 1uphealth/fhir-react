@@ -95,7 +95,7 @@ describe('should render ExplanationOfBenefit component properly', () => {
     expect(container).not.toBeNull();
 
     expect(getByTestId('title').textContent).toContain('Claim settled as ');
-    expect(getByTestId('created').textContent).toContain('8/16/2014');
+    expect(getByTestId('created').textContent).toContain('08/16/2014');
     expect(getByTestId('insurer').textContent).toContain('Organization/2');
   });
 
@@ -111,7 +111,7 @@ describe('should render ExplanationOfBenefit component properly', () => {
     expect(container).not.toBeNull();
 
     expect(getByTestId('title').textContent).toContain('Claim settled as ');
-    expect(getByTestId('created').textContent).toContain('8/16/2014');
+    expect(getByTestId('created').textContent).toContain('08/16/2014');
     expect(getByTestId('metricAmount').textContent).toContain('$135.57');
     expect(
       getByTestId('planDiscount').textContent.replace(nbspRegex, ' '),
@@ -153,7 +153,7 @@ describe('should render ExplanationOfBenefit component properly', () => {
     expect(getByTestId('title').textContent).toEqual(
       'Claim settled as per contract.',
     );
-    expect(getByTestId('created').textContent).toEqual('8/16/2014');
+    expect(getByTestId('created').textContent).toEqual('08/16/2014');
     expect(getByTestId('insurer').textContent).toEqual('Organization/3');
     expect(getByTestId('provider').textContent).toEqual('Practitioner/1');
     expect(getByTestId('totalSum').textContent).toContain('135.57');
@@ -184,7 +184,7 @@ describe('should render ExplanationOfBenefit component properly', () => {
     const explanationServicedDate = getAllByTestId(
       'explanation.servicedDate',
     ).map(n => n.textContent);
-    expect(explanationServicedDate).toEqual(['8/16/2014', '8/16/2014']);
+    expect(explanationServicedDate).toEqual(['08/16/2014', '08/16/2014']);
 
     const explanationQuantity = getAllByTestId('explanation.quantity').map(
       n => n.textContent,
@@ -244,7 +244,7 @@ describe('should render ExplanationOfBenefit component properly', () => {
     } = render(<ExplanationOfBenefit {...defaultProps} />);
     expect(container).not.toBeNull();
 
-    expect(getByTestId('created').textContent).toEqual('1/5/2017');
+    expect(getByTestId('created').textContent).toEqual('01/05/2017');
     expect(getByTestId('identifier').textContent).toContain(
       'c145d3fe-d56e-dc26-75e9-01e90672f506',
     );
@@ -259,7 +259,7 @@ describe('should render ExplanationOfBenefit component properly', () => {
       'Organization/iAxXvHiphwGGAL48m3B7XXtKlLZg6yXnC1ch84x1up',
     );
     expect(getByTestId('billablePeriod').textContent).toEqual(
-      'From: 1/5/2017; To: 1/5/2018',
+      'From: 01/05/2017; To: 01/05/2018',
     );
     expect(getByTestId('patient').textContent).toEqual(
       'Patient/f56391c2-dd54-b378-46ef-87c1643a2ba0',
@@ -276,7 +276,7 @@ describe('should render ExplanationOfBenefit component properly', () => {
       'clmrecvddate',
     );
     expect(getByTestId('supportingInfo.0.timingDate').textContent).toEqual(
-      '1/5/2017',
+      '01/05/2017',
     );
     expect(getByTestId('supportingInfo.1.category').textContent).toContain(
       'dayssupply',

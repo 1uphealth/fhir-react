@@ -88,7 +88,7 @@ describe('should render component correctly', () => {
       'Jason Argonaut (usual)',
     );
     expect(getByTestId('patientGender').textContent).toEqual('male');
-    expect(getByTestId('patientBirthDate').textContent).toEqual('1985-08-01');
+    expect(getByTestId('patientBirthDate').textContent).toEqual('08/01/1985');
     expect(getByTestId('patientAddress').textContent).toEqual(
       '1979 Milky Way Dr.Verona, WI 53593 US',
     );
@@ -99,7 +99,7 @@ describe('should render component correctly', () => {
     expect(queryByTestId('deceasedInfo')).toBeNull();
   });
 
-  test('DSTU3', () => {
+  test('STU3', () => {
     const defaultProps = {
       fhirResource: examplePatientSTU3,
     };
@@ -111,14 +111,14 @@ describe('should render component correctly', () => {
       'John, X Doe (usual)',
     );
     expect(getByTestId('patientGender').textContent).toEqual('male');
-    expect(getByTestId('patientBirthDate').textContent).toEqual('2014-06-01');
+    expect(getByTestId('patientBirthDate').textContent).toEqual('06/01/2014');
     expect(getByTestId('patientAddress').textContent).toEqual(' 05 99999 ');
     expect(getByTestId('patientPhones').textContent).toEqual('-');
     expect(queryByTestId('activeStatus')).toBeNull();
     expect(queryByTestId('deceasedInfo')).toBeNull();
   });
 
-  test('DSTU3 resource which contains communication key data', () => {
+  test('STU3 resource which contains communication key data', () => {
     const defaultProps = {
       fhirResource: example2PatientSTU3,
     };
@@ -138,7 +138,7 @@ describe('should render component correctly', () => {
       'Peter, James Chalmers (official)',
     );
     expect(getByTestId('patientGender').textContent).toEqual('male');
-    expect(getByTestId('patientBirthDate').textContent).toEqual('1974-12-25');
+    expect(getByTestId('patientBirthDate').textContent).toEqual('12/25/1974');
     expect(getByTestId('patientAddress').textContent).toContain(
       'PleasantVille, Vic 3999',
     );
@@ -154,7 +154,7 @@ describe('should render component correctly', () => {
       fhirResource: example3PatientR4,
     };
     const { getByTestId } = render(<Patient {...defaultProps} />);
-    expect(getByTestId('deceasedInfo').textContent).toEqual('2/14/2015');
+    expect(getByTestId('deceasedInfo').textContent).toEqual('02/14/2015');
   });
 
   it('should fire custom onClick function', () => {

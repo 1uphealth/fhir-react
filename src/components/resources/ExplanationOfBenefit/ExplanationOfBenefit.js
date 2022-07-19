@@ -34,7 +34,6 @@ import Accordion from '../../containers/Accordion';
 import TotalGraph from './TotalGraph';
 import PriceLabel from './PriceLabel';
 import { TableHeader } from '../../ui';
-import { getResourceDate } from '../../../utils/getResourceDate';
 
 /**
  * @typedef ExplanationOfBenefitServiceItem
@@ -401,12 +400,6 @@ const ExplanationOfBenefit = ({
     },
   ];
 
-  const EOBDatesPaths = ['billablePeriod.start'];
-
-  const headerDate =
-    getResourceDate(fhirResource, EOBDatesPaths) ||
-    (created && created !== 'undefined');
-
   return (
     <Root name="ExplanationOfBenefit">
       <Accordion
@@ -421,9 +414,10 @@ const ExplanationOfBenefit = ({
               resourceStatus && <Badge>{resourceStatus}</Badge>
             }
             additionalContent={
-              headerDate && (
+              created &&
+              created !== 'undefined' && (
                 <Value label="Start date" data-testid="created">
-                  <Date fhirData={headerDate} isBlack />
+                  <Date fhirData={created} isBlack />
                 </Value>
               )
             }

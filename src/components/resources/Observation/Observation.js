@@ -17,6 +17,7 @@ import {
   Value,
 } from '../../ui';
 import Reference from '../../datatypes/Reference';
+import { getResourceDate } from '../../../utils/getResourceDate';
 
 const Observation = ({
   fhirResource,
@@ -29,7 +30,7 @@ const Observation = ({
   const codeCodingDisplay = _get(fhirResource, 'code.coding.0.display');
   const codeText = _get(fhirResource, 'code.text', '');
   const valueQuantityValue = _get(fhirResource, 'valueQuantity.value', '');
-  const issued = _get(fhirResource, 'issued', '');
+  // const issued = _get(fhirResource, 'issued', '');
   const valueQuantityUnit = _get(fhirResource, 'valueQuantity.unit', '');
   const status = _get(fhirResource, 'status', '');
   const valueCodeableConceptText = _get(
@@ -72,6 +73,17 @@ const Observation = ({
     },
   ];
 
+  const observationDatesPaths = [
+    'effectiveDateTime',
+    'effectivePeriod.start',
+    'effectiveDateTime',
+    'issued',
+    'valuePeriod.start',
+    'valueDateTime',
+  ];
+
+  const headerDate = getResourceDate(fhirResource, observationDatesPaths);
+
   return (
     <Root name="Observation">
       <Accordion
@@ -79,9 +91,9 @@ const Observation = ({
           <Header
             resourceName="Observation"
             additionalContent={
-              issued && (
+              headerDate && (
                 <Value label="Start date" data-testid="headerStartDate">
-                  <Date fhirData={issued} isBlack />
+                  <Date fhirData={headerDate} isBlack />
                 </Value>
               )
             }

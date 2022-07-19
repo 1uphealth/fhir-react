@@ -107,7 +107,7 @@ describe('should render component correctly', () => {
 
     expect(getByTestId('clinicalStatus').textContent).toEqual('active');
     expect(getByTestId('severity').textContent).toEqual('Medium severity');
-    expect(getByTestId('onsetDate').textContent).toEqual('8/24/2015');
+    expect(getByTestId('onsetDate').textContent).toEqual('12/2/2019');
     expect(getByTestId('asserter').textContent).toEqual('MOORE, NICK');
   });
 

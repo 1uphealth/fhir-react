@@ -117,7 +117,9 @@ describe('should render component correctly', () => {
 
     expect(getByTestId('status').textContent).toContain('confirmed');
 
-    expect(getByTestId('recordedDate').textContent).toContain('10/9/2014');
+    expect(getByTestId('recordedDate').textContent).toContain(
+      'recorded on 6/12/2012',
+    );
 
     expect(getByTestId('substance').textContent).toContain(
       'allergenic extract',
@@ -149,7 +151,9 @@ describe('should render component correctly', () => {
 
     expect(getByTestId('status').textContent).toContain('Confirmed');
 
-    expect(getByTestId('recordedDate').textContent).toContain('10/9/2014');
+    expect(getByTestId('recordedDate').textContent).toContain(
+      'recorded on 6/12/2012',
+    );
 
     expect(getByTestId('substance').textContent).toContain(
       'allergenic extract',

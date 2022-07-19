@@ -247,7 +247,8 @@ const AllergyIntolerance = ({
             rightAdditionalContent={
               headerDate && (
                 <BadgeSecondary data-testid="recordedDate">
-                  recorded on <Date fhirData={headerDate} />
+                  recorded on&nbsp;
+                  <Date fhirData={headerDate} />
                 </BadgeSecondary>
               )
             }

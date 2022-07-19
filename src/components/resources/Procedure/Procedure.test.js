@@ -131,7 +131,7 @@ describe('Procedure should render component correctly', () => {
       'Insertion of intracardiac pacemaker (procedure)',
     );
     expect(getByTestId('status').textContent).toEqual('completed');
-    expect(getByTestId('providedDate').textContent).toEqual('4/5/2015');
+    expect(getByTestId('providedDate').textContent).toEqual('04/05/2015');
     expect(getByTestId('hasCoding').textContent).toContain(
       'Insertion of intracardiac',
     );

@@ -93,7 +93,7 @@ describe('should render component correctly', () => {
 
     expect(getByTestId('status').textContent).toContain('unconfirmed');
 
-    expect(getByTestId('recordedDate').textContent).toContain('3/1/2010');
+    expect(getByTestId('recordedDate').textContent).toContain('03/01/2010');
 
     expect(getByTestId('substance').textContent).toContain('PENICILLIN');
 
@@ -118,7 +118,7 @@ describe('should render component correctly', () => {
     expect(getByTestId('status').textContent).toContain('confirmed');
 
     expect(getByTestId('recordedDate').textContent).toContain(
-      'recorded on 6/12/2012',
+      'recorded on 06/12/2012',
     );
 
     expect(getByTestId('substance').textContent).toContain(
@@ -152,7 +152,7 @@ describe('should render component correctly', () => {
     expect(getByTestId('status').textContent).toContain('Confirmed');
 
     expect(getByTestId('recordedDate').textContent).toContain(
-      'recorded on 6/12/2012',
+      'recorded on 06/12/2012',
     );
 
     expect(getByTestId('substance').textContent).toContain(
@@ -189,7 +189,7 @@ describe('should render component correctly', () => {
 
     expect(getByTestId('status').textContent).toContain('Confirmed');
 
-    expect(getByTestId('recordedDate').textContent).toContain('8/6/2015');
+    expect(getByTestId('recordedDate').textContent).toContain('08/06/2015');
 
     expect(getByTestId('patient').textContent).toEqual('Patient/mom');
 

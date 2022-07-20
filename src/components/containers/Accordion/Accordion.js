@@ -68,7 +68,6 @@ const Accordion = props => {
 
   return (
     <div className="fhir-container__Accordion accordion">
-      {typeof rawOnClick === 'function' && !isRawInAccordion && rawButton}
       <div className="fhir-container__Accordion__body accordion-body">
         <div className="fhir-container__Accordion__body-data accordion-item border-1 shadow-sm">
           <div

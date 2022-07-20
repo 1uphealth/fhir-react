@@ -95,6 +95,10 @@ const Accordion = props => {
               <div className="fhir-container__Accordion__header-text d-flex w-100 justify-content-start position-relative">
                 {React.cloneElement(headerContent, {
                   isAccordionOpenable: isAccordionOpenable(),
+                  rawButton:
+                    typeof rawOnClick === 'function' &&
+                    !isRawInAccordion &&
+                    rawButton,
                 })}
                 {typeof onClick !== 'function' && getChevron()}
               </div>

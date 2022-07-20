@@ -15,9 +15,7 @@
 }
 
 .fhir-container__ResourceContainer__json-button-wrapper {
-  position: absolute;
-  right: 2rem;
-  top: 0.5rem;
+  padding-right: 5px;
 }
 
 .fhir-container__ResourceContainer__json-button-wrapper-accordion {

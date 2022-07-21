@@ -75,9 +75,7 @@ const Accordion = props => {
             id="flush-headingOne"
           >
             <button
-              className={`fhir-container__Accordion__header-button w-100 p-0 border-0 rounded-1 collapsed text-dark bg-white shadow-none point ${
-                isAccordionOpenable() ? '' : 'pe-none'
-              }`}
+              className={`fhir-container__Accordion__header-button w-100 p-0 border-0 rounded-1 collapsed text-dark bg-white shadow-none point`}
               type="button"
               data-bs-target={`#${accordionId}`}
               data-bs-toggle={

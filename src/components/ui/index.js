@@ -17,6 +17,7 @@ export const Header = ({
   children,
   capitalize = false,
   isNoIcon = false,
+  rawButton,
 }) => {
   const rightItemsClass = 'align-items-center flex-fill d-flex';
 
@@ -66,7 +67,7 @@ export const Header = ({
               </div>
             )}
           </div>
-          {(additionalContent || rightAdditionalContent) && (
+          {additionalContent || rightAdditionalContent ? (
             <div
               className={`fhir-ui__${resourceName}-Header__additional-content w-100 justify-content-start d-flex ${
                 additionalContent ? ' pt-2' : ''
@@ -77,8 +78,11 @@ export const Header = ({
                 className={`fhir-ui__${resourceName}-Header__rightAdditionalContent justify-content-md-end mx-0 ${rightItemsClass}`}
               >
                 {rightAdditionalContent}
+                {rawButton}
               </div>
             </div>
+          ) : (
+            <div className="d-flex justify-content-end">{rawButton}</div>
           )}
         </div>
       )}

@@ -107,7 +107,7 @@ describe('should render component correctly', () => {
 
     expect(getByTestId('clinicalStatus').textContent).toEqual('active');
     expect(getByTestId('severity').textContent).toEqual('Medium severity');
-    expect(getByTestId('onsetDate').textContent).toEqual('8/24/2015');
+    expect(getByTestId('onsetDate').textContent).toEqual('12/02/2019');
     expect(getByTestId('asserter').textContent).toEqual('MOORE, NICK');
   });
 
@@ -137,7 +137,7 @@ describe('should render component correctly', () => {
     expect(getByTestId('severity').textContent).toEqual(
       'Moderate to severe severity',
     );
-    expect(getByTestId('onsetDate').textContent).toEqual('3/8/2013');
+    expect(getByTestId('onsetDate').textContent).toEqual('03/08/2013');
     expect(getByTestId('asserter').textContent).toEqual('Practitioner/f201');
   });
 
@@ -153,7 +153,7 @@ describe('should render component correctly', () => {
 
     expect(getByTestId('clinicalStatus').textContent).toEqual('active');
     expect(getByTestId('severity').textContent).toEqual('Severe severity');
-    expect(getByTestId('onsetDate').textContent).toEqual('5/24/2012');
+    expect(getByTestId('onsetDate').textContent).toEqual('05/24/2012');
     expect(queryAllByTestId('asserter').length).toEqual(0);
     expect(queryAllByTestId('dateRecorded').length).toEqual(0);
   });
@@ -185,9 +185,9 @@ describe('should render component correctly', () => {
 
     expect(getByTestId('clinicalStatus').textContent).toEqual('resolved');
     expect(getByTestId('severity').textContent).toEqual('Mild severity');
-    expect(getByTestId('onsetDate').textContent).toEqual('4/2/2013');
+    expect(getByTestId('onsetDate').textContent).toEqual('04/02/2013');
     expect(getByTestId('asserter').textContent).toEqual('Practitioner/f201');
-    expect(getByTestId('dateRecorded').textContent).toEqual('4/4/2013');
+    expect(getByTestId('dateRecorded').textContent).toEqual('04/04/2013');
   });
 
   it('should fire custom onClick function', () => {

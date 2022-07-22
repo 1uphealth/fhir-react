@@ -90,10 +90,12 @@ describe('should render component correctly', () => {
     expect(getByTestId('title').textContent).toContain(
       'blood count (hemogram)',
     );
-    expect(getByTestId('effectiveDateTime').textContent).toContain('4/2/2013');
+    expect(getByTestId('effectiveDateTime').textContent).toContain(
+      '04/02/2013',
+    );
 
     expect(getByTestId('categoryCoding').textContent).toContain('Haematology');
-    expect(getByTestId('issued').textContent).toContain('5/15/2013');
+    expect(getByTestId('issued').textContent).toContain('05/15/2013');
     expect(getByTestId('performer').textContent).toContain(
       'University Medical ',
     );

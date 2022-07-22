@@ -129,7 +129,7 @@ describe('should render component correctly', () => {
     );
     expect(getByTestId('status').textContent).toEqual('final');
     expect(getByTestId('secondaryStatus').textContent).toEqual('YES');
-    expect(getByTestId('issuedOn').textContent).toEqual('5/18/2016');
+    expect(getByTestId('issuedOn').textContent).toEqual('05/18/2016');
     expect(getByTestId('subject').textContent).toContain('Patient/infant');
     expect(queryByText(/373066001/g)).not.toBeNull();
   });

@@ -1,5 +1,5 @@
 [![CircleCI](https://circleci.com/gh/1uphealth/fhir-react/tree/master.svg?style=svg)](https://circleci.com/gh/1uphealth/fhir-react/tree/master)
-[![Storybook](https://github.com/storybookjs/brand/raw/master/badge/badge-storybook.svg?sanitize=true)](https://fhir-react-lib-test-storybook.s3.amazonaws.com/branch/release-0-3-12/index.html)
+[![Storybook](https://github.com/storybookjs/brand/raw/master/badge/badge-storybook.svg?sanitize=true)](https://fhir-react-lib-test-storybook.s3.amazonaws.com/branch/release-0-3-13/index.html)
 
 # fhir-react
 

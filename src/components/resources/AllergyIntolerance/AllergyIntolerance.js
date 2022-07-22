@@ -13,6 +13,7 @@ import Annotation from '../../datatypes/Annotation';
 
 import { Root, Header, Badge, BadgeSecondary, Body } from '../../ui';
 import CodeableConcept from '../../datatypes/CodeableConcept';
+import { getResourceDate } from '../../../utils/getResourceDate';
 
 const commonDTO = fhirResource => {
   const hasReaction = _get(fhirResource, 'reaction.0.manifestation');
@@ -221,6 +222,19 @@ const AllergyIntolerance = ({
     },
   ];
 
+  const allergyDatesPaths = [
+    'meta.lastUpdated',
+    'onsetPeriod.start',
+    'onset',
+    'reaction[0].onset',
+    'recordedDate',
+    'onsetDateTime',
+    'assertedDate',
+  ];
+
+  const headerDate =
+    getResourceDate(fhirResource, allergyDatesPaths) || recordedDate;
+
   return (
     <Root name="AllergyIntolerance">
       <Accordion
@@ -231,9 +245,10 @@ const AllergyIntolerance = ({
             title={title}
             icon={fhirIcons}
             rightAdditionalContent={
-              recordedDate && (
+              headerDate && (
                 <BadgeSecondary data-testid="recordedDate">
-                  recorded on <Date fhirData={recordedDate} />
+                  recorded on&nbsp;
+                  <Date fhirData={headerDate} />
                 </BadgeSecondary>
               )
             }

@@ -11,6 +11,7 @@ import _get from 'lodash/get';
 import _has from 'lodash/has';
 import fhirVersions from '../fhirResourceVersions';
 import { Value } from '../../ui';
+import { getResourceDate } from '../../../utils/getResourceDate';
 
 const commonDTO = fhirResource => {
   const title =
@@ -228,6 +229,11 @@ const Immunization = ({
     },
   ];
 
+  const immunizationDatesPaths = ['occurrenceDateTime'];
+
+  const headerDate =
+    getResourceDate(fhirResource, immunizationDatesPaths) || providedDate;
+
   return (
     <Root name="Immunization">
       <Accordion
@@ -235,9 +241,9 @@ const Immunization = ({
           <Header
             resourceName="Immunization"
             additionalContent={
-              providedDate && (
+              headerDate && (
                 <Value label="Start date" data-testid="headerStartDate">
-                  <Date fhirData={providedDate} isBlack />
+                  <Date fhirData={headerDate} isBlack />
                 </Value>
               )
             }

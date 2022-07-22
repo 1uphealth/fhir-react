@@ -9,6 +9,7 @@ import Reference from '../../datatypes/Reference';
 import _get from 'lodash/get';
 import _has from 'lodash/has';
 import fhirVersions from '../fhirResourceVersions';
+import { getResourceDate } from '../../../utils/getResourceDate';
 
 const commonDTO = fhirResource => {
   const codeText =
@@ -98,7 +99,6 @@ const Condition = ({
   const {
     codeText,
     severityText,
-    onsetDateTime,
     hasAsserter,
     asserter,
     hasBodySite,
@@ -122,6 +122,28 @@ const Condition = ({
     },
   ];
 
+  const conditionStartDatesPaths = [
+    'meta.lastUpdated',
+    'onsetPeriod.start',
+    'onsetDateTime',
+    'recordedDate',
+    'dateRecorded',
+    'assertedDate',
+  ];
+
+  const conditionEndDatesPaths = [
+    'meta.lastUpdated',
+    'abatementPeriod.end',
+    'abatementDateTime',
+  ];
+
+  const headerStartDate = getResourceDate(
+    fhirResource,
+    conditionStartDatesPaths,
+  );
+  const headerEndDate =
+    getResourceDate(fhirResource, conditionEndDatesPaths) || dateRecorded;
+
   return (
     <Root name="condition">
       <Accordion
@@ -131,10 +153,10 @@ const Condition = ({
             additionalContent={
               <DatePeriod
                 periodBeginLabel="Onset Date"
-                periodBeginDate={onsetDateTime}
+                periodBeginDate={headerStartDate}
                 periodBeginTestId="onsetDate"
                 periodEndLabel="Date recorded"
-                periodEndDate={dateRecorded}
+                periodEndDate={headerEndDate}
                 periodEndTestId="dateRecorded"
               />
             }

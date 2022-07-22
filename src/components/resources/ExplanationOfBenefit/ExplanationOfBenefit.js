@@ -126,7 +126,9 @@ const r4DTO = fhirResource => {
    */
   const prepareServiceItem = services =>
     services.map(serviceItem => {
-      const coding = _get(serviceItem, 'productOrService.coding.0');
+      const coding =
+        _get(serviceItem, 'revenue.coding.0') ||
+        _get(serviceItem, 'productOrService.coding.0');
       const servicedDate = _get(serviceItem, 'servicedDate');
       const servicedPeriod = _get(serviceItem, 'servicedPeriod');
       const quantity = _get(serviceItem, 'quantity.value');

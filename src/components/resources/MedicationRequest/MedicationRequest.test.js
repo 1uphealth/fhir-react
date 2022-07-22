@@ -95,7 +95,7 @@ describe('should render MedicationRequest component properly', () => {
       'Take one tablet',
     );
     expect(getByTestId('requester').textContent).toContain('Patrick Pump');
-    expect(getByTestId('created').textContent).toEqual('3/1/2015');
+    expect(getByTestId('created').textContent).toEqual('03/01/2015');
     expect(getByTestId('intent').textContent).toEqual('order');
   });
   it('should render with STU3 source data in which medicationReference key does not exist', () => {
@@ -126,7 +126,7 @@ describe('should render MedicationRequest component properly', () => {
       'Take one tablet',
     );
     expect(getByTestId('requester').textContent).toContain('Patrick Pump');
-    expect(getByTestId('created').textContent).toEqual('3/1/2015');
+    expect(getByTestId('created').textContent).toEqual('03/01/2015');
     expect(getByTestId('intent').textContent).toEqual('order');
   });
 
@@ -146,7 +146,7 @@ describe('should render MedicationRequest component properly', () => {
       'Take 4 tablets daily',
     );
     expect(getByTestId('requester').textContent).toContain('Patrick Pump');
-    expect(getByTestId('created').textContent).toEqual('1/15/2015');
+    expect(getByTestId('created').textContent).toEqual('01/15/2015');
     expect(getByTestId('intent').textContent).toEqual('order');
   });
 
@@ -168,7 +168,7 @@ describe('should render MedicationRequest component properly', () => {
       '6 mg PO daily for remission',
     );
     expect(getByTestId('requester').textContent).toContain('Patrick Pump');
-    expect(getByTestId('created').textContent).toEqual('1/15/2015');
+    expect(getByTestId('created').textContent).toEqual('01/15/2015');
     expect(getByTestId('intent').textContent).toEqual('order');
   });
 

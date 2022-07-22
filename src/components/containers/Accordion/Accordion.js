@@ -68,7 +68,6 @@ const Accordion = props => {
 
   return (
     <div className="fhir-container__Accordion accordion">
-      {typeof rawOnClick === 'function' && !isRawInAccordion && rawButton}
       <div className="fhir-container__Accordion__body accordion-body">
         <div className="fhir-container__Accordion__body-data accordion-item border-1 shadow-sm">
           <div
@@ -76,9 +75,7 @@ const Accordion = props => {
             id="flush-headingOne"
           >
             <button
-              className={`fhir-container__Accordion__header-button w-100 p-0 border-0 rounded-1 collapsed text-dark bg-white shadow-none point ${
-                isAccordionOpenable() ? '' : 'pe-none'
-              }`}
+              className={`fhir-container__Accordion__header-button w-100 p-0 border-0 rounded-1 collapsed text-dark bg-white shadow-none point`}
               type="button"
               data-bs-target={`#${accordionId}`}
               data-bs-toggle={
@@ -95,6 +92,10 @@ const Accordion = props => {
               <div className="fhir-container__Accordion__header-text d-flex w-100 justify-content-start position-relative">
                 {React.cloneElement(headerContent, {
                   isAccordionOpenable: isAccordionOpenable(),
+                  rawButton:
+                    typeof rawOnClick === 'function' &&
+                    !isRawInAccordion &&
+                    rawButton,
                 })}
                 {typeof onClick !== 'function' && getChevron()}
               </div>

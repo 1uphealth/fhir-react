@@ -139,7 +139,7 @@ describe('should render Goal component properly', () => {
       'Peter James Chalmers',
     );
 
-    expect(getByTestId('statusDate').textContent).toEqual('2/14/2016');
+    expect(getByTestId('statusDate').textContent).toEqual('02/14/2016');
 
     expect(getByTestId('description').textContent).toEqual(
       'Target weight is 160 to 180 lbs.',
@@ -169,7 +169,7 @@ describe('should render Goal component properly', () => {
 
     expect(getByTestId('status').textContent).toEqual('completed');
 
-    expect(getByTestId('headerStartDate').textContent).toEqual('4/5/2015');
+    expect(getByTestId('headerStartDate').textContent).toEqual('04/05/2015');
 
     expect(getByTestId('subject').textContent).toContain(
       'Peter James Chalmers',

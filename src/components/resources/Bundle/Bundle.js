@@ -9,7 +9,7 @@ import * as FhirResourceTypes from '../../supportedFhirResourceList';
 
 import './Bundle.css';
 
-export default function Bundle({ fhirResource, fhirVersion }) {
+export default function Bundle({ fhirResource, fhirVersion, onClick }) {
   const commonDTO = fhirResource => {
     const type = _get(fhirResource, 'type', null);
     const total = _get(fhirResource, 'total');
@@ -83,6 +83,7 @@ export default function Bundle({ fhirResource, fhirVersion }) {
                 <FhirComponent
                   fhirResource={resource}
                   fhirVersion={fhirVersion}
+                  onClick={onClick}
                 />
               </div>
             );

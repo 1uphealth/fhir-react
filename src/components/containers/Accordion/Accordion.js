@@ -74,9 +74,10 @@ const Accordion = props => {
             className="fhir-container__Accordion__header accordion-header"
             id="flush-headingOne"
           >
-            <button
-              className={`fhir-container__Accordion__header-button w-100 p-0 border-0 rounded-1 collapsed text-dark bg-white shadow-none point`}
-              type="button"
+            <div
+              role="button"
+              tabIndex="0"
+              className="fhir-container__Accordion__header-button w-100 p-0 border-0 rounded-1 collapsed text-dark bg-white shadow-none point"
               data-bs-target={`#${accordionId}`}
               data-bs-toggle={
                 isAccordionOpenable() && typeof onClick !== 'function'
@@ -99,7 +100,7 @@ const Accordion = props => {
                 })}
                 {typeof onClick !== 'function' && getChevron()}
               </div>
-            </button>
+            </div>
           </div>
           <div
             className="fhir-container__Accordion__data accordion-collapse collapse"

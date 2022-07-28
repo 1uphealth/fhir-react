@@ -11,7 +11,6 @@
 
 .fhir-container__ResourceContainer__card-body {
   flex: 1 1 auto;
-  padding: 1.25rem;
 }
 
 .fhir-container__ResourceContainer__json-button-wrapper {

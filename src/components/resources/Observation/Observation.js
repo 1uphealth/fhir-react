@@ -18,6 +18,7 @@ import {
 } from '../../ui';
 import Reference from '../../datatypes/Reference';
 import { getResourceDate } from '../../../utils/getResourceDate';
+import Annotation from "../../datatypes/Annotation";
 
 const Observation = ({
   fhirResource,
@@ -50,6 +51,9 @@ const Observation = ({
   let valueQuantityValueNumber = valueQuantityValue;
 
   const subject = _get(fhirResource, 'subject');
+  const note = _get(fhirResource, 'note');
+  const hasNote = Array.isArray(note);
+
   const tableData = [
     {
       label: 'Issued on',
@@ -70,6 +74,12 @@ const Observation = ({
         <Coding fhirData={coding} key={`value-coding-${i}`} />
       )),
       status: !_isEmpty(valueCodeableConceptCoding),
+    },
+    {
+      label: 'Notes',
+      testId: 'hasNote',
+      data: hasNote && <Annotation fhirData={note} />,
+      status: hasNote,
     },
   ];
 

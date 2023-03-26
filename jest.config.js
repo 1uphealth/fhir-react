@@ -1,6 +1,6 @@
 module.exports = {
   collectCoverageFrom: [
-    'src/**/*.{js,jsx}',
+    'src/**/*.{js,jsx,ts,tsx}',
     '!src/**/*.test.{js,jsx}',
     '!src/**/*.story.{js,jsx}',
     '!src/*/RbGenerated*/*.{js,jsx}',

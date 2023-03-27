@@ -1,0 +1,400 @@
+/* stylelint-disable */
+
+/*!
+ * Bootstrap Reboot v4.3.1 (https://getbootstrap.com/)
+ * Copyright 2011-2019 The Bootstrap Authors
+ * Copyright 2011-2019 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * Forked from Normalize.css, licensed MIT (https://github.com/necolas/normalize.css/blob/master/LICENSE.md)
+ */
+.fhir-resource *,
+.fhir-resource::after,
+.fhir-resource::before {
+  box-sizing: border-box;
+}
+
+.fhir-resource {
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  background-color: #fff;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+  padding: 1rem;
+}
+
+.fhir-resource [tabindex='-1']:focus:not(:focus-visible) {
+  outline: 0 !important;
+}
+
+.fhir-resource hr {
+  margin: 1rem 0;
+  color: inherit;
+  background-color: currentColor;
+  border: 0;
+  opacity: 0.25;
+}
+
+.fhir-resource hr:not([size]) {
+  height: 1px;
+}
+
+.fhir-resource h1,
+.fhir-resource h2,
+.fhir-resource h3,
+.fhir-resource h4,
+.fhir-resource h5,
+.fhir-resource h6 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.fhir-resource h1 {
+  font-size: 2.5rem;
+}
+
+.fhir-resource h2 {
+  font-size: 2rem;
+}
+
+.fhir-resource h3 {
+  font-size: 1.75rem;
+}
+
+.fhir-resource h4 {
+  font-size: 1.5rem;
+}
+
+.fhir-resource h5 {
+  font-size: 1.25rem;
+}
+
+.fhir-resource h6 {
+  font-size: 1rem;
+}
+
+.fhir-resource p {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.fhir-resource abbr[data-original-title],
+.fhir-resource abbr[title] {
+  text-decoration: underline;
+  -webkit-text-decoration: underline dotted;
+  text-decoration: underline dotted;
+  cursor: help;
+  -webkit-text-decoration-skip-ink: none;
+  text-decoration-skip-ink: none;
+}
+
+.fhir-resource address {
+  margin-bottom: 1rem;
+  font-style: normal;
+  line-height: inherit;
+}
+
+.fhir-resource ol,
+.fhir-resource ul {
+  padding-left: 2rem;
+}
+
+.fhir-resource dl,
+.fhir-resource ol,
+.fhir-resource ul {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.fhir-resource ol ol,
+.fhir-resource ol ul,
+.fhir-resource ul ol,
+.fhir-resource ul ul {
+  margin-bottom: 0;
+}
+
+.fhir-resource dt {
+  font-weight: 700;
+}
+
+.fhir-resource dd {
+  margin-bottom: 0.5rem;
+  margin-left: 0;
+}
+
+.fhir-resource blockquote {
+  margin: 0 0 1rem;
+}
+
+.fhir-resource b,
+strong {
+  font-weight: bolder;
+}
+
+.fhir-resource small {
+  font-size: 0.875em;
+}
+
+.fhir-resource sub,
+sup {
+  position: relative;
+  font-size: 0.75em;
+  line-height: 0;
+  vertical-align: baseline;
+}
+
+.fhir-resource sub {
+  bottom: -0.25em;
+}
+
+.fhir-resource sup {
+  top: -0.5em;
+}
+
+.fhir-resource a {
+  color: #0d6efd;
+  text-decoration: none;
+}
+
+.fhir-resource a:hover {
+  color: #024dbc;
+  text-decoration: underline;
+}
+
+.fhir-resource a:not([href]),
+.fhir-resource a:not([href]):hover {
+  color: inherit;
+  text-decoration: none;
+}
+
+.fhir-resource code,
+.fhir-resource kbd,
+.fhir-resource pre,
+.fhir-resource samp {
+  font-family:
+    SFMono-Regular,
+    Menlo,
+    Monaco,
+    Consolas,
+    'Liberation Mono',
+    'Courier New',
+    monospace;
+  font-size: 1em;
+}
+
+.fhir-resource pre {
+  display: block;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  overflow: auto;
+  font-size: 0.875em;
+}
+
+.fhir-resource pre code {
+  font-size: inherit;
+  color: inherit;
+  word-break: normal;
+}
+
+.fhir-resource code {
+  font-size: 0.875em;
+  color: #d63384;
+  word-wrap: break-word;
+}
+
+.fhir-resource a > code {
+  color: inherit;
+}
+
+.fhir-resource kbd {
+  padding: 0.2rem 0.4rem;
+  font-size: 0.875em;
+  color: #fff;
+  background-color: #212529;
+  border-radius: 0.2rem;
+}
+
+.fhir-resource kbd kbd {
+  padding: 0;
+  font-size: 1em;
+  font-weight: 700;
+}
+
+.fhir-resource figure {
+  margin: 0 0 1rem;
+}
+
+.fhir-resource img {
+  vertical-align: middle;
+}
+
+.fhir-resource svg {
+  overflow: hidden;
+  vertical-align: middle;
+}
+
+.fhir-resource table {
+  border-collapse: collapse;
+}
+
+.fhir-resource caption {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  color: #6c757d;
+  text-align: left;
+  caption-side: bottom;
+}
+
+.fhir-resource th {
+  text-align: inherit;
+}
+
+.fhir-resource label {
+  display: inline-block;
+}
+
+.fhir-resource button {
+  border-radius: 0;
+}
+
+.fhir-resource button:focus {
+  outline: 1px dotted;
+  outline: 5px auto -webkit-focus-ring-color;
+}
+
+.fhir-resource button,
+input,
+optgroup,
+select,
+textarea {
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.fhir-resource button,
+input {
+  overflow: visible;
+}
+
+.fhir-resource button,
+select {
+  text-transform: none;
+}
+
+.fhir-resource select {
+  word-wrap: normal;
+}
+
+.fhir-resource [list]::-webkit-calendar-picker-indicator {
+  display: none;
+}
+
+.fhir-resource [type='button'],
+[type='reset'],
+[type='submit'],
+button {
+  -webkit-appearance: button;
+}
+
+.fhir-resource [type='button']:not(:disabled),
+[type='reset']:not(:disabled),
+[type='submit']:not(:disabled),
+button:not(:disabled) {
+  cursor: pointer;
+}
+
+.fhir-resource ::-moz-focus-inner {
+  padding: 0;
+  border-style: none;
+}
+
+.fhir-resource input[type='date'],
+input[type='datetime-local'],
+input[type='month'],
+input[type='time'] {
+  -webkit-appearance: textfield;
+}
+
+.fhir-resource textarea {
+  overflow: auto;
+  resize: vertical;
+}
+
+.fhir-resource fieldset {
+  min-width: 0;
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+.fhir-resource legend {
+  float: left;
+  width: 100%;
+  padding: 0;
+  margin-bottom: 0.5rem;
+  font-size: 1.5rem;
+  line-height: inherit;
+  color: inherit;
+  white-space: normal;
+}
+
+.fhir-resource mark {
+  padding: 0.2em;
+  background-color: #fcf8e3;
+}
+
+.fhir-resource progress {
+  vertical-align: baseline;
+}
+
+.fhir-resource ::-webkit-datetime-edit {
+  overflow: visible;
+  line-height: 0;
+}
+
+.fhir-resource [type='search'] {
+  outline-offset: -2px;
+  -webkit-appearance: textfield;
+}
+
+.fhir-resource ::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+.fhir-resource ::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.fhir-resource ::-webkit-file-upload-button {
+  font: inherit;
+  -webkit-appearance: button;
+}
+
+.fhir-resource output {
+  display: inline-block;
+}
+
+.fhir-resource summary {
+  display: list-item;
+  cursor: pointer;
+}
+
+.fhir-resource template {
+  display: none;
+}
+
+.fhir-resource main {
+  display: block;
+}
+
+.fhir-resource [hidden] {
+  display: none !important;
+}
+
+.overflow-auto {
+  overflow: auto;
+}

@@ -7,11 +7,6 @@
     "react": "^18.2.0"
   },
   "dependencies": {
-    "@nivo/core": "^0.78.0",
-    "@nivo/pie": "^0.78.0",
-    "@popperjs/core": "^2.11.2",
-    "@storybook/addons": "^6.5.13",
-    "bootstrap": "^5.1.3",
     "dompurify": "^2.3.6",
     "lodash": "^4.17.21",
     "marked": "^3.0.8",
@@ -27,6 +22,7 @@
     "test:watch": "NODE_ENV=test jest --watchAll",
     "start": "NODE_ENV=production webpack --watch",
     "build": "NODE_ENV=production webpack",
+    "build2": "NODE_ENV=production webpack && rm -rf node_modules/react",
     "lint": "eslint --max-warnings 0 .",
     "lint:fix": "eslint --fix .",
     "stylelint": "stylelint 'src/**/*.css'",

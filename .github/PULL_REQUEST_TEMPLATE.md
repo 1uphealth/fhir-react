@@ -1,5 +1,5 @@
 <!-- Add a link to the related issue here, e.g. #1234 -->
-Issue:  
+Issue:
 
 ---
 
@@ -7,11 +7,8 @@ Issue:
 ##### PR Checklist
 - [ ] Give this PR a meaningful title
 - [ ] Add a link to the related issue at the top of this description (above)
-- [ ] Connect this PR with the related issue via ZenHub with the button below this text box (or at the bottom of the page after the PR is created)
 - [ ] Ensure your branch is up to date with the target branch and resolve any conflicts
 - [ ] Answer the below questions to describe your PR for reviewers
-- [ ] Request at least two reviewers using the "Reviewers" section on the right, usually including at least one reviewer from your team
-- [ ] Notify the requested reviewers in the #code-review Slack channel once the PR is ready for review
 
 ---
 

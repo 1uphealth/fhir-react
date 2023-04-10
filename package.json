@@ -83,11 +83,13 @@
     "@babel/polyfill": "^7.0.0",
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-react": "^7.16.7",
+    "@babel/preset-typescript": "^7.21.0",
     "@storybook/addon-controls": "^6.5.13",
     "@storybook/preset-scss": "^1.0.3",
     "@storybook/react": "^6.5.13",
     "@storybook/storybook-deployer": "^2.8.16",
     "@testing-library/react": "^13.4.0",
+    "@types/jest": "^29.5.0",
     "@typescript-eslint/eslint-plugin": "^5.14.0",
     "@typescript-eslint/parser": "^5.14.0",
     "babel-eslint": "^10.0.3",
@@ -116,6 +118,9 @@
     "style-loader": "^2.0.0",
     "stylelint": "^14.5.3",
     "stylelint-config-standard": "^25.0.0",
+    "ts-jest": "^29.0.5",
+    "ts-loader": "^9.4.2",
+    "typescript": "^5.0.2",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.10"
   }

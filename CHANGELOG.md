@@ -6,7 +6,7 @@ Changelog format is loosely based on [Keep a Changelog](https://keepachangelog.c
 
 ### Changed
 
-- FhirResource and ErrorBoundary to functional components
+- ErrorBoundary to functional component
 
 ## 1.0.0
 

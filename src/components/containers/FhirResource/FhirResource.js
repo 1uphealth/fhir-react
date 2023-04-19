@@ -33,23 +33,28 @@ const ErrorBoundary = props => {
   }
 };
 
-export const FhirResource = props => {
-  const renderSwitch = () => {
-    const { resourceType } = props.fhirResource || {};
+class FhirResource extends React.Component {
+  renderSwitch() {
+    const { resourceType } = this.props.fhirResource || {};
     switch (resourceType) {
       case 'Binary':
-        return <FhirResourceTypes.Binary {...props} />;
+        return <FhirResourceTypes.Binary {...this.props} />;
       default:
         const FhirComponent =
           FhirResourceTypes[resourceType] !== undefined
             ? FhirResourceTypes[resourceType]
             : FhirResourceTypes.Generic;
         return (
-          <ResourceContainer {...props}>
-            <FhirComponent {...props} />
+          <ResourceContainer {...this.props}>
+            <FhirComponent {...this.props} />
           </ResourceContainer>
         );
     }
-  };
-  return <ErrorBoundary>{renderSwitch()}</ErrorBoundary>;
-};
+  }
+
+  render() {
+    return <ErrorBoundary>{this.renderSwitch()}</ErrorBoundary>;
+  }
+}
+
+export default FhirResource;

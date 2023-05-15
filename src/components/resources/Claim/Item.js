@@ -3,7 +3,7 @@ import { Chevron, MissingValue, TableCell, TableRow } from '../../ui';
 import Coding from '../../datatypes/Coding';
 import Money from '../../datatypes/Money';
 
-const Item = ({ item, parentSequences, parentId, isCollapse = false }) => {
+const Item = ({item, parentSequences, parentId, isCollapse = false}) => {
   const itemSequences = [...parentSequences, item.sequence];
   const id = itemSequences.join('.');
   const collapseId = parentSequences.length ? parentId : item.sequence;
@@ -12,7 +12,7 @@ const Item = ({ item, parentSequences, parentId, isCollapse = false }) => {
   const handleTableExpand = () => setRotate(!rotate);
 
   const isExpandable =
-    parentSequences.length === 0 && item.subItems.length !== 0;
+          parentSequences.length === 0 && item.subItems.length !== 0;
 
   return (
     <>
@@ -30,23 +30,23 @@ const Item = ({ item, parentSequences, parentId, isCollapse = false }) => {
           {id}
         </TableCell>
         <TableCell data-testid="items.service" className="col-md-2">
-          <Coding fhirData={item.service} />
+          <Coding fhirData={item.service}/>
         </TableCell>
         <TableCell data-testid="items.unitPrice" className="col-md-2">
           {item.unitPrice ? (
-            <Money fhirData={item.unitPrice} />
+            <Money fhirData={item.unitPrice}/>
           ) : (
-            <MissingValue />
+            <MissingValue/>
           )}
           {item.factor != null ? (
             <span>&nbsp;&times;&nbsp;{item.factor}</span>
           ) : null}
         </TableCell>
         <TableCell data-testid="items.quantity" className="col-md-2">
-          {item.quantity != null ? item.quantity : <MissingValue />}
+          {item.quantity != null ? item.quantity : <MissingValue/>}
         </TableCell>
         <TableCell data-testid="items.net" className="col-md-2">
-          {item.net ? <Money fhirData={item.net} /> : <MissingValue />}
+          {item.net ? <Money fhirData={item.net}/> : <MissingValue/>}
         </TableCell>
         {isExpandable ? (
           <TableCell className="col-md-2">
@@ -55,12 +55,12 @@ const Item = ({ item, parentSequences, parentId, isCollapse = false }) => {
               type="button"
             >
               <div className={` ${rotate ? ' header-rotate' : ''}`}>
-                <Chevron strokeColor={rotate ? '#2a6fd7' : '#6f83a9'} />
+                <Chevron strokeColor={rotate ? '#2a6fd7' : '#6f83a9'}/>
               </div>
             </button>
           </TableCell>
         ) : (
-          <TableCell style={{ width: '64px' }} className="col-md-2" />
+          <TableCell style={{width: '64px'}} className="col-md-2"/>
         )}
       </TableRow>
       {item.subItems.map((subItem, idx) => (

@@ -1,6 +1,6 @@
 {
   "name": "fhir-react",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "React component library for displaying FHIR Resources ",
   "main": "build/index.js",
   "peerDependencies": {
@@ -58,7 +58,7 @@
     "material",
     "ui"
   ],
-  "license": "CC-BY-NC-SA-4.0",
+  "license": "MIT",
   "devDependencies": {
     "@babel/cli": "^7.17.6",
     "@babel/core": "^7.17.5",

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="18" height="17" viewBox="0 0 18 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Test tube body -->
+  <path d="M5 2H13L14 16H4L5 2Z" fill="#0D6EFD"/>
+  <!-- Test tube liquid -->
+  <path d="M6 4H12L11 14H7L6 4Z" fill="#6EA8FE"/>
+  <!-- Test tube cap -->
+  <path d="M4 2H14V3H4V2Z" fill="#0D6EFD"/>
+  <!-- Test tube stand -->
+  <path d="M3 16H15V17H3V16Z" fill="#0D6EFD"/>
+  <!-- Decorative elements -->
+  <path d="M7 7H11" stroke="white" stroke-width="0.5" stroke-linecap="round"/>
+  <path d="M7 9H11" stroke="white" stroke-width="0.5" stroke-linecap="round"/>
+  <path d="M7 11H11" stroke="white" stroke-width="0.5" stroke-linecap="round"/>
+</svg>

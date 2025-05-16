@@ -1,0 +1,59 @@
+{
+  "resourceType": "Specimen",
+  "id": "example3",
+  "text": {
+    "status": "generated",
+    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative with Details</b></p><p><b>id</b>: example3</p><p><b>identifier</b>: 456789123</p><p><b>status</b>: entered-in-error</p><p><b>type</b>: Tissue specimen <span>(Details : {SNOMED CT code '119297000' = 'Tissue specimen', given as 'Tissue specimen'})</span></p><p><b>subject</b>: <a>Patient/example3</a></p><p><b>receivedTime</b>: 2023-03-20T14:15:00Z</p><p><b>collection</b></p><blockquote><p><b>collector</b>: <a>Practitioner/example3</a></p><p><b>collectedDateTime</b>: 2023-03-20T14:00:00Z</p><p><b>method</b>: Biopsy <span>(Details : {SNOMED CT code '278450005' = 'Biopsy', given as 'Biopsy'})</span></p><p><b>bodySite</b>: Liver <span>(Details : {SNOMED CT code '10200004' = 'Liver', given as 'Liver'})</span></p></blockquote><p><b>note</b>: Specimen mislabeled, needs to be recollected</p></div>"
+  },
+  "identifier": [
+    {
+      "system": "http://lab.example.com/specimens",
+      "value": "456789123"
+    }
+  ],
+  "status": "entered-in-error",
+  "type": {
+    "coding": [
+      {
+        "system": "http://snomed.info/sct",
+        "code": "119297000",
+        "display": "Tissue specimen"
+      }
+    ]
+  },
+  "subject": {
+    "reference": "Patient/example3",
+    "display": "Robert Wilson"
+  },
+  "receivedTime": "2023-03-20T14:15:00Z",
+  "collection": {
+    "collector": {
+      "reference": "Practitioner/example3",
+      "display": "Dr. Brown"
+    },
+    "collectedDateTime": "2023-03-20T14:00:00Z",
+    "method": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "278450005",
+          "display": "Biopsy"
+        }
+      ]
+    },
+    "bodySite": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "10200004",
+          "display": "Liver"
+        }
+      ]
+    }
+  },
+  "note": [
+    {
+      "text": "Specimen mislabeled, needs to be recollected"
+    }
+  ]
+}

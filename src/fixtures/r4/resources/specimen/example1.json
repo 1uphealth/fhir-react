@@ -1,0 +1,59 @@
+{
+  "resourceType": "Specimen",
+  "id": "example",
+  "text": {
+    "status": "generated",
+    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative with Details</b></p><p><b>id</b>: example</p><p><b>identifier</b>: 123456789</p><p><b>status</b>: available</p><p><b>type</b>: Blood specimen <span>(Details : {SNOMED CT code '119297000' = 'Blood specimen', given as 'Blood specimen'})</span></p><p><b>subject</b>: <a>Patient/example</a></p><p><b>receivedTime</b>: 2023-01-01T10:30:00Z</p><p><b>collection</b></p><blockquote><p><b>collector</b>: <a>Practitioner/example</a></p><p><b>collectedDateTime</b>: 2023-01-01T10:00:00Z</p><p><b>method</b>: Venipuncture <span>(Details : {SNOMED CT code '278450005' = 'Venipuncture', given as 'Venipuncture'})</span></p><p><b>bodySite</b>: Left arm <span>(Details : {SNOMED CT code '368208006' = 'Left arm', given as 'Left arm'})</span></p></blockquote><p><b>note</b>: Sample collected for routine blood work</p></div>"
+  },
+  "identifier": [
+    {
+      "system": "http://lab.example.com/specimens",
+      "value": "123456789"
+    }
+  ],
+  "status": "available",
+  "type": {
+    "coding": [
+      {
+        "system": "http://snomed.info/sct",
+        "code": "119297000",
+        "display": "Blood specimen"
+      }
+    ]
+  },
+  "subject": {
+    "reference": "Patient/example",
+    "display": "John Doe"
+  },
+  "receivedTime": "2023-01-01T10:30:00Z",
+  "collection": {
+    "collector": {
+      "reference": "Practitioner/example",
+      "display": "Dr. Smith"
+    },
+    "collectedDateTime": "2023-01-01T10:00:00Z",
+    "method": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "278450005",
+          "display": "Venipuncture"
+        }
+      ]
+    },
+    "bodySite": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "368208006",
+          "display": "Left arm"
+        }
+      ]
+    }
+  },
+  "note": [
+    {
+      "text": "Sample collected for routine blood work"
+    }
+  ]
+}

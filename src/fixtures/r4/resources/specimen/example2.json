@@ -1,0 +1,59 @@
+{
+  "resourceType": "Specimen",
+  "id": "example2",
+  "text": {
+    "status": "generated",
+    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative with Details</b></p><p><b>id</b>: example2</p><p><b>identifier</b>: 987654321</p><p><b>status</b>: unsatisfactory</p><p><b>type</b>: Urine specimen <span>(Details : {SNOMED CT code '122575003' = 'Urine specimen', given as 'Urine specimen'})</span></p><p><b>subject</b>: <a>Patient/example2</a></p><p><b>receivedTime</b>: 2023-02-15T09:45:00Z</p><p><b>collection</b></p><blockquote><p><b>collector</b>: <a>Practitioner/example2</a></p><p><b>collectedDateTime</b>: 2023-02-15T09:30:00Z</p><p><b>method</b>: Clean catch <span>(Details : {SNOMED CT code '278450005' = 'Clean catch', given as 'Clean catch'})</span></p><p><b>bodySite</b>: Urinary tract <span>(Details : {SNOMED CT code '89837001' = 'Urinary tract', given as 'Urinary tract'})</span></p></blockquote><p><b>note</b>: Specimen volume insufficient for testing</p></div>"
+  },
+  "identifier": [
+    {
+      "system": "http://lab.example.com/specimens",
+      "value": "987654321"
+    }
+  ],
+  "status": "unsatisfactory",
+  "type": {
+    "coding": [
+      {
+        "system": "http://snomed.info/sct",
+        "code": "122575003",
+        "display": "Urine specimen"
+      }
+    ]
+  },
+  "subject": {
+    "reference": "Patient/example2",
+    "display": "Jane Smith"
+  },
+  "receivedTime": "2023-02-15T09:45:00Z",
+  "collection": {
+    "collector": {
+      "reference": "Practitioner/example2",
+      "display": "Dr. Johnson"
+    },
+    "collectedDateTime": "2023-02-15T09:30:00Z",
+    "method": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "278450005",
+          "display": "Clean catch"
+        }
+      ]
+    },
+    "bodySite": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "89837001",
+          "display": "Urinary tract"
+        }
+      ]
+    }
+  },
+  "note": [
+    {
+      "text": "Specimen volume insufficient for testing"
+    }
+  ]
+}

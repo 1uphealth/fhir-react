@@ -5,6 +5,7 @@ Changelog format is loosely based on [Keep a Changelog](https://keepachangelog.c
 
 ### Changed
 - The package/lock files to match the license of MIT in the license file
+- Removed references to storybook S3 bucket that no longer exists
 
 ## 1.0.0
 

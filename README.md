@@ -1,6 +1,3 @@
-[![CircleCI](https://circleci.com/gh/1uphealth/fhir-react/tree/master.svg?style=svg)](https://circleci.com/gh/1uphealth/fhir-react/tree/master)
-[![Storybook](https://github.com/storybookjs/brand/raw/master/badge/badge-storybook.svg?sanitize=true)](https://fhir-react-lib-test-storybook.s3.amazonaws.com/branch/release-0-3-13/index.html)
-
 # fhir-react
 
 A React component library for displaying [FHIR](https://1up.health/dev/doc/introduction-to-fhir) data.
@@ -237,7 +234,6 @@ const MyComponent = () => {
 
 The 0.3 version of the FHIR React Component library introduces the bootstrap Accordion component as the base of each available resource which provides any data. The RWD support is provided for each component.
 
-All of the changes can be tracked by viewing the current version of the [storybook](https://fhir-react-lib-test-storybook.s3.amazonaws.com/branch/fhir-react-next/index.html?path=/story/condition--default-visualization-dstu-2).
 
 ### Available resources `v0.3`
 
@@ -283,8 +279,6 @@ npm run storybook
 
 Now you can check how a component graphically presents information based on raw data at http://localhost:63653 .
 
-There's also an online version available at http://storybook-fhir-react-lib.s3-website-us-east-1.amazonaws.com .
-
 ## Development
 
 1. run `npm link` in this folder to create the npm package locally
@@ -315,7 +309,3 @@ npm run build
 
 To publish, [create a new release in GitHub](https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository).
 
-### Storybook for the changes
-
-When creating a new PR, changes will be available in the storybook at: <br>
-http://storybook-fhir-react-lib.s3-website-us-east-1.amazonaws.com/dev/{branch-name}/

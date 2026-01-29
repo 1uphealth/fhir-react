@@ -6,6 +6,7 @@ Changelog format is loosely based on [Keep a Changelog](https://keepachangelog.c
 
 ### Updated
 
+- Updated webpack from v4 to v5
 - Updated versions on react and react-dom, moved react-dom to dependencies
 - Updated nivo
 

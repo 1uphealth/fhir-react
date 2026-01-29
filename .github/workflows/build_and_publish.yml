@@ -11,6 +11,7 @@ jobs:
   BuildAndPublish:
     name: Build and Publish
     uses: 1uphealth/github-templates/.github/workflows/semantic-release.yml@main
+    secrets: inherit
     with:
       NODE_VERSION: 20
       LINT_COMMAND: npm run lint:fix

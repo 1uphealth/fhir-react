@@ -8,8 +8,8 @@ on:
     types: [closed, opened, synchronize, reopened]
   workflow_dispatch:
 jobs:
-  ScanBuildDeploy:
-    name: Scan Build Deploy
+  BuildAndPublish:
+    name: Build and Publish
     uses: 1uphealth/github-templates/.github/workflows/semantic-release.yml@main
     with:
       NODE_VERSION: 20

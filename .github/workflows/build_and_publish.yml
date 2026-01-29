@@ -15,7 +15,7 @@ jobs:
       NODE_VERSION: 20
       LINT_COMMAND: npm run lint:fix
       BUILD_COMMAND: npm run build 
-      TEST_COMMAND: npm run test
+      TEST_COMMAND: npm run test:coverage
 
 # Requirements:
 # 1. .releaserc file: A .releaserc configuration file must exist in the repository root to configure

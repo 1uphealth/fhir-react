@@ -6,8 +6,8 @@ Changelog format is loosely based on [Keep a Changelog](https://keepachangelog.c
 
 ### Updated
 
-- Updated node target to v20
-- Updated versions on react and react-dom, moved react-dom to dependencies
+- Updated versions on react and react-dom
+- Moved react-dom to dependencies
 
 ## 1.0.1
 

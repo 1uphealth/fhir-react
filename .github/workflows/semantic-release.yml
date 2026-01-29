@@ -1,0 +1,50 @@
+name: Build and Publish
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+on:
+  push:
+  workflow_dispatch:
+jobs:
+  ScanBuildDeploy:
+    name: Scan Build Deploy
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # to be able to publish a GitHub release
+      issues: write # to be able to comment on released issues
+      pull-requests: write # to be able to comment on released pull requests
+      id-token: write # to enable use of OIDC for npm provenance
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.ADMIN_TOKEN }}
+      - uses: actions/setup-node@v6
+        name: Use Node 20
+        with:
+          node-version: 20
+      - name: Authenticate with @1uphealth NPM registry
+        env:
+          CI_ACCESS_TOKEN: ${{ secrets.ADMIN_TOKEN }}
+        run: |
+          npm i -g npm-cli-login
+          npm-cli-login -u "cicdcd1uphealth" -p "${CI_ACCESS_TOKEN}" -e "cicdcd1@1up.health" -r "https://npm.pkg.github.com" -s "@1uphealth"
+      - name: Install dependencies
+        run: |
+          npm ci
+      - name: Run ESLint
+        if: success()
+        run: npm run lint
+      - name: Build
+        if: success()
+        run: npm run build --if-present
+      - name: Run Unit Tests
+        if: success()
+        run: npm run test:coverage
+      - name: Semantic Release
+        env:
+          GH_TOKEN: ${{ secrets.ADMIN_TOKEN }}
+          NPM_TOKEN: ${{ secrets.ADMIN_TOKEN }}
+          ONEUP_NONMAIN_PUBLISH: t
+        if: success()
+        run: npx semantic-release

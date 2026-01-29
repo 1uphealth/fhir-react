@@ -1,0 +1,38 @@
+name: Build and Publish
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+on:
+  push:
+  pull_request:
+    types: [closed, opened, synchronize, reopened]
+  workflow_dispatch:
+jobs:
+  ScanBuildDeploy:
+    name: Scan Build Deploy
+    uses: 1uphealth/github-templates/.github/workflows/semantic-release.yml@main
+    with:
+      NODE_VERSION: 20
+      LINT_COMMAND: npm run lint:fix
+      BUILD_COMMAND: npm run build 
+      TEST_COMMAND: npm run test
+
+# Requirements:
+# 1. .releaserc file: A .releaserc configuration file must exist in the repository root to configure
+#    semantic-release plugins and release branches. This file defines which branches trigger releases,
+#    which plugins to use (changelog, git, npm, github), and plugin-specific settings.
+#
+# 2. Package dependencies: The following packages must be added to devDependencies in package.json:
+#    - semantic-release: Core package for automated versioning and releases
+#    - @semantic-release/changelog: Generates and updates CHANGELOG.md
+#    - @semantic-release/git: Commits version bumps and changelog updates back to the repository
+#    - Additional plugins as needed (e.g., @semantic-release/npm, @semantic-release/github)
+#
+# 3. Workflow triggers: This workflow is triggered automatically on:
+#    - push: Any push to any branch
+#    - pull_request: When PRs are closed, opened, synchronized, or reopened
+#    - workflow_dispatch: Manual trigger via GitHub Actions UI (allows manual release runs)
+#
+#    Note: The workflow uses a reusable workflow from 1uphealth/github-templates, which handles
+#    the actual semantic-release execution. Ensure the repository has proper GitHub token permissions
+#    (GITHUB_TOKEN) for creating releases and pushing commits.

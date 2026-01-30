@@ -18,7 +18,7 @@ import {
 } from '../../ui';
 import Reference from '../../datatypes/Reference';
 import { getResourceDate } from '../../../utils/getResourceDate';
-import Annotation from "../../datatypes/Annotation";
+import Annotation from '../../datatypes/Annotation';
 
 const Observation = ({
   fhirResource,

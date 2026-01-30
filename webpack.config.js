@@ -48,10 +48,6 @@ module.exports = {
       },
     ],
   },
-  externals: {
-    react: 'commonjs react', // this line is just to use the React dependency of our parent-testing-project instead of using our own React.
-    'react-dom': 'commonjs react-dom', // this line is just to use the ReactDOM dependency of our parent-testing-project instead of using our own ReactDOM.
-  },
   plugins: [
     new MiniCssExtractPlugin({
       filename: 'style.css',

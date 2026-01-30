@@ -1,8 +1,8 @@
 name: Publish Package to npmjs
 on:
-  workflow_dispatch:
-  release:
-    types: [created]
+  push:
+    tags:
+      - 'v*'
 jobs:
   build:
     runs-on: ubuntu-latest

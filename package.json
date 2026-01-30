@@ -1,6 +1,6 @@
 {
   "name": "fhir-react",
-  "version": "2.0.1-beta.1",
+  "version": "2.0.1-beta.2",
   "description": "React component library for displaying FHIR Resources ",
   "main": "build/index.js",
   "peerDependencies": {
@@ -10,11 +10,10 @@
   "dependencies": {
     "@nivo/core": "^0.78.0",
     "@nivo/pie": "^0.78.0",
-    "@popperjs/core": "^2.11.2",
-    "@storybook/addons": "^6.5.13",
+    "@popperjs/core": "^2.11.8",
     "bootstrap": "^5.1.3",
     "dompurify": "^2.3.6",
-    "lodash": "^4.17.21",
+    "lodash": "^4.17.23",
     "marked": "^3.0.8",
     "md5": "^2.3.0",
     "pretty-bytes": "^5.6.0",
@@ -84,6 +83,7 @@
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-react": "^7.28.5",
     "@storybook/addon-controls": "^6.5.13",
+    "@storybook/addons": "^6.5.13",
     "@storybook/preset-scss": "^1.0.3",
     "@storybook/react": "^6.5.13",
     "@storybook/storybook-deployer": "^2.8.16",
@@ -119,5 +119,9 @@
     "stylelint-config-standard": "^25.0.0",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.10"
+  },
+  "overrides": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   }
 }

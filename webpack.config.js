@@ -48,6 +48,20 @@ module.exports = {
       },
     ],
   },
+  externals: {
+    react: {
+      amd: 'react', 
+      commonjs: 'react', 
+      module: 'react', 
+      umd: 'react'
+    }, // this line is just to use the React dependency of our parent-testing-project instead of using our own React.
+    'react-dom': {
+      amd: 'react-dom', 
+      commonjs: 'react-dom', 
+      module: 'react-dom', 
+      umd: 'react-dom'
+    },
+  },
   plugins: [
     new MiniCssExtractPlugin({
       filename: 'style.css',

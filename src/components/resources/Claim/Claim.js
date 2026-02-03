@@ -48,7 +48,7 @@ const dstu2DTO = fhirResource => {
     _get(fhirResource, 'payee.person');
   const careTeam = [];
   const priorityCoding = _get(fhirResource, 'priority');
-  const diagnosis = _get(fhirResource, 'diagnosis', []).map(diagnosis => {
+  const diagnosis = _get(fhirResource, 'diagnosis', [])?.map(diagnosis => {
     const coding = _get(diagnosis, 'diagnosis');
     const reference = null;
     const typeCoding = null;
@@ -61,7 +61,7 @@ const dstu2DTO = fhirResource => {
     accidentCoding || accidentDate
       ? { coding: accidentCoding, date: accidentDate }
       : null;
-  const insurance = _get(fhirResource, 'coverage', []).map(insurance => {
+  const insurance = _get(fhirResource, 'coverage', [])?.map(insurance => {
     const focal = insurance.focal;
     const coverage = insurance.coverage;
     const businessArrangement = insurance.businessArrangement;
@@ -82,13 +82,13 @@ const dstu2DTO = fhirResource => {
     if (level === 0) subItemProperty = 'detail';
     else if (level === 1) subItemProperty = 'subDetail';
     const subItems = subItemProperty
-      ? _get(item, subItemProperty, []).map(subItem =>
+      ? _get(item, subItemProperty, [])?.map(subItem =>
           mapItem(subItem, level + 1),
         )
       : [];
     return { sequence, service, quantity, factor, unitPrice, net, subItems };
   }
-  const items = _get(fhirResource, 'item').map(item => mapItem(item, 0));
+  const items = _get(fhirResource, 'item')?.map(item => mapItem(item, 0));
   return {
     status,
     typeCoding,
@@ -112,14 +112,14 @@ const stu3DTO = fhirResource => {
   const insurer = _get(fhirResource, 'insurer');
   const payeeCoding = _get(fhirResource, 'payee.type.coding[0]');
   const payeeParty = _get(fhirResource, 'payee.party');
-  const careTeam = _get(fhirResource, 'careTeam', []).map(team => {
+  const careTeam = _get(fhirResource, 'careTeam', [])?.map(team => {
     const provider = team.provider;
     const role = _get(team, 'role.coding[0]');
     const qualification = _get(team, 'role.coding[0]');
     return { provider, role, qualification };
   });
   const priorityCoding = _get(fhirResource, 'priority.coding[0]');
-  const diagnosis = _get(fhirResource, 'diagnosis', []).map(diagnosis => {
+  const diagnosis = _get(fhirResource, 'diagnosis', [])?.map(diagnosis => {
     const coding = _get(diagnosis, 'diagnosisCodeableConcept.coding[0]');
     const reference = _get(diagnosis, 'diagnosisReference');
     const typeCoding = _get(diagnosis, 'type[0].coding[0]');
@@ -132,7 +132,7 @@ const stu3DTO = fhirResource => {
     accidentCoding || accidentDate
       ? { coding: accidentCoding, date: accidentDate }
       : null;
-  const insurance = _get(fhirResource, 'insurance', []).map(insurance => {
+  const insurance = _get(fhirResource, 'insurance', [])?.map(insurance => {
     const focal = insurance.focal;
     const coverage = insurance.coverage;
     const businessArrangement = insurance.businessArrangement;
@@ -166,13 +166,13 @@ const stu3DTO = fhirResource => {
     if (level === 0) subItemProperty = 'detail';
     else if (level === 1) subItemProperty = 'subDetail';
     const subItems = subItemProperty
-      ? _get(item, subItemProperty, []).map(subItem =>
+      ? _get(item, subItemProperty, [])?.map(subItem =>
           mapItem(subItem, level + 1),
         )
       : [];
     return { sequence, service, quantity, factor, unitPrice, net, subItems };
   }
-  const items = _get(fhirResource, 'item').map(item => mapItem(item, 0));
+  const items = _get(fhirResource, 'item')?.map(item => mapItem(item, 0));
   return {
     status,
     typeCoding,
@@ -196,14 +196,14 @@ const r4DTO = fhirResource => {
   const insurer = _get(fhirResource, 'insurer');
   const payeeCoding = _get(fhirResource, 'payee.type.coding[0]');
   const payeeParty = _get(fhirResource, 'payee.party');
-  const careTeam = _get(fhirResource, 'careTeam', []).map(team => {
+  const careTeam = _get(fhirResource, 'careTeam', [])?.map(team => {
     const provider = team.provider;
     const role = _get(team, 'role.coding[0]');
     const qualification = _get(team, 'role.coding[0]');
     return { provider, role, qualification };
   });
   const priorityCoding = _get(fhirResource, 'priority.coding[0]');
-  const diagnosis = _get(fhirResource, 'diagnosis', []).map(diagnosis => {
+  const diagnosis = _get(fhirResource, 'diagnosis', [])?.map(diagnosis => {
     const coding = _get(diagnosis, 'diagnosisCodeableConcept.coding[0]');
     const reference = _get(diagnosis, 'diagnosisReference');
     const typeCoding = _get(diagnosis, 'type[0].coding[0]');
@@ -216,7 +216,7 @@ const r4DTO = fhirResource => {
     accidentCoding || accidentDate
       ? { coding: accidentCoding, date: accidentDate }
       : null;
-  const insurance = _get(fhirResource, 'insurance', []).map(insurance => {
+  const insurance = _get(fhirResource, 'insurance', [])?.map(insurance => {
     const focal = insurance.focal;
     const coverage = insurance.coverage;
     const businessArrangement = insurance.businessArrangement;
@@ -250,13 +250,13 @@ const r4DTO = fhirResource => {
     if (level === 0) subItemProperty = 'detail';
     else if (level === 1) subItemProperty = 'subDetail';
     const subItems = subItemProperty
-      ? _get(item, subItemProperty, []).map(subItem =>
+      ? _get(item, subItemProperty, [])?.map(subItem =>
           mapItem(subItem, level + 1),
         )
       : [];
     return { sequence, service, quantity, factor, unitPrice, net, subItems };
   }
-  const items = _get(fhirResource, 'item').map(item => mapItem(item, 0));
+  const items = _get(fhirResource, 'item')?.map(item => mapItem(item, 0));
   return {
     status,
     typeCoding,
@@ -309,6 +309,7 @@ const Claim = ({
 }) => {
   let fhirResourceData = {};
   try {
+    console.log({ fhirVersion })
     fhirResourceData = resourceDTO(fhirVersion, fhirResource);
   } catch (error) {
     console.warn(error.message);

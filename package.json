@@ -1,6 +1,6 @@
 {
   "name": "fhir-react",
-  "version": "2.0.1-beta.10",
+  "version": "2.0.1-beta.11",
   "description": "React component library for displaying FHIR Resources ",
   "main": "build/index.js",
   "peerDependencies": {
@@ -125,7 +125,8 @@
     "stylelint": "^14.5.3",
     "stylelint-config-standard": "^25.0.0",
     "webpack": "^4.41.2",
-    "webpack-cli": "^3.3.10"
+    "webpack-cli": "^3.3.10",
+    "webpack-node-externals": "^3.0.0"
   },
   "overrides": {
     "react": "^18.3.1",

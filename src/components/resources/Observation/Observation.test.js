@@ -132,7 +132,9 @@ describe('should render component correctly', () => {
     expect(getByTestId('issuedOn').textContent).toEqual('05/18/2016');
     expect(getByTestId('subject').textContent).toContain('Patient/infant');
     expect(queryByText(/373066001/g)).not.toBeNull();
-    expect(getByTestId('hasNote').textContent).toContain('Was exposed to second-hand smoke.');
+    expect(getByTestId('hasNote').textContent).toContain(
+      'Was exposed to second-hand smoke.',
+    );
   });
 
   test('should display not rounded value', () => {

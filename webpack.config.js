@@ -1,10 +1,11 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const nodeExternals = require('webpack-node-externals');
 
 module.exports = {
-  mode: process.env.NODE_ENV,
-  entry: ['./src/index.js'],
+  mode: process.env.NODE_ENV ?? 'production',
+  entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, 'build'),
     filename: 'index.js',
@@ -48,9 +49,23 @@ module.exports = {
       },
     ],
   },
-  externals: {
-    react: 'commonjs react', // this line is just to use the React dependency of our parent-testing-project instead of using our own React.
-  },
+  externals: [
+    nodeExternals({
+      allowlist: [
+        /^@nivo/,
+        /^lodash/,
+        /^bootstrap/,
+        '@popperjs/core',
+        'dompurify',
+        'marked',
+        'md5',
+        'pretty-bytes',
+        'prop-types',
+        'svg-url-loader',
+        'd3-shape',
+      ],
+    }),
+  ],
   plugins: [
     new MiniCssExtractPlugin({
       filename: 'style.css',

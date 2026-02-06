@@ -49,9 +49,23 @@ module.exports = {
       },
     ],
   },
-  externals: [nodeExternals({
-    allowlist: [ /^@nivo/, /^lodash/, /^bootstrap/, '@popperjs/core', 'dompurify', 'marked', 'md5', 'pretty-bytes', 'prop-types', 'svg-url-loader', 'd3-shape']
-  })],
+  externals: [
+    nodeExternals({
+      allowlist: [
+        /^@nivo/,
+        /^lodash/,
+        /^bootstrap/,
+        '@popperjs/core',
+        'dompurify',
+        'marked',
+        'md5',
+        'pretty-bytes',
+        'prop-types',
+        'svg-url-loader',
+        'd3-shape',
+      ],
+    }),
+  ],
   plugins: [
     new MiniCssExtractPlugin({
       filename: 'style.css',

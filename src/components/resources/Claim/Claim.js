@@ -309,7 +309,6 @@ const Claim = ({
 }) => {
   let fhirResourceData = {};
   try {
-    console.log({ fhirVersion })
     fhirResourceData = resourceDTO(fhirVersion, fhirResource);
   } catch (error) {
     console.warn(error.message);
